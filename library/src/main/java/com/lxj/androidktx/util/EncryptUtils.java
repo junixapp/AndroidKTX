@@ -347,18 +347,18 @@ public final class EncryptUtils {
     }
 
     /**
-     * AES加密，key必须为16位
+     * AES, key length must be 16
      * @param input
-     * @param key key必须为16位
+     * @param key key length must be 16
      * @return
      */
     public static String encryptAES(String input, String key){
         return encryptBySymmetrical("AES", input, key);
     }
     /**
-     * AES解密，key必须为16位
+     * AES，key length must be 16
      * @param input
-     * @param key key必须为16位
+     * @param key key length must be 16
      * @return
      */
     public static String decryptAES(String input, String key){
@@ -366,9 +366,9 @@ public final class EncryptUtils {
     }
 
     /**
-     * DES加密，key必须为8位
+     * DES, key length must be 8
      * @param input
-     * @param key key必须为8位
+     * @param key key length must be 8
      * @return
      */
     public static String encryptDES(String input, String key){
@@ -376,9 +376,9 @@ public final class EncryptUtils {
     }
 
     /**
-     * DES解密，key必须为8位
+     * DES, key length must be 8
      * @param input
-     * @param key key必须为8位
+     * @param key key length must be 8
      * @return
      */
     public static String decryptDES(String input, String key){
@@ -408,7 +408,5 @@ public final class EncryptUtils {
         }
         return null;
     }
-
-
 
 }
