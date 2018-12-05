@@ -20,7 +20,7 @@
             app:tabMode="scrollable"
             app:tabTextAppearance="@style/TabLayoutText"
             app:tabSelectedTextColor="#ffffff"
-            app:tabTextColor="#66eeeeee" />
+            app:tabTextColor="#99ffffff" />
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager

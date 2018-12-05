@@ -38,4 +38,5 @@ dependencies {
     implementation project(':library')
     implementation 'com.lxj:easyadapter:0.0.8'
 
+    implementation "com.github.bumptech.glide:glide:4.8.0"
 }

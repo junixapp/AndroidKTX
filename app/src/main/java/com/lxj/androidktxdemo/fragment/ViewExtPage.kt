@@ -9,7 +9,7 @@ class ViewExtPage: BaseFragment(){
     override fun getLayoutId() = R.layout.fragment_view_ext
 
     override fun initView() {
-        val value = context!!.dp2px(150f)
+        val value = dp2px(150f)
         text1.width(value)
         text1.text = "text1.width($value)"
 
