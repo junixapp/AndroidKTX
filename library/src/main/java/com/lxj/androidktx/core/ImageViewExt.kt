@@ -16,22 +16,22 @@ import com.bumptech.glide.request.RequestOptions
  * @param placeholder 默认占位图
  * @param error 失败占位图
  * @param isCenterCrop
- * @param noAnimate 是否有动画
  * @param isCircle 是否是圆形
- * @param noTransition 是否禁用过渡
+ * @param noTransition 是否禁用过渡动画
  */
 fun ImageView.load(url: String, placeholder: Int = 0, error: Int = 0,
                    isCenterCrop: Boolean = true,
-                   noAnimate: Boolean = false,
                    isCircle: Boolean = false,
                    noTransition: Boolean = false) {
     val options = RequestOptions().placeholder(placeholder).error(error).apply {
         if (isCenterCrop) centerCrop()
-        if (noAnimate) dontAnimate()
         if (isCircle) circleCrop()
     }
     Glide.with(context).load(url)
             .apply(options)
-            .apply { if (noTransition) transition(DrawableTransitionOptions.withCrossFade(0)) }
+            .apply {
+                if (noTransition) transition(DrawableTransitionOptions.withCrossFade(0))
+                else transition(DrawableTransitionOptions.withCrossFade())
+            }
             .into(this)
 }

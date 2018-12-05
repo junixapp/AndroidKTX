@@ -82,10 +82,10 @@ fun View.widthAndHeight(width: Int, height: Int): View {
 
 /**
  * 设置View的margin
- * @param l 默认是0
- * @param t 默认是0
- * @param r 默认是0
- * @param b 默认是0
+ * @param leftMargin 默认是0
+ * @param topMargin 默认是0
+ * @param rightMargin 默认是0
+ * @param bottomMargin 默认是0
  */
 fun View.margin(leftMargin: Int = 0, topMargin: Int = 0, rightMargin: Int = 0, bottomMargin:Int = 0): View{
     val params = layoutParams as ViewGroup.MarginLayoutParams
