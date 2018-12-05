@@ -3,6 +3,13 @@ Some very useful kotlin extensions for android developping!
 
 一些列非常有用的Kotlin扩展，旨在提高Android开发速度！注意这个不是官方的AndroidKTX！
 
+# Gradle
+[![Download](https://api.bintray.com/packages/li-xiaojun/jrepo/androidktx/images/download.svg)](https://bintray.com/li-xiaojun/jrepo/androidktx/_latestVersion)
+```
+implementation 'com.lxj:androidktx:latest release'
+```
+
+
 # Usage
 
 ### Hash相关
