@@ -5,6 +5,7 @@ Some very useful kotlin extensions for android developping!
 
 # Gradle
 [![Download](https://api.bintray.com/packages/li-xiaojun/jrepo/androidktx/images/download.svg)](https://bintray.com/li-xiaojun/jrepo/androidktx/_latestVersion)
+
 ```
 implementation 'com.lxj:androidktx:latest release'
 ```
@@ -63,3 +64,12 @@ tvStrikethrougthResult.text = str.toStrikethrougthSpan(2..6)
 ```
 ![weather_humidity](imgs/strikethrough_span.png)
 
+
+# 意见收集
+为了让这个库更好用，更快加速Android开发，请到Issue中提出您宝贵的意见或建议。我将对其进行评估，如果合适，立即采用。
+
+
+# 联系方式
+**QQ: 16167479**
+
+**Email: 16167479@qq.com**
