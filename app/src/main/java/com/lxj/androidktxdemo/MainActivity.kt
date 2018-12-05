@@ -4,12 +4,12 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.FragmentPagerAdapter
 import com.lxj.androidktx.AndroidKtxConfig
-import com.lxj.androidktxdemo.fragment.StringExtPage
+import com.lxj.androidktxdemo.fragment.SpanExtPage
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     val pages = arrayListOf(
-            PageInfo("String扩展", StringExtPage())
+            PageInfo("Span相关", SpanExtPage())
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,5 +23,6 @@ class MainActivity : AppCompatActivity() {
             override fun getItem(position: Int) = pages[position].page
             override fun getPageTitle(position: Int) = pages[position].title
         }
+        tabLayout.setupWithViewPager(viewPager)
     }
 }
