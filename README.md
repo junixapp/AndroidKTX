@@ -13,7 +13,7 @@ implementation 'com.lxj:androidktx:latest release'
 
 # Usage
 
-### Hash相关
+## Hash相关
 我们使用hash的时候，大都是对字符串操作，所以给String增加了扩展方法，用法如下：
 ```kotlin
 "123456".md5()  // E10ADC3949BA59ABBE56E057F20F883E
@@ -30,7 +30,7 @@ implementation 'com.lxj:androidktx:latest release'
 ```
 
 
-### Log相关
+## Log相关
 我们输出的log大都是字符串，所以也是给String增加扩展方法，用法如下：
 ```kotlin
 "我是测试".v()
@@ -43,7 +43,7 @@ implementation 'com.lxj:androidktx:latest release'
 log的默认tag和开关配置在AndroidKtxConfig类中，可动态配置。
 
 
-### Span相关
+## Span相关
 封装了颜色，大小，背景色，删除线等常用的文本装饰，用法如下：
 ```kotlin
 val str = "我是测试文字"
@@ -65,6 +65,63 @@ tvBgColorResult.text = str.toBackgroundColorSpan(2..6)
 tvStrikethrougthResult.text = str.toStrikethrougthSpan(2..6)
 ```
 ![weather_humidity](imgs/strikethrough_span.png)
+
+
+## View相关
+```kotlin
+textView.width(100)           // 设置View的宽度为100
+textView.widthAndHeight(100)  // 改变View的宽度和高度为100
+textView.margin(leftMargin = 100)  // 设置View左边距为100
+textView.toBitmap()           // 获取View的截图，支持RecyclerView长列表截图
+```
+
+## ImageView相关
+```kotlin
+// 使用Glide加载图片
+image1.load(url)
+image1.load(url, isCenterCrop = true, isCircle = true)
+image1.load(url, noTransition = true)
+```
+
+## SharedPref相关
+```kotlin
+// 以下代码可以在项目的任何地方调用
+putStringToSP("str", "哈哈")
+putIntToSP("int", 11)
+putBooleanToSP("bool", true)
+putFloatToSP("float", 11.22f)
+putLongToSP("long", 10000000000L)
+putStringSetToSP("stringset", setOf("a", "b", "c"))
+
+getStringFromSP("a")
+```
+
+## Toast相关
+```kotlin
+toast("测试短吐司")
+longToast("测试长吐司")
+```
+
+## Fragment相关
+```kotlin
+//替换一个Fragment不传参
+replace(R.id.frame1, TempFragment())
+//替换一个Fragment并传参数
+replace(R.id.frame1, TempFragment(), arrayOf(
+                TempFragment.Key1 to "我是第一个Fragment",
+                TempFragment.Key2 to "床前明月光"
+        ))
+```
+
+
+## 其他通用扩展
+**通用扩展可以在项目的任何地方使用。**
+
+dp和px转换：
+```kotlin
+dp2px(100)
+px2dp(100)
+```
 
 
 # 意见收集
