@@ -1,4 +1,4 @@
-package com.lxj.androidktxdemo
+package com.lxj.androidktxdemo.entity
 
 import android.support.v4.app.Fragment
 

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:text="以下View默认宽高都是100dp"
+            style="@style/TitleStyle" />
+
+        <TextView
+            android:id="@+id/text1"
+            android:textSize="14sp"
+            android:textColor="#000"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="#ff9009" />
+
+        <include layout="@layout/divider"/>
+
+        <TextView
+            android:id="@+id/text2"
+            android:textSize="14sp"
+            android:textColor="#000"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="#ff9009" />
+
+        <include layout="@layout/divider"/>
+
+        <TextView
+            android:id="@+id/text3"
+            android:textSize="14sp"
+            android:textColor="#000"
+            android:text="100x100"
+            android:gravity="center"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="#ff9009" />
+
+        <include layout="@layout/divider"/>
+
+        <TextView
+            android:id="@+id/text4"
+            android:textSize="14sp"
+            android:textColor="#000"
+            android:text="当前View的截图会显示在下方的ImageView中\n窗前明月光，疑是地上霜\n举头望明月，低头思故乡"
+            android:layout_width="250dp"
+            android:layout_height="150dp"
+            android:background="#ff9009" />
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:textColor="#333"
+            android:textSize="14sp"
+            android:text="下面这个是ImageView,用来显示上面的截图"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <include layout="@layout/divider"/>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
