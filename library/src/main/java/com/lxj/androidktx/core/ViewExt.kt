@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.view.ViewGroup
 
 /**
  * Description: View相关
@@ -21,6 +22,12 @@ fun View.setHeight(height: Int): View {
     return this
 }
 
+/**
+ * 设置View高度，限制在min和max范围之内
+ * @param h
+ * @param min 最小高度
+ * @param max 最大高度
+ */
 fun View.setLimitHeight(h: Int, min: Int, max: Int): View {
     val params = layoutParams
     when {
@@ -32,6 +39,9 @@ fun View.setLimitHeight(h: Int, min: Int, max: Int): View {
     return this
 }
 
+/**
+ * 设置View的宽度
+ */
 fun View.setWidth(width: Int): View {
     val params = layoutParams
     params.width = width
@@ -39,6 +49,12 @@ fun View.setWidth(width: Int): View {
     return this
 }
 
+/**
+ * 设置View宽度，限制在min和max范围之内
+ * @param w
+ * @param min 最小宽度
+ * @param max 最大宽度
+ */
 fun View.setLimitWidth(w: Int, min: Int, max: Int): View {
     val params = layoutParams
     when {
@@ -46,6 +62,23 @@ fun View.setLimitWidth(w: Int, min: Int, max: Int): View {
         w > max -> params.width = max
         else -> params.width = w
     }
+    layoutParams = params
+    return this
+}
+
+/**
+ * 设置View的margin
+ * @param l 默认是0
+ * @param t 默认是0
+ * @param r 默认是0
+ * @param b 默认是0
+ */
+fun View.setMargin(l: Int = 0, t: Int = 0, r: Int = 0, b:Int = 0): View{
+    val params = layoutParams as ViewGroup.MarginLayoutParams
+    params.leftMargin = l
+    params.topMargin = t
+    params.rightMargin = r
+    params.bottomMargin = b
     layoutParams = params
     return this
 }
