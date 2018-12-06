@@ -79,9 +79,9 @@ textView.toBitmap()           // 获取View的截图，支持RecyclerView长列�
 ### ImageView相关
 ```kotlin
 // 使用Glide加载图片
-image1.load(url)
-image1.load(url, isCenterCrop = true, isCircle = true)
-image1.load(url, noTransition = true)
+imageView.load(url)
+imageView.load(url, isCenterCrop = true, isCircle = true)
+imageView.load(url, noTransition = true)
 ```
 
 ### SharedPref相关
@@ -128,9 +128,11 @@ User("李晓俊", 25).toJson()   // {"age":25,"name":"李晓俊"}
 
 
 ## 注意事项
-为了覆盖各种使用场景，该库对常用类库进行了封装，因此依赖了很多三方库：
+
+为了覆盖各种使用场景，该库对常用类库进行了封装，因此依赖了很多三方库。依赖的所有三方库如下：
 ```groovy
 implementation "com.github.bumptech.glide:glide:4.8.0"
+implementation 'jp.wasabeef:glide-transformations:4.0.1'
 implementation 'com.google.code.gson:gson:2.8.5'
 ```
 
