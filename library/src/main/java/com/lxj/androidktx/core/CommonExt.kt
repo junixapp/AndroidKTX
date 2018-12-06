@@ -4,6 +4,7 @@ package com.lxj.androidktx.core
 import android.os.Bundle
 import android.os.Parcelable
 import android.widget.Toast
+import com.google.gson.Gson
 import com.lxj.androidktx.AndroidKtxConfig
 import java.io.Serializable
 
@@ -34,7 +35,12 @@ fun Any.longToast(msg: CharSequence) {
     Toast.makeText(AndroidKtxConfig.context, msg, Toast.LENGTH_LONG).show()
 }
 
+/** json相关 **/
+fun Any.toJson() = Gson().toJson(this)
 
+/**
+ * 数组转bundle
+ */
 fun Array<out Pair<String, Any?>>.toBundle(): Bundle? {
     return Bundle().apply {
         forEach { it ->

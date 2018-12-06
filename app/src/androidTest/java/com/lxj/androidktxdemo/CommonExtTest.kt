@@ -9,13 +9,19 @@ import org.junit.runner.RunWith
  * Description:
  * Create by dance, at 2018/12/5
  */
+
+data class UserTest(
+        var name: String,
+        var age: Int
+)
 @RunWith(AndroidJUnit4::class)
 class CommonExtTest {
     @Test
     fun test() {
         "${dp2px(100)}".v()
         "${px2dp(100)}".v()
-        toast("测试短吐司")
-        longToast("测试长吐司")
+
+
+        UserTest("李晓俊", 25).toJson().v()
     }
 }
