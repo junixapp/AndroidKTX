@@ -44,7 +44,7 @@ implementation 'com.lxj:androidktx:latest release'
 log的默认tag和开关配置在AndroidKtxConfig类中，可动态配置。
 
 
-###Span相关
+### Span相关
 封装了颜色，大小，背景色，删除线等常用的文本装饰，用法如下：
 ```kotlin
 val str = "我是测试文字"
@@ -115,13 +115,30 @@ replace(R.id.frame1, TempFragment(), arrayOf(
 ```
 
 
-### 其他通用扩展
-**通用扩展可以在项目的任何地方使用。**
-
+### 通用扩展(可以在项目的任何地方使用)
 dp和px转换：
 ```kotlin
 dp2px(100)
 px2dp(100)
+```
+实体转json字符串：
+```kotlin
+User("李晓俊", 25).toJson()   // {"age":25,"name":"李晓俊"}
+```
+
+
+## 注意事项
+为了覆盖各种使用场景，该库对常用类库进行了封装，因此依赖了很多三方库：
+```groovy
+implementation "com.github.bumptech.glide:glide:4.8.0"
+implementation 'com.google.code.gson:gson:2.8.5'
+```
+
+由于我依赖的三方库都是最新版本，可能与您当前项目中的类库版本不一致，从而导致因为API变化而编译失败。此时需要排除我这个库中的依赖，假设我的Glide版本与你项目中的不一致，则需要在gradle中配置如下：
+```groovy
+implementation ('com.lxj:androidktx:latest release version') {
+        exclude group: 'com.github.bumptech.glide'
+}
 ```
 
 
