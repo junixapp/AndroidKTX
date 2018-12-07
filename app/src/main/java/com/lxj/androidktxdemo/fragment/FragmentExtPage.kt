@@ -1,5 +1,6 @@
 package com.lxj.androidktxdemo.fragment
 
+import com.lxj.androidktx.core.add
 import com.lxj.androidktx.core.replace
 import com.lxj.androidktxdemo.R
 
@@ -20,5 +21,7 @@ class FragmentExtPage: BaseFragment(){
                 TempFragment.Key1 to "我是第二个Fragment",
                 TempFragment.Key2 to "疑是地上霜"
         ))
+
+
     }
 }

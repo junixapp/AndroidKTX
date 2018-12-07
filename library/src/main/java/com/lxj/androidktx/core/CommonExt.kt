@@ -1,8 +1,10 @@
 package com.lxj.androidktx.core
 
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Parcelable
+import android.view.WindowManager
 import android.widget.Toast
 import com.google.gson.Gson
 import com.lxj.androidktx.AndroidKtxConfig
@@ -17,12 +19,13 @@ import java.io.Serializable
 fun Any.dp2px(dpValue: Float): Int {
     return (dpValue * AndroidKtxConfig.context.resources.displayMetrics.density + 0.5f).toInt()
 }
-
 fun Any.dp2px(dpValue: Int): Int {
     return (dpValue * AndroidKtxConfig.context.resources.displayMetrics.density + 0.5f).toInt()
 }
-
 fun Any.px2dp(pxValue: Int): Float {
+    return pxValue / AndroidKtxConfig.context.resources.displayMetrics.density + 0.5f
+}
+fun Any.px2dp(pxValue: Float): Float {
     return pxValue / AndroidKtxConfig.context.resources.displayMetrics.density + 0.5f
 }
 
@@ -30,13 +33,24 @@ fun Any.px2dp(pxValue: Int): Float {
 fun Any.toast(msg: CharSequence) {
     Toast.makeText(AndroidKtxConfig.context, msg, Toast.LENGTH_SHORT).show()
 }
-
 fun Any.longToast(msg: CharSequence) {
     Toast.makeText(AndroidKtxConfig.context, msg, Toast.LENGTH_LONG).show()
 }
 
 /** json相关 **/
 fun Any.toJson() = Gson().toJson(this)
+
+/** Window相关 **/
+fun Any.windowWidth(): Int{
+    val windowManager = AndroidKtxConfig.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+    return windowManager.defaultDisplay.width
+}
+
+fun Any.windowHeight(): Int{
+    val windowManager = AndroidKtxConfig.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+    return windowManager.defaultDisplay.height
+}
+
 
 /**
  * 数组转bundle

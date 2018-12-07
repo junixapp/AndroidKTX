@@ -1,7 +1,9 @@
 package com.lxj.androidktxdemo.fragment
 
 
+import android.content.Intent
 import com.lxj.androidktx.core.*
+import com.lxj.androidktxdemo.MainActivity
 import com.lxj.androidktxdemo.R
 import kotlinx.android.synthetic.main.fragment_view_ext.*
 
@@ -19,8 +21,18 @@ class ViewExtPage: BaseFragment(){
         text3.margin(leftMargin = value)
         text3.text = "text3.margin(leftMargin = $value)"
 
+
         text4.post {
             image.setImageBitmap(text4.toBitmap())
+        }
+
+        text4.click {
+//            startActivity(MainActivity::class, flag = Intent.FLAG_ACTIVITY_NEW_TASK, bundleParams = arrayOf(
+//                    "a" to 1,
+//                    "b" to "lala"
+//            ))
+
+            toast("w: ${windowWidth()} h:${windowHeight()}")
         }
 
     }

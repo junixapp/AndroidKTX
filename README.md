@@ -1,7 +1,7 @@
 ## AndroidKTX
 Some very useful kotlin extensions for android developping!
 
-一些列非常有用的Kotlin扩展，旨在提高Android开发速度！注意这个不是官方的AndroidKTX！
+一系列非常有用的Kotlin扩展，目标提高Android开发速度和替换所有的工具类！注意这个不是官方的AndroidKTX！
 
 ## Gradle
 [![Download](https://api.bintray.com/packages/li-xiaojun/jrepo/androidktx/images/download.svg)](https://bintray.com/li-xiaojun/jrepo/androidktx/_latestVersion)
@@ -41,11 +41,11 @@ implementation 'com.lxj:androidktx:latest release'
 "我是测试".e()
 ```
 ![weather_humidity](imgs/log.png)
-log的默认tag和开关配置在AndroidKtxConfig类中，可动态配置。
+> Log的默认tag和开关配置在AndroidKtxConfig类中，可动态配置。
 
 
 ### Span相关
-封装了颜色，大小，背景色，删除线等常用的文本装饰，用法如下：
+封装了颜色，大小，背景色，删除线和点击等常用的文本装饰，使用对象是TextView和String。用法如下：
 ```kotlin
 val str = "我是测试文字"
 tvSizeResult.sizeSpan(str, 0..2)
@@ -76,21 +76,23 @@ tvClickResult.clickSpan(str,2..6, View.OnClickListener {
 
 ### View相关
 ```kotlin
-textView.width(100)           // 设置View的宽度为100
-textView.widthAndHeight(100)  // 改变View的宽度和高度为100
-textView.margin(leftMargin = 100)  // 设置View左边距为100
-textView.toBitmap()           // 获取View的截图，支持RecyclerView长列表截图
+view.width(100)           // 设置View的宽度为100
+view.widthAndHeight(100)  // 改变View的宽度和高度为100
+view.margin(leftMargin = 100)  // 设置View左边距为100
+view.click { toast("aa") }    // 设置点击监听
+view.toBitmap()           // 获取View的截图，支持RecyclerView长列表截图
 ```
 
 ### ImageView相关
 ```kotlin
-// 使用Glide加载图片
+// 底层是封装Glide来加载图片
 imageView.load(url)
-imageView.load(url, isCenterCrop = true, isCircle = true)
-imageView.load(url, noTransition = true)
+imageView.load(url, placeholder = R.mipmap.ic_launcher, isCircle = true)
+imageView.load(url, placeholder = R.mipmap.ic_launcher, roundRadius = 20)
 ```
 
 ### SharedPref相关
+使用范围：项目任意地方
 ```kotlin
 // 以下代码可以在项目的任何地方调用
 putStringToSP("str", "哈哈")
@@ -104,13 +106,21 @@ getStringFromSP("a")
 // 其他略过
 ```
 
-### Toast相关
+### Activity相关
+使用范围：Activity和Fragment中
 ```kotlin
-toast("测试短吐司")
-longToast("测试长吐司")
+startActivity(MainActivity::class)
+// 启动Activity并传参
+startActivity(MainActivity::class, flag = Intent.FLAG_ACTIVITY_NEW_TASK, bundleParams = arrayOf(
+        "a" to 1,
+        "b" to "lala"
+))
+// 在Fragment中启动Activity
+fragment.startActivity(MainActivity::class)
 ```
 
 ### Fragment相关
+使用范围：Activity和Fragment中
 ```kotlin
 //替换一个Fragment不传参
 replace(R.id.frame1, TempFragment())
@@ -119,18 +129,42 @@ replace(R.id.frame1, TempFragment(), arrayOf(
                 TempFragment.Key1 to "我是第一个Fragment",
                 TempFragment.Key2 to "床前明月光"
         ))
+//添加Fragment
+add(R.id.frame1, AFragment())
+```
+
+### 字符串处理相关
+使用范围：String对象
+```kotlin
+"13899990000".isPhone()  // 是否是电话号码
+"aaa@aas.com".isEmail()  // 是否是邮箱地址
+"41282119900909337z".isIDCard()   // 是否是身份证号码
+"洒水".isChinese()      // 是否是汉字
 ```
 
 
 ### 通用扩展(可以在项目的任何地方使用)
-dp和px转换：
+1. toast相关
+```kotlin
+toast("测试短吐司")
+longToast("测试长吐司")
+```
+
+2. dp和px转换：
 ```kotlin
 dp2px(100)
 px2dp(100)
 ```
-实体转json字符串：
+
+3. 实体转json字符串：
 ```kotlin
 User("李晓俊", 25).toJson()   // {"age":25,"name":"李晓俊"}
+```
+
+4. 获取window宽高
+```kotlin
+windowWidth()
+windowHeight()
 ```
 
 
@@ -139,11 +173,10 @@ User("李晓俊", 25).toJson()   // {"age":25,"name":"李晓俊"}
 为了覆盖各种使用场景，该库对常用类库进行了封装，因此依赖了很多三方库。依赖的所有三方库如下：
 ```groovy
 implementation "com.github.bumptech.glide:glide:4.8.0"
-implementation 'jp.wasabeef:glide-transformations:4.0.1'
 implementation 'com.google.code.gson:gson:2.8.5'
 ```
 
-由于我依赖的三方库都是最新版本，可能与您当前项目中的类库版本不一致，从而导致因为API变化而编译失败。此时需要排除我这个库中的依赖，假设我的Glide版本与你项目中的不一致，则需要在gradle中配置如下：
+由于我依赖的三方库都是最新版本，可能与您当前项目中的类库版本不一致，有可能导致因为API变化而编译失败。此时需要排除我这个库中的依赖，假设我的Glide版本与你项目中的不一致，则需要在gradle中配置如下：
 ```groovy
 implementation ('com.lxj:androidktx:latest release version') {
         exclude group: 'com.github.bumptech.glide'
@@ -152,7 +185,7 @@ implementation ('com.lxj:androidktx:latest release version') {
 
 
 ## 意见收集
-为了让这个库更好用，更快加速Android开发，请到Issue中提出您宝贵的意见或建议。我将对其进行评估，如果合适，立即采用。
+为了让这个库更好用，更快地加速Android开发，请到Issue中提出您宝贵的意见或建议。我将对其进行评估，如果合适，立即采用。
 
 
 ## 联系方式

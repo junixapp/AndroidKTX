@@ -98,6 +98,15 @@ fun View.margin(leftMargin: Int = 0, topMargin: Int = 0, rightMargin: Int = 0, b
 }
 
 /**
+ * 设置点击监听
+ */
+fun View.click(action: (view: View)->Unit){
+    setOnClickListener{
+        action(it)
+    }
+}
+
+/**
  * 获取View的截图, 支持获取整个RecyclerView列表的长截图
  * 注意：调用该方法时，请确保View已经测量完毕，如果宽高为0，则将抛出异常
  */
