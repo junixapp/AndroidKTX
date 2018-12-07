@@ -1,9 +1,8 @@
 package com.lxj.androidktxdemo.fragment
 
-import com.lxj.androidktx.core.toBackgroundColorSpan
-import com.lxj.androidktx.core.toColorSpan
-import com.lxj.androidktx.core.toSizeSpan
-import com.lxj.androidktx.core.toStrikethrougthSpan
+import android.graphics.Color
+import android.view.View
+import com.lxj.androidktx.core.*
 import com.lxj.androidktxdemo.R
 import kotlinx.android.synthetic.main.fragment_span_ext.*
 
@@ -19,26 +18,34 @@ class SpanExtPage: BaseFragment(){
 
         // toSizeSpan
         tvSizeSpan.text = """
-            "$str".toSizeSpan(0..2)
+            tv.sizeSpan(str, 0..2)
         """.trimIndent()
-        tvSizeResult.text = str.toSizeSpan(0..2)
+        tvSizeResult.sizeSpan(str, 0..2)
 
         // toColorSpan
         tvColorSpan.text = """
-            "$str".toColorSpan(2..6)
+            tv.colorSpan(str, 2..6)
         """.trimIndent()
-        tvColorResult.text = str.toColorSpan(2..6)
+        tvColorResult.colorSpan(str,2..6)
 
         // toBackgroundColorSpan
         tvBgColorSpan.text = """
-            "$str".toBackgroundColorSpan(2..6)
+            tv.backgroundColorSpan(str,2..6)
         """.trimIndent()
-        tvBgColorResult.text = str.toBackgroundColorSpan(2..6)
+        tvBgColorResult.backgroundColorSpan(str,2..6)
 
         // toStrikethrougthSpan
         tvStrikethrougthSpan.text = """
-            "$str".toStrikethrougthSpan(2..6)
+            tv.strikethrougthSpan(str,2..6)
         """.trimIndent()
-        tvStrikethrougthResult.text = str.toStrikethrougthSpan(2..6)
+        tvStrikethrougthResult.strikethrougthSpan(str,2..6)
+
+        // clickSpan
+        tvClickSpan.text = """
+            tv.clickSpan(str, 2..6, listener)
+        """.trimIndent()
+        tvClickResult.clickSpan(str,2..6, View.OnClickListener {
+            toast("哈哈我被点击了".toColorSpan(0..2))
+        }, Color.BLUE)
     }
 }

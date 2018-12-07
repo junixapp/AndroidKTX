@@ -46,6 +46,16 @@
             android:id="@+id/tvStrikethrougthResult" />
 
         <include layout="@layout/divider"/>
+
+        <TextView
+            style="@style/TitleStyle"
+            android:id="@+id/tvClickSpan" />
+
+        <TextView
+            style="@style/ResultStyle"
+            android:id="@+id/tvClickResult" />
+
+        <include layout="@layout/divider"/>
     </LinearLayout>
 
 

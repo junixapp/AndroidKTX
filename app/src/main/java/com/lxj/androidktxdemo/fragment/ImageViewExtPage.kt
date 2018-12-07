@@ -29,8 +29,8 @@ class ImageViewExtPage: BaseFragment(){
         image2.load(images[1], isCenterCrop = true, isCircle = true)
         title2.text = "image2.load(url, isCenterCrop = true, isCircle = true)"
 
-        image3.load(images[2], noTransition = true)
-        title3.text = "image3.load(url, noTransition = true )"
+//        image3.load(images[2], noTransition = true)
+//        title3.text = "image3.load(url, noTransition = true )"
 
     }
 }
