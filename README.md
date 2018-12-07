@@ -48,24 +48,30 @@ log的默认tag和开关配置在AndroidKtxConfig类中，可动态配置。
 封装了颜色，大小，背景色，删除线等常用的文本装饰，用法如下：
 ```kotlin
 val str = "我是测试文字"
-tvSizeResult.text = str.toSizeSpan(0..2)
+tvSizeResult.sizeSpan(str, 0..2)
 ```
 ![weather_humidity](imgs/size_span.png)
 
 ```kotlin
-tvColorResult.text = str.toColorSpan(2..6)
+tvColorResult.colorSpan(str,2..6)
 ```
 ![weather_humidity](imgs/color_span.png)
 
 ```kotlin
-tvBgColorResult.text = str.toBackgroundColorSpan(2..6)
+tvBgColorResult.backgroundColorSpan(str,2..6)
 ```
 ![weather_humidity](imgs/bg_color_span.png)
 
 ```kotlin
-tvStrikethrougthResult.text = str.toStrikethrougthSpan(2..6)
+tvStrikethrougthResult.strikethrougthSpan(str,2..6)
 ```
 ![weather_humidity](imgs/strikethrough_span.png)
+```kotlin
+tvClickResult.clickSpan(str,2..6, View.OnClickListener {
+            toast("哈哈我被点击了".toColorSpan(0..2))
+        }, Color.BLUE)
+```
+![weather_humidity](imgs/click_span.png)
 
 
 ### View相关
@@ -95,6 +101,7 @@ putLongToSP("long", 10000000000L)
 putStringSetToSP("stringset", setOf("a", "b", "c"))
 
 getStringFromSP("a")
+// 其他略过
 ```
 
 ### Toast相关
