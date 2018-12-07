@@ -1,7 +1,7 @@
 ## AndroidKTX
 Some very useful kotlin extensions for android developping!
 
-一系列非常有用的Kotlin扩展，目标提高Android开发速度和替换所有的工具类！注意这个不是官方的AndroidKTX！
+一系列非常有用的Kotlin扩展，目标提高Android开发速度和替换所有的工具类！注意这个不是官方的AndroidKTX，部分内容借鉴了`AndroidUtilCode`的代码！
 
 ## Gradle
 [![Download](https://api.bintray.com/packages/li-xiaojun/jrepo/androidktx/images/download.svg)](https://bintray.com/li-xiaojun/jrepo/androidktx/_latestVersion)
@@ -140,6 +140,13 @@ add(R.id.frame1, AFragment())
 "aaa@aas.com".isEmail()  // 是否是邮箱地址
 "41282119900909337z".isIDCard()   // 是否是身份证号码
 "洒水".isChinese()      // 是否是汉字
+```
+
+
+### 时间日期处理
+```kotlin
+"2018-12-07 17:28:39".toDateMills()  // 字符串日期转毫秒
+(1544174919000L).toDateString()      // 毫秒转字符串日期
 ```
 
 
