@@ -11,14 +11,14 @@ import kotlin.reflect.KClass
  * Create by lxj, at 2018/12/7
  */
 
-fun Fragment.startActivity(target: KClass<out Activity>, flag: Int = -1, bundleParams: Array<out Pair<String, Any?>>? = null){
-    activity?.startActivity(target, flag, bundleParams)
+fun Fragment.startActivity(target: KClass<out Activity>, flag: Int = -1, bundle: Array<out Pair<String, Any?>>? = null){
+    activity?.startActivity(target, flag, bundle)
 }
 
-fun Context.startActivity(target: KClass<out Activity>, flag: Int = -1, bundleParams: Array<out Pair<String, Any?>>? = null){
+fun Context.startActivity(target: KClass<out Activity>, flag: Int = -1, bundle: Array<out Pair<String, Any?>>? = null){
     val intent = Intent(this, target.java).apply {
         if(flag!=-1) this.addFlags(flag)
-        if (bundleParams!=null)putExtras(bundleParams.toBundle())
+        if (bundle!=null)putExtras(bundle.toBundle())
     }
     startActivity(intent)
 }

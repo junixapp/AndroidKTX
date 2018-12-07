@@ -8,6 +8,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import com.google.gson.Gson
 import com.lxj.androidktx.AndroidKtxConfig
+import com.lxj.androidktx.util.NetworkUtils
 import java.io.Serializable
 
 /**
@@ -50,6 +51,22 @@ fun Any.windowHeight(): Int{
     val windowManager = AndroidKtxConfig.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
     return windowManager.defaultDisplay.height
 }
+
+/** 网络相关 **/
+/**
+ * 当前网络是否有连接
+ */
+fun Any.isNetworkConnected() = NetworkUtils.isConnected()
+
+/**
+ * 当前是否是Wifi连接
+ */
+fun Any.isWifiConnected() = NetworkUtils.isWifiConnected()
+
+/**
+ * 当前是否是移动数据连接
+ */
+fun Any.isMobileConnected() = NetworkUtils.isMobileData()
 
 
 /**

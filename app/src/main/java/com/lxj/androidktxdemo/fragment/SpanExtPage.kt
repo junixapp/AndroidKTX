@@ -38,7 +38,7 @@ class SpanExtPage: BaseFragment(){
         tvStrikethrougthSpan.text = """
             tv.strikethrougthSpan(str,2..6)
         """.trimIndent()
-        tvStrikethrougthResult.strikethrougthSpan(str,2..6)
+        tvStrikethrougthResult.strikeThrougthSpan(str,2..6)
 
         // clickSpan
         tvClickSpan.text = """

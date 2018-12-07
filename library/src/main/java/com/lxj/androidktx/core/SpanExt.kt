@@ -52,7 +52,7 @@ fun String.toBackgroundColorSpan(range: IntRange, color: Int = Color.RED): Spann
  * 将一段文字中指定range的文字添加删除线
  * @param range 要添加删除线的文字的范围
  */
-fun String.toStrikethrougthSpan(range: IntRange): SpannableString {
+fun String.toStrikeThrougthSpan(range: IntRange): SpannableString {
     return SpannableString(this).apply {
         setSpan(StrikethroughSpan(), range.start, range.endInclusive, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
     }
@@ -91,12 +91,13 @@ fun TextView.backgroundColorSpan(str: String, range: IntRange, color: Int = Colo
     text = str.toBackgroundColorSpan(range, color)
 }
 
-fun TextView.strikethrougthSpan(str: String, range: IntRange){
-    text = str.toStrikethrougthSpan(range)
+fun TextView.strikeThrougthSpan(str: String, range: IntRange){
+    text = str.toStrikeThrougthSpan(range)
 }
 
 fun TextView.clickSpan(str: String, range: IntRange, clickListener: View.OnClickListener,
                        color: Int = Color.RED, isUnderlineText: Boolean = false){
     movementMethod = LinkMovementMethod.getInstance()
+    highlightColor = Color.TRANSPARENT  // remove click bg color
     text = str.toClickSpan(range, clickListener, color, isUnderlineText)
 }

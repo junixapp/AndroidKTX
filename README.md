@@ -63,7 +63,7 @@ tvBgColorResult.backgroundColorSpan(str,2..6)
 ![weather_humidity](imgs/bg_color_span.png)
 
 ```kotlin
-tvStrikethrougthResult.strikethrougthSpan(str,2..6)
+tvStrikethrougthResult.strikeThrougthSpan(str,2..6)
 ```
 ![weather_humidity](imgs/strikethrough_span.png)
 ```kotlin
@@ -144,28 +144,45 @@ add(R.id.frame1, AFragment())
 
 
 ### 通用扩展(可以在项目的任何地方使用)
-1. toast相关
+- toast相关
 ```kotlin
 toast("测试短吐司")
 longToast("测试长吐司")
 ```
 
-2. dp和px转换：
+- dp和px转换：
 ```kotlin
 dp2px(100)
 px2dp(100)
 ```
 
-3. 实体转json字符串：
+- 实体转json字符串：
 ```kotlin
 User("李晓俊", 25).toJson()   // {"age":25,"name":"李晓俊"}
 ```
 
-4. 获取window宽高
+- 网络相关
+```kotlin
+isNetworkConnected()  // 当前是否有网络连接
+isWifiConnected()     // 当前是否是WIFI连接
+isMobileConnected()   // 当前是否是移动数据连接
+```
+
+- 获取window宽高
 ```kotlin
 windowWidth()
 windowHeight()
 ```
+
+
+### 图片选取和剪切集成
+未完成。
+
+### 分享SDK集成
+未完成。
+
+### 日历和时间选择集成
+未完成。
 
 
 ## 注意事项
