@@ -111,7 +111,7 @@ getStringFromSP("a")
 ```kotlin
 startActivity(MainActivity::class)
 // 启动Activity并传参
-startActivity(MainActivity::class, flag = Intent.FLAG_ACTIVITY_NEW_TASK, bundleParams = arrayOf(
+startActivity(MainActivity::class, flag = Intent.FLAG_ACTIVITY_NEW_TASK, bundle = arrayOf(
         "a" to 1,
         "b" to "lala"
 ))
