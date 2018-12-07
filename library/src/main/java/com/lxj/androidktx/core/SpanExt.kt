@@ -3,10 +3,12 @@ package com.lxj.androidktx.core
 import android.graphics.Color
 import android.text.Spannable
 import android.text.SpannableString
-import android.text.style.BackgroundColorSpan
-import android.text.style.ForegroundColorSpan
-import android.text.style.RelativeSizeSpan
-import android.text.style.StrikethroughSpan
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.method.MovementMethod
+import android.text.style.*
+import android.view.View
+import android.widget.TextView
 
 /**
  * Description: span相关
@@ -54,4 +56,47 @@ fun String.toStrikethrougthSpan(range: IntRange): SpannableString {
     return SpannableString(this).apply {
         setSpan(StrikethroughSpan(), range.start, range.endInclusive, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
     }
+}
+
+/**
+ * 将一段文字中指定range的文字添加颜色和点击事件
+ * @param range 目标文字的范围
+ */
+fun String.toClickSpan(range: IntRange,clickListener: View.OnClickListener, color: Int = Color.RED, isUnderlineText: Boolean = false): SpannableString {
+    return SpannableString(this).apply {
+        val clickableSpan = object : ClickableSpan(){
+            override fun onClick(widget: View) {
+                clickListener.onClick(widget)
+            }
+            override fun updateDrawState(ds: TextPaint) {
+                ds.color = color
+                ds.isUnderlineText = isUnderlineText
+            }
+        }
+        setSpan(clickableSpan, range.start, range.endInclusive, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
+    }
+}
+
+
+/** TextView的扩展 **/
+fun TextView.sizeSpan(str: String, range: IntRange, scale: Float = 1.5f){
+    text = str.toSizeSpan(range, scale)
+}
+
+fun TextView.colorSpan(str: String, range: IntRange, color: Int = Color.RED){
+    text = str.toColorSpan(range, color)
+}
+
+fun TextView.backgroundColorSpan(str: String, range: IntRange, color: Int = Color.RED){
+    text = str.toBackgroundColorSpan(range, color)
+}
+
+fun TextView.strikethrougthSpan(str: String, range: IntRange){
+    text = str.toStrikethrougthSpan(range)
+}
+
+fun TextView.clickSpan(str: String, range: IntRange, clickListener: View.OnClickListener,
+                       color: Int = Color.RED, isUnderlineText: Boolean = false){
+    movementMethod = LinkMovementMethod.getInstance()
+    text = str.toClickSpan(range, clickListener, color, isUnderlineText)
 }
