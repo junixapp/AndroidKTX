@@ -362,7 +362,7 @@ public final class EncryptUtils {
      * @return
      */
     public static String decryptAES(String input, String key){
-        return encryptBySymmetrical("AES", input, key);
+        return decryptBySymmetrical("AES", input, key);
     }
 
     /**
@@ -390,7 +390,7 @@ public final class EncryptUtils {
             SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(), name);
             cipher.init(Cipher.ENCRYPT_MODE,  secretKeySpec);
             byte[] bytes = cipher.doFinal(input.getBytes());
-            return Base64.encodeToString(bytes, Base64.NO_WRAP);
+            return Base64.encodeToString(bytes, Base64.DEFAULT);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -401,7 +401,7 @@ public final class EncryptUtils {
             Cipher cipher = Cipher.getInstance(name);
             SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(), name);
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec);
-            byte[] bytes = cipher.doFinal(Base64.decode(input, Base64.NO_WRAP));
+            byte[] bytes = cipher.doFinal(Base64.decode(input, Base64.DEFAULT));
             return new String(bytes);
         } catch (Exception e) {
             e.printStackTrace();

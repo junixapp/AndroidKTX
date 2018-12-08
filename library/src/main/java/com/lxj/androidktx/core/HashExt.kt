@@ -36,3 +36,15 @@ fun String.encryptDES(key: String) = EncryptUtils.encryptDES(this, key)
  */
 fun String.decryptDES(key: String) = EncryptUtils.decryptDES(this, key)
 
+/**
+ * AES对称加密
+ * @param key 长度必须是16位
+ */
+fun String.encryptAES(key: String) = EncryptUtils.encryptAES(this, key)
+
+/**
+ * AES对称解密
+ * @param key 长度必须是16位
+ */
+fun String.decryptAES(key: String) = EncryptUtils.decryptAES(this, key)
+
