@@ -33,7 +33,19 @@ class ViewExtPage: BaseFragment(){
 //            ))
 
             toast("w: ${windowWidth()} h:${windowHeight()}")
+
+            text4.gone()
+            text4.isVisible.toString().v()
+
+//            getString(R.string.app_name)
+//            getStringArray(R.array.test)
+//            getColor(R.id.color)
+//            getDrawable(R.mipmap.ic_launcher)
+//            getDimensionPx(R.dimen.abc)
+
+            
         }
+
 
     }
 
