@@ -80,6 +80,12 @@ view.width(100)           // 设置View的宽度为100
 view.widthAndHeight(100)  // 改变View的宽度和高度为100
 view.margin(leftMargin = 100)  // 设置View左边距为100
 view.click { toast("aa") }    // 设置点击监听
+view.gone()
+view.visible()
+view.invisible()
+view.isGone()
+view.isVisible()
+view.isInvisible()
 view.toBitmap()           // 获取View的截图，支持RecyclerView长列表截图
 ```
 
