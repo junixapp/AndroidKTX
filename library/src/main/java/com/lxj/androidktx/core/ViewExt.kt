@@ -106,6 +106,22 @@ fun View.click(action: (view: View)->Unit){
     }
 }
 
+
+/*** 可见性相关 ****/
+fun View.gone(){
+    visibility = View.GONE
+}
+fun View.visible(){
+    visibility = View.VISIBLE
+}
+fun View.invisible(){
+    visibility = View.INVISIBLE
+}
+fun View.isGone() = visibility==View.GONE
+fun View.isVisible() = visibility==View.VISIBLE
+fun View.isInvisible() = visibility==View.INVISIBLE
+
+
 /**
  * 获取View的截图, 支持获取整个RecyclerView列表的长截图
  * 注意：调用该方法时，请确保View已经测量完毕，如果宽高为0，则将抛出异常
