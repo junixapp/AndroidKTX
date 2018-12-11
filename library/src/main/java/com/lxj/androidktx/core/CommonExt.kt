@@ -7,9 +7,11 @@ import android.os.Parcelable
 import android.view.WindowManager
 import android.widget.Toast
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.lxj.androidktx.AndroidKtxConfig
 import com.lxj.androidktx.util.NetworkUtils
 import java.io.Serializable
+import java.lang.reflect.Type
 
 /**
  * Description:  通用扩展
@@ -40,6 +42,9 @@ fun Any.longToast(msg: CharSequence) {
 
 /** json相关 **/
 fun Any.toJson() = Gson().toJson(this)
+fun String.toBean(clazz: Class<out Any>) = Gson().fromJson(this,clazz)
+fun String.toBean(type: Type) = Gson().fromJson<Any>(this,type)
+
 
 /** Window相关 **/
 fun Any.windowWidth(): Int{

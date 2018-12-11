@@ -173,9 +173,12 @@ dp2px(100)
 px2dp(100)
 ```
 
-- 实体转json字符串：
+- Json转换相关：
 ```kotlin
 User("李晓俊", 25).toJson()   // {"age":25,"name":"李晓俊"}
+"{\"age\":25,\"name\":\"李晓俊\"}".toBean(User::class.java)
+// 集合类型需要这样写
+"[{\"age\":25,\"name\":\"李晓俊\"}]".toBean( object : TypeToken<List<User>>(){}.type)
 ```
 
 - Resource获取相关
