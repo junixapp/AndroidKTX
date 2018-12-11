@@ -7,6 +7,6 @@ import android.support.v4.app.Fragment
  * Create by lxj, at 2018/12/4
  */
 data class PageInfo(
-        var title: String,
-        var page: Fragment
+        var title: String = "",
+        var page: Fragment? = null
 )

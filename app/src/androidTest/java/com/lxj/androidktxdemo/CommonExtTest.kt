@@ -2,6 +2,7 @@ package com.lxj.androidktxdemo
 
 import android.support.test.runner.AndroidJUnit4
 import com.lxj.androidktx.core.*
+import com.lxj.androidktxdemo.entity.User
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -22,6 +23,6 @@ class CommonExtTest {
         "${px2dp(100)}".v()
 
 
-        UserTest("李晓俊", 25).toJson().v()
+
     }
 }
