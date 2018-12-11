@@ -26,8 +26,12 @@ implementation 'com.lxj:androidktx:latest release'
 "123456".sha256Hmac(salt)  // 12FC58997EA2FBD1861E1FBD4AFD5D69321A122BAB6FBD1695A2820B42D7F7B8
 
 // 对称加密解密
-"123456".encryptDES(aaaabbbb)  //TQEoRuLPiHo=
-"TQEoRuLPiHo=".decryptDES(aaaabbbb)  //123456
+//DES的key必须是8位
+"123456".encryptDES("aaaabbbb")  //TQEoRuLPiHo=
+"TQEoRuLPiHo=".decryptDES("aaaabbbb")  //123456
+//AES的key必须是16位
+"123456".encryptAES("aaaabbbbaaaabbbb")  //3FiQmdsD3GCuAManeaW/yg==
+"3FiQmdsD3GCuAManeaW/yg==".decryptAES("aaaabbbbaaaabbbb")  //123456
 ```
 
 

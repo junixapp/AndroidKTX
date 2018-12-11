@@ -25,9 +25,16 @@ class HashExtTest {
         """"$str".sha256Hmac()  // ${str.sha256Hmac(salt = salt)}""".d()
 
         val key = """aaaabbbb""" //只能是8位
-        val result = str.encryptDES(key)
+        var result = str.encryptDES(key)
         """"$str".encryptDES($key)  //$result""".d()
         """"$result".decryptDES($key)  //${result.decryptDES(key)}""".d()
+
+        result = str.encryptAES("$key$key") //key必须是16位
+        """"$str".encryptAES($key$key)  //$result""".d()
+        """"$result".decryptAES($key$key)  //${result.decryptAES("$key$key")}""".d()
+
+        str.encryptAES("aaaabbbbaaaabbbb").d()
+        "3FiQmdsD3GCuAManeaW/yg==".decryptAES("aaaabbbbaaaabbbb").d()
     }
 
 }
