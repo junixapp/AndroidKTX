@@ -117,9 +117,21 @@ fun View.visible(){
 fun View.invisible(){
     visibility = View.INVISIBLE
 }
-fun View.isGone() = visibility==View.GONE
-fun View.isVisible() = visibility==View.VISIBLE
-fun View.isInvisible() = visibility==View.INVISIBLE
+
+val View.isGone: Boolean
+    get() {
+        return visibility==View.GONE
+    }
+
+val View.isVisible: Boolean
+    get() {
+        return visibility==View.VISIBLE
+    }
+
+val View.isInvisible: Boolean
+    get() {
+        return visibility==View.INVISIBLE
+    }
 
 
 /**

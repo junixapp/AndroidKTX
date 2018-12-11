@@ -87,9 +87,9 @@ view.click { toast("aa") }    // 设置点击监听
 view.gone()
 view.visible()
 view.invisible()
-view.isGone()
-view.isVisible()
-view.isInvisible()
+view.isGone  // 属性
+view.isVisible // 属性
+view.isInvisible // 属性
 view.toBitmap()           // 获取View的截图，支持RecyclerView长列表截图
 ```
 
@@ -160,7 +160,7 @@ add(R.id.frame1, AFragment())
 ```
 
 
-### 通用扩展(可以在项目的任何地方使用)
+### 通用扩展(可以在项目的任何地方使用，不需要Context即可调用)
 - toast相关
 ```kotlin
 toast("测试短吐司")
@@ -178,6 +178,15 @@ px2dp(100)
 User("李晓俊", 25).toJson()   // {"age":25,"name":"李晓俊"}
 ```
 
+- Resource获取相关
+```kotlin
+getString(R.string.app_name) // 获取字符串
+getStringArray(R.array.array) // 获取字符串数组
+getColor(R.id.color)    //获取颜色
+getDrawable(R.mipmap.ic_launcher) // 获取图片
+getDimensionPx(R.dimen.abc) // 获取dp值
+```
+
 - 网络相关
 ```kotlin
 isNetworkConnected()  // 当前是否有网络连接
@@ -185,7 +194,7 @@ isWifiConnected()     // 当前是否是WIFI连接
 isMobileConnected()   // 当前是否是移动数据连接
 ```
 
-- 获取window宽高
+- window相关
 ```kotlin
 windowWidth()
 windowHeight()
