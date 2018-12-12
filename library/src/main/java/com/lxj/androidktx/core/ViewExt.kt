@@ -133,6 +133,13 @@ val View.isInvisible: Boolean
         return visibility==View.INVISIBLE
     }
 
+/**
+ * 切换View的可见性
+ */
+fun View.toggleVisibility(){
+    visibility = if(visibility==View.GONE) View.VISIBLE else View.GONE
+}
+
 
 /**
  * 获取View的截图, 支持获取整个RecyclerView列表的长截图

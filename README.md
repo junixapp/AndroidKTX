@@ -90,6 +90,7 @@ view.invisible()
 view.isGone  // 属性
 view.isVisible // 属性
 view.isInvisible // 属性
+view.toggleVisibility() // 切换可见性
 view.toBitmap()           // 获取View的截图，支持RecyclerView长列表截图
 ```
 
