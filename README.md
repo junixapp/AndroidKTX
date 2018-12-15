@@ -13,6 +13,18 @@ implementation 'com.lxj:androidktx:latest release'
 
 ## Usage
 
+### 初始化
+使用之前需要先初始化，初始化的作用是初始默认配置和注入Context。
+```kotlin
+// 简单注册，保持默认配置
+AndroidKtxConfig.init(this)
+// 也可以详细注册，自定义配置
+AndroidKtxConfig.init(context = this,
+        isDebug = BuildConfig.DEBUG,
+        defaultLogTag = "aa",
+        sharedPrefName = "demo")
+```
+
 ### Hash相关
 我们使用hash的时候，大都是对字符串操作，所以给String增加了扩展方法，用法如下：
 ```kotlin

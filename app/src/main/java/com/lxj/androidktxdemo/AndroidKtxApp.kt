@@ -10,6 +10,10 @@ import com.lxj.androidktx.AndroidKtxConfig
 class AndroidKtxApp: Application(){
     override fun onCreate() {
         super.onCreate()
-        AndroidKtxConfig.init(this)
+//        AndroidKtxConfig.init(this)
+        AndroidKtxConfig.init(context = this,
+                isDebug = BuildConfig.DEBUG,
+                defaultLogTag = "androidktx",
+                sharedPrefName = "demo")
     }
 }
