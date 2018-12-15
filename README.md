@@ -177,9 +177,10 @@ px2dp(100)
 - Json转换相关：
 ```kotlin
 User("李晓俊", 25).toJson()   // {"age":25,"name":"李晓俊"}
-"{\"age\":25,\"name\":\"李晓俊\"}".toBean(User::class.java)
+// 底层是Gson解析，但是不用传class或者TypeToken了，得益于Kotlin的reified功能
+"{\"age\":25,\"name\":\"李晓俊\"}".toBean<User>()
 // 集合类型需要这样写
-"[{\"age\":25,\"name\":\"李晓俊\"}]".toBean( object : TypeToken<List<User>>(){}.type)
+"[{\"age\":25,\"name\":\"李晓俊\"}]".toBean<List<User>>()
 ```
 
 - Resource获取相关

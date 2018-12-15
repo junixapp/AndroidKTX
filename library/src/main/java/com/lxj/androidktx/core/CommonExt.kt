@@ -42,8 +42,7 @@ fun Any.longToast(msg: CharSequence) {
 
 /** json相关 **/
 fun Any.toJson() = Gson().toJson(this)
-fun String.toBean(clazz: Class<out Any>) = Gson().fromJson(this,clazz)
-fun String.toBean(type: Type) = Gson().fromJson<Any>(this,type)
+inline fun <reified T> String.toBean() = Gson().fromJson(this,T::class.java)
 
 
 /** Window相关 **/

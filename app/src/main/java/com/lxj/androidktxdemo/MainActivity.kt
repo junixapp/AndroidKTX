@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         longToast("测试长吐司")
 
         UserTest("李晓俊", 25).toJson().v()
-        "{\"age\":25,\"name\":\"李晓俊\"}".toBean(User::class.java).toString().w()
-        "[{\"age\":25,\"name\":\"李晓俊\"}]".toBean( object : TypeToken<List<User>>(){}.type).toString().e()
+        "{\"age\":25,\"name\":\"李晓俊\"}".toBean<User>().toString().w()
+        "[{\"age\":25,\"name\":\"李晓俊\"}]".toBean<List<User>>().toString().e()
     }
 }
