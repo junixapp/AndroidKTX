@@ -134,7 +134,7 @@ getStringFromSP("a")
 ```
 
 ### Activity相关
-使用范围：Activity和Fragment中
+使用范围：Activity和Fragment，以及Context对象，会自动检测Context是否为Activity，并自动添加FLAG_ACTIVITY_NEW_TASK
 ```kotlin
 startActivity<MainActivity>()
 // 启动Activity并传参
@@ -152,7 +152,7 @@ applicitionCtx.startActivity<MainActivity>(bundle = arrayOf(
 ```
 
 ### Fragment相关
-使用范围：Activity和Fragment中
+使用范围：Activity和Fragment
 ```kotlin
 //替换一个Fragment不传参
 replace(R.id.frame1, TempFragment())
