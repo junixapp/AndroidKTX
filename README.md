@@ -95,7 +95,11 @@ tvClickResult.clickSpan(str,2..6, View.OnClickListener {
 view.width(100)           // 设置View的宽度为100
 view.widthAndHeight(100)  // 改变View的宽度和高度为100
 view.margin(leftMargin = 100)  // 设置View左边距为100
-view.click { toast("aa") }    // 设置点击监听
+view.click { toast("aa") }    // 设置点击监听，已实现事件节流，350毫秒内只能点击一次
+text4.longClick {             // 设置长按监听
+    toast("long click")
+    true
+}
 view.gone()
 view.visible()
 view.invisible()

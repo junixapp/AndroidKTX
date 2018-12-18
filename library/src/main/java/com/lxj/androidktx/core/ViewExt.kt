@@ -98,13 +98,32 @@ fun View.margin(leftMargin: Int = 0, topMargin: Int = 0, rightMargin: Int = 0, b
 }
 
 /**
- * 设置点击监听
+ * 设置点击监听, 并实现事件节流
  */
+var _viewClickFlag = false
+var _clickRunnable = Runnable { _viewClickFlag = false }
 fun View.click(action: (view: View)->Unit){
-    setOnClickListener{
+    if(!hasOnClickListeners()){
+        setOnClickListener{
+            if(!_viewClickFlag){
+                _viewClickFlag = true
+                action(it)
+            }
+            removeCallbacks(_clickRunnable)
+            postDelayed(_clickRunnable, 350)
+        }
+    }
+}
+
+/**
+ * 设置长按监听
+ */
+fun View.longClick(action: (view: View)->Boolean){
+    setOnLongClickListener{
         action(it)
     }
 }
+
 
 
 /*** 可见性相关 ****/
