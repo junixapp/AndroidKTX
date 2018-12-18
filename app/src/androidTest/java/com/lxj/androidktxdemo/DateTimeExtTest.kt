@@ -17,8 +17,12 @@ class DateTimeExtTest {
     @Test
     fun test() {
         Date().time.toDateString().v()
+        // 默认格式：yyyy-MM-dd HH:mm:ss
         "2018-12-07 17:28:39".toDateMills().toString().v()
-        (1544174919000L).toDateString()
+        (1544174919000L).toDateString().v()
 
+        // 自定义格式
+        "2018-12-07".toDateMills(format = "yyyy-MM-dd").toString().v()
+        (1544174919000L).toDateString(format = "yyyy-MM-dd").v()
     }
 }

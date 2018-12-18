@@ -134,7 +134,7 @@ getStringFromSP("a")
 ```
 
 ### Activity相关
-使用范围：Activity和Fragment，以及Context对象，会自动检测Context是否为Activity，并自动添加FLAG_ACTIVITY_NEW_TASK
+使用范围：Activity和Fragment，以及Context对象，会自动检测Context是否为Activity，并自动添加`FLAG_ACTIVITY_NEW_TASK`
 ```kotlin
 startActivity<MainActivity>()
 // 启动Activity并传参
@@ -177,8 +177,13 @@ add(R.id.frame1, AFragment())
 
 ### 时间日期处理
 ```kotlin
+// 默认格式：yyyy-MM-dd HH:mm:ss
 "2018-12-07 17:28:39".toDateMills()  // 字符串日期转毫秒
 (1544174919000L).toDateString()      // 毫秒转字符串日期
+
+// 自定义格式
+"2018-12-07".toDateMills(format = "yyyy-MM-dd")
+(1544174919000L).toDateString(format = "yyyy-MM-dd")
 ```
 
 
