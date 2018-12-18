@@ -136,14 +136,19 @@ getStringFromSP("a")
 ### Activity相关
 使用范围：Activity和Fragment中
 ```kotlin
-startActivity(MainActivity::class)
+startActivity<MainActivity>()
 // 启动Activity并传参
-startActivity(MainActivity::class, flag = Intent.FLAG_ACTIVITY_NEW_TASK, bundle = arrayOf(
+startActivity<MainActivity>(flag = Intent.FLAG_ACTIVITY_CLEAR_TOP, bundle = arrayOf(
         "a" to 1,
         "b" to "lala"
 ))
 // 在Fragment中启动Activity
-fragment.startActivity(MainActivity::class)
+fragment.startActivity<MainActivity>()
+// 使用非Activity的Context启动，内部会自动检测并添加FLAG_ACTIVITY_NEW_TASK，不会导致崩溃
+applicitionCtx.startActivity<MainActivity>(bundle = arrayOf(
+        "a" to 1,
+        "b" to "lala"
+))
 ```
 
 ### Fragment相关

@@ -27,7 +27,15 @@ class ViewExtPage: BaseFragment(){
         }
 
         text4.click {
-//            startActivity(MainActivity::class, flag = Intent.FLAG_ACTIVITY_NEW_TASK, bundle = arrayOf(
+            startActivity<MainActivity>(bundle = arrayOf(
+                    "a" to 1,
+                    "b" to "lala"
+            ))
+//            startActivity<MainActivity>(flag = Intent.FLAG_ACTIVITY_CLEAR_TOP, bundle = arrayOf(
+//                    "a" to 1,
+//                    "b" to "lala"
+//            ))
+//            applicitionCtx.startActivity<MainActivity>(bundle = arrayOf(
 //                    "a" to 1,
 //                    "b" to "lala"
 //            ))
