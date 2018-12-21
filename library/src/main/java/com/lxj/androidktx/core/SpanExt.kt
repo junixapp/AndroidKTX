@@ -62,7 +62,7 @@ fun String.toStrikeThrougthSpan(range: IntRange): SpannableString {
  * 将一段文字中指定range的文字添加颜色和点击事件
  * @param range 目标文字的范围
  */
-fun String.toClickSpan(range: IntRange,clickListener: View.OnClickListener, color: Int = Color.RED, isUnderlineText: Boolean = false): SpannableString {
+fun String.toClickSpan(range: IntRange, color: Int = Color.RED, isUnderlineText: Boolean = false,clickListener: View.OnClickListener): SpannableString {
     return SpannableString(this).apply {
         val clickableSpan = object : ClickableSpan(){
             override fun onClick(widget: View) {
@@ -95,9 +95,9 @@ fun TextView.strikeThrougthSpan(str: String, range: IntRange){
     text = str.toStrikeThrougthSpan(range)
 }
 
-fun TextView.clickSpan(str: String, range: IntRange, clickListener: View.OnClickListener,
-                       color: Int = Color.RED, isUnderlineText: Boolean = false){
+fun TextView.clickSpan(str: String, range: IntRange,
+                       color: Int = Color.RED, isUnderlineText: Boolean = false, clickListener: View.OnClickListener){
     movementMethod = LinkMovementMethod.getInstance()
     highlightColor = Color.TRANSPARENT  // remove click bg color
-    text = str.toClickSpan(range, clickListener, color, isUnderlineText)
+    text = str.toClickSpan(range, color, isUnderlineText, clickListener)
 }

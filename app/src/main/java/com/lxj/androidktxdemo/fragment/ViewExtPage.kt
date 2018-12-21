@@ -1,7 +1,6 @@
 package com.lxj.androidktxdemo.fragment
 
 
-import android.content.Intent
 import com.lxj.androidktx.core.*
 import com.lxj.androidktxdemo.MainActivity
 import com.lxj.androidktxdemo.R
@@ -31,6 +30,7 @@ class ViewExtPage: BaseFragment(){
                     "a" to 1,
                     "b" to "lala"
             ))
+
 //            startActivity<MainActivity>(flag = Intent.FLAG_ACTIVITY_CLEAR_TOP, bundle = arrayOf(
 //                    "a" to 1,
 //                    "b" to "lala"

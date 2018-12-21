@@ -21,8 +21,8 @@ AndroidKtxConfig.init(this)
 // 也可以详细注册，自定义配置
 AndroidKtxConfig.init(context = this,
         isDebug = BuildConfig.DEBUG,
-        defaultLogTag = "aa",
-        sharedPrefName = "demo")
+        defaultLogTag = "logTag",
+        sharedPrefName = "spName")
 ```
 
 ### Hash相关
@@ -83,9 +83,9 @@ tvStrikethrougthResult.strikeThrougthSpan(str,2..6)
 ```
 ![weather_humidity](imgs/strikethrough_span.png)
 ```kotlin
-tvClickResult.clickSpan(str,2..6, View.OnClickListener {
-            toast("哈哈我被点击了".toColorSpan(0..2))
-        }, Color.BLUE)
+tvClickResult.clickSpan(str = str, range = 2..6, color = Color.BLUE, clickListener = View.OnClickListener {
+    toast("哈哈我被点击了".toColorSpan(0..2))
+})
 ```
 ![weather_humidity](imgs/click_span.png)
 
@@ -96,7 +96,7 @@ view.width(100)           // 设置View的宽度为100
 view.widthAndHeight(100)  // 改变View的宽度和高度为100
 view.margin(leftMargin = 100)  // 设置View左边距为100
 view.click { toast("aa") }    // 设置点击监听，已实现事件节流，350毫秒内只能点击一次
-text4.longClick {             // 设置长按监听
+view.longClick {             // 设置长按监听
     toast("long click")
     true
 }
@@ -250,6 +250,7 @@ TODO
 ```groovy
 implementation "com.github.bumptech.glide:glide:4.8.0"
 implementation 'com.google.code.gson:gson:2.8.5'
+implementation "com.squareup.okhttp3:okhttp:3.12.0"
 ```
 
 由于我依赖的三方库都是最新版本，可能与您当前项目中的类库版本不一致，有可能导致因为API变化而编译失败。此时需要排除我这个库中的依赖，假设我的Glide版本与你项目中的不一致，则需要在gradle中配置如下：
