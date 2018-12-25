@@ -1,18 +1,42 @@
 package com.lxj.androidktx.core
 
-import com.lxj.androidktx.AndroidKtxConfig
+import android.content.Context
+import android.support.v4.app.Fragment
+import android.view.View
 
 /**
  * Description: 资源操作相关
  * Create by dance, at 2018/12/11
  */
 
-fun Any.getColor(id: Int) = AndroidKtxConfig.context.resources.getColor(id)
+fun Context.color(id: Int) = resources.getColor(id)
 
-fun Any.getString(id: Int) = AndroidKtxConfig.context.resources.getString(id)
+fun Context.string(id: Int) = resources.getString(id)
 
-fun Any.getStringArray(id: Int) = AndroidKtxConfig.context.resources.getStringArray(id)
+fun Context.stringArray(id: Int) = resources.getStringArray(id)
 
-fun Any.getDrawable(id: Int) = AndroidKtxConfig.context.resources.getDrawable(id)
+fun Context.drawable(id: Int) = resources.getDrawable(id)
 
-fun Any.getDimensionPx(id: Int) = AndroidKtxConfig.context.resources.getDimensionPixelSize(id)
+fun Context.dimenPx(id: Int) = resources.getDimensionPixelSize(id)
+
+
+fun View.color(id: Int) = context.color(id)
+
+fun View.string(id: Int) = context.string(id)
+
+fun View.stringArray(id: Int) = context.stringArray(id)
+
+fun View.drawable(id: Int) = context.drawable(id)
+
+fun View.dimenPx(id: Int) = context.dimenPx(id)
+
+
+fun Fragment.color(id: Int) = context!!.color(id)
+
+fun Fragment.string(id: Int) = context!!.string(id)
+
+fun Fragment.stringArray(id: Int) = context!!.stringArray(id)
+
+fun Fragment.drawable(id: Int) = context!!.drawable(id)
+
+fun Fragment.dimenPx(id: Int) = context!!.dimenPx(id)
