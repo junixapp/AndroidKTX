@@ -149,6 +149,8 @@ applicitionCtx.startActivity<MainActivity>(bundle = arrayOf(
         "a" to 1,
         "b" to "lala"
 ))
+// 在View中启动
+view.startActivity<MainActivity>()
 ```
 
 ### Fragment相关
@@ -186,6 +188,11 @@ add(R.id.frame1, AFragment())
 (1544174919000L).toDateString(format = "yyyy-MM-dd")
 ```
 
+### RecyclerView相关
+```kotlin
+recyclerView.divider(color)   // 解决了在某些情况下颜色不生效的问题
+```
+
 
 ### 通用扩展(可以在项目的任何地方使用，不需要Context即可调用)
 - toast相关
@@ -211,11 +218,11 @@ User("李晓俊", 25).toJson()   // {"age":25,"name":"李晓俊"}
 
 - Resource获取相关
 ```kotlin
-getString(R.string.app_name) // 获取字符串
-getStringArray(R.array.array) // 获取字符串数组
-getColor(R.id.color)    //获取颜色
-getDrawable(R.mipmap.ic_launcher) // 获取图片
-getDimensionPx(R.dimen.abc) // 获取dp值
+context/fragment/view.string(R.string.app_name) // 获取字符串
+context/fragment/view.stringArray(R.array.array) // 获取字符串数组
+context/fragment/view.color(R.id.color)    //获取颜色
+context/fragment/view.drawable(R.mipmap.ic_launcher) // 获取图片
+context/fragment/view.dimenPx(R.dimen.abc) // 获取dp值
 ```
 
 - 网络相关
