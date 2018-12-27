@@ -3,9 +3,11 @@ package com.lxj.androidktxdemo
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.FragmentPagerAdapter
-import com.google.gson.reflect.TypeToken
 import com.lxj.androidktx.AndroidKtxConfig
 import com.lxj.androidktx.core.*
+import com.lxj.androidktx.okhttp.get
+import com.lxj.androidktx.okhttp.header
+import com.lxj.androidktx.okhttp.http
 import com.lxj.androidktxdemo.entity.PageInfo
 import com.lxj.androidktxdemo.entity.User
 import com.lxj.androidktxdemo.fragment.FragmentExtPage
@@ -13,12 +15,21 @@ import com.lxj.androidktxdemo.fragment.ImageViewExtPage
 import com.lxj.androidktxdemo.fragment.SpanExtPage
 import com.lxj.androidktxdemo.fragment.ViewExtPage
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 
 data class UserTest(
         var name: String,
         var age: Int
 )
+
+data class RestResult(
+        var code: Int = 0,
+        var message: String = ""
+)
+
 class MainActivity : AppCompatActivity() {
     val pages = arrayListOf(
             PageInfo("Span相关", SpanExtPage()),
@@ -44,5 +55,24 @@ class MainActivity : AppCompatActivity() {
         UserTest("李晓俊", 25).toJson().v()
         "{\"age\":25,\"name\":\"李晓俊\"}".toBean<User>().toString().w()
         "[{\"age\":25,\"name\":\"李晓俊\"}]".toBean<List<User>>().toString().e()
+
+
+        GlobalScope.launch {
+//            val deferred = async {
+//                "111111111111".e()
+//                return@async "aaa"
+//            }.await()
+
+
+
+            val result = "https://api.gulltour.com/v1/common/nations".http().get<RestResult>()
+            "url".http().header()
+
+//            async { "22222222222" }.await().e()
+            "coroutine threadId: ${Thread.currentThread().id} result: $result".e()
+        }
     }
+
+
+
 }

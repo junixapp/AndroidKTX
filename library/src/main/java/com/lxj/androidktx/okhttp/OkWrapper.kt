@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit
  * Create by lxj, at 2018/12/25
  */
 object OkWrapper {
-    val globalHeaders = arrayListOf<Pair<String, String>>()
+    private val globalHeaders = arrayListOf<Pair<String, String>>()
 
     var okHttpClient: OkHttpClient = OkHttpClient.Builder()
             .writeTimeout(AndroidKtxConfig.httpTimeout, TimeUnit.MILLISECONDS)
@@ -19,13 +19,21 @@ object OkWrapper {
             .connectTimeout(AndroidKtxConfig.httpTimeout, TimeUnit.MILLISECONDS)
             .build()
 
+    /**
+     * 设置全局公共Header
+     */
     fun headers(vararg headers: Pair<String, String>): OkWrapper {
         headers.forEach { globalHeaders.add(it) }
         return this
     }
 
+    /**
+     * 设置拦截器
+     */
     fun interceptors(vararg interceptors: Interceptor): OkWrapper {
-        okHttpClient = okHttpClient.newBuilder().build()
+        val builder = okHttpClient.newBuilder()
+        interceptors.forEach { builder.addInterceptor(it) }
+        okHttpClient = builder.build()
         return this
     }
 
@@ -36,6 +44,13 @@ object OkWrapper {
         val builder = Headers.Builder()
         globalHeaders.forEach { builder.add(it.first, it.second) }
         return  builder.build()
+    }
+
+    /**
+     * 设置自定义的Client
+     */
+    fun setClient(client: OkHttpClient){
+        okHttpClient = client
     }
 
 }
