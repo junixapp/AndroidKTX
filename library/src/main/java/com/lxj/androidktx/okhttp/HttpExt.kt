@@ -17,26 +17,10 @@ import java.io.IOException
 /**
  * 配置基本信息：全局header，tag
  */
-fun String.http(tag: Any = this): Request{
-//    return RequestWrapper().apply {
-//        url = this@http
-//        tag
-//    }
-    return  Request.Builder()
-            .url(this)
-            .headers(OkWrapper.genGlobalHeaders())
-            .tag(tag)
-            .build()
+fun String.http(tag: Any = this): RequestWrapper{
+    return RequestWrapper(tag, url = this)
 }
 
-/**
- * header配置
- */
-fun Request.header(vararg headers: Pair<String, String>):Request{
-    return newBuilder()
-            .apply { headers.forEach { addHeader(it.first, it.second) } }
-            .build()
-}
 
 /**
  * 执行Get请求
