@@ -3,7 +3,7 @@ package com.lxj.androidktx.okhttp
 import com.lxj.androidktx.core.toBean
 import okhttp3.*
 import java.io.IOException
-import java.lang.Exception
+import java.net.URLConnection
 
 /**
  * Description:
