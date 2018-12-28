@@ -41,9 +41,7 @@ object OkWrapper {
      * 转为Headers
      */
     fun genGlobalHeaders(): Headers {
-        val builder = Headers.Builder()
-        globalHeaders.forEach { builder.add(it.first, it.second) }
-        return  builder.build()
+        return  pairs2Headers(globalHeaders)
     }
 
     /**
@@ -53,4 +51,9 @@ object OkWrapper {
         okHttpClient = client
     }
 
+    fun pairs2Headers(pairs: ArrayList<Pair<String, String>>): Headers {
+        val builder = Headers.Builder()
+        pairs.forEach { builder.add(it.first, it.second) }
+        return  builder.build()
+    }
 }

@@ -3,10 +3,8 @@ package com.lxj.androidktxdemo
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.FragmentPagerAdapter
-import com.lxj.androidktx.AndroidKtxConfig
 import com.lxj.androidktx.core.*
-import com.lxj.androidktx.okhttp.get
-import com.lxj.androidktx.okhttp.header
+import com.lxj.androidktx.okhttp.HttpCallback
 import com.lxj.androidktx.okhttp.http
 import com.lxj.androidktxdemo.entity.PageInfo
 import com.lxj.androidktxdemo.entity.User
@@ -18,6 +16,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import java.io.IOException
+import java.lang.Exception
 
 
 data class UserTest(
@@ -62,15 +62,37 @@ class MainActivity : AppCompatActivity() {
 //                "111111111111".e()
 //                return@async "aaa"
 //            }.await()
+            "start coroutine...".e()
+            async {
+                try {
+                    val result =
+                            "https://api.gulltour.com/v1/common/nations1".http()
+                                    .headers("a" to 1, "b" to 33)
+                                    .params("token" to 110312039)
+                                    .get<RestResult>()
+                    "coroutine threadId: ${Thread.currentThread().id} result: $result".e()
+                }catch (e: Exception){
+                    "error occur ---->".e()
+                }
 
+            }
 
-
-            val result = "https://api.gulltour.com/v1/common/nations".http().get<RestResult>()
-            "url".http().header()
+//            "https://api.gulltour.com/v1/common/nations".http()
+            "https://ccc.gulltour.com/v1/common/nations1".http()
+                    .get(object : HttpCallback<String>{
+                        override fun onSuccess(t: String) {
+                            t.e()
+                        }
+                        override fun onFail(e: IOException) {
+                            "callback onFail: ${e.message}".e()
+                        }
+                    })
 
 //            async { "22222222222" }.await().e()
-            "coroutine threadId: ${Thread.currentThread().id} result: $result".e()
+            "end coroutine...".e()
         }
+
+
     }
 
 

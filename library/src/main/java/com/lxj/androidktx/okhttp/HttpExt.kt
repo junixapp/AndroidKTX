@@ -2,7 +2,6 @@ package com.lxj.androidktx.okhttp
 
 import com.lxj.androidktx.core.e
 import com.lxj.androidktx.core.toBean
-import com.lxj.androidktx.core.toJson
 import okhttp3.*
 import java.io.IOException
 
@@ -37,39 +36,10 @@ inline fun <reified T> Request.get(callback: HttpCallback<T>){
             if(response.isSuccessful){
                 callback.onSuccess(response.body()!!.string().toBean<T>())
             }else{
-                onFailure(call, IOException(" reqeust to ${url()} is fail; http code: ${response.code()}!"))
+                onFailure(call, IOException(" request to ${url()} is fail; http code: ${response.code()}!"))
             }
         }
     })
 }
 
-/**
- * 执行Get请求
- */
-inline fun <reified T> Request.get():T{
-    val request = newBuilder().get().build()
-    val response = OkWrapper.okHttpClient.newCall(request).execute()
-    if(response.isSuccessful){
-        return response.body()!!.string().toBean<T>()
-    }else{
-        throw IOException(" reqeust to ${url()} is fail; http code: ${response.code()}!")
-    }
-}
 
-/**
- * 执行Post请求
- */
-inline fun <reified T> Request.post():T{
-    val request = newBuilder().post().build()
-    val response = OkWrapper.okHttpClient.newCall(request).execute()
-    if(response.isSuccessful){
-        return response.body()!!.string().toBean<T>()
-    }else{
-        throw IOException(" reqeust to ${url()} is fail; http code: ${response.code()}!")
-    }
-}
-
-interface HttpCallback<T>{
-    fun onSuccess(t: T)
-    fun onFail(e: IOException){}
-}
