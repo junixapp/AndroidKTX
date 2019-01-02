@@ -1,6 +1,5 @@
 package com.lxj.androidktx.okhttp
 
-import com.lxj.androidktx.core.e
 import com.lxj.androidktx.core.toBean
 import okhttp3.*
 import java.io.IOException

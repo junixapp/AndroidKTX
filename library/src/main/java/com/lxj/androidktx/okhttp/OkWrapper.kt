@@ -17,6 +17,7 @@ object OkWrapper {
             .writeTimeout(AndroidKtxConfig.httpTimeout, TimeUnit.MILLISECONDS)
             .readTimeout(AndroidKtxConfig.httpTimeout, TimeUnit.MILLISECONDS)
             .connectTimeout(AndroidKtxConfig.httpTimeout, TimeUnit.MILLISECONDS)
+            .addInterceptor(HttpLogInterceptor())
             .build()
 
     /**

@@ -1,5 +1,6 @@
 package com.lxj.androidktx.okhttp
 
+import com.lxj.androidktx.core.e
 import com.lxj.androidktx.core.toBean
 import okhttp3.*
 import java.io.IOException
@@ -30,21 +31,22 @@ data class RequestWrapper(
     fun params() = params
 
     /**
-     * 在协程中使用
+     * get请求，阻塞调用，需在协程中使用。结果为空即为失败，并会将失败信息打印日志。
      */
-    inline fun <reified T> get(): T {
-        val request = Request.Builder().url(url())
+    inline fun <reified T> get(): T? {
+        val request = Request.Builder().url(urlParams())
                 .headers(OkWrapper.pairs2Headers(headers()))
                 .get().build()
         val response = OkWrapper.okHttpClient.newCall(request).execute()
-        if (response.isSuccessful) {
-            return if ("ktx" is T) {
+        return if (response.isSuccessful) {
+            if ("ktx" is T) {
                 response.body()!!.string() as T
             } else {
                 response.body()!!.string().toBean<T>()
             }
         } else {
-            throw IOException("request to ${url()} is fail; http code: ${response.code()}!")
+            "request to ${url()} is fail; http code: ${response.code()}!".e()
+            null
         }
 
         // deferred版本
@@ -58,7 +60,6 @@ data class RequestWrapper(
 //            override fun onFailure(call: Call, e: IOException) {
 //                deferred.completeExceptionally(e)
 //            }
-//
 //            override fun onResponse(call: Call, response: Response) {
 //                if (response.isSuccessful) {
 //                    if ("ktx" is T) {
@@ -79,24 +80,41 @@ data class RequestWrapper(
      * callback style
      */
     inline fun <reified T> get(cb: HttpCallback<T>) {
-        val request = Request.Builder().url(url())
+        val request = Request.Builder().url(urlParams())
                 .headers(OkWrapper.pairs2Headers(headers()))
                 .get().build()
-        try {
-            val response = OkWrapper.okHttpClient.newCall(request).execute()
-            if (response.isSuccessful) {
-                if ("ktx" is T) {
-                    cb.onSuccess(response.body()!!.string() as T)
-                } else {
-                    cb.onSuccess(response.body()!!.string().toBean<T>())
-                }
-            } else {
-                cb.onFail(IOException("request to ${url()} is fail; http code: ${response.code()}!"))
+        OkWrapper.okHttpClient.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                cb.onFail(e)
             }
-        }catch (e: IOException){
-            cb.onFail(e)
-        }
 
+            override fun onResponse(call: Call, response: Response) {
+                if (response.isSuccessful) {
+                    if ("ktx" is T) {
+                        cb.onSuccess(response.body()!!.string() as T)
+                    } else {
+                        cb.onSuccess(response.body()!!.string().toBean<T>())
+                    }
+                } else {
+                    cb.onFail(IOException("request to ${url()} is fail; http code: ${response.code()}!"))
+                }
+            }
+        })
     }
+
+    fun urlParams(): String {
+        val queryParams = if (params().isEmpty()) "" else "?" + params.joinToString(separator = "&", transform = {
+            "${it.first}=${it.second}"
+        })
+        return "${url()}$queryParams"
+    }
+
+
+
 }
 
+fun main(args: Array<String>) {
+    println(arrayListOf<Pair<String, String>>("a" to "b", "1" to "2").joinToString(separator = "&", transform = {
+        "${it.first}=${it.second}"
+    }))
+}

@@ -64,31 +64,29 @@ class MainActivity : AppCompatActivity() {
 //            }.await()
             "start coroutine...".e()
             async {
-                try {
-                    val result =
-                            "https://api.gulltour.com/v1/common/nations1".http()
-                                    .headers("a" to 1, "b" to 33)
-                                    .params("token" to 110312039)
-                                    .get<RestResult>()
-                    "coroutine threadId: ${Thread.currentThread().id} result: $result".e()
-                }catch (e: Exception){
-                    "error occur ---->".e()
-                }
-
+//                try {
+//                    val result =
+//                            "https://api.gulltour.com/v1/common/nations1".http()
+//                                    .headers("a" to 1, "b" to 33)
+//                                    .params("token" to 110312039)
+//                                    .get<RestResult>()
+//                    "coroutine threadId: ${Thread.currentThread().id} result: $result".e()
+//                }catch (e: Exception){
+//                    "error occur ---->".e()
+//                }
             }
 
-//            "https://api.gulltour.com/v1/common/nations".http()
-            "https://ccc.gulltour.com/v1/common/nations1".http()
+            "https://api.gulltour.com/v1/common/nations".http()
+                                    .headers("a" to 1, "b" to 33)
+//            "https://ccc.gulltour.com/v1/common/nations1".http()
                     .get(object : HttpCallback<String>{
                         override fun onSuccess(t: String) {
-                            t.e()
                         }
                         override fun onFail(e: IOException) {
                             "callback onFail: ${e.message}".e()
                         }
                     })
 
-//            async { "22222222222" }.await().e()
             "end coroutine...".e()
         }
 
