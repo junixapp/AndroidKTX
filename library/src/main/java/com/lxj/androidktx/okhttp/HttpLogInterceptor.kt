@@ -12,20 +12,17 @@ import okio.GzipSource
 import java.io.EOFException
 import java.io.IOException
 import java.nio.charset.Charset
-import java.util.*
 import java.util.concurrent.TimeUnit
 
 /**
- * Description:
+ * Description: A better http log interceptor.
  * Create by dance, at 2019/1/2
  */
 class HttpLogInterceptor @JvmOverloads constructor(private val logger: Logger = Logger.DEFAULT) : Interceptor {
-
+    val requestPrefix = "---->"
+    val responsePrefix = "---->"
     @Volatile
     private var headersToRedact = emptySet<String>()
-
-    @Volatile
-    private var level = Level.BODY
 
     enum class Level {
         /**
@@ -68,35 +65,32 @@ class HttpLogInterceptor @JvmOverloads constructor(private val logger: Logger = 
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
-        val level = this.level
-
         val request = chain.request()
 
-        val logBody = level == Level.BODY
+        val logBody = true
 
         val requestBody = request.body()
         val hasRequestBody = requestBody != null
 
         val connection = chain.connection()
-        var requestStartMessage = ("--> "
-                + request.method()
-                + ' '.toString() + request.url()
-                + if (connection != null) " " + connection.protocol() else "")
+        var requestStartMessage = "$requestPrefix ${request.method()} ${request.url()} ${if (connection != null) connection.protocol() else ""} "
+
+
         if (hasRequestBody) {
-            requestStartMessage += " (" + requestBody!!.contentLength() + "-byte body)"
+            requestStartMessage += " (" + requestBody?.contentLength() + "-byte body)"
         }
         logger.log(requestStartMessage)
 
-        if (hasRequestBody) {
-            // Request body headers are only present when installed as a network interceptor. Force
-            // them to be included (when available) so there values are known.
-            if (requestBody!!.contentType() != null) {
-                logger.log("Content-Type: " + requestBody.contentType()!!)
-            }
-            if (requestBody.contentLength() != -1L) {
-                logger.log("Content-Length: " + requestBody.contentLength())
-            }
-        }
+//        if (hasRequestBody) {
+//            // Request body headers are only present when installed as a network interceptor. Force
+//            // them to be included (when available) so there values are known.
+//            if (requestBody!!.contentType() != null) {
+//                logger.log("Content-Type: " + requestBody.contentType()!!)
+//            }
+//            if (requestBody.contentLength() != -1L) {
+//                logger.log("Content-Length: " + requestBody.contentLength())
+//            }
+//        }
 
         val headers = request.headers()
         var i = 0
@@ -104,16 +98,16 @@ class HttpLogInterceptor @JvmOverloads constructor(private val logger: Logger = 
         while (i < count) {
             val name = headers.name(i)
             // Skip headers from the request body as they are explicitly logged above.
-            if (!"Content-Type".equals(name, ignoreCase = true) && !"Content-Length".equals(name, ignoreCase = true)) {
-                logHeader(headers, i)
-            }
+//            if (!"Content-Type".equals(name, ignoreCase = true) && !"Content-Length".equals(name, ignoreCase = true)) {
+//            }
+            logHeader(headers, i)
             i++
         }
 
         if (!logBody || !hasRequestBody) {
-            logger.log("--> END " + request.method())
+            logger.log("-----> END " + request.method())
         } else if (bodyHasUnknownEncoding(request.headers())) {
-            logger.log("--> END " + request.method() + " (encoded body omitted)")
+            logger.log("-----> END " + request.method() + " (encoded body omitted)")
         } else {
             val buffer = Buffer()
             requestBody!!.writeTo(buffer)
@@ -127,10 +121,10 @@ class HttpLogInterceptor @JvmOverloads constructor(private val logger: Logger = 
             logger.log("")
             if (isPlaintext(buffer)) {
                 logger.log(buffer.readString(charset!!))
-                logger.log("--> END " + request.method()
+                logger.log("-----> END " + request.method()
                         + " (" + requestBody.contentLength() + "-byte body)")
             } else {
-                logger.log("--> END " + request.method() + " (binary "
+                logger.log("-----> END " + request.method() + " (binary "
                         + requestBody.contentLength() + "-byte body omitted)")
             }
         }
@@ -141,7 +135,7 @@ class HttpLogInterceptor @JvmOverloads constructor(private val logger: Logger = 
         try {
             response = chain.proceed(request)
         } catch (e: Exception) {
-            logger.log("<-- HTTP FAILED: $e")
+            logger.log("<----- HTTP FAILED: $e")
             throw e
         }
 
@@ -150,7 +144,7 @@ class HttpLogInterceptor @JvmOverloads constructor(private val logger: Logger = 
         val responseBody = response.body()
         val contentLength = responseBody!!.contentLength()
         val bodySize = if (contentLength != -1L) contentLength.toString() + "-byte" else "unknown-length"
-        logger.log("<-- "
+        logger.log("<----- "
                 + response.code()
                 + (if (response.message().isEmpty()) "" else ' ' + response.message())
                 + ' '.toString() + response.request().url()
@@ -166,9 +160,9 @@ class HttpLogInterceptor @JvmOverloads constructor(private val logger: Logger = 
             }
 
             if (!logBody || !HttpHeaders.hasBody(response)) {
-                logger.log("<-- END HTTP")
+                logger.log("<----- END HTTP")
             } else if (bodyHasUnknownEncoding(response.headers())) {
-                logger.log("<-- END HTTP (encoded body omitted)")
+                logger.log("<----- END HTTP (encoded body omitted)")
             } else {
                 val source = responseBody.source()
                 source.request(java.lang.Long.MAX_VALUE) // Buffer the entire body.
@@ -191,7 +185,7 @@ class HttpLogInterceptor @JvmOverloads constructor(private val logger: Logger = 
 
                 if (!isPlaintext(buffer)) {
                     logger.log("")
-                    logger.log("<-- END HTTP (binary " + buffer.size() + "-byte body omitted)")
+                    logger.log("<----- END HTTP (binary " + buffer.size() + "-byte body omitted)")
                     return response
                 }
 
@@ -201,10 +195,10 @@ class HttpLogInterceptor @JvmOverloads constructor(private val logger: Logger = 
                 }
 
                 if (gzippedLength != null) {
-                    logger.log("<-- END HTTP (" + buffer.size() + "-byte, "
+                    logger.log("<----- END HTTP (" + buffer.size() + "-byte, "
                             + gzippedLength + "-gzipped-byte body)")
                 } else {
-                    logger.log("<-- END HTTP (" + buffer.size() + "-byte body)")
+                    logger.log("<----- END HTTP (" + buffer.size() + "-byte body)")
                 }
             }
         }
