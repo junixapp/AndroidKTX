@@ -14,8 +14,6 @@ object AndroidKtxConfig {
     var defaultLogTag = "AndroidKTX"
     var sharedPrefName = "AndroidKTX"
 
-    /*********** OkHttp相关 ***********/
-    var httpTimeout = 10000L  //10s
     /**
      * 初始化配置信息
      * @param isDebug 是否是debug模式，默认为true

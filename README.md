@@ -193,7 +193,6 @@ add(R.id.frame1, AFragment())
 recyclerView.divider(color)   // 解决了在某些情况下颜色不生效的问题
 ```
 
-
 ### 通用扩展(可以在项目的任何地方使用，不需要Context即可调用)
 - toast相关
 ```kotlin
@@ -239,7 +238,45 @@ windowHeight()
 ```
 
 ### OkHttp极简封装
-TODO
+对`OkHttpUtils`和`OkGo`都不满意，于是造了一个。
+
+- 请求示例
+```kotlin
+//Get请求
+val user = "http://192.168.1.103:3000/json".http().get<User>()
+//Post请求，传递header和params
+val user = "http://192.168.1.103:3000/json".http()
+                .headers("device" to "HuaWeiMate20", ...)
+                .params("token" to "188sas9cf99a9d", "file" to file, ...)
+                .post<User>()
+```
+上面的示例本身是阻塞的，需要在协程中使用；也是我最喜欢和最推荐的方式。如果你不用协程，则可以用`callback style`：
+```kotlin
+"http://192.168.1.103:3000/json".http().get(object : HttpCallback<String> {
+        override fun onSuccess(t: String) {
+        }
+        override fun onFail(e: IOException) {
+            super.onFail(e)
+        }
+    })
+```
+- Http日志
+内置了简洁实用的Http日志打印器，效果如下：
+![Http日志](imgs/http_log.jpg)
+
+- 其他
+```kotlin
+// 设置自定义的Client
+OkWrapper.setClient(...)
+// 设置全局header
+OkWrapper.headers("header1" to "a", "header2" to "b", ...)
+// 设置拦截器
+OkWrapper.interceptors(...)
+// 取消请求
+"http://192.168.1.103:3000/json".http(tag = "abc").get<String>() //需要先指定tag
+OkWrapper.cancel("abc")
+```
+
 
 ### 图片选取和剪切集成
 TODO

@@ -56,7 +56,8 @@ inline fun <reified T> RequestWrapper.post(cb: HttpCallback<T>) {
 }
 
 inline fun <reified T> blockRequest(request: Request, reqWrapper: RequestWrapper): T?{
-    val req = request.newBuilder().tag(reqWrapper.tag()).build()
+    val req = request.newBuilder().tag(reqWrapper.tag())
+            .build()
     val response = OkWrapper.okHttpClient.newCall(req)
             .apply { OkWrapper.requestCache[reqWrapper.tag()] = this } //cache req
             .execute()
@@ -98,7 +99,6 @@ inline fun <reified T> callbackResponse(request: Request, cb: HttpCallback<T>,re
     }
 
 }
-
 
  fun File.mediaType(): String{
     return getFileNameMap().getContentTypeFor(name) ?: when(extension.toLowerCase()){

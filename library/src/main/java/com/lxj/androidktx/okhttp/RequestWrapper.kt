@@ -23,40 +23,43 @@ data class RequestWrapper(
         return this
     }
 
-    private fun headers() = headers
-    fun url() = url
+    private fun url() = url
     fun tag() = tag
     private fun params() = params
 
 
-    fun buildGetRequest():Request{
+    fun buildGetRequest(): Request {
         return Request.Builder().url(urlParams())
-                .headers(OkWrapper.genGlobalHeaders())
-                .headers(OkWrapper.pairs2Headers(headers()))
+                .apply {
+                    OkWrapper.globalHeaders.forEach { addHeader(it.first, it.second) }
+                    headers.forEach { addHeader(it.first, it.second) }
+                }
                 .get().build()
     }
 
-    fun buildPostRequest():Request{
+    fun buildPostRequest(): Request {
         return Request.Builder().url(url())
-                .headers(OkWrapper.genGlobalHeaders())
-                .headers(OkWrapper.pairs2Headers(headers()))
+                .apply {
+                    OkWrapper.globalHeaders.forEach { addHeader(it.first, it.second) }
+                    headers.forEach { addHeader(it.first, it.second) }
+                }
                 .post(buildRequestBody()).build()
     }
 
-    private fun buildRequestBody():RequestBody{
-        return if(isMultiPart()){
+    private fun buildRequestBody(): RequestBody {
+        return if (isMultiPart()) {
             // form-data/multipart
             val builder = MultipartBody.Builder()
             params.forEach {
-                if(it.second is String){
+                if (it.second is String) {
                     builder.addFormDataPart(it.first, it.second as String)
-                }else if(it.second is File){
+                } else if (it.second is File) {
                     val file = it.second as File
                     builder.addFormDataPart(it.first, file.name, RequestBody.create(MediaType.parse(file.mediaType()), file))
                 }
             }
             builder.build()
-        }else{
+        } else {
             // form-data url-encoded
             val builder = FormBody.Builder()
             params.forEach { builder.add(it.first, it.second as String) }
@@ -64,7 +67,7 @@ data class RequestWrapper(
         }
     }
 
-    private fun isMultiPart()= params.any { it.second is File }
+    private fun isMultiPart() = params.any { it.second is File }
 
     private fun urlParams(): String {
         val queryParams = if (params().isEmpty()) "" else "?" + params.joinToString(separator = "&", transform = {

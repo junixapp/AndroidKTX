@@ -1,6 +1,5 @@
 package com.lxj.androidktx.okhttp
 
-
 import okhttp3.Headers
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -9,6 +8,8 @@ import okhttp3.internal.platform.Platform
 import okhttp3.internal.platform.Platform.INFO
 import okio.Buffer
 import okio.GzipSource
+import org.json.JSONException
+import org.json.JSONObject
 import java.io.EOFException
 import java.io.IOException
 import java.nio.charset.Charset
@@ -19,34 +20,8 @@ import java.util.concurrent.TimeUnit
  * Create by dance, at 2019/1/2
  */
 class HttpLogInterceptor @JvmOverloads constructor(private val logger: Logger = Logger.DEFAULT) : Interceptor {
-    private val requestPrefix = "====>"
-    private val responsePrefix = "<===="
-
-    enum class Level {
-        /**
-         * Logs request and response lines and their respective headers and bodies (if present).
-         *
-         *
-         * Example:
-         * <pre>`--> POST /greeting http/1.1
-         * Host: example.com
-         * Content-Type: plain/text
-         * Content-Length: 3
-         *
-         * Hi?
-         * --> END POST
-         *
-         * <-- 200 OK (22ms)
-         * Content-Type: plain/text
-         * Content-Length: 6
-         *
-         * Hello!
-         * <-- END HTTP
-        `</pre> *
-         */
-        BODY
-    }
-
+    private val requestPrefix = "--->"
+    private val responsePrefix = "<---"
     interface Logger {
         fun log(message: String)
 
@@ -146,13 +121,19 @@ class HttpLogInterceptor @JvmOverloads constructor(private val logger: Logger = 
             }
 
             if (contentLength != 0L) {
-                responseMessage += buffer.clone().readString(charset!!)
+                val responseData = buffer.clone().readString(charset!!)
+                responseMessage += try {
+                    JSONObject(responseData).toString(2)
+                } catch (e: JSONException) {
+                    // 不是json
+                    responseData
+                }
             }
 
-            if (gzippedLength != null) {
-                responseMessage += "\n$responsePrefix END HTTP (" + buffer.size() + "-byte, $gzippedLength-gzipped-byte body)"
+            responseMessage += if (gzippedLength != null) {
+                "\n$responsePrefix END HTTP (" + buffer.size() + "-byte, $gzippedLength-gzipped-byte body)"
             } else {
-                responseMessage += "\n$responsePrefix END HTTP (" + buffer.size() + "-byte body)"
+                "\n$responsePrefix END HTTP (" + buffer.size() + "-byte body)"
             }
         }
         logger.log(responseMessage)
@@ -165,7 +146,7 @@ class HttpLogInterceptor @JvmOverloads constructor(private val logger: Logger = 
         var headerStr = ""
         while (i < count) {
             val name = headers.name(i)
-            if (!isExclude(name))
+            if (isExclude(name))
                 headerStr += "\n    $name: ${headers.get(name)}"
             i++
         }
@@ -175,8 +156,7 @@ class HttpLogInterceptor @JvmOverloads constructor(private val logger: Logger = 
     }
 
     private fun isExclude(name: String): Boolean {
-        return name.equals("Date", true) || name.equals("Access-Control-Expose-Headers", true) || name.equals("Set-Cookie", true)
-                || name.equals("Connection", true) || name.equals("Transfer-Encoding", true) || name.equals("Server", true)
+        return listOf("X-Powered-By", "ETag", "Date", "Connection").all { !it.equals(name, true) }
     }
 
     companion object {

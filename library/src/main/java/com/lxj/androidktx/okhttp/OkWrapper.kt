@@ -1,7 +1,8 @@
 package com.lxj.androidktx.okhttp
 
-import com.lxj.androidktx.AndroidKtxConfig
-import okhttp3.*
+import okhttp3.Call
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 
 /**
@@ -9,12 +10,14 @@ import java.util.concurrent.TimeUnit
  * Create by lxj, at 2018/12/25
  */
 object OkWrapper {
-    private val globalHeaders = arrayListOf<Pair<String, String>>()
+
+    private var httpTimeout = 10000L  //10s
+    val globalHeaders = arrayListOf<Pair<String, String>>()
     val requestCache = hashMapOf<Any, Call>()
     var okHttpClient: OkHttpClient = OkHttpClient.Builder()
-            .writeTimeout(AndroidKtxConfig.httpTimeout, TimeUnit.MILLISECONDS)
-            .readTimeout(AndroidKtxConfig.httpTimeout, TimeUnit.MILLISECONDS)
-            .connectTimeout(AndroidKtxConfig.httpTimeout, TimeUnit.MILLISECONDS)
+            .writeTimeout(httpTimeout, TimeUnit.MILLISECONDS)
+            .readTimeout(httpTimeout, TimeUnit.MILLISECONDS)
+            .connectTimeout(httpTimeout, TimeUnit.MILLISECONDS)
             .addInterceptor(HttpLogInterceptor())
             .build()
 
@@ -36,12 +39,6 @@ object OkWrapper {
         return this
     }
 
-    /**
-     * 生成全局Headers
-     */
-    fun genGlobalHeaders(): Headers {
-        return  pairs2Headers(globalHeaders)
-    }
 
     /**
      * 设置自定义的Client
@@ -50,11 +47,6 @@ object OkWrapper {
         okHttpClient = client
     }
 
-    fun pairs2Headers(pairs: ArrayList<Pair<String, String>>): Headers {
-        val builder = Headers.Builder()
-        pairs.forEach { builder.add(it.first, it.second) }
-        return  builder.build()
-    }
 
     fun cancel(tag: Any){
         requestCache[tag]?.cancel()
