@@ -1,5 +1,6 @@
 package com.lxj.androidktx.okhttp
 
+import com.lxj.androidktx.util.HttpsUtils
 import okhttp3.Call
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -19,6 +20,8 @@ object OkWrapper {
             .readTimeout(httpTimeout, TimeUnit.MILLISECONDS)
             .connectTimeout(httpTimeout, TimeUnit.MILLISECONDS)
             .addInterceptor(HttpLogInterceptor())
+            .sslSocketFactory(HttpsUtils.getSslSocketFactory().sSLSocketFactory,
+                    HttpsUtils.getSslSocketFactory().trustManager)
             .build()
 
     /**
