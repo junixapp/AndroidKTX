@@ -65,6 +65,7 @@ AndroidKtxConfig.init(context = this,
 ```kotlin
 val str = "我是测试文字"
 tvSizeResult.sizeSpan(str, 0..2)
+tvSizeResult.sizeSpan(str, 0..2, scale = .7f) //改变scale可以控制放大或缩小，scale默认是1.5
 ```
 ![weather_humidity](imgs/size_span.png)
 
@@ -260,6 +261,7 @@ val user = "http://192.168.1.103:3000/json".http()
     })
 ```
 - Http日志
+
 内置了简洁实用的Http日志打印器，效果如下：
 ![Http日志](imgs/http_log.jpg)
 
@@ -293,6 +295,7 @@ TODO
 implementation "com.github.bumptech.glide:glide:4.8.0"
 implementation 'com.google.code.gson:gson:2.8.5'
 implementation "com.squareup.okhttp3:okhttp:3.12.0"
+implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.0"
 ```
 
 由于我依赖的三方库都是最新版本，可能与您当前项目中的类库版本不一致，有可能导致因为API变化而编译失败。此时需要排除我这个库中的依赖，假设我的Glide版本与你项目中的不一致，则需要在gradle中配置如下：
