@@ -119,17 +119,16 @@ imageView.load(url, placeholder = R.mipmap.ic_launcher, roundRadius = 20)
 ```
 
 ### SharedPref相关
-使用范围：项目任意地方
+使用范围：Context
 ```kotlin
-// 以下代码可以在项目的任何地方调用
-putStringToSP("str", "哈哈")
-putIntToSP("int", 11)
-putBooleanToSP("bool", true)
-putFloatToSP("float", 11.22f)
-putLongToSP("long", 10000000000L)
-putStringSetToSP("stringset", setOf("a", "b", "c"))
+ctx.putStringToSP("str", "哈哈")
+ctx.putIntToSP("int", 11)
+ctx.putBooleanToSP("bool", true)
+ctx.putFloatToSP("float", 11.22f)
+ctx.putLongToSP("long", 10000000000L)
+ctx.putStringSetToSP("stringset", setOf("a", "b", "c"))
 
-getStringFromSP("a")
+ctx.getStringFromSP("a")
 // 其他略过
 ```
 
@@ -276,7 +275,6 @@ OkWrapper.interceptors(...)
 "http://192.168.1.103:3000/json".http(tag = "abc").get<String>() //需要先指定tag
 OkWrapper.cancel("abc")
 ```
-
 
 ### 图片选取和剪切集成
 TODO
