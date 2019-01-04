@@ -4,8 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.FragmentPagerAdapter
 import com.lxj.androidktx.core.*
-import com.lxj.androidktx.okhttp.HttpCallback
-import com.lxj.androidktx.okhttp.http
+import com.lxj.androidktx.okhttp.*
 import com.lxj.androidktxdemo.entity.PageInfo
 import com.lxj.androidktxdemo.entity.User
 import com.lxj.androidktxdemo.fragment.FragmentExtPage
@@ -76,21 +75,23 @@ class MainActivity : AppCompatActivity() {
 //                }
             }
 
-            "https://api.gulltour.com/v1/common/nations".http()
-                                    .headers("a" to 1, "b" to 33)
-//            "https://ccc.gulltour.com/v1/common/nations1".http()
-                    .get(object : HttpCallback<String>{
-                        override fun onSuccess(t: String) {
-                        }
-                        override fun onFail(e: IOException) {
-                            "callback onFail: ${e.message}".e()
-                        }
-                    })
-
+//            "https://api.gulltour.com/v1/common/nations".http("111").get<String>()
+//            OkWrapper.cancel("111")
             "end coroutine...".e()
+
         }
 
-
+        "https://api.gulltour.com/v1/common/nations".http("111")
+                .headers("a" to 1, "b" to 33)
+                .params("token" to "d8sa9d88sd8as90d8s"
+                ,"uid" to 12)
+                .post(object : HttpCallback<String>{
+                    override fun onSuccess(t: String) {
+                    }
+                    override fun onFail(e: IOException) {
+                        "callback onFail: ${e.message}".e()
+                    }
+                })
     }
 
 

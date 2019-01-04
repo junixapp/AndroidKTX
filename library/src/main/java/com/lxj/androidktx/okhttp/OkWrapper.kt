@@ -1,9 +1,7 @@
 package com.lxj.androidktx.okhttp
 
 import com.lxj.androidktx.AndroidKtxConfig
-import okhttp3.Headers
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
+import okhttp3.*
 import java.util.concurrent.TimeUnit
 
 /**
@@ -12,7 +10,7 @@ import java.util.concurrent.TimeUnit
  */
 object OkWrapper {
     private val globalHeaders = arrayListOf<Pair<String, String>>()
-
+    val requestCache = hashMapOf<Any, Call>()
     var okHttpClient: OkHttpClient = OkHttpClient.Builder()
             .writeTimeout(AndroidKtxConfig.httpTimeout, TimeUnit.MILLISECONDS)
             .readTimeout(AndroidKtxConfig.httpTimeout, TimeUnit.MILLISECONDS)
@@ -39,7 +37,7 @@ object OkWrapper {
     }
 
     /**
-     * 转为Headers
+     * 生成全局Headers
      */
     fun genGlobalHeaders(): Headers {
         return  pairs2Headers(globalHeaders)
@@ -56,5 +54,10 @@ object OkWrapper {
         val builder = Headers.Builder()
         pairs.forEach { builder.add(it.first, it.second) }
         return  builder.build()
+    }
+
+    fun cancel(tag: Any){
+        requestCache[tag]?.cancel()
+        requestCache.remove(tag)
     }
 }

@@ -19,10 +19,8 @@ import java.util.concurrent.TimeUnit
  * Create by dance, at 2019/1/2
  */
 class HttpLogInterceptor @JvmOverloads constructor(private val logger: Logger = Logger.DEFAULT) : Interceptor {
-    val requestPrefix = "---->"
-    val responsePrefix = "---->"
-    @Volatile
-    private var headersToRedact = emptySet<String>()
+    private val requestPrefix = "====>"
+    private val responsePrefix = "<===="
 
     enum class Level {
         /**
@@ -66,149 +64,119 @@ class HttpLogInterceptor @JvmOverloads constructor(private val logger: Logger = 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
-
-        val logBody = true
-
         val requestBody = request.body()
-        val hasRequestBody = requestBody != null
-
         val connection = chain.connection()
-        var requestStartMessage = "$requestPrefix ${request.method()} ${request.url()} ${if (connection != null) connection.protocol() else ""} "
-
-
-        if (hasRequestBody) {
-            requestStartMessage += " (" + requestBody?.contentLength() + "-byte body)"
-        }
-        logger.log(requestStartMessage)
-
-//        if (hasRequestBody) {
-//            // Request body headers are only present when installed as a network interceptor. Force
-//            // them to be included (when available) so there values are known.
-//            if (requestBody!!.contentType() != null) {
-//                logger.log("Content-Type: " + requestBody.contentType()!!)
-//            }
-//            if (requestBody.contentLength() != -1L) {
-//                logger.log("Content-Length: " + requestBody.contentLength())
-//            }
-//        }
-
-        val headers = request.headers()
-        var i = 0
-        val count = headers.size()
-        while (i < count) {
-            val name = headers.name(i)
-            // Skip headers from the request body as they are explicitly logged above.
-//            if (!"Content-Type".equals(name, ignoreCase = true) && !"Content-Length".equals(name, ignoreCase = true)) {
-//            }
-            logHeader(headers, i)
-            i++
-        }
-
-        if (!logBody || !hasRequestBody) {
-            logger.log("-----> END " + request.method())
-        } else if (bodyHasUnknownEncoding(request.headers())) {
-            logger.log("-----> END " + request.method() + " (encoded body omitted)")
-        } else {
+        // 1. 请求第一行
+        var requestMessage = "$requestPrefix ${request.method()} ${request.url()} ${if (connection != null) connection.protocol() else ""}\n"
+        // 2. 请求头，只拼自定义的头
+        requestMessage += header2String(request.headers())
+        // 3. 请求体
+        if (bodyHasUnknownEncoding(request.headers())) {
+            requestMessage += "\n$requestPrefix END ${request.method()} (encoded body omitted)"
+        } else if (requestBody != null) {
             val buffer = Buffer()
-            requestBody!!.writeTo(buffer)
+            requestBody.writeTo(buffer)
 
             var charset: Charset? = UTF8
             val contentType = requestBody.contentType()
             if (contentType != null) {
                 charset = contentType.charset(UTF8)
             }
-
-            logger.log("")
+            requestMessage += "\n"
             if (isPlaintext(buffer)) {
-                logger.log(buffer.readString(charset!!))
-                logger.log("-----> END " + request.method()
-                        + " (" + requestBody.contentLength() + "-byte body)")
+                requestMessage += buffer.readString(charset!!)
+                requestMessage += "\n$requestPrefix END ${request.method()}"
             } else {
-                logger.log("-----> END " + request.method() + " (binary "
-                        + requestBody.contentLength() + "-byte body omitted)")
+                requestMessage += "\n$requestPrefix END ${request.method()} (binary ${requestBody.contentLength()} -byte body omitted)"
             }
+        } else {
+            requestMessage += "\n$requestPrefix END ${request.method()} (no request body)"
         }
-
+        // 4. 打印请求信息
+        logger.log(requestMessage)
 
         val startNs = System.nanoTime()
         val response: Response
         try {
             response = chain.proceed(request)
         } catch (e: Exception) {
-            logger.log("<----- HTTP FAILED: $e")
+            logger.log("$responsePrefix HTTP FAILED: $e")
             throw e
         }
 
         val tookMs = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNs)
-
         val responseBody = response.body()
         val contentLength = responseBody!!.contentLength()
         val bodySize = if (contentLength != -1L) contentLength.toString() + "-byte" else "unknown-length"
-        logger.log("<----- "
-                + response.code()
-                + (if (response.message().isEmpty()) "" else ' ' + response.message())
-                + ' '.toString() + response.request().url()
-                + " (" + tookMs + "ms" + ", $bodySize body"  + ')'.toString())
+        var responseMessage = "$responsePrefix ${response.code()} ${if (response.message().isEmpty()) "" else response.message()} "
+        responseMessage += response.request().url()
+        responseMessage += " (" + tookMs + "ms" + ", $bodySize body)\n"
 
-        if (true) {
-            val headers = response.headers()
-            var i = 0
-            val count = headers.size()
-            while (i < count) {
-                logHeader(headers, i)
-                i++
+        val headers = response.headers()
+        responseMessage += header2String(headers)
+
+        if (!HttpHeaders.hasBody(response)) {
+            responseMessage += "\n$responsePrefix END HTTP"
+        } else if (bodyHasUnknownEncoding(response.headers())) {
+            responseMessage += "\n$responsePrefix END HTTP (encoded body omitted)"
+        } else {
+            val source = responseBody.source()
+            source.request(java.lang.Long.MAX_VALUE) // Buffer the entire body.
+            var buffer = source.buffer()
+
+            var gzippedLength: Long? = null
+            if ("gzip".equals(headers.get("Content-Encoding"), ignoreCase = true)) {
+                gzippedLength = buffer.size()
+                GzipSource(buffer.clone()).use { gzippedResponseBody ->
+                    buffer = Buffer()
+                    buffer.writeAll(gzippedResponseBody)
+                }
             }
 
-            if (!logBody || !HttpHeaders.hasBody(response)) {
-                logger.log("<----- END HTTP")
-            } else if (bodyHasUnknownEncoding(response.headers())) {
-                logger.log("<----- END HTTP (encoded body omitted)")
+            var charset: Charset? = UTF8
+            val contentType = responseBody.contentType()
+            if (contentType != null) {
+                charset = contentType.charset(UTF8)
+            }
+
+            responseMessage += "\n"
+            if (!isPlaintext(buffer)) {
+                responseMessage += "\n$responsePrefix END HTTP (binary " + buffer.size() + "-byte body omitted)"
+                return response
+            }
+
+            if (contentLength != 0L) {
+                responseMessage += buffer.clone().readString(charset!!)
+            }
+
+            if (gzippedLength != null) {
+                responseMessage += "\n$responsePrefix END HTTP (" + buffer.size() + "-byte, $gzippedLength-gzipped-byte body)"
             } else {
-                val source = responseBody.source()
-                source.request(java.lang.Long.MAX_VALUE) // Buffer the entire body.
-                var buffer = source.buffer()
-
-                var gzippedLength: Long? = null
-                if ("gzip".equals(headers.get("Content-Encoding"), ignoreCase = true)) {
-                    gzippedLength = buffer.size()
-                    GzipSource(buffer.clone()).use { gzippedResponseBody ->
-                        buffer = Buffer()
-                        buffer.writeAll(gzippedResponseBody)
-                    }
-                }
-
-                var charset: Charset? = UTF8
-                val contentType = responseBody.contentType()
-                if (contentType != null) {
-                    charset = contentType.charset(UTF8)
-                }
-
-                if (!isPlaintext(buffer)) {
-                    logger.log("")
-                    logger.log("<----- END HTTP (binary " + buffer.size() + "-byte body omitted)")
-                    return response
-                }
-
-                if (contentLength != 0L) {
-                    logger.log("")
-                    logger.log(buffer.clone().readString(charset!!))
-                }
-
-                if (gzippedLength != null) {
-                    logger.log("<----- END HTTP (" + buffer.size() + "-byte, "
-                            + gzippedLength + "-gzipped-byte body)")
-                } else {
-                    logger.log("<----- END HTTP (" + buffer.size() + "-byte body)")
-                }
+                responseMessage += "\n$responsePrefix END HTTP (" + buffer.size() + "-byte body)"
             }
         }
-
+        logger.log(responseMessage)
         return response
     }
 
-    private fun logHeader(headers: Headers, i: Int) {
-        val value = if (headersToRedact.contains(headers.name(i))) "██" else headers.value(i)
-        logger.log(headers.name(i) + ": " + value)
+    private fun header2String(headers: Headers): String {
+        var i = 0
+        val count = headers.size()
+        var headerStr = ""
+        while (i < count) {
+            val name = headers.name(i)
+            if (!isExclude(name))
+                headerStr += "\n    $name: ${headers.get(name)}"
+            i++
+        }
+        return """headers = {$headerStr
+}
+        """.trimMargin()
+    }
+
+    private fun isExclude(name: String): Boolean {
+        return name.equals("Date", true) || name.equals("Access-Control-Expose-Headers", true) || name.equals("Set-Cookie", true)
+                || name.equals("Connection", true) || name.equals("Transfer-Encoding", true) || name.equals("Server", true)
     }
 
     companion object {
