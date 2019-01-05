@@ -280,16 +280,6 @@ OkWrapper.interceptors(...)
 OkWrapper.cancel("abc")
 ```
 
-### 图片选取和剪切集成
-TODO
-
-### 分享SDK集成
-TODO
-
-### 日历和时间选择集成
-TODO
-
-
 ## 注意事项
 
 为了覆盖各种使用场景，该库对常用类库进行了封装，因此依赖了很多三方库。依赖的所有三方库如下：
