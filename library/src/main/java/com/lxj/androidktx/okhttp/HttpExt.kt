@@ -39,7 +39,7 @@ inline fun <reified T> RequestWrapper.get(): T? {
  * callback style，不在协程中使用
  */
 inline fun <reified T> RequestWrapper.get(cb: HttpCallback<T>) {
-    callbackResponse(buildGetRequest(), cb,this)
+    callbackRequest(buildGetRequest(), cb,this)
 }
 
 /**
@@ -52,8 +52,35 @@ inline fun <reified T> RequestWrapper.post(): T? {
  * callback style，不在协程中使用
  */
 inline fun <reified T> RequestWrapper.post(cb: HttpCallback<T>) {
-    callbackResponse(buildPostRequest(), cb,this)
+    callbackRequest(buildPostRequest(), cb,this)
 }
+
+/**
+ * put请求，阻塞调用，需在协程中使用。结果为空即为失败，并会将失败信息打印日志。
+ */
+inline fun <reified T> RequestWrapper.put(): T? {
+    return blockRequest(buildPostRequest(),this)
+}
+/**
+ * callback style，不在协程中使用
+ */
+inline fun <reified T> RequestWrapper.put(cb: HttpCallback<T>) {
+    callbackRequest(buildPostRequest(), cb,this)
+}
+
+/**
+ * delete请求，阻塞调用，需在协程中使用。结果为空即为失败，并会将失败信息打印日志。
+ */
+inline fun <reified T> RequestWrapper.delete(): T? {
+    return blockRequest(buildPostRequest(),this)
+}
+/**
+ * callback style，不在协程中使用
+ */
+inline fun <reified T> RequestWrapper.delete(cb: HttpCallback<T>) {
+    callbackRequest(buildPostRequest(), cb,this)
+}
+
 
 inline fun <reified T> blockRequest(request: Request, reqWrapper: RequestWrapper): T?{
     val req = request.newBuilder().tag(reqWrapper.tag())
@@ -74,7 +101,7 @@ inline fun <reified T> blockRequest(request: Request, reqWrapper: RequestWrapper
     }
 }
 
-inline fun <reified T> callbackResponse(request: Request, cb: HttpCallback<T>,reqWrapper: RequestWrapper){
+inline fun <reified T> callbackRequest(request: Request, cb: HttpCallback<T>,reqWrapper: RequestWrapper){
     val req = request.newBuilder().tag(reqWrapper.tag()).build()
     OkWrapper.okHttpClient.newCall(req).apply {
         OkWrapper.requestCache[reqWrapper.tag()] = this //cache req

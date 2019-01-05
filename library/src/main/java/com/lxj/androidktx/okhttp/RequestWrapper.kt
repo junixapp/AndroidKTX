@@ -38,17 +38,25 @@ data class RequestWrapper(
     }
 
     fun buildPostRequest(): Request {
+        return bodyBuilder().post(buildRequestBody()).build()
+    }
+    fun buildPutRequest(): Request {
+        return bodyBuilder().put(buildRequestBody()).build()
+    }
+    fun buildDeleteRequest(): Request {
+        return bodyBuilder().delete(buildRequestBody()).build()
+    }
+    private fun bodyBuilder(): Request.Builder{
         return Request.Builder().url(url())
                 .apply {
                     OkWrapper.globalHeaders.forEach { addHeader(it.first, it.second) }
                     headers.forEach { addHeader(it.first, it.second) }
                 }
-                .post(buildRequestBody()).build()
     }
 
     private fun buildRequestBody(): RequestBody {
         return if (isMultiPart()) {
-            // form-data/multipart
+            // multipart/form-data
             val builder = MultipartBody.Builder()
             params.forEach {
                 if (it.second is String) {
@@ -58,7 +66,7 @@ data class RequestWrapper(
                     builder.addFormDataPart(it.first, file.name, RequestBody.create(MediaType.parse(file.mediaType()), file))
                 }
             }
-            builder.build()
+            builder.setType(MultipartBody.FORM).build()
         } else {
             // form-data url-encoded
             val builder = FormBody.Builder()
