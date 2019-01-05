@@ -193,17 +193,17 @@ add(R.id.frame1, AFragment())
 recyclerView.divider(color)   // 解决了在某些情况下颜色不生效的问题
 ```
 
-### 通用扩展(可以在项目的任何地方使用，不需要Context即可调用)
+### 通用扩展
 - toast相关
 ```kotlin
-toast("测试短吐司")
-longToast("测试长吐司")
+ctx/fragment/view.toast("测试短吐司")
+ctx/fragment/view.longToast("测试长吐司")
 ```
 
 - dp和px转换：
 ```kotlin
-dp2px(100)
-px2dp(100)
+ctx/fragment/view.dp2px(100)
+ctx/fragment/view.px2dp(100)
 ```
 
 - Json转换相关：
@@ -233,8 +233,8 @@ isMobileConnected()   // 当前是否是移动数据连接
 
 - window相关
 ```kotlin
-windowWidth()
-windowHeight()
+ctx/fragment/view.windowWidth()
+ctx/fragment/view.windowHeight()
 ```
 
 ### OkHttp极简封装

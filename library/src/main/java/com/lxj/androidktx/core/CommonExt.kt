@@ -4,6 +4,8 @@ package com.lxj.androidktx.core
 import android.content.Context
 import android.os.Bundle
 import android.os.Parcelable
+import android.support.v4.app.Fragment
+import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import com.google.gson.Gson
@@ -19,26 +21,61 @@ import java.lang.reflect.Type
  */
 
 /** dp和px转换 **/
-fun Any.dp2px(dpValue: Float): Int {
-    return (dpValue * AndroidKtxConfig.context.resources.displayMetrics.density + 0.5f).toInt()
+fun Context.dp2px(dpValue: Float): Int {
+    return (dpValue * resources.displayMetrics.density + 0.5f).toInt()
 }
-fun Any.dp2px(dpValue: Int): Int {
-    return (dpValue * AndroidKtxConfig.context.resources.displayMetrics.density + 0.5f).toInt()
+fun Context.dp2px(dpValue: Int): Int {
+    return (dpValue * resources.displayMetrics.density + 0.5f).toInt()
 }
-fun Any.px2dp(pxValue: Int): Float {
-    return pxValue / AndroidKtxConfig.context.resources.displayMetrics.density + 0.5f
+fun Context.px2dp(pxValue: Int): Float {
+    return pxValue / resources.displayMetrics.density + 0.5f
 }
-fun Any.px2dp(pxValue: Float): Float {
-    return pxValue / AndroidKtxConfig.context.resources.displayMetrics.density + 0.5f
+fun Context.px2dp(pxValue: Float): Float {
+    return pxValue / resources.displayMetrics.density + 0.5f
+}
+fun Fragment.dp2px(dpValue: Float): Int {
+    return context!!.dp2px(dpValue)
+}
+fun Fragment.dp2px(dpValue: Int): Int {
+    return context!!.dp2px(dpValue)
+}
+fun Fragment.px2dp(pxValue: Int): Float {
+    return context!!.px2dp(pxValue)
+}
+fun View.px2dp(pxValue: Float): Float {
+    return context!!.px2dp(pxValue)
+}
+fun View.dp2px(dpValue: Float): Int {
+    return context!!.dp2px(dpValue)
+}
+fun View.dp2px(dpValue: Int): Int {
+    return context!!.dp2px(dpValue)
+}
+fun View.px2dp(pxValue: Int): Float {
+    return context!!.px2dp(pxValue)
 }
 
+
 /** toast相关 **/
-fun Any.toast(msg: CharSequence) {
-    Toast.makeText(AndroidKtxConfig.context, msg, Toast.LENGTH_SHORT).show()
+fun Context.toast(msg: CharSequence) {
+    Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
 }
-fun Any.longToast(msg: CharSequence) {
-    Toast.makeText(AndroidKtxConfig.context, msg, Toast.LENGTH_LONG).show()
+fun Context.longToast(msg: CharSequence) {
+    Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
 }
+fun Fragment.toast(msg: CharSequence) {
+    context?.toast(msg)
+}
+fun Fragment.longToast(msg: CharSequence) {
+    context?.longToast(msg)
+}
+fun View.toast(msg: CharSequence) {
+    context?.toast(msg)
+}
+fun View.longToast(msg: CharSequence) {
+    context?.longToast(msg)
+}
+
 
 /** json相关 **/
 fun Any.toJson() = Gson().toJson(this)
@@ -46,15 +83,27 @@ inline fun <reified T> String.toBean() = Gson().fromJson(this,T::class.java)
 
 
 /** Window相关 **/
-fun Any.windowWidth(): Int{
-    val windowManager = AndroidKtxConfig.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+fun Context.windowWidth(): Int{
+    val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
     return windowManager.defaultDisplay.width
 }
-
-fun Any.windowHeight(): Int{
-    val windowManager = AndroidKtxConfig.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+fun Context.windowHeight(): Int{
+    val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
     return windowManager.defaultDisplay.height
 }
+fun Fragment.windowWidth(): Int{
+    return context!!.windowWidth()
+}
+fun Fragment.windowHeight(): Int{
+    return context!!.windowHeight()
+}
+fun View.windowWidth(): Int{
+    return context!!.windowWidth()
+}
+fun View.windowHeight(): Int{
+    return context!!.windowHeight()
+}
+
 
 /** 网络相关 **/
 /**
