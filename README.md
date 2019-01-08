@@ -165,6 +165,7 @@ replace(R.id.frame1, TempFragment(), arrayOf(
         ))
 //添加Fragment
 add(R.id.frame1, AFragment())
+//其他方法，show, hide, remove略过
 ```
 
 ### 字符串处理相关
@@ -190,7 +191,7 @@ add(R.id.frame1, AFragment())
 
 ### RecyclerView相关
 ```kotlin
-recyclerView.divider(color)   // 解决了在某些情况下颜色不生效的问题
+recyclerView.divider(color)   // 给RecyclerView添加分割线，解决了在某些情况下颜色不生效的问题
 ```
 
 ### 通用扩展

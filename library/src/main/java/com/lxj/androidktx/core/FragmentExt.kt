@@ -28,6 +28,18 @@ fun FragmentActivity.hide(f: Fragment){
             .commitAllowingStateLoss()
 }
 
+fun FragmentActivity.show(f: Fragment){
+    supportFragmentManager.beginTransaction()
+            .show(f)
+            .commitAllowingStateLoss()
+}
+fun FragmentActivity.remove(f: Fragment){
+    supportFragmentManager.beginTransaction()
+            .remove(f)
+            .commitAllowingStateLoss()
+}
+
+
 fun Fragment.replace(layoutId: Int, f: Fragment,  bundle: Array<out Pair<String, Any?>>?){
     if(bundle!=null)f.arguments = bundle.toBundle()
     childFragmentManager.beginTransaction()
@@ -45,5 +57,16 @@ fun Fragment.add(layoutId: Int, f: Fragment,  bundle: Array<out Pair<String, Any
 fun Fragment.hide( f: Fragment){
     childFragmentManager.beginTransaction()
             .hide(f)
+            .commitAllowingStateLoss()
+}
+
+fun Fragment.show(f: Fragment){
+    childFragmentManager.beginTransaction()
+            .show(f)
+            .commitAllowingStateLoss()
+}
+fun Fragment.remove(f: Fragment){
+    childFragmentManager.beginTransaction()
+            .remove(f)
             .commitAllowingStateLoss()
 }
