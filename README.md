@@ -283,6 +283,18 @@ OkWrapper.interceptors(...)
 OkWrapper.cancel("abc")
 ```
 
+### LiveDataBus相关
+基于LiveData的事件总线，好处是：轻量，无内存泄露，自动解注册。
+```kotlin
+// 接收消息
+LiveDataBus.with<String>("key1").observe(this, observer = Observer {
+    it?.v()
+})
+// 发送消息
+LiveDataBus.with<String>("key1").setValue("message1")
+```
+
+
 ## 注意事项
 
 为了覆盖各种使用场景，该库对常用类库进行了封装，因此依赖了很多三方库。依赖的所有三方库如下：

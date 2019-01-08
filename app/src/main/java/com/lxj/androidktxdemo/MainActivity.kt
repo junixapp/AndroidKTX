@@ -1,19 +1,15 @@
 package com.lxj.androidktxdemo
 
-import android.support.v7.app.AppCompatActivity
+import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.v4.app.FragmentPagerAdapter
+import android.support.v7.app.AppCompatActivity
+import com.lxj.androidktx.bus.LiveDataBus
 import com.lxj.androidktx.core.*
-import com.lxj.androidktx.okhttp.*
 import com.lxj.androidktxdemo.entity.PageInfo
 import com.lxj.androidktxdemo.entity.User
 import com.lxj.androidktxdemo.fragment.*
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
-import java.io.IOException
-import java.lang.Exception
 
 
 data class UserTest(
@@ -32,7 +28,8 @@ class MainActivity : AppCompatActivity() {
             PageInfo("View相关", ViewExtPage()),
             PageInfo("ImageView相关", ImageViewExtPage()),
             PageInfo("Fragment相关", FragmentExtPage()),
-            PageInfo("Http相关", HttpExtFragment())
+            PageInfo("Http相关", HttpExtFragment()),
+            PageInfo("LiveDataBus", LiveDataBusDemo())
 
     )
 
@@ -53,6 +50,14 @@ class MainActivity : AppCompatActivity() {
         "{\"age\":25,\"name\":\"李晓俊\"}".toBean<User>().toString().w()
         "[{\"age\":25,\"name\":\"李晓俊\"}]".toBean<List<User>>().toString().e()
 
+
+        LiveDataBus.with<String>("key1").observe(this, observer = Observer {
+            it?.v()
+        })
+
+        LiveDataBus.with<User>("key2").observe(this, Observer {
+            it?.toJson()?.v()
+        })
     }
 
 
