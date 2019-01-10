@@ -139,6 +139,19 @@ sp().edit {
 sp().clear()
 ```
 
+### MMKV集成
+**MMKV**是微信开源的跨平台KV存储方案，支持跨进程。经过微信的长期实践和优化是目前Android平台性能最高，最成熟稳定的KV存储方案。完全可以替代SharedPreference。
+MMKV的API本身已经被设计得很简洁，我也只是简单集成下。
+
+使用范围：Any
+```kotlin
+mmkv(id = "user").putString("b", "cc")
+mmkv().putString("a", "1231")
+mmkv().getFloat("f", 123f)
+mmkv().clearAll()
+// 其他略过
+```
+
 ### Activity相关
 使用范围：Activity和Fragment，以及Context对象，会自动检测Context是否为Activity，并自动添加`FLAG_ACTIVITY_NEW_TASK`
 ```kotlin

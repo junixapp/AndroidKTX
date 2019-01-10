@@ -2,6 +2,7 @@ package com.lxj.androidktx
 
 import android.annotation.SuppressLint
 import android.content.Context
+import com.tencent.mmkv.MMKV
 
 /**
  * Description: 统一配置扩展方法中的变量
@@ -15,7 +16,7 @@ object AndroidKtxConfig {
     var sharedPrefName = "AndroidKTX"
 
     /**
-     * 初始化配置信息
+     * 初始化配置信息，必须调用
      * @param isDebug 是否是debug模式，默认为true
      */
     fun init(context: Context,
@@ -27,5 +28,6 @@ object AndroidKtxConfig {
         this.isDebug = isDebug
         this.defaultLogTag = defaultLogTag
         this.sharedPrefName = sharedPrefName
+        MMKV.initialize(this.context)
     }
 }
