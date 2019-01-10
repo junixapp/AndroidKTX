@@ -58,6 +58,21 @@ class MainActivity : AppCompatActivity() {
         LiveDataBus.with<User>("key2").observe(this, Observer {
             it?.toJson()?.v()
         })
+
+
+//        // 便捷处理
+//        sp().getString("a", "default")
+//        sp().getBoolean("b", false)
+//        sp(name = "xxx.cfg").getBoolean("b", false)
+//        //...
+//
+//        // 批处理
+//        sp().edit {
+//            putString("a", "1")
+//            putBoolean("b", true)
+//        }
+//        // 清楚
+//        sp().clear()
     }
 
 

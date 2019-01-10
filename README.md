@@ -124,15 +124,19 @@ imageView.load(url, placeholder = R.mipmap.ic_launcher, roundRadius = 20)
 ### SharedPref相关
 使用范围：Context
 ```kotlin
-ctx.putStringToSP("str", "哈哈")
-ctx.putIntToSP("int", 11)
-ctx.putBooleanToSP("bool", true)
-ctx.putFloatToSP("float", 11.22f)
-ctx.putLongToSP("long", 10000000000L)
-ctx.putStringSetToSP("stringset", setOf("a", "b", "c"))
+// 便捷处理
+sp().getString("a", "default")
+sp().getBoolean("b", false)
+sp(name = "xxx.cfg").getBoolean("b", false)
+//...
 
-ctx.getStringFromSP("a")
-// 其他略过
+// 批处理
+sp().edit {
+    putString("a", "1")
+    putBoolean("b", true)
+}
+// 清除
+sp().clear()
 ```
 
 ### Activity相关
@@ -303,6 +307,7 @@ implementation "com.github.bumptech.glide:glide:4.8.0"
 implementation 'com.google.code.gson:gson:2.8.5'
 implementation "com.squareup.okhttp3:okhttp:3.12.0"
 implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.0"
+implementation "android.arch.lifecycle:extensions:1.1.1"
 ```
 
 由于我依赖的三方库都是最新版本，可能与您当前项目中的类库版本不一致，有可能导致因为API变化而编译失败。此时需要排除我这个库中的依赖，假设我的Glide版本与你项目中的不一致，则需要在gradle中配置如下：
@@ -311,6 +316,10 @@ implementation ('com.lxj:androidktx:latest release version') {
         exclude group: 'com.github.bumptech.glide'
 }
 ```
+
+
+## TODO
+- MMKV集成
 
 
 ## 意见收集

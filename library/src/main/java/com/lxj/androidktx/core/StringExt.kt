@@ -25,9 +25,4 @@ fun String.isIDCard() = "[1-9]\\d{16}[a-zA-Z0-9]".toRegex().matches(this)
  */
 fun String.isChinese() = "^[\u4E00-\u9FA5]+$".toRegex().matches(this)
 
-fun main(args: Array<String>) {
-    println("13899990000".isPhone())
-    println("13899990000@aas.com".isEmail())
-    println("41282119900909337z".isIDCard())
-    println("洒水".isChinese())
-}
+
