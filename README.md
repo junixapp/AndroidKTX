@@ -332,7 +332,7 @@ implementation ('com.lxj:androidktx:latest release version') {
 
 
 ## TODO
-- MMKV集成
+- 其他常用方法集成
 
 
 ## 意见收集
