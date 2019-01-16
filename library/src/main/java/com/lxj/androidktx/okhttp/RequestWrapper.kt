@@ -18,8 +18,18 @@ data class RequestWrapper(
         return this
     }
 
+    fun headers(map: Map<String, Any>): RequestWrapper {
+        map.forEach { this.headers.add(Pair(it.key, "${it.value}")) }
+        return this
+    }
+
     fun params(vararg params: Pair<String, Any>): RequestWrapper {
         params.forEach { this.params.add(Pair(it.first, if (it.second is File) it.second else "${it.second}")) }
+        return this
+    }
+
+    fun params(map: Map<String, Any>): RequestWrapper {
+        map.forEach { this.params.add(Pair(it.key, if (it.value is File) it.value else "${it.value}")) }
         return this
     }
 

@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit
  * Description: A better http log interceptor.
  * Create by dance, at 2019/1/2
  */
-class HttpLogInterceptor @JvmOverloads constructor(private val logger: Logger = Logger.DEFAULT) : Interceptor {
+class HttpLogInterceptor @JvmOverloads constructor(var printResponseHeader: Boolean = false, private val logger: Logger = Logger.DEFAULT) : Interceptor {
     private val requestPrefix = "--->"
     private val responsePrefix = "<---"
     interface Logger {
@@ -87,8 +87,11 @@ class HttpLogInterceptor @JvmOverloads constructor(private val logger: Logger = 
         responseMessage += response.request().url()
         responseMessage += " (" + tookMs + "ms" + ", $bodySize body)\n"
 
+        // 是否拼接打印头
         val headers = response.headers()
-        responseMessage += header2String(headers)
+        if (printResponseHeader){
+            responseMessage += header2String(headers)
+        }
 
         if (!HttpHeaders.hasBody(response)) {
             responseMessage += "\n$responsePrefix END HTTP"

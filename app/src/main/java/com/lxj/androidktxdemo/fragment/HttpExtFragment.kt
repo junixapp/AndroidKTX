@@ -38,6 +38,10 @@ class HttpExtFragment : BaseFragment() {
 //        OkWrapper.headers("header1" to "a", "header2" to "b")
         OkWrapper.interceptors()
 
+
+        val map = hashMapOf<String, String>()
+        map.put("xxx","yyyy")
+
         btnSend.click {
             GlobalScope.launch {
                 val data = "http://192.168.1.103:3000/json".http(tag = "abc")
@@ -45,9 +49,9 @@ class HttpExtFragment : BaseFragment() {
                                 "abc" to "def")
                         .params(
                                 "token" to "188sas9cf99a9d",
-                                "uid" to 123213,
-                                "file" to  file
-                        )
+                                "uid" to 123213
+//                                "file" to  file
+                        ).params(map)
                         .post<String>()
 
                 vm!!.data.postValue(data)
