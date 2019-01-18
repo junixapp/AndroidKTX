@@ -4,6 +4,7 @@ import android.arch.lifecycle.*
 import android.os.Environment
 import com.lxj.androidktx.core.click
 import com.lxj.androidktx.core.d
+import com.lxj.androidktx.core.v
 import com.lxj.androidktx.okhttp.*
 import com.lxj.androidktxdemo.R
 import kotlinx.android.synthetic.main.fragment_http_ext.*
@@ -12,6 +13,7 @@ import kotlinx.coroutines.launch
 import org.json.JSONObject
 import java.io.File
 import java.io.IOException
+import kotlin.math.log
 
 /**
  * Description: Okhttp扩展
@@ -22,12 +24,12 @@ class HttpExtFragment : BaseFragment() {
 
     override fun getLayoutId() = R.layout.fragment_http_ext
     override fun initView() {
-        val file = File(Environment.getExternalStorageDirectory().toString()+"/a.txt")
+        val file = File(Environment.getExternalStorageDirectory().toString() + "/a.txt")
         vm = ViewModelProviders.of(this).get(HttpExtVM::class.java)
 
         vm!!.data.observe(this, Observer<String> {
 
-            tvResponse.text = if(it==null) "请求失败" else JSONObject(it).toString(2)
+            tvResponse.text = if (it == null) "请求失败" else JSONObject(it).toString(2)
         })
 
 
@@ -40,27 +42,37 @@ class HttpExtFragment : BaseFragment() {
 
 
         val map = hashMapOf<String, String>()
-        map.put("xxx","yyyy")
+        map.put("xxx", "yyyy")
 
         btnSend.click {
             GlobalScope.launch {
-                val data = "http://192.168.1.103:3000/json".http(tag = "abc")
-                        .headers("device" to "HuaWeiMate20",
-                                "abc" to "def")
-                        .params(
-                                "token" to "188sas9cf99a9d",
-                                "uid" to 123213
-//                                "file" to  file
-                        ).params(map)
-                        .post<String>()
-
-                vm!!.data.postValue(data)
+//                val data = "http://192.168.1.103:3000/json".http(tag = "abc")
+//                        .headers("device" to "HuaWeiMate20",
+//                                "abc" to "def")
+//                        .params(
+//                                "token" to "188sas9cf99a9d",
+//                                "uid" to 123213
+////                                "file" to  file
+//                        ).params(map)
+//                        .post<String>()
+//
+//                vm!!.data.postValue(data)
 ////              OkWrapper.cancel("abc") // 取消请求
+
+                val t = "https://api.gulltour.com/v1/common/nations".http().get<RestResult<List<DemoData>>>()
+                "coroutine size：${t?.data?.size}".d()
+                "coroutine type：${t?.data is List}".d()
+                t?.data?.forEach {
+
+                    "${it.javaClass}".v()
+                }
             }
             //callback style
-//            "https://api.gulltour.com/v1/common/nations".http().get(object : HttpCallback<String> {
-//                override fun onSuccess(t: String) {
+//            "https://api.gulltour.com/v1/common/nations".http().get(object : HttpCallback<RestResult<List<DemoData>>> {
+//                override fun onSuccess(t: RestResult<List<DemoData>>) {
+//                    "size：${t.data.size}".d()
 //                }
+//
 //                override fun onFail(e: IOException) {
 //                    super.onFail(e)
 //                }
@@ -74,8 +86,20 @@ class HttpExtFragment : BaseFragment() {
 
 }
 
-data class RestResult(
+data class RestResult<T>(
         var message: String = "",
         var code: Int = 0,
-        var data: String = ""
+        var data: T
 )
+
+//"id": 27,
+//"name": "中国大陆",
+//"code": "CN",
+//"nation_flag": "86",
+//"pattern": "^1\\d{10}$"
+data class DemoData(
+        var id: Int,
+        var name: String,
+        var code: String
+)
+

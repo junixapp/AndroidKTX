@@ -79,7 +79,7 @@ fun View.longToast(msg: CharSequence) {
 
 /** json相关 **/
 fun Any.toJson() = Gson().toJson(this)
-inline fun <reified T> String.toBean() = Gson().fromJson(this,T::class.java)
+inline fun <reified T> String.toBean() = Gson().fromJson<T>(this,object : TypeToken<T>(){}.type)
 
 
 /** Window相关 **/
