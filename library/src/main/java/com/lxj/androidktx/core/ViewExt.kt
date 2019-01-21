@@ -1,5 +1,7 @@
 package com.lxj.androidktx.core
 
+import android.animation.IntEvaluator
+import android.animation.ValueAnimator
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
@@ -87,18 +89,70 @@ fun View.widthAndHeight(width: Int, height: Int): View {
  * @param rightMargin 默认是保留原来的
  * @param bottomMargin 默认是保留原来的
  */
-fun View.margin(leftMargin: Int = Int.MAX_VALUE, topMargin: Int = Int.MAX_VALUE, rightMargin: Int = Int.MAX_VALUE, bottomMargin:Int = Int.MAX_VALUE): View{
+fun View.margin(leftMargin: Int = Int.MAX_VALUE, topMargin: Int = Int.MAX_VALUE, rightMargin: Int = Int.MAX_VALUE, bottomMargin: Int = Int.MAX_VALUE): View {
     val params = layoutParams as ViewGroup.MarginLayoutParams
-    if(leftMargin!=Int.MAX_VALUE)
+    if (leftMargin != Int.MAX_VALUE)
         params.leftMargin = leftMargin
-    if(topMargin!=Int.MAX_VALUE)
+    if (topMargin != Int.MAX_VALUE)
         params.topMargin = topMargin
-    if(rightMargin!=Int.MAX_VALUE)
+    if (rightMargin != Int.MAX_VALUE)
         params.rightMargin = rightMargin
-    if(bottomMargin!=Int.MAX_VALUE)
+    if (bottomMargin != Int.MAX_VALUE)
         params.bottomMargin = bottomMargin
     layoutParams = params
     return this
+}
+
+/**
+ * 设置宽度，带有过渡动画
+ * @param targetValue 目标宽度
+ * @param duration 时长
+ * @param action 可选行为
+ */
+fun View.animateWidth(targetValue: Int, duration: Long = 400, action:((Float)->Unit)? = null) {
+    ValueAnimator.ofInt(width, targetValue).apply {
+        addUpdateListener {
+            width(it.animatedValue as Int)
+            action?.invoke((it.animatedFraction))
+        }
+        setDuration(duration)
+        start()
+    }
+}
+/**
+ * 设置高度，带有过渡动画
+ * @param targetValue 目标高度
+ * @param duration 时长
+ * @param action 可选行为
+ */
+fun View.animateHeight(targetValue: Int, duration: Long = 400, action:((Float)->Unit)? = null) {
+    ValueAnimator.ofInt(height, targetValue).apply {
+        addUpdateListener {
+            height(it.animatedValue as Int)
+            action?.invoke((it.animatedFraction))
+        }
+        setDuration(duration)
+        start()
+    }
+}
+/**
+ * 设置宽度和高度，带有过渡动画
+ * @param targetWidth 目标宽度
+ * @param targetHeight 目标高度
+ * @param duration 时长
+ * @param action 可选行为
+ */
+fun View.animateWidthAndHeight(targetWidth: Int, targetHeight: Int, duration: Long = 400, action:((Float)->Unit)? = null) {
+    val startHeight = height
+    val evaluator = IntEvaluator()
+    ValueAnimator.ofInt(width, targetWidth).apply {
+        addUpdateListener {
+            widthAndHeight(it.animatedValue as Int, evaluator.evaluate(it.animatedFraction, startHeight, targetHeight))
+            action?.invoke((it.animatedFraction))
+        }
+        setDuration(duration)
+        start()
+    }
 }
 
 /**
@@ -106,10 +160,10 @@ fun View.margin(leftMargin: Int = Int.MAX_VALUE, topMargin: Int = Int.MAX_VALUE,
  */
 var _viewClickFlag = false
 var _clickRunnable = Runnable { _viewClickFlag = false }
-fun View.click(action: (view: View)->Unit){
-    if(!hasOnClickListeners()){
-        setOnClickListener{
-            if(!_viewClickFlag){
+fun View.click(action: (view: View) -> Unit) {
+    if (!hasOnClickListeners()) {
+        setOnClickListener {
+            if (!_viewClickFlag) {
                 _viewClickFlag = true
                 action(it)
             }
@@ -122,45 +176,46 @@ fun View.click(action: (view: View)->Unit){
 /**
  * 设置长按监听
  */
-fun View.longClick(action: (view: View)->Boolean){
-    setOnLongClickListener{
+fun View.longClick(action: (view: View) -> Boolean) {
+    setOnLongClickListener {
         action(it)
     }
 }
 
 
-
 /*** 可见性相关 ****/
-fun View.gone(){
+fun View.gone() {
     visibility = View.GONE
 }
-fun View.visible(){
+
+fun View.visible() {
     visibility = View.VISIBLE
 }
-fun View.invisible(){
+
+fun View.invisible() {
     visibility = View.INVISIBLE
 }
 
 val View.isGone: Boolean
     get() {
-        return visibility==View.GONE
+        return visibility == View.GONE
     }
 
 val View.isVisible: Boolean
     get() {
-        return visibility==View.VISIBLE
+        return visibility == View.VISIBLE
     }
 
 val View.isInvisible: Boolean
     get() {
-        return visibility==View.INVISIBLE
+        return visibility == View.INVISIBLE
     }
 
 /**
  * 切换View的可见性
  */
-fun View.toggleVisibility(){
-    visibility = if(visibility==View.GONE) View.VISIBLE else View.GONE
+fun View.toggleVisibility() {
+    visibility = if (visibility == View.GONE) View.VISIBLE else View.GONE
 }
 
 
@@ -169,7 +224,7 @@ fun View.toggleVisibility(){
  * 注意：调用该方法时，请确保View已经测量完毕，如果宽高为0，则将抛出异常
  */
 fun View.toBitmap(): Bitmap {
-    if(measuredWidth==0 || measuredHeight==0){
+    if (measuredWidth == 0 || measuredHeight == 0) {
         throw RuntimeException("调用该方法时，请确保View已经测量完毕，如果宽高为0，则抛出异常以提醒！")
     }
     return when (this) {

@@ -21,15 +21,21 @@ class ViewExtPage: BaseFragment(){
         text3.text = "text3.margin(leftMargin = $value)"
 
 
+        text3.click {
+            it.animateWidthAndHeight(600,900, action = {
+
+            })
+        }
+
         text4.post {
             image.setImageBitmap(text4.toBitmap())
         }
 
         text4.click {
-            startActivity<MainActivity>(bundle = arrayOf(
-                    "a" to 1,
-                    "b" to "lala"
-            ))
+//            startActivity<MainActivity>(bundle = arrayOf(
+//                    "a" to 1,
+//                    "b" to "lala"
+//            ))
 
 //            startActivity<MainActivity>(flag = Intent.FLAG_ACTIVITY_CLEAR_TOP, bundle = arrayOf(
 //                    "a" to 1,
