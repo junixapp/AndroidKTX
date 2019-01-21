@@ -97,6 +97,8 @@ tvClickResult.clickSpan(str = str, range = 2..6, color = Color.BLUE, clickListen
 ```kotlin
 view.width(100)           // 设置View的宽度为100
 view.widthAndHeight(100)  // 改变View的宽度和高度为100
+view.animateWidthAndHeight(600,900) //带有动画
+view.animateWidth(600,900, action = { //监听动画进度，执行可选操作 }) //带有动画
 view.margin(leftMargin = 100)  // 设置View左边距为100
 view.click { toast("aa") }    // 设置点击监听，已实现事件节流，350毫秒内只能点击一次
 view.longClick {             // 设置长按监听
