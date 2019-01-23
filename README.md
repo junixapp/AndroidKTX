@@ -265,16 +265,16 @@ ctx/fragment/view.windowHeight()
 - 请求示例
 ```kotlin
 //Get请求
-val user = "http://192.168.1.103:3000/json".http().get<User>()
+val user = "http://192.168.1.103:3000/json".http().get<User>().await()
 //Post请求，传递header和params
 val user = "http://192.168.1.103:3000/json".http()
                 .headers("device" to "HuaWeiMate20", ...)
                 .params("token" to "188sas9cf99a9d",
                     "file" to file,  //上传文件
                      ...)
-                .post<User>()
+                .post<User>().await()
 ```
-上面的示例本身是阻塞的，需要在协程中使用；也是我最喜欢和最推荐的方式。如果你不用协程，则可以用`callback style`：
+上面的示例需要在协程中使用；也是我最喜欢和最推荐的方式。如果你不用协程，则可以用`callback style`：
 ```kotlin
 "http://192.168.1.103:3000/json".http().get(object : HttpCallback<String> {
         override fun onSuccess(t: String) {

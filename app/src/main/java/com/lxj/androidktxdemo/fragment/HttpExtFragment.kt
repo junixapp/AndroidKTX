@@ -60,10 +60,10 @@ class HttpExtFragment : BaseFragment() {
 ////              OkWrapper.cancel("abc") // 取消请求
 
                 val t = "https://api.gulltour.com/v1/common/nations".http().get<RestResult<List<DemoData>>>()
+                        .await()
                 "coroutine size：${t?.data?.size}".d()
                 "coroutine type：${t?.data is List}".d()
                 t?.data?.forEach {
-
                     "${it.javaClass}".v()
                 }
             }
