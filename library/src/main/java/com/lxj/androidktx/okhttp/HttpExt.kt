@@ -21,7 +21,7 @@ import java.net.URLConnection.getFileNameMap
 
 /**
  * http扩展，使用起来像这样：
- * 协程中使用：    "http://www.baidu.com".http().get<Bean>()
+ * 协程中使用：    "http://www.baidu.com".http().get<Bean>().await()
  * 非协程中使用：  "http://www.baidu.com".http().get<Bean>(callback)
  *
  * @param tag 请求的tag
@@ -31,7 +31,7 @@ fun String.http(tag: Any = this): RequestWrapper {
 }
 
 /**
- * get请求，阻塞调用，需在协程中使用。结果为空即为失败，并会将失败信息打印日志。
+ * get请求，需在协程中使用。结果为空即为失败，并会将失败信息打印日志。
  */
 inline fun <reified T> RequestWrapper.get(): Deferred<T?> {
     return doRequest(buildGetRequest(), this)
@@ -45,7 +45,7 @@ inline fun <reified T> RequestWrapper.get(cb: HttpCallback<T>) {
 }
 
 /**
- * post请求，阻塞调用，需在协程中使用。结果为空即为失败，并会将失败信息打印日志。
+ * post请求，需在协程中使用。结果为空即为失败，并会将失败信息打印日志。
  */
 inline fun <reified T> RequestWrapper.post(): Deferred<T?> {
     return doRequest(buildPostRequest(), this)
@@ -59,7 +59,7 @@ inline fun <reified T> RequestWrapper.post(cb: HttpCallback<T>) {
 }
 
 /**
- * put请求，阻塞调用，需在协程中使用。结果为空即为失败，并会将失败信息打印日志。
+ * put请求，需在协程中使用。结果为空即为失败，并会将失败信息打印日志。
  */
 inline fun <reified T> RequestWrapper.put(): Deferred<T?> {
     return doRequest(buildPostRequest(), this)
@@ -73,7 +73,7 @@ inline fun <reified T> RequestWrapper.put(cb: HttpCallback<T>) {
 }
 
 /**
- * delete请求，阻塞调用，需在协程中使用。结果为空即为失败，并会将失败信息打印日志。
+ * delete请求，需在协程中使用。结果为空即为失败，并会将失败信息打印日志。
  */
 inline fun <reified T> RequestWrapper.delete(): Deferred<T?> {
     return doRequest(buildPostRequest(), this)
