@@ -92,17 +92,6 @@ inline fun <reified T> doRequest(request: Request, reqWrapper: RequestWrapper): 
             .build()
     val call = OkWrapper.okHttpClient.newCall(req)
             .apply { OkWrapper.requestCache[reqWrapper.tag()] = this } //cache req
-    OkWrapper.requestCache.remove(reqWrapper.tag())
-//    return if (response.isSuccessful) {
-//        if ("ktx" is T) {
-//            response.body()!!.string() as T
-//        } else {
-//            response.body()!!.string().toBean<T>()
-//        }
-//    } else {
-//        "request to ${request.url()} is fail; http code: ${response.code()}!".e()
-//        null
-//    }
     val deferred = CompletableDeferred<T?>()
     deferred.invokeOnCompletion {
         if (deferred.isCancelled)
@@ -110,9 +99,13 @@ inline fun <reified T> doRequest(request: Request, reqWrapper: RequestWrapper): 
     }
     call.enqueue(object : Callback {
         override fun onFailure(call: Call, e: IOException) {
-            deferred.completeExceptionally(e)
+            OkWrapper.requestCache.remove(reqWrapper.tag())
+//            deferred.completeExceptionally(e)
+            deferred.complete(null) //pass null
+            e.printStackTrace()
         }
         override fun onResponse(call: Call, response: Response) {
+            OkWrapper.requestCache.remove(reqWrapper.tag())
             if (response.isSuccessful) {
                 if ("ktx" is T) {
                     deferred.complete(response.body()!!.string() as T)
@@ -122,8 +115,7 @@ inline fun <reified T> doRequest(request: Request, reqWrapper: RequestWrapper): 
             } else {
                 //not throw
 //              deferred.completeExceptionally(IOException(response))
-                "request to ${request.url()} is fail; http code: ${response.code()}!".e()
-                deferred.complete(null) //pass null
+                onFailure(call, IOException("request to ${request.url()} is fail; http code: ${response.code()}!"))
             }
         }
     })
@@ -139,7 +131,6 @@ inline fun <reified T> callbackRequest(request: Request, cb: HttpCallback<T>, re
                 OkWrapper.requestCache.remove(reqWrapper.tag())
                 cb.onFail(e)
             }
-
             override fun onResponse(call: Call, response: Response) {
                 OkWrapper.requestCache.remove(reqWrapper.tag())
                 if (response.isSuccessful) {
