@@ -66,27 +66,27 @@ AndroidKtxConfig.init(context = this,
 封装了颜色，大小，背景色，删除线和点击等常用的文本装饰，使用对象是TextView和String。用法如下：
 ```kotlin
 val str = "我是测试文字"
-tvSizeResult.sizeSpan(str, 0..2)
-tvSizeResult.sizeSpan(str, 0..2, scale = .7f) //改变scale可以控制放大或缩小，scale默认是1.5
+textView.sizeSpan(str, 0..2)
+textView.sizeSpan(str, 0..2, scale = .7f) //改变scale可以控制放大或缩小，scale默认是1.5
 ```
 ![weather_humidity](imgs/size_span.png)
 
 ```kotlin
-tvColorResult.colorSpan(str,2..6)
+textView.colorSpan(str,2..6)
 ```
 ![weather_humidity](imgs/color_span.png)
 
 ```kotlin
-tvBgColorResult.backgroundColorSpan(str,2..6)
+textView.backgroundColorSpan(str,2..6)
 ```
 ![weather_humidity](imgs/bg_color_span.png)
 
 ```kotlin
-tvStrikethrougthResult.strikeThrougthSpan(str,2..6)
+textView.strikeThrougthSpan(str,2..6)
 ```
 ![weather_humidity](imgs/strikethrough_span.png)
 ```kotlin
-tvClickResult.clickSpan(str = str, range = 2..6, color = Color.BLUE, clickListener = View.OnClickListener {
+textView.clickSpan(str = str, range = 2..6, color = Color.BLUE, clickListener = View.OnClickListener {
     toast("哈哈我被点击了".toColorSpan(0..2))
 })
 ```
@@ -142,7 +142,7 @@ sp().clear()
 ```
 
 ### MMKV集成
-**MMKV**是微信开源的跨平台KV存储方案，支持跨进程。经过微信的长期实践和优化是目前Android平台性能最高，最成熟稳定的KV存储方案。完全可以替代SharedPreference。
+**MMKV**是微信开源的跨平台KV存储方案，支持跨进程。经过微信的长期实践和优化，是目前Android平台性能最高，最成熟稳定的KV存储方案。完全可以替代SharedPreference。
 MMKV的API本身已经被设计得很简洁，我也只是简单集成下。
 
 使用范围：Any
