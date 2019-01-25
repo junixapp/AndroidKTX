@@ -15,7 +15,7 @@
 
         <ImageView
             android:id="@+id/image1"
-            android:layout_width="100dp"
+            android:layout_width="120dp"
             android:layout_height="100dp" />
 
         <include layout="@layout/divider"/>
@@ -37,6 +37,7 @@
 
         <ImageView
             android:id="@+id/image3"
+            android:scaleType="centerCrop"
             android:layout_width="100dp"
             android:layout_height="100dp" />
 
