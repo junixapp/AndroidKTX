@@ -18,14 +18,19 @@ import com.bumptech.glide.request.RequestOptions
  * @param placeholder 默认占位图
  * @param error 失败占位图
  * @param isCircle 是否是圆形，默认false，注意：isCircle和roundRadius两个只能有一个生效
+ * @param isCenterCrop 是否设置scaleType为CenterCrop，你也可以在布局文件中设置
  * @param roundRadius 圆角角度，默认为0，不带圆角，注意：isCircle和roundRadius两个只能有一个生效
  * @param isCrossFade 是否有过渡动画，默认没有过渡动画
  */
 fun ImageView.load(url: Any, placeholder: Int = 0, error: Int = 0,
                    isCircle: Boolean = false,
+                   isCenterCrop: Boolean = false,
                    roundRadius: Int = 0,
                    isCrossFade: Boolean = false) {
     val options = RequestOptions().placeholder(placeholder).error(error).apply {
+        if (isCenterCrop && scaleType != ImageView.ScaleType.CENTER_CROP)
+            scaleType = ImageView.ScaleType.CENTER_CROP
+
         if (isCircle) {
             circleCrop()
         } else if (roundRadius != 0) {

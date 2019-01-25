@@ -117,7 +117,7 @@ view.toBitmap()           // 获取View的截图，支持RecyclerView长列表�
 
 ### ImageView相关
 ```kotlin
-// 底层是封装Glide来加载图片
+// 底层是封装Glide来加载图片，内部已解决Glide的CenterCrop导致圆角失效的问题
 imageView.load(url)
 imageView.load(url, placeholder = R.mipmap.ic_launcher, isCircle = true)
 imageView.load(url, placeholder = R.mipmap.ic_launcher, roundRadius = 20)
@@ -224,8 +224,8 @@ ctx/fragment/view.longToast("测试长吐司")
 
 - dp和px转换：
 ```kotlin
-ctx/fragment/view.dp2px(100)
-ctx/fragment/view.px2dp(100)
+ctx/fragment/view/holder.dp2px(100)
+ctx/fragment/view/holder.px2dp(100)
 ```
 
 - Json转换相关：
@@ -239,18 +239,18 @@ User("李晓俊", 25).toJson()   // {"age":25,"name":"李晓俊"}
 
 - Resource获取相关
 ```kotlin
-context/fragment/view.string(R.string.app_name) // 获取字符串
-context/fragment/view.stringArray(R.array.array) // 获取字符串数组
-context/fragment/view.color(R.id.color)    //获取颜色
-context/fragment/view.drawable(R.mipmap.ic_launcher) // 获取图片
-context/fragment/view.dimenPx(R.dimen.abc) // 获取dp值
+context/fragment/view/holder.string(R.string.app_name) // 获取字符串
+context/fragment/view/holder.stringArray(R.array.array) // 获取字符串数组
+context/fragment/view/holder.color(R.id.color)    //获取颜色
+context/fragment/view/holder.drawable(R.mipmap.ic_launcher) // 获取图片
+context/fragment/view/holder.dimenPx(R.dimen.abc) // 获取dp值
 ```
 
 - 网络相关
 ```kotlin
-isNetworkConnected()  // 当前是否有网络连接
-isWifiConnected()     // 当前是否是WIFI连接
-isMobileConnected()   // 当前是否是移动数据连接
+context.isNetworkConnected()  // 当前是否有网络连接
+context.isWifiConnected()     // 当前是否是WIFI连接
+context.isMobileConnected()   // 当前是否是移动数据连接
 ```
 
 - window相关

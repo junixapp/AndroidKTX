@@ -2,6 +2,7 @@ package com.lxj.androidktx.core
 
 import android.content.Context
 import android.support.v4.app.Fragment
+import android.support.v7.widget.RecyclerView
 import android.view.View
 
 /**
@@ -40,3 +41,14 @@ fun Fragment.stringArray(id: Int) = context!!.stringArray(id)
 fun Fragment.drawable(id: Int) = context!!.drawable(id)
 
 fun Fragment.dimenPx(id: Int) = context!!.dimenPx(id)
+
+
+fun RecyclerView.ViewHolder.color(id: Int) = itemView.color(id)
+
+fun RecyclerView.ViewHolder.string(id: Int) = itemView.string(id)
+
+fun RecyclerView.ViewHolder.stringArray(id: Int) = itemView.stringArray(id)
+
+fun RecyclerView.ViewHolder.drawable(id: Int) = itemView.drawable(id)
+
+fun RecyclerView.ViewHolder.dimenPx(id: Int) = itemView.dimenPx(id)

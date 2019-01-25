@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Bundle
 import android.os.Parcelable
 import android.support.v4.app.Fragment
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
@@ -53,6 +54,18 @@ fun View.dp2px(dpValue: Int): Int {
 }
 fun View.px2dp(pxValue: Int): Float {
     return context!!.px2dp(pxValue)
+}
+fun RecyclerView.ViewHolder.px2dp(pxValue: Float): Float {
+    return itemView.px2dp(pxValue)
+}
+fun RecyclerView.ViewHolder.dp2px(dpValue: Float): Int {
+    return itemView.dp2px(dpValue)
+}
+fun RecyclerView.ViewHolder.dp2px(dpValue: Int): Int {
+    return itemView.dp2px(dpValue)
+}
+fun RecyclerView.ViewHolder.px2dp(pxValue: Int): Float {
+    return itemView.px2dp(pxValue)
 }
 
 
