@@ -13,6 +13,9 @@ import android.util.AttributeSet
  * Create by lxj, at 2018/12/25
  */
 
+/**
+ * 垂直RecyclerView
+ */
 class VerticalRecyclerView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : RecyclerView(context, attrs, defStyle) {
     init {
         layoutManager = LinearLayoutManager(getContext())
@@ -20,6 +23,9 @@ class VerticalRecyclerView @JvmOverloads constructor(context: Context, attrs: At
     }
 }
 
+/**
+ * 横向RecyclerView
+ */
 class HorizontalRecyclerView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : RecyclerView(context, attrs, defStyle) {
     init {
         layoutManager = LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false)

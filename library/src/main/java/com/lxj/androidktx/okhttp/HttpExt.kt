@@ -94,8 +94,10 @@ inline fun <reified T> doRequest(request: Request, reqWrapper: RequestWrapper): 
             .apply { OkWrapper.requestCache[reqWrapper.tag()] = this } //cache req
     val deferred = CompletableDeferred<T?>()
     deferred.invokeOnCompletion {
-        if (deferred.isCancelled)
+        if (deferred.isCancelled){
+            OkWrapper.requestCache.remove(reqWrapper.tag())
             call.cancel()
+        }
     }
     call.enqueue(object : Callback {
         override fun onFailure(call: Call, e: IOException) {
@@ -113,7 +115,7 @@ inline fun <reified T> doRequest(request: Request, reqWrapper: RequestWrapper): 
                     deferred.complete(response.body()!!.string().toBean<T>())
                 }
             } else {
-                //not throw
+                //not throw, pass null
 //              deferred.completeExceptionally(IOException(response))
                 onFailure(call, IOException("request to ${request.url()} is fail; http code: ${response.code()}!"))
             }
@@ -148,6 +150,7 @@ inline fun <reified T> callbackRequest(request: Request, cb: HttpCallback<T>, re
 
 }
 
+// parse some new media type.
 fun File.mediaType(): String {
     return getFileNameMap().getContentTypeFor(name) ?: when (extension.toLowerCase()) {
         "json" -> "application/json"
