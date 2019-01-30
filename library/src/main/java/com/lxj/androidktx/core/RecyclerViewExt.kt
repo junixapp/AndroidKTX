@@ -29,7 +29,6 @@ class VerticalRecyclerView @JvmOverloads constructor(context: Context, attrs: At
 class HorizontalRecyclerView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : RecyclerView(context, attrs, defStyle) {
     init {
         layoutManager = LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false)
-        divider( orientation = DividerItemDecoration.HORIZONTAL)
     }
 }
 
