@@ -19,7 +19,6 @@ import android.util.AttributeSet
 class VerticalRecyclerView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : RecyclerView(context, attrs, defStyle) {
     init {
         layoutManager = LinearLayoutManager(getContext())
-        divider()
     }
 }
 

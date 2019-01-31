@@ -6,6 +6,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
 
 /**
  * Description: ImageView相关
@@ -21,16 +22,17 @@ import com.bumptech.glide.request.RequestOptions
  * @param isCenterCrop 是否设置scaleType为CenterCrop，你也可以在布局文件中设置
  * @param roundRadius 圆角角度，默认为0，不带圆角，注意：isCircle和roundRadius两个只能有一个生效
  * @param isCrossFade 是否有过渡动画，默认没有过渡动画
+ * @param isForceOriginalSize 是否强制使用原图，默认false
  */
 fun ImageView.load(url: Any, placeholder: Int = 0, error: Int = 0,
                    isCircle: Boolean = false,
                    isCenterCrop: Boolean = false,
                    roundRadius: Int = 0,
-                   isCrossFade: Boolean = false) {
+                   isCrossFade: Boolean = false,
+                   isForceOriginalSize: Boolean = false) {
     val options = RequestOptions().placeholder(placeholder).error(error).apply {
         if (isCenterCrop && scaleType != ImageView.ScaleType.CENTER_CROP)
             scaleType = ImageView.ScaleType.CENTER_CROP
-
         if (isCircle) {
             circleCrop()
         } else if (roundRadius != 0) {
@@ -39,6 +41,9 @@ fun ImageView.load(url: Any, placeholder: Int = 0, error: Int = 0,
             } else {
                 transform(RoundedCorners(roundRadius))
             }
+        }
+        if(isForceOriginalSize){
+            override(Target.SIZE_ORIGINAL)
         }
     }
     Glide.with(context).load(url)
