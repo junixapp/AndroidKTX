@@ -113,6 +113,10 @@ view.isVisible // 属性
 view.isInvisible // 属性
 view.toggleVisibility() // 切换可见性
 view.toBitmap()           // 获取View的截图，支持RecyclerView长列表截图
+// 遍历子View
+layout.children.forEachIndexed { index, view ->
+
+}
 ```
 
 ### ImageView相关
@@ -211,8 +215,18 @@ add(R.id.frame1, AFragment())
 ```
 
 ### RecyclerView相关
+对RecyclerView的使用进行了极其简洁的封装，再也不用写Adapter。
 ```kotlin
-recyclerView.divider(color)   // 给RecyclerView添加分割线，解决了在某些情况下颜色不生效的问题
+recyclerView.vertical() //设置垂直
+            .divider(color = Color.RED) //设置分割线
+            // 绑定数据，只需传数据和布局，然后实现绑定的方法，再也不用写Adapter
+            .bindData(data, R.layout.adapter_rv) { holder, t, position ->
+                holder.setText(R.id.text, "模拟数据 - $t")
+                        .setImageResource(R.id.image, R.mipmap.ic_launcher_round)
+            }
+            .itemClick { view, holder, position ->
+                toast("click ${data[position]}")
+            }
 ```
 
 ### 通用扩展

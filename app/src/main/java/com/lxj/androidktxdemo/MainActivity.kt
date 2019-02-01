@@ -29,7 +29,8 @@ class MainActivity : AppCompatActivity() {
             PageInfo("ImageView相关", ImageViewExtPage()),
             PageInfo("Fragment相关", FragmentExtPage()),
             PageInfo("Http相关", HttpExtFragment()),
-            PageInfo("LiveDataBus", LiveDataBusDemo())
+            PageInfo("LiveDataBus", LiveDataBusDemo()),
+            PageInfo("RecyclerView相关", RecyclerViewExtDemo())
 
     )
 

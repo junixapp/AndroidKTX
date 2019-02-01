@@ -8,6 +8,7 @@ import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import java.lang.RuntimeException
 
 /**
@@ -263,3 +264,8 @@ fun View.toBitmap(): Bitmap {
         }
     }
 }
+
+
+// 所有子View
+inline val ViewGroup.children
+    get() = (0 until childCount).map { getChildAt(it) }
