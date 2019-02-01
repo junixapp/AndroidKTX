@@ -9,9 +9,7 @@ import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
-import com.lxj.easyadapter.CommonAdapter
-import com.lxj.easyadapter.MultiItemTypeAdapter
-import com.lxj.easyadapter.ViewHolder
+import com.lxj.easyadapter.*
 import java.lang.IllegalArgumentException
 
 /**
@@ -65,7 +63,7 @@ inline val RecyclerView.data
     get() = (adapter as CommonAdapter<*>).datas
 
 fun <T> RecyclerView.bindData(data: List<T>, layoutId: Int, bindFn: (holder: ViewHolder, t: T, position: Int) -> Unit): RecyclerView {
-    adapter = object : CommonAdapter<T>(layoutId, data){
+    adapter = object : CommonAdapter<T>(layoutId, data) {
         override fun convert(holder: ViewHolder, t: T, position: Int) {
             bindFn(holder, t, position)
         }
@@ -73,12 +71,16 @@ fun <T> RecyclerView.bindData(data: List<T>, layoutId: Int, bindFn: (holder: Vie
     return this
 }
 
-fun RecyclerView.itemClick(listener: (view: View, holder: RecyclerView.ViewHolder, position: Int)-> Unit): RecyclerView{
+fun <T> RecyclerView.multiTypes(data: List<T>, itemDelegates: List<ItemViewDelegate<T>>): RecyclerView {
+    adapter = MultiItemTypeAdapter<T>(data).apply {
+        itemDelegates.forEach { addItemViewDelegate(it) }
+    }
+    return this
+}
+
+fun RecyclerView.itemClick(listener: (view: View, holder: RecyclerView.ViewHolder, position: Int) -> Unit): RecyclerView {
     adapter?.apply {
-        if(this !is CommonAdapter<*>){
-            throw IllegalArgumentException("adapter must be CommonAdapter, not support custom adapter!")
-        }
-        setOnItemClickListener(object : MultiItemTypeAdapter.SimpleOnItemClickListener(){
+        (adapter as MultiItemTypeAdapter<*>).setOnItemClickListener(object : MultiItemTypeAdapter.SimpleOnItemClickListener() {
             override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
                 listener(view, holder, position)
             }

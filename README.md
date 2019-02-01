@@ -140,6 +140,37 @@ recyclerView.vertical() //设置垂直
             .itemClick { view, holder, position ->
                 toast("click ${data[position]}")
             }
+
+// 多条目类型
+recyclerView.vertical()
+            .divider(color = Color.RED)
+            .multiTypes(data, listOf(OneItem(), TwoItem()))
+            .itemClick { view, holder, position ->
+                toast("click ${data[position]}")
+            }
+// 实现多个Item类型
+class OneItem : ItemViewDelegate<String>{
+        override fun convert(holder: ViewHolder, t: String, position: Int) {
+            holder.setText(android.R.id.text1, t)
+        }
+        override fun isForViewType(item: String, position: Int): Boolean {
+            return true
+        }
+        override fun getLayoutId(): Int {
+            return android.R.layout.simple_list_item_1
+        }
+    }
+class TwoItem : ItemViewDelegate<String>{
+    override fun convert(holder: ViewHolder, t: String, position: Int) {
+        holder.setText(android.R.id.text1, t)
+    }
+    override fun isForViewType(item: String, position: Int): Boolean {
+        return true
+    }
+    override fun getLayoutId(): Int {
+        return android.R.layout.simple_list_item_1
+    }
+}
 ```
 
 
