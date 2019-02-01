@@ -127,6 +127,22 @@ imageView.load(url, placeholder = R.mipmap.ic_launcher, isCircle = true)
 imageView.load(url, placeholder = R.mipmap.ic_launcher, roundRadius = 20)
 ```
 
+### RecyclerView相关
+对RecyclerView的使用进行了极其简洁的封装，再也不用写Adapter。
+```kotlin
+recyclerView.vertical() //设置垂直
+            .divider(color = Color.RED) //设置分割线
+            // 绑定数据，只需传数据和布局，然后实现绑定的方法，再也不用写Adapter
+            .bindData(data, R.layout.adapter_rv) { holder, t, position ->
+                holder.setText(R.id.text, "模拟数据 - $t")
+                        .setImageResource(R.id.image, R.mipmap.ic_launcher_round)
+            }
+            .itemClick { view, holder, position ->
+                toast("click ${data[position]}")
+            }
+```
+
+
 ### SharedPref相关
 使用范围：Context
 ```kotlin
@@ -214,20 +230,6 @@ add(R.id.frame1, AFragment())
 (1544174919000L).toDateString(format = "yyyy-MM-dd")
 ```
 
-### RecyclerView相关
-对RecyclerView的使用进行了极其简洁的封装，再也不用写Adapter。
-```kotlin
-recyclerView.vertical() //设置垂直
-            .divider(color = Color.RED) //设置分割线
-            // 绑定数据，只需传数据和布局，然后实现绑定的方法，再也不用写Adapter
-            .bindData(data, R.layout.adapter_rv) { holder, t, position ->
-                holder.setText(R.id.text, "模拟数据 - $t")
-                        .setImageResource(R.id.image, R.mipmap.ic_launcher_round)
-            }
-            .itemClick { view, holder, position ->
-                toast("click ${data[position]}")
-            }
-```
 
 ### 通用扩展
 - toast相关
@@ -334,9 +336,11 @@ LiveDataBus.with<String>("key1").setValue("message1")
 ```groovy
 implementation "com.github.bumptech.glide:glide:4.8.0"
 implementation 'com.google.code.gson:gson:2.8.5'
-implementation "com.squareup.okhttp3:okhttp:3.12.0"
+implementation "com.squareup.okhttp3:okhttp:3.12.1"
 implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.0"
 implementation "android.arch.lifecycle:extensions:1.1.1"
+implementation 'com.lxj:easyadapter:1.0.0'
+implementation 'com.tencent:mmkv:1.0.16'
 ```
 
 由于我依赖的三方库都是最新版本，可能与您当前项目中的类库版本不一致，有可能导致因为API变化而编译失败。此时需要排除我这个库中的依赖，假设我的Glide版本与你项目中的不一致，则需要在gradle中配置如下：
