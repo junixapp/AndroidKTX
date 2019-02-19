@@ -131,6 +131,7 @@ imageView.load(url, placeholder = R.mipmap.ic_launcher, roundRadius = 20)
 对RecyclerView的使用进行了极其简洁的封装，再也不用写Adapter。
 ```kotlin
 recyclerView.vertical() //设置垂直
+            //.vertical(spanCount = 2, isStaggered = true) //设置垂直2列瀑布流
             .divider(color = Color.RED) //设置分割线
             // 绑定数据，只需传数据和布局，然后实现绑定的方法，再也不用写Adapter
             .bindData(data, R.layout.adapter_rv) { holder, t, position ->
@@ -140,6 +141,10 @@ recyclerView.vertical() //设置垂直
             .itemClick { view, holder, position ->
                 toast("click ${data[position]}")
             }
+
+//notify
+//recyclerView.adapter.notifyItemChanged()
+
 
 // 多条目类型
 recyclerView.vertical()

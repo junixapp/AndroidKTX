@@ -18,23 +18,23 @@ class RecyclerViewExtDemo : BaseFragment() {
         super.initView()
 
         val data = arrayListOf<String>().apply {
-            add("header")
             for (i in 0..30) {
                 add("$i")
             }
-            add("footer")
         }
-
         recyclerView.vertical()
-                .divider(color = Color.RED)
-//                .bindData(data, R.layout.adapter_rv) { holder, t, position ->
-//                    holder.setText(R.id.text, "模拟数据 - $t")
-//                            .setImageResource(R.id.image, R.mipmap.ic_launcher_round)
-//                }
-                .multiTypes(data, listOf(HeaderDelegate(), ContentDelegate(), FooterDelegate()))
-                .itemClick { view, holder, position ->
+                .divider(color = Color.parseColor("#eeeeee"), size = 20)
+                .bindData(data, R.layout.adapter_rv) { holder, t, position ->
+                    holder.setText(R.id.text, "模拟数据 - $t")
+                            .setImageResource(R.id.image, R.mipmap.ic_launcher_round)
+                }
+//                .multiTypes(data, listOf(HeaderDelegate(), ContentDelegate(), FooterDelegate()))
+                .itemClick<String> { data, holder, position ->
                     toast("click ${data[position]}")
                 }
+
+        //notify
+//        recyclerView.adapter.notifyItemChanged()
     }
 
     class HeaderDelegate : ItemViewDelegate<String>{
