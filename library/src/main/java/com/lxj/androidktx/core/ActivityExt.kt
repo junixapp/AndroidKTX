@@ -15,7 +15,11 @@ inline fun <reified T> Fragment.startActivity(flag: Int = -1, bundle: Array<out 
     activity?.startActivity<T>(flag, bundle)
 }
 
-inline fun <reified T> Context.startActivity(flag: Int = -1, bundle: Array<out Pair<String, Any?>>? = null){
+inline fun <reified T> Fragment.startActivityForResult(flag: Int = -1, bundle: Array<out Pair<String, Any?>>? = null, requestCode: Int = -1){
+    activity?.startActivityForResult<T>(flag, bundle, requestCode)
+}
+
+inline fun <reified T> Context.startActivity(flag: Int = -1, bundle: Array<out Pair<String, Any?>>? = null, requestCode: Int = -1){
     val intent = Intent(this, T::class.java).apply {
         if(flag!=-1) {
             this.addFlags(flag)
@@ -29,4 +33,18 @@ inline fun <reified T> Context.startActivity(flag: Int = -1, bundle: Array<out P
 
 inline fun <reified T> View.startActivity(flag: Int = -1, bundle: Array<out Pair<String, Any?>>? = null){
     context.startActivity<T>(flag, bundle)
+}
+
+inline fun <reified T> View.startActivityForResult(flag: Int = -1, bundle: Array<out Pair<String, Any?>>? = null, requestCode: Int = -1){
+    (context as Activity).startActivityForResult<T>(flag, bundle, requestCode)
+}
+
+inline fun <reified T> Activity.startActivityForResult(flag: Int = -1, bundle: Array<out Pair<String, Any?>>? = null, requestCode: Int = -1){
+    val intent = Intent(this, T::class.java).apply {
+        if(flag!=-1) {
+            this.addFlags(flag)
+        }
+        if (bundle!=null)putExtras(bundle.toBundle())
+    }
+    startActivityForResult(intent, requestCode)
 }

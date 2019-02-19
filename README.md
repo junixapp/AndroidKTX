@@ -138,7 +138,7 @@ recyclerView.vertical() //设置垂直
                 holder.setText(R.id.text, "模拟数据 - $t")
                         .setImageResource(R.id.image, R.mipmap.ic_launcher_round)
             }
-            .itemClick { view, holder, position ->
+            .itemClick { data, holder, position ->
                 toast("click ${data[position]}")
             }
 
@@ -150,7 +150,7 @@ recyclerView.vertical() //设置垂直
 recyclerView.vertical()
             .divider(color = Color.RED)
             .multiTypes(data, listOf(OneItem(), TwoItem()))
-            .itemClick { view, holder, position ->
+            .itemClick { data, holder, position ->
                 toast("click ${data[position]}")
             }
 // 实现多个Item类型
