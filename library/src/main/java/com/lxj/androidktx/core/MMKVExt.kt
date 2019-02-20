@@ -39,7 +39,10 @@ fun MMKV.addToList(key: String, s: String, isReplace: Boolean = true) {
 fun MMKV.getStringList(key: String): MutableList<String> {
     val srcSet = getStringSet(key, mutableSetOf())
     return srcSet!!.toSortedSet(comparator = Comparator { o1, o2 ->
-        o1.split(_set_divider)[1].compareTo(o2.split(_set_divider)[1])
+        val arr1 = o1.split(_set_divider)
+        val arr2 = o2.split(_set_divider)
+        if(!o1.contains(_set_divider) || !o1.contains(_set_divider))return@Comparator 0
+        arr1[1].compareTo(arr2[1])
     }).map { it.split(_set_divider)[0] }.toMutableList()
 }
 
