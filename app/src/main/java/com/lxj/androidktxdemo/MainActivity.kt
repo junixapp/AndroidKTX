@@ -62,8 +62,6 @@ class MainActivity : AppCompatActivity() {
         })
 
 
-
-
 //        // 便捷处理
 //        sp().getString("a", "default")
 //        sp().getBoolean("b", false)

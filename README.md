@@ -132,13 +132,13 @@ imageView.load(url, placeholder = R.mipmap.ic_launcher, roundRadius = 20)
 ```kotlin
 recyclerView.vertical() //设置垂直
             //.vertical(spanCount = 2, isStaggered = true) //设置垂直2列瀑布流
-            .divider(color = Color.RED) //设置分割线
+            .divider(color = Color.RED, size = 1) //设置分割线
             // 绑定数据，只需传数据和布局，然后实现绑定的方法，再也不用写Adapter
             .bindData(data, R.layout.adapter_rv) { holder, t, position ->
                 holder.setText(R.id.text, "模拟数据 - $t")
                         .setImageResource(R.id.image, R.mipmap.ic_launcher_round)
             }
-            .itemClick { data, holder, position ->
+            .itemClick<String> { data, holder, position ->
                 toast("click ${data[position]}")
             }
 
@@ -150,7 +150,7 @@ recyclerView.vertical() //设置垂直
 recyclerView.vertical()
             .divider(color = Color.RED)
             .multiTypes(data, listOf(OneItem(), TwoItem()))
-            .itemClick { data, holder, position ->
+            .itemClick<String> { data, holder, position ->
                 toast("click ${data[position]}")
             }
 // 实现多个Item类型
@@ -208,7 +208,7 @@ mmkv().putString("a", "1231")
 mmkv().getFloat("f", 123f)
 mmkv().clearAll()
 
-mmkv().addToList("a", "哈哈") // 实现了有序且去重
+mmkv().addToList("a", "哈哈", isReplace = true) // 实现了有序且去重，去重由isReplace决定
 mmkv().getStringList("a")
 mmkv().removeFromList("a", "呵呵")
 // 其他略过
