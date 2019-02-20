@@ -24,7 +24,7 @@ class HttpExtFragment : BaseFragment() {
 
     override fun getLayoutId() = R.layout.fragment_http_ext
     override fun initView() {
-        val file = File(Environment.getExternalStorageDirectory().toString() + "/a.txt")
+        val file = File(Environment.getExternalStorageDirectory().toString() + "/t.jpg")
         vm = ViewModelProviders.of(this).get(HttpExtVM::class.java)
 
         vm!!.data.observe(this, Observer<String> {
@@ -33,9 +33,18 @@ class HttpExtFragment : BaseFragment() {
         })
 
 
+
+
+
         // 全局header
-        OkWrapper.headers("header1" to "a",
-                "header2" to "b")
+        OkWrapper.headers("site" to "CN",
+                "name" to "GullMap_world",
+                "language" to "zh-CN",
+                "currency" to "CNY",
+                "device" to "6",
+                "version" to "3.2.0",
+                "token" to "OrE1GPYXyOb0z_w_s1dpq2rsM4t0DjwK_1538967658"
+        )
 
 //        OkWrapper.headers("header1" to "a", "header2" to "b")
         OkWrapper.interceptors()
@@ -46,7 +55,7 @@ class HttpExtFragment : BaseFragment() {
 
         btnSend.click {
             GlobalScope.launch {
-//                val data = "http://192.168.1.103:3000/json".http(tag = "abc")
+                //                val data = "http://192.168.1.103:3000/json".http(tag = "abc")
 //                        .headers("device" to "HuaWeiMate20",
 //                                "abc" to "def")
 //                        .params(
@@ -59,13 +68,11 @@ class HttpExtFragment : BaseFragment() {
 //                vm!!.data.postValue(data)
 ////              OkWrapper.cancel("abc") // 取消请求
 
-                val t = "https://api.gulltour.com/v1/common/nations".http().get<RestResult<List<DemoData>>>()
+                val t = "http://api.sandbox.gulltour.com/v1/weibo/upload".http()
+                        .params("weiboImage[]" to file)
+                        .post<String>()
                         .await()
-                "coroutine size：${t?.data?.size}".d()
-                "coroutine type：${t?.data is List}".d()
-                t?.data?.forEach {
-                    "${it.javaClass}".v()
-                }
+
             }
             //callback style
 //            "https://api.gulltour.com/v1/common/nations".http().get(object : HttpCallback<RestResult<List<DemoData>>> {

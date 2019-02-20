@@ -76,6 +76,19 @@ class MainActivity : AppCompatActivity() {
 //        }
 //        // 清楚
 //        sp().clear()
+
+        mmkv().clearAll()
+
+        mmkv().addToList("a", "哈哈")
+        mmkv().addToList("a", "cc")
+        mmkv().addToList("a", "呵呵")
+        mmkv().addToList("a", "黄河")
+        mmkv().addToList("a", "长江")
+
+        "1: ${mmkv().getStringList("a")}".e()
+
+        mmkv().removeFromList("a", "呵呵")
+        "2: ${mmkv().getStringList("a")}".e()
     }
 
 

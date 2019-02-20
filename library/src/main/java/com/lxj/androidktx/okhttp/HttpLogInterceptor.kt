@@ -1,5 +1,6 @@
 package com.lxj.androidktx.okhttp
 
+import com.lxj.androidktx.core.e
 import okhttp3.Headers
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -26,7 +27,6 @@ class HttpLogInterceptor @JvmOverloads constructor(var printResponseHeader: Bool
         fun log(message: String)
 
         companion object {
-
             /** A [Logger] defaults output appropriate for the current platform.  */
             val DEFAULT: Logger = object : Logger {
                 override fun log(message: String) {
@@ -49,20 +49,24 @@ class HttpLogInterceptor @JvmOverloads constructor(var printResponseHeader: Bool
         if (bodyHasUnknownEncoding(request.headers())) {
             requestMessage += "\n$requestPrefix END ${request.method()} (encoded body omitted)"
         } else if (requestBody != null) {
-            val buffer = Buffer()
-            requestBody.writeTo(buffer)
-
-            var charset: Charset? = UTF8
-            val contentType = requestBody.contentType()
-            if (contentType != null) {
-                charset = contentType.charset(UTF8)
-            }
             requestMessage += "\n"
-            if (isPlaintext(buffer)) {
-                requestMessage += buffer.readString(charset!!)
-                requestMessage += "\n$requestPrefix END ${request.method()}"
-            } else {
-                requestMessage += "\n$requestPrefix END ${request.method()} (binary ${requestBody.contentLength()} -byte body omitted)"
+            val contentType = requestBody.contentType()
+            if(contentType.toString().contains("multipart")){
+                requestMessage += "\n$requestPrefix END ${request.method()} (multipart binary ${requestBody.contentLength()} -byte body omitted)"
+            } else{
+                val buffer = Buffer()
+                requestBody.writeTo(buffer)
+
+                var charset: Charset? = UTF8
+                if (contentType != null) {
+                    charset = contentType.charset(UTF8)
+                }
+                if (isPlaintext(buffer)) {
+                    requestMessage += buffer.readString(charset!!)
+                    requestMessage += "\n$requestPrefix END ${request.method()}"
+                } else {
+                    requestMessage += "\n$requestPrefix END ${request.method()} (binary ${requestBody.contentLength()} -byte body omitted)"
+                }
             }
         } else {
             requestMessage += "\n$requestPrefix END ${request.method()} (no request body)"
