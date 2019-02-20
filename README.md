@@ -207,6 +207,10 @@ mmkv(id = "user").putString("b", "cc")
 mmkv().putString("a", "1231")
 mmkv().getFloat("f", 123f)
 mmkv().clearAll()
+
+mmkv().addToList("a", "哈哈") // 实现了有序且去重
+mmkv().getStringList("a")
+mmkv().removeFromList("a", "呵呵")
 // 其他略过
 ```
 

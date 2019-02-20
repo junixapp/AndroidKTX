@@ -10,6 +10,7 @@ import com.lxj.androidktxdemo.entity.PageInfo
 import com.lxj.androidktxdemo.entity.User
 import com.lxj.androidktxdemo.fragment.*
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 
 data class UserTest(
@@ -83,6 +84,8 @@ class MainActivity : AppCompatActivity() {
         mmkv().addToList("a", "cc")
         mmkv().addToList("a", "呵呵")
         mmkv().addToList("a", "黄河")
+        mmkv().addToList("a", "黄河")
+        mmkv().addToList("a", "长江")
         mmkv().addToList("a", "长江")
 
         "1: ${mmkv().getStringList("a")}".e()
