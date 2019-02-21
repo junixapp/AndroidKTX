@@ -2,9 +2,7 @@ package com.lxj.androidktxdemo.fragment
 
 import android.arch.lifecycle.*
 import android.os.Environment
-import com.lxj.androidktx.core.click
-import com.lxj.androidktx.core.d
-import com.lxj.androidktx.core.v
+import com.lxj.androidktx.core.*
 import com.lxj.androidktx.okhttp.*
 import com.lxj.androidktxdemo.R
 import kotlinx.android.synthetic.main.fragment_http_ext.*
@@ -31,10 +29,7 @@ class HttpExtFragment : BaseFragment() {
 
             tvResponse.text = if (it == null) "请求失败" else JSONObject(it).toString(2)
         })
-
-
-
-
+        tvResponse.sizeDrawable(dp2px(20), top = R.mipmap.ic_launcher)
 
         // 全局header
         OkWrapper.headers("site" to "CN",
