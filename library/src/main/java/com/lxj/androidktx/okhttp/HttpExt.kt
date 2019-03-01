@@ -1,6 +1,5 @@
 package com.lxj.androidktx.okhttp
 
-import com.lxj.androidktx.core.e
 import com.lxj.androidktx.core.toBean
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Deferred
@@ -14,16 +13,10 @@ import java.net.URLConnection.getFileNameMap
 
 
 /**
- * Description: Http相关扩展
- * Create by lxj, at 2018/12/19
- */
-
-
-/**
  * http扩展，使用起来像这样：
  * 协程中使用：    "http://www.baidu.com".http().get<Bean>().await()
  * 非协程中使用：  "http://www.baidu.com".http().get<Bean>(callback)
- *
+ * Create by lxj, at 2018/12/19
  * @param tag 请求的tag
  */
 fun String.http(tag: Any = this): RequestWrapper {
@@ -31,7 +24,7 @@ fun String.http(tag: Any = this): RequestWrapper {
 }
 
 /**
- * get请求，需在协程中使用。结果为空即为失败，并会将失败信息打印日志。
+ * get请求，需在协程中使用。结果为空即为http请求失败，并会将失败信息打印日志。
  */
 inline fun <reified T> RequestWrapper.get(): Deferred<T?> {
     return doRequest(buildGetRequest(), this)
@@ -45,10 +38,14 @@ inline fun <reified T> RequestWrapper.get(cb: HttpCallback<T>) {
 }
 
 /**
- * post请求，需在协程中使用。结果为空即为失败，并会将失败信息打印日志。
+ * post请求，需在协程中使用。结果为空即为http请求失败，并会将失败信息打印日志。
  */
 inline fun <reified T> RequestWrapper.post(): Deferred<T?> {
     return doRequest(buildPostRequest(), this)
+}
+
+inline fun <reified T> RequestWrapper.postJson(json: String): Deferred<T?> {
+    return doRequest(buildPostRequest(buildJsonBody(json)), this)
 }
 
 /**
@@ -57,33 +54,42 @@ inline fun <reified T> RequestWrapper.post(): Deferred<T?> {
 inline fun <reified T> RequestWrapper.post(cb: HttpCallback<T>) {
     callbackRequest(buildPostRequest(), cb, this)
 }
+inline fun <reified T> RequestWrapper.postJson(json: String, cb: HttpCallback<T>) {
+    callbackRequest(buildPostRequest(buildJsonBody(json)), cb, this)
+}
 
 /**
- * put请求，需在协程中使用。结果为空即为失败，并会将失败信息打印日志。
+ * put请求，需在协程中使用。结果为空即为http请求失败，并会将失败信息打印日志。
  */
 inline fun <reified T> RequestWrapper.put(): Deferred<T?> {
-    return doRequest(buildPostRequest(), this)
+    return doRequest(buildPutRequest(), this)
+}
+inline fun <reified T> RequestWrapper.putJson(json: String): Deferred<T?> {
+    return doRequest(buildPutRequest(buildJsonBody(json)), this)
 }
 
 /**
  * callback style，不在协程中使用
  */
 inline fun <reified T> RequestWrapper.put(cb: HttpCallback<T>) {
-    callbackRequest(buildPostRequest(), cb, this)
+    callbackRequest(buildPutRequest(), cb, this)
+}
+inline fun <reified T> RequestWrapper.putJson(json: String, cb: HttpCallback<T>) {
+    callbackRequest(buildPutRequest(buildJsonBody(json)), cb, this)
 }
 
 /**
- * delete请求，需在协程中使用。结果为空即为失败，并会将失败信息打印日志。
+ * delete请求，需在协程中使用。结果为空即为http请求失败，并会将失败信息打印日志。
  */
 inline fun <reified T> RequestWrapper.delete(): Deferred<T?> {
-    return doRequest(buildPostRequest(), this)
+    return doRequest(buildDeleteRequest(), this)
 }
 
 /**
  * callback style，不在协程中使用
  */
 inline fun <reified T> RequestWrapper.delete(cb: HttpCallback<T>) {
-    callbackRequest(buildPostRequest(), cb, this)
+    callbackRequest(buildDeleteRequest(), cb, this)
 }
 
 

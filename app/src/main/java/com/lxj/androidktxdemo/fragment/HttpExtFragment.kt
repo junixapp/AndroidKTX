@@ -5,6 +5,7 @@ import android.os.Environment
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.okhttp.*
 import com.lxj.androidktxdemo.R
+import com.lxj.androidktxdemo.entity.User
 import kotlinx.android.synthetic.main.fragment_http_ext.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -63,22 +64,22 @@ class HttpExtFragment : BaseFragment() {
 //                vm!!.data.postValue(data)
 ////              OkWrapper.cancel("abc") // 取消请求
 
-                val t = "http://api.sandbox.gulltour.com/v1/weibo/upload".http()
-                        .params("weiboImage[]" to file)
-                        .post<String>()
-                        .await()
+//                val t = "http://api.sandbox.gulltour.com/v1/weibo/upload".http()
+//                        .params("weiboImage[]" to file)
+//                        .post<String>()
+//                        .await()
 
             }
             //callback style
-//            "https://api.gulltour.com/v1/common/nations".http().get(object : HttpCallback<RestResult<List<DemoData>>> {
-//                override fun onSuccess(t: RestResult<List<DemoData>>) {
-//                    "size：${t.data.size}".d()
-//                }
-//
-//                override fun onFail(e: IOException) {
-//                    super.onFail(e)
-//                }
-//            })
+            val json = User(name = "lxj", age = 33).toJson()
+            "https://api.gulltour.com/v1/common/nations".http().putJson<String>(json, object : HttpCallback<String> {
+                override fun onSuccess(t: String) {
+                    toast(t)
+                }
+                override fun onFail(e: IOException) {
+                    super.onFail(e)
+                }
+            })
         }
     }
 

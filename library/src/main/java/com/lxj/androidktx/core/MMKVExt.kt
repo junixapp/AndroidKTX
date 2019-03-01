@@ -17,7 +17,7 @@ val _set_divider = "_____androidktx_____"
  * @param s 要添加的字符串
  * @param isReplace 是否去重，默认为true
  */
-inline fun MMKV.addToList(key: String, a: Any, isReplace: Boolean = true) {
+fun MMKV.addToList(key: String, a: Any, isReplace: Boolean = true) {
     val s = if(a is String) a else a.toJson()
     getStringSet(key, mutableSetOf())?.apply {
         val safeSet = CopyOnWriteArraySet<String>(this)

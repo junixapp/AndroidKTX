@@ -209,8 +209,14 @@ mmkv().getFloat("f", 123f)
 mmkv().clearAll()
 
 mmkv().addToList("a", "哈哈", isReplace = true) // 实现了有序且去重，去重由isReplace决定
-mmkv().getStringList("a")
+mmkv().getList("a")
 mmkv().removeFromList("a", "呵呵")
+
+// list操作也支持对象类型
+mmkv().addToList("b", User(name = "lxj"), isReplace = true) // 实现了有序且去重，去重由isReplace决定
+mmkv().getList("b")
+mmkv().removeFromList("b", User(name = "lxj"))
+
 // 其他略过
 ```
 
@@ -320,15 +326,20 @@ ctx/fragment/view.windowHeight()
 
 - 请求示例
 ```kotlin
-//Get请求
-val user = "http://192.168.1.103:3000/json".http().get<User>().await()
-//Post请求，传递header和params
-val user = "http://192.168.1.103:3000/json".http()
-                .headers("device" to "HuaWeiMate20", ...)
-                .params("token" to "188sas9cf99a9d",
-                    "file" to file,  //上传文件
-                     ...)
-                .post<User>().await()
+GlobalScope.launch {
+    //Get请求
+    val user = "http://192.168.1.103:3000/json".http().get<User>().await()
+    //Post请求，传递header和params
+    val user = "http://192.168.1.103:3000/json".http()
+                    .headers("device" to "HuaWeiMate20", ...)
+                    .params("token" to "188sas9cf99a9d",
+                        "file" to file,  //上传文件
+                         ...)
+                    .post<User>()
+                    //.postJson(json) 直接传json字符串，目前post和put支持直传json
+                    //.putJson(json) 直接传json字符串，目前post和put支持直传json
+                    .await()
+}
 ```
 上面的示例需要在协程中使用；也是我最喜欢和最推荐的方式。如果你不用协程，则可以用`callback style`：
 ```kotlin

@@ -47,14 +47,14 @@ data class RequestWrapper(
                 .get().build()
     }
 
-    fun buildPostRequest(): Request {
-        return bodyBuilder().post(buildRequestBody()).build()
+    fun buildPostRequest(customReqBody: RequestBody? = null): Request {
+        return bodyBuilder().post(customReqBody?: buildRequestBody()).build()
     }
-    fun buildPutRequest(): Request {
-        return bodyBuilder().put(buildRequestBody()).build()
+    fun buildPutRequest(customReqBody: RequestBody? = null): Request {
+        return bodyBuilder().put(customReqBody?: buildRequestBody()).build()
     }
-    fun buildDeleteRequest(): Request {
-        return bodyBuilder().delete(buildRequestBody()).build()
+    fun buildDeleteRequest(customReqBody: RequestBody? = null): Request {
+        return bodyBuilder().delete(customReqBody?: buildRequestBody()).build()
     }
     private fun bodyBuilder(): Request.Builder{
         return Request.Builder().url(url())
@@ -83,6 +83,10 @@ data class RequestWrapper(
             params.forEach { builder.add(it.first, it.second as String) }
             builder.build()
         }
+    }
+
+    fun buildJsonBody(json: String): RequestBody{
+        return RequestBody.create(MediaType.parse("application/json"), json)
     }
 
     private fun isMultiPart() = params.any { it.second is File }
