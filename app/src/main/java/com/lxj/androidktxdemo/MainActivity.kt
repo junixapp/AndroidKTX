@@ -85,11 +85,17 @@ class MainActivity : AppCompatActivity() {
         mmkv().addToList("a", "黄河")
         mmkv().addToList("a", "长江")
         mmkv().addToList("a", "长江")
+//        mmkv().addToList("a", User(name = "ll", age = 11))
+//        mmkv().addToList("a", User(name = "aa", age = 22))
+//        mmkv().addToList("a", User(name = "bb", age = 33))
+//        mmkv().addToList("a", User(name = "cc", age = 44))
+//        mmkv().addToList("a", User(name = "aa", age = 22))
 
-        "1: ${mmkv().getStringList("a")}".e()
+        "1: ${mmkv().getList<String>("a")}".e()
 
-        mmkv().removeFromList("a", "呵呵")
-        "2: ${mmkv().getStringList("a")}".e()
+//        mmkv().removeFromList("a", User(name = "ll", age = 11))
+        mmkv().removeFromList("a", "哈哈")
+        "2: ${mmkv().getList<String>("a")}".e()
     }
 
 
