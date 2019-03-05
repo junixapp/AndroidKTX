@@ -1,11 +1,11 @@
 package com.lxj.androidktx.core
 
 import android.graphics.Color
+import android.graphics.Typeface
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
-import android.text.method.MovementMethod
 import android.text.style.*
 import android.view.View
 import android.widget.TextView
@@ -77,6 +77,15 @@ fun CharSequence.toClickSpan(range: IntRange, color: Int = Color.RED, isUnderlin
     }
 }
 
+/**
+ * 将一段文字中指定range的文字添加style效果
+ * @param range 要添加删除线的文字的范围
+ */
+fun CharSequence.toStyleSpan(style: Int = Typeface.BOLD, range: IntRange): SpannableString {
+    return SpannableString(this).apply {
+        setSpan(StyleSpan(style), range.start, range.endInclusive, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
+    }
+}
 
 /** TextView的扩展 **/
 fun TextView.sizeSpan(str: String, range: IntRange, scale: Float = 1.5f){
@@ -100,4 +109,8 @@ fun TextView.clickSpan(str: String, range: IntRange,
     movementMethod = LinkMovementMethod.getInstance()
     highlightColor = Color.TRANSPARENT  // remove click bg color
     text = str.toClickSpan(range, color, isUnderlineText, clickListener)
+}
+
+fun TextView.styleSpan(str: String, range: IntRange, style: Int = Typeface.BOLD){
+    text = str.toStyleSpan(style = style, range =  range)
 }

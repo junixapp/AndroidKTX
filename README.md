@@ -91,6 +91,10 @@ textView.clickSpan(str = str, range = 2..6, color = Color.BLUE, clickListener = 
 })
 ```
 ![weather_humidity](imgs/click_span.png)
+```kotlin
+textView.styleSpan(str, range) //加粗，斜体等效果
+```
+
 
 
 ### View相关

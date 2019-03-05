@@ -1,37 +1,18 @@
 package com.lxj.androidktx.core
 
-import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.support.v7.widget.*
-import android.util.AttributeSet
 import android.view.View
-import android.view.ViewGroup
-import com.lxj.easyadapter.*
-import java.lang.IllegalArgumentException
+import com.lxj.easyadapter.CommonAdapter
+import com.lxj.easyadapter.ItemViewDelegate
+import com.lxj.easyadapter.MultiItemTypeAdapter
+import com.lxj.easyadapter.ViewHolder
 
 /**
  * Description: RecyclerView扩展
  * Create by lxj, at 2018/12/25
  */
-
-/**
- * 垂直RecyclerView
- */
-class VerticalRecyclerView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : RecyclerView(context, attrs, defStyle) {
-    init {
-        layoutManager = LinearLayoutManager(getContext())
-    }
-}
-
-/**
- * 横向RecyclerView
- */
-class HorizontalRecyclerView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : RecyclerView(context, attrs, defStyle) {
-    init {
-        layoutManager = LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false)
-    }
-}
 
 /**
  * 设置分割线

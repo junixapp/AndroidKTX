@@ -41,7 +41,7 @@ dependencies {
     implementation "com.android.support:design:$support_version"
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation project(':library')
-    implementation 'com.lxj:easyadapter:1.0.0'
+    implementation 'com.lxj:easyadapter:1.0.1'
 
     implementation "com.github.bumptech.glide:glide:4.8.0"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1'
