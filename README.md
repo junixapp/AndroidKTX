@@ -386,7 +386,7 @@ LiveDataBus.with<String>("key1").setValue("message1")
 
 
 ### 其他
-给TextView增加sizeDrawable方法：
+给TextView增加sizeDrawable方法，用于给TextView的drawable设置大小：
 ```kotlin
 tv.sizeDrawable(dp2px(20), top = R.mipmap.ic_launcher)
 ```
