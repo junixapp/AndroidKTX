@@ -1,5 +1,6 @@
 package com.lxj.androidktx.core
 
+import android.os.Handler
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 
@@ -69,4 +70,13 @@ fun Fragment.remove(f: Fragment){
     childFragmentManager.beginTransaction()
             .remove(f)
             .commitAllowingStateLoss()
+}
+
+//post, postDelay
+fun Fragment.post(action: ()->Unit){
+    Handler().post { action() }
+}
+
+fun Fragment.postDelay(delay:Long = 0, action: ()->Unit){
+    Handler().postDelayed({ action() }, delay)
 }

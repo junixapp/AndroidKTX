@@ -54,3 +54,12 @@ inline fun <reified T> Activity.startActivityForResult(flag: Int = -1, bundle: A
 fun Activity.finishDelay(delay: Long = 1) {
     Handler(Looper.getMainLooper()).postDelayed({ finish() }, delay)
 }
+
+//post, postDelay
+fun Activity.post(action: ()->Unit){
+    Handler().post { action() }
+}
+
+fun Activity.postDelay(delay:Long = 0, action: ()->Unit){
+    Handler().postDelayed({ action() }, delay)
+}

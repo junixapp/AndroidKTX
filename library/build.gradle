@@ -42,7 +42,7 @@ publish {
     userOrg = 'li-xiaojun'
     groupId = 'com.lxj'
     artifactId = 'androidktx'
-    publishVersion = '1.0.12'
+    publishVersion = '1.0.13'
     repoName = 'jrepo'
     desc = 'Some very useful kotlin extensions for android developping！好用到爆的Kotlin扩展，加速你的Android开发！'
     website = 'https://github.com/li-xiaojun/AndroidKTX'
