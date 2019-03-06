@@ -384,6 +384,11 @@ LiveDataBus.with<String>("key1").observe(this, observer = Observer {
 LiveDataBus.with<String>("key1").setValue("message1")
 ```
 
+内置2个实用类：
+- OnceLiveData 只执行一次的LiveData
+- StateLiveData 携带状态的LiveData
+
+
 
 ### 其他
 给TextView增加sizeDrawable方法，用于给TextView的drawable设置大小：
@@ -397,12 +402,12 @@ tv.sizeDrawable(dp2px(20), top = R.mipmap.ic_launcher)
 为了覆盖各种使用场景，该库对常用类库进行了封装，因此依赖了很多三方库。依赖的所有三方库如下：
 ```groovy
 implementation "com.github.bumptech.glide:glide:4.8.0"
+api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1"
+implementation 'com.lxj:easyadapter:1.0.1'
 implementation 'com.google.code.gson:gson:2.8.5'
-implementation "com.squareup.okhttp3:okhttp:3.12.1"
-implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.0"
+api "com.squareup.okhttp3:okhttp:3.12.1"
 implementation "android.arch.lifecycle:extensions:1.1.1"
-implementation 'com.lxj:easyadapter:1.0.0'
-implementation 'com.tencent:mmkv:1.0.16'
+api 'com.tencent:mmkv:1.0.17'
 ```
 
 由于我依赖的三方库都是最新版本，可能与您当前项目中的类库版本不一致，有可能导致因为API变化而编译失败。此时需要排除我这个库中的依赖，假设我的Glide版本与你项目中的不一致，则需要在gradle中配置如下：
