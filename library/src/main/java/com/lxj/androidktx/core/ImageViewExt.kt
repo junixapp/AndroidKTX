@@ -3,6 +3,7 @@ package com.lxj.androidktx.core
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
@@ -34,7 +35,11 @@ fun ImageView.load(url: Any, placeholder: Int = 0, error: Int = 0,
         if (isCenterCrop && scaleType != ImageView.ScaleType.CENTER_CROP)
             scaleType = ImageView.ScaleType.CENTER_CROP
         if (isCircle) {
-            circleCrop()
+            if (scaleType == ImageView.ScaleType.CENTER_CROP) {
+                transforms(CenterCrop(), CircleCrop())
+            } else {
+                transform(CircleCrop())
+            }
         } else if (roundRadius != 0) {
             if (scaleType == ImageView.ScaleType.CENTER_CROP) {
                 transforms(CenterCrop(), RoundedCorners(roundRadius))
