@@ -34,7 +34,7 @@ class StateLiveData<T> : MutableLiveData<T>() {
         state.postValue(State.Success)
     }
 
-    fun postError(throwable: Throwable) {
+    fun postError() {
         state.postValue(State.Error)
     }
 

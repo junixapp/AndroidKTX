@@ -385,8 +385,23 @@ LiveDataBus.with<String>("key1").setValue("message1")
 ```
 
 内置2个实用类：
-- OnceLiveData 只执行一次的LiveData
-- StateLiveData 携带状态的LiveData
+1. OnceLiveData 只执行一次的LiveData
+2. StateLiveData 携带状态的LiveData
+```kotlin
+// observe data.
+vm.userData.observe(this, Observer { 
+    // data change
+})
+// observe state
+vm.userData.state.observe(this, Observer { 
+    when(it){
+        StateLiveData.State.Idle -> toast("idle")
+        StateLiveData.State.Loading -> showProgress("idle")
+        StateLiveData.State.Success -> toast("success")
+        StateLiveData.State.Error -> toast("fail")
+    }
+})
+```
 
 
 

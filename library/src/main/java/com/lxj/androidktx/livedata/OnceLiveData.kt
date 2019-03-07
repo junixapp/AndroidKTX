@@ -16,9 +16,9 @@ class OnceLiveData<T> : MutableLiveData<T>() {
     /**
      * ensure the event is non-null and can only been seen once
      */
-    fun observeEvent(owner: LifecycleOwner, observer: Observer<T>) {
+    override fun observe(owner: LifecycleOwner, observer: Observer<T>) {
         super.observe(owner, Observer {
-            if (it != null && isRead.compareAndSet(false, true)) {
+            if (isRead.compareAndSet(false, true)) {
                 observer.onChanged(it)
             }
         })

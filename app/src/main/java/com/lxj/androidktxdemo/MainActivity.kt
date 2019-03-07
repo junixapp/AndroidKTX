@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter
 import android.support.v7.app.AppCompatActivity
 import com.lxj.androidktx.bus.LiveDataBus
 import com.lxj.androidktx.core.*
+import com.lxj.androidktx.livedata.StateLiveData
 import com.lxj.androidktxdemo.entity.PageInfo
 import com.lxj.androidktxdemo.entity.User
 import com.lxj.androidktxdemo.fragment.*
@@ -96,6 +97,9 @@ class MainActivity : AppCompatActivity() {
 //        mmkv().removeFromList("a", User(name = "ll", age = 11))
         mmkv().removeFromList("a", "哈哈")
         "2: ${mmkv().getList<String>("a")}".e()
+
+
+
     }
 
 
