@@ -17,13 +17,12 @@ import com.lxj.easyadapter.ViewHolder
 /**
  * 设置分割线
  */
-fun RecyclerView.divider(color: Int = Color.parseColor("#CCCCCC"), size: Int = 1): RecyclerView {
+fun RecyclerView.divider(color: Int = Color.parseColor("#DEDEDE"), size: Int = 1): RecyclerView {
     val decoration = DividerItemDecoration(context, orientation)
     decoration.setDrawable(GradientDrawable().apply {
         setColor(color)
         shape = GradientDrawable.RECTANGLE
-        val dpSize = dp2px(size)
-        setSize(dpSize, dpSize)
+        setSize(size, size)
     })
     addItemDecoration(decoration)
     return this
