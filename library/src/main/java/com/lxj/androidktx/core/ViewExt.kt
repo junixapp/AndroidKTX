@@ -8,8 +8,6 @@ import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import java.lang.RuntimeException
 
 /**
  * Description: View相关
@@ -162,15 +160,13 @@ fun View.animateWidthAndHeight(targetWidth: Int, targetHeight: Int, duration: Lo
 var _viewClickFlag = false
 var _clickRunnable = Runnable { _viewClickFlag = false }
 fun View.click(action: (view: View) -> Unit) {
-    if (!hasOnClickListeners()) {
-        setOnClickListener {
-            if (!_viewClickFlag) {
-                _viewClickFlag = true
-                action(it)
-            }
-            removeCallbacks(_clickRunnable)
-            postDelayed(_clickRunnable, 350)
+    setOnClickListener {
+        if (!_viewClickFlag) {
+            _viewClickFlag = true
+            action(it)
         }
+        removeCallbacks(_clickRunnable)
+        postDelayed(_clickRunnable, 350)
     }
 }
 
