@@ -116,6 +116,12 @@ fun View.windowWidth(): Int{
 fun View.windowHeight(): Int{
     return context!!.windowHeight()
 }
+fun RecyclerView.ViewHolder.windowWidth(): Int{
+    return itemView.windowWidth()
+}
+fun RecyclerView.ViewHolder.windowHeight(): Int{
+    return itemView.windowHeight()
+}
 
 
 /** 网络相关 **/
