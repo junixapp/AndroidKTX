@@ -321,8 +321,8 @@ context.isMobileConnected()   // 当前是否是移动数据连接
 
 - window相关
 ```kotlin
-ctx/fragment/view.windowWidth()
-ctx/fragment/view.windowHeight()
+ctx/fragment/view/holder.windowWidth()
+ctx/fragment/view/holder.windowHeight()
 ```
 
 ### OkHttp极简封装
