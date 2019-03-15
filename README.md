@@ -142,6 +142,8 @@ recyclerView.vertical() //设置垂直
                 holder.setText(R.id.text, "模拟数据 - $t")
                         .setImageResource(R.id.image, R.mipmap.ic_launcher_round)
             }
+            .addHeader(headerView) //必须在bindData之后调用
+            .addFooter(footerView) //必须在bindData之后调用
             .itemClick<String> { data, holder, position ->
                 toast("click ${data[position]}")
             }
@@ -154,12 +156,14 @@ recyclerView.vertical() //设置垂直
 recyclerView.vertical()
             .divider(color = Color.RED)
             .multiTypes(data, listOf(OneItem(), TwoItem()))
+            .addHeader(headerView) //必须在multiTypes之后调用
+            .addFooter(footerView) //必须在multiTypes之后调用
             .itemClick<String> { data, holder, position ->
                 toast("click ${data[position]}")
             }
 // 实现多个Item类型
 class OneItem : ItemViewDelegate<String>{
-        override fun convert(holder: ViewHolder, t: String, position: Int) {
+        override fun bind(holder: ViewHolder, t: String, position: Int) {
             holder.setText(android.R.id.text1, t)
         }
         override fun isForViewType(item: String, position: Int): Boolean {
@@ -170,7 +174,7 @@ class OneItem : ItemViewDelegate<String>{
         }
     }
 class TwoItem : ItemViewDelegate<String>{
-    override fun convert(holder: ViewHolder, t: String, position: Int) {
+    override fun bind(holder: ViewHolder, t: String, position: Int) {
         holder.setText(android.R.id.text1, t)
     }
     override fun isForViewType(item: String, position: Int): Boolean {

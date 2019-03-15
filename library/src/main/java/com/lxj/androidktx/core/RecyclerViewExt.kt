@@ -4,10 +4,7 @@ import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.support.v7.widget.*
 import android.view.View
-import com.lxj.easyadapter.CommonAdapter
-import com.lxj.easyadapter.ItemViewDelegate
-import com.lxj.easyadapter.MultiItemTypeAdapter
-import com.lxj.easyadapter.ViewHolder
+import com.lxj.easyadapter.*
 
 /**
  * Description: RecyclerView扩展
@@ -56,7 +53,7 @@ inline val RecyclerView.data
     get() = (adapter as CommonAdapter<*>).datas
 
 inline val RecyclerView.orientation
-    get() = if(layoutManager==null) -1 else layoutManager.run {
+    get() = if (layoutManager == null) -1 else layoutManager.run {
         when (this) {
             is LinearLayoutManager -> orientation
             is GridLayoutManager -> orientation
@@ -68,9 +65,29 @@ inline val RecyclerView.orientation
 
 fun <T> RecyclerView.bindData(data: List<T>, layoutId: Int, bindFn: (holder: ViewHolder, t: T, position: Int) -> Unit): RecyclerView {
     adapter = object : CommonAdapter<T>(layoutId, data) {
-        override fun convert(holder: ViewHolder, t: T, position: Int) {
+        override fun bind(holder: ViewHolder, t: T, position: Int) {
             bindFn(holder, t, position)
         }
+    }
+    return this
+}
+
+/**
+ * 必须在bindData之后调用，并且需要hasHeaderOrFooter为true才起作用
+ */
+fun RecyclerView.addHeader(headerView: View): RecyclerView {
+    adapter?.apply {
+        (this as CommonAdapter<*>).addHeaderView(headerView)
+    }
+    return this
+}
+
+/**
+ * 必须在bindData之后调用，并且需要hasHeaderOrFooter为true才起作用
+ */
+fun RecyclerView.addFooter(footerView: View): RecyclerView {
+    adapter?.apply {
+        (this as CommonAdapter<*>).addFootView(footerView)
     }
     return this
 }
@@ -84,7 +101,7 @@ fun <T> RecyclerView.multiTypes(data: List<T>, itemDelegates: List<ItemViewDeleg
 
 fun <T> RecyclerView.itemClick(listener: (data: List<T>, holder: RecyclerView.ViewHolder, position: Int) -> Unit): RecyclerView {
     adapter?.apply {
-        (adapter as MultiItemTypeAdapter<T>).setOnItemClickListener(object : MultiItemTypeAdapter.SimpleOnItemClickListener() {
+        (adapter as MultiItemTypeAdapter<*>).setOnItemClickListener(object : MultiItemTypeAdapter.SimpleOnItemClickListener() {
             override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
                 listener(data as List<T>, holder, position)
             }

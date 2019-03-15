@@ -22,6 +22,18 @@ class RecyclerViewExtDemo : BaseFragment() {
                 add("$i")
             }
         }
+        val header = TextView(context).apply {
+            text = "我是header"
+            setPadding(120,120,120,120)
+            click { toast(this.text) }
+        }
+        val footer = TextView(context).apply {
+            text = "我是footer"
+            setPadding(120,120,120,120)
+            click { toast(this.text) }
+        }
+
+        //notify
         recyclerView.vertical()
                 .divider(color = Color.parseColor("#eeeeee"), size = 20)
                 .bindData(data, R.layout.adapter_rv) { holder, t, position ->
@@ -29,16 +41,18 @@ class RecyclerViewExtDemo : BaseFragment() {
                             .setImageResource(R.id.image, R.mipmap.ic_launcher_round)
                 }
 //                .multiTypes(data, listOf(HeaderDelegate(), ContentDelegate(), FooterDelegate()))
+                .addHeader(header) //必须在bindData之后调用
+                .addFooter(footer) //必须在bindData之后调用
                 .itemClick<String> { data, holder, position ->
                     toast("click ${data[position]}")
                 }
+//        recyclerView.notifyDataSetChanged()
+        toast(recyclerView.adapter!!::class.java.simpleName)
 
-        //notify
-//        recyclerView.adapter.notifyItemChanged()
     }
 
     class HeaderDelegate : ItemViewDelegate<String>{
-        override fun convert(holder: ViewHolder, t: String, position: Int) {
+        override fun bind(holder: ViewHolder, t: String, position: Int) {
             holder.setText(android.R.id.text1, t)
         }
         override fun isForViewType(item: String, position: Int): Boolean {
@@ -51,7 +65,7 @@ class RecyclerViewExtDemo : BaseFragment() {
     }
 
     class ContentDelegate : ItemViewDelegate<String>{
-        override fun convert(holder: ViewHolder, t: String, position: Int) {
+        override fun bind(holder: ViewHolder, t: String, position: Int) {
             holder.setText(android.R.id.text1, t)
         }
         override fun isForViewType(item: String, position: Int): Boolean {
@@ -64,7 +78,7 @@ class RecyclerViewExtDemo : BaseFragment() {
     }
 
     class FooterDelegate : ItemViewDelegate<String>{
-        override fun convert(holder: ViewHolder, t: String, position: Int) {
+        override fun bind(holder: ViewHolder, t: String, position: Int) {
             holder.setText(android.R.id.text1, t)
         }
         override fun isForViewType(item: String, position: Int): Boolean {
