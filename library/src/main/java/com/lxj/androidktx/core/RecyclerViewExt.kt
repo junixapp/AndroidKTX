@@ -2,7 +2,6 @@ package com.lxj.androidktx.core
 
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
-import android.support.v7.util.DiffUtil
 import android.support.v7.widget.*
 import android.view.View
 import com.lxj.easyadapter.*
@@ -51,7 +50,7 @@ fun RecyclerView.horizontal(spanCount: Int = 0, isStaggered: Boolean = false): R
 
 
 inline val RecyclerView.data
-    get() = (adapter as CommonAdapter<*>).datas
+    get() = (adapter as EasyAdapter<*>).data
 
 inline val RecyclerView.orientation
     get() = if (layoutManager == null) -1 else layoutManager.run {
@@ -65,7 +64,7 @@ inline val RecyclerView.orientation
 
 
 fun <T> RecyclerView.bindData(data: List<T>, layoutId: Int, bindFn: (holder: ViewHolder, t: T, position: Int) -> Unit): RecyclerView {
-    adapter = object : CommonAdapter<T>(layoutId, data) {
+    adapter = object : EasyAdapter<T>(data, layoutId) {
         override fun bind(holder: ViewHolder, t: T, position: Int) {
             bindFn(holder, t, position)
         }
@@ -78,7 +77,7 @@ fun <T> RecyclerView.bindData(data: List<T>, layoutId: Int, bindFn: (holder: Vie
  */
 fun RecyclerView.addHeader(headerView: View): RecyclerView {
     adapter?.apply {
-        (this as CommonAdapter<*>).addHeaderView(headerView)
+        (this as EasyAdapter<*>).addHeaderView(headerView)
     }
     return this
 }
@@ -88,14 +87,14 @@ fun RecyclerView.addHeader(headerView: View): RecyclerView {
  */
 fun RecyclerView.addFooter(footerView: View): RecyclerView {
     adapter?.apply {
-        (this as CommonAdapter<*>).addFootView(footerView)
+        (this as EasyAdapter<*>).addFootView(footerView)
     }
     return this
 }
 
-fun <T> RecyclerView.multiTypes(data: List<T>, itemDelegates: List<ItemViewDelegate<T>>): RecyclerView {
+fun <T> RecyclerView.multiTypes(data: List<T>, itemDelegates: List<ItemDelegate<T>>): RecyclerView {
     adapter = MultiItemTypeAdapter<T>(data).apply {
-        itemDelegates.forEach { addItemViewDelegate(it) }
+        itemDelegates.forEach { addItemDelegate(it) }
     }
     return this
 }
