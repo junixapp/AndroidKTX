@@ -2,6 +2,7 @@ package com.lxj.androidktx.core
 
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.*
 import android.view.View
 import com.lxj.easyadapter.*

@@ -4,20 +4,18 @@ import android.graphics.Color
 import android.widget.TextView
 import com.lxj.androidktx.core.*
 import com.lxj.androidktxdemo.R
-import com.lxj.easyadapter.ItemViewDelegate
-import com.lxj.easyadapter.ViewHolder
 import kotlinx.android.synthetic.main.fragment_recyclerview_ext.*
-import java.util.*
+
 
 class RecyclerViewExtDemo : BaseFragment() {
     override fun getLayoutId(): Int {
         return R.layout.fragment_recyclerview_ext
     }
 
+    lateinit var data: ArrayList<String>
     override fun initView() {
         super.initView()
-
-        val data = arrayListOf<String>().apply {
+        data = arrayListOf<String>().apply {
             for (i in 0..30) {
                 add("$i")
             }
@@ -46,47 +44,49 @@ class RecyclerViewExtDemo : BaseFragment() {
                 .itemClick<String> { data, holder, position ->
                     toast("click ${data[position]}")
                 }
-//        recyclerView.notifyDataSetChanged()
+
         toast(recyclerView.adapter!!::class.java.simpleName)
 
     }
 
-    class HeaderDelegate : ItemViewDelegate<String>{
-        override fun bind(holder: ViewHolder, t: String, position: Int) {
-            holder.setText(android.R.id.text1, t)
-        }
-        override fun isForViewType(item: String, position: Int): Boolean {
-            return item == "header"
-        }
+//
+//    class HeaderDelegate : ItemViewDelegate<String>{
+//        override fun bind(holder: ViewHolder, t: String, position: Int) {
+//            holder.setText(android.R.id.text1, t)
+//        }
+//        override fun isForViewType(item: String, position: Int): Boolean {
+//            return item == "header"
+//        }
+//
+//        override fun getLayoutId(): Int {
+//            return android.R.layout.simple_list_item_1
+//        }
+//    }
+//
+//    class ContentDelegate : ItemViewDelegate<String>{
+//        override fun bind(holder: ViewHolder, t: String, position: Int) {
+//            holder.setText(android.R.id.text1, t)
+//        }
+//        override fun isForViewType(item: String, position: Int): Boolean {
+//            return item != "header" && item != "footer"
+//        }
+//
+//        override fun getLayoutId(): Int {
+//            return android.R.layout.simple_list_item_1
+//        }
+//    }
+//
+//    class FooterDelegate : ItemViewDelegate<String>{
+//        override fun bind(holder: ViewHolder, t: String, position: Int) {
+//            holder.setText(android.R.id.text1, t)
+//        }
+//        override fun isForViewType(item: String, position: Int): Boolean {
+//            return item == "footer"
+//        }
+//
+//        override fun getLayoutId(): Int {
+//            return android.R.layout.simple_list_item_1
+//        }
+//    }
 
-        override fun getLayoutId(): Int {
-            return android.R.layout.simple_list_item_1
-        }
-    }
-
-    class ContentDelegate : ItemViewDelegate<String>{
-        override fun bind(holder: ViewHolder, t: String, position: Int) {
-            holder.setText(android.R.id.text1, t)
-        }
-        override fun isForViewType(item: String, position: Int): Boolean {
-            return item != "header" && item != "footer"
-        }
-
-        override fun getLayoutId(): Int {
-            return android.R.layout.simple_list_item_1
-        }
-    }
-
-    class FooterDelegate : ItemViewDelegate<String>{
-        override fun bind(holder: ViewHolder, t: String, position: Int) {
-            holder.setText(android.R.id.text1, t)
-        }
-        override fun isForViewType(item: String, position: Int): Boolean {
-            return item == "footer"
-        }
-
-        override fun getLayoutId(): Int {
-            return android.R.layout.simple_list_item_1
-        }
-    }
 }
