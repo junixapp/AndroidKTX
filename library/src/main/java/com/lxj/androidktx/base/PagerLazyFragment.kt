@@ -15,10 +15,8 @@ abstract class PagerLazyFragment : Fragment() {
     protected var cacheView: View? = null
     protected var isInit = false
 
-    protected abstract val layoutId: Int
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        if (cacheView == null) cacheView = inflater.inflate(layoutId, container, false)
+        if (cacheView == null) cacheView = inflater.inflate(getLayoutId(), container, false)
         return cacheView!!
     }
 
@@ -30,7 +28,8 @@ abstract class PagerLazyFragment : Fragment() {
     private fun lazyInit() {
         if (cacheView!=null && userVisibleHint && !isInit ) {
             isInit = true
-            init(cacheView!!)
+            initView()
+            initData()
         }
     }
 
@@ -40,5 +39,7 @@ abstract class PagerLazyFragment : Fragment() {
     }
 
     //执行初始化，只会执行一次
-    abstract fun init(view: View)
+    protected abstract fun getLayoutId(): Int
+    abstract fun initView()
+    abstract fun initData()
 }

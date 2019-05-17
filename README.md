@@ -261,6 +261,13 @@ replace(R.id.frame1, TempFragment(), arrayOf(
 //添加Fragment
 add(R.id.frame1, AFragment())
 //其他方法，show, hide, remove略过
+
+//fragment批处理，自动commit
+fragmentManager {
+    add(R.id.container, TempFragment())
+    hide(fragment)
+    replace(R.id.container, TempFragment())
+}
 ```
 
 ### 字符串处理相关
@@ -422,8 +429,9 @@ tv.sizeDrawable(dp2px(20), top = R.mipmap.ic_launcher)
 ```groovy
 implementation "com.github.bumptech.glide:glide:4.8.0"
 api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1"
-implementation 'com.lxj:easyadapter:1.0.1'
+api 'com.lxj:easyadapter:1.1.1'
 implementation 'com.google.code.gson:gson:2.8.5'
+// inline函数在运行时插入使用处，需要暴露出去
 api "com.squareup.okhttp3:okhttp:3.12.1"
 implementation "android.arch.lifecycle:extensions:1.1.1"
 api 'com.tencent:mmkv:1.0.17'

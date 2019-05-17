@@ -3,11 +3,21 @@ package com.lxj.androidktx.core
 import android.os.Handler
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
+import android.support.v4.app.FragmentTransaction
 
 /**
  * Description: Fragment相关扩展
  * Create by dance, at 2018/12/5
  */
+
+/**
+ * fragment批处理，自动commit
+ */
+fun FragmentActivity.fragmentManager(action: FragmentTransaction.() -> Unit){
+    supportFragmentManager.beginTransaction()
+            .apply { action() }
+            .commitAllowingStateLoss()
+}
 
 fun FragmentActivity.replace(layoutId: Int, f: Fragment, bundle: Array<out Pair<String, Any?>>?){
     if(bundle!=null)f.arguments = bundle.toBundle()
