@@ -47,5 +47,7 @@ class SpanExtPage: BaseFragment(){
         tvClickResult.clickSpan(str = str, range = 2..6, color = Color.BLUE, clickListener = View.OnClickListener {
             toast("哈哈我被点击了".toColorSpan(0..2))
         })
+
+        tt.sizeDrawable(300)
     }
 }

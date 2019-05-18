@@ -88,29 +88,35 @@ fun CharSequence.toStyleSpan(style: Int = Typeface.BOLD, range: IntRange): Spann
 }
 
 /** TextView的扩展 **/
-fun TextView.sizeSpan(str: String, range: IntRange, scale: Float = 1.5f){
-    text = str.toSizeSpan(range, scale)
+fun TextView.sizeSpan(str: String = "", range: IntRange, scale: Float = 1.5f): TextView{
+    text = (if(str.isEmpty())text else str).toSizeSpan(range, scale)
+    return this
 }
 
-fun TextView.colorSpan(str: String, range: IntRange, color: Int = Color.RED){
-    text = str.toColorSpan(range, color)
+fun TextView.colorSpan(str: String = "", range: IntRange, color: Int = Color.RED): TextView{
+    text = (if(str.isEmpty())text else str).toColorSpan(range, color)
+    return this
 }
 
-fun TextView.backgroundColorSpan(str: String, range: IntRange, color: Int = Color.RED){
-    text = str.toBackgroundColorSpan(range, color)
+fun TextView.backgroundColorSpan(str: String = "", range: IntRange, color: Int = Color.RED): TextView{
+    text = (if(str.isEmpty())text else str).toBackgroundColorSpan(range, color)
+    return this
 }
 
-fun TextView.strikeThrougthSpan(str: String, range: IntRange){
-    text = str.toStrikeThrougthSpan(range)
+fun TextView.strikeThrougthSpan(str: String = "", range: IntRange): TextView{
+    text = (if(str.isEmpty())text else str).toStrikeThrougthSpan(range)
+    return this
 }
 
-fun TextView.clickSpan(str: String, range: IntRange,
-                       color: Int = Color.RED, isUnderlineText: Boolean = false, clickListener: View.OnClickListener){
+fun TextView.clickSpan(str: String = "", range: IntRange,
+                       color: Int = Color.RED, isUnderlineText: Boolean = false, clickListener: View.OnClickListener): TextView{
     movementMethod = LinkMovementMethod.getInstance()
     highlightColor = Color.TRANSPARENT  // remove click bg color
-    text = str.toClickSpan(range, color, isUnderlineText, clickListener)
+    text = (if(str.isEmpty())text else str).toClickSpan(range, color, isUnderlineText, clickListener)
+    return this
 }
 
-fun TextView.styleSpan(str: String, range: IntRange, style: Int = Typeface.BOLD){
-    text = str.toStyleSpan(style = style, range =  range)
+fun TextView.styleSpan(str: String = "", range: IntRange, style: Int = Typeface.BOLD): TextView{
+    text = (if(str.isEmpty())text else str).toStyleSpan(style = style, range =  range)
+    return this
 }

@@ -56,6 +56,17 @@
             android:id="@+id/tvClickResult" />
 
         <include layout="@layout/divider"/>
+
+        <TextView
+            android:id="@+id/tt"
+            android:text="试试"
+            android:textColor="#000"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"
+            android:drawableTop="@mipmap/ic_launcher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 
