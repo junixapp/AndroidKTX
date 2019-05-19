@@ -19,14 +19,14 @@ fun FragmentActivity.fragmentManager(action: FragmentTransaction.() -> Unit){
             .commitAllowingStateLoss()
 }
 
-fun FragmentActivity.replace(layoutId: Int, f: Fragment, bundle: Array<out Pair<String, Any?>>?){
+fun FragmentActivity.replace(layoutId: Int, f: Fragment, bundle: Array<out Pair<String, Any?>>? = null){
     if(bundle!=null)f.arguments = bundle.toBundle()
     supportFragmentManager.beginTransaction()
             .replace(layoutId, f)
             .commitAllowingStateLoss()
 }
 
-fun FragmentActivity.add(layoutId: Int, f: Fragment,  bundle: Array<out Pair<String, Any?>>?){
+fun FragmentActivity.add(layoutId: Int, f: Fragment,  bundle: Array<out Pair<String, Any?>>? = null){
     if(bundle!=null)f.arguments = bundle.toBundle()
     supportFragmentManager.beginTransaction()
             .add(layoutId, f)
@@ -51,14 +51,14 @@ fun FragmentActivity.remove(f: Fragment){
 }
 
 
-fun Fragment.replace(layoutId: Int, f: Fragment,  bundle: Array<out Pair<String, Any?>>?){
+fun Fragment.replace(layoutId: Int, f: Fragment,  bundle: Array<out Pair<String, Any?>>? = null){
     if(bundle!=null)f.arguments = bundle.toBundle()
     childFragmentManager.beginTransaction()
             .replace(layoutId, f)
             .commitAllowingStateLoss()
 }
 
-fun Fragment.add(layoutId: Int, f: Fragment,  bundle: Array<out Pair<String, Any?>>?){
+fun Fragment.add(layoutId: Int, f: Fragment,  bundle: Array<out Pair<String, Any?>>? = null){
     if(bundle!=null)f.arguments = bundle.toBundle()
     childFragmentManager.beginTransaction()
             .add(layoutId, f)
