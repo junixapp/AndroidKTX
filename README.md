@@ -61,6 +61,13 @@ AndroidKtxConfig.init(context = this,
 ![weather_humidity](imgs/log.png)
 > Log的默认tag和开关配置在AndroidKtxConfig类中，可动态配置。
 
+或者使用这些：
+```kotlin
+logv(tag = "tag", msg = "xaa")
+logd(msg = "heihei")
+loge(msg = "heihei")
+```
+
 
 ### Span相关
 封装了颜色，大小，背景色，删除线和点击等常用的文本装饰，使用对象是TextView和String。用法如下：
@@ -292,50 +299,6 @@ fragmentManager {
 ```
 
 
-### 通用扩展
-- toast相关
-```kotlin
-ctx/fragment/view.toast("测试短吐司")
-ctx/fragment/view.longToast("测试长吐司")
-```
-
-- dp和px转换：
-```kotlin
-ctx/fragment/view/holder.dp2px(100)
-ctx/fragment/view/holder.px2dp(100)
-```
-
-- Json转换相关：
-```kotlin
-User("李晓俊", 25).toJson()   // {"age":25,"name":"李晓俊"}
-// 底层是Gson解析，但是不用传class或者TypeToken了，得益于Kotlin的reified功能
-"{\"age\":25,\"name\":\"李晓俊\"}".toBean<User>()
-// 集合类型需要这样写
-"[{\"age\":25,\"name\":\"李晓俊\"}]".toBean<List<User>>()
-```
-
-- Resource获取相关
-```kotlin
-context/fragment/view/holder.string(R.string.app_name) // 获取字符串
-context/fragment/view/holder.stringArray(R.array.array) // 获取字符串数组
-context/fragment/view/holder.color(R.id.color)    //获取颜色
-context/fragment/view/holder.drawable(R.mipmap.ic_launcher) // 获取图片
-context/fragment/view/holder.dimenPx(R.dimen.abc) // 获取dp值
-```
-
-- 网络相关
-```kotlin
-context.isNetworkConnected()  // 当前是否有网络连接
-context.isWifiConnected()     // 当前是否是WIFI连接
-context.isMobileConnected()   // 当前是否是移动数据连接
-```
-
-- window相关
-```kotlin
-ctx/fragment/view/holder.windowWidth()
-ctx/fragment/view/holder.windowHeight()
-```
-
 ### OkHttp极简封装
 对`OkHttpUtils`和`OkGo`都不满意，于是造了一个。
 
@@ -416,10 +379,54 @@ vm.userData.state.observe(this, Observer {
 
 
 
-### 其他
+### 通用扩展
+- toast相关
+```kotlin
+ctx/fragment/view.toast("测试短吐司")
+ctx/fragment/view.longToast("测试长吐司")
+```
+
+- dp和px转换：
+```kotlin
+ctx/fragment/view/holder.dp2px(100)
+ctx/fragment/view/holder.px2dp(100)
+```
+
+- Json转换相关：
+```kotlin
+User("李晓俊", 25).toJson()   // {"age":25,"name":"李晓俊"}
+// 底层是Gson解析，但是不用传class或者TypeToken了，得益于Kotlin的reified功能
+"{\"age\":25,\"name\":\"李晓俊\"}".toBean<User>()
+// 集合类型需要这样写
+"[{\"age\":25,\"name\":\"李晓俊\"}]".toBean<List<User>>()
+```
+
+- Resource获取相关
+```kotlin
+context/fragment/view/holder.string(R.string.app_name) // 获取字符串
+context/fragment/view/holder.stringArray(R.array.array) // 获取字符串数组
+context/fragment/view/holder.color(R.id.color)    //获取颜色
+context/fragment/view/holder.drawable(R.mipmap.ic_launcher) // 获取图片
+context/fragment/view/holder.dimenPx(R.dimen.abc) // 获取dp值
+```
+
+- 网络相关
+```kotlin
+context.isNetworkConnected()  // 当前是否有网络连接
+context.isWifiConnected()     // 当前是否是WIFI连接
+context.isMobileConnected()   // 当前是否是移动数据连接
+```
+
+- window相关
+```kotlin
+ctx/fragment/view/holder.windowWidth()
+ctx/fragment/view/holder.windowHeight()
+```
+
+- TextView相关
 给TextView增加sizeDrawable方法，用于给TextView的drawable设置大小：
 ```kotlin
-tv.sizeDrawable(dp2px(20), top = R.mipmap.ic_launcher)
+tv.sizeDrawable(dp2px(20), topDrawable = R.mipmap.ic_launcher)
 ```
 
 

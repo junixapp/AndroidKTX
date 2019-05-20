@@ -2,7 +2,7 @@ package com.lxj.androidktxdemo
 
 import android.app.Application
 import com.lxj.androidktx.AndroidKtxConfig
-import com.lxj.androidktx.core.mmkv
+import com.lxj.androidktx.core.*
 
 /**
  * Description:
@@ -22,5 +22,13 @@ class AndroidKtxApp: Application(){
 //        mmkv().getFloat("f", 123f)
 //        mmkv().clearAll()
 //        // 其他略过
+
+        logv(msg = "sadadsa")
+        loge(msg = "sda")
+
+        logd(msg = "sdada")
+
+        "sss".e()
+
     }
 }
