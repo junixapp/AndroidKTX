@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:id="@+id/ivLeftImage"
+        android:layout_width="48dp"
+        android:layout_height="match_parent"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        android:padding="12dp" />
+
+    <TextView
+        android:id="@+id/tvLeftText"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        android:drawablePadding="2dp"
+        android:gravity="center"
+        android:minWidth="48dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textSize="16sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="58dp"
+        android:layout_marginRight="58dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tvRightText"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        android:gravity="center"
+        android:minWidth="48dp"
+        android:padding="10dp"
+        android:textSize="16sp"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/ivRightImage"
+        android:layout_width="48dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        android:padding="12dp" />
+
+    <ImageView
+        android:id="@+id/ivRightImage2"
+        android:layout_width="48dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="45dp"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        android:padding="12dp"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/ivRightImage3"
+        android:layout_width="48dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="90dp"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        android:padding="12dp"
+        android:visibility="gone" />
+</merge>

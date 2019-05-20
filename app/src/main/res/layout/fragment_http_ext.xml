@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <Button
@@ -14,13 +15,58 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tvResponse"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#f0f0f0"
-            android:padding="20dp"
-            android:textColor="#333"
-            android:textSize="17sp" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvResponse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#f0f0f0"
+                android:padding="20dp"
+                android:textColor="#333"
+                android:textSize="17sp" />
+
+            <com.lxj.androidktx.widget.TitleBar
+                android:background="#BB1F1F"
+                app:title="我是标题啊"
+                app:titleColor="#fff"
+                app:leftImageSrc="@mipmap/fh2"
+                app:rightImageSrc="@mipmap/setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <com.lxj.androidktx.widget.TitleBar
+                android:layout_marginTop="15dp"
+                app:title="嘻嘻"
+                android:id="@+id/tt"
+                app:titleAlignLeft="true"
+                app:leftImageSrc="@mipmap/fh2"
+                app:rightImageSrc="@mipmap/setting"
+                app:rightImagePadding="15dp"
+                app:rightImage2Src="@mipmap/zhifuwacheng"
+                app:rightImage3Src="@mipmap/fx"
+                app:titleColor="#fff"
+                android:background="#2079E5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <com.lxj.androidktx.widget.TitleBar
+                android:background="#2FD145"
+                app:title="我是标题"
+                app:leftTextDrawable="@mipmap/fh2"
+                app:leftTextColor="#fff"
+                app:leftText="返回"
+                app:titleColor="#fff"
+                app:rightText="确定"
+                app:rightTextColor="#fff"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

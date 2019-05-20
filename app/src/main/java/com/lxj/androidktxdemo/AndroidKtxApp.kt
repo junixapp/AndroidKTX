@@ -23,12 +23,12 @@ class AndroidKtxApp: Application(){
 //        mmkv().clearAll()
 //        // 其他略过
 
-        logv(msg = "sadadsa")
-        loge(msg = "sda")
-
-        logd(msg = "sdada")
-
-        "sss".e()
+//        logv(msg = "sadadsa")
+//        loge(msg = "sda")
+//
+//        logd(msg = "sdada")
+//
+//        "sss".e()
 
     }
 }

@@ -4,6 +4,7 @@ import android.arch.lifecycle.*
 import android.os.Environment
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.okhttp.*
+import com.lxj.androidktx.widget.TitleBar
 import com.lxj.androidktxdemo.R
 import com.lxj.androidktxdemo.entity.User
 import kotlinx.android.synthetic.main.fragment_http_ext.*
@@ -81,6 +82,28 @@ class HttpExtFragment : BaseFragment() {
                 }
             })
         }
+
+        //titleBar点击事件
+        tt.clickListener(object : TitleBar.ClickListener{
+            override fun leftTextClick() {
+                toast("left text")
+            }
+            override fun leftImageClick() {
+                toast("left image")
+            }
+            override fun rightTextClick() {
+                toast("right text")
+            }
+            override fun rightImageClick() {
+                toast("right image")
+            }
+            override fun rightImage2Click() {
+                toast("right image22")
+            }
+            override fun rightImage3Click() {
+                toast("right image333")
+            }
+        })
     }
 
     class HttpExtVM : ViewModel() {

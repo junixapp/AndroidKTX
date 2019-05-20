@@ -18,7 +18,8 @@ import android.view.ViewGroup
  * 设置View的高度
  */
 fun View.height(height: Int): View {
-    val params = layoutParams
+    val params = layoutParams ?: ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT)
     params.height = height
     layoutParams = params
     return this
@@ -31,7 +32,8 @@ fun View.height(height: Int): View {
  * @param max 最大高度
  */
 fun View.limitHeight(h: Int, min: Int, max: Int): View {
-    val params = layoutParams
+    val params = layoutParams ?: ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT)
     when {
         h < min -> params.height = min
         h > max -> params.height = max
@@ -45,7 +47,8 @@ fun View.limitHeight(h: Int, min: Int, max: Int): View {
  * 设置View的宽度
  */
 fun View.width(width: Int): View {
-    val params = layoutParams
+    val params = layoutParams ?: ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT)
     params.width = width
     layoutParams = params
     return this
@@ -58,7 +61,8 @@ fun View.width(width: Int): View {
  * @param max 最大宽度
  */
 fun View.limitWidth(w: Int, min: Int, max: Int): View {
-    val params = layoutParams
+    val params = layoutParams ?: ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT)
     when {
         w < min -> params.width = min
         w > max -> params.width = max
@@ -74,7 +78,8 @@ fun View.limitWidth(w: Int, min: Int, max: Int): View {
  * @param height 要设置的高度
  */
 fun View.widthAndHeight(width: Int, height: Int): View {
-    val params = layoutParams
+    val params = layoutParams ?: ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT)
     params.width = width
     params.height = height
     layoutParams = params
@@ -108,7 +113,7 @@ fun View.margin(leftMargin: Int = Int.MAX_VALUE, topMargin: Int = Int.MAX_VALUE,
  * @param duration 时长
  * @param action 可选行为
  */
-fun View.animateWidth(targetValue: Int, duration: Long = 400, action:((Float)->Unit)? = null) {
+fun View.animateWidth(targetValue: Int, duration: Long = 400, action: ((Float) -> Unit)? = null) {
     ValueAnimator.ofInt(width, targetValue).apply {
         addUpdateListener {
             width(it.animatedValue as Int)
@@ -118,13 +123,14 @@ fun View.animateWidth(targetValue: Int, duration: Long = 400, action:((Float)->U
         start()
     }
 }
+
 /**
  * 设置高度，带有过渡动画
  * @param targetValue 目标高度
  * @param duration 时长
  * @param action 可选行为
  */
-fun View.animateHeight(targetValue: Int, duration: Long = 400, action:((Float)->Unit)? = null) {
+fun View.animateHeight(targetValue: Int, duration: Long = 400, action: ((Float) -> Unit)? = null) {
     ValueAnimator.ofInt(height, targetValue).apply {
         addUpdateListener {
             height(it.animatedValue as Int)
@@ -134,6 +140,7 @@ fun View.animateHeight(targetValue: Int, duration: Long = 400, action:((Float)->
         start()
     }
 }
+
 /**
  * 设置宽度和高度，带有过渡动画
  * @param targetWidth 目标宽度
@@ -141,7 +148,7 @@ fun View.animateHeight(targetValue: Int, duration: Long = 400, action:((Float)->
  * @param duration 时长
  * @param action 可选行为
  */
-fun View.animateWidthAndHeight(targetWidth: Int, targetHeight: Int, duration: Long = 400, action:((Float)->Unit)? = null) {
+fun View.animateWidthAndHeight(targetWidth: Int, targetHeight: Int, duration: Long = 400, action: ((Float) -> Unit)? = null) {
     val startHeight = height
     val evaluator = IntEvaluator()
     ValueAnimator.ofInt(width, targetWidth).apply {

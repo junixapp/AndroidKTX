@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TitleBar">
+        <!--左边文本-->
+        <attr name="leftText" format="string"/>
+        <attr name="leftTextColor" format="color"/>
+        <attr name="leftTextSize" format="dimension"/>
+        <attr name="leftTextDrawable" format="reference"/>
+        <attr name="leftTextDrawableSize" format="dimension"/>
+
+        <!--左边图片-->
+        <attr name="leftImageSrc" format="reference"/>
+        <attr name="leftImagePadding" format="dimension"/>
+
+        <!--中间标题-->
+        <attr name="title" format="string"/>
+        <attr name="titleSize" format="dimension"/>
+        <attr name="titleColor" format="color"/>
+        <attr name="titleAlignLeft" format="boolean"/>
+
+        <!--右边文字-->
+        <attr name="rightText" format="string"/>
+        <attr name="rightTextColor" format="color"/>
+        <attr name="rightTextSize" format="dimension"/>
+
+        <!--右边图片-->
+        <attr name="rightImageSrc" format="reference"/>
+        <attr name="rightImagePadding" format="dimension"/>
+
+        <!--右边图片2-->
+        <attr name="rightImage2Src" format="reference"/>
+        <attr name="rightImage2Padding" format="dimension"/>
+
+        <!--右边图片3-->
+        <attr name="rightImage3Src" format="reference"/>
+        <attr name="rightImage3Padding" format="dimension"/>
+    </declare-styleable>
+</resources>

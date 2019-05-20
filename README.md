@@ -1,7 +1,7 @@
 ## AndroidKTX
 ![](imgs/logo.png)
 
-Some very useful kotlin extensions for android developping!
+Some very useful kotlin extensions for android development !
 
 一系列非常有用的Kotlin扩展，目标提高Android开发速度和替换所有的工具类！注意这个不是官方的AndroidKTX ！
 
@@ -378,7 +378,6 @@ vm.userData.state.observe(this, Observer {
 ```
 
 
-
 ### 通用扩展
 - toast相关
 ```kotlin
@@ -428,6 +427,36 @@ ctx/fragment/view/holder.windowHeight()
 ```kotlin
 tv.sizeDrawable(dp2px(20), topDrawable = R.mipmap.ic_launcher)
 ```
+
+## 通用控件
+- TitleBar
+通用的标题栏控件，具体使用看属性便知，右边最多支持3个按钮。
+![TitleBar](imgs/titlebar.png)
+点击监听：
+```kotlin
+//titleBar点击事件
+tt.clickListener(object : TitleBar.ClickListener{
+    override fun leftTextClick() {
+        toast("left text")
+    }
+    override fun leftImageClick() {
+        toast("left image")
+    }
+    override fun rightTextClick() {
+        toast("right text")
+    }
+    override fun rightImageClick() {
+        toast("right image")
+    }
+    override fun rightImage2Click() {
+        toast("right image22")
+    }
+    override fun rightImage3Click() {
+        toast("right image333")
+    }
+})
+```
+
 
 
 ## 注意事项
