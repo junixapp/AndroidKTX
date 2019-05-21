@@ -434,6 +434,25 @@ tv.sizeDrawable(dp2px(20), topDrawable = R.mipmap.ic_launcher)
 - TitleBar
 通用的标题栏控件，具体使用看属性便知，右边最多支持3个按钮。
 ![TitleBar](imgs/titlebar.png)
+
+使用示例：
+```xml
+<com.lxj.androidktx.widget.TitleBar
+    android:layout_marginTop="15dp"
+    app:title="嘻嘻"
+    android:id="@+id/tt"
+    app:titleAlignLeft="true"
+    app:leftImageSrc="@mipmap/fh2"
+    app:rightImageSrc="@mipmap/setting"
+    app:rightImagePadding="15dp"
+    app:rightImage2Src="@mipmap/zhifuwacheng"
+    app:rightImage3Src="@mipmap/fx"
+    app:titleColor="#fff"
+    android:background="#2079E5"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+```
+
 点击监听：
 ```kotlin
 //titleBar点击事件
