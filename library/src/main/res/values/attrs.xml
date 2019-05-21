@@ -35,4 +35,12 @@
         <attr name="rightImage3Src" format="reference"/>
         <attr name="rightImage3Padding" format="dimension"/>
     </declare-styleable>
+
+    <declare-styleable name="SizedTextView">
+        <attr name="drawableWidth" format="dimension"/>
+        <attr name="drawableHeight" format="dimension"/>
+        <attr name="drawableSize" format="dimension"/>
+    </declare-styleable>
+
+
 </resources>

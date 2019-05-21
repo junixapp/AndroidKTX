@@ -6,7 +6,9 @@ import android.content.Intent
 import android.os.Handler
 import android.os.Looper
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentActivity
 import android.view.View
+import com.lxj.androidktx.livedata.LifecycleHandler
 
 /**
  * Description: Activity相关
@@ -51,15 +53,15 @@ inline fun <reified T> Activity.startActivityForResult(flag: Int = -1, bundle: A
     startActivityForResult(intent, requestCode)
 }
 
-fun Activity.finishDelay(delay: Long = 1) {
-    Handler(Looper.getMainLooper()).postDelayed({ finish() }, delay)
+fun FragmentActivity.finishDelay(delay: Long = 1) {
+    LifecycleHandler(this).postDelayed({ finish() }, delay)
 }
 
 //post, postDelay
-fun Activity.post(action: ()->Unit){
-    Handler().post { action() }
+fun FragmentActivity.post(action: ()->Unit){
+    LifecycleHandler(this).post { action() }
 }
 
-fun Activity.postDelay(delay:Long = 0, action: ()->Unit){
-    Handler().postDelayed({ action() }, delay)
+fun FragmentActivity.postDelay(delay:Long = 0, action: ()->Unit){
+    LifecycleHandler(this).postDelayed({ action() }, delay)
 }

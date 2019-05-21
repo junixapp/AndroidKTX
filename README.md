@@ -457,6 +457,20 @@ tt.clickListener(object : TitleBar.ClickListener{
 })
 ```
 
+- SizedTextView
+可以在布局文件中直接修改Drawable大小的TextView。
+```xml
+<com.lxj.androidktx.widget.SizedTextView
+    android:layout_marginTop="20dp"
+    android:text="哈哈"
+    app:drawableSize="40dp"
+    android:gravity="center"
+    android:drawableLeft="@mipmap/ic_launcher"
+    android:layout_gravity="center_horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+```
+![TitleBar](imgs/sizetext.png)
 
 
 ## 注意事项

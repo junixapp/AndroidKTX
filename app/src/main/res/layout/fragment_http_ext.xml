@@ -67,6 +67,30 @@
                 android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+
+            <com.lxj.androidktx.widget.SizedTextView
+                android:layout_marginTop="20dp"
+                android:text="哈哈"
+                android:gravity="center"
+                app:drawableSize="50dp"
+                android:drawableLeft="@mipmap/ic_launcher"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.lxj.androidktx.widget.SizedTextView
+                android:layout_marginTop="20dp"
+                android:text="哈哈"
+                app:drawableSize="15dp"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:drawableLeft="@mipmap/ic_launcher"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

@@ -1,9 +1,9 @@
 package com.lxj.androidktx.core
 
-import android.os.Handler
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentTransaction
+import com.lxj.androidktx.livedata.LifecycleHandler
 
 /**
  * Description: Fragment相关扩展
@@ -84,9 +84,9 @@ fun Fragment.remove(f: Fragment){
 
 //post, postDelay
 fun Fragment.post(action: ()->Unit){
-    Handler().post { action() }
+    LifecycleHandler(this).post { action() }
 }
 
 fun Fragment.postDelay(delay:Long = 0, action: ()->Unit){
-    Handler().postDelayed({ action() }, delay)
+    LifecycleHandler(this).postDelayed({ action() }, delay)
 }
