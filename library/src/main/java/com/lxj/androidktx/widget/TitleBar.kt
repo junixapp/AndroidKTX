@@ -85,7 +85,7 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
         initClick()
     }
 
-    private fun applyAttr(){
+    private fun applyAttr() {
         applyLeftText()
         applyLeftImage()
         applyTitle()
@@ -95,14 +95,25 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
         applyRightImage3()
     }
 
-    private fun applySelf(){
-        if(background==null)setBackgroundColor(Color.RED)
-        if(paddingLeft==0)setPadding(dp2px(4), paddingTop, paddingRight, paddingBottom)
-        if(paddingRight==0)setPadding(paddingLeft, paddingTop, dp2px(4), paddingBottom)
+    private fun applySelf() {
+        if (background == null) setBackgroundColor(Color.RED)
+        if (paddingLeft == 0) setPadding(dp2px(4), paddingTop, paddingRight, paddingBottom)
+        if (paddingRight == 0) setPadding(paddingLeft, paddingTop, dp2px(4), paddingBottom)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(dp2px(48), MeasureSpec.EXACTLY))
+    }
+
+    fun setup(leftImageRes: Int = 0, leftText: String = "", title: String = "", rightImageRes: Int = 0,
+              rightText: String = ""): TitleBar {
+        if (leftImageRes != 0) this.leftImage = drawable(leftImageRes)
+        if (rightImageRes != 0) this.rightImage = drawable(rightImageRes)
+        this.title = title
+        this.leftText = leftText
+        this.rightText = rightText
+        applyAttr()
+        return this
     }
 
     private fun applyLeftText() {
@@ -128,6 +139,17 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
         }
     }
 
+    fun setupLeftText(text: String, textColor: Int = leftTextColor, textSize: Int = leftTextSize,
+                      drawable: Drawable? = leftTextDrawable, drawableSize: Int = leftTextDrawableSize): TitleBar {
+        this.leftText = text
+        this.leftTextColor = textColor
+        this.leftTextSize = textSize
+        this.leftTextDrawable = drawable
+        this.leftTextDrawableSize = drawableSize
+        applyLeftText()
+        return this
+    }
+
     private fun applyLeftImage() {
         if (leftImage == null) {
             ivLeftImage.gone()
@@ -138,8 +160,15 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
         if (leftImagePadding != 0) ivLeftImage.setPadding(leftImagePadding, leftImagePadding, leftImagePadding, leftImagePadding)
     }
 
+    fun setupLeftImage(imageRes: Int, imagePadding: Int = leftImagePadding): TitleBar {
+        this.leftImage = drawable(imageRes)
+        this.leftImagePadding = imagePadding
+        applyLeftImage()
+        return this
+    }
+
     private fun applyTitle() {
-        if(title.isEmpty()){
+        if (title.isEmpty()) {
             tvTitle.gone()
             return
         }
@@ -147,15 +176,24 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
         tvTitle.text = title
         tvTitle.setTextColor(titleColor)
         tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, titleSize.toFloat())
-        if(titleAlignLeft){
+        if (titleAlignLeft) {
             tvTitle.gravity = Gravity.LEFT.or(Gravity.CENTER_VERTICAL)
-        }else{
+        } else {
             tvTitle.gravity = Gravity.CENTER
         }
     }
 
+    fun setupTitle(text: String, textColor: Int = titleColor, textSize: Int = titleSize, alignLeft: Boolean = titleAlignLeft): TitleBar {
+        this.title = text
+        this.titleColor = textColor
+        this.titleSize = textSize
+        this.titleAlignLeft = alignLeft
+        applyTitle()
+        return this
+    }
+
     private fun applyRightText() {
-        if(rightText.isEmpty()){
+        if (rightText.isEmpty()) {
             tvRightText.gone()
             return
         }
@@ -163,6 +201,14 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
         tvRightText.text = rightText
         tvRightText.setTextColor(rightTextColor)
         tvRightText.setTextSize(TypedValue.COMPLEX_UNIT_PX, rightTextSize.toFloat())
+    }
+
+    fun setupRightText(text: String, textColor: Int = rightTextColor, textSize: Int = rightTextSize): TitleBar {
+        this.rightText = text
+        this.rightTextColor = textColor
+        this.rightTextSize = textSize
+        applyRightText()
+        return this
     }
 
     private fun applyRightImage() {
@@ -175,6 +221,13 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
         if (rightImagePadding != 0) ivRightImage.setPadding(rightImagePadding, rightImagePadding, rightImagePadding, rightImagePadding)
     }
 
+    fun setupRightImage(imageRes: Int, imagePadding: Int = rightImagePadding): TitleBar {
+        this.rightImage = drawable(imageRes)
+        this.rightImagePadding = imagePadding
+        applyRightImage()
+        return this
+    }
+
     private fun applyRightImage2() {
         if (rightImage2 == null) {
             ivRightImage2.gone()
@@ -183,6 +236,13 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
         ivRightImage2.visible()
         ivRightImage2.setImageDrawable(rightImage2)
         if (rightImage2Padding != 0) ivRightImage2.setPadding(rightImage2Padding, rightImage2Padding, rightImage2Padding, rightImage2Padding)
+    }
+
+    fun setupRightImage2(imageRes: Int, imagePadding: Int = rightImage2Padding): TitleBar {
+        this.rightImage2 = drawable(imageRes)
+        this.rightImage2Padding = imagePadding
+        applyRightImage2()
+        return this
     }
 
     private fun applyRightImage3() {
@@ -195,27 +255,34 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
         if (rightImage3Padding != 0) ivRightImage3.setPadding(rightImage3Padding, rightImage3Padding, rightImage3Padding, rightImage3Padding)
     }
 
-    private fun initClick(){
-        if(tvLeftText.isVisible) tvLeftText.click { clickListener?.leftTextClick() }
-        if(tvRightText.isVisible) tvRightText.click { clickListener?.rightTextClick() }
-        if(ivLeftImage.isVisible) ivLeftImage.click { clickListener?.leftImageClick() }
-        if(ivRightImage.isVisible) ivRightImage.click { clickListener?.rightImageClick() }
-        if(ivRightImage2.isVisible) ivRightImage2.click { clickListener?.rightImage2Click() }
-        if(ivRightImage3.isVisible) ivRightImage3.click { clickListener?.rightImage3Click() }
+    fun setupRightImage3(imageRes: Int, imagePadding: Int = rightImage3Padding): TitleBar {
+        this.rightImage3 = drawable(imageRes)
+        this.rightImage3Padding = imagePadding
+        applyRightImage3()
+        return this
+    }
+
+    private fun initClick() {
+        tvLeftText.click { clickListener?.leftTextClick() }
+        tvRightText.click { clickListener?.rightTextClick() }
+        ivLeftImage.click { clickListener?.leftImageClick() }
+        ivRightImage.click { clickListener?.rightImageClick() }
+        ivRightImage2.click { clickListener?.rightImage2Click() }
+        ivRightImage3.click { clickListener?.rightImage3Click() }
     }
 
     private var clickListener: ClickListener? = null
-    fun clickListener(clickListener: ClickListener){
+    fun clickListener(clickListener: ClickListener) {
         this.clickListener = clickListener
     }
 
-    interface ClickListener{
-        fun leftTextClick(){}
-        fun rightTextClick(){}
-        fun leftImageClick(){}
-        fun rightImageClick(){}
-        fun rightImage2Click(){}
-        fun rightImage3Click(){}
+    interface ClickListener {
+        fun leftTextClick() {}
+        fun rightTextClick() {}
+        fun leftImageClick() {}
+        fun rightImageClick() {}
+        fun rightImage2Click() {}
+        fun rightImage3Click() {}
     }
 
 }

@@ -83,6 +83,7 @@ class HttpExtFragment : BaseFragment() {
             })
         }
 
+        tt.setup(leftImageRes = R.mipmap.fx, title = "aaaaaaaaaaaa")
         //titleBar点击事件
         tt.clickListener(object : TitleBar.ClickListener{
             override fun leftTextClick() {
