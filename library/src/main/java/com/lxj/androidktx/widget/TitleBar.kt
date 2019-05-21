@@ -96,7 +96,7 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
     }
 
     private fun applySelf() {
-        if (background == null) setBackgroundColor(Color.RED)
+        if (background == null) setBackgroundColor(Color.WHITE)
         if (paddingLeft == 0) setPadding(dp2px(4), paddingTop, paddingRight, paddingBottom)
         if (paddingRight == 0) setPadding(paddingLeft, paddingTop, dp2px(4), paddingBottom)
     }
