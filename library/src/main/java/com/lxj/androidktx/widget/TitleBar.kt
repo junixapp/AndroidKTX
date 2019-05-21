@@ -9,7 +9,7 @@ import android.view.Gravity
 import android.widget.RelativeLayout
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.*
-import kotlinx.android.synthetic.main.titlebar.view.*
+import kotlinx.android.synthetic.main._ktx_titlebar.view.*
 
 
 /**
@@ -79,7 +79,7 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
         rightImage3Padding = ta.getDimensionPixelSize(R.styleable.TitleBar_rightImage3Padding, dp2px(rightImage3Padding))
 
         ta.recycle()
-        inflate(context, R.layout.titlebar, this)
+        inflate(context, R.layout._ktx_titlebar, this)
         applyAttr()
         applySelf()
         initClick()

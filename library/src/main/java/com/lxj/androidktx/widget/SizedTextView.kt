@@ -20,7 +20,7 @@ class SizedTextView @JvmOverloads constructor(context: Context, attributeSet: At
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.SizedTextView)
         drawableWidth = ta.getDimensionPixelSize(R.styleable.SizedTextView_drawableWidth, drawableWidth)
         drawableHeight = ta.getDimensionPixelSize(R.styleable.SizedTextView_drawableHeight, drawableHeight)
-        var size = ta.getDimensionPixelSize(R.styleable.SizedTextView_drawableSize, 0)
+        val size = ta.getDimensionPixelSize(R.styleable.SizedTextView_drawableSize, 0)
         if (size != 0) {
             drawableWidth = size
             drawableHeight = size
