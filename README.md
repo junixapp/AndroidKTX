@@ -358,9 +358,9 @@ LiveDataBus.with<String>("key1").observe(this, observer = Observer {
 LiveDataBus.with<String>("key1").setValue("message1")
 ```
 
-内置2个实用类：
-1. OnceLiveData 只执行一次的LiveData
-2. StateLiveData 携带状态的LiveData
+内置实用类：
+1. OnceLiveData: 只执行一次的LiveData
+2. StateLiveData: 携带状态的LiveData
 ```kotlin
 // observe data.
 vm.userData.observe(this, Observer { 
@@ -376,6 +376,8 @@ vm.userData.state.observe(this, Observer {
     }
 })
 ```
+3. LifecycleHandler: 自动在UI销毁时移除msg和任务，避免内存泄露的Handler
+
 
 
 ### 通用扩展
