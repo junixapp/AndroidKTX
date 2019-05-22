@@ -2,6 +2,9 @@ package com.lxj.androidktx.core
 
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
@@ -32,6 +35,13 @@ fun Context.px2dp(pxValue: Int): Float {
 fun Context.px2dp(pxValue: Float): Float {
     return pxValue / resources.displayMetrics.density + 0.5f
 }
+fun Context.createDrawable(color: Int = Color.GRAY, radius: Float = 0f): Drawable{
+    return GradientDrawable().apply {
+        setColor(color)
+        cornerRadius = radius
+    }
+}
+
 fun Fragment.dp2px(dpValue: Float): Int {
     return context!!.dp2px(dpValue)
 }
@@ -41,6 +51,14 @@ fun Fragment.dp2px(dpValue: Int): Int {
 fun Fragment.px2dp(pxValue: Int): Float {
     return context!!.px2dp(pxValue)
 }
+fun Fragment.createDrawable(color: Int = Color.GRAY, radius: Float = 0f): Drawable{
+    return GradientDrawable().apply {
+        setColor(color)
+        cornerRadius = radius
+    }
+}
+
+
 fun View.px2dp(pxValue: Float): Float {
     return context!!.px2dp(pxValue)
 }
@@ -53,6 +71,13 @@ fun View.dp2px(dpValue: Int): Int {
 fun View.px2dp(pxValue: Int): Float {
     return context!!.px2dp(pxValue)
 }
+fun View.createDrawable(color: Int = Color.GRAY, radius: Float = 0f): Drawable{
+    return GradientDrawable().apply {
+        setColor(color)
+        cornerRadius = radius
+    }
+}
+
 fun RecyclerView.ViewHolder.px2dp(pxValue: Float): Float {
     return itemView.px2dp(pxValue)
 }
@@ -64,6 +89,12 @@ fun RecyclerView.ViewHolder.dp2px(dpValue: Int): Int {
 }
 fun RecyclerView.ViewHolder.px2dp(pxValue: Int): Float {
     return itemView.px2dp(pxValue)
+}
+fun RecyclerView.ViewHolder.createDrawable(color: Int = Color.GRAY, radius: Float = 0f): Drawable{
+    return GradientDrawable().apply {
+        setColor(color)
+        cornerRadius = radius
+    }
 }
 
 
