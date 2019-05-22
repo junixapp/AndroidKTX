@@ -1,9 +1,9 @@
 package com.lxj.androidktx.core
 
 import android.content.Context
-import android.support.v4.app.Fragment
-import android.support.v7.widget.RecyclerView
 import android.view.View
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 
 /**
  * Description: 资源操作相关

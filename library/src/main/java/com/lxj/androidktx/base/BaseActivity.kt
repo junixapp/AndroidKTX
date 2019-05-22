@@ -1,7 +1,7 @@
 package com.lxj.androidktx.base
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 
 /**
  * Description:

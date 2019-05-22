@@ -1,6 +1,6 @@
 package com.lxj.androidktx.livedata
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 
 /**
  * Description: 携带状态的LiveData

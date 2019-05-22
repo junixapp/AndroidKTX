@@ -3,11 +3,9 @@ package com.lxj.androidktx.core
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.os.Handler
-import android.os.Looper
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
 import android.view.View
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.lxj.androidktx.livedata.LifecycleHandler
 
 /**

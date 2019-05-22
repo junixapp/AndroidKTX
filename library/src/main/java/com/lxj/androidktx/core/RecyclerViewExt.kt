@@ -2,8 +2,8 @@ package com.lxj.androidktx.core
 
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
-import android.support.v7.widget.*
 import android.view.View
+import androidx.recyclerview.widget.*
 import com.lxj.easyadapter.*
 
 /**
@@ -27,7 +27,7 @@ fun RecyclerView.divider(color: Int = Color.parseColor("#DEDEDE"), size: Int = 1
 
 
 fun RecyclerView.vertical(spanCount: Int = 0, isStaggered: Boolean = false): RecyclerView {
-    layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+    layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
     if (spanCount != 0) {
         layoutManager = GridLayoutManager(context, spanCount)
     }

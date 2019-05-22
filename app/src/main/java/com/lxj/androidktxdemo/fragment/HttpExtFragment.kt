@@ -1,7 +1,10 @@
 package com.lxj.androidktxdemo.fragment
 
-import android.arch.lifecycle.*
 import android.os.Environment
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProviders
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.okhttp.*
 import com.lxj.androidktx.widget.TitleBar

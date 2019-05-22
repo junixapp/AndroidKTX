@@ -5,11 +5,10 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
-import android.support.annotation.RequiresPermission;
-import android.telephony.TelephonyManager;
+
+import androidx.annotation.RequiresPermission;
 
 import com.lxj.androidktx.AndroidKtxConfig;
-
 import static android.Manifest.permission.ACCESS_NETWORK_STATE;
 import static android.Manifest.permission.ACCESS_WIFI_STATE;
 import static android.Manifest.permission.CHANGE_WIFI_STATE;

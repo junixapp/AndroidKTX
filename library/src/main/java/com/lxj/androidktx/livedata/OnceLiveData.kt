@@ -1,8 +1,8 @@
 package com.lxj.androidktx.livedata
 
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
@@ -16,7 +16,7 @@ class OnceLiveData<T> : MutableLiveData<T>() {
     /**
      * ensure the event is non-null and can only been seen once
      */
-    override fun observe(owner: LifecycleOwner, observer: Observer<T>) {
+    override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
         super.observe(owner, Observer {
             if (isRead.compareAndSet(false, true)) {
                 observer.onChanged(it)
