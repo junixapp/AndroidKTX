@@ -1,11 +1,10 @@
 package com.lxj.androidktx.core
 
 import android.content.Context
-import android.support.v4.app.FragmentPagerAdapter
-import android.support.v4.view.PagerAdapter
-import android.support.v4.view.ViewPager
 import android.view.View
 import android.view.ViewGroup
+import androidx.viewpager.widget.PagerAdapter
+import androidx.viewpager.widget.ViewPager
 
 /**
  * Description: ViewPager相关
