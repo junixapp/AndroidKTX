@@ -12,7 +12,7 @@ import android.view.ViewGroup
  * Create by dance, at 2019/5/23
  */
 
-fun ViewPager.bind(count: Int = 0, bindView: (container: ViewGroup, position: Int)->View):ViewPager {
+fun ViewPager.bind(count: Int, bindView: (container: ViewGroup, position: Int)->View):ViewPager {
     adapter = object : PagerAdapter() {
         override fun isViewFromObject(v: View, p: Any) = v == p
         override fun getCount() = count

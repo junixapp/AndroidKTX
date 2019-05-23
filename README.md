@@ -432,6 +432,19 @@ ctx/fragment/view/holder.windowHeight()
 tv.sizeDrawable(dp2px(20), topDrawable = R.mipmap.ic_launcher)
 ```
 
+- ViewPager相关
+让ViewPager变成卡片缩放效果：
+```kotlin
+pager.asCard() //通过参数可以调节卡片的距离和大小
+```
+设置adapter绑定数据：
+```kotlin
+viewPager.bind(10, bindView = {container, position ->
+    return@bind TextView(this)
+})
+```
+
+
 ## 通用控件
 - TitleBar
 通用的标题栏控件，具体使用看属性便知，右边最多支持3个按钮。
