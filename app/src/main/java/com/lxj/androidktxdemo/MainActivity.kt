@@ -46,6 +46,8 @@ class MainActivity : AppCompatActivity() {
         }
         tabLayout.setupWithViewPager(viewPager)
 
+//        viewPager.asCard()
+
         toast("测试短吐司")
         longToast("测试长吐司")
 
