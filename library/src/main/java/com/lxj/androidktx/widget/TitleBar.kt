@@ -55,28 +55,28 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.TitleBar)
         leftText = ta.getString(R.styleable.TitleBar_leftText) ?: ""
         leftTextColor = ta.getColor(R.styleable.TitleBar_leftTextColor, leftTextColor)
-        leftTextSize = ta.getDimensionPixelSize(R.styleable.TitleBar_leftTextSize, dp2px(leftTextSize))
+        leftTextSize = ta.getDimensionPixelSize(R.styleable.TitleBar_leftTextSize, dp2px(leftTextSize.toFloat()))
         leftTextDrawable = ta.getDrawable(R.styleable.TitleBar_leftTextDrawable)
         leftTextDrawableSize = ta.getDimensionPixelSize(R.styleable.TitleBar_leftTextDrawableSize, leftTextDrawableSize)
 
         leftImage = ta.getDrawable(R.styleable.TitleBar_leftImageSrc)
-        leftImagePadding = ta.getDimensionPixelSize(R.styleable.TitleBar_leftImagePadding, dp2px(leftImagePadding))
+        leftImagePadding = ta.getDimensionPixelSize(R.styleable.TitleBar_leftImagePadding, dp2px(leftImagePadding.toFloat()))
 
         title = ta.getString(R.styleable.TitleBar_title) ?: ""
         titleColor = ta.getColor(R.styleable.TitleBar_titleColor, titleColor)
-        titleSize = ta.getDimensionPixelSize(R.styleable.TitleBar_titleSize, dp2px(titleSize))
+        titleSize = ta.getDimensionPixelSize(R.styleable.TitleBar_titleSize, dp2px(titleSize.toFloat()))
         titleAlignLeft = ta.getBoolean(R.styleable.TitleBar_titleAlignLeft, titleAlignLeft)
 
         rightText = ta.getString(R.styleable.TitleBar_rightText) ?: ""
         rightTextColor = ta.getColor(R.styleable.TitleBar_rightTextColor, rightTextColor)
-        rightTextSize = ta.getDimensionPixelSize(R.styleable.TitleBar_rightTextSize, dp2px(rightTextSize))
+        rightTextSize = ta.getDimensionPixelSize(R.styleable.TitleBar_rightTextSize, dp2px(rightTextSize.toFloat()))
 
         rightImage = ta.getDrawable(R.styleable.TitleBar_rightImageSrc)
-        rightImagePadding = ta.getDimensionPixelSize(R.styleable.TitleBar_rightImagePadding, dp2px(rightImagePadding))
+        rightImagePadding = ta.getDimensionPixelSize(R.styleable.TitleBar_rightImagePadding, dp2px(rightImagePadding.toFloat()))
         rightImage2 = ta.getDrawable(R.styleable.TitleBar_rightImage2Src)
-        rightImage2Padding = ta.getDimensionPixelSize(R.styleable.TitleBar_rightImage2Padding, dp2px(rightImage2Padding))
+        rightImage2Padding = ta.getDimensionPixelSize(R.styleable.TitleBar_rightImage2Padding, dp2px(rightImage2Padding.toFloat()))
         rightImage3 = ta.getDrawable(R.styleable.TitleBar_rightImage3Src)
-        rightImage3Padding = ta.getDimensionPixelSize(R.styleable.TitleBar_rightImage3Padding, dp2px(rightImage3Padding))
+        rightImage3Padding = ta.getDimensionPixelSize(R.styleable.TitleBar_rightImage3Padding, dp2px(rightImage3Padding.toFloat()))
 
         ta.recycle()
         inflate(context, R.layout._ktx_titlebar, this)
@@ -97,12 +97,12 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
 
     private fun applySelf() {
         if (background == null) setBackgroundColor(Color.WHITE)
-        if (paddingLeft == 0) setPadding(dp2px(4), paddingTop, paddingRight, paddingBottom)
-        if (paddingRight == 0) setPadding(paddingLeft, paddingTop, dp2px(4), paddingBottom)
+        if (paddingLeft == 0) setPadding(dp2px(4f), paddingTop, paddingRight, paddingBottom)
+        if (paddingRight == 0) setPadding(paddingLeft, paddingTop, dp2px(4f), paddingBottom)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(dp2px(48), MeasureSpec.EXACTLY))
+        super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(dp2px(48f), MeasureSpec.EXACTLY))
     }
 
     fun setup(leftImageRes: Int = 0, leftText: String = "", title: String = "", rightImageRes: Int = 0,

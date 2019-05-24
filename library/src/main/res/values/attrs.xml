@@ -42,5 +42,51 @@
         <attr name="drawableSize" format="dimension"/>
     </declare-styleable>
 
+    <declare-styleable name="SuperLayout">
+        <attr name="sl_leftImageSrc" format="reference"/>
+        <attr name="sl_leftImageSize" format="dimension"/>
+
+        <attr name="sl_leftText" format="string"/>
+        <attr name="sl_leftTextColor" format="color"/>
+        <attr name="sl_leftTextSize" format="dimension"/>
+        <attr name="sl_leftTextMarginLeft" format="dimension"/>
+        <attr name="sl_leftTextMarginTop" format="dimension"/>
+        <attr name="sl_leftTextMarginRight" format="dimension"/>
+        <attr name="sl_leftTextMarginBottom" format="dimension"/>
+
+        <attr name="sl_leftSubText" format="string"/>
+        <attr name="sl_leftSubTextColor" format="color"/>
+        <attr name="sl_leftSubTextSize" format="dimension"/>
+
+        <attr name="sl_centerText" format="string"/>
+        <attr name="sl_centerTextColor" format="color"/>
+        <attr name="sl_centerTextGravity" format="integer" />
+        <attr name="sl_centerTextBg" format="reference"/>
+        <attr name="sl_centerTextSize" format="dimension"/>
+
+        <attr name="sl_rightText" format="string"/>
+        <attr name="sl_rightTextColor" format="color"/>
+        <attr name="sl_rightTextSize" format="dimension"/>
+        <attr name="sl_rightTextBg" format="reference"/>
+        <attr name="sl_rightTextBgColor" format="color"/>
+        <attr name="sl_rightTextVerticalPadding" format="dimension"/>
+        <attr name="sl_rightTextHorizontalPadding" format="dimension"/>
+
+        <attr name="sl_rightImageSrc" format="reference"/>
+        <attr name="sl_rightImageMarginLeft" format="dimension"/>
+        <attr name="sl_rightImageSize" format="dimension"/>
+
+        <attr name="sl_rightImage2Src" format="reference"/>
+        <attr name="sl_rightImage2MarginLeft" format="dimension"/>
+        <attr name="sl_rightImage2Size" format="dimension"/>
+
+        <attr name="sl_solid" format="color"/>
+        <attr name="sl_corner" format="dimension"/>
+        <attr name="sl_stroke" format="color"/>
+        <attr name="sl_strokeWidth" format="dimension"/>
+
+        <attr name="sl_topLineColor" format="color"/>
+        <attr name="sl_bottomLineColor" format="color"/>
+    </declare-styleable>
 
 </resources>

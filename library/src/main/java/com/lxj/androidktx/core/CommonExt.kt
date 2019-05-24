@@ -28,75 +28,77 @@ import java.lang.reflect.Type
 fun Context.dp2px(dpValue: Float): Int {
     return (dpValue * resources.displayMetrics.density + 0.5f).toInt()
 }
-fun Context.dp2px(dpValue: Int): Int {
-    return (dpValue * resources.displayMetrics.density + 0.5f).toInt()
+fun Context.px2dp(pxValue: Float): Int {
+    return (pxValue / resources.displayMetrics.density + 0.5f).toInt()
 }
-fun Context.px2dp(pxValue: Int): Float {
-    return pxValue / resources.displayMetrics.density + 0.5f
+fun Context.sp2px(spValue: Float): Int {
+    return (spValue * resources.displayMetrics.scaledDensity + 0.5f).toInt()
 }
-fun Context.px2dp(pxValue: Float): Float {
-    return pxValue / resources.displayMetrics.density + 0.5f
+fun Context.px2sp(pxValue: Float): Int {
+    return (pxValue / resources.displayMetrics.scaledDensity + 0.5f).toInt()
 }
-fun Context.createDrawable(color: Int = Color.GRAY, radius: Float = 0f): Drawable{
-    return GradientDrawable().apply {
-        setColor(color)
-        cornerRadius = radius
-    }
-}
+
 
 fun Fragment.dp2px(dpValue: Float): Int {
     return context!!.dp2px(dpValue)
 }
-fun Fragment.dp2px(dpValue: Int): Int {
-    return context!!.dp2px(dpValue)
-}
-fun Fragment.px2dp(pxValue: Int): Float {
+fun Fragment.px2dp(pxValue: Float): Int {
     return context!!.px2dp(pxValue)
 }
-fun Fragment.createDrawable(color: Int = Color.GRAY, radius: Float = 0f): Drawable{
-    return GradientDrawable().apply {
-        setColor(color)
-        cornerRadius = radius
-    }
+fun Fragment.sp2px(dpValue: Float): Int {
+    return context!!.sp2px(dpValue)
+}
+fun Fragment.px2sp(pxValue: Float): Int {
+    return context!!.px2sp(pxValue)
 }
 
 
-fun View.px2dp(pxValue: Float): Float {
+fun View.px2dp(pxValue: Float): Int {
     return context!!.px2dp(pxValue)
 }
 fun View.dp2px(dpValue: Float): Int {
     return context!!.dp2px(dpValue)
 }
-fun View.dp2px(dpValue: Int): Int {
-    return context!!.dp2px(dpValue)
+fun View.sp2px(dpValue: Float): Int {
+    return context!!.sp2px(dpValue)
 }
-fun View.px2dp(pxValue: Int): Float {
-    return context!!.px2dp(pxValue)
-}
-fun View.createDrawable(color: Int = Color.GRAY, radius: Float = 0f): Drawable{
-    return GradientDrawable().apply {
-        setColor(color)
-        cornerRadius = radius
-    }
+fun View.px2sp(pxValue: Float): Int {
+    return context!!.px2sp(pxValue)
 }
 
-fun RecyclerView.ViewHolder.px2dp(pxValue: Float): Float {
+fun RecyclerView.ViewHolder.px2dp(pxValue: Float): Int {
     return itemView.px2dp(pxValue)
 }
 fun RecyclerView.ViewHolder.dp2px(dpValue: Float): Int {
     return itemView.dp2px(dpValue)
 }
-fun RecyclerView.ViewHolder.dp2px(dpValue: Int): Int {
-    return itemView.dp2px(dpValue)
+fun RecyclerView.ViewHolder.sp2px(dpValue: Float): Int {
+    return itemView.sp2px(dpValue)
 }
-fun RecyclerView.ViewHolder.px2dp(pxValue: Int): Float {
-    return itemView.px2dp(pxValue)
+fun RecyclerView.ViewHolder.px2sp(pxValue: Float): Int {
+    return itemView.px2sp(pxValue)
 }
-fun RecyclerView.ViewHolder.createDrawable(color: Int = Color.GRAY, radius: Float = 0f): Drawable{
+
+/** 动态创建Drawable **/
+fun Context.createDrawable(color: Int = Color.TRANSPARENT, radius: Float = 0f,
+                           strokeColor: Int = Color.TRANSPARENT, strokeWidth: Int = 0): Drawable{
     return GradientDrawable().apply {
         setColor(color)
         cornerRadius = radius
+        setStroke(strokeWidth, strokeColor)
     }
+}
+fun Fragment.createDrawable(color: Int = Color.TRANSPARENT, radius: Float = 0f,
+                            strokeColor: Int = Color.TRANSPARENT, strokeWidth: Int = 0): Drawable{
+    return context!!.createDrawable(color, radius, strokeColor, strokeWidth)
+}
+fun View.createDrawable(color: Int = Color.TRANSPARENT, radius: Float = 0f,
+                        strokeColor: Int = Color.TRANSPARENT, strokeWidth: Int = 0): Drawable{
+    return context!!.createDrawable(color, radius, strokeColor, strokeWidth)
+}
+fun RecyclerView.ViewHolder.createDrawable(color: Int = Color.TRANSPARENT, radius: Float = 0f,
+                                           strokeColor: Int = Color.TRANSPARENT, strokeWidth: Int = 0): Drawable{
+    return itemView.createDrawable(color, radius, strokeColor, strokeWidth)
 }
 
 

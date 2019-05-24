@@ -9,9 +9,9 @@ Some very useful kotlin extensions for android development !
 [![Download](https://api.bintray.com/packages/li-xiaojun/jrepo/androidktx/images/download.svg)](https://bintray.com/li-xiaojun/jrepo/androidktx/_latestVersion)
 
 ```
-implementation 'com.lxj:androidktx:1.1.18'
+implementation 'com.lxj:androidktx:1.1.19'
 //for androidx
-implementation 'com.lxj:androidktx:1.1.18-x'
+implementation 'com.lxj:androidktx:1.1.19-x'
 ```
 
 
@@ -491,6 +491,36 @@ tt.clickListener(object : TitleBar.ClickListener{
     }
 })
 ```
+
+- SuperLayout
+用来实现常见的横向图文布局，使用它配合几个属性，可以轻松实现以下效果：
+![SuperLayout](imgs/super1.png)
+![SuperLayout](imgs/super2.png)
+
+基本使用：
+```xml
+<com.lxj.androidktx.widget.SuperLayout
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:paddingLeft="14dp"
+    android:paddingRight="15dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:layout_marginTop="15dp"
+    app:sl_leftImageSrc="@drawable/avatar"
+    app:sl_leftText="头像"
+    app:sl_leftTextColor="#222"
+    app:sl_leftTextSize="18sp"
+    app:sl_rightImageSrc="@mipmap/jt"
+    app:sl_solid="#3EDCE9"
+    app:sl_corner="15dp"
+    app:sl_strokeWidth="2dp"
+    app:sl_stroke="#f00"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+```
+其他用法看属性名即可，无需多说。
+
 
 - SizedTextView
 可以在布局文件中直接修改Drawable大小的TextView。

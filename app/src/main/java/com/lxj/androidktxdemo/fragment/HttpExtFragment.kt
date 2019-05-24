@@ -31,7 +31,7 @@ class HttpExtFragment : BaseFragment() {
 
             tvResponse.text = if (it == null) "请求失败" else JSONObject(it).toString(2)
         })
-        tvResponse.sizeDrawable(dp2px(20), topDrawable = R.mipmap.ic_launcher)
+        tvResponse.sizeDrawable(dp2px(20f), topDrawable = R.mipmap.ic_launcher)
 
         // 全局header
         OkWrapper.headers("site" to "CN",

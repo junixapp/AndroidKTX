@@ -16,8 +16,10 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:background="#ddd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="40dp"
             android:orientation="vertical">
 
             <TextView
@@ -89,6 +91,151 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
+
+            <com.lxj.androidktx.widget.SuperLayout
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:paddingLeft="14dp"
+                android:paddingRight="15dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginTop="15dp"
+                app:sl_leftImageSrc="@drawable/avatar"
+                app:sl_leftText="头像"
+                app:sl_leftTextColor="#222"
+                app:sl_leftTextSize="18sp"
+                app:sl_rightImageSrc="@mipmap/jt"
+                app:sl_solid="#3EDCE9"
+                app:sl_corner="15dp"
+                app:sl_strokeWidth="2dp"
+                app:sl_stroke="#f00"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+            <com.lxj.androidktx.widget.SuperLayout
+                android:background="#fff"
+                android:paddingLeft="16dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginTop="15dp"
+                app:sl_leftImageSrc="@drawable/wechat"
+                app:sl_leftText="微信支付"
+                app:sl_leftTextMarginLeft="15dp"
+                app:sl_leftTextColor="#222"
+                app:sl_leftTextSize="16sp"
+                app:sl_rightImageSrc="@drawable/checked"
+                app:sl_bottomLineColor="#ccc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <com.lxj.androidktx.widget.SuperLayout
+                android:background="#fff"
+                android:paddingLeft="16dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                app:sl_leftImageSrc="@drawable/ali"
+                app:sl_leftText="支付宝"
+                app:sl_leftTextMarginLeft="15dp"
+                app:sl_leftTextColor="#222"
+                app:sl_leftTextSize="16sp"
+                app:sl_rightImageSrc="@drawable/uncheck"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <com.lxj.androidktx.widget.SuperLayout
+                android:layout_marginTop="15dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:background="#28cc6b"
+                app:sl_leftText="个人签名"
+                app:sl_leftImageSize="60dp"
+                app:sl_leftTextMarginLeft="12dp"
+                app:sl_leftTextColor="#fff"
+                app:sl_leftTextSize="18sp"
+                app:sl_leftTextMarginBottom="5dp"
+                app:sl_leftSubText="用飘柔，就是这么自信"
+                app:sl_leftSubTextColor="#afff"
+                app:sl_leftImageSrc="@drawable/avatar"
+                app:sl_rightImageSrc="@drawable/arrow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <com.lxj.androidktx.widget.SuperLayout
+                android:background="#fff"
+                android:layout_marginTop="15dp"
+                app:sl_leftText="总额："
+                app:sl_leftImageSize="60dp"
+                app:sl_leftTextMarginLeft="12dp"
+                app:sl_leftTextColor="#222"
+                app:sl_leftTextSize="18sp"
+                app:sl_centerText="120￥"
+                app:sl_centerTextSize="24sp"
+                app:sl_centerTextColor="#E93131"
+                app:sl_rightText="确认支付"
+                app:sl_rightTextColor="#fff"
+                app:sl_rightTextBgColor="#14ca5f"
+                app:sl_rightTextHorizontalPadding="25dp"
+                app:sl_rightTextVerticalPadding="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <com.lxj.androidktx.widget.SuperLayout
+                android:background="#fff"
+                android:paddingLeft="14dp"
+                android:paddingRight="15dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:layout_marginTop="15dp"
+                app:sl_leftText="软件升级"
+                app:sl_leftTextColor="#222"
+                app:sl_leftTextSize="18sp"
+                app:sl_rightText="发现新版本!"
+                app:sl_rightTextSize="12sp"
+                app:sl_rightTextColor="#fff"
+                app:sl_rightTextBg="@drawable/bg_update"
+                app:sl_rightTextHorizontalPadding="9dp"
+                app:sl_rightTextVerticalPadding="1dp"
+                app:sl_rightImageSrc="@mipmap/jt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <com.lxj.androidktx.widget.SuperLayout
+                android:background="#fff"
+                android:paddingLeft="14dp"
+                android:paddingRight="15dp"
+                android:paddingTop="18dp"
+                android:paddingBottom="18dp"
+                android:layout_marginTop="15dp"
+                app:sl_leftText="个性签名"
+                app:sl_leftTextColor="#222"
+                app:sl_leftTextSize="18sp"
+                app:sl_rightText="说走就走的旅行!"
+                app:sl_rightTextSize="16sp"
+                app:sl_rightTextColor="#666"
+                app:sl_rightImageSrc="@mipmap/jt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <com.lxj.androidktx.widget.SuperLayout
+                android:background="#fff"
+                android:paddingLeft="14dp"
+                android:paddingRight="15dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginTop="15dp"
+                app:sl_leftText="头像"
+                app:sl_leftTextColor="#222"
+                app:sl_leftTextSize="18sp"
+                app:sl_rightImageSrc="@mipmap/jt"
+                app:sl_rightImage2Src="@drawable/avatar"
+                app:sl_rightImage2Size="65dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
 
         </LinearLayout>
