@@ -17,8 +17,11 @@ fun String.v(tag: String = AndroidKtxConfig.defaultLogTag){
     intervalLog(LogLevel.Verbose, tag, this )
 }
 
-fun Any.logv(tag: String = AndroidKtxConfig.defaultLogTag, msg: String = ""){
+fun Any.logv(tag: String, msg: String){
     intervalLog(LogLevel.Verbose, tag, msg )
+}
+fun Any.logv(msg: String){
+    intervalLog(LogLevel.Verbose, AndroidKtxConfig.defaultLogTag, msg )
 }
 
 @Deprecated(message = "推荐使用logd")
@@ -26,8 +29,11 @@ fun String.d(tag: String = AndroidKtxConfig.defaultLogTag){
     intervalLog(LogLevel.Debug, tag, this )
 }
 
-fun Any.logd(tag: String = AndroidKtxConfig.defaultLogTag, msg: String = ""){
+fun Any.logd(tag: String, msg: String){
     intervalLog(LogLevel.Debug, tag, msg )
+}
+fun Any.logd(msg: String){
+    intervalLog(LogLevel.Debug, AndroidKtxConfig.defaultLogTag, msg )
 }
 
 @Deprecated(message = "推荐使用logi")
@@ -35,17 +41,22 @@ fun String.i(tag: String = AndroidKtxConfig.defaultLogTag){
     intervalLog(LogLevel.Info, tag, this )
 }
 
-fun Any.logi(tag: String = AndroidKtxConfig.defaultLogTag, msg: String = ""){
+fun Any.logi(tag: String, msg: String){
     intervalLog(LogLevel.Info, tag, msg )
+}
+fun Any.logi(msg: String){
+    intervalLog(LogLevel.Info, AndroidKtxConfig.defaultLogTag, msg )
 }
 
 @Deprecated(message = "推荐使用logw")
 fun String.w(tag: String = AndroidKtxConfig.defaultLogTag){
     intervalLog(LogLevel.Warn, tag, this )
 }
-
-fun Any.logw(tag: String = AndroidKtxConfig.defaultLogTag, msg: String = ""){
+fun Any.logw(tag: String, msg: String){
     intervalLog(LogLevel.Warn, tag, msg )
+}
+fun Any.logw(msg: String){
+    intervalLog(LogLevel.Warn, AndroidKtxConfig.defaultLogTag, msg )
 }
 
 @Deprecated(message = "推荐使用loge")
@@ -53,8 +64,11 @@ fun String.e(tag: String = AndroidKtxConfig.defaultLogTag){
     intervalLog(LogLevel.Error, tag, this )
 }
 
-fun Any.loge(tag: String = AndroidKtxConfig.defaultLogTag, msg: String = ""){
+fun Any.loge(tag: String, msg: String){
     intervalLog(LogLevel.Error, tag, msg )
+}
+fun Any.loge(msg: String){
+    intervalLog(LogLevel.Error, AndroidKtxConfig.defaultLogTag, msg )
 }
 
 private fun intervalLog(level: LogLevel, tag: String, msg: String){

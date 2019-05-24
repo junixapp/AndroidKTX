@@ -9,9 +9,9 @@ Some very useful kotlin extensions for android development !
 [![Download](https://api.bintray.com/packages/li-xiaojun/jrepo/androidktx/images/download.svg)](https://bintray.com/li-xiaojun/jrepo/androidktx/_latestVersion)
 
 ```
-implementation 'com.lxj:androidktx:1.1.17'
+implementation 'com.lxj:androidktx:1.1.18'
 //for androidx
-implementation 'com.lxj:androidktx:1.1.17-x'
+implementation 'com.lxj:androidktx:1.1.18-x'
 ```
 
 
@@ -63,11 +63,10 @@ AndroidKtxConfig.init(context = this,
 ![weather_humidity](imgs/log.png)
 > Log的默认tag和开关配置在AndroidKtxConfig类中，可动态配置。
 
-或者使用这些：
+或者这样使用：
 ```kotlin
-logv(tag = "tag", msg = "xaa")
-logd(msg = "heihei")
-loge(msg = "heihei")
+logv("msg")
+logd("tag", "aaa")
 ```
 
 
@@ -431,6 +430,19 @@ ctx/fragment/view/holder.windowHeight()
 ```kotlin
 tv.sizeDrawable(dp2px(20), topDrawable = R.mipmap.ic_launcher)
 ```
+
+- ViewPager相关
+让ViewPager变成卡片缩放效果：
+```kotlin
+pager.asCard() //通过参数可以调节卡片的距离和大小
+```
+设置adapter绑定数据：
+```kotlin
+viewPager.bind(10, bindView = {container, position ->
+    return@bind TextView(this)
+})
+```
+
 
 ## 通用控件
 - TitleBar
