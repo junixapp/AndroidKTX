@@ -28,6 +28,8 @@ class AndroidKtxApp: Application(){
 //
 //        logd(msg = "sdada")
 //
+
+        logd("ktx app start...")
 //        "sss".e()
 
     }

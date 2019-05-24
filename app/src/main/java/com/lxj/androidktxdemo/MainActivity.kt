@@ -48,9 +48,9 @@ class MainActivity : AppCompatActivity() {
         tabLayout.setupWithViewPager(viewPager)
 
 //        viewPager.asCard()
-        viewPager.bind(10, bindView = {container, position ->
-            return@bind TextView(this)
-        })
+//        viewPager.bind(10, bindView = {container, position ->
+//            return@bind TextView(this)
+//        })
 
         toast("测试短吐司")
         longToast("测试长吐司")
