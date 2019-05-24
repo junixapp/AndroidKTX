@@ -32,7 +32,7 @@ fun ViewPager.bind(count: Int, bindView: (container: ViewGroup, position: Int)->
  * @param pageMargin 用来调节卡片之间的距离
  * @param padding 用来调节ViewPager的padding
  */
-fun ViewPager.asCard(pageMargin: Int = dp2px(30), padding: Int = dp2px(45)): ViewPager {
+fun ViewPager.asCard(pageMargin: Int = dp2px(30.toFloat()), padding: Int = dp2px(45.toFloat())): ViewPager {
     setPageTransformer(false, CardPagerTransformer(context))
     setPageMargin(pageMargin)
     clipToPadding = false
