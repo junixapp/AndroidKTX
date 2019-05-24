@@ -1,10 +1,10 @@
 package com.lxj.androidktxdemo
 
-import android.arch.lifecycle.Observer
 import android.os.Bundle
-import android.support.v4.app.FragmentPagerAdapter
-import android.support.v7.app.AppCompatActivity
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentPagerAdapter
+import androidx.lifecycle.Observer
 import com.lxj.androidktx.bus.LiveDataBus
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.livedata.StateLiveData
@@ -12,7 +12,6 @@ import com.lxj.androidktxdemo.entity.PageInfo
 import com.lxj.androidktxdemo.entity.User
 import com.lxj.androidktxdemo.fragment.*
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
 
 
 data class UserTest(
