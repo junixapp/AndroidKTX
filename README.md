@@ -9,9 +9,9 @@ Some very useful kotlin extensions for android development !
 [![Download](https://api.bintray.com/packages/li-xiaojun/jrepo/androidktx/images/download.svg)](https://bintray.com/li-xiaojun/jrepo/androidktx/_latestVersion)
 
 ```
-implementation 'com.lxj:androidktx:1.1.16'
+implementation 'com.lxj:androidktx:1.1.18'
 //for androidx
-implementation 'com.lxj:androidktx:1.1.16-x'
+implementation 'com.lxj:androidktx:1.1.18-x'
 ```
 
 
@@ -63,11 +63,10 @@ AndroidKtxConfig.init(context = this,
 ![weather_humidity](imgs/log.png)
 > Log的默认tag和开关配置在AndroidKtxConfig类中，可动态配置。
 
-或者使用这些：
+或者这样使用：
 ```kotlin
-logv(tag = "tag", msg = "xaa")
-logd(msg = "heihei")
-loge(msg = "heihei")
+logv("msg")
+logd("tag", "aaa")
 ```
 
 
