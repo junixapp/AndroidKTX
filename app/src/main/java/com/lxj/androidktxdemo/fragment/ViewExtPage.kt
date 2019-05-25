@@ -1,12 +1,13 @@
 package com.lxj.androidktxdemo.fragment
 
 
+import android.graphics.Color
 import com.lxj.androidktx.core.*
 import com.lxj.androidktxdemo.MainActivity
 import com.lxj.androidktxdemo.R
 import kotlinx.android.synthetic.main.fragment_view_ext.*
 
-class ViewExtPage: BaseFragment(){
+class ViewExtPage : BaseFragment() {
     override fun getLayoutId() = R.layout.fragment_view_ext
 
     override fun initView() {
@@ -14,7 +15,7 @@ class ViewExtPage: BaseFragment(){
         text1.width(value)
         text1.text = "text1.width($value)"
 
-        text2.widthAndHeight(value,value)
+        text2.widthAndHeight(value, value)
         text2.text = "text2.widthAndHeight($value,$value)"
 
         text3.margin(leftMargin = value)
@@ -22,7 +23,7 @@ class ViewExtPage: BaseFragment(){
 
 
         text3.click {
-            it.animateWidthAndHeight(600,900, action = {
+            it.animateWidthAndHeight(600, 900, action = {
 
             })
         }
@@ -32,7 +33,7 @@ class ViewExtPage: BaseFragment(){
         }
 
         text4.click {
-//            startActivity<MainActivity>(bundle = arrayOf(
+            //            startActivity<MainActivity>(bundle = arrayOf(
 //                    "a" to 1,
 //                    "b" to "lala"
 //            ))
@@ -56,9 +57,12 @@ class ViewExtPage: BaseFragment(){
 //            getDrawable(R.mipmap.ic_launcher)
 //            getDimensionPx(R.dimen.abc)
 
-            
+
         }
 
+        text4.setBackgroundDrawable(createDrawable(color = Color.GREEN,
+                strokeColor = Color.RED, strokeWidth = dp2px(2f),
+                radius = dp2px(30f).toFloat(), enableRipple = true))
 
     }
 

@@ -1,11 +1,15 @@
 package com.lxj.androidktx.widget
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.RippleDrawable
+import android.os.Build
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
@@ -75,6 +79,9 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
     private var topLineColor = 0
     private var bottomLineColor = 0
 
+    //是否启用水波纹
+    private var enableRipple = true
+    private var rippleColor = Color.parseColor("#88999999")
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.SuperLayout)
         leftImage = ta.getDrawable(R.styleable.SuperLayout_sl_leftImageSrc)
@@ -121,6 +128,8 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
 
         topLineColor = ta.getColor(R.styleable.SuperLayout_sl_topLineColor, topLineColor)
         bottomLineColor = ta.getColor(R.styleable.SuperLayout_sl_bottomLineColor, bottomLineColor)
+        enableRipple = ta.getBoolean(R.styleable.SuperLayout_sl_enableRipple, enableRipple)
+        rippleColor = ta.getColor(R.styleable.SuperLayout_sl_rippleColor, rippleColor)
 
         ta.recycle()
         inflate(context, R.layout._ktx_super_layout, this)
@@ -134,38 +143,47 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
               centerText: String = "",
               rightText: String = "",
               rightImageRes: Int = 0,
-              rightImage2Res: Int = 0){
-        if(leftImageRes!=0)leftImage = drawable(leftImageRes)
-        if(rightImageRes!=0)leftImage = drawable(rightImageRes)
-        if(rightImage2Res!=0)leftImage = drawable(rightImage2Res)
+              rightImage2Res: Int = 0) {
+        if (leftImageRes != 0) leftImage = drawable(leftImageRes)
+        if (rightImageRes != 0) leftImage = drawable(rightImageRes)
+        if (rightImage2Res != 0) leftImage = drawable(rightImage2Res)
         this.leftText = leftText
         this.leftSubText = leftSubText
         this.centerText = centerText
         this.rightText = rightText
     }
 
-    private fun applySelf(){
+    private fun applySelf() {
         orientation = HORIZONTAL
         gravity = Gravity.CENTER_VERTICAL
 
-        if(solid!=0 || stroke!=0){
-            setBackgroundDrawable(createDrawable(color=solid, radius = corner.toFloat(), strokeColor = stroke, strokeWidth = strokeWidth))
+        if (solid != 0 || stroke != 0) {
+            val drawable = createDrawable(color = solid, radius = corner.toFloat(), strokeColor = stroke, strokeWidth = strokeWidth,
+                    enableRipple = enableRipple, rippleColor = rippleColor)
+            setBackgroundDrawable(drawable)
+        } else {
+            if (Build.VERSION.SDK_INT >= 21 && enableRipple) {
+                val rippleDrawable = RippleDrawable(ColorStateList.valueOf(rippleColor),
+                        if (background != null) background else ColorDrawable(Color.TRANSPARENT), null)
+                background = rippleDrawable
+            }
         }
     }
-    private fun applyAttr(){
+
+    private fun applyAttr() {
         //左边图片
-        if(leftImage==null){
+        if (leftImage == null) {
             ivLeftImage.gone()
-        }else{
+        } else {
             ivLeftImage.visible()
             ivLeftImage.setImageDrawable(leftImage)
             ivLeftImage.widthAndHeight(leftImageSize, leftImageSize)
         }
 
         //左边文字
-        if(leftText.isEmpty()){
+        if (leftText.isEmpty()) {
             tvLeftText.gone()
-        }else{
+        } else {
             tvLeftText.visible()
             tvLeftText.text = leftText
             tvLeftText.setTextColor(leftTextColor)
@@ -175,9 +193,9 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
         }
 
         //左边子文字
-        if(leftSubText.isEmpty()){
+        if (leftSubText.isEmpty()) {
             tvLeftSubText.gone()
-        }else{
+        } else {
             tvLeftSubText.visible()
             tvLeftSubText.text = leftSubText
             tvLeftSubText.setTextColor(leftSubTextColor)
@@ -185,35 +203,35 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
         }
 
         //中间文字
-        if(centerText.isEmpty()){
+        if (centerText.isEmpty()) {
             tvCenterText.invisible()
-        }else{
+        } else {
             tvCenterText.visible()
             tvCenterText.text = centerText
             tvCenterText.setTextColor(centerTextColor)
             tvCenterText.gravity = centerTextGravity
             tvCenterText.setTextSize(TypedValue.COMPLEX_UNIT_PX, centerTextSize.toFloat())
-            if(centerTextBg!=null)tvCenterText.setBackgroundDrawable(centerTextBg)
+            if (centerTextBg != null) tvCenterText.setBackgroundDrawable(centerTextBg)
         }
 
         //右边文字
-        if(rightText.isEmpty()){
+        if (rightText.isEmpty()) {
             tvRightText.gone()
-        }else{
+        } else {
             tvRightText.visible()
             tvRightText.text = rightText
             tvRightText.setTextColor(rightTextColor)
             tvRightText.setTextSize(TypedValue.COMPLEX_UNIT_PX, rightTextSize.toFloat())
-            if(rightTextBg!=null)tvRightText.setBackgroundDrawable(rightTextBg)
+            if (rightTextBg != null) tvRightText.setBackgroundDrawable(rightTextBg)
             tvRightText.setPadding(rightTextHorizontalPadding, rightTextVerticalPadding
-                    , rightTextHorizontalPadding,rightTextVerticalPadding)
-            if(rightTextBgColor!=0)tvRightText.setBackgroundColor(rightTextBgColor)
+                    , rightTextHorizontalPadding, rightTextVerticalPadding)
+            if (rightTextBgColor != 0) tvRightText.setBackgroundColor(rightTextBgColor)
         }
 
         //右边图片
-        if(rightImage==null){
+        if (rightImage == null) {
             ivRightImage.gone()
-        }else{
+        } else {
             ivRightImage.visible()
             ivRightImage.setImageDrawable(rightImage)
             ivRightImage.widthAndHeight(rightImageSize, rightImageSize)
@@ -221,25 +239,26 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
         }
 
         //右边图片2
-        if(rightImage2==null){
+        if (rightImage2 == null) {
             ivRightImage2.gone()
-        }else{
+        } else {
             ivRightImage2.visible()
             ivRightImage2.setImageDrawable(rightImage2)
             ivRightImage2.widthAndHeight(rightImage2Size, rightImage2Size)
             ivRightImage2.margin(leftMargin = rightImage2MarginLeft)
         }
     }
+
     private val paint = Paint()
     override fun dispatchDraw(canvas: Canvas) {
         super.dispatchDraw(canvas)
-        if(topLineColor!=0){
+        if (topLineColor != 0) {
             paint.color = topLineColor
-            canvas.drawRect(Rect(0,0,measuredWidth, 1), paint)
+            canvas.drawRect(Rect(0, 0, measuredWidth, 1), paint)
         }
-        if(bottomLineColor!=0){
+        if (bottomLineColor != 0) {
             paint.color = bottomLineColor
-            canvas.drawRect(Rect(0,measuredHeight-1,measuredWidth, measuredHeight), paint)
+            canvas.drawRect(Rect(0, measuredHeight - 1, measuredWidth, measuredHeight), paint)
         }
     }
 

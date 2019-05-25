@@ -47,6 +47,8 @@
 
         <TextView
             android:id="@+id/text4"
+            android:clickable="true"
+            android:gravity="center"
             android:textSize="14sp"
             android:textColor="#000"
             android:text="当前View的截图会显示在下方的ImageView中\n窗前明月光，疑是地上霜\n举头望明月，低头思故乡"

@@ -87,6 +87,9 @@
 
         <attr name="sl_topLineColor" format="color"/>
         <attr name="sl_bottomLineColor" format="color"/>
+
+        <attr name="sl_enableRipple" format="boolean"/>
+        <attr name="sl_rippleColor" format="color"/>
     </declare-styleable>
 
 </resources>
