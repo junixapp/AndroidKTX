@@ -94,6 +94,7 @@
 
 
             <com.lxj.androidktx.widget.SuperLayout
+                android:clickable="true"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:paddingLeft="14dp"
@@ -115,6 +116,7 @@
 
 
             <com.lxj.androidktx.widget.SuperLayout
+                android:clickable="true"
                 android:background="#fff"
                 android:paddingLeft="16dp"
                 android:paddingRight="20dp"
@@ -131,6 +133,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <com.lxj.androidktx.widget.SuperLayout
+                app:sl_rippleColor="#f00"
+                android:clickable="true"
                 android:background="#fff"
                 android:paddingLeft="16dp"
                 android:paddingRight="20dp"
@@ -147,6 +151,7 @@
 
             <com.lxj.androidktx.widget.SuperLayout
                 android:layout_marginTop="15dp"
+                android:clickable="true"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:paddingTop="12dp"
@@ -168,6 +173,7 @@
             <com.lxj.androidktx.widget.SuperLayout
                 android:background="#fff"
                 android:layout_marginTop="15dp"
+                android:clickable="true"
                 app:sl_leftText="总额："
                 app:sl_leftImageSize="60dp"
                 app:sl_leftTextMarginLeft="12dp"
@@ -186,6 +192,7 @@
 
             <com.lxj.androidktx.widget.SuperLayout
                 android:background="#fff"
+                android:clickable="true"
                 android:paddingLeft="14dp"
                 android:paddingRight="15dp"
                 android:paddingTop="20dp"
@@ -205,6 +212,7 @@
                 android:layout_height="wrap_content"/>
 
             <com.lxj.androidktx.widget.SuperLayout
+                android:clickable="true"
                 android:background="#fff"
                 android:paddingLeft="14dp"
                 android:paddingRight="15dp"
@@ -222,6 +230,7 @@
                 android:layout_height="wrap_content"/>
 
             <com.lxj.androidktx.widget.SuperLayout
+                android:clickable="true"
                 android:background="#fff"
                 android:paddingLeft="14dp"
                 android:paddingRight="15dp"

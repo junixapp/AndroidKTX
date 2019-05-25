@@ -2,9 +2,12 @@ package com.lxj.androidktx.core
 
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.RippleDrawable
+import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.support.v4.app.Fragment
@@ -28,12 +31,15 @@ import java.lang.reflect.Type
 fun Context.dp2px(dpValue: Float): Int {
     return (dpValue * resources.displayMetrics.density + 0.5f).toInt()
 }
+
 fun Context.px2dp(pxValue: Float): Int {
     return (pxValue / resources.displayMetrics.density + 0.5f).toInt()
 }
+
 fun Context.sp2px(spValue: Float): Int {
     return (spValue * resources.displayMetrics.scaledDensity + 0.5f).toInt()
 }
+
 fun Context.px2sp(pxValue: Float): Int {
     return (pxValue / resources.displayMetrics.scaledDensity + 0.5f).toInt()
 }
@@ -42,12 +48,15 @@ fun Context.px2sp(pxValue: Float): Int {
 fun Fragment.dp2px(dpValue: Float): Int {
     return context!!.dp2px(dpValue)
 }
+
 fun Fragment.px2dp(pxValue: Float): Int {
     return context!!.px2dp(pxValue)
 }
+
 fun Fragment.sp2px(dpValue: Float): Int {
     return context!!.sp2px(dpValue)
 }
+
 fun Fragment.px2sp(pxValue: Float): Int {
     return context!!.px2sp(pxValue)
 }
@@ -56,12 +65,15 @@ fun Fragment.px2sp(pxValue: Float): Int {
 fun View.px2dp(pxValue: Float): Int {
     return context!!.px2dp(pxValue)
 }
+
 fun View.dp2px(dpValue: Float): Int {
     return context!!.dp2px(dpValue)
 }
+
 fun View.sp2px(dpValue: Float): Int {
     return context!!.sp2px(dpValue)
 }
+
 fun View.px2sp(pxValue: Float): Int {
     return context!!.px2sp(pxValue)
 }
@@ -69,36 +81,54 @@ fun View.px2sp(pxValue: Float): Int {
 fun RecyclerView.ViewHolder.px2dp(pxValue: Float): Int {
     return itemView.px2dp(pxValue)
 }
+
 fun RecyclerView.ViewHolder.dp2px(dpValue: Float): Int {
     return itemView.dp2px(dpValue)
 }
+
 fun RecyclerView.ViewHolder.sp2px(dpValue: Float): Int {
     return itemView.sp2px(dpValue)
 }
+
 fun RecyclerView.ViewHolder.px2sp(pxValue: Float): Int {
     return itemView.px2sp(pxValue)
 }
 
 /** 动态创建Drawable **/
 fun Context.createDrawable(color: Int = Color.TRANSPARENT, radius: Float = 0f,
-                           strokeColor: Int = Color.TRANSPARENT, strokeWidth: Int = 0): Drawable{
-    return GradientDrawable().apply {
+                           strokeColor: Int = Color.TRANSPARENT, strokeWidth: Int = 0,
+                           enableRipple: Boolean = true,
+                           rippleColor: Int = Color.parseColor("#88999999")): Drawable {
+    val content = GradientDrawable().apply {
         setColor(color)
         cornerRadius = radius
         setStroke(strokeWidth, strokeColor)
     }
+    if (Build.VERSION.SDK_INT >= 21 && enableRipple) {
+        return RippleDrawable(ColorStateList.valueOf(rippleColor), content, null)
+    }
+    return content
 }
+
 fun Fragment.createDrawable(color: Int = Color.TRANSPARENT, radius: Float = 0f,
-                            strokeColor: Int = Color.TRANSPARENT, strokeWidth: Int = 0): Drawable{
-    return context!!.createDrawable(color, radius, strokeColor, strokeWidth)
+                            strokeColor: Int = Color.TRANSPARENT, strokeWidth: Int = 0,
+                            enableRipple: Boolean = true,
+                            rippleColor: Int = Color.parseColor("#88999999")): Drawable {
+    return context!!.createDrawable(color, radius, strokeColor, strokeWidth, enableRipple, rippleColor)
 }
+
 fun View.createDrawable(color: Int = Color.TRANSPARENT, radius: Float = 0f,
-                        strokeColor: Int = Color.TRANSPARENT, strokeWidth: Int = 0): Drawable{
-    return context!!.createDrawable(color, radius, strokeColor, strokeWidth)
+                        strokeColor: Int = Color.TRANSPARENT, strokeWidth: Int = 0,
+                        enableRipple: Boolean = true,
+                        rippleColor: Int = Color.parseColor("#88999999")): Drawable {
+    return context!!.createDrawable(color, radius, strokeColor, strokeWidth, enableRipple, rippleColor)
 }
+
 fun RecyclerView.ViewHolder.createDrawable(color: Int = Color.TRANSPARENT, radius: Float = 0f,
-                                           strokeColor: Int = Color.TRANSPARENT, strokeWidth: Int = 0): Drawable{
-    return itemView.createDrawable(color, radius, strokeColor, strokeWidth)
+                                           strokeColor: Int = Color.TRANSPARENT, strokeWidth: Int = 0,
+                                           enableRipple: Boolean = true,
+                                           rippleColor: Int = Color.parseColor("#88999999")): Drawable {
+    return itemView.createDrawable(color, radius, strokeColor, strokeWidth, enableRipple, rippleColor)
 }
 
 
@@ -106,18 +136,23 @@ fun RecyclerView.ViewHolder.createDrawable(color: Int = Color.TRANSPARENT, radiu
 fun Context.toast(msg: CharSequence) {
     Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
 }
+
 fun Context.longToast(msg: CharSequence) {
     Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
 }
+
 fun Fragment.toast(msg: CharSequence) {
     context?.toast(msg)
 }
+
 fun Fragment.longToast(msg: CharSequence) {
     context?.longToast(msg)
 }
+
 fun View.toast(msg: CharSequence) {
     context?.toast(msg)
 }
+
 fun View.longToast(msg: CharSequence) {
     context?.longToast(msg)
 }
@@ -125,34 +160,42 @@ fun View.longToast(msg: CharSequence) {
 
 /** json相关 **/
 fun Any.toJson() = Gson().toJson(this)
-inline fun <reified T> String.toBean() = Gson().fromJson<T>(this,object : TypeToken<T>(){}.type)
+
+inline fun <reified T> String.toBean() = Gson().fromJson<T>(this, object : TypeToken<T>() {}.type)
 
 
 /** Window相关 **/
-fun Context.windowWidth(): Int{
+fun Context.windowWidth(): Int {
     val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
     return windowManager.defaultDisplay.width
 }
-fun Context.windowHeight(): Int{
+
+fun Context.windowHeight(): Int {
     val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
     return windowManager.defaultDisplay.height
 }
-fun Fragment.windowWidth(): Int{
+
+fun Fragment.windowWidth(): Int {
     return context!!.windowWidth()
 }
-fun Fragment.windowHeight(): Int{
+
+fun Fragment.windowHeight(): Int {
     return context!!.windowHeight()
 }
-fun View.windowWidth(): Int{
+
+fun View.windowWidth(): Int {
     return context!!.windowWidth()
 }
-fun View.windowHeight(): Int{
+
+fun View.windowHeight(): Int {
     return context!!.windowHeight()
 }
-fun RecyclerView.ViewHolder.windowWidth(): Int{
+
+fun RecyclerView.ViewHolder.windowWidth(): Int {
     return itemView.windowWidth()
 }
-fun RecyclerView.ViewHolder.windowHeight(): Int{
+
+fun RecyclerView.ViewHolder.windowHeight(): Int {
     return itemView.windowHeight()
 }
 

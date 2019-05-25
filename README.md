@@ -392,6 +392,14 @@ ctx/fragment/view.longToast("测试长吐司")
 ```kotlin
 ctx/fragment/view/holder.dp2px(100)
 ctx/fragment/view/holder.px2dp(100)
+ctx/fragment/view/holder.sp2px(100)
+ctx/fragment/view/holder.px2sp(100)
+//动态创建图片
+ctx/fragment/view/holder.createDrawable(color = Color.GREEN,
+                                         strokeColor = Color.RED,
+                                         strokeWidth = dp2px(2f),
+                                         radius = dp2px(30f).toFloat(),
+                                         enableRipple = true)
 ```
 
 - Json转换相关：
