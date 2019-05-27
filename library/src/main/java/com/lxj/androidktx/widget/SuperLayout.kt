@@ -151,6 +151,8 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
         this.leftSubText = leftSubText
         this.centerText = centerText
         this.rightText = rightText
+        applyAttr()
+        applySelf()
     }
 
     private fun applySelf() {
