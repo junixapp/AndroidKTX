@@ -145,8 +145,8 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
               rightImageRes: Int = 0,
               rightImage2Res: Int = 0) {
         if (leftImageRes != 0) leftImage = drawable(leftImageRes)
-        if (rightImageRes != 0) leftImage = drawable(rightImageRes)
-        if (rightImage2Res != 0) leftImage = drawable(rightImage2Res)
+        if (rightImageRes != 0) rightImage = drawable(rightImageRes)
+        if (rightImage2Res != 0) rightImage2 = drawable(rightImage2Res)
         this.leftText = leftText
         this.leftSubText = leftSubText
         this.centerText = centerText
