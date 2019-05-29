@@ -64,6 +64,13 @@ class ViewExtPage : BaseFragment() {
                 strokeColor = Color.RED, strokeWidth = dp2px(2f),
                 radius = dp2px(30f).toFloat(), enableRipple = true))
 
+
+
+        saveToAlbum.click {
+            text4.toBitmap().saveToAlbum(callback = { path, uri ->
+                toast("保存成功")
+            })
+        }
     }
 
 }

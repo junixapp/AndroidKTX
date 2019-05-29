@@ -3,13 +3,11 @@ package com.lxj.androidktx.core
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.RippleDrawable
-import android.os.Build
-import android.os.Bundle
-import android.os.Parcelable
 import android.support.v4.app.Fragment
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -19,8 +17,23 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.lxj.androidktx.AndroidKtxConfig
 import com.lxj.androidktx.util.NetworkUtils
-import java.io.Serializable
 import java.lang.reflect.Type
+import android.media.MediaScannerConnection
+import android.net.Uri
+import android.os.*
+import java.nio.file.Files.delete
+import java.nio.file.Files.exists
+import com.bumptech.glide.load.ImageHeaderParser
+import com.bumptech.glide.load.ImageHeaderParser.ImageType
+import android.os.Environment.DIRECTORY_PICTURES
+import android.os.Environment.getExternalStorageDirectory
+import android.os.AsyncTask.execute
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.newSingleThreadContext
+import java.io.*
+import kotlin.concurrent.thread
+
 
 /**
  * Description:  通用扩展
@@ -255,4 +268,43 @@ fun Array<out Pair<String, Any?>>.toBundle(): Bundle? {
         }
     }
 
+}
+
+
+fun Any.runOnUIThread(action: ()->Unit){
+    Handler(Looper.getMainLooper()).post { action() }
+}
+
+/**
+ * 将Bitmap保存到相册
+ */
+fun Bitmap.saveToAlbum(format: Bitmap.CompressFormat = Bitmap.CompressFormat.PNG, quality: Int = 100, filename: String = "", callback: ((path: String?, uri: Uri?)->Unit)? = null ) {
+    GlobalScope.launch {
+        try {
+            //1. create path
+            val dirPath = Environment.getExternalStorageDirectory().absolutePath + "/" + Environment.DIRECTORY_PICTURES
+            val dirFile = File(dirPath)
+            if (!dirFile.exists()) dirFile.mkdirs()
+            val ext = when (format) {
+                Bitmap.CompressFormat.PNG -> ".png"
+                Bitmap.CompressFormat.JPEG -> ".jpg"
+                Bitmap.CompressFormat.WEBP -> ".webp"
+            }
+            val target = File(dirPath, (if(filename.isEmpty()) System.currentTimeMillis().toString() else filename) + ext)
+            if (target.exists()) target.delete()
+            target.createNewFile()
+            //2. save
+            compress(format, quality, FileOutputStream(target))
+            //3. notify
+            MediaScannerConnection.scanFile(AndroidKtxConfig.context, arrayOf(target.absolutePath),
+                    arrayOf("image/$ext")) { path, uri ->
+                runOnUIThread {
+                    callback?.invoke(path, uri)
+                }
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+            runOnUIThread { callback?.invoke(null, null) }
+        }
+    }
 }
