@@ -9,9 +9,9 @@ Some very useful kotlin extensions for android development !
 [![Download](https://api.bintray.com/packages/li-xiaojun/jrepo/androidktx/images/download.svg)](https://bintray.com/li-xiaojun/jrepo/androidktx/_latestVersion)
 
 ```
-implementation 'com.lxj:androidktx:1.1.23'
+implementation 'com.lxj:androidktx:1.1.24'
 //for androidx
-implementation 'com.lxj:androidktx:1.1.23-x'
+implementation 'com.lxj:androidktx:1.1.24-x'
 ```
 
 
@@ -434,12 +434,14 @@ ctx/fragment/view/holder.windowHeight()
 ```
 
 - TextView相关
+
 给TextView增加sizeDrawable方法，用于给TextView的drawable设置大小：
 ```kotlin
 tv.sizeDrawable(dp2px(20), topDrawable = R.mipmap.ic_launcher)
 ```
 
 - ViewPager相关
+
 让ViewPager变成卡片缩放效果：
 ```kotlin
 pager.asCard() //通过参数可以调节卡片的距离和大小
@@ -449,6 +451,13 @@ pager.asCard() //通过参数可以调节卡片的距离和大小
 viewPager.bind(10, bindView = {container, position ->
     return@bind TextView(this)
 })
+```
+
+- Bitmap相关
+
+将Bitmap保存到相册：
+```kotlin
+bitmap.saveToAlbum()
 ```
 
 
@@ -546,7 +555,7 @@ tt.clickListener(object : TitleBar.ClickListener{
 ![TitleBar](imgs/sizetext.png)
 
 
-- ShapeFrameLayout，ShapeLinearLayout，ShapeRelativeLayout等可以设置背景，圆角，水波纹的布局
+- ShapeFrameLayout，ShapeLinearLayout，ShapeRelativeLayout，ShapeTextView等可以设置背景，圆角，水波纹的布局
 
 
 ## 注意事项
