@@ -10,6 +10,7 @@ import com.lxj.androidktx.core.sizeDrawable
  * Description: 支持在布局中对Drawable宽高进行控制的TextView
  * Create by dance, at 2019/5/21
  */
+@Deprecated(message = "请使用ShapeTextView")
 class SizedTextView @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null, defStyleAttr: Int = 0)
     : TextView(context, attributeSet, defStyleAttr) {
 

@@ -130,4 +130,18 @@
         <attr name="srl_enableRipple" format="boolean"/>
         <attr name="srl_rippleColor" format="color"/>
     </declare-styleable>
+
+    <declare-styleable name="ShapeTextView">
+        <attr name="stv_drawableWidth" format="dimension"/>
+        <attr name="stv_drawableHeight" format="dimension"/>
+        <attr name="stv_drawableSize" format="dimension"/>
+
+        <attr name="stv_solid" format="color"/>
+        <attr name="stv_corner" format="dimension"/>
+        <attr name="stv_stroke" format="color"/>
+        <attr name="stv_strokeWidth" format="dimension"/>
+
+        <attr name="stv_enableRipple" format="boolean"/>
+        <attr name="stv_rippleColor" format="color"/>
+    </declare-styleable>
 </resources>

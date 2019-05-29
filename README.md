@@ -9,9 +9,9 @@ Some very useful kotlin extensions for android development !
 [![Download](https://api.bintray.com/packages/li-xiaojun/jrepo/androidktx/images/download.svg)](https://bintray.com/li-xiaojun/jrepo/androidktx/_latestVersion)
 
 ```
-implementation 'com.lxj:androidktx:1.1.23'
+implementation 'com.lxj:androidktx:1.1.24'
 //for androidx
-implementation 'com.lxj:androidktx:1.1.23-x'
+implementation 'com.lxj:androidktx:1.1.24-x'
 ```
 
 
@@ -555,7 +555,7 @@ tt.clickListener(object : TitleBar.ClickListener{
 ![TitleBar](imgs/sizetext.png)
 
 
-- ShapeFrameLayout，ShapeLinearLayout，ShapeRelativeLayout等可以设置背景，圆角，水波纹的布局
+- ShapeFrameLayout，ShapeLinearLayout，ShapeRelativeLayout，ShapeTextView等可以设置背景，圆角，水波纹的布局
 
 
 ## 注意事项
