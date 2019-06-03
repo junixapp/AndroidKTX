@@ -13,14 +13,21 @@ import com.lxj.easyadapter.*
 
 /**
  * 设置分割线
+ * @param color 分割线的颜色，默认是#DEDEDE
+ * @param size 分割线的大小，默认是1px
+ * @param isReplace 是否覆盖之前的ItemDecoration，默认是true
+ *
  */
-fun RecyclerView.divider(color: Int = Color.parseColor("#DEDEDE"), size: Int = 1): RecyclerView {
+fun RecyclerView.divider(color: Int = Color.parseColor("#DEDEDE"), size: Int = 1, isReplace: Boolean = true): RecyclerView {
     val decoration = DividerItemDecoration(context, orientation)
     decoration.setDrawable(GradientDrawable().apply {
         setColor(color)
         shape = GradientDrawable.RECTANGLE
         setSize(size, size)
     })
+    if(isReplace && itemDecorationCount>0){
+        removeItemDecorationAt(0)
+    }
     addItemDecoration(decoration)
     return this
 }
