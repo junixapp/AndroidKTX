@@ -15,6 +15,7 @@ object OkWrapper {
     private var httpTimeout = 10000L  //10s
     val globalHeaders = arrayListOf<Pair<String, String>>()
     val requestCache = hashMapOf<Any, Call>()
+    var baseUrl = ""
     var okHttpClient: OkHttpClient = OkHttpClient.Builder()
             .writeTimeout(httpTimeout, TimeUnit.MILLISECONDS)
             .readTimeout(httpTimeout, TimeUnit.MILLISECONDS)
@@ -42,12 +43,17 @@ object OkWrapper {
         return this
     }
 
+    fun baseUrl(url: String): OkWrapper{
+        this.baseUrl = url
+        return this
+    }
 
     /**
      * 设置自定义的Client
      */
-    fun setClient(client: OkHttpClient){
+    fun setClient(client: OkHttpClient): OkWrapper{
         okHttpClient = client
+        return this
     }
 
 

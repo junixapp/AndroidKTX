@@ -20,7 +20,7 @@ import java.net.URLConnection.getFileNameMap
  * @param tag 请求的tag
  */
 fun String.http(tag: Any = this): RequestWrapper {
-    return RequestWrapper(tag, url = this)
+    return RequestWrapper(tag, url = "${OkWrapper.baseUrl}${this}")
 }
 
 /**
