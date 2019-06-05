@@ -44,10 +44,20 @@ class SpanExtPage: BaseFragment(){
         tvClickSpan.text = """
             tv.clickSpan(str, 2..6, listener)
         """.trimIndent()
-        tvClickResult.clickSpan(str = str, range = 2..6, color = Color.BLUE, clickListener = View.OnClickListener {
+        tvClickResult.clickSpan(str = str, range = 2..6, color = Color.BLUE, clickAction = {
             toast("哈哈我被点击了".toColorSpan(0..2))
         })
 
         tt.sizeDrawable(300)
+
+        tvAppendResult.text = "演示一下appendXX方法的用法"
+        tvAppendResult.appendSizeSpan("变大变大")
+                .appendColorSpan("我要变色", color = Color.parseColor("#f0aafc"))
+                .appendBackgroundColorSpan("我是有底色的", color = Color.parseColor("#cacee0"))
+                .appendStrikeThrougthSpan("添加删除线哦哦哦哦")
+                .appendClickSpan("来点我一下试试啊", isUnderlineText = true, clickAction = {
+                    toast("哎呀，您点到我了呢，嘿嘿")
+                } )
+                .appendStyleSpan("我是粗体的")
     }
 }

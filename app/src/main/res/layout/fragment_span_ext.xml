@@ -67,6 +67,13 @@
             android:drawableTop="@mipmap/ic_launcher"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
+
+        <include layout="@layout/divider"/>
+        <TextView
+            style="@style/ResultStyle"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/tvAppendResult" />
     </LinearLayout>
 
 
