@@ -3,7 +3,7 @@
 
 Some very useful kotlin extensions for android development !
 
-一系列非常有用的Kotlin扩展，目标提高Android开发速度和替换所有的工具类！注意这个不是官方的AndroidKTX ！
+一系列非常有用的Kotlin扩展和组件，目标提高Android开发速度和替换所有的工具类！注意这个不是官方的AndroidKTX ！
 
 ## Gradle
 [![Download](https://api.bintray.com/packages/li-xiaojun/jrepo/androidktx/images/download.svg)](https://bintray.com/li-xiaojun/jrepo/androidktx/_latestVersion)
@@ -67,6 +67,7 @@ AndroidKtxConfig.init(context = this,
 ```kotlin
 logv("msg")
 logd("tag", "aaa")
+loge("tag", "aaa")
 ```
 
 
@@ -94,7 +95,7 @@ textView.strikeThrougthSpan(str,2..6)
 ```
 ![weather_humidity](imgs/strikethrough_span.png)
 ```kotlin
-textView.clickSpan(str = str, range = 2..6, color = Color.BLUE, clickListener = View.OnClickListener {
+textView.clickSpan(str = str, range = 2..6, color = Color.BLUE, clickAction = {
     toast("哈哈我被点击了".toColorSpan(0..2))
 })
 ```
@@ -103,6 +104,19 @@ textView.clickSpan(str = str, range = 2..6, color = Color.BLUE, clickListener = 
 textView.styleSpan(str, range) //加粗，斜体等效果
 ```
 
+`appendXX`系列方法，其实在实际项目中append系列方法会用的更多，用法按如下：
+```kotlin
+tv.text = "演示一下appendXX方法的用法"
+tv.appendSizeSpan("变大变大")
+        .appendColorSpan("我要变色", color = Color.parseColor("#f0aafc"))
+        .appendBackgroundColorSpan("我是有底色的", color = Color.parseColor("#cacee0"))
+        .appendStrikeThrougthSpan("添加删除线哦哦哦哦")
+        .appendClickSpan("来点我一下试试啊", isUnderlineText = true, clickAction = {
+            toast("哎呀，您点到我了呢，嘿嘿")
+        } )
+        .appendStyleSpan("我是粗体的")
+```
+![appendxx](imgs/append_span.png)
 
 
 ### View相关
@@ -320,6 +334,8 @@ GlobalScope.launch {
                     .await()
 }
 ```
+`GlobalScope.launch`开启的协程并不会自动取消，如果想要自动取消协程，请看看我的文章：https://juejin.im/post/5ceb3d6ef265da1bb47d4180
+
 上面的示例需要在协程中使用；也是我最喜欢和最推荐的方式。如果你不用协程，则可以用`callback style`：
 ```kotlin
 "http://192.168.1.103:3000/json".http().get(object : HttpCallback<String> {
@@ -337,12 +353,14 @@ GlobalScope.launch {
 
 - 其他
 ```kotlin
-// 设置自定义的Client
+        // 设置自定义的Client
 OkWrapper.setClient(...)
-// 设置全局header
-OkWrapper.headers("header1" to "a", "header2" to "b", ...)
-// 设置拦截器
-OkWrapper.interceptors(...)
+        // 设置全局header
+        .headers("header1" to "a", "header2" to "b", ...)
+        // 设置拦截器
+        .interceptors(...)
+        .baseUrl("https://lixiaojun.xin")
+
 // 取消请求
 "http://192.168.1.103:3000/json".http(tag = "abc").get<String>() //需要先指定tag
 OkWrapper.cancel("abc")
