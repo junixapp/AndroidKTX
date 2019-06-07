@@ -9,7 +9,7 @@ import com.lxj.androidktx.AndroidKtxConfig
  * Create by dance, at 2018/12/5
  */
 
-fun Context.sp(name: String = AndroidKtxConfig.sharedPrefName) = getSharedPreferences(name, Context.MODE_PRIVATE)
+fun Any.sp(name: String = AndroidKtxConfig.sharedPrefName) = AndroidKtxConfig.context.getSharedPreferences(name, Context.MODE_PRIVATE)
 
 /**
  * 批处理
