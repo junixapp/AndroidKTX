@@ -35,16 +35,15 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
     // inline函数在运行时插入使用处，需要暴露出去
     api "com.squareup.okhttp3:okhttp:3.12.1"
-    implementation "android.arch.lifecycle:extensions:1.1.1"
+    api "android.arch.lifecycle:extensions:1.1.1"
     api 'com.tencent:mmkv:1.0.17'
-
 }
 
 publish {
     userOrg = 'li-xiaojun'
     groupId = 'com.lxj'
     artifactId = 'androidktx'
-    publishVersion = '1.2.5'
+    publishVersion = '1.2.6'
     repoName = 'jrepo'
     desc = 'Some very useful kotlin extensions for android development！好用到爆的Kotlin扩展，加速你的Android开发！'
     website = 'https://github.com/li-xiaojun/AndroidKTX'

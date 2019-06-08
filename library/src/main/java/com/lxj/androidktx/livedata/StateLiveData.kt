@@ -1,6 +1,10 @@
 package com.lxj.androidktx.livedata
 
 import android.arch.lifecycle.MutableLiveData
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 /**
  * Description: 携带状态的LiveData
@@ -46,4 +50,9 @@ class StateLiveData<T> : MutableLiveData<T>() {
     fun changeState(s: State) {
         state.postValue(s)
     }
+}
+
+fun <T> StateLiveData<T>.launch(block: suspend CoroutineScope.() -> Unit): Job {
+    postLoading()
+    return GlobalScope.launch(block = block)
 }
