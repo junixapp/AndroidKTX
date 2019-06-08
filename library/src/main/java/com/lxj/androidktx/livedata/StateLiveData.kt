@@ -9,8 +9,9 @@ import android.arch.lifecycle.MutableLiveData
 class StateLiveData<T> : MutableLiveData<T>() {
 
     enum class State {
-        Idle, Loading, Success,Error
+        Idle, Loading, Success, Error, Empty
     }
+
     val state = MutableLiveData<State>()
 
     init {
@@ -36,6 +37,10 @@ class StateLiveData<T> : MutableLiveData<T>() {
 
     fun postError() {
         state.postValue(State.Error)
+    }
+
+    fun postEmpty() {
+        state.postValue(State.Empty)
     }
 
     fun changeState(s: State) {
