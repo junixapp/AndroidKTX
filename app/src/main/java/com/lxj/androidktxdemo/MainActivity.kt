@@ -8,6 +8,9 @@ import android.widget.TextView
 import com.lxj.androidktx.bus.LiveDataBus
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.livedata.StateLiveData
+import com.lxj.androidktx.livedata.launchAndSmartPost
+import com.lxj.androidktx.okhttp.get
+import com.lxj.androidktx.okhttp.http
 import com.lxj.androidktxdemo.entity.PageInfo
 import com.lxj.androidktxdemo.entity.User
 import com.lxj.androidktxdemo.fragment.*
@@ -105,6 +108,11 @@ class MainActivity : AppCompatActivity() {
         "2: ${mmkv().getList<String>("a")}".e()
 
 
+
+//        val stateLiveData = StateLiveData<String>()
+//        stateLiveData.launchAndSmartPost {
+//            "xxx".http().get<String>().await()
+//        }
 
     }
 

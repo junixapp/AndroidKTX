@@ -56,11 +56,6 @@ class StateLiveData<T> : MutableLiveData<T>() {
 }
 
 /**  some extensions  **/
-fun <T> StateLiveData<T>.launchWithLoading(block: suspend CoroutineScope.() -> Unit): Job {
-    postLoading()
-    return GlobalScope.launch(block = block)
-}
-
 fun <T> StateLiveData<T>.bindStateLayout(owner: LifecycleOwner, stateLayout: StateLayout) {
     state.observe(owner, Observer {
         when (it) {
@@ -79,4 +74,29 @@ fun <T> StateLiveData<T>.bindStateLayout(owner: LifecycleOwner, stateLayout: Sta
 fun <T> StateLiveData<T>.observeWithStateLayout(owner: LifecycleOwner, stateLayout: StateLayout, observer: Observer<T>) {
     bindStateLayout(owner, stateLayout)
     observe(owner, observer)
+}
+
+/**
+ * 智能post值，能根据值进行智能的设置自己的状态，无需手工编写代码
+ * @param dataValue 目标值，根据目标值去设置对应的state
+ */
+fun <T> StateLiveData<T>.smartPost(dataValue: T?){
+    if(dataValue==null){
+        postError()
+    }else if(dataValue is Collection<*> && dataValue.isEmpty()){
+        postEmpty()
+    }else{
+        postValueAndSuccess(dataValue)
+    }
+}
+
+/**
+ * 强大而实用的封装，启动协程执行逻辑（比如网络请求），并对逻辑结果进行智能post。示例如下：
+ * launchAndSmartPost {
+ *      "https://iandroid.xyz/api".http().get<T>().await()
+ * }
+ */
+fun <T> StateLiveData<T>.launchAndSmartPost(block: suspend CoroutineScope.() -> T?): Job {
+    postLoading()
+    return GlobalScope.launch { smartPost(block()) }
 }
