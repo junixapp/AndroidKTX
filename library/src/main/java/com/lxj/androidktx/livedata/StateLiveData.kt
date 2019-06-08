@@ -76,7 +76,7 @@ fun <T> StateLiveData<T>.bindStateLayout(owner: LifecycleOwner, stateLayout: Sta
 /**
  * 带绑定StateLayout
  */
-fun <T> StateLiveData<T>.observe(owner: LifecycleOwner, stateLayout: StateLayout, observer: Observer<T>) {
+fun <T> StateLiveData<T>.observeWithStateLayout(owner: LifecycleOwner, stateLayout: StateLayout, observer: Observer<T>) {
     bindStateLayout(owner, stateLayout)
     observe(owner, observer)
 }
