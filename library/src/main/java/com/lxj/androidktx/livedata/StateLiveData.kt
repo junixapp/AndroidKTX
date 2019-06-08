@@ -1,6 +1,9 @@
 package com.lxj.androidktx.livedata
 
+import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.Observer
+import com.lxj.statelayout.StateLayout
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
@@ -52,7 +55,28 @@ class StateLiveData<T> : MutableLiveData<T>() {
     }
 }
 
-fun <T> StateLiveData<T>.launch(block: suspend CoroutineScope.() -> Unit): Job {
+/**  some extensions  **/
+fun <T> StateLiveData<T>.launchWithLoading(block: suspend CoroutineScope.() -> Unit): Job {
     postLoading()
     return GlobalScope.launch(block = block)
+}
+
+fun <T> StateLiveData<T>.bindStateLayout(owner: LifecycleOwner, stateLayout: StateLayout) {
+    state.observe(owner, Observer {
+        when (it) {
+            StateLiveData.State.Loading -> stateLayout.showLoading()
+            StateLiveData.State.Error -> stateLayout.showError()
+            StateLiveData.State.Success -> stateLayout.showContent()
+            StateLiveData.State.Empty -> stateLayout.showEmpty()
+            else -> stateLayout.showLoading()
+        }
+    })
+}
+
+/**
+ * 带绑定StateLayout
+ */
+fun <T> StateLiveData<T>.observe(owner: LifecycleOwner, stateLayout: StateLayout, observer: Observer<T>) {
+    bindStateLayout(owner, stateLayout)
+    observe(owner, observer)
 }
