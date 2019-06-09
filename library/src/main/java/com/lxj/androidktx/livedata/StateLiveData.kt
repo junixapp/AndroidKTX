@@ -1,6 +1,13 @@
 package com.lxj.androidktx.livedata
 
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import com.lxj.statelayout.StateLayout
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 /**
  * Description: 携带状态的LiveData
