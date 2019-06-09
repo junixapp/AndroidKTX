@@ -39,11 +39,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        viewPager.adapter = object : FragmentPagerAdapter(supportFragmentManager) {
-            override fun getCount() = pages.size
-            override fun getItem(position: Int) = pages[position].page
-            override fun getPageTitle(position: Int) = pages[position].title
-        }
+        viewPager.bindFragment(fm = supportFragmentManager, fragments = pages.map { it.page!! }, pageTitles = pages.map { it.title })
         tabLayout.setupWithViewPager(viewPager)
 
 //        viewPager.asCard()
@@ -104,6 +100,11 @@ class MainActivity : AppCompatActivity() {
         "2: ${mmkv().getList<String>("a")}".e()
 
 
+
+//        val stateLiveData = StateLiveData<String>()
+//        stateLiveData.launchAndSmartPost {
+//            "xxx".http().get<String>().await()
+//        }
 
     }
 

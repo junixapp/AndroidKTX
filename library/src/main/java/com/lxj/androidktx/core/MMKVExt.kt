@@ -12,7 +12,7 @@ fun Any.mmkv(id: String? = null) = if (id == null) MMKV.defaultMMKV() else MMKV.
 
 val _set_divider = "_____androidktx_____"
 /**
- * 将一个字符串添加到List中，能去重复，且有序。注意获取的时候要用：getStringList，
+ * 将一个字符串添加到List中，能去重复，且有序。注意获取的时候要用：getList，
  * @param key key值
  * @param s 要添加的字符串
  * @param isReplace 是否去重，默认为true

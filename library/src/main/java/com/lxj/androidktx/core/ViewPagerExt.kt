@@ -11,7 +11,10 @@ import androidx.viewpager.widget.ViewPager
  * Create by dance, at 2019/5/23
  */
 
-fun ViewPager.bind(count: Int, bindView: (container: ViewGroup, position: Int)->View):ViewPager {
+/**
+ * 给ViewPager绑定数据
+ */
+fun ViewPager.bind(count: Int, bindView: (container: ViewGroup, position: Int) -> View): ViewPager {
     adapter = object : PagerAdapter() {
         override fun isViewFromObject(v: View, p: Any) = v == p
         override fun getCount() = count
@@ -23,6 +26,18 @@ fun ViewPager.bind(count: Int, bindView: (container: ViewGroup, position: Int)->
         override fun destroyItem(container: ViewGroup, position: Int, obj: Any) {
             container.removeView(obj as View)
         }
+    }
+    return this
+}
+
+/**
+ * 给ViewPager绑定Fragment
+ */
+fun ViewPager.bindFragment(fm: FragmentManager, fragments: List<Fragment>, pageTitles: List<String>? = null): ViewPager {
+    adapter = object : FragmentPagerAdapter(fm) {
+        override fun getItem(p: Int) = fragments[p]
+        override fun getCount() = fragments.size
+        override fun getPageTitle(p: Int) = if(pageTitles==null) null else pageTitles[p]
     }
     return this
 }
