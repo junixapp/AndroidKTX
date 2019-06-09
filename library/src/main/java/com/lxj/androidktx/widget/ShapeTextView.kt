@@ -16,7 +16,7 @@ import com.lxj.androidktx.core.sizeDrawable
  * Description: 能设置Shape的TextView
  * Create by dance, at 2019/5/21
  */
-class ShapeTextView @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null, defStyleAttr: Int = 0)
+open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null, defStyleAttr: Int = 0)
     : TextView(context, attributeSet, defStyleAttr) {
 
     var drawableWidth = 0

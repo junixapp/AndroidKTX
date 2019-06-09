@@ -3,7 +3,6 @@ package com.lxj.androidktxdemo.fragment
 
 import android.graphics.Color
 import com.lxj.androidktx.core.*
-import com.lxj.androidktxdemo.MainActivity
 import com.lxj.androidktxdemo.R
 import kotlinx.android.synthetic.main.fragment_view_ext.*
 
@@ -70,6 +69,11 @@ class ViewExtPage : BaseFragment() {
             text4.toBitmap().saveToAlbum(callback = { path, uri ->
                 toast("保存成功")
             })
+        }
+
+
+        tvVerify.click {
+            tvVerify.startCountDown()
         }
     }
 
