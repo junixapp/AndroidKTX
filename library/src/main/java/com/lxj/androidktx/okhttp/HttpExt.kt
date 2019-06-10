@@ -7,8 +7,10 @@ import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Request
 import okhttp3.Response
+import okio.Okio
 import java.io.File
 import java.io.IOException
+import java.lang.Exception
 import java.net.URLConnection.getFileNameMap
 
 
@@ -27,7 +29,7 @@ fun String.http(tag: Any = this): RequestWrapper {
  * get请求，需在协程中使用。结果为空即为http请求失败，并会将失败信息打印日志。
  */
 inline fun <reified T> RequestWrapper.get(): Deferred<T?> {
-    return doRequest(buildGetRequest(), this)
+    return defferedRequest(buildGetRequest(), this)
 }
 
 /**
@@ -41,11 +43,11 @@ inline fun <reified T> RequestWrapper.get(cb: HttpCallback<T>) {
  * post请求，需在协程中使用。结果为空即为http请求失败，并会将失败信息打印日志。
  */
 inline fun <reified T> RequestWrapper.post(): Deferred<T?> {
-    return doRequest(buildPostRequest(), this)
+    return defferedRequest(buildPostRequest(), this)
 }
 
 inline fun <reified T> RequestWrapper.postJson(json: String): Deferred<T?> {
-    return doRequest(buildPostRequest(buildJsonBody(json)), this)
+    return defferedRequest(buildPostRequest(buildJsonBody(json)), this)
 }
 
 /**
@@ -54,6 +56,7 @@ inline fun <reified T> RequestWrapper.postJson(json: String): Deferred<T?> {
 inline fun <reified T> RequestWrapper.post(cb: HttpCallback<T>) {
     callbackRequest(buildPostRequest(), cb, this)
 }
+
 inline fun <reified T> RequestWrapper.postJson(json: String, cb: HttpCallback<T>) {
     callbackRequest(buildPostRequest(buildJsonBody(json)), cb, this)
 }
@@ -62,10 +65,11 @@ inline fun <reified T> RequestWrapper.postJson(json: String, cb: HttpCallback<T>
  * put请求，需在协程中使用。结果为空即为http请求失败，并会将失败信息打印日志。
  */
 inline fun <reified T> RequestWrapper.put(): Deferred<T?> {
-    return doRequest(buildPutRequest(), this)
+    return defferedRequest(buildPutRequest(), this)
 }
+
 inline fun <reified T> RequestWrapper.putJson(json: String): Deferred<T?> {
-    return doRequest(buildPutRequest(buildJsonBody(json)), this)
+    return defferedRequest(buildPutRequest(buildJsonBody(json)), this)
 }
 
 /**
@@ -74,6 +78,7 @@ inline fun <reified T> RequestWrapper.putJson(json: String): Deferred<T?> {
 inline fun <reified T> RequestWrapper.put(cb: HttpCallback<T>) {
     callbackRequest(buildPutRequest(), cb, this)
 }
+
 inline fun <reified T> RequestWrapper.putJson(json: String, cb: HttpCallback<T>) {
     callbackRequest(buildPutRequest(buildJsonBody(json)), cb, this)
 }
@@ -82,7 +87,7 @@ inline fun <reified T> RequestWrapper.putJson(json: String, cb: HttpCallback<T>)
  * delete请求，需在协程中使用。结果为空即为http请求失败，并会将失败信息打印日志。
  */
 inline fun <reified T> RequestWrapper.delete(): Deferred<T?> {
-    return doRequest(buildDeleteRequest(), this)
+    return defferedRequest(buildDeleteRequest(), this)
 }
 
 /**
@@ -93,40 +98,40 @@ inline fun <reified T> RequestWrapper.delete(cb: HttpCallback<T>) {
 }
 
 
-inline fun <reified T> doRequest(request: Request, reqWrapper: RequestWrapper): Deferred<T?> {
+inline fun <reified T> defferedRequest(request: Request, reqWrapper: RequestWrapper): Deferred<T?> {
     val req = request.newBuilder().tag(reqWrapper.tag())
             .build()
     val call = OkWrapper.okHttpClient.newCall(req)
             .apply { OkWrapper.requestCache[reqWrapper.tag()] = this } //cache req
     val deferred = CompletableDeferred<T?>()
     deferred.invokeOnCompletion {
-        if (deferred.isCancelled){
+        if (deferred.isCancelled) {
             OkWrapper.requestCache.remove(reqWrapper.tag())
             call.cancel()
         }
     }
-    call.enqueue(object : Callback {
-        override fun onFailure(call: Call, e: IOException) {
-            OkWrapper.requestCache.remove(reqWrapper.tag())
-//            deferred.completeExceptionally(e)
-            deferred.complete(null) //pass null
-            e.printStackTrace()
-        }
-        override fun onResponse(call: Call, response: Response) {
-            OkWrapper.requestCache.remove(reqWrapper.tag())
-            if (response.isSuccessful) {
-                if ("ktx" is T) {
-                    deferred.complete(response.body()!!.string() as T)
-                } else {
-                    deferred.complete(response.body()!!.string().toBean<T>())
+    try {
+        val response = call.execute()
+        if (response.isSuccessful && response.body()!=null) {
+            when {
+                T::class.java == String::class.java -> deferred.complete(response.body()!!.string() as T)
+                T::class.java == File::class.java -> {
+                    val file = File(reqWrapper.savePath)
+                    if(!file.exists())file.createNewFile()
+                    response.body()!!.byteStream().copyTo(file.outputStream())
+                    deferred.complete(file as T)
                 }
-            } else {
-                //not throw, pass null
-//              deferred.completeExceptionally(IOException(response))
-                onFailure(call, IOException("request to ${request.url()} is fail; http code: ${response.code()}!"))
+                else -> deferred.complete(response.body()!!.string().toBean<T>())
             }
+        } else {
+            deferred.complete(null) //not throw, pass null
         }
-    })
+    } catch (e: Exception) {
+        e.printStackTrace()
+        deferred.complete(null) //pass null
+    } finally {
+        OkWrapper.requestCache.remove(reqWrapper.tag())
+    }
     return deferred
 }
 
@@ -139,13 +144,24 @@ inline fun <reified T> callbackRequest(request: Request, cb: HttpCallback<T>, re
                 OkWrapper.requestCache.remove(reqWrapper.tag())
                 cb.onFail(e)
             }
+
             override fun onResponse(call: Call, response: Response) {
                 OkWrapper.requestCache.remove(reqWrapper.tag())
                 if (response.isSuccessful) {
-                    if ("ktx" is T) {
+                    if (T::class.java == String::class.java) {
                         cb.onSuccess(response.body()!!.string() as T)
                     } else {
                         cb.onSuccess(response.body()!!.string().toBean<T>())
+                    }
+                    when {
+                        T::class.java == String::class.java -> cb.onSuccess(response.body()!!.string() as T)
+                        T::class.java == File::class.java -> {
+                            val file = File(reqWrapper.savePath)
+                            if(!file.exists())file.createNewFile()
+                            response.body()!!.byteStream().copyTo(file.outputStream())
+                            cb.onSuccess(file as T)
+                        }
+                        else -> cb.onSuccess(response.body()!!.string().toBean<T>())
                     }
                 } else {
                     cb.onFail(IOException("request to ${request.url()} is fail; http code: ${response.code()}!"))
@@ -153,7 +169,6 @@ inline fun <reified T> callbackRequest(request: Request, cb: HttpCallback<T>, re
             }
         })
     }
-
 }
 
 // parse some new media type.

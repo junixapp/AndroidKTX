@@ -346,6 +346,18 @@ GlobalScope.launch {
         }
     })
 ```
+下载文件和进度：
+```kotlin
+"https://github.com/li-xiaojun/XPopup/archive/master.zip"
+            .http()
+            .savePath(Environment.getExternalStorageDirectory().toString() + "/xxx.zip")
+            .downloadListener(onProgress = {
+                loge("download progress: ${it?.percent}")
+            })
+            .get<File>()
+            .await()
+```
+
 - Http日志
 
 内置了简洁实用的Http日志打印器，效果如下：

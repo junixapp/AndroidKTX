@@ -1,6 +1,7 @@
 package com.lxj.androidktx.okhttp
 
 import com.lxj.androidktx.util.HttpsUtils
+import me.jessyan.progressmanager.ProgressManager
 import okhttp3.Call
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -24,6 +25,10 @@ object OkWrapper {
             .sslSocketFactory(HttpsUtils.getSslSocketFactory().sSLSocketFactory,
                     HttpsUtils.getSslSocketFactory().trustManager)
             .build()
+
+    init {
+        okHttpClient = ProgressManager.getInstance().with(okHttpClient.newBuilder()).build()
+    }
 
     /**
      * 设置全局公共Header

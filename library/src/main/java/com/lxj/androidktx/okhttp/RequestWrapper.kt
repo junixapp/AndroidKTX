@@ -1,7 +1,11 @@
 package com.lxj.androidktx.okhttp
 
+import me.jessyan.progressmanager.ProgressListener
+import me.jessyan.progressmanager.ProgressManager
+import me.jessyan.progressmanager.body.ProgressInfo
 import okhttp3.*
 import java.io.File
+import java.lang.Exception
 
 /**
  * Description:
@@ -10,6 +14,7 @@ import java.io.File
 data class RequestWrapper(
         private var tag: Any = OkWrapper.javaClass,
         private var url: String = "",
+        var savePath: String = "",
         private var headers: ArrayList<Pair<String, String>> = arrayListOf(),
         private var params: ArrayList<Pair<String, Any>> = arrayListOf()
 ) {
@@ -33,11 +38,17 @@ data class RequestWrapper(
         return this
     }
 
+    /**
+     * 下载文件的保存路径
+     */
+    fun savePath(path: String): RequestWrapper {
+        this.savePath = path
+        return this
+    }
+
     private fun url() = url
     fun tag() = tag
     private fun params() = params
-
-
     fun buildGetRequest(): Request {
         return Request.Builder().url(urlParams())
                 .apply {
@@ -98,5 +109,28 @@ data class RequestWrapper(
         return "${url()}$queryParams"
     }
 
+    fun uploadListener(onProgress: (progressInfo: ProgressInfo?)->Unit, onError: ((id: Long, e: Exception?)->Unit)? = null): RequestWrapper{
+        ProgressManager.getInstance().addRequestListener(url, object : ProgressListener{
+            override fun onProgress(progressInfo: ProgressInfo?) {
+                onProgress(progressInfo)
+            }
+            override fun onError(id: Long, e: Exception?) {
+                onError?.invoke(id, e)
+            }
+        })
+        return this
+    }
+
+    fun downloadListener(onProgress: (progressInfo: ProgressInfo?)->Unit, onError: ((id: Long, e: Exception?)->Unit)? = null): RequestWrapper{
+        ProgressManager.getInstance().addResponseListener(url, object : ProgressListener{
+            override fun onProgress(progressInfo: ProgressInfo?) {
+                onProgress(progressInfo)
+            }
+            override fun onError(id: Long, e: Exception?) {
+                onError?.invoke(id, e)
+            }
+        })
+        return this
+    }
 }
 
