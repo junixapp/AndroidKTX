@@ -21,7 +21,8 @@ object OkWrapper {
             .writeTimeout(httpTimeout, TimeUnit.MILLISECONDS)
             .readTimeout(httpTimeout, TimeUnit.MILLISECONDS)
             .connectTimeout(httpTimeout, TimeUnit.MILLISECONDS)
-            .addInterceptor(HttpLogInterceptor())
+            .addNetworkInterceptor(HttpLogInterceptor())
+            .cookieJar(PersistentCookieStore())
             .sslSocketFactory(HttpsUtils.getSslSocketFactory().sSLSocketFactory,
                     HttpsUtils.getSslSocketFactory().trustManager)
             .build()

@@ -78,13 +78,19 @@ class HttpExtFragment : BaseFragment() {
 //                "https://api.gulltour.com/v1/common/nations".http().get<String>().await()
 
 
-                zipFile.http().savePath(Environment.getExternalStorageDirectory().toString() + "/xxx.zip")
-                        .downloadListener(onProgress = {
-                            loge("download progress: ${it?.percent}")
-                        })
-                        .get<File>()
-                        .await()
-                loge("done....")
+//                zipFile.http().savePath(Environment.getExternalStorageDirectory().toString() + "/xxx.zip")
+//                        .downloadListener(onProgress = {
+//                            loge("download progress: ${it?.percent}")
+//                        })
+//                        .get<File>()
+//                        .await()
+//                loge("done....")
+
+                "http://39.107.78.243:8095/captcha".http()
+                        .params(
+                                "phone" to "15172321248",
+                                "type" to "0"
+                        ).post<String>().await()
             }
             //callback style
 //            val json = User(name = "lxj", age = 33).toJson()
@@ -102,24 +108,39 @@ class HttpExtFragment : BaseFragment() {
 //            })
         }
 
+        btnSend2.click {
+            GlobalScope.launch {
+                "http://39.107.78.243:8095/loginC".http()
+                        .params(
+                                "phone" to "15172321248",
+                                "codenum" to "343210"
+                        ).post<String>().await()
+            }
+        }
+
         tt.setup(leftImageRes = R.mipmap.fx, title = "aaaaaaaaaaaa")
         //titleBar点击事件
-        tt.clickListener(object : TitleBar.ClickListener{
+        tt.clickListener(object : TitleBar.ClickListener {
             override fun leftTextClick() {
                 toast("left text")
             }
+
             override fun leftImageClick() {
                 toast("left image")
             }
+
             override fun rightTextClick() {
                 toast("right text")
             }
+
             override fun rightImageClick() {
                 toast("right image")
             }
+
             override fun rightImage2Click() {
                 toast("right image22")
             }
+
             override fun rightImage3Click() {
                 toast("right image333")
             }
