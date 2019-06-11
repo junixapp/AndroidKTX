@@ -146,12 +146,7 @@ inline fun <reified T> callbackRequest(request: Request, cb: HttpCallback<T>, re
 
             override fun onResponse(call: Call, response: Response) {
                 OkWrapper.requestCache.remove(reqWrapper.tag())
-                if (response.isSuccessful) {
-                    if (T::class.java == String::class.java) {
-                        cb.onSuccess(response.body()!!.string() as T)
-                    } else {
-                        cb.onSuccess(response.body()!!.string().toBean<T>())
-                    }
+                if (response.isSuccessful && response.body()!=null) {
                     when {
                         T::class.java == String::class.java -> cb.onSuccess(response.body()!!.string() as T)
                         T::class.java == File::class.java -> {
