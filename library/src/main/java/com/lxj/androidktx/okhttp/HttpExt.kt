@@ -7,7 +7,6 @@ import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Request
 import okhttp3.Response
-import okio.Okio
 import java.io.File
 import java.io.IOException
 import java.lang.Exception
