@@ -28,7 +28,7 @@ class PersistentCookieStore : CookieJar {
         // Load any previously stored cookies into the store
         val prefsMap = cookiePrefs.all
         for ((key, value) in prefsMap) {
-            if (value as String != null && !value.startsWith(COOKIE_NAME_PREFIX)) {
+            if (value as String? != null && !value?.startsWith(COOKIE_NAME_PREFIX)!!) {
                 val cookieNames = TextUtils.split(value, ",")
                 for (name in cookieNames) {
                     val encodedCookie = cookiePrefs.getString(COOKIE_NAME_PREFIX + name, null)

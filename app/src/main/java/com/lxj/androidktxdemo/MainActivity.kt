@@ -103,6 +103,10 @@ class MainActivity : AppCompatActivity() {
 //            "xxx".http().get<String>().await()
 //        }
 
+
+        val u1 = UserTest("李晓俊", 25)
+        val u3 = u1.copy()
+        loge("u3： $u3   u1==u3: ${u1===u3}" )
     }
 
 
