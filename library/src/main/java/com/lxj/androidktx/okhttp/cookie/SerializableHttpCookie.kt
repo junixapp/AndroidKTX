@@ -1,4 +1,4 @@
-package com.lxj.androidktx.okhttp
+package com.lxj.androidktx.okhttp.cookie
 
 import okhttp3.Cookie
 import java.io.IOException

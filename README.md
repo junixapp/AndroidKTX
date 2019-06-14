@@ -326,7 +326,7 @@ GlobalScope.launch {
     val user = "http://192.168.1.103:3000/json".http()
                     .headers("device" to "HuaWeiMate20", ...)
                     .params("token" to "188sas9cf99a9d",
-                        "file" to file,  //上传文件
+                        "file" to file,  //上传文件，使用Array<File>对象来传多个文件
                          ...)
                     .post<User>()
                     //.postJson(json) 直接传json字符串，目前post和put支持直传json

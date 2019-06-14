@@ -1,5 +1,6 @@
 package com.lxj.androidktx.okhttp
 
+import com.lxj.androidktx.okhttp.cookie.PersistentCookieStore
 import com.lxj.androidktx.util.HttpsUtils
 import me.jessyan.progressmanager.ProgressManager
 import okhttp3.Call
