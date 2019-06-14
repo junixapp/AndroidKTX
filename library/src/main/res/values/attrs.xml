@@ -60,7 +60,6 @@
 
         <attr name="sl_centerText" format="string"/>
         <attr name="sl_centerTextColor" format="color"/>
-        <attr name="sl_centerTextGravity" format="integer" />
         <attr name="sl_centerTextBg" format="reference"/>
         <attr name="sl_centerTextSize" format="dimension"/>
 
@@ -69,8 +68,8 @@
         <attr name="sl_rightTextSize" format="dimension"/>
         <attr name="sl_rightTextBg" format="reference"/>
         <attr name="sl_rightTextBgColor" format="color"/>
-        <attr name="sl_rightTextVerticalPadding" format="dimension"/>
-        <attr name="sl_rightTextHorizontalPadding" format="dimension"/>
+        <attr name="sl_rightTextWidth" format="dimension"/>
+        <attr name="sl_rightTextHeight" format="dimension"/>
 
         <attr name="sl_rightImageSrc" format="reference"/>
         <attr name="sl_rightImageMarginLeft" format="dimension"/>
@@ -87,6 +86,7 @@
 
         <attr name="sl_topLineColor" format="color"/>
         <attr name="sl_bottomLineColor" format="color"/>
+        <attr name="sl_lineSize" format="dimension"/>
 
         <attr name="sl_enableRipple" format="boolean"/>
         <attr name="sl_rippleColor" format="color"/>

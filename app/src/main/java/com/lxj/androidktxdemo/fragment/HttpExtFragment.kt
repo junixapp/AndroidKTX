@@ -145,6 +145,10 @@ class HttpExtFragment : BaseFragment() {
                 toast("right image333")
             }
         })
+
+        slWeChat.rightTextView().click {
+            toast("点击了")
+        }
     }
 
     class HttpExtVM : ViewModel() {

@@ -44,6 +44,7 @@
         android:id="@+id/tvRightText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:gravity="center"
         android:textColor="#777"
         android:textSize="15sp" />
