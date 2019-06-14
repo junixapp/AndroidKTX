@@ -2,7 +2,9 @@ package com.lxj.androidktx.widget
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Rect
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.RippleDrawable
 import android.os.Build
@@ -10,6 +12,7 @@ import android.util.AttributeSet
 import android.widget.TextView
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.createDrawable
+import com.lxj.androidktx.core.dp2px
 import com.lxj.androidktx.core.sizeDrawable
 
 /**
@@ -30,6 +33,10 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
     //是否启用水波纹
     private var enableRipple = true
     private var rippleColor = Color.parseColor("#88999999")
+    //上下分割线
+    private var topLineColor = 0
+    private var bottomLineColor = 0
+    private var lineSize = dp2px(.6f)
 
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.ShapeTextView)
@@ -49,6 +56,9 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
         enableRipple = ta.getBoolean(R.styleable.ShapeTextView_stv_enableRipple, enableRipple)
         rippleColor = ta.getColor(R.styleable.ShapeTextView_stv_rippleColor, rippleColor)
 
+        topLineColor = ta.getColor(R.styleable.ShapeTextView_stv_topLineColor, topLineColor)
+        bottomLineColor = ta.getColor(R.styleable.ShapeTextView_stv_bottomLineColor, bottomLineColor)
+        lineSize = ta.getColor(R.styleable.ShapeTextView_stv_lineSize, lineSize)
         ta.recycle()
         if (drawableWidth != 0 && drawableHeight != 0) {
             sizeDrawable(width = drawableWidth, height = drawableHeight)
@@ -68,6 +78,29 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
                         if (background != null) background else ColorDrawable(Color.TRANSPARENT), null)
                 background = rippleDrawable
             }
+        }
+    }
+
+    private val topLine = Rect(0,0,0,0)
+    private val bottomLine = Rect(0,0,0,0)
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        topLine.right = measuredWidth
+        topLine.bottom = lineSize
+        bottomLine.top = measuredHeight - lineSize
+        bottomLine.right = measuredWidth
+        bottomLine.bottom = measuredHeight
+    }
+
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
+        if (topLineColor != 0) {
+            paint.color = topLineColor
+            canvas.drawRect(topLine, paint)
+        }
+        if (bottomLineColor != 0) {
+            paint.color = bottomLineColor
+            canvas.drawRect(bottomLine, paint)
         }
     }
 }

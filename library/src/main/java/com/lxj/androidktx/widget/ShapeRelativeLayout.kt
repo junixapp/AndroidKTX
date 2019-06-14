@@ -14,6 +14,7 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.createDrawable
+import com.lxj.androidktx.core.dp2px
 
 /**
  * Description: 可以设置Shape的RelativeLayout
@@ -31,6 +32,7 @@ class ShapeRelativeLayout @JvmOverloads constructor(context: Context, attributeS
     //上下分割线
     private var topLineColor = 0
     private var bottomLineColor = 0
+    private var lineSize = dp2px(.6f)
 
     //是否启用水波纹
     private var enableRipple = true
@@ -45,6 +47,7 @@ class ShapeRelativeLayout @JvmOverloads constructor(context: Context, attributeS
 
         topLineColor = ta.getColor(R.styleable.ShapeRelativeLayout_srl_topLineColor, topLineColor)
         bottomLineColor = ta.getColor(R.styleable.ShapeRelativeLayout_srl_bottomLineColor, bottomLineColor)
+        lineSize = ta.getColor(R.styleable.ShapeRelativeLayout_srl_lineSize, lineSize)
         enableRipple = ta.getBoolean(R.styleable.ShapeRelativeLayout_srl_enableRipple, enableRipple)
         rippleColor = ta.getColor(R.styleable.ShapeRelativeLayout_srl_rippleColor, rippleColor)
 
@@ -70,11 +73,11 @@ class ShapeRelativeLayout @JvmOverloads constructor(context: Context, attributeS
         super.dispatchDraw(canvas)
         if (topLineColor != 0) {
             paint.color = topLineColor
-            canvas.drawRect(Rect(0, 0, measuredWidth, 1), paint)
+            canvas.drawRect(Rect(0, 0, measuredWidth, lineSize), paint)
         }
         if (bottomLineColor != 0) {
             paint.color = bottomLineColor
-            canvas.drawRect(Rect(0, measuredHeight - 1, measuredWidth, measuredHeight), paint)
+            canvas.drawRect(Rect(0, measuredHeight - lineSize, measuredWidth, measuredHeight), paint)
         }
     }
 }

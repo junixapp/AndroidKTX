@@ -100,6 +100,7 @@
 
         <attr name="sfl_topLineColor" format="color"/>
         <attr name="sfl_bottomLineColor" format="color"/>
+        <attr name="sfl_lineSize" format="dimension"/>
 
         <attr name="sfl_enableRipple" format="boolean"/>
         <attr name="sfl_rippleColor" format="color"/>
@@ -113,6 +114,7 @@
 
         <attr name="sll_topLineColor" format="color"/>
         <attr name="sll_bottomLineColor" format="color"/>
+        <attr name="sll_lineSize" format="dimension"/>
 
         <attr name="sll_enableRipple" format="boolean"/>
         <attr name="sll_rippleColor" format="color"/>
@@ -126,6 +128,7 @@
 
         <attr name="srl_topLineColor" format="color"/>
         <attr name="srl_bottomLineColor" format="color"/>
+        <attr name="srl_lineSize" format="dimension"/>
 
         <attr name="srl_enableRipple" format="boolean"/>
         <attr name="srl_rippleColor" format="color"/>
@@ -143,6 +146,10 @@
 
         <attr name="stv_enableRipple" format="boolean"/>
         <attr name="stv_rippleColor" format="color"/>
+
+        <attr name="stv_topLineColor" format="color"/>
+        <attr name="stv_bottomLineColor" format="color"/>
+        <attr name="stv_lineSize" format="dimension"/>
     </declare-styleable>
 
     <!--验证码View-->

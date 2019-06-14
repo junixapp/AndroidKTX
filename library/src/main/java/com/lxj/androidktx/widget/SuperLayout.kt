@@ -78,6 +78,7 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
     //上下分割线
     private var topLineColor = 0
     private var bottomLineColor = 0
+    var lineSize = dp2px(.6f)
 
     //是否启用水波纹
     private var enableRipple = true
@@ -256,11 +257,11 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
         super.dispatchDraw(canvas)
         if (topLineColor != 0) {
             paint.color = topLineColor
-            canvas.drawRect(Rect(0, 0, measuredWidth, 1), paint)
+            canvas.drawRect(Rect(0, 0, measuredWidth, lineSize), paint)
         }
         if (bottomLineColor != 0) {
             paint.color = bottomLineColor
-            canvas.drawRect(Rect(0, measuredHeight - 1, measuredWidth, measuredHeight), paint)
+            canvas.drawRect(Rect(0, measuredHeight - lineSize, measuredWidth, measuredHeight), paint)
         }
     }
 

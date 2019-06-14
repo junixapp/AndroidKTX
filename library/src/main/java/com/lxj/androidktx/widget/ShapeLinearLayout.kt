@@ -13,6 +13,7 @@ import android.util.AttributeSet
 import android.widget.LinearLayout
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.createDrawable
+import com.lxj.androidktx.core.dp2px
 
 /**
  * Description: 可以设置Shape的LinearLayout
@@ -30,7 +31,7 @@ class ShapeLinearLayout @JvmOverloads constructor(context: Context, attributeSet
     //上下分割线
     private var topLineColor = 0
     private var bottomLineColor = 0
-
+    private var lineSize = dp2px(.6f)
     //是否启用水波纹
     private var enableRipple = true
     private var rippleColor = Color.parseColor("#88999999")
@@ -44,6 +45,7 @@ class ShapeLinearLayout @JvmOverloads constructor(context: Context, attributeSet
 
         topLineColor = ta.getColor(R.styleable.ShapeLinearLayout_sll_topLineColor, topLineColor)
         bottomLineColor = ta.getColor(R.styleable.ShapeLinearLayout_sll_bottomLineColor, bottomLineColor)
+        lineSize = ta.getColor(R.styleable.ShapeLinearLayout_sll_lineSize, lineSize)
         enableRipple = ta.getBoolean(R.styleable.ShapeLinearLayout_sll_enableRipple, enableRipple)
         rippleColor = ta.getColor(R.styleable.ShapeLinearLayout_sll_rippleColor, rippleColor)
 
@@ -69,11 +71,11 @@ class ShapeLinearLayout @JvmOverloads constructor(context: Context, attributeSet
         super.dispatchDraw(canvas)
         if (topLineColor != 0) {
             paint.color = topLineColor
-            canvas.drawRect(Rect(0, 0, measuredWidth, 1), paint)
+            canvas.drawRect(Rect(0, 0, measuredWidth, lineSize), paint)
         }
         if (bottomLineColor != 0) {
             paint.color = bottomLineColor
-            canvas.drawRect(Rect(0, measuredHeight - 1, measuredWidth, measuredHeight), paint)
+            canvas.drawRect(Rect(0, measuredHeight - lineSize, measuredWidth, measuredHeight), paint)
         }
     }
 }
