@@ -75,7 +75,7 @@ class HttpLogInterceptor @JvmOverloads constructor(var printResponseHeader: Bool
         val responseBody = response.body()
         val contentLength = responseBody!!.contentLength()
         val bodySize = if (contentLength != -1L) "$contentLength-byte" else "unknown-length"
-        var responseMessage = "$responsePrefixStart ${response.code()} ${if (response.message().isEmpty()) "" else response.message()} "
+        var responseMessage = "$responsePrefixStart ${response.code()} ${request.method()} ${if (response.message().isEmpty()) "" else response.message()} "
         responseMessage += response.request().url()
         responseMessage += " (" + tookMs + "ms" + ", $bodySize body)\n"
 
