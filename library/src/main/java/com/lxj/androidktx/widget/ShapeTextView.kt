@@ -22,59 +22,59 @@ import com.lxj.androidktx.core.sizeDrawable
 open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null, defStyleAttr: Int = 0)
     : TextView(context, attributeSet, defStyleAttr) {
 
-    var drawableWidth = 0
-    var drawableHeight = 0
+    var mDrawableWidth = 0
+    var mDrawableHeight = 0
     //背景
-    private var solid = 0 //填充色
-    private var stroke = 0 //边框颜色
-    private var strokeWidth = 0 //边框大小
-    private var corner = 0 //圆角
+    private var mSolid = 0 //填充色
+    private var mStroke = 0 //边框颜色
+    private var mStrokeWidth = 0 //边框大小
+    private var mCorner = 0 //圆角
 
     //是否启用水波纹
-    private var enableRipple = true
-    private var rippleColor = Color.parseColor("#88999999")
+    private var mEnableRipple = true
+    private var mRippleColor = Color.parseColor("#88999999")
     //上下分割线
-    private var topLineColor = 0
-    private var bottomLineColor = 0
-    private var lineSize = dp2px(.6f)
+    private var mTopLineColor = 0
+    private var mBottomLineColor = 0
+    private var mLineSize = dp2px(.6f)
 
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.ShapeTextView)
-        drawableWidth = ta.getDimensionPixelSize(R.styleable.ShapeTextView_stv_drawableWidth, drawableWidth)
-        drawableHeight = ta.getDimensionPixelSize(R.styleable.ShapeTextView_stv_drawableHeight, drawableHeight)
+        mDrawableWidth = ta.getDimensionPixelSize(R.styleable.ShapeTextView_stv_drawableWidth, mDrawableWidth)
+        mDrawableHeight = ta.getDimensionPixelSize(R.styleable.ShapeTextView_stv_drawableHeight, mDrawableHeight)
         val size = ta.getDimensionPixelSize(R.styleable.ShapeTextView_stv_drawableSize, 0)
         if (size != 0) {
-            drawableWidth = size
-            drawableHeight = size
+            mDrawableWidth = size
+            mDrawableHeight = size
         }
 
-        solid = ta.getColor(R.styleable.ShapeTextView_stv_solid, solid)
-        stroke = ta.getColor(R.styleable.ShapeTextView_stv_stroke, stroke)
-        strokeWidth = ta.getDimensionPixelSize(R.styleable.ShapeTextView_stv_strokeWidth, strokeWidth)
-        corner = ta.getDimensionPixelSize(R.styleable.ShapeTextView_stv_corner, corner)
+        mSolid = ta.getColor(R.styleable.ShapeTextView_stv_solid, mSolid)
+        mStroke = ta.getColor(R.styleable.ShapeTextView_stv_stroke, mStroke)
+        mStrokeWidth = ta.getDimensionPixelSize(R.styleable.ShapeTextView_stv_strokeWidth, mStrokeWidth)
+        mCorner = ta.getDimensionPixelSize(R.styleable.ShapeTextView_stv_corner, mCorner)
 
-        enableRipple = ta.getBoolean(R.styleable.ShapeTextView_stv_enableRipple, enableRipple)
-        rippleColor = ta.getColor(R.styleable.ShapeTextView_stv_rippleColor, rippleColor)
+        mEnableRipple = ta.getBoolean(R.styleable.ShapeTextView_stv_enableRipple, mEnableRipple)
+        mRippleColor = ta.getColor(R.styleable.ShapeTextView_stv_rippleColor, mRippleColor)
 
-        topLineColor = ta.getColor(R.styleable.ShapeTextView_stv_topLineColor, topLineColor)
-        bottomLineColor = ta.getColor(R.styleable.ShapeTextView_stv_bottomLineColor, bottomLineColor)
-        lineSize = ta.getColor(R.styleable.ShapeTextView_stv_lineSize, lineSize)
+        mTopLineColor = ta.getColor(R.styleable.ShapeTextView_stv_topLineColor, mTopLineColor)
+        mBottomLineColor = ta.getColor(R.styleable.ShapeTextView_stv_bottomLineColor, mBottomLineColor)
+        mLineSize = ta.getColor(R.styleable.ShapeTextView_stv_lineSize, mLineSize)
         ta.recycle()
-        if (drawableWidth != 0 && drawableHeight != 0) {
-            sizeDrawable(width = drawableWidth, height = drawableHeight)
+        if (mDrawableWidth != 0 && mDrawableHeight != 0) {
+            sizeDrawable(width = mDrawableWidth, height = mDrawableHeight)
         }
         applySelf()
     }
 
 
     private fun applySelf() {
-        if (solid != 0 || stroke != 0) {
-            val drawable = createDrawable(color = solid, radius = corner.toFloat(), strokeColor = stroke, strokeWidth = strokeWidth,
-                    enableRipple = enableRipple, rippleColor = rippleColor)
+        if (mSolid != 0 || mStroke != 0) {
+            val drawable = createDrawable(color = mSolid, radius = mCorner.toFloat(), strokeColor = mStroke, strokeWidth = mStrokeWidth,
+                    enableRipple = mEnableRipple, rippleColor = mRippleColor)
             setBackgroundDrawable(drawable)
         } else {
-            if (Build.VERSION.SDK_INT >= 21 && enableRipple) {
-                val rippleDrawable = RippleDrawable(ColorStateList.valueOf(rippleColor),
+            if (Build.VERSION.SDK_INT >= 21 && mEnableRipple) {
+                val rippleDrawable = RippleDrawable(ColorStateList.valueOf(mRippleColor),
                         if (background != null) background else ColorDrawable(Color.TRANSPARENT), null)
                 background = rippleDrawable
             }
@@ -86,21 +86,39 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         topLine.right = measuredWidth
-        topLine.bottom = lineSize
-        bottomLine.top = measuredHeight - lineSize
+        topLine.bottom = mLineSize
+        bottomLine.top = measuredHeight - mLineSize
         bottomLine.right = measuredWidth
         bottomLine.bottom = measuredHeight
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        if (topLineColor != 0) {
-            paint.color = topLineColor
+        if (mTopLineColor != 0) {
+            paint.color = mTopLineColor
             canvas.drawRect(topLine, paint)
         }
-        if (bottomLineColor != 0) {
-            paint.color = bottomLineColor
+        if (mBottomLineColor != 0) {
+            paint.color = mBottomLineColor
             canvas.drawRect(bottomLine, paint)
         }
+    }
+
+    fun setup(drawableWidth: Int = mDrawableWidth, drawableHeight: Int = mDrawableHeight,
+              solid: Int = mSolid, stroke: Int = mStroke, strokeWidth: Int = mStrokeWidth,
+              corner: Int = mCorner, enableRipple: Boolean = mEnableRipple, rippleColor: Int = mRippleColor,
+              topLineColor: Int = mTopLineColor, bottomLineColor: Int = mBottomLineColor, lineSize: Int = mLineSize){
+        mDrawableWidth = drawableWidth
+        mDrawableHeight = drawableHeight
+        mSolid = solid
+        mStroke = stroke
+        mStrokeWidth = strokeWidth
+        mCorner = corner
+        mEnableRipple = enableRipple
+        mRippleColor = rippleColor
+        mTopLineColor = topLineColor
+        mBottomLineColor = bottomLineColor
+        mLineSize = lineSize
+        applySelf()
     }
 }
