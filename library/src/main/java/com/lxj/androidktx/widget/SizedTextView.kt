@@ -7,7 +7,7 @@ import com.lxj.androidktx.R
 import com.lxj.androidktx.core.sizeDrawable
 
 /**
- * Description: 支持在布局中对Drawable宽高进行控制的TextView
+ * Description: 支持在布局中对Drawable宽高进行控制的TextView，已过时，请使用更强大的ShapeTextView
  * Create by dance, at 2019/5/21
  */
 @Deprecated(message = "请使用ShapeTextView")

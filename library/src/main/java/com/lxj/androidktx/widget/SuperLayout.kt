@@ -47,7 +47,6 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
     private var centerText = ""
     private var centerTextColor = Color.parseColor("#222222")
     private var centerTextSize = sp2px(15f)
-    private var centerTextGravity = Gravity.LEFT.or(Gravity.CENTER_VERTICAL)
     private var centerTextBg: Drawable?
 
     //右边文字
@@ -56,8 +55,8 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
     private var rightTextSize = sp2px(15f)
     private var rightTextBg: Drawable?
     private var rightTextBgColor = 0
-    private var rightTextVerticalPadding = 0
-    private var rightTextHorizontalPadding = 0
+    private var rightTextWidth = 0
+    private var rightTextHeight = 0
 
     //右边图片
     private var rightImage: Drawable?
@@ -78,6 +77,7 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
     //上下分割线
     private var topLineColor = 0
     private var bottomLineColor = 0
+    private var lineSize = dp2px(.6f)
 
     //是否启用水波纹
     private var enableRipple = true
@@ -102,7 +102,6 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
         centerText = ta.getString(R.styleable.SuperLayout_sl_centerText) ?: ""
         centerTextColor = ta.getColor(R.styleable.SuperLayout_sl_centerTextColor, centerTextColor)
         centerTextSize = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_centerTextSize, centerTextSize)
-        centerTextGravity = ta.getInt(R.styleable.SuperLayout_sl_centerTextGravity, centerTextGravity)
         centerTextBg = ta.getDrawable(R.styleable.SuperLayout_sl_centerTextBg)
 
         rightText = ta.getString(R.styleable.SuperLayout_sl_rightText) ?: ""
@@ -110,8 +109,8 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
         rightTextSize = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_rightTextSize, rightTextSize)
         rightTextBg = ta.getDrawable(R.styleable.SuperLayout_sl_rightTextBg)
         rightTextBgColor = ta.getColor(R.styleable.SuperLayout_sl_rightTextBgColor, rightTextBgColor)
-        rightTextVerticalPadding = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_rightTextVerticalPadding, rightTextVerticalPadding)
-        rightTextHorizontalPadding = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_rightTextHorizontalPadding, rightTextHorizontalPadding)
+        rightTextWidth = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_rightTextWidth, rightTextWidth)
+        rightTextHeight = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_rightTextHeight, rightTextHeight)
 
         rightImage = ta.getDrawable(R.styleable.SuperLayout_sl_rightImageSrc)
         rightImageSize = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_rightImageSize, rightImageSize)
@@ -128,6 +127,7 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
 
         topLineColor = ta.getColor(R.styleable.SuperLayout_sl_topLineColor, topLineColor)
         bottomLineColor = ta.getColor(R.styleable.SuperLayout_sl_bottomLineColor, bottomLineColor)
+        lineSize = ta.getColor(R.styleable.SuperLayout_sl_lineSize, lineSize)
         enableRipple = ta.getBoolean(R.styleable.SuperLayout_sl_enableRipple, enableRipple)
         rippleColor = ta.getColor(R.styleable.SuperLayout_sl_rippleColor, rippleColor)
 
@@ -211,7 +211,6 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
             tvCenterText.visible()
             tvCenterText.text = centerText
             tvCenterText.setTextColor(centerTextColor)
-            tvCenterText.gravity = centerTextGravity
             tvCenterText.setTextSize(TypedValue.COMPLEX_UNIT_PX, centerTextSize.toFloat())
             if (centerTextBg != null) tvCenterText.setBackgroundDrawable(centerTextBg)
         }
@@ -225,8 +224,8 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
             tvRightText.setTextColor(rightTextColor)
             tvRightText.setTextSize(TypedValue.COMPLEX_UNIT_PX, rightTextSize.toFloat())
             if (rightTextBg != null) tvRightText.setBackgroundDrawable(rightTextBg)
-            tvRightText.setPadding(rightTextHorizontalPadding, rightTextVerticalPadding
-                    , rightTextHorizontalPadding, rightTextVerticalPadding)
+            if(rightTextWidth!=0)tvRightText.width(rightTextWidth)
+            if(rightTextHeight!=0)tvRightText.height(rightTextHeight)
             if (rightTextBgColor != 0) tvRightText.setBackgroundColor(rightTextBgColor)
         }
 
@@ -256,15 +255,17 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
         super.dispatchDraw(canvas)
         if (topLineColor != 0) {
             paint.color = topLineColor
-            canvas.drawRect(Rect(0, 0, measuredWidth, 1), paint)
+            canvas.drawRect(Rect(0, 0, measuredWidth, lineSize), paint)
         }
         if (bottomLineColor != 0) {
             paint.color = bottomLineColor
-            canvas.drawRect(Rect(0, measuredHeight - 1, measuredWidth, measuredHeight), paint)
+            canvas.drawRect(Rect(0, measuredHeight - lineSize, measuredWidth, measuredHeight), paint)
         }
     }
 
-    fun getLeftImageView() = ivLeftImage
-    fun getRightImageView() = ivRightImage
-    fun getRightImageView2() = ivRightImage2
+    fun leftImageView() = ivLeftImage
+    fun rightTextView() = tvRightText
+    fun centerTextView() = tvCenterText
+    fun rightImageView() = ivRightImage
+    fun rightImageView2() = ivRightImage2
 }

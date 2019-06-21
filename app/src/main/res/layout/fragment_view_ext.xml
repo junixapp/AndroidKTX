@@ -88,9 +88,35 @@
             android:textSize="29sp"
             android:drawableLeft="@drawable/wechat"
             android:gravity="center"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <com.lxj.androidktx.widget.ShapeTextView
+            android:layout_margin="20dp"
+            android:clickable="true"
+            app:stv_solid="@color/colorPrimary"
+            android:padding="20dp"
+            android:text="哈哈"
+            android:textColor="#f00"
+            android:textSize="29sp"
+            android:drawableLeft="@drawable/wechat"
+            app:stv_topLineColor="#f00"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.lxj.androidktx.widget.VerifyView
+            android:id="@+id/tvVerify"
+            app:stv_corner="30dp"
+            app:stv_solid="#f0accf"
+            app:vv_countDownText="后重发"
+            app:vv_resendDuration="10"
+            app:vv_resendText="重发吧"
+            android:layout_width="100dp"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="40dp" />
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

@@ -12,6 +12,12 @@
         android:text="发送请求" />
 
     <androidx.core.widget.NestedScrollView
+    <Button
+        android:id="@+id/btnSend2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="发送请求2" />
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -116,6 +122,7 @@
 
 
             <com.lxj.androidktx.widget.SuperLayout
+                android:id="@+id/slWeChat"
                 android:clickable="true"
                 android:background="#fff"
                 android:paddingLeft="16dp"
@@ -130,6 +137,10 @@
                 app:sl_leftTextSize="16sp"
                 app:sl_rightImageSrc="@drawable/checked"
                 app:sl_bottomLineColor="#ccc"
+                app:sl_rightText="更新"
+                app:sl_rightTextBgColor="#f00"
+                app:sl_rightTextWidth="50dp"
+                app:sl_rightTextHeight="40dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <com.lxj.androidktx.widget.SuperLayout
@@ -185,8 +196,8 @@
                 app:sl_rightText="确认支付"
                 app:sl_rightTextColor="#fff"
                 app:sl_rightTextBgColor="#14ca5f"
-                app:sl_rightTextHorizontalPadding="25dp"
-                app:sl_rightTextVerticalPadding="20dp"
+                app:sl_rightTextWidth="95dp"
+                app:sl_rightTextHeight="55dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -205,8 +216,8 @@
                 app:sl_rightTextSize="12sp"
                 app:sl_rightTextColor="#fff"
                 app:sl_rightTextBg="@drawable/bg_update"
-                app:sl_rightTextHorizontalPadding="9dp"
-                app:sl_rightTextVerticalPadding="1dp"
+                app:sl_rightTextWidth="55dp"
+                app:sl_rightTextHeight="35dp"
                 app:sl_rightImageSrc="@mipmap/jt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>

@@ -31,7 +31,7 @@ class HttpLogInterceptor @JvmOverloads constructor(var printResponseHeader: Bool
         val connection = chain.connection()
         // 1. 请求第一行
         var requestMessage = "$requestPrefixStart ${request.method()} ${request.url()} ${if (connection != null) connection.protocol() else ""}\n"
-        // 2. 请求头，只拼自定义的头
+        // 2. 请求头
         requestMessage += header2String(request.headers())
         // 3. 请求体
         if (bodyHasUnknownEncoding(request.headers())) {
@@ -75,7 +75,7 @@ class HttpLogInterceptor @JvmOverloads constructor(var printResponseHeader: Bool
         val responseBody = response.body()
         val contentLength = responseBody!!.contentLength()
         val bodySize = if (contentLength != -1L) "$contentLength-byte" else "unknown-length"
-        var responseMessage = "$responsePrefixStart ${response.code()} ${if (response.message().isEmpty()) "" else response.message()} "
+        var responseMessage = "$responsePrefixStart ${response.code()} ${request.method()} ${if (response.message().isEmpty()) "" else response.message()} "
         responseMessage += response.request().url()
         responseMessage += " (" + tookMs + "ms" + ", $bodySize body)\n"
 
@@ -141,7 +141,7 @@ class HttpLogInterceptor @JvmOverloads constructor(var printResponseHeader: Bool
         var headerStr = ""
         while (i < count) {
             val name = headers.name(i)
-            if (isExclude(name))
+            if (!isExclude(name))
                 headerStr += "\n    $name: ${headers.get(name)}"
             i++
         }
@@ -151,7 +151,8 @@ class HttpLogInterceptor @JvmOverloads constructor(var printResponseHeader: Bool
     }
 
     private fun isExclude(name: String): Boolean {
-        return listOf("X-Powered-By", "ETag", "Date", "Connection").all { !it.equals(name, true) }
+//        return listOf("X-Powered-By", "ETag", "Date", "Connection").all { !it.equals(name, true) }
+        return false
     }
 
     companion object {

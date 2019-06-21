@@ -60,7 +60,6 @@
 
         <attr name="sl_centerText" format="string"/>
         <attr name="sl_centerTextColor" format="color"/>
-        <attr name="sl_centerTextGravity" format="integer" />
         <attr name="sl_centerTextBg" format="reference"/>
         <attr name="sl_centerTextSize" format="dimension"/>
 
@@ -69,8 +68,8 @@
         <attr name="sl_rightTextSize" format="dimension"/>
         <attr name="sl_rightTextBg" format="reference"/>
         <attr name="sl_rightTextBgColor" format="color"/>
-        <attr name="sl_rightTextVerticalPadding" format="dimension"/>
-        <attr name="sl_rightTextHorizontalPadding" format="dimension"/>
+        <attr name="sl_rightTextWidth" format="dimension"/>
+        <attr name="sl_rightTextHeight" format="dimension"/>
 
         <attr name="sl_rightImageSrc" format="reference"/>
         <attr name="sl_rightImageMarginLeft" format="dimension"/>
@@ -87,6 +86,7 @@
 
         <attr name="sl_topLineColor" format="color"/>
         <attr name="sl_bottomLineColor" format="color"/>
+        <attr name="sl_lineSize" format="dimension"/>
 
         <attr name="sl_enableRipple" format="boolean"/>
         <attr name="sl_rippleColor" format="color"/>
@@ -100,6 +100,7 @@
 
         <attr name="sfl_topLineColor" format="color"/>
         <attr name="sfl_bottomLineColor" format="color"/>
+        <attr name="sfl_lineSize" format="dimension"/>
 
         <attr name="sfl_enableRipple" format="boolean"/>
         <attr name="sfl_rippleColor" format="color"/>
@@ -113,6 +114,7 @@
 
         <attr name="sll_topLineColor" format="color"/>
         <attr name="sll_bottomLineColor" format="color"/>
+        <attr name="sll_lineSize" format="dimension"/>
 
         <attr name="sll_enableRipple" format="boolean"/>
         <attr name="sll_rippleColor" format="color"/>
@@ -126,6 +128,7 @@
 
         <attr name="srl_topLineColor" format="color"/>
         <attr name="srl_bottomLineColor" format="color"/>
+        <attr name="srl_lineSize" format="dimension"/>
 
         <attr name="srl_enableRipple" format="boolean"/>
         <attr name="srl_rippleColor" format="color"/>
@@ -143,5 +146,17 @@
 
         <attr name="stv_enableRipple" format="boolean"/>
         <attr name="stv_rippleColor" format="color"/>
+
+        <attr name="stv_topLineColor" format="color"/>
+        <attr name="stv_bottomLineColor" format="color"/>
+        <attr name="stv_lineSize" format="dimension"/>
+    </declare-styleable>
+
+    <!--验证码View-->
+    <declare-styleable name="VerifyView">
+        <attr name="vv_defText" format="string"/>
+        <attr name="vv_countDownText" format="string"/>
+        <attr name="vv_resendText" format="string"/>
+        <attr name="vv_resendDuration" format="integer"/>
     </declare-styleable>
 </resources>

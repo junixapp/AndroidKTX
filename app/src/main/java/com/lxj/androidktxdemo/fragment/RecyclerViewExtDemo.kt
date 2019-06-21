@@ -32,8 +32,8 @@ class RecyclerViewExtDemo : BaseFragment() {
         }
 
         //notify
-        recyclerView.vertical()
-                .divider(color = Color.parseColor("#eeeeee"), size = 20)
+        recyclerView.vertical(spanCount = 2)
+                .divider(color = Color.parseColor("#aaaaaa"), size = 20)
                 .bindData(data, R.layout.adapter_rv) { holder, t, position ->
                     holder.setText(R.id.text, "模拟数据 - $t")
                             .setImageResource(R.id.image, R.mipmap.ic_launcher_round)

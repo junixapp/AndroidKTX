@@ -9,9 +9,9 @@ Some very useful kotlin extensions for android development !
 [![Download](https://api.bintray.com/packages/li-xiaojun/jrepo/androidktx/images/download.svg)](https://bintray.com/li-xiaojun/jrepo/androidktx/_latestVersion)
 
 ```
-implementation 'com.lxj:androidktx:1.2.10'
+implementation 'com.lxj:androidktx:1.2.23'
 //for androidx
-implementation 'com.lxj:androidktx:1.2.10-x'
+implementation 'com.lxj:androidktx:1.2.23-x'
 ```
 
 
@@ -326,7 +326,7 @@ GlobalScope.launch {
     val user = "http://192.168.1.103:3000/json".http()
                     .headers("device" to "HuaWeiMate20", ...)
                     .params("token" to "188sas9cf99a9d",
-                        "file" to file,  //上传文件
+                        "file" to file,  //上传文件，使用Array<File>对象来传多个文件
                          ...)
                     .post<User>()
                     //.postJson(json) 直接传json字符串，目前post和put支持直传json
@@ -346,6 +346,18 @@ GlobalScope.launch {
         }
     })
 ```
+下载文件和进度：
+```kotlin
+"https://github.com/li-xiaojun/XPopup/archive/master.zip"
+            .http()
+            .savePath(Environment.getExternalStorageDirectory().toString() + "/xxx.zip")
+            .downloadListener(onProgress = {
+                loge("download progress: ${it?.percent}")
+            })
+            .get<File>()
+            .await()
+```
+
 - Http日志
 
 内置了简洁实用的Http日志打印器，效果如下：

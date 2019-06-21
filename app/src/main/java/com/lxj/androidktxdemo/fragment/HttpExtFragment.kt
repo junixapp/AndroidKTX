@@ -16,7 +16,6 @@ import kotlinx.coroutines.launch
 import org.json.JSONObject
 import java.io.File
 import java.io.IOException
-import kotlin.math.log
 
 /**
  * Description: Okhttp扩展
@@ -24,10 +23,11 @@ import kotlin.math.log
  */
 class HttpExtFragment : BaseFragment() {
     private var vm: HttpExtVM? = null
-
+    val imageUrl = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1560151504361&di=ce11648353ac380140bce2579683ed59&imgtype=0&src=http%3A%2F%2Fs14.sinaimg.cn%2Fmw690%2F001xcz9rzy6PqH78yLPed%26690"
+    val zipFile = "https://github.com/li-xiaojun/XPopup/archive/master.zip"
     override fun getLayoutId() = R.layout.fragment_http_ext
     override fun initView() {
-        val file = File(Environment.getExternalStorageDirectory().toString() + "/t.jpg")
+        val file = File(Environment.getExternalStorageDirectory().toString() + "/mnt")
         vm = ViewModelProviders.of(this).get(HttpExtVM::class.java)
 
         vm!!.data.observe(this, Observer<String> {
@@ -49,7 +49,6 @@ class HttpExtFragment : BaseFragment() {
 //        OkWrapper.headers("header1" to "a", "header2" to "b")
         OkWrapper.interceptors()
 
-
         val map = hashMapOf<String, String>()
         map.put("xxx", "yyyy")
 
@@ -70,44 +69,89 @@ class HttpExtFragment : BaseFragment() {
 
 //                val t = "http://api.sandbox.gulltour.com/v1/weibo/upload".http()
 //                        .params("weiboImage[]" to file)
+//                        .uploadListener(onProgress = {
+//                            loge("upload progress: ${it?.percent}")
+//                        })
+//                        .downloadListener(onProgress = {
+//                            loge("download progress: ${it?.percent}")
+//                        })
 //                        .post<String>()
 //                        .await()
 
+//                "https://api.gulltour.com/v1/common/nations".http().get<String>().await()
+
+
+//                zipFile.http().savePath(Environment.getExternalStorageDirectory().toString() + "/xxx.zip")
+//                        .downloadListener(onProgress = {
+//                            loge("download progress: ${it?.percent}")
+//                        })
+//                        .get<File>()
+//                        .await()
+//                loge("done....")
+
+                "http://39.107.78.243:8095/captcha".http()
+                        .params(
+                                "phone" to "15172321248",
+                                "type" to "0"
+                        ).post<String>().await()
             }
             //callback style
-            val json = User(name = "lxj", age = 33).toJson()
-            "https://api.gulltour.com/v1/common/nations".http().putJson<String>(json, object : HttpCallback<String> {
-                override fun onSuccess(t: String) {
-                    toast(t)
-                }
-                override fun onFail(e: IOException) {
-                    super.onFail(e)
-                }
-            })
+//            val json = User(name = "lxj", age = 33).toJson()
+//            "https://api.gulltour.com/v1/common/nations".http()
+//                    .uploadListener(onProgress = {
+//                        loge("progress: ${it?.percent}")
+//                    })
+//                    .putJson<String>(json, object : HttpCallback<String> {
+//                override fun onSuccess(t: String) {
+//                    toast(t)
+//                }
+//                override fun onFail(e: IOException) {
+//                    super.onFail(e)
+//                }
+//            })
+        }
+
+        btnSend2.click {
+            GlobalScope.launch {
+                "http://39.107.78.243:8095/loginC".http()
+                        .params(
+                                "phone" to "15172321248",
+                                "codenum" to "343210"
+                        ).post<String>().await()
+            }
         }
 
         tt.setup(leftImageRes = R.mipmap.fx, title = "aaaaaaaaaaaa")
         //titleBar点击事件
-        tt.clickListener(object : TitleBar.ClickListener{
+        tt.clickListener(object : TitleBar.ClickListener {
             override fun leftTextClick() {
                 toast("left text")
             }
+
             override fun leftImageClick() {
                 toast("left image")
             }
+
             override fun rightTextClick() {
                 toast("right text")
             }
+
             override fun rightImageClick() {
                 toast("right image")
             }
+
             override fun rightImage2Click() {
                 toast("right image22")
             }
+
             override fun rightImage3Click() {
                 toast("right image333")
             }
         })
+
+        slWeChat.rightTextView().click {
+            toast("点击了")
+        }
     }
 
     class HttpExtVM : ViewModel() {

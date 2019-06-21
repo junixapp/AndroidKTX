@@ -53,50 +53,50 @@ class StateLiveData<T> : MutableLiveData<T>() {
     fun changeState(s: State) {
         state.postValue(s)
     }
-}
 
-/**  some extensions  **/
-fun <T> StateLiveData<T>.bindStateLayout(owner: LifecycleOwner, stateLayout: StateLayout) {
-    state.observe(owner, Observer {
-        when (it) {
-            StateLiveData.State.Loading -> stateLayout.showLoading()
-            StateLiveData.State.Error -> stateLayout.showError()
-            StateLiveData.State.Success -> stateLayout.showContent()
-            StateLiveData.State.Empty -> stateLayout.showEmpty()
-            else -> stateLayout.showLoading()
-        }
-    })
-}
-
-/**
- * 带绑定StateLayout
- */
-fun <T> StateLiveData<T>.observeWithStateLayout(owner: LifecycleOwner, stateLayout: StateLayout, observer: Observer<T>) {
-    bindStateLayout(owner, stateLayout)
-    observe(owner, observer)
-}
-
-/**
- * 智能post值，能根据值进行智能的设置自己的状态，无需手工编写代码
- * @param dataValue 目标值，根据目标值去设置对应的state
- */
-fun <T> StateLiveData<T>.smartPost(dataValue: T?){
-    if(dataValue==null){
-        postError()
-    }else if(dataValue is Collection<*> && dataValue.isEmpty()){
-        postEmpty()
-    }else{
-        postValueAndSuccess(dataValue)
+    fun bindStateLayout(owner: LifecycleOwner, stateLayout: StateLayout) {
+        state.observe(owner, Observer {
+            when (it) {
+                State.Loading -> stateLayout.showLoading()
+                State.Error -> stateLayout.showError()
+                State.Success -> stateLayout.showContent()
+                State.Empty -> stateLayout.showEmpty()
+            }
+        })
     }
+
+    /**
+     * 带绑定StateLayout
+     */
+    fun observeWithStateLayout(owner: LifecycleOwner, stateLayout: StateLayout, observer: Observer<T>) {
+        bindStateLayout(owner, stateLayout)
+        observe(owner, observer)
+    }
+
+    /**
+     * 智能post值，能根据值进行智能的设置自己的状态，无需手工编写代码
+     * @param dataValue 目标值，根据目标值去设置对应的state
+     */
+    fun smartPost(dataValue: T?){
+        if(dataValue==null){
+            postError()
+        }else if(dataValue is Collection<*> && dataValue.isEmpty()){
+            postEmpty()
+        }else{
+            postValueAndSuccess(dataValue)
+        }
+    }
+
+    /**
+     * 强大而实用的封装，启动协程执行逻辑（比如网络请求），并对逻辑结果进行智能post。示例如下：
+     * launchAndSmartPost {
+     *      "https://iandroid.xyz/api".http().get<T>().await()
+     * }
+     */
+    fun launchAndSmartPost(block: suspend CoroutineScope.() -> T?): Job {
+        postLoading()
+        return GlobalScope.launch { smartPost(block()) }
+    }
+
 }
 
-/**
- * 强大而实用的封装，启动协程执行逻辑（比如网络请求），并对逻辑结果进行智能post。示例如下：
- * launchAndSmartPost {
- *      "https://iandroid.xyz/api".http().get<T>().await()
- * }
- */
-fun <T> StateLiveData<T>.launchAndSmartPost(block: suspend CoroutineScope.() -> T?): Job {
-    postLoading()
-    return GlobalScope.launch { smartPost(block()) }
-}
