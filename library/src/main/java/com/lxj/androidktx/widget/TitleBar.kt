@@ -109,9 +109,9 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
               rightText: String = ""): TitleBar {
         if (leftImageRes != 0) this.leftImage = drawable(leftImageRes)
         if (rightImageRes != 0) this.rightImage = drawable(rightImageRes)
-        this.title = title
-        this.leftText = leftText
-        this.rightText = rightText
+        if(title.isNotEmpty()) this.title = title
+        if(leftText.isNotEmpty()) this.leftText = leftText
+        if(rightText.isNotEmpty()) this.rightText = rightText
         applyAttr()
         return this
     }
@@ -270,6 +270,13 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
         ivRightImage2.click { clickListener?.rightImage2Click() }
         ivRightImage3.click { clickListener?.rightImage3Click() }
     }
+
+    fun leftTextView() = tvLeftText
+    fun rightTextView() = tvRightText
+    fun leftImageView() = ivLeftImage
+    fun rightImageView() = ivRightImage
+    fun rightImageView2() = ivRightImage2
+    fun rightImageView3() = ivRightImage3
 
     private var clickListener: ClickListener? = null
     fun clickListener(clickListener: ClickListener) {
