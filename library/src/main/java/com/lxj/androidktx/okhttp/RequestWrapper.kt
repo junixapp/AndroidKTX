@@ -29,7 +29,7 @@ data class RequestWrapper(
     }
 
     fun params(vararg params: Pair<String, Any>): RequestWrapper {
-        params.forEach { this.params.add(Pair(it.first, if (it.second is File || it.second is Array<*>) it.second else "${it.second}")) }
+        params.forEach { this.params.add(Pair(it.first, if (it.second is File || it.second is Array<*> || it.second is List<*>) it.second else "${it.second}")) }
         return this
     }
 
@@ -93,6 +93,14 @@ data class RequestWrapper(
                             builder.addFormDataPart(it.first, file.name, RequestBody.create(MediaType.parse(file.mediaType()), file))
                         }
                     }
+                }else if(it.second is List<*>){ //multi file
+                    val coll = it.second as List<*>
+                    if(coll.isNotEmpty() && coll[0] is File){
+                        coll.forEach {el->
+                            val file = el as File
+                            builder.addFormDataPart(it.first, file.name, RequestBody.create(MediaType.parse(file.mediaType()), file))
+                        }
+                    }
                 }
             }
             builder.setType(MultipartBody.FORM).build()
@@ -108,7 +116,7 @@ data class RequestWrapper(
         return RequestBody.create(MediaType.parse("application/json"), json)
     }
 
-    private fun isMultiPart() = params.any { it.second is File }
+    private fun isMultiPart() = params.any { it.second is File || it.second is Array<*> || it.second is List<*>}
 
     private fun urlParams(): String {
         val queryParams = if (params().isEmpty()) "" else "?" + params.joinToString(separator = "&", transform = {

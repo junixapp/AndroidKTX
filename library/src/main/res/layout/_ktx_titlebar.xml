@@ -9,7 +9,7 @@
         android:clickable="true"
         android:padding="12dp" />
 
-    <TextView
+    <com.lxj.androidktx.widget.ShapeTextView
         android:id="@+id/tvLeftText"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -23,7 +23,7 @@
         android:textSize="16sp"
         android:visibility="gone" />
 
-    <TextView
+    <com.lxj.androidktx.widget.ShapeTextView
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -35,7 +35,7 @@
         android:singleLine="true"
         android:textSize="18sp" />
 
-    <TextView
+    <com.lxj.androidktx.widget.ShapeTextView
         android:id="@+id/tvRightText"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
