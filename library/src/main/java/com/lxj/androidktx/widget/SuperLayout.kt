@@ -26,110 +26,110 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
     : LinearLayout(context, attributeSet, defStyleAttr) {
 
     //左边图片
-    private var leftImage: Drawable?
-    private var leftImageSize = dp2px(34f)
+    private var mleftImage: Drawable?
+    private var mleftImageSize = dp2px(34f)
 
     //左边文字
-    private var leftText = ""
-    private var leftTextColor = Color.parseColor("#222222")
-    private var leftTextSize = sp2px(16f)
-    private var leftTextMarginLeft = dp2px(8f)
-    private var leftTextMarginRight = dp2px(8f)
-    private var leftTextMarginTop = 0
-    private var leftTextMarginBottom = 0
+    private var mleftText = ""
+    private var mleftTextColor = Color.parseColor("#222222")
+    private var mleftTextSize = sp2px(16f)
+    private var mleftTextMarginLeft = dp2px(8f)
+    private var mleftTextMarginRight = dp2px(8f)
+    private var mleftTextMarginTop = 0
+    private var mleftTextMarginBottom = 0
 
     //左边子文字
-    private var leftSubText = ""
-    private var leftSubTextColor = Color.parseColor("#777777")
-    private var leftSubTextSize = sp2px(13f)
+    private var mleftSubText = ""
+    private var mleftSubTextColor = Color.parseColor("#777777")
+    private var mleftSubTextSize = sp2px(13f)
 
     //中间文字
-    private var centerText = ""
-    private var centerTextColor = Color.parseColor("#222222")
-    private var centerTextSize = sp2px(15f)
-    private var centerTextBg: Drawable?
+    private var mcenterText = ""
+    private var mcenterTextColor = Color.parseColor("#222222")
+    private var mcenterTextSize = sp2px(15f)
+    private var mcenterTextBg: Drawable?
 
     //右边文字
-    private var rightText = ""
-    private var rightTextColor = Color.parseColor("#777777")
-    private var rightTextSize = sp2px(15f)
-    private var rightTextBg: Drawable?
-    private var rightTextBgColor = 0
-    private var rightTextWidth = 0
-    private var rightTextHeight = 0
+    private var mrightText = ""
+    private var mrightTextColor = Color.parseColor("#777777")
+    private var mrightTextSize = sp2px(15f)
+    private var mrightTextBg: Drawable?
+    private var mrightTextBgColor = 0
+    private var mrightTextWidth = 0
+    private var mrightTextHeight = 0
 
     //右边图片
-    private var rightImage: Drawable?
-    private var rightImageSize = dp2px(20f)
-    private var rightImageMarginLeft = dp2px(10f)
+    private var mrightImage: Drawable?
+    private var mrightImageSize = dp2px(20f)
+    private var mrightImageMarginLeft = dp2px(10f)
 
     //右边图片2
-    private var rightImage2: Drawable?
-    private var rightImage2Size = dp2px(55f)
-    private var rightImage2MarginLeft = dp2px(10f)
+    private var mrightImage2: Drawable?
+    private var mrightImage2Size = dp2px(55f)
+    private var mrightImage2MarginLeft = dp2px(10f)
 
     //背景
-    private var solid = 0 //填充色
-    private var stroke = 0 //边框颜色
-    private var strokeWidth = 0 //边框大小
-    private var corner = 0 //圆角
+    private var msolid = 0 //填充色
+    private var mstroke = 0 //边框颜色
+    private var mstrokeWidth = 0 //边框大小
+    private var mcorner = 0 //圆角
 
     //上下分割线
-    private var topLineColor = 0
-    private var bottomLineColor = 0
-    private var lineSize = dp2px(.6f)
+    private var mtopLineColor = 0
+    private var mbottomLineColor = 0
+    private var mlineSize = dp2px(.6f)
 
     //是否启用水波纹
-    private var enableRipple = true
-    private var rippleColor = Color.parseColor("#88999999")
+    private var menableRipple = true
+    private var mrippleColor = Color.parseColor("#88999999")
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.SuperLayout)
-        leftImage = ta.getDrawable(R.styleable.SuperLayout_sl_leftImageSrc)
-        leftImageSize = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_leftImageSize, leftImageSize)
+        mleftImage = ta.getDrawable(R.styleable.SuperLayout_sl_leftImageSrc)
+        mleftImageSize = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_leftImageSize, mleftImageSize)
 
-        leftText = ta.getString(R.styleable.SuperLayout_sl_leftText) ?: ""
-        leftTextColor = ta.getColor(R.styleable.SuperLayout_sl_leftTextColor, leftTextColor)
-        leftTextSize = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_leftTextSize, leftTextSize)
-        leftTextMarginLeft = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_leftTextMarginLeft, leftTextMarginLeft)
-        leftTextMarginRight = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_leftTextMarginRight, leftTextMarginRight)
-        leftTextMarginTop = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_leftTextMarginTop, leftTextMarginTop)
-        leftTextMarginBottom = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_leftTextMarginBottom, leftTextMarginBottom)
+        mleftText = ta.getString(R.styleable.SuperLayout_sl_leftText) ?: ""
+        mleftTextColor = ta.getColor(R.styleable.SuperLayout_sl_leftTextColor, mleftTextColor)
+        mleftTextSize = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_leftTextSize, mleftTextSize)
+        mleftTextMarginLeft = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_leftTextMarginLeft, mleftTextMarginLeft)
+        mleftTextMarginRight = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_leftTextMarginRight, mleftTextMarginRight)
+        mleftTextMarginTop = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_leftTextMarginTop, mleftTextMarginTop)
+        mleftTextMarginBottom = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_leftTextMarginBottom, mleftTextMarginBottom)
 
-        leftSubText = ta.getString(R.styleable.SuperLayout_sl_leftSubText) ?: ""
-        leftSubTextColor = ta.getColor(R.styleable.SuperLayout_sl_leftSubTextColor, leftSubTextColor)
-        leftSubTextSize = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_leftSubTextSize, leftSubTextSize)
+        mleftSubText = ta.getString(R.styleable.SuperLayout_sl_leftSubText) ?: ""
+        mleftSubTextColor = ta.getColor(R.styleable.SuperLayout_sl_leftSubTextColor, mleftSubTextColor)
+        mleftSubTextSize = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_leftSubTextSize, mleftSubTextSize)
 
-        centerText = ta.getString(R.styleable.SuperLayout_sl_centerText) ?: ""
-        centerTextColor = ta.getColor(R.styleable.SuperLayout_sl_centerTextColor, centerTextColor)
-        centerTextSize = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_centerTextSize, centerTextSize)
-        centerTextBg = ta.getDrawable(R.styleable.SuperLayout_sl_centerTextBg)
+        mcenterText = ta.getString(R.styleable.SuperLayout_sl_centerText) ?: ""
+        mcenterTextColor = ta.getColor(R.styleable.SuperLayout_sl_centerTextColor, mcenterTextColor)
+        mcenterTextSize = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_centerTextSize, mcenterTextSize)
+        mcenterTextBg = ta.getDrawable(R.styleable.SuperLayout_sl_centerTextBg)
 
-        rightText = ta.getString(R.styleable.SuperLayout_sl_rightText) ?: ""
-        rightTextColor = ta.getColor(R.styleable.SuperLayout_sl_rightTextColor, rightTextColor)
-        rightTextSize = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_rightTextSize, rightTextSize)
-        rightTextBg = ta.getDrawable(R.styleable.SuperLayout_sl_rightTextBg)
-        rightTextBgColor = ta.getColor(R.styleable.SuperLayout_sl_rightTextBgColor, rightTextBgColor)
-        rightTextWidth = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_rightTextWidth, rightTextWidth)
-        rightTextHeight = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_rightTextHeight, rightTextHeight)
+        mrightText = ta.getString(R.styleable.SuperLayout_sl_rightText) ?: ""
+        mrightTextColor = ta.getColor(R.styleable.SuperLayout_sl_rightTextColor, mrightTextColor)
+        mrightTextSize = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_rightTextSize, mrightTextSize)
+        mrightTextBg = ta.getDrawable(R.styleable.SuperLayout_sl_rightTextBg)
+        mrightTextBgColor = ta.getColor(R.styleable.SuperLayout_sl_rightTextBgColor, mrightTextBgColor)
+        mrightTextWidth = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_rightTextWidth, mrightTextWidth)
+        mrightTextHeight = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_rightTextHeight, mrightTextHeight)
 
-        rightImage = ta.getDrawable(R.styleable.SuperLayout_sl_rightImageSrc)
-        rightImageSize = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_rightImageSize, rightImageSize)
-        rightImageMarginLeft = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_rightImageMarginLeft, rightImageMarginLeft)
+        mrightImage = ta.getDrawable(R.styleable.SuperLayout_sl_rightImageSrc)
+        mrightImageSize = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_rightImageSize, mrightImageSize)
+        mrightImageMarginLeft = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_rightImageMarginLeft, mrightImageMarginLeft)
 
-        rightImage2 = ta.getDrawable(R.styleable.SuperLayout_sl_rightImage2Src)
-        rightImage2Size = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_rightImage2Size, rightImage2Size)
-        rightImage2MarginLeft = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_rightImage2MarginLeft, rightImage2MarginLeft)
+        mrightImage2 = ta.getDrawable(R.styleable.SuperLayout_sl_rightImage2Src)
+        mrightImage2Size = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_rightImage2Size, mrightImage2Size)
+        mrightImage2MarginLeft = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_rightImage2MarginLeft, mrightImage2MarginLeft)
 
-        solid = ta.getColor(R.styleable.SuperLayout_sl_solid, solid)
-        stroke = ta.getColor(R.styleable.SuperLayout_sl_stroke, stroke)
-        strokeWidth = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_strokeWidth, strokeWidth)
-        corner = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_corner, corner)
+        msolid = ta.getColor(R.styleable.SuperLayout_sl_solid, msolid)
+        mstroke = ta.getColor(R.styleable.SuperLayout_sl_stroke, mstroke)
+        mstrokeWidth = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_strokeWidth, mstrokeWidth)
+        mcorner = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_corner, mcorner)
 
-        topLineColor = ta.getColor(R.styleable.SuperLayout_sl_topLineColor, topLineColor)
-        bottomLineColor = ta.getColor(R.styleable.SuperLayout_sl_bottomLineColor, bottomLineColor)
-        lineSize = ta.getColor(R.styleable.SuperLayout_sl_lineSize, lineSize)
-        enableRipple = ta.getBoolean(R.styleable.SuperLayout_sl_enableRipple, enableRipple)
-        rippleColor = ta.getColor(R.styleable.SuperLayout_sl_rippleColor, rippleColor)
+        mtopLineColor = ta.getColor(R.styleable.SuperLayout_sl_topLineColor, mtopLineColor)
+        mbottomLineColor = ta.getColor(R.styleable.SuperLayout_sl_bottomLineColor, mbottomLineColor)
+        mlineSize = ta.getColor(R.styleable.SuperLayout_sl_lineSize, mlineSize)
+        menableRipple = ta.getBoolean(R.styleable.SuperLayout_sl_enableRipple, menableRipple)
+        mrippleColor = ta.getColor(R.styleable.SuperLayout_sl_rippleColor, mrippleColor)
 
         ta.recycle()
         inflate(context, R.layout._ktx_super_layout, this)
@@ -138,19 +138,19 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
     }
 
     fun setup(leftImageRes: Int = 0,
-              leftText: String = "",
-              leftSubText: String = "",
-              centerText: String = "",
-              rightText: String = "",
+              leftText: String = mleftText,
+              leftSubText: String = mleftSubText,
+              centerText: String = mcenterText,
+              rightText: String = mrightText,
               rightImageRes: Int = 0,
               rightImage2Res: Int = 0) {
-        if (leftImageRes != 0) leftImage = drawable(leftImageRes)
-        if (rightImageRes != 0) rightImage = drawable(rightImageRes)
-        if (rightImage2Res != 0) rightImage2 = drawable(rightImage2Res)
-        this.leftText = leftText
-        this.leftSubText = leftSubText
-        this.centerText = centerText
-        this.rightText = rightText
+        if (leftImageRes != 0) mleftImage = drawable(leftImageRes)
+        if (rightImageRes != 0) mrightImage = drawable(rightImageRes)
+        if (rightImage2Res != 0) mrightImage2 = drawable(rightImage2Res)
+        this.mleftText = leftText
+        this.mleftSubText = leftSubText
+        this.mcenterText = centerText
+        this.mrightText = rightText
         applyAttr()
         applySelf()
     }
@@ -159,13 +159,13 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
         orientation = HORIZONTAL
         gravity = Gravity.CENTER_VERTICAL
 
-        if (solid != 0 || stroke != 0) {
-            val drawable = createDrawable(color = solid, radius = corner.toFloat(), strokeColor = stroke, strokeWidth = strokeWidth,
-                    enableRipple = enableRipple, rippleColor = rippleColor)
+        if (msolid != 0 || mstroke != 0) {
+            val drawable = createDrawable(color = msolid, radius = mcorner.toFloat(), strokeColor = mstroke, strokeWidth = mstrokeWidth,
+                    enableRipple = menableRipple, rippleColor = mrippleColor)
             setBackgroundDrawable(drawable)
         } else {
-            if (Build.VERSION.SDK_INT >= 21 && enableRipple) {
-                val rippleDrawable = RippleDrawable(ColorStateList.valueOf(rippleColor),
+            if (Build.VERSION.SDK_INT >= 21 && menableRipple) {
+                val rippleDrawable = RippleDrawable(ColorStateList.valueOf(mrippleColor),
                         if (background != null) background else ColorDrawable(Color.TRANSPARENT), null)
                 background = rippleDrawable
             }
@@ -174,92 +174,92 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
 
     private fun applyAttr() {
         //左边图片
-        if (leftImage == null) {
+        if (mleftImage == null) {
             ivLeftImage.gone()
         } else {
             ivLeftImage.visible()
-            ivLeftImage.setImageDrawable(leftImage)
-            ivLeftImage.widthAndHeight(leftImageSize, leftImageSize)
+            ivLeftImage.setImageDrawable(mleftImage)
+            ivLeftImage.widthAndHeight(mleftImageSize, mleftImageSize)
         }
 
         //左边文字
-        if (leftText.isEmpty()) {
+        if (mleftText.isEmpty()) {
             tvLeftText.gone()
         } else {
             tvLeftText.visible()
-            tvLeftText.text = leftText
-            tvLeftText.setTextColor(leftTextColor)
-            tvLeftText.setTextSize(TypedValue.COMPLEX_UNIT_PX, leftTextSize.toFloat())
-            tvLeftText.margin(bottomMargin = leftTextMarginBottom, topMargin = leftTextMarginTop)
-            llLeft.margin(leftMargin = leftTextMarginLeft, rightMargin = leftTextMarginRight)
+            tvLeftText.text = mleftText
+            tvLeftText.setTextColor(mleftTextColor)
+            tvLeftText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mleftTextSize.toFloat())
+            tvLeftText.margin(bottomMargin = mleftTextMarginBottom, topMargin = mleftTextMarginTop)
+            llLeft.margin(leftMargin = mleftTextMarginLeft, rightMargin = mleftTextMarginRight)
         }
 
         //左边子文字
-        if (leftSubText.isEmpty()) {
+        if (mleftSubText.isEmpty()) {
             tvLeftSubText.gone()
         } else {
             tvLeftSubText.visible()
-            tvLeftSubText.text = leftSubText
-            tvLeftSubText.setTextColor(leftSubTextColor)
-            tvLeftSubText.setTextSize(TypedValue.COMPLEX_UNIT_PX, leftSubTextSize.toFloat())
+            tvLeftSubText.text = mleftSubText
+            tvLeftSubText.setTextColor(mleftSubTextColor)
+            tvLeftSubText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mleftSubTextSize.toFloat())
         }
 
         //中间文字
-        if (centerText.isEmpty()) {
+        if (mcenterText.isEmpty()) {
             tvCenterText.invisible()
         } else {
             tvCenterText.visible()
-            tvCenterText.text = centerText
-            tvCenterText.setTextColor(centerTextColor)
-            tvCenterText.setTextSize(TypedValue.COMPLEX_UNIT_PX, centerTextSize.toFloat())
-            if (centerTextBg != null) tvCenterText.setBackgroundDrawable(centerTextBg)
+            tvCenterText.text = mcenterText
+            tvCenterText.setTextColor(mcenterTextColor)
+            tvCenterText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mcenterTextSize.toFloat())
+            if (mcenterTextBg != null) tvCenterText.setBackgroundDrawable(mcenterTextBg)
         }
 
         //右边文字
-        if (rightText.isEmpty()) {
+        if (mrightText.isEmpty()) {
             tvRightText.gone()
         } else {
             tvRightText.visible()
-            tvRightText.text = rightText
-            tvRightText.setTextColor(rightTextColor)
-            tvRightText.setTextSize(TypedValue.COMPLEX_UNIT_PX, rightTextSize.toFloat())
-            if (rightTextBg != null) tvRightText.setBackgroundDrawable(rightTextBg)
-            if(rightTextWidth!=0)tvRightText.width(rightTextWidth)
-            if(rightTextHeight!=0)tvRightText.height(rightTextHeight)
-            if (rightTextBgColor != 0) tvRightText.setBackgroundColor(rightTextBgColor)
+            tvRightText.text = mrightText
+            tvRightText.setTextColor(mrightTextColor)
+            tvRightText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mrightTextSize.toFloat())
+            if (mrightTextBg != null) tvRightText.setBackgroundDrawable(mrightTextBg)
+            if(mrightTextWidth!=0)tvRightText.width(mrightTextWidth)
+            if(mrightTextHeight!=0)tvRightText.height(mrightTextHeight)
+            if (mrightTextBgColor != 0) tvRightText.setBackgroundColor(mrightTextBgColor)
         }
 
         //右边图片
-        if (rightImage == null) {
+        if (mrightImage == null) {
             ivRightImage.gone()
         } else {
             ivRightImage.visible()
-            ivRightImage.setImageDrawable(rightImage)
-            ivRightImage.widthAndHeight(rightImageSize, rightImageSize)
-            ivRightImage.margin(leftMargin = rightImageMarginLeft)
+            ivRightImage.setImageDrawable(mrightImage)
+            ivRightImage.widthAndHeight(mrightImageSize, mrightImageSize)
+            ivRightImage.margin(leftMargin = mrightImageMarginLeft)
         }
 
         //右边图片2
-        if (rightImage2 == null) {
+        if (mrightImage2 == null) {
             ivRightImage2.gone()
         } else {
             ivRightImage2.visible()
-            ivRightImage2.setImageDrawable(rightImage2)
-            ivRightImage2.widthAndHeight(rightImage2Size, rightImage2Size)
-            ivRightImage2.margin(leftMargin = rightImage2MarginLeft)
+            ivRightImage2.setImageDrawable(mrightImage2)
+            ivRightImage2.widthAndHeight(mrightImage2Size, mrightImage2Size)
+            ivRightImage2.margin(leftMargin = mrightImage2MarginLeft)
         }
     }
 
     private val paint = Paint()
     override fun dispatchDraw(canvas: Canvas) {
         super.dispatchDraw(canvas)
-        if (topLineColor != 0) {
-            paint.color = topLineColor
-            canvas.drawRect(Rect(0, 0, measuredWidth, lineSize), paint)
+        if (mtopLineColor != 0) {
+            paint.color = mtopLineColor
+            canvas.drawRect(Rect(0, 0, measuredWidth, mlineSize), paint)
         }
-        if (bottomLineColor != 0) {
-            paint.color = bottomLineColor
-            canvas.drawRect(Rect(0, measuredHeight - lineSize, measuredWidth, measuredHeight), paint)
+        if (mbottomLineColor != 0) {
+            paint.color = mbottomLineColor
+            canvas.drawRect(Rect(0, measuredHeight - mlineSize, measuredWidth, measuredHeight), paint)
         }
     }
 
