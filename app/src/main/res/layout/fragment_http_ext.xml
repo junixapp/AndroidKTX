@@ -99,6 +99,7 @@
 
 
             <com.lxj.androidktx.widget.SuperLayout
+                android:id="@+id/sl"
                 android:clickable="true"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"

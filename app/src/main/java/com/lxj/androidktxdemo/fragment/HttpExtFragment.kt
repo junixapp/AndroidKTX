@@ -152,6 +152,8 @@ class HttpExtFragment : BaseFragment() {
         slWeChat.rightTextView().click {
             toast("点击了")
         }
+
+        sl.setup(rightText = "哈哈")
     }
 
     class HttpExtVM : ViewModel() {
