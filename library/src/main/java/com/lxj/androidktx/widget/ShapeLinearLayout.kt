@@ -23,18 +23,54 @@ class ShapeLinearLayout @JvmOverloads constructor(context: Context, attributeSet
     : LinearLayout(context, attributeSet, defStyleAttr) {
 
     //背景
-    private var solid = 0 //填充色
-    private var stroke = 0 //边框颜色
-    private var strokeWidth = 0 //边框大小
-    private var corner = 0 //圆角
+    var solid = 0 //填充色
+        set(value) {
+            field = value
+            applySelf()
+        }
+    var stroke = 0 //边框颜色
+        set(value) {
+            field = value
+            applySelf()
+        }
+    var strokeWidth = 0 //边框大小
+        set(value) {
+            field = value
+            applySelf()
+        }
+    var corner = 0 //圆角
+        set(value) {
+            field = value
+            applySelf()
+        }
 
     //上下分割线
-    private var topLineColor = 0
-    private var bottomLineColor = 0
-    private var lineSize = dp2px(.6f)
+    var topLineColor = 0
+        set(value) {
+            field = value
+            applySelf()
+        }
+    var bottomLineColor = 0
+        set(value) {
+            field = value
+            applySelf()
+        }
+    var lineSize = dp2px(.6f)
+        set(value) {
+            field = value
+            applySelf()
+        }
     //是否启用水波纹
-    private var enableRipple = true
-    private var rippleColor = Color.parseColor("#88999999")
+    var enableRipple = true
+        set(value) {
+            field = value
+            applySelf()
+        }
+    var rippleColor = Color.parseColor("#88999999")
+        set(value) {
+            field = value
+            applySelf()
+        }
 
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.ShapeLinearLayout)
@@ -53,7 +89,7 @@ class ShapeLinearLayout @JvmOverloads constructor(context: Context, attributeSet
         applySelf()
     }
 
-    private fun applySelf() {
+    fun applySelf() {
         if (solid != 0 || stroke != 0) {
             val drawable = createDrawable(color = solid, radius = corner.toFloat(), strokeColor = stroke, strokeWidth = strokeWidth,
                     enableRipple = enableRipple, rippleColor = rippleColor)
@@ -66,7 +102,7 @@ class ShapeLinearLayout @JvmOverloads constructor(context: Context, attributeSet
             }
         }
     }
-    private val paint = Paint()
+    val paint = Paint()
     override fun dispatchDraw(canvas: Canvas) {
         super.dispatchDraw(canvas)
         if (topLineColor != 0) {

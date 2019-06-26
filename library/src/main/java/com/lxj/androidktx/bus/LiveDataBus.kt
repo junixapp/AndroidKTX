@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit
  * Description: Kotlin version of https://github.com/JeremyLiao/LiveEventBus.
  * Create by dance, at 2019/1/8
  */
-
+@Deprecated(message = "请使用LiveDataBus类库")
 object LiveDataBus {
     private val bus: MutableMap<String, BusMutableLiveData<Any>> = hashMapOf()
 

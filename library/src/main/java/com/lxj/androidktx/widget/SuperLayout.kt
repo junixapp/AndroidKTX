@@ -26,62 +26,252 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
     : LinearLayout(context, attributeSet, defStyleAttr) {
 
     //左边图片
-    private var mleftImage: Drawable?
-    private var mleftImageSize = dp2px(34f)
+    var mleftImage: Drawable? = null
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var mleftImageSize = dp2px(34f)
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
 
     //左边文字
-    private var mleftText = ""
-    private var mleftTextColor = Color.parseColor("#222222")
-    private var mleftTextSize = sp2px(16f)
-    private var mleftTextMarginLeft = dp2px(8f)
-    private var mleftTextMarginRight = dp2px(8f)
-    private var mleftTextMarginTop = 0
-    private var mleftTextMarginBottom = 0
+    var mleftText = ""
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var mleftTextColor = Color.parseColor("#222222")
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var mleftTextSize = sp2px(16f)
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var mleftTextMarginLeft = dp2px(8f)
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var mleftTextMarginRight = dp2px(8f)
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var mleftTextMarginTop = 0
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var mleftTextMarginBottom = 0
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
 
     //左边子文字
-    private var mleftSubText = ""
-    private var mleftSubTextColor = Color.parseColor("#777777")
-    private var mleftSubTextSize = sp2px(13f)
+    var mleftSubText = ""
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var mleftSubTextColor = Color.parseColor("#777777")
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var mleftSubTextSize = sp2px(13f)
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
 
     //中间文字
-    private var mcenterText = ""
-    private var mcenterTextColor = Color.parseColor("#222222")
-    private var mcenterTextSize = sp2px(15f)
-    private var mcenterTextBg: Drawable?
+    var mcenterText = ""
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var mcenterTextColor = Color.parseColor("#222222")
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var mcenterTextSize = sp2px(15f)
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var mcenterTextBg: Drawable? = null
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
 
     //右边文字
-    private var mrightText = ""
-    private var mrightTextColor = Color.parseColor("#777777")
-    private var mrightTextSize = sp2px(15f)
-    private var mrightTextBg: Drawable?
-    private var mrightTextBgColor = 0
-    private var mrightTextWidth = 0
-    private var mrightTextHeight = 0
+    var mrightText = ""
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var mrightTextColor = Color.parseColor("#777777")
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var mrightTextSize = sp2px(15f)
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var mrightTextBg: Drawable? = null
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var mrightTextBgColor = 0
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var mrightTextWidth = 0
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var mrightTextHeight = 0
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
 
     //右边图片
-    private var mrightImage: Drawable?
-    private var mrightImageSize = dp2px(20f)
-    private var mrightImageMarginLeft = dp2px(10f)
+    var mrightImage: Drawable? = null
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var mrightImageSize = dp2px(20f)
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var mrightImageMarginLeft = dp2px(10f)
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
 
     //右边图片2
-    private var mrightImage2: Drawable?
-    private var mrightImage2Size = dp2px(55f)
-    private var mrightImage2MarginLeft = dp2px(10f)
+    var mrightImage2: Drawable? = null
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var mrightImage2Size = dp2px(55f)
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var mrightImage2MarginLeft = dp2px(10f)
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
 
     //背景
-    private var msolid = 0 //填充色
-    private var mstroke = 0 //边框颜色
-    private var mstrokeWidth = 0 //边框大小
-    private var mcorner = 0 //圆角
+    var msolid = 0 //填充色
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var mstroke = 0 //边框颜色
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var mstrokeWidth = 0 //边框大小
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var mcorner = 0 //圆角
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
 
     //上下分割线
-    private var mtopLineColor = 0
-    private var mbottomLineColor = 0
-    private var mlineSize = dp2px(.6f)
+    var mtopLineColor = 0
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var mbottomLineColor = 0
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var mlineSize = dp2px(.6f)
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
 
     //是否启用水波纹
-    private var menableRipple = true
-    private var mrippleColor = Color.parseColor("#88999999")
+    var menableRipple = true
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var mrippleColor = Color.parseColor("#88999999")
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.SuperLayout)
         mleftImage = ta.getDrawable(R.styleable.SuperLayout_sl_leftImageSrc)
@@ -155,7 +345,7 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
         applySelf()
     }
 
-    private fun applySelf() {
+    fun applySelf() {
         orientation = HORIZONTAL
         gravity = Gravity.CENTER_VERTICAL
 
@@ -172,7 +362,7 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
         }
     }
 
-    private fun applyAttr() {
+    fun applyAttr() {
         //左边图片
         if (mleftImage == null) {
             ivLeftImage.gone()
@@ -250,7 +440,7 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
         }
     }
 
-    private val paint = Paint()
+    val paint = Paint()
     override fun dispatchDraw(canvas: Canvas) {
         super.dispatchDraw(canvas)
         if (mtopLineColor != 0) {
