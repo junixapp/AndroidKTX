@@ -363,6 +363,7 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
     }
 
     fun applyAttr() {
+        if(childCount==0)return
         //左边图片
         if (mleftImage == null) {
             ivLeftImage.gone()

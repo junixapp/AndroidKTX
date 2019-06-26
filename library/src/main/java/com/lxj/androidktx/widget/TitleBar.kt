@@ -186,6 +186,7 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
     }
 
     private fun applyAttr() {
+        if(childCount==0)return
         applyLeftText()
         applyLeftImage()
         applyTitle()
