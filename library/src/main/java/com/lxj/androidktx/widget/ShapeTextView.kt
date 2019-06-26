@@ -23,20 +23,64 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
     : TextView(context, attributeSet, defStyleAttr) {
 
     var mDrawableWidth = 0
+        set(value) {
+            field = value
+            applySelf()
+        }
     var mDrawableHeight = 0
+        set(value) {
+            field = value
+            applySelf()
+        }
     //背景
-    private var mSolid = 0 //填充色
-    private var mStroke = 0 //边框颜色
-    private var mStrokeWidth = 0 //边框大小
-    private var mCorner = 0 //圆角
+    var mSolid = 0 //填充色
+        set(value) {
+            field = value
+            applySelf()
+        }
+    var mStroke = 0 //边框颜色
+        set(value) {
+            field = value
+            applySelf()
+        }
+    var mStrokeWidth = 0 //边框大小
+        set(value) {
+            field = value
+            applySelf()
+        }
+    var mCorner = 0 //圆角
+        set(value) {
+            field = value
+            applySelf()
+        }
 
     //是否启用水波纹
-    private var mEnableRipple = true
-    private var mRippleColor = Color.parseColor("#88999999")
+    var mEnableRipple = true
+        set(value) {
+            field = value
+            applySelf()
+        }
+    var mRippleColor = Color.parseColor("#88999999")
+        set(value) {
+            field = value
+            applySelf()
+        }
     //上下分割线
-    private var mTopLineColor = 0
-    private var mBottomLineColor = 0
-    private var mLineSize = dp2px(.6f)
+    var mTopLineColor = 0
+        set(value) {
+            field = value
+            applySelf()
+        }
+    var mBottomLineColor = 0
+        set(value) {
+            field = value
+            applySelf()
+        }
+    var mLineSize = dp2px(.6f)
+        set(value) {
+            field = value
+            applySelf()
+        }
 
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.ShapeTextView)
@@ -67,7 +111,7 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
     }
 
 
-    private fun applySelf() {
+    fun applySelf() {
         if (mSolid != 0 || mStroke != 0) {
             val drawable = createDrawable(color = mSolid, radius = mCorner.toFloat(), strokeColor = mStroke, strokeWidth = mStrokeWidth,
                     enableRipple = mEnableRipple, rippleColor = mRippleColor)
@@ -81,8 +125,8 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
         }
     }
 
-    private val topLine = Rect(0,0,0,0)
-    private val bottomLine = Rect(0,0,0,0)
+    val topLine = Rect(0,0,0,0)
+    val bottomLine = Rect(0,0,0,0)
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         topLine.right = measuredWidth

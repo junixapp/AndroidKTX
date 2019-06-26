@@ -21,35 +21,135 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
 
     // 左边文本
     var leftText = ""
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
     var leftTextColor = Color.BLACK
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
     var leftTextSize = 16
-    var leftTextDrawable: Drawable?
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var leftTextDrawable: Drawable? = null
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
     var leftTextDrawableSize = 0
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
 
     //左边图片
-    var leftImage: Drawable?
+    var leftImage: Drawable? = null
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
     var leftImagePadding = 12
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
 
     //中间标题
     var title = ""
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
     var titleSize = 18
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
     var titleColor = Color.BLACK
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
     var titleAlignLeft = false
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
 
     //右边文字
     var rightText = ""
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
     var rightTextColor = Color.BLACK
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
     var rightTextSize = 16
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
 
     //右边图片
-    var rightImage: Drawable?
+    var rightImage: Drawable? = null
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
     var rightImagePadding = 12
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
     //右边图片2
-    var rightImage2: Drawable?
+    var rightImage2: Drawable? = null
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
     var rightImage2Padding = 12
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
     //右边图片3
-    var rightImage3: Drawable?
+    var rightImage3: Drawable? = null
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
     var rightImage3Padding = 12
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
 
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.TitleBar)

@@ -39,13 +39,14 @@ dependencies {
     api 'com.tencent:mmkv:1.0.17'
     api 'com.lxj:statelayout:1.0.3'
     api 'me.jessyan:progressmanager:1.5.0'
+    api 'com.jeremyliao:live-event-bus:1.4.4'
 }
 
 publish {
     userOrg = 'li-xiaojun'
     groupId = 'com.lxj'
     artifactId = 'androidktx'
-    publishVersion = '1.2.26'
+    publishVersion = '1.2.27'
     repoName = 'jrepo'
     desc = 'Some very useful kotlin extensions for android development！好用到爆的Kotlin扩展，加速你的Android开发！'
     website = 'https://github.com/li-xiaojun/AndroidKTX'
