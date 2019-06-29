@@ -91,16 +91,10 @@ class ShapeFrameLayout @JvmOverloads constructor(context: Context, attributeSet:
     }
 
     fun applySelf() {
-        if (solid != 0 || stroke != 0) {
+        if (solid != 0 || stroke != 0 ) {
             val drawable = createDrawable(color = solid, radius = corner.toFloat(), strokeColor = stroke, strokeWidth = strokeWidth,
                     enableRipple = enableRipple, rippleColor = rippleColor)
             setBackgroundDrawable(drawable)
-        } else {
-            if (Build.VERSION.SDK_INT >= 21 && enableRipple) {
-                val rippleDrawable = RippleDrawable(ColorStateList.valueOf(rippleColor),
-                        if (background != null) background else ColorDrawable(Color.TRANSPARENT), null)
-                background = rippleDrawable
-            }
         }
     }
 

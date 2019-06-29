@@ -353,12 +353,6 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
             val drawable = createDrawable(color = msolid, radius = mcorner.toFloat(), strokeColor = mstroke, strokeWidth = mstrokeWidth,
                     enableRipple = menableRipple, rippleColor = mrippleColor)
             setBackgroundDrawable(drawable)
-        } else {
-            if (Build.VERSION.SDK_INT >= 21 && menableRipple) {
-                val rippleDrawable = RippleDrawable(ColorStateList.valueOf(mrippleColor),
-                        if (background != null) background else ColorDrawable(Color.TRANSPARENT), null)
-                background = rippleDrawable
-            }
         }
     }
 
