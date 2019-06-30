@@ -8,6 +8,9 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.RippleDrawable
+import android.media.MediaScannerConnection
+import android.net.Uri
+import android.os.*
 import android.support.v4.app.Fragment
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -17,22 +20,12 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.lxj.androidktx.AndroidKtxConfig
 import com.lxj.androidktx.util.NetworkUtils
-import java.lang.reflect.Type
-import android.media.MediaScannerConnection
-import android.net.Uri
-import android.os.*
-import java.nio.file.Files.delete
-import java.nio.file.Files.exists
-import com.bumptech.glide.load.ImageHeaderParser
-import com.bumptech.glide.load.ImageHeaderParser.ImageType
-import android.os.Environment.DIRECTORY_PICTURES
-import android.os.Environment.getExternalStorageDirectory
-import android.os.AsyncTask.execute
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.newSingleThreadContext
-import java.io.*
-import kotlin.concurrent.thread
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.Serializable
 
 
 /**

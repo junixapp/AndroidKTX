@@ -12,8 +12,8 @@ import com.tencent.mmkv.MMKV
 object AndroidKtxConfig {
     lateinit var context: Context
     var isDebug = true
-    var defaultLogTag = "AndroidKTX"
-    var sharedPrefName = "AndroidKTX"
+    var defaultLogTag = "androidktx"
+    var sharedPrefName = "androidktx"
 
     /**
      * 初始化配置信息，必须调用

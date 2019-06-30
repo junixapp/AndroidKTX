@@ -568,45 +568,31 @@ tt.clickListener(object : TitleBar.ClickListener{
 ```
 其他用法看属性名即可，无需多说。
 
-
-- SizedTextView
-可以在布局文件中直接修改Drawable大小的TextView。
-```xml
-<com.lxj.androidktx.widget.SizedTextView
-    android:layout_marginTop="20dp"
-    android:text="哈哈"
-    app:drawableSize="40dp"
-    android:gravity="center"
-    android:drawableLeft="@mipmap/ic_launcher"
-    android:layout_gravity="center_horizontal"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
-```
-![TitleBar](imgs/sizetext.png)
-
-
 - ShapeFrameLayout，ShapeLinearLayout，ShapeRelativeLayout，ShapeTextView等可以设置背景，圆角，水波纹的布局
 
 
-## 注意事项
-
-为了覆盖各种使用场景，该库对常用类库进行了封装，因此依赖了很多三方库。依赖的所有三方库如下：
-```groovy
-implementation "com.github.bumptech.glide:glide:4.8.0"
-api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1"
-api 'com.lxj:easyadapter:1.1.1'
-implementation 'com.google.code.gson:gson:2.8.5'
-// inline函数在运行时插入使用处，需要暴露出去
-api "com.squareup.okhttp3:okhttp:3.12.1"
-implementation "android.arch.lifecycle:extensions:1.1.1"
-api 'com.tencent:mmkv:1.0.17'
+## 分享相关
+对微信好友和朋友圈分享，QQ分享和微博分享和登录的封装。
+```kotlin
+//分享相关appKey和appId配置
+ Share.init(this, BuildConfig.DEBUG, umengAppKey = BuildConfig.UmengAppKey,
+            wxAppId = BuildConfig.WeChatAppId, wxAppKey = BuildConfig.WeChatAppKey,
+            qqAppId = BuildConfig.qqAppId, qqAppKey = BuildConfig.qqAppKey,
+            weiboAppId = BuildConfig.weiboAppId, weiboAppKey = BuildConfig.weiboAppKey, weiboCallbackUrl = BuildConfig.weiboCallbackUrl)
+```
+三方分享:
+```kotlin
+Share.share(this, SHARE_MEDIA.WEIXIN_CIRCLE, text = "",
+            title = "" , url = "https://iandroid.xyz", bitmap = null)
 ```
 
-由于我依赖的三方库都是最新版本，可能与您当前项目中的类库版本不一致，有可能导致因为API变化而编译失败。此时需要排除我这个库中的依赖，假设我的Glide版本与你项目中的不一致，则需要在gradle中配置如下：
-```groovy
-implementation ('com.lxj:androidktx:latest release version') {
-        exclude group: 'com.github.bumptech.glide'
-}
+三方登录：
+```kotlin
+Share.wechatLogin(this@AccountSettingActivity, object : Share.ShareLoginCallback {
+    override fun onComplete(platform: SHARE_MEDIA, loginData: LoginData) {
+
+    }
+})
 ```
 
 

@@ -1,6 +1,5 @@
 package com.lxj.androidktxdemo.fragment
 
-import com.lxj.androidktx.core.add
 import com.lxj.androidktx.core.replace
 import com.lxj.androidktxdemo.R
 import com.lxj.androidktxdemo.entity.User

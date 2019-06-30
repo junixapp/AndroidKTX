@@ -1,17 +1,11 @@
 package com.lxj.androidktx.widget
 
 import android.content.Context
-import android.content.res.ColorStateList
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.RippleDrawable
-import android.os.Build
-import android.os.Build.VERSION.SDK_INT
 import android.util.AttributeSet
-import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.createDrawable
