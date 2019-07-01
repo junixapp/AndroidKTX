@@ -75,16 +75,16 @@ object Share {
     }
 
     fun share(
-            activity: Activity, platform: SHARE_MEDIA, bitmap: Bitmap? = null, text: String = "", url: String = "",
+            activity: Activity, platform: SharePlatform, bitmap: Bitmap? = null, text: String = "", url: String = "",
             title: String = "", callback: ShareCallback? = null
     ) {
         checkPermission(activity) {
-            doShare(activity, platform, bitmap, text, url, title, callback)
+            doShare(activity, convertPlatform(platform), bitmap, text, url, title, callback)
         }
     }
 
     fun shareWithUI(
-            activity: Activity, platform: SHARE_MEDIA, bitmap: Bitmap? = null, text: String = "", url: String = "",
+            activity: Activity, platform: SharePlatform, bitmap: Bitmap? = null, text: String = "", url: String = "",
             title: String = "", callback: ShareCallback? = null
     ) {
         checkPermission(activity) {
@@ -144,6 +144,13 @@ object Share {
                     }
                 })
                 .request()
+    }
+
+    private fun convertPlatform(platform: SharePlatform) = when(platform) {
+        SharePlatform.WxFriend -> SHARE_MEDIA.WEIXIN
+        SharePlatform.WxCircle -> SHARE_MEDIA.WEIXIN_CIRCLE
+        SharePlatform.QQ -> SHARE_MEDIA.QQ
+        SharePlatform.Sina -> SHARE_MEDIA.SINA
     }
 
     private fun log(msg: String) {

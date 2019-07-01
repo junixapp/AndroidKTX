@@ -41,12 +41,12 @@ dependencies {
     api 'com.jeremyliao:live-event-bus:1.4.4'
     implementation 'com.lxj:xpermission:1.0.1'
     implementation 'com.lxj:xpopup:1.8.6'
-    api files('libs/umeng-common-2.0.2.jar')
-    api files('libs/umeng-share-core-6.9.4.jar')
-    api files('libs/umeng-share-QQ-simplify-6.9.4.jar')
-    api files('libs/umeng-share-sina-simplify-6.9.4.jar')
-    api files('libs/umeng-share-wechat-simplify-6.9.4.jar')
-    api files('libs/umeng-sharetool-6.9.4.jar')
+    implementation files('libs/umeng-common-2.0.2.jar')
+    implementation files('libs/umeng-share-core-6.9.4.jar')
+    implementation files('libs/umeng-share-QQ-simplify-6.9.4.jar')
+    implementation files('libs/umeng-share-sina-simplify-6.9.4.jar')
+    implementation files('libs/umeng-share-wechat-simplify-6.9.4.jar')
+    implementation files('libs/umeng-sharetool-6.9.4.jar')
 }
 
 publish {

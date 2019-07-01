@@ -3,10 +3,9 @@ package com.lxj.androidktxdemo.fragment
 import com.lxj.androidktx.core.click
 import com.lxj.androidktx.core.load
 import com.lxj.androidktx.share.Share
+import com.lxj.androidktx.share.SharePlatform
 import com.lxj.androidktxdemo.R
-import com.umeng.socialize.bean.SHARE_MEDIA
 import kotlinx.android.synthetic.main.fragment_imageview_ext.*
-import kotlin.concurrent.thread
 
 /**
  * Description:
@@ -36,7 +35,7 @@ class ImageViewExtPage: BaseFragment(){
         title3.text = "image3.load(url, roundRadius = 20)"
 
         image1.click {
-            Share.shareWithUI(activity!!, SHARE_MEDIA.WEIXIN_CIRCLE)
+            Share.shareWithUI(activity!!, SharePlatform.WxCircle)
         }
     }
 }
