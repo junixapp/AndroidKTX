@@ -26,35 +26,34 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "androidx.appcompat:appcompat:$androidx_version"
-    implementation "androidx.recyclerview:recyclerview:$androidx_version"
+    implementation "com.android.support:appcompat-v7:$support_version"
+    implementation "com.android.support:recyclerview-v7:$support_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "com.github.bumptech.glide:glide:4.8.0"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1"
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1'
     api 'com.lxj:easyadapter:1.1.1'
     implementation 'com.google.code.gson:gson:2.8.5'
-    // inline函数在运行时插入使用处，需要暴露出去
-    api "com.squareup.okhttp3:okhttp:3.12.1"
-    api "androidx.lifecycle:lifecycle-extensions:2.0.0"
+    api 'com.squareup.okhttp3:okhttp:3.12.1' // inline函数在运行时插入使用处，需要暴露出去
+    api 'android.arch.lifecycle:extensions:1.1.1'
     api 'com.tencent:mmkv:1.0.17'
     api 'com.lxj:statelayout:1.0.3'
     api 'me.jessyan:progressmanager:1.5.0'
     api 'com.jeremyliao:live-event-bus:1.4.4'
     implementation 'com.lxj:xpermission:1.0.1'
-    implementation 'com.lxj:xpopup:1.8.6-x'
-    api files('libs/umeng-common-2.0.2.jar')
-    api files('libs/umeng-share-core-6.9.4.jar')
-    api files('libs/umeng-share-QQ-simplify-6.9.4.jar')
-    api files('libs/umeng-share-sina-simplify-6.9.4.jar')
-    api files('libs/umeng-share-wechat-simplify-6.9.4.jar')
-    api files('libs/umeng-sharetool-6.9.4.jar')
+    implementation 'com.lxj:xpopup:1.8.6'
+    implementation files('libs/umeng-common-2.0.2.jar')
+    implementation files('libs/umeng-share-core-6.9.4.jar')
+    implementation files('libs/umeng-share-QQ-simplify-6.9.4.jar')
+    implementation files('libs/umeng-share-sina-simplify-6.9.4.jar')
+    implementation files('libs/umeng-share-wechat-simplify-6.9.4.jar')
+    implementation files('libs/umeng-sharetool-6.9.4.jar')
 }
 
 publish {
     userOrg = 'li-xiaojun'
     groupId = 'com.lxj'
     artifactId = 'androidktx'
-    publishVersion = '1.2.30-x'
+    publishVersion = '1.2.31'
     repoName = 'jrepo'
     desc = 'Some very useful kotlin extensions for android development！好用到爆的Kotlin扩展，加速你的Android开发！'
     website = 'https://github.com/li-xiaojun/AndroidKTX'
