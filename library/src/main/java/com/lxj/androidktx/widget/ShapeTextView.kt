@@ -1,13 +1,9 @@
 package com.lxj.androidktx.widget
 
 import android.content.Context
-import android.content.res.ColorStateList
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Rect
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.RippleDrawable
-import android.os.Build
 import android.util.AttributeSet
 import android.widget.TextView
 import com.lxj.androidktx.R
@@ -112,16 +108,10 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
 
 
     fun applySelf() {
-        if (mSolid != 0 || mStroke != 0) {
+        if (mSolid != 0 || mStroke != 0 ) {
             val drawable = createDrawable(color = mSolid, radius = mCorner.toFloat(), strokeColor = mStroke, strokeWidth = mStrokeWidth,
                     enableRipple = mEnableRipple, rippleColor = mRippleColor)
             setBackgroundDrawable(drawable)
-        } else {
-            if (Build.VERSION.SDK_INT >= 21 && mEnableRipple) {
-                val rippleDrawable = RippleDrawable(ColorStateList.valueOf(mRippleColor),
-                        if (background != null) background else ColorDrawable(Color.TRANSPARENT), null)
-                background = rippleDrawable
-            }
         }
     }
 

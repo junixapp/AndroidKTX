@@ -1,16 +1,11 @@
 package com.lxj.androidktx.widget
 
 import android.content.Context
-import android.content.res.ColorStateList
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.RippleDrawable
-import android.os.Build
 import android.util.AttributeSet
-import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.createDrawable
@@ -96,12 +91,6 @@ class ShapeRelativeLayout @JvmOverloads constructor(context: Context, attributeS
             val drawable = createDrawable(color = solid, radius = corner.toFloat(), strokeColor = stroke, strokeWidth = strokeWidth,
                     enableRipple = enableRipple, rippleColor = rippleColor)
             setBackgroundDrawable(drawable)
-        } else {
-            if (Build.VERSION.SDK_INT >= 21 && enableRipple) {
-                val rippleDrawable = RippleDrawable(ColorStateList.valueOf(rippleColor),
-                        if (background != null) background else ColorDrawable(Color.TRANSPARENT), null)
-                background = rippleDrawable
-            }
         }
     }
     val paint = Paint()

@@ -1,14 +1,10 @@
 package com.lxj.androidktx.widget
 
 import android.content.Context
-import android.content.res.ColorStateList
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.RippleDrawable
-import android.os.Build
 import android.util.AttributeSet
 import android.widget.FrameLayout
 import com.lxj.androidktx.R
@@ -91,16 +87,10 @@ class ShapeFrameLayout @JvmOverloads constructor(context: Context, attributeSet:
     }
 
     fun applySelf() {
-        if (solid != 0 || stroke != 0) {
+        if (solid != 0 || stroke != 0 ) {
             val drawable = createDrawable(color = solid, radius = corner.toFloat(), strokeColor = stroke, strokeWidth = strokeWidth,
                     enableRipple = enableRipple, rippleColor = rippleColor)
             setBackgroundDrawable(drawable)
-        } else {
-            if (Build.VERSION.SDK_INT >= 21 && enableRipple) {
-                val rippleDrawable = RippleDrawable(ColorStateList.valueOf(rippleColor),
-                        if (background != null) background else ColorDrawable(Color.TRANSPARENT), null)
-                background = rippleDrawable
-            }
         }
     }
 

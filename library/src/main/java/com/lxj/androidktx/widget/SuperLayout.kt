@@ -1,15 +1,11 @@
 package com.lxj.androidktx.widget
 
 import android.content.Context
-import android.content.res.ColorStateList
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
-import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
-import android.graphics.drawable.RippleDrawable
-import android.os.Build
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
@@ -353,12 +349,6 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
             val drawable = createDrawable(color = msolid, radius = mcorner.toFloat(), strokeColor = mstroke, strokeWidth = mstrokeWidth,
                     enableRipple = menableRipple, rippleColor = mrippleColor)
             setBackgroundDrawable(drawable)
-        } else {
-            if (Build.VERSION.SDK_INT >= 21 && menableRipple) {
-                val rippleDrawable = RippleDrawable(ColorStateList.valueOf(mrippleColor),
-                        if (background != null) background else ColorDrawable(Color.TRANSPARENT), null)
-                background = rippleDrawable
-            }
         }
     }
 

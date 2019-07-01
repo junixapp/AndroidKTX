@@ -19,6 +19,17 @@ fun SharedPreferences.edit(action: SharedPreferences.Editor.() -> Unit) {
 }
 
 /**
+ * 对象操作
+ */
+fun SharedPreferences.putObject(key: String, obj: Any){
+    putString(key, obj.toJson())
+}
+inline fun <reified T> SharedPreferences.getObject(key: String): T?{
+    return getString(key, null)?.toBean<T>()
+}
+
+
+/**
  *  put系列
  */
 fun SharedPreferences.putString(key: String, value: String) {
