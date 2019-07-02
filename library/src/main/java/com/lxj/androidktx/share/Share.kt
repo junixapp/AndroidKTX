@@ -99,7 +99,9 @@ object Share {
         ShareAction(activity)
                 .setPlatform(platform)//传入平台
                 .apply {
-                    if (bitmap != null) withMedia(UMImage(activity, bitmap))
+                    if (bitmap != null) withMedia(UMImage(activity, bitmap).apply {
+                        setThumb(UMImage(activity, bitmap))
+                    })
                     if (text.isNotEmpty()) withText(text)
                     if (url.isNotEmpty()) withMedia(UMWeb(url).apply {
                         //微信分享链接时需要标题和描述

@@ -9,7 +9,7 @@ package com.lxj.androidktx.core
 /**
  * 是否是手机号
  */
-fun String.isPhone() = "(\\+\\d+)?1[3458]\\d{9}$".toRegex().matches(this)
+fun String.isPhone() = "^(((13[0-9])|(14[579])|(15([0-3]|[5-9]))|(16[6])|(17[0135678])|(18[0-9])|(19[89]))\\\\d{8})\$".toRegex().matches(this)
 
 /**
  * 是否是邮箱地址
