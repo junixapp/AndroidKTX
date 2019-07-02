@@ -159,4 +159,9 @@
         <attr name="vv_resendText" format="string"/>
         <attr name="vv_resendDuration" format="integer"/>
     </declare-styleable>
+
+    <!--RatioImageView-->
+    <declare-styleable name="RatioImageView">
+        <attr name="riv_ratio" format="float"/>
+    </declare-styleable>
 </resources>
