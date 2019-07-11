@@ -21,12 +21,12 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
     var mDrawableWidth = 0
         set(value) {
             field = value
-            applySelf()
+            sizeDrawable(width = mDrawableWidth, height = mDrawableHeight)
         }
     var mDrawableHeight = 0
         set(value) {
             field = value
-            applySelf()
+            sizeDrawable(width = mDrawableWidth, height = mDrawableHeight)
         }
     //背景
     var mSolid = 0 //填充色

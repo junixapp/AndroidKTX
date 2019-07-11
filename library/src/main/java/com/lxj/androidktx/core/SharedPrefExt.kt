@@ -21,10 +21,13 @@ fun SharedPreferences.edit(action: SharedPreferences.Editor.() -> Unit) {
 /**
  * 对象操作
  */
-fun SharedPreferences.putObject(key: String, obj: Any){
-    putString(key, obj.toJson())
+fun SharedPreferences.putObject(key: String, obj: Any?) {
+    putString(key, obj?.toJson()?:"")
 }
-inline fun <reified T> SharedPreferences.getObject(key: String): T?{
+
+inline fun <reified T> SharedPreferences.getObject(key: String): T? {
+    val string = getString(key, null)
+    if(string==null || string.isEmpty())return null
     return getString(key, null)?.toBean<T>()
 }
 

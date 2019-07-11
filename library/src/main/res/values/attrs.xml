@@ -164,4 +164,14 @@
     <declare-styleable name="RatioImageView">
         <attr name="riv_ratio" format="float"/>
     </declare-styleable>
+
+
+    <!--RatioImageView-->
+    <declare-styleable name="TabBar">
+        <attr name="tb_iconSize" format="dimension"/>
+        <attr name="tb_textSize" format="dimension"/>
+        <attr name="tb_iconSpace" format="dimension"/>
+        <attr name="tb_selectedColor" format="color"/>
+        <attr name="tb_normalColor" format="color"/>
+    </declare-styleable>
 </resources>

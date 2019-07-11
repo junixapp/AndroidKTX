@@ -29,7 +29,7 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$support_version"
     implementation "com.android.support:recyclerview-v7:$support_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    api 'com.github.bumptech.glide:glide:4.8.0'
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1'
     api 'com.lxj:easyadapter:1.1.1'
     implementation 'com.google.code.gson:gson:2.8.5'
@@ -53,7 +53,7 @@ publish {
     userOrg = 'li-xiaojun'
     groupId = 'com.lxj'
     artifactId = 'androidktx'
-    publishVersion = '1.2.31'
+    publishVersion = '1.2.39'
     repoName = 'jrepo'
     desc = 'Some very useful kotlin extensions for android development！好用到爆的Kotlin扩展，加速你的Android开发！'
     website = 'https://github.com/li-xiaojun/AndroidKTX'

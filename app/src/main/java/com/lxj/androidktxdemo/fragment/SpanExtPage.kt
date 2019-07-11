@@ -3,6 +3,7 @@ package com.lxj.androidktxdemo.fragment
 import android.graphics.Color
 import android.view.View
 import com.lxj.androidktx.core.*
+import com.lxj.androidktxdemo.DemoActivity
 import com.lxj.androidktxdemo.R
 import kotlinx.android.synthetic.main.fragment_span_ext.*
 
@@ -46,6 +47,7 @@ class SpanExtPage: BaseFragment(){
         """.trimIndent()
         tvClickResult.clickSpan(str = str, range = 2..6, color = Color.BLUE, clickAction = {
             toast("哈哈我被点击了".toColorSpan(0..2))
+            startActivity<DemoActivity>()
         })
 
         tt.sizeDrawable(300)
