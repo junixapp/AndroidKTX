@@ -25,16 +25,16 @@ object Share {
     fun init(
             context: Context, isDebug: Boolean, umengAppKey: String,
             wxAppId: String, wxAppKey: String,
-            qqAppId: String, qqAppKey: String,
-            weiboAppId: String, weiboAppKey: String, weiboCallbackUrl: String
+            qqAppId: String = "", qqAppKey: String = "",
+            weiboAppId: String = "", weiboAppKey: String = "", weiboCallbackUrl: String = ""
     ) {
         this.isDebug = isDebug
 
         UMConfigure.setLogEnabled(isDebug)
         UMConfigure.init( context, umengAppKey, "Umeng", UMConfigure.DEVICE_TYPE_PHONE, null)
         PlatformConfig.setWeixin(wxAppId, wxAppKey)
-        PlatformConfig.setQQZone(qqAppId, qqAppKey)
-        PlatformConfig.setSinaWeibo(weiboAppId, weiboAppKey, weiboCallbackUrl)
+        if(qqAppId.isNotEmpty()) PlatformConfig.setQQZone(qqAppId, qqAppKey)
+        if(weiboAppId.isNotEmpty()) PlatformConfig.setSinaWeibo(weiboAppId, weiboAppKey, weiboCallbackUrl)
     }
 
 
