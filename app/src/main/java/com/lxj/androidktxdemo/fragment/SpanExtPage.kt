@@ -21,9 +21,7 @@ class SpanExtPage: BaseFragment(){
         tvSizeSpan.text = """
             tv.sizeSpan(str, 0..2)
         """.trimIndent()
-        tvSizeResult.sizeSpan(str, 0..2)
-
-        tvSizeResult.text = "我试试".toColorSpan(0..1).toSizeSpan(0..1, scale = 4f)
+        tvSizeResult.sizeSpan(str, 0..2).colorSpan(range = 0..1)
 
         // toColorSpan
         tvColorSpan.text = """

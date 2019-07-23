@@ -38,8 +38,10 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
         orientation = HORIZONTAL
     }
 
-    fun setTabs(tabs: List<Tab>, tabChangeListener: (index: Int)->Unit): TabBar {
+    lateinit var mTabChangeListener: (index: Int)->Boolean
+    fun setTabs(tabs: List<Tab>, tabChangeListener: (index: Int)->Boolean): TabBar {
         mTabs = tabs
+        mTabChangeListener = tabChangeListener
         mTabs.forEachIndexed { index, it ->
             val lp = LayoutParams(0, LayoutParams.MATCH_PARENT)
             lp.weight = 1f
@@ -61,18 +63,18 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
                 context.theme.resolveAttribute(android.R.attr.selectableItemBackground, typedValue, true)
                 setBackgroundResource(typedValue.resourceId)
                 click {
-                    selectTab(index, tabChangeListener)
+                    selectTab(index)
                 }
             }
         }
-        selectTab(0, tabChangeListener)
+        selectTab(0)
         return this
     }
 
-    fun selectTab(index: Int, tabChangeListener: (index: Int)->Unit) {
+    fun selectTab(index: Int) {
+        if(!mTabChangeListener(tabIndex))return
         if(tabIndex==index)return
         tabIndex = index
-        tabChangeListener(tabIndex)
         children.forEachIndexed { i, it ->
             val group = it as ViewGroup
             if(index==i){

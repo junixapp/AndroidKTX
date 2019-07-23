@@ -14,6 +14,7 @@ import com.umeng.socialize.*
 import com.umeng.socialize.bean.SHARE_MEDIA
 import com.umeng.socialize.media.UMImage
 import com.umeng.socialize.media.UMWeb
+import java.net.URLEncoder
 
 /**
  * Description:
@@ -101,7 +102,7 @@ object Share {
                 .apply {
                     if (bitmap != null) withMedia(UMImage(activity, bitmap))
                     if (text.isNotEmpty()) withText(text)
-                    if (url.isNotEmpty()) withMedia(UMWeb(url).apply {
+                    if (url.isNotEmpty()) withMedia(UMWeb(URLEncoder.encode(url)).apply {
                         //微信分享链接时需要标题和描述
                         description = text
                         setTitle(title)

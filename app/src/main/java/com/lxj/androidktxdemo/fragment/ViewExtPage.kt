@@ -85,6 +85,7 @@ class ViewExtPage : BaseFragment() {
                 )){
             toast("选择了："+it)
             loge("select: " + it)
+            true
         }
     }
 
