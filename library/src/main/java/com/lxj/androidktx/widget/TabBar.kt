@@ -72,7 +72,7 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
     }
 
     fun selectTab(index: Int) {
-        if(!mTabChangeListener(tabIndex))return
+        if(!mTabChangeListener(index))return
         if(tabIndex==index)return
         tabIndex = index
         children.forEachIndexed { i, it ->

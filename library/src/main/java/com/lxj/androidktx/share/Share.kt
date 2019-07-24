@@ -40,27 +40,7 @@ object Share {
 
 
     private fun login(activity: Activity, platform: SHARE_MEDIA, callback: ShareCallback) {
-        UMShareAPI.get(activity).getPlatformInfo(activity, platform, object : UMAuthListener {
-            override fun onComplete(p: SHARE_MEDIA, p1: Int, map: MutableMap<String, String>) {
-                log("login->onComplete：$p $map")
-                callback.onComplete(p, LoginData.fromMap(map))
-            }
-
-            override fun onError(p: SHARE_MEDIA, p1: Int, t: Throwable) {
-                log("login->onError：$p ${t.message}")
-                callback.onError(p, t)
-            }
-
-            override fun onStart(p: SHARE_MEDIA) {
-                log("login->onStart：$p")
-                callback.onStart(p)
-            }
-
-            override fun onCancel(p: SHARE_MEDIA, p1: Int) {
-                log("login->onCancel：$p")
-                callback.onCancel(p)
-            }
-        })
+        UMShareAPI.get(activity).getPlatformInfo(activity, platform, OauthCallback(callback))
     }
 
     fun wechatLogin(activity: Activity, callback: ShareCallback) {
@@ -82,6 +62,10 @@ object Share {
         checkPermission(activity) {
             doShare(activity, convertPlatform(platform), bitmap, text, url, title, callback)
         }
+    }
+
+    fun deleteOauth(activity: Activity, platform: SharePlatform, callback: ShareCallback? = null){
+        UMShareAPI.get(activity).deleteOauth(activity, convertPlatform(platform), OauthCallback(callback))
     }
 
     fun shareWithUI(
@@ -156,6 +140,28 @@ object Share {
 
     private fun log(msg: String) {
         if (isDebug) Log.e("share", msg)
+    }
+
+    class OauthCallback(var callback: ShareCallback?) : UMAuthListener{
+        override fun onComplete(p: SHARE_MEDIA, p1: Int, map: MutableMap<String, String>) {
+            log("UMAuthListener->onComplete：$p $map")
+            callback?.onComplete(p, LoginData.fromMap(map))
+        }
+
+        override fun onError(p: SHARE_MEDIA, p1: Int, t: Throwable) {
+            log("UMAuthListener->onError：$p ${t.message}")
+            callback?.onError(p, t)
+        }
+
+        override fun onStart(p: SHARE_MEDIA) {
+            log("UMAuthListener->onStart：$p")
+            callback?.onStart(p)
+        }
+
+        override fun onCancel(p: SHARE_MEDIA, p1: Int) {
+            log("UMAuthListener->onCancel：$p")
+            callback?.onCancel(p)
+        }
     }
 
     interface ShareCallback {

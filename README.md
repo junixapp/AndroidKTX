@@ -169,6 +169,9 @@ recyclerView.vertical() //设置垂直
             .itemClick<String> { data, holder, position ->
                 toast("click ${data[position]}")
             }
+            //.itemLongClick<String> { data, holder, position ->
+            //    toast("click ${data[position]}")
+            //}
 
 //notify
 //recyclerView.adapter.notifyItemChanged()
