@@ -143,9 +143,9 @@ object Share {
     }
 
     class OauthCallback(var callback: ShareCallback?) : UMAuthListener{
-        override fun onComplete(p: SHARE_MEDIA, p1: Int, map: MutableMap<String, String>) {
+        override fun onComplete(p: SHARE_MEDIA, p1: Int, map: MutableMap<String, String>?) {
             log("UMAuthListener->onComplete：$p $map")
-            callback?.onComplete(p, LoginData.fromMap(map))
+            callback?.onComplete(p, if(map==null) null else LoginData.fromMap(map))
         }
 
         override fun onError(p: SHARE_MEDIA, p1: Int, t: Throwable) {
