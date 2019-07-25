@@ -13,13 +13,14 @@ import kotlinx.coroutines.launch
  * Description: 携带状态的LiveData
  * Create by lxj, at 2019/3/6
  */
-class StateLiveData<T> : MutableLiveData<T>() {
+class StateLiveData<T> : NoStickyLiveData<T>() {
 
     enum class State {
         Idle, Loading, Success, Error, Empty
     }
 
     val state = MutableLiveData<State>()
+    var errMsg = ""
 
     init {
         clearState()
@@ -31,6 +32,7 @@ class StateLiveData<T> : MutableLiveData<T>() {
     }
 
     fun clearState() {
+        this.errMsg = ""
         state.postValue(State.Idle)
     }
 

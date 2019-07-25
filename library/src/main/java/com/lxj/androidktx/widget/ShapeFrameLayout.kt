@@ -15,7 +15,7 @@ import com.lxj.androidktx.core.dp2px
  * Description: 可以设置Shape的FrameLayout
  * Create by dance, at 2019/5/27
  */
-class ShapeFrameLayout @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null, defStyleAttr: Int = 0)
+open class ShapeFrameLayout @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null, defStyleAttr: Int = 0)
     : FrameLayout(context, attributeSet, defStyleAttr) {
 
     //背景

@@ -19,17 +19,6 @@ class AndroidKtxApp: Application(){
                 defaultLogTag = "androidktx",
                 sharedPrefName = "demo")
 
-//        mmkv(id = "user").putString("b", "cc")
-//        mmkv().putString("a", "1231")
-//        mmkv().getFloat("f", 123f)
-//        mmkv().clearAll()
-//        // 其他略过
-
-//        logv(msg = "sadadsa")
-//        loge(msg = "sda")
-//
-//        logd(msg = "sdada")
-//
 
         logd("ktx app start...")
 //        "sss".e()
@@ -40,5 +29,9 @@ class AndroidKtxApp: Application(){
         loge("user: ${sp().getObject<User>("user")}")
 
 
+
+        loge("18612116869".isPhone().toString())
+        loge("17812703364".isPhone().toString())
+        loge("12812703364".isPhone().toString())
     }
 }

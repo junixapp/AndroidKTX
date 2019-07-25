@@ -14,6 +14,7 @@ import com.umeng.socialize.*
 import com.umeng.socialize.bean.SHARE_MEDIA
 import com.umeng.socialize.media.UMImage
 import com.umeng.socialize.media.UMWeb
+import java.net.URLEncoder
 
 /**
  * Description:
@@ -25,41 +26,21 @@ object Share {
     fun init(
             context: Context, isDebug: Boolean, umengAppKey: String,
             wxAppId: String, wxAppKey: String,
-            qqAppId: String, qqAppKey: String,
-            weiboAppId: String, weiboAppKey: String, weiboCallbackUrl: String
+            qqAppId: String = "", qqAppKey: String = "",
+            weiboAppId: String = "", weiboAppKey: String = "", weiboCallbackUrl: String = ""
     ) {
         this.isDebug = isDebug
 
         UMConfigure.setLogEnabled(isDebug)
         UMConfigure.init( context, umengAppKey, "Umeng", UMConfigure.DEVICE_TYPE_PHONE, null)
         PlatformConfig.setWeixin(wxAppId, wxAppKey)
-        PlatformConfig.setQQZone(qqAppId, qqAppKey)
-        PlatformConfig.setSinaWeibo(weiboAppId, weiboAppKey, weiboCallbackUrl)
+        if(qqAppId.isNotEmpty()) PlatformConfig.setQQZone(qqAppId, qqAppKey)
+        if(weiboAppId.isNotEmpty()) PlatformConfig.setSinaWeibo(weiboAppId, weiboAppKey, weiboCallbackUrl)
     }
 
 
     private fun login(activity: Activity, platform: SHARE_MEDIA, callback: ShareCallback) {
-        UMShareAPI.get(activity).getPlatformInfo(activity, platform, object : UMAuthListener {
-            override fun onComplete(p: SHARE_MEDIA, p1: Int, map: MutableMap<String, String>) {
-                log("login->onComplete：$p $map")
-                callback.onComplete(p, LoginData.fromMap(map))
-            }
-
-            override fun onError(p: SHARE_MEDIA, p1: Int, t: Throwable) {
-                log("login->onError：$p ${t.message}")
-                callback.onError(p, t)
-            }
-
-            override fun onStart(p: SHARE_MEDIA) {
-                log("login->onStart：$p")
-                callback.onStart(p)
-            }
-
-            override fun onCancel(p: SHARE_MEDIA, p1: Int) {
-                log("login->onCancel：$p")
-                callback.onCancel(p)
-            }
-        })
+        UMShareAPI.get(activity).getPlatformInfo(activity, platform, OauthCallback(callback))
     }
 
     fun wechatLogin(activity: Activity, callback: ShareCallback) {
@@ -83,6 +64,10 @@ object Share {
         }
     }
 
+    fun deleteOauth(activity: Activity, platform: SharePlatform, callback: ShareCallback? = null){
+        UMShareAPI.get(activity).deleteOauth(activity, convertPlatform(platform), OauthCallback(callback))
+    }
+
     fun shareWithUI(
             activity: Activity, platform: SharePlatform, bitmap: Bitmap? = null, text: String = "", url: String = "",
             title: String = "", callback: ShareCallback? = null
@@ -103,7 +88,7 @@ object Share {
                         setThumb(UMImage(activity, bitmap))
                     })
                     if (text.isNotEmpty()) withText(text)
-                    if (url.isNotEmpty()) withMedia(UMWeb(url).apply {
+                    if (url.isNotEmpty()) withMedia(UMWeb(URLEncoder.encode(url)).apply {
                         //微信分享链接时需要标题和描述
                         description = text
                         setTitle(title)
@@ -157,6 +142,28 @@ object Share {
 
     private fun log(msg: String) {
         if (isDebug) Log.e("share", msg)
+    }
+
+    class OauthCallback(var callback: ShareCallback?) : UMAuthListener{
+        override fun onComplete(p: SHARE_MEDIA, p1: Int, map: MutableMap<String, String>?) {
+            log("UMAuthListener->onComplete：$p $map")
+            callback?.onComplete(p, if(map==null) null else LoginData.fromMap(map))
+        }
+
+        override fun onError(p: SHARE_MEDIA, p1: Int, t: Throwable) {
+            log("UMAuthListener->onError：$p ${t.message}")
+            callback?.onError(p, t)
+        }
+
+        override fun onStart(p: SHARE_MEDIA) {
+            log("UMAuthListener->onStart：$p")
+            callback?.onStart(p)
+        }
+
+        override fun onCancel(p: SHARE_MEDIA, p1: Int) {
+            log("UMAuthListener->onCancel：$p")
+            callback?.onCancel(p)
+        }
     }
 
     interface ShareCallback {

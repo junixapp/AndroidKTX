@@ -10,12 +10,13 @@ import android.widget.LinearLayout
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.createDrawable
 import com.lxj.androidktx.core.dp2px
+import com.lxj.androidktx.core.loge
 
 /**
  * Description: 可以设置Shape的LinearLayout
  * Create by dance, at 2019/5/27
  */
-class ShapeLinearLayout @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null, defStyleAttr: Int = 0)
+open class ShapeLinearLayout @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null, defStyleAttr: Int = 0)
     : LinearLayout(context, attributeSet, defStyleAttr) {
 
     //背景

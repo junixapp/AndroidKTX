@@ -9,9 +9,9 @@ Some very useful kotlin extensions for android development !
 [![Download](https://api.bintray.com/packages/li-xiaojun/jrepo/androidktx/images/download.svg)](https://bintray.com/li-xiaojun/jrepo/androidktx/_latestVersion)
 
 ```
-implementation 'com.lxj:androidktx:1.2.31'
+implementation 'com.lxj:androidktx:1.2.42'
 //for androidx
-implementation 'com.lxj:androidktx:1.2.31-x'
+implementation 'com.lxj:androidktx:1.2.42-x'
 ```
 
 
@@ -169,6 +169,9 @@ recyclerView.vertical() //设置垂直
             .itemClick<String> { data, holder, position ->
                 toast("click ${data[position]}")
             }
+            //.itemLongClick<String> { data, holder, position ->
+            //    toast("click ${data[position]}")
+            //}
 
 //notify
 //recyclerView.adapter.notifyItemChanged()

@@ -2,7 +2,6 @@ package com.lxj.androidktx
 
 import android.annotation.SuppressLint
 import android.content.Context
-import com.tencent.mmkv.MMKV
 
 /**
  * Description: 统一配置扩展方法中的变量
@@ -28,6 +27,5 @@ object AndroidKtxConfig {
         this.isDebug = isDebug
         this.defaultLogTag = defaultLogTag
         this.sharedPrefName = sharedPrefName
-        MMKV.initialize(this.context)
     }
 }

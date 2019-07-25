@@ -24,5 +24,9 @@ class DateTimeExtTest {
         // 自定义格式
         "2018-12-07".toDateMills(format = "yyyy-MM-dd").toString().v()
         (1544174919000L).toDateString(format = "yyyy-MM-dd").v()
+
+        println("18612116869".isPhone())
+        println("17812703364".isPhone())
+        println("12812703364".isPhone())
     }
 }

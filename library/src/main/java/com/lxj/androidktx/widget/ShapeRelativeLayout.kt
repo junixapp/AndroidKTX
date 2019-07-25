@@ -15,7 +15,7 @@ import com.lxj.androidktx.core.dp2px
  * Description: 可以设置Shape的RelativeLayout
  * Create by dance, at 2019/5/27
  */
-class ShapeRelativeLayout @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null, defStyleAttr: Int = 0)
+open class ShapeRelativeLayout @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null, defStyleAttr: Int = 0)
     : RelativeLayout(context, attributeSet, defStyleAttr) {
 
     //背景

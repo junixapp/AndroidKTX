@@ -116,3 +116,15 @@ fun <T> RecyclerView.itemClick(listener: (data: List<T>, holder: RecyclerView.Vi
     }
     return this
 }
+
+fun <T> RecyclerView.itemLongClick(listener: (data: List<T>, holder: RecyclerView.ViewHolder, position: Int) -> Unit): RecyclerView {
+    adapter?.apply {
+        (adapter as MultiItemTypeAdapter<*>).setOnItemClickListener(object : MultiItemTypeAdapter.SimpleOnItemClickListener() {
+            override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
+                listener(data as List<T>, holder, position)
+                return super.onItemLongClick(view, holder, position)
+            }
+        })
+    }
+    return this
+}
