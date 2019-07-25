@@ -431,7 +431,7 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
         }
     }
 
-    val paint = Paint()
+    private val paint = Paint()
     override fun dispatchDraw(canvas: Canvas) {
         super.dispatchDraw(canvas)
         if (mtopLineColor != 0) {
@@ -445,6 +445,7 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
     }
 
     fun leftImageView() = ivLeftImage
+    fun leftTextView() = tvLeftText
     fun rightTextView() = tvRightText
     fun centerTextView() = tvCenterText
     fun rightImageView() = ivRightImage
