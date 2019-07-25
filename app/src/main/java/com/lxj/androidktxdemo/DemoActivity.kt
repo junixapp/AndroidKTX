@@ -1,8 +1,8 @@
 package com.lxj.androidktxdemo
 
-import android.arch.lifecycle.Observer
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.lxj.androidktx.core.click
 import com.lxj.androidktx.core.toast
 import kotlinx.android.synthetic.main.demo.*
