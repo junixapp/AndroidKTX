@@ -1,6 +1,8 @@
 package com.lxj.androidktx.core
 
 import android.app.Activity
+import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.ViewModelProviders
 import android.arch.lifecycle.ViewModelStores
 import android.content.Context
 import android.content.Intent
@@ -64,3 +66,6 @@ fun FragmentActivity.post(action: ()->Unit){
 fun FragmentActivity.postDelay(delay:Long = 0, action: ()->Unit){
     LifecycleHandler(this).postDelayed({ action() }, delay)
 }
+
+//view model
+fun <T: ViewModel> FragmentActivity.getVM(clazz: Class<T>) = ViewModelProviders.of(this).get(clazz)

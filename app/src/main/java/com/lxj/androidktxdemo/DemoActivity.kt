@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.lxj.androidktx.core.click
+import com.lxj.androidktx.core.getVM
 import com.lxj.androidktx.core.toast
 import kotlinx.android.synthetic.main.demo.*
 
@@ -18,7 +19,6 @@ class DemoActivity : AppCompatActivity(){
         AppVM.data.observe(this, Observer{
             toast("it：$it")
         })
-
 
         btn.click {
             AppVM.data.postValue("第一次设置的值。。。")
