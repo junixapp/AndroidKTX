@@ -1,5 +1,6 @@
 package com.lxj.androidktx.core
 
+import android.animation.Animator
 import android.animation.IntEvaluator
 import android.animation.ValueAnimator
 import android.graphics.Bitmap
@@ -113,13 +114,15 @@ fun View.margin(leftMargin: Int = Int.MAX_VALUE, topMargin: Int = Int.MAX_VALUE,
  * @param duration 时长
  * @param action 可选行为
  */
-fun View.animateWidth(targetValue: Int, duration: Long = 400, action: ((Float) -> Unit)? = null) {
+fun View.animateWidth(targetValue: Int, duration: Long = 400, listener: Animator.AnimatorListener? = null,
+                      action: ((Float) -> Unit)? = null) {
     post {
         ValueAnimator.ofInt(width, targetValue).apply {
             addUpdateListener {
                 width(it.animatedValue as Int)
                 action?.invoke((it.animatedFraction))
             }
+            if(listener!=null)addListener(listener)
             setDuration(duration)
             start()
         }
@@ -132,13 +135,14 @@ fun View.animateWidth(targetValue: Int, duration: Long = 400, action: ((Float) -
  * @param duration 时长
  * @param action 可选行为
  */
-fun View.animateHeight(targetValue: Int, duration: Long = 400, action: ((Float) -> Unit)? = null) {
+fun View.animateHeight(targetValue: Int, duration: Long = 400, listener: Animator.AnimatorListener? = null, action: ((Float) -> Unit)? = null) {
     post {
         ValueAnimator.ofInt(height, targetValue).apply {
             addUpdateListener {
                 height(it.animatedValue as Int)
                 action?.invoke((it.animatedFraction))
             }
+            if(listener!=null)addListener(listener)
             setDuration(duration)
             start()
         }
@@ -152,7 +156,7 @@ fun View.animateHeight(targetValue: Int, duration: Long = 400, action: ((Float) 
  * @param duration 时长
  * @param action 可选行为
  */
-fun View.animateWidthAndHeight(targetWidth: Int, targetHeight: Int, duration: Long = 400, action: ((Float) -> Unit)? = null) {
+fun View.animateWidthAndHeight(targetWidth: Int, targetHeight: Int, duration: Long = 400, listener: Animator.AnimatorListener? = null, action: ((Float) -> Unit)? = null) {
     post {
         val startHeight = height
         val evaluator = IntEvaluator()
@@ -161,6 +165,7 @@ fun View.animateWidthAndHeight(targetWidth: Int, targetHeight: Int, duration: Lo
                 widthAndHeight(it.animatedValue as Int, evaluator.evaluate(it.animatedFraction, startHeight, targetHeight))
                 action?.invoke((it.animatedFraction))
             }
+            if(listener!=null)addListener(listener)
             setDuration(duration)
             start()
         }
