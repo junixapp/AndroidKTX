@@ -13,6 +13,7 @@ import com.umeng.commonsdk.UMConfigure
 import com.umeng.socialize.*
 import com.umeng.socialize.bean.SHARE_MEDIA
 import com.umeng.socialize.media.UMImage
+import com.umeng.socialize.media.UMVideo
 import com.umeng.socialize.media.UMWeb
 import java.net.URLEncoder
 
@@ -56,11 +57,11 @@ object Share {
     }
 
     fun share(
-            activity: Activity, platform: SharePlatform, bitmap: Bitmap? = null, text: String = "", url: String = "",
-            title: String = "", callback: ShareCallback? = null
+            activity: Activity, platform: SharePlatform, bitmap: Bitmap? = null, text: String? = null, url: String? = null,
+            title: String? = null, videoUrl: String? = null,  callback: ShareCallback? = null
     ) {
         checkPermission(activity) {
-            doShare(activity, convertPlatform(platform), bitmap, text, url, title, callback)
+            doShare(activity, convertPlatform(platform), bitmap, text, url, title, videoUrl, callback)
         }
     }
 
@@ -79,14 +80,19 @@ object Share {
     }
 
     private fun doShare(
-            activity: Activity, platform: SHARE_MEDIA, bitmap: Bitmap? = null, text: String = "", url: String = "",
-            title: String = "", callback: ShareCallback? = null) {
+            activity: Activity, platform: SHARE_MEDIA, bitmap: Bitmap? = null, text: String? = null, url: String? = null,
+            title: String? = null, videoUrl: String? = null, callback: ShareCallback? = null) {
         ShareAction(activity)
                 .setPlatform(platform)//传入平台
                 .apply {
                     if (bitmap != null) withMedia(UMImage(activity, bitmap))
-                    if (text.isNotEmpty()) withText(text)
-                    if (url.isNotEmpty()) withMedia(UMWeb(URLEncoder.encode(url)).apply {
+                    if (text!=null) withText(text)
+                    if (videoUrl!=null) withMedia(UMVideo(videoUrl).apply {
+                        description = text
+                        setTitle(title)
+                    })
+
+                    if (url!=null) withMedia(UMWeb(URLEncoder.encode(url)).apply {
                         //微信分享链接时需要标题和描述
                         description = text
                         setTitle(title)
