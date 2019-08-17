@@ -32,7 +32,7 @@ object PayVM : ViewModel() {
     val wxPayData = MutableLiveData<Any>()
     fun wxPay(
         context: Context, appid: String, partnerId: String, prepayId: String,
-        nonceStr: String, timeStamp: String, packageValue: String,
+        nonceStr: String, timeStamp: String, packageValue: String = "Sign=WXPay",
         sign: String, extData: String = ""
     ) {
         val wxapi = WXAPIFactory.createWXAPI(context, wechatAppId)
