@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
  * Create by lxj, at 2018/12/25
  */
 object OkWrapper {
-    const val DefaultTag = "okhttp"
+    const val DefaultUrlTag = "okhttp"
     private var httpTimeout = 10000L  //10s
     val globalHeaders = arrayListOf<Pair<String, String>>()
     val requestCache = hashMapOf<Any, Call>()
@@ -50,7 +50,7 @@ object OkWrapper {
         return this
     }
 
-    fun baseUrl(tag: String = DefaultTag, url: String): OkWrapper{
+    fun baseUrl(tag: String = DefaultUrlTag, url: String): OkWrapper{
         baseUrlMap[tag] = url
         return this
     }
