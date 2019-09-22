@@ -68,7 +68,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <activity-alias
-            android:name="${applicationId}.pay.wxapi.WXPayEntryActivity"
+            android:name="${applicationId}.wxapi.WXPayEntryActivity"
             android:exported="true"
             android:targetActivity=".pay.wxapi.WXPayEntryActivity" />
     </application>

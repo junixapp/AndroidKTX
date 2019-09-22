@@ -22,6 +22,7 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
     var mTextSize = sp2px(14f)
     var selectedColor = Color.RED
     var normalColor = Color.BLACK
+    var tabHeight = 0
     var iconSpace = dp2px(2f) //图片和文字间距
     var mTabs = listOf<Tab>()
     var tabIndex = -1
@@ -33,6 +34,7 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
         iconSpace = ta.getDimensionPixelSize(R.styleable.TabBar_tb_iconSpace, iconSpace)
         selectedColor = ta.getColor(R.styleable.TabBar_tb_selectedColor, selectedColor)
         normalColor = ta.getColor(R.styleable.TabBar_tb_normalColor, normalColor)
+        tabHeight = ta.getDimension(R.styleable.TabBar_tb_tabHeight, tabHeight.toFloat()).toInt()
 
         ta.recycle()
         orientation = HORIZONTAL
@@ -57,6 +59,7 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
                 text = it.text
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize.toFloat())
                 setTextColor(normalColor)
+                if(tabHeight!=0) height(tabHeight)
             })
             wrapper.apply {
                 val typedValue =  TypedValue()

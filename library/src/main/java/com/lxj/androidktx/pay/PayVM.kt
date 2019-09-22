@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModel
 import android.content.Context
 import com.alipay.sdk.app.PayTask
 import com.lxj.androidktx.livedata.NoStickyLiveData
+import com.lxj.androidktx.livedata.StateLiveData
 import com.tencent.mm.opensdk.modelpay.PayReq
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import kotlin.concurrent.thread
@@ -17,11 +18,8 @@ import kotlin.concurrent.thread
 object PayVM : ViewModel() {
 
     var wechatAppId = ""
-    fun init(wxAppId: String){
-        wechatAppId = wxAppId
-    }
 
-    val aliPayData = NoStickyLiveData<AliPayResult>()
+    val aliPayData = StateLiveData<AliPayResult>()
     fun aliPay(orderParam: String, activity: Activity) {
         thread(start = true) {
             val result = PayTask(activity).payV2(orderParam, true)
@@ -29,13 +27,15 @@ object PayVM : ViewModel() {
         }
     }
 
-    val wxPayData = MutableLiveData<Any>()
+    val wxPayData = StateLiveData<Any>()
     fun wxPay(
         context: Context, appid: String, partnerId: String, prepayId: String,
         nonceStr: String, timeStamp: String, packageValue: String = "Sign=WXPay",
         sign: String, extData: String = ""
     ) {
+        this.wechatAppId = appid
         val wxapi = WXAPIFactory.createWXAPI(context, wechatAppId)
+        wxapi.registerApp(wechatAppId)
         val req = PayReq()
         req.appId = appid
         req.partnerId = partnerId
@@ -44,7 +44,7 @@ object PayVM : ViewModel() {
         req.timeStamp = timeStamp
         req.packageValue = packageValue
         req.sign = sign
-        req.extData = extData // optional
+        if(!extData.isNullOrEmpty()) req.extData = extData // optional
         wxapi.sendReq(req)
     }
 }

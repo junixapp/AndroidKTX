@@ -12,7 +12,7 @@ import java.lang.Exception
  * Create by lxj, at 2018/12/27
  */
 data class RequestWrapper(
-        private var tag: Any = OkWrapper.javaClass,
+        private var tag: Any = "",
         private var url: String = "",
         var savePath: String = "",
         private var headers: ArrayList<Pair<String, String>> = arrayListOf(),

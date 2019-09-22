@@ -13,11 +13,11 @@ import java.util.concurrent.TimeUnit
  * Create by lxj, at 2018/12/25
  */
 object OkWrapper {
-
+    const val DefaultTag = "okhttp"
     private var httpTimeout = 10000L  //10s
     val globalHeaders = arrayListOf<Pair<String, String>>()
     val requestCache = hashMapOf<Any, Call>()
-    var baseUrl = ""
+    val baseUrlMap = hashMapOf<Any, String>() //存储多个baseUrl, key使用tag来存储
     var okHttpClient: OkHttpClient = OkHttpClient.Builder()
             .writeTimeout(httpTimeout, TimeUnit.MILLISECONDS)
             .readTimeout(httpTimeout, TimeUnit.MILLISECONDS)
@@ -50,8 +50,8 @@ object OkWrapper {
         return this
     }
 
-    fun baseUrl(url: String): OkWrapper{
-        this.baseUrl = url
+    fun baseUrl(tag: String = DefaultTag, url: String): OkWrapper{
+        baseUrlMap[tag] = url
         return this
     }
 

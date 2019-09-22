@@ -22,9 +22,8 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-    	api = WXAPIFactory.createWXAPI(this, PayVM.INSTANCE.getWechatAppId());
-        api.handleIntent(getIntent(), this);
+		api = WXAPIFactory.createWXAPI(this, PayVM.INSTANCE.getWechatAppId());
+		api.handleIntent(getIntent(), this);
     }
 
 	@Override
@@ -41,10 +40,14 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 	@Override
 	public void onResp(BaseResp resp) {
 		Log.d(TAG, "onPayFinish, errCode = " + resp.errCode);
-		if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX && resp.errCode==0) {
+		if (resp.errCode==0) {
 			//success
 			PayVM.INSTANCE.getWxPayData().postValue(resp);
+		}else if(resp.errCode==-1){
+			PayVM.INSTANCE.getWxPayData().setErrMsg("支付失败");
+			PayVM.INSTANCE.getWxPayData().postValue(null);
 		}else {
+			PayVM.INSTANCE.getWxPayData().setErrMsg("取消支付");
 			PayVM.INSTANCE.getWxPayData().postValue(null);
 		}
 		finish();

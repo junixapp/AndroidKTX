@@ -1,6 +1,7 @@
 package com.lxj.androidktx.okhttp
 
 import com.lxj.androidktx.core.toBean
+import com.lxj.androidktx.okhttp.OkWrapper.DefaultTag
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Deferred
 import okhttp3.Call
@@ -18,10 +19,10 @@ import java.net.URLConnection.getFileNameMap
  * 协程中使用：    "http://www.baidu.com".http().get<Bean>().await()
  * 非协程中使用：  "http://www.baidu.com".http().get<Bean>(callback)
  * Create by lxj, at 2018/12/19
- * @param tag 请求的tag
+ * @param tag 请求的tag，tag和baseUrl一一对应，可以实现多个baseUrl
  */
-fun String.http(tag: Any = this): RequestWrapper {
-    return RequestWrapper(tag, url = "${OkWrapper.baseUrl}${this}")
+fun String.http(tag: Any = DefaultTag): RequestWrapper {
+    return RequestWrapper(tag, url = "${OkWrapper.baseUrlMap[tag]}${this}")
 }
 
 /**
