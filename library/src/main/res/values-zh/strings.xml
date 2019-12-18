@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pay_with_alipay">支付宝支付 Demo</string>
+    <string name="pay_with_alipay_hk">HK 支付宝支付 Demo</string>
+    <string name="auth_with_alipay">支付宝授权 Demo</string>
+    <string name="web_to_native">网页支付转 native 支付 Demo</string>
+    <string name="check_sdk_version">支付宝 SDK 版本</string>
+    <string name="pay_success">支付成功:</string>
+    <string name="pay_failed">支付失败:</string>
+    <string name="auth_success">授权成功:</string>
+    <string name="auth_failed">授权失败:</string>
+    <string name="permission_already_granted">支付宝 SDK 已有所需的权限</string>
+    <string name="permission_rejected">无法获取支付宝 SDK 所需的权限, 请到系统设置开启</string>
+    <string name="permission_granted">支付宝 SDK 所需的权限已经正常获取</string>
+    <string name="error_missing_appid_rsa_private">错误: 需要配置 PayDemoActivity 中的 APPID 和 RSA_PRIVATE</string>
+    <string name="error_missing_hk_partner_seller_rsa_private">错误：需要配置 OrderUtils1_0_HK 中的 PARTNER、SELLER 和 RSA_PRIVATE</string>
+    <string name="pay_result">支付结果:</string>
+    <string name="error_auth_missing_partner_appid_rsa_private_target_id">错误: 需要配置PARTNER |APP_ID| RSA_PRIVATE| TARGET_ID</string>
+    <string name="alipay_sdk_version_is">支付宝 SDK 版本:</string>
+    <string name="confirm">确定</string>
+    <string name="error_missing_h5_pay_url">必须配置需要打开的url 站点，请在PayDemoActivity类的h5Pay中配置</string>
+    <string name="error">错误</string>
+    <string name="pay_cross_border">境外收单支付 Demo</string>
+    <string name="error_missing_global_partner_seller_rsa_private" >错误：需要配置 OrderUtils1_0_Global 中的 PARTNER、SELLER 和 RSA_PRIVATE</string>
+    <string name="payment_inst_hk">付款方: HK</string>
+    <string name="payment_inst_cn">付款方: CN</string>
+</resources>

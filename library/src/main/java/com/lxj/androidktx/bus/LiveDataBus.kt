@@ -1,8 +1,13 @@
 package com.lxj.androidktx.bus
 
+import android.arch.lifecycle.Lifecycle
+import android.arch.lifecycle.LifecycleOwner
+import android.arch.lifecycle.LifecycleRegistry
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.Observer
 import android.os.Handler
 import android.os.Looper
-import androidx.lifecycle.*
 import java.util.HashMap
 import java.util.Map
 import java.util.concurrent.TimeUnit
@@ -23,7 +28,7 @@ object LiveDataBus {
     }
 
     class BusMutableLiveData<T>(private val key: String) : MutableLiveData<T>(), Observable<T> {
-        private val observerMap = HashMap<Observer<in T>, Observer<in T>>()
+        private val observerMap = HashMap<Observer<T>, Observer<T>>()
         private val mainHandler = Handler(Looper.getMainLooper())
 
         private inner class PostValueTask(private val newValue: T) : Runnable {
@@ -39,7 +44,7 @@ object LiveDataBus {
             mainHandler.postDelayed(PostValueTask(value), TimeUnit.MILLISECONDS.convert(delay, unit))
         }
 
-        override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
+        override fun observe(owner: LifecycleOwner, observer: Observer<T>) {
             //保存LifecycleOwner的当前状态
             val lifecycle = owner.lifecycle
             val currentState = lifecycle.currentState
@@ -68,7 +73,7 @@ object LiveDataBus {
             super.observe(owner, observer)
         }
 
-        override fun observeForever(observer: Observer<in T>) {
+        override fun observeForever(observer: Observer<T>) {
             if (!observerMap.containsKey(observer)) {
                 observerMap[observer] = ObserverWrapper(observer)
             }
@@ -79,8 +84,8 @@ object LiveDataBus {
             super.observeForever(observer)
         }
 
-        override fun removeObserver(observer: Observer<in T>) {
-            val realObserver: Observer<in T>? = if (observerMap.containsKey(observer)) {
+        override fun removeObserver(observer: Observer<T>) {
+            val realObserver: Observer<T>? = if (observerMap.containsKey(observer)) {
                 observerMap.remove(observer)
             } else {
                 observer
@@ -141,7 +146,7 @@ object LiveDataBus {
         }
 
         @Throws(Exception::class)
-        private fun getObserverWrapper(observer: Observer<in T>): Any? {
+        private fun getObserverWrapper(observer: Observer<T>): Any? {
             val fieldObservers = LiveData::class.java.getDeclaredField("mObservers")
             fieldObservers.isAccessible = true
             val objectObservers = fieldObservers.get(this)
@@ -156,7 +161,7 @@ object LiveDataBus {
             return objectWrapper
         }
 
-        private fun hookObserverVersion(observer: Observer<in T>) {
+        private fun hookObserverVersion(observer: Observer<T>) {
             try {
                 //get wrapper's version
                 val objectWrapper = getObserverWrapper(observer) ?: return
@@ -174,7 +179,7 @@ object LiveDataBus {
             }
         }
 
-        private fun hookObserverActive(observer: Observer<in T>, active: Boolean) {
+        private fun hookObserverActive(observer: Observer<T>, active: Boolean) {
             try {
                 //get wrapper's version
                 val objectWrapper = getObserverWrapper(observer) ?: return
@@ -219,14 +224,14 @@ object LiveDataBus {
 
         fun postValueDelay(value: T, delay: Long, unit: TimeUnit)
 
-        fun observe(owner: LifecycleOwner, observer: Observer<in T>)
+        fun observe(owner: LifecycleOwner, observer: Observer<T>)
 
         fun observeSticky(owner: LifecycleOwner, observer: Observer<T>)
 
-        fun observeForever(observer: Observer<in T>)
+        fun observeForever(observer: Observer<T>)
 
         fun observeStickyForever(observer: Observer<T>)
 
-        fun removeObserver(observer: Observer<in T>)
+        fun removeObserver(observer: Observer<T>)
     }
 }

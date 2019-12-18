@@ -55,15 +55,6 @@ class MainActivity : AppCompatActivity() {
         "[{\"age\":25,\"name\":\"李晓俊\"}]".toBean<List<User>>().toString().e()
 
 
-        LiveDataBus.with<String>("key1").observe(this, observer = Observer {
-            it?.v()
-        })
-
-        LiveDataBus.with<User>("key2").observe(this, Observer {
-            it?.toJson()?.v()
-        })
-
-
 //        // 便捷处理
 //        sp().getString("a", "default")
 //        sp().getBoolean("b", false)

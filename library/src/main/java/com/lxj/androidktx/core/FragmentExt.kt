@@ -91,3 +91,8 @@ fun Fragment.post(action: ()->Unit){
 fun Fragment.postDelay(delay:Long = 0, action: ()->Unit){
     LifecycleHandler(this).postDelayed({ action() }, delay)
 }
+
+//view model
+fun <T: ViewModel> Fragment.getVM(clazz: Class<T>) = ViewModelProviders.of(this).get(clazz)
+
+fun <T: ViewModel> Fragment.getActivityVM(clazz: Class<T>) = ViewModelProviders.of(activity!!).get(clazz)

@@ -41,20 +41,21 @@ dependencies {
     api 'me.jessyan:progressmanager:1.5.0'
     api 'com.jeremyliao:live-event-bus:1.4.4'
     implementation 'com.lxj:xpermission:1.0.1'
-    implementation 'com.lxj:xpopup:1.8.7'
+    implementation 'com.lxj:xpopup:1.8.10'
     implementation files('libs/umeng-common-2.0.2.jar')
     implementation files('libs/umeng-share-core-6.9.4.jar')
     implementation files('libs/umeng-share-QQ-simplify-6.9.4.jar')
     implementation files('libs/umeng-share-sina-simplify-6.9.4.jar')
     implementation files('libs/umeng-share-wechat-simplify-6.9.4.jar')
     implementation files('libs/umeng-sharetool-6.9.4.jar')
+    implementation files('libs/libammsdk.jar')
 }
 
 publish {
     userOrg = 'li-xiaojun'
     groupId = 'com.lxj'
     artifactId = 'androidktx'
-    publishVersion = '1.2.46-x'
+    publishVersion = '1.3.13-x'
     repoName = 'jrepo'
     desc = 'Some very useful kotlin extensions for android development！好用到爆的Kotlin扩展，加速你的Android开发！'
     website = 'https://github.com/li-xiaojun/AndroidKTX'

@@ -25,7 +25,8 @@ inline fun <reified T> Context.startActivity(flag: Int = -1, bundle: Array<out P
     val intent = Intent(this, T::class.java).apply {
         if (flag != -1) {
             this.addFlags(flag)
-        } else if (this !is Activity) {
+        }
+        if (this !is Activity) {
             this.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
         if (bundle != null) putExtras(bundle.toBundle())
@@ -63,3 +64,6 @@ fun FragmentActivity.post(action: ()->Unit){
 fun FragmentActivity.postDelay(delay:Long = 0, action: ()->Unit){
     LifecycleHandler(this).postDelayed({ action() }, delay)
 }
+
+//view model
+fun <T: ViewModel> FragmentActivity.getVM(clazz: Class<T>) = ViewModelProviders.of(this).get(clazz)
