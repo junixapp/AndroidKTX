@@ -3,7 +3,6 @@ package com.lxj.androidktxdemo
 import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.lxj.androidktx.bus.LiveDataBus
 import com.lxj.androidktx.core.*
 import com.lxj.androidktxdemo.entity.PageInfo
 import com.lxj.androidktxdemo.entity.User
@@ -50,15 +49,6 @@ class MainActivity : AppCompatActivity() {
         UserTest("李晓俊", 25).toJson().v()
         "{\"age\":25,\"name\":\"李晓俊\"}".toBean<User>().toString().w()
         "[{\"age\":25,\"name\":\"李晓俊\"}]".toBean<List<User>>().toString().e()
-
-
-        LiveDataBus.with<String>("key1").observe(this, observer = Observer {
-            it?.v()
-        })
-
-        LiveDataBus.with<User>("key2").observe(this, Observer {
-            it?.toJson()?.v()
-        })
 
 
 //        // 便捷处理

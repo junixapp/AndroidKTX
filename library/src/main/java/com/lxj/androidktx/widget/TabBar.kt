@@ -6,6 +6,7 @@ package com.lxj.androidktx.widget
  */
 import android.content.Context
 import android.graphics.Color
+import android.support.v4.view.ViewPager
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
@@ -72,6 +73,14 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
         }
         selectTab(0)
         return this
+    }
+
+    fun setupWithViewPager(pager: ViewPager){
+        pager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener(){
+            override fun onPageSelected(p: Int) {
+                selectTab(p)
+            }
+        })
     }
 
     fun selectTab(index: Int) {
