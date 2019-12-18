@@ -6,13 +6,13 @@ package com.lxj.androidktx.widget
  */
 import android.content.Context
 import android.graphics.Color
-import android.support.v4.view.ViewPager
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.viewpager.widget.ViewPager
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.*
 

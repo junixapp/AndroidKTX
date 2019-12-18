@@ -1,11 +1,9 @@
 package com.lxj.androidktx.pay
 
 import android.app.Activity
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
 import android.content.Context
+import androidx.lifecycle.ViewModel
 import com.alipay.sdk.app.PayTask
-import com.lxj.androidktx.livedata.NoStickyLiveData
 import com.lxj.androidktx.livedata.StateLiveData
 import com.tencent.mm.opensdk.modelpay.PayReq
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
