@@ -79,6 +79,15 @@ fun <T> RecyclerView.bindData(data: List<T>, layoutId: Int, bindFn: (holder: Vie
     return this
 }
 
+fun <T> RecyclerView.updateData(data: List<T>){
+    val adapter = adapter as? EasyAdapter<T>?
+    if(adapter!=null){
+        adapter.data = data
+        adapter.notifyDataSetChanged()
+    }
+}
+
+
 /**
  * 必须在bindData之后调用，并且需要hasHeaderOrFooter为true才起作用
  */

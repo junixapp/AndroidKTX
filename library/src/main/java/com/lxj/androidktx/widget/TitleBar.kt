@@ -202,9 +202,9 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
         if (paddingRight == 0) setPadding(paddingLeft, paddingTop, dp2px(4f), paddingBottom)
     }
 
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(dp2px(48f), MeasureSpec.EXACTLY))
-    }
+//    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+//        super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(dp2px(48f), MeasureSpec.EXACTLY))
+//    }
 
     fun setup(leftImageRes: Int = 0, leftText: String = "", title: String = "", rightImageRes: Int = 0,
               rightText: String = ""): TitleBar {
