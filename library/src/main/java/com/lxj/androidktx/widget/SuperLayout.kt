@@ -36,7 +36,7 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
         }
 
     //左边文字
-    var mleftText = ""
+    var mleftText: CharSequence = ""
         set(value) {
             field = value
             applyAttr()
@@ -80,7 +80,7 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
         }
 
     //左边子文字
-    var mleftSubText = ""
+    var mleftSubText: CharSequence = ""
         set(value) {
             field = value
             applyAttr()
@@ -100,7 +100,7 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
         }
 
     //中间文字
-    var mcenterText = ""
+    var mcenterText: CharSequence = ""
         set(value) {
             field = value
             applyAttr()
@@ -126,7 +126,7 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
         }
 
     //右边文字
-    var mrightText = ""
+    var mrightText: CharSequence = ""
         set(value) {
             field = value
             applyAttr()
@@ -324,10 +324,10 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
     }
 
     fun setup(leftImageRes: Int = 0,
-              leftText: String = mleftText,
-              leftSubText: String = mleftSubText,
-              centerText: String = mcenterText,
-              rightText: String = mrightText,
+              leftText: CharSequence = mleftText,
+              leftSubText: CharSequence = mleftSubText,
+              centerText: CharSequence = mcenterText,
+              rightText: CharSequence = mrightText,
               rightImageRes: Int = 0,
               rightImage2Res: Int = 0) {
         if (leftImageRes != 0) mleftImage = drawable(leftImageRes)

@@ -20,7 +20,7 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
     : RelativeLayout(context, attributeSet, defStyleAttr) {
 
     // 左边文本
-    var leftText = ""
+    var leftText: CharSequence = ""
         set(value) {
             field = value
             applyAttr()
@@ -66,7 +66,7 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
         }
 
     //中间标题
-    var title = ""
+    var title: CharSequence = ""
         set(value) {
             field = value
             applyAttr()
@@ -92,7 +92,7 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
         }
 
     //右边文字
-    var rightText = ""
+    var rightText: CharSequence = ""
         set(value) {
             field = value
             applyAttr()
@@ -206,8 +206,8 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
 //        super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(dp2px(48f), MeasureSpec.EXACTLY))
 //    }
 
-    fun setup(leftImageRes: Int = 0, leftText: String = "", title: String = "", rightImageRes: Int = 0,
-              rightText: String = ""): TitleBar {
+    fun setup(leftImageRes: Int = 0, leftText: CharSequence = "", title: CharSequence = "", rightImageRes: Int = 0,
+              rightText: CharSequence = ""): TitleBar {
         if (leftImageRes != 0) this.leftImage = drawable(leftImageRes)
         if (rightImageRes != 0) this.rightImage = drawable(rightImageRes)
         if(title.isNotEmpty()) this.title = title
@@ -240,7 +240,7 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
         }
     }
 
-    fun setupLeftText(text: String, textColor: Int = leftTextColor, textSize: Int = leftTextSize,
+    fun setupLeftText(text: CharSequence, textColor: Int = leftTextColor, textSize: Int = leftTextSize,
                       drawable: Drawable? = leftTextDrawable, drawableSize: Int = leftTextDrawableSize): TitleBar {
         this.leftText = text
         this.leftTextColor = textColor
@@ -284,7 +284,7 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
         }
     }
 
-    fun setupTitle(text: String, textColor: Int = titleColor, textSize: Int = titleSize, alignLeft: Boolean = titleAlignLeft): TitleBar {
+    fun setupTitle(text: CharSequence, textColor: Int = titleColor, textSize: Int = titleSize, alignLeft: Boolean = titleAlignLeft): TitleBar {
         this.title = text
         this.titleColor = textColor
         this.titleSize = textSize
@@ -304,7 +304,7 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
         tvRightText.setTextSize(TypedValue.COMPLEX_UNIT_PX, rightTextSize.toFloat())
     }
 
-    fun setupRightText(text: String, textColor: Int = rightTextColor, textSize: Int = rightTextSize): TitleBar {
+    fun setupRightText(text: CharSequence, textColor: Int = rightTextColor, textSize: Int = rightTextSize): TitleBar {
         this.rightText = text
         this.rightTextColor = textColor
         this.rightTextSize = textSize

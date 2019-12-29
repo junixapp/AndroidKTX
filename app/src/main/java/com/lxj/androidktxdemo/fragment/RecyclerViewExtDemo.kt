@@ -31,6 +31,10 @@ class RecyclerViewExtDemo : BaseFragment() {
             click { toast(this.text) }
         }
 
+        btn.click {
+            recyclerView.updateData(arrayListOf("3", "4"))
+        }
+
         //notify
         recyclerView.vertical(spanCount = 2)
                 .divider(color = Color.parseColor("#aaaaaa"), size = 20)

@@ -137,3 +137,11 @@ fun <T> RecyclerView.itemLongClick(listener: (data: List<T>, holder: RecyclerVie
     }
     return this
 }
+
+fun RecyclerView.smoothScrollToEnd(){
+    if(adapter!=null && adapter!!.itemCount>0) smoothScrollToPosition(adapter!!.itemCount - 1)
+}
+
+fun RecyclerView.scrollToEnd(){
+    if(adapter!=null && adapter!!.itemCount>0) scrollToPosition(adapter!!.itemCount - 1)
+}
