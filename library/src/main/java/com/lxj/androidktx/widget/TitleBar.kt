@@ -258,7 +258,7 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
         }
         ivLeftImage.visible()
         ivLeftImage.setImageDrawable(leftImage)
-        if (leftImagePadding != 0) ivLeftImage.setPadding(leftImagePadding, leftImagePadding, leftImagePadding, leftImagePadding)
+        ivLeftImage.setPadding(leftImagePadding, leftImagePadding, leftImagePadding, leftImagePadding)
     }
 
     fun setupLeftImage(imageRes: Int, imagePadding: Int = leftImagePadding): TitleBar {
@@ -319,7 +319,7 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
         }
         ivRightImage.visible()
         ivRightImage.setImageDrawable(rightImage)
-        if (rightImagePadding != 0) ivRightImage.setPadding(rightImagePadding, rightImagePadding, rightImagePadding, rightImagePadding)
+        ivRightImage.setPadding(rightImagePadding, rightImagePadding, rightImagePadding, rightImagePadding)
     }
 
     fun setupRightImage(imageRes: Int, imagePadding: Int = rightImagePadding): TitleBar {
@@ -336,7 +336,7 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
         }
         ivRightImage2.visible()
         ivRightImage2.setImageDrawable(rightImage2)
-        if (rightImage2Padding != 0) ivRightImage2.setPadding(rightImage2Padding, rightImage2Padding, rightImage2Padding, rightImage2Padding)
+        ivRightImage2.setPadding(rightImage2Padding, rightImage2Padding, rightImage2Padding, rightImage2Padding)
     }
 
     fun setupRightImage2(imageRes: Int, imagePadding: Int = rightImage2Padding): TitleBar {
@@ -353,7 +353,7 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
         }
         ivRightImage3.visible()
         ivRightImage3.setImageDrawable(rightImage3)
-        if (rightImage3Padding != 0) ivRightImage3.setPadding(rightImage3Padding, rightImage3Padding, rightImage3Padding, rightImage3Padding)
+        ivRightImage3.setPadding(rightImage3Padding, rightImage3Padding, rightImage3Padding, rightImage3Padding)
     }
 
     fun setupRightImage3(imageRes: Int, imagePadding: Int = rightImage3Padding): TitleBar {
