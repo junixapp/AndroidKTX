@@ -78,7 +78,7 @@ open class ShapeLinearLayout @JvmOverloads constructor(context: Context, attribu
 
         topLineColor = ta.getColor(R.styleable.ShapeLinearLayout_sll_topLineColor, topLineColor)
         bottomLineColor = ta.getColor(R.styleable.ShapeLinearLayout_sll_bottomLineColor, bottomLineColor)
-        lineSize = ta.getColor(R.styleable.ShapeLinearLayout_sll_lineSize, lineSize)
+        lineSize = ta.getDimensionPixelSize(R.styleable.ShapeLinearLayout_sll_lineSize, lineSize)
         enableRipple = ta.getBoolean(R.styleable.ShapeLinearLayout_sll_enableRipple, enableRipple)
         rippleColor = ta.getColor(R.styleable.ShapeLinearLayout_sll_rippleColor, rippleColor)
 

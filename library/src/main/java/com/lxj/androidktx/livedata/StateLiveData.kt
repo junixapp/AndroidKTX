@@ -100,5 +100,7 @@ class StateLiveData<T> : NoStickyLiveData<T>() {
         return GlobalScope.launch { smartPost(block()) }
     }
 
+
+
 }
 

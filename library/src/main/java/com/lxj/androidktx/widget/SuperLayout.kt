@@ -313,7 +313,7 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
 
         mtopLineColor = ta.getColor(R.styleable.SuperLayout_sl_topLineColor, mtopLineColor)
         mbottomLineColor = ta.getColor(R.styleable.SuperLayout_sl_bottomLineColor, mbottomLineColor)
-        mlineSize = ta.getColor(R.styleable.SuperLayout_sl_lineSize, mlineSize)
+        mlineSize = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_lineSize, mlineSize)
         menableRipple = ta.getBoolean(R.styleable.SuperLayout_sl_enableRipple, menableRipple)
         mrippleColor = ta.getColor(R.styleable.SuperLayout_sl_rippleColor, mrippleColor)
 

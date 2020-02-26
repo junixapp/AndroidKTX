@@ -22,6 +22,10 @@ android {
     lintOptions {
         abortOnError false
     }
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
 }
 
 dependencies {
@@ -38,6 +42,12 @@ dependencies {
     api "androidx.lifecycle:lifecycle-extensions:2.1.0"
     api 'com.lxj:statelayout:1.0.5'
     api 'me.jessyan:progressmanager:1.5.0'
+    api 'com.blankj:utilcodex:1.26.0'
+    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
+    api 'top.zibin:Luban:1.1.8'
+    api 'com.jeremyliao:live-event-bus-x:1.5.7'
+    api 'com.shuyu:GSYVideoPlayer:6.0.3'
+    api 'cjt.library.wheel:camera:1.1.9'
     implementation 'com.lxj:xpermission:1.0.1'
     implementation 'com.lxj:xpopup:1.8.10'
     implementation files('libs/umeng-common-2.0.2.jar')
@@ -53,7 +63,7 @@ publish {
     userOrg = 'li-xiaojun'
     groupId = 'com.lxj'
     artifactId = 'androidktx'
-    publishVersion = '1.3.18-x'
+    publishVersion = '1.4.0-x'
     repoName = 'jrepo'
     desc = 'Some very useful kotlin extensions for android development！好用到爆的Kotlin扩展，加速你的Android开发！'
     website = 'https://github.com/li-xiaojun/AndroidKTX'

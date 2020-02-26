@@ -58,14 +58,14 @@ data class RequestWrapper(
                 .get().build()
     }
 
-    fun buildPostRequest(customReqBody: RequestBody? = null): Request {
-        return bodyBuilder().post(customReqBody?: buildRequestBody()).build()
+    fun buildPostRequest(customReqBody: RequestBody? = null, forceMultiPart: Boolean = false): Request {
+        return bodyBuilder().post(customReqBody?: buildRequestBody(forceMultiPart)).build()
     }
-    fun buildPutRequest(customReqBody: RequestBody? = null): Request {
-        return bodyBuilder().put(customReqBody?: buildRequestBody()).build()
+    fun buildPutRequest(customReqBody: RequestBody? = null, forceMultiPart: Boolean = false): Request {
+        return bodyBuilder().put(customReqBody?: buildRequestBody(forceMultiPart)).build()
     }
-    fun buildDeleteRequest(customReqBody: RequestBody? = null): Request {
-        return bodyBuilder().delete(customReqBody?: buildRequestBody()).build()
+    fun buildDeleteRequest(customReqBody: RequestBody? = null, forceMultiPart: Boolean = false): Request {
+        return bodyBuilder().delete(customReqBody?: buildRequestBody(forceMultiPart)).build()
     }
     private fun bodyBuilder(): Request.Builder{
         return Request.Builder().url(url())
@@ -75,8 +75,8 @@ data class RequestWrapper(
                 }
     }
 
-    private fun buildRequestBody(): RequestBody {
-        return if (isMultiPart()) {
+    private fun buildRequestBody(forceMultiPart: Boolean = false): RequestBody {
+        if (isMultiPart()) {
             // multipart/form-data
             val builder = MultipartBody.Builder()
             params.forEach {
@@ -103,12 +103,16 @@ data class RequestWrapper(
                     }
                 }
             }
-            builder.setType(MultipartBody.FORM).build()
-        } else {
-            // form-data url-encoded
+            return builder.setType(MultipartBody.FORM).build()
+        } else if(forceMultiPart){
+            val builder = MultipartBody.Builder()
+            params.forEach { builder.addFormDataPart(it.first, it.second as String) }
+            return builder.setType(MultipartBody.FORM).build()
+        } else{
+            // default is form-data url-encoded
             val builder = FormBody.Builder()
             params.forEach { builder.add(it.first, it.second as String) }
-            builder.build()
+            return builder.build()
         }
     }
 

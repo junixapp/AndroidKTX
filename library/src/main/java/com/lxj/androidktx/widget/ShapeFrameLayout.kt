@@ -78,7 +78,7 @@ open class ShapeFrameLayout @JvmOverloads constructor(context: Context, attribut
 
         topLineColor = ta.getColor(R.styleable.ShapeFrameLayout_sfl_topLineColor, topLineColor)
         bottomLineColor = ta.getColor(R.styleable.ShapeFrameLayout_sfl_bottomLineColor, bottomLineColor)
-        lineSize = ta.getColor(R.styleable.ShapeFrameLayout_sfl_lineSize, lineSize)
+        lineSize = ta.getDimensionPixelSize(R.styleable.ShapeFrameLayout_sfl_lineSize, lineSize)
         enableRipple = ta.getBoolean(R.styleable.ShapeFrameLayout_sfl_enableRipple, enableRipple)
         rippleColor = ta.getColor(R.styleable.ShapeFrameLayout_sfl_rippleColor, rippleColor)
 

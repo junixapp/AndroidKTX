@@ -1,7 +1,10 @@
 package com.lxj.androidktx.widget
 
 import android.content.Context
+import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.util.TypedValue
@@ -150,7 +153,12 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
             applyAttr()
             applySelf()
         }
-
+    var bottomLine = Color.TRANSPARENT
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.TitleBar)
         leftText = ta.getString(R.styleable.TitleBar_leftText) ?: ""
@@ -158,6 +166,7 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
         leftTextSize = ta.getDimensionPixelSize(R.styleable.TitleBar_leftTextSize, dp2px(leftTextSize.toFloat()))
         leftTextDrawable = ta.getDrawable(R.styleable.TitleBar_leftTextDrawable)
         leftTextDrawableSize = ta.getDimensionPixelSize(R.styleable.TitleBar_leftTextDrawableSize, leftTextDrawableSize)
+        bottomLine = ta.getColor(R.styleable.TitleBar_bottomLine, bottomLine)
 
         leftImage = ta.getDrawable(R.styleable.TitleBar_leftImageSrc)
         leftImagePadding = ta.getDimensionPixelSize(R.styleable.TitleBar_leftImagePadding, dp2px(leftImagePadding.toFloat()))
@@ -200,6 +209,15 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
         if (background == null) setBackgroundColor(Color.WHITE)
         if (paddingLeft == 0) setPadding(dp2px(4f), paddingTop, paddingRight, paddingBottom)
         if (paddingRight == 0) setPadding(paddingLeft, paddingTop, dp2px(4f), paddingBottom)
+    }
+
+    val paint = Paint()
+    override fun dispatchDraw(canvas: Canvas) {
+        super.dispatchDraw(canvas)
+        if (bottomLine != 0) {
+            paint.color = bottomLine
+            canvas.drawRect(Rect(0, measuredHeight - dp2px(1f), measuredWidth, measuredHeight), paint)
+        }
     }
 
 //    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

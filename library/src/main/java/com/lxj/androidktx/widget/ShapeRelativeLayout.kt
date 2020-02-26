@@ -78,7 +78,7 @@ open class ShapeRelativeLayout @JvmOverloads constructor(context: Context, attri
 
         topLineColor = ta.getColor(R.styleable.ShapeRelativeLayout_srl_topLineColor, topLineColor)
         bottomLineColor = ta.getColor(R.styleable.ShapeRelativeLayout_srl_bottomLineColor, bottomLineColor)
-        lineSize = ta.getColor(R.styleable.ShapeRelativeLayout_srl_lineSize, lineSize)
+        lineSize = ta.getDimensionPixelSize(R.styleable.ShapeRelativeLayout_srl_lineSize, lineSize)
         enableRipple = ta.getBoolean(R.styleable.ShapeRelativeLayout_srl_enableRipple, enableRipple)
         rippleColor = ta.getColor(R.styleable.ShapeRelativeLayout_srl_rippleColor, rippleColor)
 

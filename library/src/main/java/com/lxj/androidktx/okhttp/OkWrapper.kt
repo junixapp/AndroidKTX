@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit
  */
 object OkWrapper {
     const val DefaultUrlTag = "okhttp"
-    private var httpTimeout = 10000L  //10s
+    private var httpTimeout = 15000L  //15s
     val globalHeaders = arrayListOf<Pair<String, String>>()
     val requestCache = hashMapOf<Any, Call>()
     val baseUrlMap = hashMapOf<Any, String>() //存储多个baseUrl, key使用tag来存储

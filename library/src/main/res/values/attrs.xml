@@ -7,6 +7,7 @@
         <attr name="leftTextSize" format="dimension"/>
         <attr name="leftTextDrawable" format="reference"/>
         <attr name="leftTextDrawableSize" format="dimension"/>
+        <attr name="bottomLine" format="color"/>
 
         <!--左边图片-->
         <attr name="leftImageSrc" format="reference"/>

@@ -4,6 +4,7 @@
     <ImageView
         android:id="@+id/ivLeftImage"
         android:layout_width="48dp"
+        android:layout_centerVertical="true"
         android:layout_height="match_parent"
         android:background="?selectableItemBackground"
         android:clickable="true"
@@ -11,6 +12,7 @@
 
     <com.lxj.androidktx.widget.ShapeTextView
         android:id="@+id/tvLeftText"
+        android:layout_centerVertical="true"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:background="?selectableItemBackground"
@@ -25,6 +27,7 @@
 
     <com.lxj.androidktx.widget.ShapeTextView
         android:id="@+id/tvTitle"
+        android:layout_centerVertical="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="58dp"
@@ -37,6 +40,7 @@
 
     <com.lxj.androidktx.widget.ShapeTextView
         android:id="@+id/tvRightText"
+        android:layout_centerVertical="true"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
@@ -50,6 +54,7 @@
 
     <ImageView
         android:id="@+id/ivRightImage"
+        android:layout_centerVertical="true"
         android:layout_width="48dp"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
@@ -59,6 +64,7 @@
 
     <ImageView
         android:id="@+id/ivRightImage2"
+        android:layout_centerVertical="true"
         android:layout_width="48dp"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
@@ -70,6 +76,7 @@
 
     <ImageView
         android:id="@+id/ivRightImage3"
+        android:layout_centerVertical="true"
         android:layout_width="48dp"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"

@@ -98,7 +98,7 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
 
         mTopLineColor = ta.getColor(R.styleable.ShapeTextView_stv_topLineColor, mTopLineColor)
         mBottomLineColor = ta.getColor(R.styleable.ShapeTextView_stv_bottomLineColor, mBottomLineColor)
-        mLineSize = ta.getColor(R.styleable.ShapeTextView_stv_lineSize, mLineSize)
+        mLineSize = ta.getDimensionPixelSize(R.styleable.ShapeTextView_stv_lineSize, mLineSize)
         ta.recycle()
         if (mDrawableWidth != 0 && mDrawableHeight != 0) {
             sizeDrawable(width = mDrawableWidth, height = mDrawableHeight)

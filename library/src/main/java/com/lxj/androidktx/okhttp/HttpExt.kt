@@ -41,8 +41,8 @@ inline fun <reified T> RequestWrapper.get(cb: HttpCallback<T>) {
 /**
  * post请求，需在协程中使用。结果为空即为http请求失败，并会将失败信息打印日志。
  */
-inline fun <reified T> RequestWrapper.post(): Deferred<T?> {
-    return defferedRequest(buildPostRequest(), this)
+inline fun <reified T> RequestWrapper.post(forceMultiPart: Boolean = false): Deferred<T?> {
+    return defferedRequest(buildPostRequest(forceMultiPart = forceMultiPart), this)
 }
 
 inline fun <reified T> RequestWrapper.postJson(json: String): Deferred<T?> {
@@ -52,8 +52,8 @@ inline fun <reified T> RequestWrapper.postJson(json: String): Deferred<T?> {
 /**
  * callback style，不在协程中使用
  */
-inline fun <reified T> RequestWrapper.post(cb: HttpCallback<T>) {
-    callbackRequest(buildPostRequest(), cb, this)
+inline fun <reified T> RequestWrapper.post(cb: HttpCallback<T>, forceMultiPart: Boolean = false) {
+    callbackRequest(buildPostRequest(forceMultiPart = forceMultiPart), cb, this)
 }
 
 inline fun <reified T> RequestWrapper.postJson(json: String, cb: HttpCallback<T>) {
@@ -63,8 +63,8 @@ inline fun <reified T> RequestWrapper.postJson(json: String, cb: HttpCallback<T>
 /**
  * put请求，需在协程中使用。结果为空即为http请求失败，并会将失败信息打印日志。
  */
-inline fun <reified T> RequestWrapper.put(): Deferred<T?> {
-    return defferedRequest(buildPutRequest(), this)
+inline fun <reified T> RequestWrapper.put(forceMultiPart: Boolean = false): Deferred<T?> {
+    return defferedRequest(buildPutRequest(forceMultiPart = forceMultiPart), this)
 }
 
 inline fun <reified T> RequestWrapper.putJson(json: String): Deferred<T?> {
@@ -74,8 +74,8 @@ inline fun <reified T> RequestWrapper.putJson(json: String): Deferred<T?> {
 /**
  * callback style，不在协程中使用
  */
-inline fun <reified T> RequestWrapper.put(cb: HttpCallback<T>) {
-    callbackRequest(buildPutRequest(), cb, this)
+inline fun <reified T> RequestWrapper.put(cb: HttpCallback<T>, forceMultiPart: Boolean = false) {
+    callbackRequest(buildPutRequest(forceMultiPart = forceMultiPart), cb, this)
 }
 
 inline fun <reified T> RequestWrapper.putJson(json: String, cb: HttpCallback<T>) {
