@@ -1,4 +1,4 @@
-package com.xjk.common.act
+package com.lxj.androidktx.base
 
 import android.graphics.Bitmap
 import android.media.MediaMetadataRetriever
@@ -10,7 +10,6 @@ import com.cjt2325.cameralibrary.listener.ErrorListener
 import com.cjt2325.cameralibrary.listener.JCameraListener
 import com.jeremyliao.liveeventbus.LiveEventBus
 import com.lxj.androidktx.R
-import com.lxj.androidktx.base.AdaptActivity
 import kotlinx.android.synthetic.main._ktx_activity_camera.*
 import top.zibin.luban.Luban
 import top.zibin.luban.OnCompressListener
