@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200pt">
+    <ImageView
+        android:id="@+id/image"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <ImageView
+        android:id="@+id/close"
+        android:layout_alignParentRight="true"
+        android:src="@mipmap/_ktx_ic_image_del"
+        android:scaleType="fitXY"
+        android:layout_width="25pt"
+        android:layout_height="25pt"/>
+</RelativeLayout>

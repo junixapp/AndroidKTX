@@ -176,4 +176,13 @@
         <attr name="tb_normalColor" format="color"/>
         <attr name="tb_tabHeight" format="dimension"/>
     </declare-styleable>
+
+    <declare-styleable name="ImageUploader">
+        <attr name="addImageRes" format="reference"/>
+        <attr name="spanCount" format="integer"/>
+        <attr name="maxImages" format="integer"/>
+        <attr name="hSpace" format="dimension"/>
+        <attr name="vSpace" format="dimension"/>
+        <attr name="delImageRes" format="reference"/>
+    </declare-styleable>
 </resources>
