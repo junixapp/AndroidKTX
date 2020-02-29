@@ -2,6 +2,8 @@ package com.lxj.androidktx
 
 import android.annotation.SuppressLint
 import android.content.Context
+import com.lxj.androidktx.core.load
+import com.yuyh.library.imgsel.ISNav
 
 /**
  * Description: 统一配置扩展方法中的变量
@@ -27,5 +29,6 @@ object AndroidKtxConfig {
         this.isDebug = isDebug
         this.defaultLogTag = defaultLogTag
         this.sharedPrefName = sharedPrefName
+        ISNav.getInstance().init { _, path, imageView -> imageView?.load(path) }
     }
 }
