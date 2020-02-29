@@ -19,7 +19,7 @@ class StateLiveData<T> : NoStickyLiveData<T>() {
         Idle, Loading, Success, Error, Empty
     }
 
-    val state = MutableLiveData<State>()
+    val state = NoStickyLiveData<State>()
     var errMsg = ""
 
     init {

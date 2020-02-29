@@ -1,13 +1,16 @@
 package com.lxj.androidktxdemo.fragment
 
+import android.content.Intent
 import android.os.Environment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
+import com.blankj.utilcode.util.ToastUtils
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.livedata.StateLiveData
 import com.lxj.androidktx.okhttp.*
+import com.lxj.androidktx.util.ImagePicker
 import com.lxj.androidktx.widget.TitleBar
 import com.lxj.androidktxdemo.R
 import com.lxj.androidktxdemo.entity.HttpResult
@@ -52,26 +55,31 @@ class HttpExtFragment : BaseFragment() {
         OkWrapper.interceptors()
 
         btnSend.click {
-            loginData.launchAndSmartPost {
-                val result = "http://47.111.131.25:8080/yezi-api/api/students/vcodeLogin".http()
-                        .postJson<HttpResult<User>>(
-                                mapOf(
-                                        "account" to "15172326747",
-                                        "vcode" to "1234"
-                                ).toJson()
-                        ).await()
-                loge("result: $result")
-                if (result?.isSuccess() == true) {
-                    val user = result.data
-                    loge("user: $user")
-                } else {
-                    loginData.errMsg = result?.errmsg ?: "登录失败"
-                }
-                result?.data //内部会根据数据自动设置data的状态
-            }
+//            loginData.launchAndSmartPost {
+//                val result = "http://47.111.131.25:8080/yezi-api/api/students/vcodeLogin".http()
+//                        .postJson<HttpResult<User>>(
+//                                mapOf(
+//                                        "account" to "15172326747",
+//                                        "vcode" to "1234"
+//                                ).toJson()
+//                        ).await()
+//                loge("result: $result")
+//                if (result?.isSuccess() == true) {
+//                    val user = result.data
+//                    loge("user: $user")
+//                } else {
+//                    loginData.errMsg = result?.errmsg ?: "登录失败"
+//                }
+//                result?.data //内部会根据数据自动设置data的状态
+//            }
+            ImagePicker.start(this, needCamera = true, needCrop = true)
         }
+    }
 
-
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        ToastUtils.showShort("xxxxxxxxx")
+        loge(ImagePicker.fetchResult(requestCode, data).toJson())
     }
 
 }

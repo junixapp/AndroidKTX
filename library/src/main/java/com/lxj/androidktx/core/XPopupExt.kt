@@ -29,7 +29,7 @@ fun LoadingPopupView.bindState(state: StateLiveData.State,
                 onEmpty?.invoke()
             }
         }
-        else->{
+        StateLiveData.State.Error->{
             delayDismissWith(500){
                 onError?.invoke()
             }
