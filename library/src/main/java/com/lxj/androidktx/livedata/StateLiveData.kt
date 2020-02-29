@@ -23,7 +23,7 @@ class StateLiveData<T> : NoStickyLiveData<T>() {
     var errMsg = ""
 
     init {
-        clearState()
+        state.value = State.Idle;
     }
 
     fun postValueAndSuccess(value: T) {
