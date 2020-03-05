@@ -36,7 +36,7 @@ class WebActivity : TitleBarActivity(){
         webView.settings.setSupportZoom(true)
         webView.settings.loadWithOverviewMode = true
         webView.settings.loadsImagesAutomatically = true
-        webView.settings.cacheMode = WebSettings.LOAD_NO_CACHE
+        webView.settings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
         webView.settings.javaScriptCanOpenWindowsAutomatically = true
         webView.webChromeClient = MyWebChromeClient()
         webView.webViewClient = WebViewClient()
@@ -102,7 +102,7 @@ class WebActivity : TitleBarActivity(){
 
     override fun onDestroy() {
         super.onDestroy()
-        webView.clearCache(true)
-        webView.clearHistory()
+//        webView.clearCache(true)
+//        webView.clearHistory()
     }
 }
