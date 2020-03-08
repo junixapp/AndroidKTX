@@ -13,6 +13,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import com.blankj.utilcode.constant.PermissionConstants;
+import com.blankj.utilcode.util.PermissionUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.lxj.androidktx.audio.voiceutil.utils.MediaDirectoryUtils;
 
 /**
@@ -47,25 +50,34 @@ public class WavRecordManager implements RecordManagerI {
     private int currenttime;
 
     @Override
-    public boolean startRecordCreateFile(int stopTime) throws IOException {
+    public void startRecord(int stopTime) throws IOException {
 
-        createFile();//创建文件
-        maxRecordTime = stopTime;
-        currenttime = 0;//从新清空
-        if (recorder != null) {
-            recorder.stop();
-            recorder.release();
-        }
-        recorder = new AudioRecord(audioSource, audioRate, audioChannel, audioFormat, bufferSize);
+        PermissionUtils.permission(PermissionConstants.MICROPHONE, PermissionConstants.STORAGE)
+                .callback(new PermissionUtils.SimpleCallback() {
+                    @Override
+                    public void onGranted() {
+                        createFile();//创建文件
+                        maxRecordTime = stopTime;
+                        currenttime = 0;//从新清空
+                        if (recorder != null) {
+                            recorder.stop();
+                            recorder.release();
+                        }
+                        recorder = new AudioRecord(audioSource, audioRate, audioChannel, audioFormat, bufferSize);
 //        mHandler.post(mUpdateMicStatusTimer);
-        startRecord();
+                        startRecord();
 
-        // 开启音频文件写入线程
-        recordData();
-        record_state = AmrRecorderManager.RECORD_STATE.RECORDING;
-        mHandler.postDelayed(mAddTimeRunnnable, 1000);
-        return false;
+                        // 开启音频文件写入线程
+                        recordData();
+                        record_state = AmrRecorderManager.RECORD_STATE.RECORDING;
+                        mHandler.postDelayed(mAddTimeRunnnable, 1000);
+                    }
 
+                    @Override
+                    public void onDenied() {
+                        ToastUtils.showShort("权限获取失败，无法使用录音功能");
+                    }
+                }).request();
     }
 
     //开始录音
@@ -73,9 +85,7 @@ public class WavRecordManager implements RecordManagerI {
         isRecording = true;
 //        ActionEngine.requestAudioFocus();
         recorder.startRecording();
-
     }
-
 
     //记录数据
     public void recordData() {
@@ -309,8 +319,6 @@ public class WavRecordManager implements RecordManagerI {
 
     //创建文件夹,首先创建目录，然后创建对应的文件
     public File createFile() {
-
-
         File tempCachePcmFileName = MediaDirectoryUtils.getTempCachePcmFileName();
         if (!tempCachePcmFileName.getParentFile().exists()) {
             tempCachePcmFileName.getParentFile().mkdirs();//

@@ -4,9 +4,13 @@ import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.os.Handler;
+
 import java.io.File;
 import java.io.IOException;
 
+import com.blankj.utilcode.constant.PermissionConstants;
+import com.blankj.utilcode.util.PermissionUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.lxj.androidktx.audio.voiceutil.record.mp3.DataEncodeThread;
 import com.lxj.androidktx.audio.voiceutil.record.mp3.PCMFormat;
 import com.lxj.androidktx.audio.voiceutil.utils.MediaDirectoryUtils;
@@ -69,7 +73,7 @@ public class MP3RecordManager implements RecordManagerI {
      *
      * @throws IOException initAudioRecorder throws
      */
-    public void start() throws IOException {
+    public void start() {
         if (mIsRecording) {
             return;
         }
@@ -159,22 +163,22 @@ public class MP3RecordManager implements RecordManagerI {
     /**
      * Initialize audio recorder
      */
-    private void initAudioRecorder() throws IOException {
+    private void initAudioRecorder() {
         mBufferSize = AudioRecord.getMinBufferSize(DEFAULT_SAMPLING_RATE,
                 DEFAULT_CHANNEL_CONFIG, DEFAULT_AUDIO_FORMAT.getAudioFormat());
 
         int bytesPerFrame = DEFAULT_AUDIO_FORMAT.getBytesPerFrame();
         /* Get number of samples. Calculate the buffer size
          * (round up to the factor of given frame size)
-		 * 使能被整除，方便下面的周期性通知
-		 * */
+         * 使能被整除，方便下面的周期性通知
+         * */
         int frameSize = mBufferSize / bytesPerFrame;
         if (frameSize % FRAME_COUNT != 0) {
             frameSize += (FRAME_COUNT - frameSize % FRAME_COUNT);
             mBufferSize = frameSize * bytesPerFrame;
         }
 
-		/* Setup audio recorder */
+        /* Setup audio recorder */
         mAudioRecord = new AudioRecord(DEFAULT_AUDIO_SOURCE,
                 DEFAULT_SAMPLING_RATE, DEFAULT_CHANNEL_CONFIG, DEFAULT_AUDIO_FORMAT.getAudioFormat(),
                 mBufferSize);
@@ -182,10 +186,10 @@ public class MP3RecordManager implements RecordManagerI {
         mPCMBuffer = new short[mBufferSize];
         /*
          * Initialize lame buffer
-		 * mp3 sampling rate is the same as the recorded pcm sampling rate 
-		 * The bit rate is 32kbps
-		 * 
-		 */
+         * mp3 sampling rate is the same as the recorded pcm sampling rate
+         * The bit rate is 32kbps
+         *
+         */
 
         // Create and run thread used to encode data
         // The thread will
@@ -231,16 +235,25 @@ public class MP3RecordManager implements RecordManagerI {
     private int currenttime;
 
     @Override
-    public boolean startRecordCreateFile(int stopTime) throws IOException {
-
+    public void startRecord(int stopTime) throws IOException {
+        PermissionUtils.permission(PermissionConstants.MICROPHONE, PermissionConstants.STORAGE)
+                .callback(new PermissionUtils.SimpleCallback() {
+                    @Override
+                    public void onGranted() {
 //        ActionEngine.requestAudioFocus();
-        maxRecordTime = stopTime;
-        currenttime = 0;//从新清空
-        mRecordFile = MediaDirectoryUtils.getTempMp3FileName();
-        start();
-        mHandler.post(mUpdateMicStatusTimer);
-        mHandler.postDelayed(mAddTimeRunnnable, 1000);
-        return false;
+                        maxRecordTime = stopTime;
+                        currenttime = 0;//从新清空
+                        mRecordFile = MediaDirectoryUtils.getTempMp3FileName();
+                        start();
+                        mHandler.post(mUpdateMicStatusTimer);
+                        mHandler.postDelayed(mAddTimeRunnnable, 1000);
+
+                    }
+                    @Override
+                    public void onDenied() {
+                        ToastUtils.showShort("权限获取失败，无法使用录音功能");
+                    }
+                }).request();
 
     }
 

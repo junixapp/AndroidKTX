@@ -6,14 +6,15 @@ import android.os.Handler;
 import java.io.File;
 import java.io.IOException;
 
+import com.blankj.utilcode.constant.PermissionConstants;
+import com.blankj.utilcode.util.PermissionUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.lxj.androidktx.audio.voiceutil.utils.MediaDirectoryUtils;
 import com.lxj.androidktx.audio.voiceutil.utils.VolumeUtil;
 
 public class AmrRecorderManager implements RecordManagerI {
-
     private static final int SAMPLE_RATE = 1600;
     private short[] mBuffer;
-
 
     private File file;//录音文件
 
@@ -90,8 +91,23 @@ public class AmrRecorderManager implements RecordManagerI {
         return temp;
     }
 
-    public boolean startRecordCreateFile(int stopTime) throws IOException {
-//        ActionEngine.requestAudioFocus();
+    public void startRecord(int stopTime) {
+        PermissionUtils.permission(PermissionConstants.MICROPHONE, PermissionConstants.STORAGE)
+                .callback(new PermissionUtils.SimpleCallback() {
+                    @Override
+                    public void onGranted() {
+                        startInterval(stopTime);
+                    }
+                    @Override
+                    public void onDenied() {
+                        ToastUtils.showShort("权限获取失败，无法使用录音功能");
+                    }
+                }).request();
+
+    }
+
+    private void startInterval(int stopTime){
+        //        ActionEngine.requestAudioFocus();
         file = getNewFile();
         maxRecordTime = stopTime;
         currenttime = 0;//从新清空
@@ -116,14 +132,16 @@ public class AmrRecorderManager implements RecordManagerI {
  */
         mediaRecorder.setMaxDuration(1000 * stopTime);
         mediaRecorder.setOutputFile(file.getAbsolutePath());
-        mediaRecorder.prepare();
+        try {
+            mediaRecorder.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         mediaRecorder.start();//这里也会崩溃?
         record_state = RECORD_STATE.RECORDING;
         mHandler.post(mUpdateMicStatusTimer);
         mHandler.postDelayed(mAddTimeRunnnable, 1000);
-        return true;
     }
-
 
     public boolean stopRecord() {
 //        ActionEngine.abandonAudioFocus();

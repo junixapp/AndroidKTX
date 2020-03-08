@@ -8,7 +8,7 @@ import java.io.IOException;
  */
 
 public interface RecordManagerI {
-    public boolean startRecordCreateFile(int stopTime) throws IOException;
+    public void startRecord(int stopTime) throws IOException;
 
     public boolean stopRecord();
 

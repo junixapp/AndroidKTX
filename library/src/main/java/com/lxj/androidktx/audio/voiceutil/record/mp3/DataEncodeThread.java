@@ -52,10 +52,14 @@ public class DataEncodeThread extends HandlerThread implements AudioRecord.OnRec
      * @param bufferSize bufferSize
      * @throws FileNotFoundException file not found
      */
-    public DataEncodeThread(File file, int bufferSize, AudioManager audioManager) throws FileNotFoundException {
+    public DataEncodeThread(File file, int bufferSize, AudioManager audioManager)  {
         super("DataEncodeThread");
         this.audioManager = audioManager;
-        this.mFileOutputStream = new FileOutputStream(file);
+        try {
+            this.mFileOutputStream = new FileOutputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         mMp3Buffer = new byte[(int) (7200 + (bufferSize * 2 * 1.25))];
     }
 
