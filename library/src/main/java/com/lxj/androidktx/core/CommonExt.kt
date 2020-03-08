@@ -16,16 +16,22 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.TimeUtils
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.lxj.androidktx.AndroidKtxConfig
+import com.lxj.androidktx.okhttp.HttpCallback
+import com.lxj.androidktx.okhttp.http
+import com.lxj.androidktx.okhttp.postJson
 import com.lxj.androidktx.util.NetworkUtils
+import com.lxj.xpopup.XPopup
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.Serializable
+import java.util.*
 
 
 /**
@@ -264,14 +270,14 @@ fun Array<out Pair<String, Any?>>.toBundle(): Bundle? {
 }
 
 
-fun Any.runOnUIThread(action: ()->Unit){
+fun Any.runOnUIThread(action: () -> Unit) {
     Handler(Looper.getMainLooper()).post { action() }
 }
 
 /**
  * 将Bitmap保存到相册
  */
-fun Bitmap.saveToAlbum(format: Bitmap.CompressFormat = Bitmap.CompressFormat.PNG, quality: Int = 100, filename: String = "", callback: ((path: String?, uri: Uri?)->Unit)? = null ) {
+fun Bitmap.saveToAlbum(format: Bitmap.CompressFormat = Bitmap.CompressFormat.PNG, quality: Int = 100, filename: String = "", callback: ((path: String?, uri: Uri?) -> Unit)? = null) {
     GlobalScope.launch {
         try {
             //1. create path
@@ -283,7 +289,7 @@ fun Bitmap.saveToAlbum(format: Bitmap.CompressFormat = Bitmap.CompressFormat.PNG
                 Bitmap.CompressFormat.JPEG -> ".jpg"
                 Bitmap.CompressFormat.WEBP -> ".webp"
             }
-            val target = File(dirPath, (if(filename.isEmpty()) System.currentTimeMillis().toString() else filename) + ext)
+            val target = File(dirPath, (if (filename.isEmpty()) System.currentTimeMillis().toString() else filename) + ext)
             if (target.exists()) target.delete()
             target.createNewFile()
             //2. save
@@ -300,4 +306,18 @@ fun Bitmap.saveToAlbum(format: Bitmap.CompressFormat = Bitmap.CompressFormat.PNG
             runOnUIThread { callback?.invoke(null, null) }
         }
     }
+}
+
+//一天只做一次
+fun Any.doOnceInDay(action: () -> Unit) {
+    val key = "once_in_day_last_check"
+    val today = Date()
+    val todayFormat = TimeUtils.date2String(today, "yyyy-MM-dd")
+    val last = sp().getString(key, "")
+    if (last != null && last.isNotEmpty() && last == todayFormat) {
+        //说明执行过
+        return
+    }
+    sp().putString(key, todayFormat)
+    action()
 }
