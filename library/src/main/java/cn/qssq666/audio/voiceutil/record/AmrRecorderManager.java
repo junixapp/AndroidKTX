@@ -1,4 +1,4 @@
-package com.lxj.androidktx.audio.voiceutil.record;
+package cn.qssq666.audio.voiceutil.record;
 
 import android.media.MediaRecorder;
 import android.os.Handler;
@@ -9,8 +9,8 @@ import java.io.IOException;
 import com.blankj.utilcode.constant.PermissionConstants;
 import com.blankj.utilcode.util.PermissionUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.lxj.androidktx.audio.voiceutil.utils.MediaDirectoryUtils;
-import com.lxj.androidktx.audio.voiceutil.utils.VolumeUtil;
+import cn.qssq666.audio.voiceutil.utils.MediaDirectoryUtils;
+import cn.qssq666.audio.voiceutil.utils.VolumeUtil;
 
 public class AmrRecorderManager implements RecordManagerI {
     private static final int SAMPLE_RATE = 1600;

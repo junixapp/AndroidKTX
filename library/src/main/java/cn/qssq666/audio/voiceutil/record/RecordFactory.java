@@ -1,4 +1,4 @@
-package com.lxj.androidktx.audio.voiceutil.record;
+package cn.qssq666.audio.voiceutil.record;
 
 /**
  * Created by 情随事迁(qssq666@foxmail.com) on 2017/3/22.

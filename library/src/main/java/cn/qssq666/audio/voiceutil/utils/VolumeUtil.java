@@ -1,4 +1,4 @@
-package com.lxj.androidktx.audio.voiceutil.utils;
+package cn.qssq666.audio.voiceutil.utils;
 
 import android.animation.IntEvaluator;
 

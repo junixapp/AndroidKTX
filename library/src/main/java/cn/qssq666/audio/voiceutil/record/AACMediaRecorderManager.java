@@ -1,8 +1,8 @@
-package com.lxj.androidktx.audio.voiceutil.record;
+package cn.qssq666.audio.voiceutil.record;
 
 import android.media.MediaRecorder;
 
-import com.lxj.androidktx.audio.voiceutil.utils.MediaDirectoryUtils;
+import cn.qssq666.audio.voiceutil.utils.MediaDirectoryUtils;
 
 import java.io.File;
 

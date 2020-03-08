@@ -1,4 +1,4 @@
-package com.lxj.androidktx.audio.voiceutil.record.mp3;
+package cn.qssq666.audio.voiceutil.record.mp3;
 
 import android.media.AudioRecord;
 import android.os.Handler;
@@ -6,7 +6,7 @@ import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
 
-import com.lxj.androidktx.audio.AudioManager;
+import cn.qssq666.audio.AudioManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;

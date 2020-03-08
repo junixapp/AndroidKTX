@@ -1,4 +1,4 @@
-package com.lxj.androidktx.audio.voiceutil.record;
+package cn.qssq666.audio.voiceutil.record;
 
 import android.media.AudioFormat;
 import android.media.AudioRecord;
@@ -16,7 +16,7 @@ import java.io.OutputStream;
 import com.blankj.utilcode.constant.PermissionConstants;
 import com.blankj.utilcode.util.PermissionUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.lxj.androidktx.audio.voiceutil.utils.MediaDirectoryUtils;
+import cn.qssq666.audio.voiceutil.utils.MediaDirectoryUtils;
 
 /**
  * Created by 情随事迁(qssq666@foxmail.com) on 2017/3/22.

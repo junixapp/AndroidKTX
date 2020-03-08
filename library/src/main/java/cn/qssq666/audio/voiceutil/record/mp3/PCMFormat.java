@@ -1,4 +1,4 @@
-package com.lxj.androidktx.audio.voiceutil.record.mp3;
+package cn.qssq666.audio.voiceutil.record.mp3;
 
 import android.media.AudioFormat;
 

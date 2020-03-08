@@ -1,10 +1,10 @@
-package com.lxj.androidktx.audio.voiceutil.record;
+package cn.qssq666.audio.voiceutil.record;
 
 
 import java.io.File;
 
-import com.lxj.androidktx.audio.AudioManager;
-import com.lxj.androidktx.audio.voiceutil.utils.MediaDirectoryUtils;
+import cn.qssq666.audio.AudioManager;
+import cn.qssq666.audio.voiceutil.utils.MediaDirectoryUtils;
 
 
 /**
