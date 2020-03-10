@@ -6,6 +6,7 @@ import me.jessyan.progressmanager.ProgressManager
 import okhttp3.Call
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import java.lang.IllegalArgumentException
 import java.util.concurrent.TimeUnit
 
 /**
@@ -51,6 +52,9 @@ object OkWrapper {
     }
 
     fun baseUrl(tag: String = DefaultUrlTag, url: String): OkWrapper{
+        if(!url.endsWith("/")){
+            throw IllegalArgumentException("baseUrl必须以/结尾")
+        }
         baseUrlMap[tag] = url
         return this
     }

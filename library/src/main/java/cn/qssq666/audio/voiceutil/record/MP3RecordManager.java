@@ -84,7 +84,7 @@ public class MP3RecordManager implements RecordManagerI {
             public void run() {
                 //设置线程权限
                 android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_URGENT_AUDIO);
-                while (mIsRecording) {
+                while (mIsRecording && mAudioRecord!=null) {
                     int readSize = mAudioRecord.read(mPCMBuffer, 0, mBufferSize);
                     if (readSize > 0) {
                         mEncodeThread.addTask(mPCMBuffer, readSize);
@@ -92,9 +92,11 @@ public class MP3RecordManager implements RecordManagerI {
                     }
                 }
                 // release and finalize audioRecord
-                mAudioRecord.stop();
-                mAudioRecord.release();
-                mAudioRecord = null;
+                if(mAudioRecord!=null){
+                    mAudioRecord.stop();
+                    mAudioRecord.release();
+                    mAudioRecord = null;
+                }
                 // stop the encoding thread and try to wait
                 // until the thread finishes its job
                 mEncodeThread.sendStopMessage();
@@ -155,9 +157,13 @@ public class MP3RecordManager implements RecordManagerI {
     }
 
     public void stop() {
-        mIsRecording = false;
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mIsRecording = false;
+            }
+        },300);
     }
-
 
     /**
      * Initialize audio recorder
@@ -196,8 +202,10 @@ public class MP3RecordManager implements RecordManagerI {
         audioManager.init(DEFAULT_SAMPLING_RATE, DEFAULT_LAME_IN_CHANNEL, DEFAULT_SAMPLING_RATE, DEFAULT_LAME_MP3_BIT_RATE, DEFAULT_LAME_MP3_QUALITY);
         mEncodeThread = new DataEncodeThread(mRecordFile, mBufferSize, audioManager);
         mEncodeThread.start();
-        mAudioRecord.setRecordPositionUpdateListener(mEncodeThread, mEncodeThread.getHandler());
-        mAudioRecord.setPositionNotificationPeriod(FRAME_COUNT);
+        if(mAudioRecord!=null){
+            mAudioRecord.setRecordPositionUpdateListener(mEncodeThread, mEncodeThread.getHandler());
+            mAudioRecord.setPositionNotificationPeriod(FRAME_COUNT);
+        }
     }
 
     private final Handler mHandler = new Handler();
