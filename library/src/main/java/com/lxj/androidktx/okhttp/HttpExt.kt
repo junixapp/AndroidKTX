@@ -18,10 +18,11 @@ import java.net.URLConnection.getFileNameMap
  * 协程中使用：    "http://www.baidu.com".http().get<Bean>().await()
  * 非协程中使用：  "http://www.baidu.com".http().get<Bean>(callback)
  * Create by lxj, at 2018/12/19
- * @param tag 请求的tag，tag和baseUrl一一对应，可以实现多个baseUrl
+ * @param tag 请求的tag，tag和baseUrl一一对应，可以实现多个baseUrl；如果不想带baseUrl，则baseUrlTag传随便传即可
  */
 fun String.http(tag: Any = this, baseUrlTag: String = OkWrapper.DefaultUrlTag): RequestWrapper {
-    return RequestWrapper(tag, url = "${OkWrapper.baseUrlMap[baseUrlTag]}${this}")
+    val baseUrl = OkWrapper.baseUrlMap[baseUrlTag]
+    return RequestWrapper(tag, url = "${baseUrl ?: ""}${this}")
 }
 
 /**
