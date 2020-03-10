@@ -4,18 +4,17 @@ import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.os.Handler;
-
 import java.io.File;
 import java.io.IOException;
-
 import com.blankj.utilcode.constant.PermissionConstants;
 import com.blankj.utilcode.util.PermissionUtils;
 import com.blankj.utilcode.util.ToastUtils;
+
 import cn.qssq666.audio.voiceutil.record.mp3.DataEncodeThread;
 import cn.qssq666.audio.voiceutil.record.mp3.PCMFormat;
 import cn.qssq666.audio.voiceutil.utils.MediaDirectoryUtils;
-import cn.qssq666.audio.AudioManager;
 import cn.qssq666.audio.voiceutil.utils.VolumeUtil;
+import cn.qssq666.audio.AudioManager;
 
 public class MP3RecordManager implements RecordManagerI {
     //=======================AudioRecord Default Settings=======================

@@ -4,6 +4,7 @@ import android.util.Log;
 
 
 public class AudioManager {
+    public AudioManager(){}
     public static final String TAG = "AudioManager";
 
     public static boolean isErrorLoadSo() {
