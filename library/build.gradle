@@ -55,7 +55,7 @@ dependencies {
     api 'com.jeremyliao:live-event-bus-x:1.5.7'  //事件总线
     api 'com.shuyu:GSYVideoPlayer:6.0.3'
     api 'cjt.library.wheel:camera:1.1.9'    //拍照和拍摄视频
-    api 'com.lxj:xpermission:1.0.1'
+//    api 'com.lxj:xpermission:1.0.1'
     api 'com.lxj:xpopup:1.8.11'       //弹窗
     api 'com.king.zxing:zxing-lite:1.1.6-androidx'  //二维码扫描
     api 'com.google.android:flexbox:2.0.0'
@@ -73,7 +73,7 @@ publish {
     userOrg = 'li-xiaojun'
     groupId = 'com.lxj'
     artifactId = 'androidktx'
-    publishVersion = '1.5.1-x'
+    publishVersion = '1.5.3-x'
     repoName = 'jrepo'
     desc = 'Some very useful kotlin extensions for android development！好用到爆的Kotlin扩展，加速你的Android开发！'
     website = 'https://github.com/li-xiaojun/AndroidKTX'

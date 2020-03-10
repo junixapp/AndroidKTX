@@ -6,8 +6,8 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.util.Log
 import android.widget.Toast
-import com.lxj.xpermission.PermissionConstants
-import com.lxj.xpermission.XPermission
+import com.blankj.utilcode.constant.PermissionConstants
+import com.blankj.utilcode.util.PermissionUtils
 import com.lxj.xpopup.XPopup
 import com.umeng.commonsdk.UMConfigure
 import com.umeng.socialize.*
@@ -123,18 +123,17 @@ object Share {
     }
 
     private fun checkPermission(context: Context, action: () -> Unit) {
-        XPermission.create(context, PermissionConstants.STORAGE)
-                .callback(object : XPermission.SimpleCallback {
+        PermissionUtils.permission(PermissionConstants.STORAGE)
+                .callback(object : PermissionUtils.SimpleCallback{
                     override fun onGranted() {
                         action()
                     }
-
                     override fun onDenied() {
                         Toast.makeText(context, "没有存储权限，无法分享文件", Toast.LENGTH_SHORT).show()
                         action()
                     }
-                })
-                .request()
+
+                }).request()
     }
 
     private fun convertPlatform(platform: SharePlatform) = when(platform) {
