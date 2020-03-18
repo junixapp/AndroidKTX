@@ -18,12 +18,14 @@ import kotlinx.android.synthetic.main._ktx_activity_web.*
 class WebActivity : TitleBarActivity(){
 
     companion object{
-        fun start(title: String, url:String? = null, content: String? = null, leftIconRes: Int = R.mipmap._ktx_ic_back ){
+        fun start(title: String, url:String? = null, content: String? = null, leftIconRes: Int = R.mipmap._ktx_ic_back,
+                  enableCache: Boolean? = false){
             val intent = Intent(AndroidKtxConfig.context, WebActivity::class.java)
             intent.putExtra("title", title)
             intent.putExtra("url", url)
             intent.putExtra("content", content)
             intent.putExtra("leftIconRes", leftIconRes)
+            intent.putExtra("enableCache", enableCache)
             AndroidKtxConfig.context.startActivity(intent)
         }
 
@@ -31,12 +33,13 @@ class WebActivity : TitleBarActivity(){
 
     override fun getBodyLayout() = R.layout._ktx_activity_web
     override fun initData() {
+        val enableCache = intent.getBooleanExtra("enableCache", false)
         webView.settings.javaScriptEnabled = true
         webView.settings.useWideViewPort = true
         webView.settings.setSupportZoom(true)
         webView.settings.loadWithOverviewMode = true
         webView.settings.loadsImagesAutomatically = true
-        webView.settings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
+        webView.settings.cacheMode = if(enableCache) WebSettings.LOAD_CACHE_ELSE_NETWORK else WebSettings.LOAD_NO_CACHE
         webView.settings.javaScriptCanOpenWindowsAutomatically = true
         webView.webChromeClient = MyWebChromeClient()
         webView.webViewClient = WebViewClient()

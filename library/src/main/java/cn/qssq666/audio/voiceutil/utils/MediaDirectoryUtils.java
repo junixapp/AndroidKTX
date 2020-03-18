@@ -115,7 +115,15 @@ public class MediaDirectoryUtils {
         if(!file.exists()){
             file.mkdirs();
         }
-        return new File(file, path);
+        File f = new File(file, path);
+        if(!f.exists()) {
+            try {
+                f.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return f;
     }
 
     public final static String ROOT_FOLDER = "voice-recorder";
