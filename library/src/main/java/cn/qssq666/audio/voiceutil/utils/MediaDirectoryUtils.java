@@ -112,16 +112,9 @@ public class MediaDirectoryUtils {
         Log.d(TAG, "磁盘空间:" + FileUtils.readSDCardAvailableBlocks() + "k,," + Formatter.formatFileSize(AppContext.getInstance(), FileUtils.getAvailableExternalMemorySize()));*/
         File externalStorageDirectory = Environment.getExternalStorageDirectory();
         File file = new File(externalStorageDirectory, ROOT_FOLDER);
-        if(!file.exists()){
-            file.mkdirs();
-        }
         File f = new File(file, path);
         if(!f.exists()) {
-            try {
-                f.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            f.mkdirs();
         }
         return f;
     }

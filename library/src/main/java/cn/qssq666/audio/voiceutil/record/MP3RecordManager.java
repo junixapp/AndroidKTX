@@ -78,6 +78,7 @@ public class MP3RecordManager implements RecordManagerI {
         }
         mIsRecording = true; // 提早，防止init或startRecording被多次调用
         initAudioRecorder();
+        if(mAudioRecord==null)return;
         mAudioRecord.startRecording();
         new Thread() {
             @Override
