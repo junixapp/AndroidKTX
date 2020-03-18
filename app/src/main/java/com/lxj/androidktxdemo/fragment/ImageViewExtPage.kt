@@ -1,5 +1,6 @@
 package com.lxj.androidktxdemo.fragment
 
+import com.lxj.androidktx.base.WebActivity
 import com.lxj.androidktx.core.click
 import com.lxj.androidktx.core.load
 import com.lxj.androidktx.share.Share
@@ -28,6 +29,7 @@ class ImageViewExtPage: BaseFragment(){
         image1.load(images[0], placeholder = R.mipmap.ic_launcher)
         title1.text = "image1.load(url)"
 
+
         image2.load(images[1], placeholder = R.mipmap.ic_launcher, isCircle = true)
         title2.text = "image2.load(url, isCircle = true)"
 
@@ -35,7 +37,10 @@ class ImageViewExtPage: BaseFragment(){
         title3.text = "image3.load(url, roundRadius = 20)"
 
         image1.click {
-            Share.shareWithUI(activity!!, SharePlatform.WxCircle)
+//            Share.shareWithUI(activity!!, SharePlatform.WxCircle)
+            WebActivity.start( url = "https://github.com/af913337456/SlowlyProgressBar",
+                    enableCache = true)
         }
+
     }
 }

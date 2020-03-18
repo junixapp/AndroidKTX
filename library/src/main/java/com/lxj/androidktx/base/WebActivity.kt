@@ -3,35 +3,43 @@ package com.lxj.androidktx.base
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
+import android.graphics.Bitmap
 import android.view.View
 import android.view.WindowManager
 import android.webkit.WebChromeClient
 import android.webkit.WebSettings
+import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.blankj.utilcode.util.LogUtils
 import com.lxj.androidktx.AndroidKtxConfig
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.click
+import com.lxj.androidktx.core.gone
+import com.lxj.androidktx.core.loge
 import kotlinx.android.synthetic.main._ktx_activity_web.*
 
 
 class WebActivity : TitleBarActivity(){
 
     companion object{
-        fun start(title: String, url:String? = null, content: String? = null, leftIconRes: Int = R.mipmap._ktx_ic_back,
-                  enableCache: Boolean? = false){
+        fun start(title: String? = null, url:String? = null, content: String? = null, leftIconRes: Int = R.mipmap._ktx_ic_back,
+                  enableCache: Boolean? = false, showProgress: Boolean = true){
             val intent = Intent(AndroidKtxConfig.context, WebActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             intent.putExtra("title", title)
             intent.putExtra("url", url)
             intent.putExtra("content", content)
             intent.putExtra("leftIconRes", leftIconRes)
             intent.putExtra("enableCache", enableCache)
+            intent.putExtra("showProgress", showProgress)
             AndroidKtxConfig.context.startActivity(intent)
         }
 
     }
 
     override fun getBodyLayout() = R.layout._ktx_activity_web
+    var showProgress = true
+    var title: String? = null
     override fun initData() {
         val enableCache = intent.getBooleanExtra("enableCache", false)
         webView.settings.javaScriptEnabled = true
@@ -42,14 +50,24 @@ class WebActivity : TitleBarActivity(){
         webView.settings.cacheMode = if(enableCache) WebSettings.LOAD_CACHE_ELSE_NETWORK else WebSettings.LOAD_NO_CACHE
         webView.settings.javaScriptCanOpenWindowsAutomatically = true
         webView.webChromeClient = MyWebChromeClient()
-        webView.webViewClient = WebViewClient()
+        webView.webViewClient = object : WebViewClient(){
+            override fun onPageFinished(view: WebView, url: String?) {
+                super.onPageFinished(view, url)
+                if(showProgress) progressBar.hide()
+                if(title==null){
+                    titleBar().setupTitle(view.title)
+                    loge("title: ${view.title}")
+                }
+            }
+        }
 
-        val title = intent.getStringExtra("title")?:""
+        title = intent.getStringExtra("title")
         val url = intent.getStringExtra("url")?:""
         val content = intent.getStringExtra("content")?:""
         val leftIconRes = intent.getIntExtra("leftIconRes", R.mipmap._ktx_ic_back)
+        showProgress = intent.getBooleanExtra("showProgress", true)
 
-        titleBar().setup(leftImageRes = leftIconRes, title = title)
+        titleBar().setup(leftImageRes = leftIconRes, title = title ?: "加载中...")
         titleBar().leftImageView().click { finish() }
 
         if(!url.isNullOrEmpty()){
@@ -57,6 +75,7 @@ class WebActivity : TitleBarActivity(){
         }else{
             webView.loadDataWithBaseURL("", content, null,null,null)
         }
+        if(showProgress) progressBar.show() else progressBar.gone()
     }
 
     override fun onConfigurationChanged(config: Configuration) {
@@ -84,8 +103,14 @@ class WebActivity : TitleBarActivity(){
     }
     inner class MyWebChromeClient: WebChromeClient(){
         var mCallback: CustomViewCallback? = null
+        override fun onProgressChanged(view: WebView?, newProgress: Int) {
+            super.onProgressChanged(view, newProgress)
+            if(showProgress){
+                progressBar.setWebProgress(newProgress)
+            }
+        }
+
         override fun onShowCustomView(view: View?, callback: CustomViewCallback?) {
-            LogUtils.e("onShowCustom")
             fullScreen()
             webView.setVisibility(View.GONE)
             flFull.setVisibility(View.VISIBLE)
