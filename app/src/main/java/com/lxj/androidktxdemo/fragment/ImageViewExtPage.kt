@@ -1,10 +1,12 @@
 package com.lxj.androidktxdemo.fragment
 
+import android.graphics.BitmapFactory
 import com.lxj.androidktx.base.WebActivity
 import com.lxj.androidktx.core.click
 import com.lxj.androidktx.core.load
 import com.lxj.androidktx.share.Share
 import com.lxj.androidktx.share.SharePlatform
+import com.lxj.androidktxdemo.BuildConfig
 import com.lxj.androidktxdemo.R
 import kotlinx.android.synthetic.main.fragment_imageview_ext.*
 
@@ -38,8 +40,19 @@ class ImageViewExtPage: BaseFragment(){
 
         image1.click {
 //            Share.shareWithUI(activity!!, SharePlatform.WxCircle)
-            WebActivity.start( url = "https://github.com/af913337456/SlowlyProgressBar",
-                    enableCache = true)
+//            WebActivity.start( url = "https://github.com/af913337456/SlowlyProgressBar",
+//                    enableCache = true)
+            Share.init(context!!, BuildConfig.DEBUG, umengAppKey = "5e5d0267570df3806d0002fb",
+                    wxAppId = "wx31386f28f849f6fe", wxAppKey = "6414a5c0dd7b97d540adef8922d4c31b")
+
+            Share.shareToMiniProgram(activity = activity!!,
+                    url = "https://developer.umeng.com/docs/66632/detail/66875?um_channel=sdk", title = "标题", desc = "描述",
+//                    bitmap = BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher),
+                    imgRes = R.mipmap.ic_launcher,
+                    path = "/pages/home/index", miniAppId = "wx596f62867a2bbc17", forTestVersion = true,
+                    callback = object :Share.ShareCallback{
+
+                    })
         }
 
     }

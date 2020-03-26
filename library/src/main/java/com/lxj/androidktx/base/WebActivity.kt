@@ -132,5 +132,6 @@ class WebActivity : TitleBarActivity(){
         super.onDestroy()
 //        webView.clearCache(true)
 //        webView.clearHistory()
+//        webView.destroy()
     }
 }

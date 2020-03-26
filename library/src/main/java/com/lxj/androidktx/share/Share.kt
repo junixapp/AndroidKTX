@@ -13,9 +13,11 @@ import com.umeng.commonsdk.UMConfigure
 import com.umeng.socialize.*
 import com.umeng.socialize.bean.SHARE_MEDIA
 import com.umeng.socialize.media.UMImage
+import com.umeng.socialize.media.UMMin
 import com.umeng.socialize.media.UMVideo
 import com.umeng.socialize.media.UMWeb
 import java.net.URLEncoder
+
 
 /**
  * Description:
@@ -63,6 +65,51 @@ object Share {
         checkPermission(activity) {
             doShare(activity, convertPlatform(platform), bitmap, text, url, title, videoUrl, callback)
         }
+    }
+
+    /**
+     * 分享到微信小程序
+     */
+    fun shareToMiniProgram(activity: Activity, url: String, bitmap: Bitmap? = null, imgRes: Int? = null, title: String, desc: String, path: String,
+                           miniAppId: String, callback: ShareCallback? = null, forTestVersion: Boolean = false,
+                           forPreviewVersion: Boolean = false ){
+        if(forTestVersion){
+            Config.setMiniTest()
+        }
+        if(forPreviewVersion){
+            Config.setMiniPreView()
+        }
+        val umMin = UMMin(url) //兼容低版本的网页链接
+        val img = if(bitmap==null)UMImage(activity,  imgRes!!) else UMImage(activity,  bitmap)
+        umMin.setThumb(img) // 小程序消息封面图片
+        umMin.title = title // 小程序消息title
+        umMin.description = desc // 小程序消息描述
+        umMin.path = path //小程序页面路径
+        umMin.userName = miniAppId // 小程序原始id,在微信平台查询
+        ShareAction(activity)
+                .withMedia(umMin)
+                .setPlatform(SHARE_MEDIA.WEIXIN)
+                .setCallback(object : UMShareListener {
+                    override fun onResult(p: SHARE_MEDIA) {
+                        log("share->onResult $p")
+                        callback?.onComplete(p)
+                    }
+
+                    override fun onCancel(p: SHARE_MEDIA) {
+                        log("share->onCancel $p")
+                        callback?.onCancel(p)
+                    }
+
+                    override fun onError(p: SHARE_MEDIA, t: Throwable) {
+                        log("share->onError $p  ${t?.message}")
+                        callback?.onError(p, t)
+                    }
+
+                    override fun onStart(p: SHARE_MEDIA) {
+                        log("share->onStart $p")
+                        callback?.onStart(p)
+                    }
+                }).share()
     }
 
     fun deleteOauth(activity: Activity, platform: SharePlatform, callback: ShareCallback? = null){
@@ -121,6 +168,8 @@ object Share {
                 })
                 .share()
     }
+
+
 
     private fun checkPermission(context: Context, action: () -> Unit) {
         PermissionUtils.permission(PermissionConstants.STORAGE)

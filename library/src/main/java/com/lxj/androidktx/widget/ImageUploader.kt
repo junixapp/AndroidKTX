@@ -43,14 +43,23 @@ class ImageUploader @JvmOverloads constructor(
         if(delImage==null)delImage = drawable(R.mipmap._ktx_ic_image_del)
 
         layoutManager = FlexboxLayoutManager(context)
+        setupData()
+    }
+
+    fun setupData(urls: ArrayList<String>? = null){
+        if(!urls.isNullOrEmpty()){
+            paths.clear()
+            paths.addAll(urls)
+            paths.add(add_button)
+        }
         bindData(paths, R.layout._ktx_adapter_image_uploader, bindFn = { holder, t, position ->
             val itemWidth = (measuredWidth - (spanCount - 1) * hSpace) / spanCount
             //计算每个条目的宽度
             holder.itemView.widthAndHeight(itemWidth, itemWidth)
             val isRowStart = (position) % spanCount == 0
             holder.itemView.margin(
-                leftMargin = if (isRowStart) 0 else hSpace,
-                bottomMargin = vSpace
+                    leftMargin = if (isRowStart) 0 else hSpace,
+                    bottomMargin = vSpace
             )
             holder.getView<ImageView>(R.id.close).setImageDrawable(delImage)
             if (t == add_button) {
@@ -65,11 +74,11 @@ class ImageUploader @JvmOverloads constructor(
                 adapter?.notifyDataSetChanged()
             }
         })
-            .itemClick<String> { data, holder, position ->
-                if (data[position] == add_button) {
-                    addButtonClickAction?.invoke()
+                .itemClick<String> { data, holder, position ->
+                    if (data[position] == add_button) {
+                        addButtonClickAction?.invoke()
+                    }
                 }
-            }
     }
 
     var addButtonClickAction: (() -> Unit)? = null
