@@ -1,5 +1,6 @@
 package com.lxj.androidktx.share
 
+import android.R.attr
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
@@ -9,6 +10,9 @@ import android.widget.Toast
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.PermissionUtils
 import com.lxj.xpopup.XPopup
+import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX
+import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import com.umeng.commonsdk.UMConfigure
 import com.umeng.socialize.*
 import com.umeng.socialize.bean.SHARE_MEDIA
@@ -16,6 +20,7 @@ import com.umeng.socialize.media.UMImage
 import com.umeng.socialize.media.UMMin
 import com.umeng.socialize.media.UMVideo
 import com.umeng.socialize.media.UMWeb
+import com.umeng.socialize.utils.DeviceConfigInternal.context
 import java.net.URLEncoder
 
 
@@ -67,12 +72,35 @@ object Share {
         }
     }
 
+
+    /**
+     * 直接打开小程序
+     * @param miniAppId 不是小程序的id，是小程序的原始id，在小程序设置界面
+     */
+    fun openMiniProgram(activity: Activity,appId: String, miniAppId: String,
+                        path: String, forTestVersion: Boolean = false,
+                        forPreviewVersion: Boolean = false){
+        val api = WXAPIFactory.createWXAPI(activity, appId)
+        val req: WXLaunchMiniProgram.Req = WXLaunchMiniProgram.Req()
+        req.userName = miniAppId // 填小程序原始id
+        req.path = path ////拉起小程序页面的可带参路径，不填默认拉起小程序首页，对于小游戏，可以只传入 query 部分，来实现传参效果，如：传入 "?foo=bar"。
+        if(forTestVersion){
+            req.miniprogramType = WXLaunchMiniProgram.Req.MINIPROGRAM_TYPE_TEST // 可选打开 开发版，体验版和正式版
+        }else if(forPreviewVersion){
+            req.miniprogramType = WXLaunchMiniProgram.Req.MINIPROGRAM_TYPE_PREVIEW // 可选打开 开发版，体验版和正式版
+        }else{
+            req.miniprogramType = WXLaunchMiniProgram.Req.MINIPTOGRAM_TYPE_RELEASE // 可选打开 开发版，体验版和正式版
+        }
+        api.sendReq(req)
+    }
+
     /**
      * 分享到微信小程序
+     * @param miniAppId 不是小程序的id，是小程序的原始id，在小程序设置界面
      */
     fun shareToMiniProgram(activity: Activity, url: String, bitmap: Bitmap? = null, imgRes: Int? = null, title: String, desc: String, path: String,
-                           miniAppId: String, callback: ShareCallback? = null, forTestVersion: Boolean = false,
-                           forPreviewVersion: Boolean = false ){
+                           miniAppId: String, forTestVersion: Boolean = false,
+                           forPreviewVersion: Boolean = false , callback: ShareCallback? = null){
         if(forTestVersion){
             Config.setMiniTest()
         }

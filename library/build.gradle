@@ -61,20 +61,21 @@ dependencies {
     api 'com.king.zxing:zxing-lite:1.1.6-androidx'  //二维码扫描
     api 'com.google.android:flexbox:2.0.0'
     api 'com.yuyh.imgsel:library:2.0.6'
-    implementation files('libs/umeng-common-2.0.2.jar')
-    implementation files('libs/umeng-share-core-6.9.4.jar')
-    implementation files('libs/umeng-share-QQ-simplify-6.9.4.jar')
-    implementation files('libs/umeng-share-sina-simplify-6.9.4.jar')
-    implementation files('libs/umeng-share-wechat-simplify-6.9.4.jar')
-    implementation files('libs/umeng-sharetool-6.9.4.jar')
-    implementation files('libs/libammsdk.jar')
+    api 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+    implementation files('libs/umeng-common-2.2.5.jar')
+    implementation files('libs/umeng-share-core-6.9.8.jar')
+    implementation files('libs/umeng-share-QQ-simplify-6.9.8.jar')
+    implementation files('libs/umeng-share-sina-simplify-6.9.8.jar')
+    implementation files('libs/umeng-share-wechat-simplify-6.9.8.jar')
+    implementation files('libs/umeng-sharetool-6.9.8.jar')
+//    implementation files('libs/libammsdk.jar')
 }
 
 publish {
     userOrg = 'li-xiaojun'
     groupId = 'com.lxj'
     artifactId = 'androidktx'
-    publishVersion = '1.5.18-x'
+    publishVersion = '1.5.21-x'
     repoName = 'jrepo'
     desc = 'Some very useful kotlin extensions for android development！好用到爆的Kotlin扩展，加速你的Android开发！'
     website = 'https://github.com/li-xiaojun/AndroidKTX'
