@@ -1,24 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/webViewParent"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <WebView
-        android:id="@+id/webView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </WebView>
-    <com.lxj.androidktx.widget.WebProgress
-        android:id="@+id/progressBar"
-        android:layout_width="match_parent"
-        android:layout_height="3pt"/>
-
-    <FrameLayout
-        android:id="@+id/flFull"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </FrameLayout>
 </FrameLayout>

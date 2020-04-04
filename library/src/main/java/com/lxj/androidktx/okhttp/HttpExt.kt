@@ -46,7 +46,7 @@ inline fun <reified T> RequestWrapper.post(forceMultiPart: Boolean = false): Def
     return defferedRequest(buildPostRequest(forceMultiPart = forceMultiPart), this)
 }
 
-inline fun <reified T> RequestWrapper.postJson(json: String): Deferred<T?> {
+inline fun <reified T> RequestWrapper.postJson(json: String = ""): Deferred<T?> {
     return defferedRequest(buildPostRequest(buildJsonBody(json)), this)
 }
 
@@ -57,7 +57,7 @@ inline fun <reified T> RequestWrapper.post(cb: HttpCallback<T>, forceMultiPart: 
     callbackRequest(buildPostRequest(forceMultiPart = forceMultiPart), cb, this)
 }
 
-inline fun <reified T> RequestWrapper.postJson(json: String, cb: HttpCallback<T>) {
+inline fun <reified T> RequestWrapper.postJson(json: String = "", cb: HttpCallback<T>) {
     callbackRequest(buildPostRequest(buildJsonBody(json)), cb, this)
 }
 
@@ -68,7 +68,7 @@ inline fun <reified T> RequestWrapper.put(forceMultiPart: Boolean = false): Defe
     return defferedRequest(buildPutRequest(forceMultiPart = forceMultiPart), this)
 }
 
-inline fun <reified T> RequestWrapper.putJson(json: String): Deferred<T?> {
+inline fun <reified T> RequestWrapper.putJson(json: String = ""): Deferred<T?> {
     return defferedRequest(buildPutRequest(buildJsonBody(json)), this)
 }
 
@@ -79,7 +79,7 @@ inline fun <reified T> RequestWrapper.put(cb: HttpCallback<T>, forceMultiPart: B
     callbackRequest(buildPutRequest(forceMultiPart = forceMultiPart), cb, this)
 }
 
-inline fun <reified T> RequestWrapper.putJson(json: String, cb: HttpCallback<T>) {
+inline fun <reified T> RequestWrapper.putJson(json: String = "", cb: HttpCallback<T>) {
     callbackRequest(buildPutRequest(buildJsonBody(json)), cb, this)
 }
 

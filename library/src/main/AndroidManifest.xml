@@ -30,7 +30,9 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".base.WebActivity" android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".base.WebActivity" android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:hardwareAccelerated="true"
+            android:configChanges="orientation|screenSize"/>
         <activity android:name=".base.CameraActivity" android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity android:name=".base.PlayerActivity" android:theme="@style/Theme.AppCompat.NoActionBar"/>
 
