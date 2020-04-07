@@ -34,6 +34,17 @@ object OkWrapper {
     }
 
     /**
+     * 自定义超时时间
+     */
+    fun timeout(timeout: Long){
+        val builder = okHttpClient.newBuilder()
+                .writeTimeout(timeout, TimeUnit.MILLISECONDS)
+                .readTimeout(timeout, TimeUnit.MILLISECONDS)
+                .connectTimeout(timeout, TimeUnit.MILLISECONDS)
+        okHttpClient = builder.build()
+    }
+
+    /**
      * 设置全局公共Header
      */
     fun headers(vararg headers: Pair<String, String>): OkWrapper {
