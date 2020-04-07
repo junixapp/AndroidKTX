@@ -36,12 +36,14 @@ class WebActivity : TitleBarActivity(){
     override fun getBodyLayout() = R.layout._ktx_activity_web
     var title: String? = null
     lateinit var agentWeb: AgentWeb
+    var enableCache = false
     override fun initData() {
         title = intent.getStringExtra("title")
         val url = intent.getStringExtra("url")?:""
         val content = intent.getStringExtra("content")?:""
         val leftIconRes = intent.getIntExtra("leftIconRes", R.mipmap._ktx_ic_back)
         val rightIconRes = intent.getIntExtra("rightIconRes", 0)
+        enableCache = intent.getBooleanExtra("enableCache", false)
 
         titleBar().setup(leftImageRes = leftIconRes, title = title ?: "加载中...")
         titleBar().leftImageView().click { finish() }
@@ -82,7 +84,8 @@ class WebActivity : TitleBarActivity(){
     }
 
     override fun onDestroy() {
-        agentWeb.webLifeCycle.onDestroy()
+        if(!enableCache) agentWeb.webLifeCycle.onDestroy()
+        agentWeb.clearWebCache()
         super.onDestroy()
     }
 }
