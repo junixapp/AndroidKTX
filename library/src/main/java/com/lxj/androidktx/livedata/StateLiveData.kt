@@ -30,6 +30,10 @@ class StateLiveData<T> : NoStickyLiveData<T>() {
         super.postValue(value)
         postSuccess()
     }
+    fun postEmptyAndSuccess(t: T){
+        super.postValue(t)
+        postEmpty()
+    }
 
     fun clearState() {
         this.errMsg = ""
@@ -81,9 +85,9 @@ class StateLiveData<T> : NoStickyLiveData<T>() {
      */
     fun smartPost(dataValue: T?){
         if(dataValue==null){
-            postError()
+            postError() //未得到期望数据，不传递null
         }else if(dataValue is Collection<*> && dataValue.isEmpty()){
-            postEmpty()
+            postEmptyAndSuccess(dataValue) //数据成功但是空，需要传递空，UI需要刷新
         }else{
             postValueAndSuccess(dataValue)
         }

@@ -145,3 +145,13 @@ fun RecyclerView.smoothScrollToEnd(){
 fun RecyclerView.scrollToEnd(){
     if(adapter!=null && adapter!!.itemCount>0) scrollToPosition(adapter!!.itemCount)
 }
+
+/**
+ * 滚动置顶，只支持线性布局
+ */
+fun RecyclerView.scrollTop(position: Int){
+    scrollToPosition(position)
+    if(layoutManager is LinearLayoutManager){
+        (layoutManager as LinearLayoutManager)?.scrollToPositionWithOffset(position, 0)
+    }
+}
