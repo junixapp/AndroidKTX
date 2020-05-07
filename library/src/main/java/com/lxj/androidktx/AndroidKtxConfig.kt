@@ -1,7 +1,9 @@
 package com.lxj.androidktx
 
 import android.annotation.SuppressLint
+import android.app.Application
 import android.content.Context
+import com.blankj.utilcode.util.Utils
 import com.lxj.androidktx.core.load
 import com.lxj.androidktx.util.DirManager
 import com.yuyh.library.imgsel.ISNav
@@ -32,5 +34,8 @@ object AndroidKtxConfig {
         this.sharedPrefName = sharedPrefName
         ISNav.getInstance().init { _, path, imageView -> imageView?.load(path) }
         DirManager.init(context)
+        if(context is Application){
+            Utils.init(context)
+        }
     }
 }

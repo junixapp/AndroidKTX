@@ -31,10 +31,12 @@ abstract class PageListVM<T> : ViewModel(),
     fun bindRecyclerView(
         owner: LifecycleOwner,
         rv: RecyclerView?,
-        smartRefresh: SmartRefreshLayout?
+        smartRefresh: SmartRefreshLayout?,
+        onDataUpdate: (()->Unit)? = null
     ) {
         listData.observe(owner, Observer {
             rv?.updateData(listData.value!!)
+            onDataUpdate?.invoke()
         })
 
         listData.state.observe(owner, Observer {
@@ -71,7 +73,8 @@ abstract class PageListVM<T> : ViewModel(),
                 list?.addAll(listWrapper.records)
                 listData.postValueAndSuccess(list!!)
             } else {
-                listData.postEmpty()
+//                listData.postEmpty()
+                listData.postEmptyAndSuccess(list!!)
             }
         } else {
             listData.postError()
