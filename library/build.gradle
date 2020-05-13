@@ -67,6 +67,7 @@ dependencies {
     api 'com.just.agentweb:agentweb:4.1.3' // (必选)
     api 'com.just.agentweb:filechooser:4.1.3'// (可选)
     api 'com.download.library:Downloader:4.1.3'// (可选)
+    api 'com.contrarywind:Android-PickerView:4.1.9' //picker
     implementation files('libs/umeng-common-2.2.5.jar')
     implementation files('libs/umeng-share-core-6.9.8.jar')
     implementation files('libs/umeng-share-QQ-simplify-6.9.8.jar')
@@ -80,7 +81,7 @@ publish {
     userOrg = 'li-xiaojun'
     groupId = 'com.lxj'
     artifactId = 'androidktx'
-    publishVersion = '1.6.10-x'
+    publishVersion = '1.6.14-x'
     repoName = 'jrepo'
     desc = 'Some very useful kotlin extensions for android development！好用到爆的Kotlin扩展，加速你的Android开发！'
     website = 'https://github.com/li-xiaojun/AndroidKTX'

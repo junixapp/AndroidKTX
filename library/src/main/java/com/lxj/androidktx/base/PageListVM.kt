@@ -66,8 +66,8 @@ abstract class PageListVM<T> : ViewModel(),
     fun processData(listWrapper: ListWrapper<T>?) {
         if (listWrapper != null) {
             hasMore = page < listWrapper.pages
-            val list = listData.value
-            if (page == 1) list?.clear()
+            var list = listData.value
+            if (page == 1) list = arrayListOf()
 
             if (!listWrapper.records.isNullOrEmpty()) {
                 list?.addAll(listWrapper.records)

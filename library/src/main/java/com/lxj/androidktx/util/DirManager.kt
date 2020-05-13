@@ -15,7 +15,7 @@ object DirManager{
     lateinit var tempDir: String
     lateinit var cacheDir: String
 
-    fun init(context: Context){
+    fun init(context: Context, permissionResult: ((b: Boolean)->Unit)? = null){
         rootDir = "${Environment.getExternalStorageDirectory().absolutePath}/${context.packageName}"
         downloadDir = "${rootDir}/download"
         tempDir = "${rootDir}/temp"
@@ -30,9 +30,10 @@ object DirManager{
                     createDirIfNotExist(downloadDir)
                     createDirIfNotExist(tempDir)
                     createDirIfNotExist(cacheDir)
+                    permissionResult?.invoke(true)
                 }
                 override fun onDenied() {
-
+                    permissionResult?.invoke(false)
                 }
             }).request()
     }

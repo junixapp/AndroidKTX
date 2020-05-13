@@ -33,7 +33,7 @@ object AndroidKtxConfig {
         this.defaultLogTag = defaultLogTag
         this.sharedPrefName = sharedPrefName
         ISNav.getInstance().init { _, path, imageView -> imageView?.load(path) }
-        DirManager.init(context)
+//        DirManager.init(context)
         if(context is Application){
             Utils.init(context)
         }
