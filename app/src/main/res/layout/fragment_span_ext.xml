@@ -74,6 +74,22 @@
             style="@style/ResultStyle"
             android:layout_marginBottom="20dp"
             android:id="@+id/tvAppendResult" />
+
+        <com.lxj.androidktx.widget.ShapeEditText
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            app:set_corner="5dp"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:set_stroke="#f00"
+            app:set_strokeWidth="1dp"
+            android:hint="请输入名字，我自带border"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Space
+            android:layout_marginBottom="80dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
 

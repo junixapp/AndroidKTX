@@ -3,6 +3,9 @@ package com.lxj.androidktx
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
+import android.graphics.Color
+import android.view.Gravity
+import com.blankj.utilcode.util.ToastUtils
 import com.blankj.utilcode.util.Utils
 import com.lxj.androidktx.core.load
 import com.lxj.androidktx.util.DirManager
@@ -37,5 +40,8 @@ object AndroidKtxConfig {
         if(context is Application){
             Utils.init(context)
         }
+        ToastUtils.setGravity(Gravity.CENTER, 0 , 20)
+        ToastUtils.setBgColor(Color.parseColor("#222222"))
+        ToastUtils.setMsgColor(Color.WHITE)
     }
 }

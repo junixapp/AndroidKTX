@@ -153,6 +153,24 @@
         <attr name="stv_lineSize" format="dimension"/>
     </declare-styleable>
 
+    <declare-styleable name="ShapeEditText">
+        <attr name="set_drawableWidth" format="dimension"/>
+        <attr name="set_drawableHeight" format="dimension"/>
+        <attr name="set_drawableSize" format="dimension"/>
+
+        <attr name="set_solid" format="color"/>
+        <attr name="set_corner" format="dimension"/>
+        <attr name="set_stroke" format="color"/>
+        <attr name="set_strokeWidth" format="dimension"/>
+
+        <attr name="set_enableRipple" format="boolean"/>
+        <attr name="set_rippleColor" format="color"/>
+
+        <attr name="set_topLineColor" format="color"/>
+        <attr name="set_bottomLineColor" format="color"/>
+        <attr name="set_lineSize" format="dimension"/>
+    </declare-styleable>
+
     <!--验证码View-->
     <declare-styleable name="VerifyView">
         <attr name="vv_defText" format="string"/>
