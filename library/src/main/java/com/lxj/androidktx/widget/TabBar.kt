@@ -41,8 +41,8 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
         orientation = HORIZONTAL
     }
 
-    lateinit var mTabChangeListener: (index: Int)->Boolean
-    fun setTabs(tabs: List<Tab>, tabChangeListener: (index: Int)->Boolean): TabBar {
+     var mTabChangeListener: ((index: Int)->Boolean)? = null
+    fun setTabs(tabs: List<Tab>, tabChangeListener: ((index: Int)->Boolean)? = null  ): TabBar {
         mTabs = tabs
         mTabChangeListener = tabChangeListener
         mTabs.forEachIndexed { index, it ->
@@ -75,7 +75,9 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
         return this
     }
 
+    var vp : ViewPager? = null
     fun setupWithViewPager(pager: ViewPager){
+        vp = pager
         pager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener(){
             override fun onPageSelected(p: Int) {
                 selectTab(p)
@@ -84,9 +86,10 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
     }
 
     fun selectTab(index: Int) {
-        if(!mTabChangeListener(index))return
+        if(mTabChangeListener!=null && !mTabChangeListener!!(index))return
         if(tabIndex==index)return
         tabIndex = index
+        vp?.currentItem = tabIndex
         children.forEachIndexed { i, it ->
             val group = it as ViewGroup
             if(index==i){

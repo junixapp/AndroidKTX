@@ -390,6 +390,7 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
         ivRightImage3.click { clickListener?.rightImage3Click() }
     }
 
+    fun titleTextView() = tvTitle
     fun leftTextView() = tvLeftText
     fun rightTextView() = tvRightText
     fun leftImageView() = ivLeftImage

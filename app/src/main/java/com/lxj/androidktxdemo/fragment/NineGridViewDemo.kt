@@ -1,12 +1,10 @@
 package com.lxj.androidktxdemo.fragment
 
-import android.content.Context
-import android.widget.ImageView
 import com.jaeger.ninegridimageview.NineGridImageView
-import com.jaeger.ninegridimageview.NineGridImageViewAdapter
-import com.lxj.androidktx.core.*
+import com.lxj.androidktx.core.bindData
+import com.lxj.androidktx.core.setup
+import com.lxj.androidktx.core.vertical
 import com.lxj.androidktxdemo.R
-import com.lxj.xpopup.XPopup
 import kotlinx.android.synthetic.main.fragment_nine_gridview.*
 
 data class Post(
@@ -43,7 +41,6 @@ class NineGridViewDemo : BaseFragment() {
                     "http://img1.imgtn.bdimg.com/it/u=3705843178,107182593&fm=26&gp=0.jpg",
                     "http://img4.imgtn.bdimg.com/it/u=3376244564,1572447450&fm=11&gp=0.jpg"
             )),
-
 
             Post(urls = arrayListOf(
                     "http://img0.imgtn.bdimg.com/it/u=1621622369,980630947&fm=11&gp=0.jpg",

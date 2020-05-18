@@ -36,9 +36,9 @@ dependencies {
     implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
     api "androidx.appcompat:appcompat:$androidx_version"
     api "androidx.recyclerview:recyclerview:$androidx_version"
-    api 'com.google.android.material:material:1.0.0'
+    api 'com.google.android.material:material:1.1.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "com.github.bumptech.glide:glide:4.8.0"
+    api "com.github.bumptech.glide:glide:4.11.0"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2"
     api 'com.lxj:easyadapter:1.2.0'
     api 'com.jaeger.ninegridimageview:library:1.1.1'  //九宫格
@@ -61,7 +61,6 @@ dependencies {
     api 'com.lxj:xpopup:1.9.0'       //弹窗
     api 'com.king.zxing:zxing-lite:1.1.6-androidx'  //二维码扫描
     api 'com.google.android:flexbox:2.0.0'
-    api 'com.yuyh.imgsel:library:2.0.6'
     api 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
     api "androidx.viewpager2:viewpager2:1.0.0"
     api 'com.just.agentweb:agentweb:4.1.3' // (必选)
@@ -75,13 +74,16 @@ dependencies {
     implementation files('libs/umeng-share-wechat-simplify-6.9.8.jar')
     implementation files('libs/umeng-sharetool-6.9.8.jar')
 //    implementation files('libs/libammsdk.jar')
+
+    api 'com.zhihu.android:matisse:0.5.3-beta3'
+    implementation 'com.github.yalantis:ucrop:2.2.5'
 }
 
 publish {
     userOrg = 'li-xiaojun'
     groupId = 'com.lxj'
     artifactId = 'androidktx'
-    publishVersion = '1.6.15-x'
+    publishVersion = '1.7.0-x'
     repoName = 'jrepo'
     desc = 'Some very useful kotlin extensions for android development！好用到爆的Kotlin扩展，加速你的Android开发！'
     website = 'https://github.com/li-xiaojun/AndroidKTX'

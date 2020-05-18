@@ -1,14 +1,13 @@
 package com.lxj.androidktxdemo.fragment
 
-import android.graphics.BitmapFactory
-import com.blankj.utilcode.util.ToastUtils
-import com.lxj.androidktx.base.WebActivity
+import android.content.Intent
+import com.blankj.utilcode.util.FileUtils
+import com.blankj.utilcode.util.LogUtils
 import com.lxj.androidktx.core.click
 import com.lxj.androidktx.core.load
-import com.lxj.androidktx.share.Share
-import com.lxj.androidktx.share.SharePlatform
-import com.lxj.androidktxdemo.BuildConfig
+import com.lxj.androidktx.picker.ImagePicker
 import com.lxj.androidktxdemo.R
+import com.zhihu.matisse.MimeType
 import kotlinx.android.synthetic.main.fragment_imageview_ext.*
 
 /**
@@ -41,9 +40,18 @@ class ImageViewExtPage: BaseFragment(){
 
         image1.click {
 //            Share.shareWithUI(activity!!, SharePlatform.WxCircle)
-            WebActivity.start( url = "http://www.jd.com", rightIconRes = R.mipmap.ic_launcher, rightIconClickAction = {
-                ToastUtils.showShort("点击了")
-            })
+//            WebActivity.start( url = "https://player.youku.com/embed/XNDI1MTY2MTYwMA==?client_id=fe317d1cbae86c63&password=&autoplay=true#www.wu888.cn", rightIconRes = R.mipmap.ic_launcher, rightIconClickAction = {
+//                ToastUtils.showShort("点击了")
+//            })
+
+//            ImagePicker.startCamera(this, 1) //打开相机
+//            ImagePicker.startCamera(this, 1, isCompress = false) //打开相机不压缩
+//            ImagePicker.startCamera(this, 1, isCrop = true) //打开相机并裁剪
+//            ImagePicker.startCamera(this, 1) //打开相机不裁剪
+//            ImagePicker.startPicker(this, 1, isCrop = true, maxNum = 11) //打开相机并裁剪
+//            ImagePicker.startPicker(this, 1, isCrop = true) //打开相机并裁剪
+            ImagePicker.startPicker(this, 1, types = MimeType.ofVideo(), isCrop = true) //打开相机并裁剪
+//
 //            Share.init(context!!, BuildConfig.DEBUG, umengAppKey = "5e5d0267570df3806d0002fb",
 //                    wxAppId = "wx31386f28f849f6fe", wxAppKey = "6414a5c0dd7b97d540adef8922d4c31b")
 //
@@ -57,5 +65,15 @@ class ImageViewExtPage: BaseFragment(){
 //                    })
         }
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode==1&& resultCode==-1){
+            val url = ImagePicker.fetchResult(data)
+            image1.load(url[0])
+            val len = FileUtils.getFileLength(url[0])
+            LogUtils.e("拍照返回：${url}   大小：${len/1024}k")
+        }
     }
 }

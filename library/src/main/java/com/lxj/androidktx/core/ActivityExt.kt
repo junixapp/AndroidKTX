@@ -15,12 +15,24 @@ import com.lxj.androidktx.livedata.LifecycleHandler
  * Create by lxj, at 2018/12/7
  */
 
-inline fun <reified T> Fragment.startActivity(flag: Int = -1, bundle: Array<out Pair<String, Any?>>? = null) {
-    activity?.startActivity<T>(flag, bundle)
+inline fun <reified T> Fragment.start(flag: Int = -1, bundle: Array<out Pair<String, Any?>>? = null) {
+    val intent = Intent(activity, T::class.java).apply {
+        if (flag != -1) {
+            this.addFlags(flag)
+        }
+        if (bundle != null) putExtras(bundle.toBundle()!!)
+    }
+    startActivity(intent)
 }
 
-inline fun <reified T> Fragment.startActivityForResult(flag: Int = -1, bundle: Array<out Pair<String, Any?>>? = null, requestCode: Int = -1) {
-    activity?.startActivityForResult<T>(flag, bundle, requestCode)
+inline fun <reified T> Fragment.startForResult(flag: Int = -1, bundle: Array<out Pair<String, Any?>>? = null, requestCode: Int = -1) {
+    val intent = Intent(activity, T::class.java).apply {
+        if (flag != -1) {
+            this.addFlags(flag)
+        }
+        if (bundle != null) putExtras(bundle.toBundle()!!)
+    }
+    startActivityForResult(intent, requestCode)
 }
 
 inline fun <reified T> Context.startActivity(flag: Int = -1, bundle: Array<out Pair<String, Any?>>? = null) {
@@ -40,11 +52,11 @@ inline fun <reified T> View.startActivity(flag: Int = -1, bundle: Array<out Pair
     context.startActivity<T>(flag, bundle)
 }
 
-inline fun <reified T> View.startActivityForResult(flag: Int = -1, bundle: Array<out Pair<String, Any?>>? = null, requestCode: Int = -1) {
-    (context as Activity).startActivityForResult<T>(flag, bundle, requestCode)
+inline fun <reified T> View.startForResult(flag: Int = -1, bundle: Array<out Pair<String, Any?>>? = null, requestCode: Int = -1) {
+    (context as Activity).startForResult<T>(flag, bundle, requestCode)
 }
 
-inline fun <reified T> Activity.startActivityForResult(flag: Int = -1, bundle: Array<out Pair<String, Any?>>? = null, requestCode: Int = -1) {
+inline fun <reified T> Activity.startForResult(flag: Int = -1, bundle: Array<out Pair<String, Any?>>? = null, requestCode: Int = -1) {
     val intent = Intent(this, T::class.java).apply {
         if (flag != -1) {
             this.addFlags(flag)

@@ -47,7 +47,7 @@ class SpanExtPage: BaseFragment(){
         """.trimIndent()
         tvClickResult.clickSpan(str = str, range = 2..6, color = Color.BLUE, clickAction = {
             toast("哈哈我被点击了".toColorSpan(0..2))
-            startActivity<DemoActivity>()
+            start<DemoActivity>()
         })
 
         tt.sizeDrawable(300)
