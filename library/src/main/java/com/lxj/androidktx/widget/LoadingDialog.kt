@@ -7,7 +7,7 @@ import com.lxj.androidktx.R
 import kotlinx.android.synthetic.main._wx_progress_dialog.*
 
 
-class WxProgressDialog @JvmOverloads constructor(context: Context, theme: Int = 0)
+class LoadingDialog @JvmOverloads constructor(context: Context, theme: Int = 0)
     : Dialog(context, theme){
 
     var message: String = ""
@@ -21,9 +21,14 @@ class WxProgressDialog @JvmOverloads constructor(context: Context, theme: Int = 
 
     }
 
-    fun setMessage(msg: String): WxProgressDialog{
+    fun setMessage(msg: String): LoadingDialog{
         message = msg
         tvMsg.text = message
+        return this
+    }
+
+    fun show(): LoadingDialog{
+        super.show()
         return this
     }
 }

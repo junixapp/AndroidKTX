@@ -1,7 +1,6 @@
 package com.lxj.androidktx.picker
 
 import android.app.Activity
-import android.app.ProgressDialog
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
@@ -10,16 +9,14 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import com.blankj.utilcode.util.FileUtils
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.blankj.utilcode.util.UriUtils
 import com.lxj.androidktx.AndroidKtxConfig.context
 import com.lxj.androidktx.R
-import com.lxj.androidktx.widget.WxProgressDialog
+import com.lxj.androidktx.widget.LoadingDialog
 import com.yalantis.ucrop.UCrop
 import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MimeType
@@ -31,13 +28,15 @@ import kotlinx.coroutines.launch
 import top.zibin.luban.Luban
 import java.io.File
 
-
+/**
+ * 选择器的中转界面，本身是透明的，为了统一处理startActivityForResult
+ */
 class PickerEmptyActivity : AppCompatActivity() {
     val _pickerCode = 1000
     val _cameraCode = 1001
     val _cropCode = 1002
     var pickerData: _PickerData? = null
-    lateinit var progressDialog: WxProgressDialog
+    lateinit var progressDialog: LoadingDialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pickerData = intent.getSerializableExtra("pickerData") as _PickerData?
@@ -45,7 +44,7 @@ class PickerEmptyActivity : AppCompatActivity() {
             finish()
             return
         }
-        progressDialog = WxProgressDialog(this).setMessage("压缩中...")
+        progressDialog = LoadingDialog(this).setMessage("压缩中...")
         when (pickerData!!.action) {
             //选择器
             "picker" -> {
