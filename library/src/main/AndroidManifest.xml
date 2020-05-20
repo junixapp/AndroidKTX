@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.lxj.androidktx">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -9,6 +10,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
+        android:hardwareAccelerated="true"
         android:networkSecurityConfig="@xml/network_security_config">
         <!--新浪微博需要的-->
         <activity
@@ -35,7 +37,8 @@
             android:hardwareAccelerated="true"
             android:configChanges="orientation|screenSize"/>
         <activity android:name=".base.CameraActivity" android:theme="@style/_FullScreenTheme"/>
-        <activity android:name=".base.PlayerActivity" android:theme="@style/_FullScreenTheme"/>
+        <activity android:name=".base.PlayerActivity" android:theme="@style/_FullScreenTheme"
+            android:hardwareAccelerated="true" android:screenOrientation="landscape"/>
         <activity android:name=".picker.PickerEmptyActivity" android:theme="@style/_TranslucentTheme" android:launchMode="singleTop"/>
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"

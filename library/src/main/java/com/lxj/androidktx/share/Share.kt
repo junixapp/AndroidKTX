@@ -1,6 +1,5 @@
 package com.lxj.androidktx.share
 
-import android.R.attr
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
@@ -11,7 +10,6 @@ import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.PermissionUtils
 import com.lxj.xpopup.XPopup
 import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram
-import com.tencent.mm.opensdk.modelmsg.SendMessageToWX
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import com.umeng.commonsdk.UMConfigure
 import com.umeng.socialize.*
@@ -20,7 +18,6 @@ import com.umeng.socialize.media.UMImage
 import com.umeng.socialize.media.UMMin
 import com.umeng.socialize.media.UMVideo
 import com.umeng.socialize.media.UMWeb
-import com.umeng.socialize.utils.DeviceConfigInternal.context
 import java.net.URLEncoder
 
 

@@ -52,6 +52,7 @@ class PickerEmptyActivity : AppCompatActivity() {
                         .countable(true)
                         .maxSelectable(pickerData!!.maxNum)
                         .theme(R.style.Matisse_Dracula)
+                        .showSingleMediaType(true)
 //                .addFilter(GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
 //                .gridExpectedSize(resources.getDimensionPixelSize(R.dimen.grid_expected_size))
                         .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)

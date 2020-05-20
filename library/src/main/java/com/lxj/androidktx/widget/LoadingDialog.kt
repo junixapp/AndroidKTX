@@ -27,8 +27,4 @@ class LoadingDialog @JvmOverloads constructor(context: Context, theme: Int = 0)
         return this
     }
 
-    fun show(): LoadingDialog{
-        super.show()
-        return this
-    }
 }
