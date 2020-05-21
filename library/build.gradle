@@ -56,10 +56,6 @@ dependencies {
     api 'com.shuyu:gsyVideoPlayer-armv5:7.1.4'
     api 'com.shuyu:gsyVideoPlayer-armv7a:7.1.4'
     api 'com.shuyu:gsyVideoPlayer-arm64:7.1.4'
-//    api 'com.shuyu:gsyVideoPlayer-java:6.0.3'
-//    api 'com.shuyu:gsyVideoPlayer-armv5:6.0.3'
-//    api 'com.shuyu:gsyVideoPlayer-armv7a:6.0.3'
-//    api 'com.shuyu:gsyVideoPlayer-arm64:6.0.3'
     api 'cjt.library.wheel:camera:1.1.9'    //拍照和拍摄视频
     api 'com.lxj:xpopup:1.9.0'       //弹窗
     api 'com.king.zxing:zxing-lite:1.1.9-androidx'  //二维码扫描

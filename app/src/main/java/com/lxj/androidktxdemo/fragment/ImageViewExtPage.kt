@@ -53,7 +53,7 @@ class ImageViewExtPage: BaseFragment(){
 //            ImagePicker.startCamera(this, 1, isCompress = false) //打开相机不压缩
 //            ImagePicker.startCamera(this, 1, isCrop = true) //打开相机并裁剪
 //            ImagePicker.startCamera(this, 1) //打开相机不裁剪
-            ImagePicker.startPicker(this, 1, isCrop = true, maxNum = 9) //打开相机并裁剪
+            ImagePicker.startPicker(this, 1, isCrop = true) //打开相机并裁剪
 //            ImagePicker.startPicker(this, 1, isCrop = true) //打开相机并裁剪
 //            ImagePicker.startPicker(this, 1, types = MimeType.ofVideo(), isCrop = true) //打开相机并裁剪
 //

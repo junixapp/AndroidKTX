@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.view.View
 import com.lxj.androidktx.base.PlayerActivity
 import com.lxj.androidktx.core.*
+import com.lxj.androidktx.util.QrCodeUtil
 import com.lxj.androidktxdemo.DemoActivity
 import com.lxj.androidktxdemo.R
 import kotlinx.android.synthetic.main.fragment_span_ext.*
@@ -49,8 +50,9 @@ class SpanExtPage: BaseFragment(){
         tvClickResult.clickSpan(str = str, range = 2..6, color = Color.BLUE, clickAction = {
 //            toast("哈哈我被点击了".toColorSpan(0..2))
 //            start<DemoActivity>()
-            PlayerActivity.start(url = "https://lxj-bama-happy.oss-cn-zhangjiakou.aliyuncs.com/e015e0a9-ed2d-47b6-9b70-e4feb263a09f.mp4",
-            title = "视频标题", cover = "https://lxj-bama-happy.oss-cn-zhangjiakou.aliyuncs.com/f156340b-d519-43a6-a714-1d24d3a37ed8.jpeg@s_0,w_460,h_260,q_80")
+            QrCodeUtil.start(this, 1)
+//            PlayerActivity.start(url = "https://lxj-bama-happy.oss-cn-zhangjiakou.aliyuncs.com/e015e0a9-ed2d-47b6-9b70-e4feb263a09f.mp4",
+//            title = "视频标题", cover = "https://lxj-bama-happy.oss-cn-zhangjiakou.aliyuncs.com/f156340b-d519-43a6-a714-1d24d3a37ed8.jpeg@s_0,w_460,h_260,q_80")
         })
 
         tt.sizeDrawable(300)

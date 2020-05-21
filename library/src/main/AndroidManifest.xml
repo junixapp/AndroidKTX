@@ -36,6 +36,8 @@
         <activity android:name=".base.WebActivity" android:theme="@style/_FullScreenTheme"
             android:hardwareAccelerated="true"
             android:configChanges="orientation|screenSize"/>
+
+        <activity android:name="com.king.zxing.CaptureActivity" android:theme="@style/_FullScreenTheme"/>
         <activity android:name=".base.CameraActivity" android:theme="@style/_FullScreenTheme"/>
         <activity android:name=".base.PlayerActivity" android:theme="@style/_FullScreenTheme"
             android:hardwareAccelerated="true" android:screenOrientation="landscape"/>
