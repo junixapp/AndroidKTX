@@ -9,9 +9,7 @@ Some very useful kotlin extensions for android development !
 [![Download](https://api.bintray.com/packages/li-xiaojun/jrepo/androidktx/images/download.svg)](https://bintray.com/li-xiaojun/jrepo/androidktx/_latestVersion)
 
 ```
-implementation 'com.lxj:androidktx:1.4.0'
-//for androidx
-implementation 'com.lxj:androidktx:1.4.0-x'
+implementation 'com.lxj:androidktx:1.7.2-x'
 ```
 
 

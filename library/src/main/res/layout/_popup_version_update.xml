@@ -26,7 +26,7 @@
         <com.lxj.androidktx.widget.ShapeTextView
             android:id="@+id/tv_info"
             android:textColor="#333"
-            android:textSize="14sp"
+            android:textSize="15sp"
             android:paddingTop="15dp"
             android:paddingLeft="25dp"
             android:paddingRight="25dp"
@@ -50,7 +50,7 @@
             android:text="取消"
             app:stv_enableRipple="true"
             app:stv_solid="#fff"
-            android:textSize="15dp"
+            android:textSize="16sp"
             android:gravity="center"
             android:textColor="#4C536D"
             />
@@ -67,7 +67,7 @@
             android:layout_height="match_parent"
             android:text="确定"
             android:gravity="center"
-            android:textSize="15dp"
+            android:textSize="16sp"
             android:textColor="#3070FF"
             />
     </com.lxj.androidktx.widget.ShapeLinearLayout>
