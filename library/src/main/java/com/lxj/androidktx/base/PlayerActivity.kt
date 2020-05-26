@@ -28,7 +28,6 @@ class PlayerActivity : AdaptActivity(){
             intent.putExtra("cover", cover)
             AndroidKtxConfig.context.startActivity(intent)
         }
-
     }
 
     override fun getLayoutId() = R.layout._ktx_activity_player

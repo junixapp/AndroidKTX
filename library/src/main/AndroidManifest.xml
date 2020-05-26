@@ -42,6 +42,8 @@
         <activity android:name=".base.PlayerActivity" android:theme="@style/_FullScreenTheme"
             android:hardwareAccelerated="true" android:screenOrientation="landscape"/>
         <activity android:name=".picker.PickerEmptyActivity" android:theme="@style/_TranslucentTheme" android:launchMode="singleTop"/>
+        <activity android:name=".base.FragmentWrapperActivity" />
+
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
