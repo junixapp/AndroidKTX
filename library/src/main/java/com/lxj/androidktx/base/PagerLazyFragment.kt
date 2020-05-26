@@ -20,16 +20,16 @@ abstract class PagerLazyFragment : Fragment() {
         return cacheView!!
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onResume() {
+        super.onResume()
         lazyInit()
     }
 
     private fun lazyInit() {
         if (cacheView!=null && userVisibleHint && !isInit ) {
-            isInit = true
             initView()
             initData()
+            isInit = true
         }
     }
 

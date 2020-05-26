@@ -24,5 +24,6 @@ class FragmentExtPage: BaseFragment(){
 
 
     }
+
 }
 
