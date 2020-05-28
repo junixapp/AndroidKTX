@@ -9,7 +9,7 @@ Some very useful kotlin extensions for android development !
 [![Download](https://api.bintray.com/packages/li-xiaojun/jrepo/androidktx/images/download.svg)](https://bintray.com/li-xiaojun/jrepo/androidktx/_latestVersion)
 
 ```
-implementation 'com.lxj:androidktx:1.7.2-x'
+implementation 'com.lxj:androidktx:${latest-version}'
 ```
 
 
@@ -52,11 +52,11 @@ AndroidKtxConfig.init(context = this,
 ### Log相关
 我们输出的log大都是字符串，所以也是给String增加扩展方法，用法如下：
 ```kotlin
-"我是测试".v()
-"我是测试".i()
-"我是测试".w()
-"我是测试".d()
-"我是测试".e()
+"我是测试".logv()
+"我是测试".logi()
+"我是测试".logw()
+"我是测试".logd()
+"我是测试".loge()
 ```
 ![weather_humidity](imgs/log.png)
 > Log的默认tag和开关配置在AndroidKtxConfig类中，可动态配置。
@@ -238,7 +238,7 @@ startActivity<MainActivity>(flag = Intent.FLAG_ACTIVITY_CLEAR_TOP, bundle = arra
         "b" to "lala"
 ))
 // 在Fragment中启动Activity
-fragment.startActivity<MainActivity>()
+fragment.start<MainActivity>()
 // 使用非Activity的Context启动，内部会自动检测并添加FLAG_ACTIVITY_NEW_TASK，不会导致崩溃
 applicitionCtx.startActivity<MainActivity>(bundle = arrayOf(
         "a" to 1,
