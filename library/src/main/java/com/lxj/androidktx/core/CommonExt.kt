@@ -143,26 +143,31 @@ fun RecyclerView.ViewHolder.createDrawable(color: Int = Color.TRANSPARENT, radiu
 
 
 /** toast相关 **/
+@Deprecated(message = "请使用ToastUtil")
 fun Context.toast(msg: CharSequence) {
     Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
 }
-
+@Deprecated(message = "请使用ToastUtil")
 fun Context.longToast(msg: CharSequence) {
     Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
 }
 
+@Deprecated(message = "请使用ToastUtil")
 fun Fragment.toast(msg: CharSequence) {
     context?.toast(msg)
 }
 
+@Deprecated(message = "请使用ToastUtil")
 fun Fragment.longToast(msg: CharSequence) {
     context?.longToast(msg)
 }
 
+@Deprecated(message = "请使用ToastUtil")
 fun View.toast(msg: CharSequence) {
     context?.toast(msg)
 }
 
+@Deprecated(message = "请使用ToastUtil")
 fun View.longToast(msg: CharSequence) {
     context?.longToast(msg)
 }
