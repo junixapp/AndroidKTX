@@ -28,6 +28,7 @@ object OkWrapper {
             .sslSocketFactory(HttpsUtils.getSslSocketFactory().sSLSocketFactory,
                     HttpsUtils.getSslSocketFactory().trustManager)
             .build()
+    var dateFormat: String = "yyyy-MM-dd HH:mm:ss"
 
     init {
         okHttpClient = ProgressManager.getInstance().with(okHttpClient.newBuilder()).build()
@@ -78,6 +79,10 @@ object OkWrapper {
         return this
     }
 
+    fun dateFormat(format: String): OkWrapper{
+        dateFormat = format
+        return this
+    }
 
     fun cancel(tag: Any){
         requestCache[tag]?.cancel()
