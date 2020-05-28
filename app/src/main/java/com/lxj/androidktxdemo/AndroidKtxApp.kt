@@ -29,9 +29,5 @@ class AndroidKtxApp: Application(){
         loge("user: ${sp().getObject<User>("user")}")
 
 
-
-        loge("18612116869".isPhone().toString())
-        loge("17812703364".isPhone().toString())
-        loge("12812703364".isPhone().toString())
     }
 }

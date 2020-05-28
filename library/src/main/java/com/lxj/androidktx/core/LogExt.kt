@@ -1,6 +1,7 @@
 package com.lxj.androidktx.core
 
 import android.util.Log
+import com.blankj.utilcode.util.LogUtils
 import com.lxj.androidktx.AndroidKtxConfig
 
 /**
@@ -12,8 +13,7 @@ private enum class LogLevel{
     Verbose, Debug, Info, Warn, Error
 }
 
-@Deprecated(message = "推荐使用logv")
-fun String.v(tag: String = AndroidKtxConfig.defaultLogTag){
+fun String.logv(tag: String = AndroidKtxConfig.defaultLogTag){
     intervalLog(LogLevel.Verbose, tag, this )
 }
 
@@ -24,8 +24,7 @@ fun Any.logv(msg: String){
     intervalLog(LogLevel.Verbose, AndroidKtxConfig.defaultLogTag, msg )
 }
 
-@Deprecated(message = "推荐使用logd")
-fun String.d(tag: String = AndroidKtxConfig.defaultLogTag){
+fun String.logd(tag: String = AndroidKtxConfig.defaultLogTag){
     intervalLog(LogLevel.Debug, tag, this )
 }
 
@@ -36,8 +35,7 @@ fun Any.logd(msg: String){
     intervalLog(LogLevel.Debug, AndroidKtxConfig.defaultLogTag, msg )
 }
 
-@Deprecated(message = "推荐使用logi")
-fun String.i(tag: String = AndroidKtxConfig.defaultLogTag){
+fun String.logi(tag: String = AndroidKtxConfig.defaultLogTag){
     intervalLog(LogLevel.Info, tag, this )
 }
 
@@ -48,8 +46,7 @@ fun Any.logi(msg: String){
     intervalLog(LogLevel.Info, AndroidKtxConfig.defaultLogTag, msg )
 }
 
-@Deprecated(message = "推荐使用logw")
-fun String.w(tag: String = AndroidKtxConfig.defaultLogTag){
+fun String.logw(tag: String = AndroidKtxConfig.defaultLogTag){
     intervalLog(LogLevel.Warn, tag, this )
 }
 fun Any.logw(tag: String, msg: String){
@@ -59,8 +56,7 @@ fun Any.logw(msg: String){
     intervalLog(LogLevel.Warn, AndroidKtxConfig.defaultLogTag, msg )
 }
 
-@Deprecated(message = "推荐使用loge")
-fun String.e(tag: String = AndroidKtxConfig.defaultLogTag){
+fun String.loge(tag: String = AndroidKtxConfig.defaultLogTag){
     intervalLog(LogLevel.Error, tag, this )
 }
 
@@ -74,11 +70,11 @@ fun Any.loge(msg: String){
 private fun intervalLog(level: LogLevel, tag: String, msg: String){
     if(AndroidKtxConfig.isDebug){
         when (level) {
-            LogLevel.Verbose -> Log.v(tag, msg)
-            LogLevel.Debug -> Log.d(tag, msg)
-            LogLevel.Info -> Log.i(tag, msg)
-            LogLevel.Warn -> Log.w(tag, msg)
-            LogLevel.Error -> Log.e(tag, msg)
+            LogLevel.Verbose -> LogUtils.v(tag, msg)
+            LogLevel.Debug -> LogUtils.d(tag, msg)
+            LogLevel.Info -> LogUtils.i(tag, msg)
+            LogLevel.Warn -> LogUtils.w(tag, msg)
+            LogLevel.Error -> LogUtils.e(tag, msg)
         }
     }
 }
