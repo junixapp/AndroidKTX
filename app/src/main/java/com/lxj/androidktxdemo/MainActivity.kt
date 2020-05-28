@@ -48,9 +48,12 @@ class MainActivity : AppCompatActivity() {
         toast("测试短吐司")
         longToast("测试长吐司")
 
-        UserTest("李晓俊", 25).toJson().v()
-        "{\"age\":25,\"name\":\"李晓俊\"}".toBean<User>().toString().w()
-        "[{\"age\":25,\"name\":\"李晓俊\"}]".toBean<List<User>>().toString().e()
+        """{"age":25,"name":"李晓俊","date":"2020-05-12 13:37:33"}
+        """.trimIndent().toBean<User>().toString().w()
+//        """{"age":25,"name":"李晓俊","date":"Mar 12, 1990 00:00:00"}
+//        """.trimIndent().toBean<User>().toString().w()
+//        "[{\"age\":25,\"name\":\"李晓俊\"}]".toBean<List<User>>().toString().e()
+
 
 
 //        // 便捷处理

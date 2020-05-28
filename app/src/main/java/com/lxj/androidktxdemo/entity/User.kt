@@ -1,12 +1,15 @@
 package com.lxj.androidktxdemo.entity
 
+import java.util.*
+
 /**
  * Description:
  * Create by dance, at 2018/12/11
  */
 data class User(
         var name: String,
-        var age : Int
+        var age : Int,
+        var date : Date? = null
 )
 
 data class HttpResult<T>(

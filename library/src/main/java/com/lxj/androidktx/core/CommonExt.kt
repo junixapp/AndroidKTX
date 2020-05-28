@@ -17,20 +17,18 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.TimeUtils
-import com.google.gson.Gson
+import com.google.gson.*
 import com.google.gson.reflect.TypeToken
 import com.lxj.androidktx.AndroidKtxConfig
-import com.lxj.androidktx.okhttp.HttpCallback
-import com.lxj.androidktx.okhttp.http
-import com.lxj.androidktx.okhttp.postJson
 import com.lxj.androidktx.util.NetworkUtils
-import com.lxj.xpopup.XPopup
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.Serializable
+import java.lang.Exception
+import java.lang.reflect.Type
 import java.util.*
 
 
@@ -171,9 +169,10 @@ fun View.longToast(msg: CharSequence) {
 
 
 /** json相关 **/
-fun Any.toJson() = Gson().toJson(this)
+fun Any.toJson(dateFormat: String = "yyyy-MM-dd HH:mm:ss") = GsonBuilder().setDateFormat(dateFormat).create().toJson(this)
 
-inline fun <reified T> String.toBean() = Gson().fromJson<T>(this, object : TypeToken<T>() {}.type)
+inline fun <reified T> String.toBean(dateFormat: String = "yyyy-MM-dd HH:mm:ss") = GsonBuilder().setDateFormat(dateFormat).create()
+        .fromJson<T>(this, object : TypeToken<T>() {}.type)
 
 
 /** Window相关 **/
