@@ -37,12 +37,6 @@
         <attr name="rightImage3Padding" format="dimension"/>
     </declare-styleable>
 
-    <declare-styleable name="SizedTextView">
-        <attr name="drawableWidth" format="dimension"/>
-        <attr name="drawableHeight" format="dimension"/>
-        <attr name="drawableSize" format="dimension"/>
-    </declare-styleable>
-
     <declare-styleable name="SuperLayout">
         <attr name="sl_leftImageSrc" format="reference"/>
         <attr name="sl_leftImageSize" format="dimension"/>
@@ -91,6 +85,19 @@
 
         <attr name="sl_enableRipple" format="boolean"/>
         <attr name="sl_rippleColor" format="color"/>
+
+        <attr name="sl_gradientStartColor" format="color"/>
+        <attr name="sl_gradientEndColor" format="color"/>
+        <attr name="sl_gradientOrientation">
+            <enum name="TOP_BOTTOM" value="0" />
+            <enum name="TR_BL" value="1" />
+            <enum name="RIGHT_LEFT" value="2" />
+            <enum name="BR_TL" value="3" />
+            <enum name="BOTTOM_TOP" value="4" />
+            <enum name="BL_TR" value="5" />
+            <enum name="LEFT_RIGHT" value="6" />
+            <enum name="TL_BR" value="7" />
+        </attr>
     </declare-styleable>
 
     <declare-styleable name="ShapeFrameLayout">
@@ -105,6 +112,19 @@
 
         <attr name="sfl_enableRipple" format="boolean"/>
         <attr name="sfl_rippleColor" format="color"/>
+
+        <attr name="sfl_gradientStartColor" format="color"/>
+        <attr name="sfl_gradientEndColor" format="color"/>
+        <attr name="sfl_gradientOrientation">
+            <enum name="TOP_BOTTOM" value="0" />
+            <enum name="TR_BL" value="1" />
+            <enum name="RIGHT_LEFT" value="2" />
+            <enum name="BR_TL" value="3" />
+            <enum name="BOTTOM_TOP" value="4" />
+            <enum name="BL_TR" value="5" />
+            <enum name="LEFT_RIGHT" value="6" />
+            <enum name="TL_BR" value="7" />
+        </attr>
     </declare-styleable>
 
     <declare-styleable name="ShapeLinearLayout">
@@ -119,6 +139,19 @@
 
         <attr name="sll_enableRipple" format="boolean"/>
         <attr name="sll_rippleColor" format="color"/>
+
+        <attr name="sll_gradientStartColor" format="color"/>
+        <attr name="sll_gradientEndColor" format="color"/>
+        <attr name="sll_gradientOrientation">
+            <enum name="TOP_BOTTOM" value="0" />
+            <enum name="TR_BL" value="1" />
+            <enum name="RIGHT_LEFT" value="2" />
+            <enum name="BR_TL" value="3" />
+            <enum name="BOTTOM_TOP" value="4" />
+            <enum name="BL_TR" value="5" />
+            <enum name="LEFT_RIGHT" value="6" />
+            <enum name="TL_BR" value="7" />
+        </attr>
     </declare-styleable>
 
     <declare-styleable name="ShapeRelativeLayout">
@@ -133,6 +166,19 @@
 
         <attr name="srl_enableRipple" format="boolean"/>
         <attr name="srl_rippleColor" format="color"/>
+
+        <attr name="srl_gradientStartColor" format="color"/>
+        <attr name="srl_gradientEndColor" format="color"/>
+        <attr name="srl_gradientOrientation">
+            <enum name="TOP_BOTTOM" value="0" />
+            <enum name="TR_BL" value="1" />
+            <enum name="RIGHT_LEFT" value="2" />
+            <enum name="BR_TL" value="3" />
+            <enum name="BOTTOM_TOP" value="4" />
+            <enum name="BL_TR" value="5" />
+            <enum name="LEFT_RIGHT" value="6" />
+            <enum name="TL_BR" value="7" />
+        </attr>
     </declare-styleable>
 
     <declare-styleable name="ShapeTextView">
@@ -151,6 +197,19 @@
         <attr name="stv_topLineColor" format="color"/>
         <attr name="stv_bottomLineColor" format="color"/>
         <attr name="stv_lineSize" format="dimension"/>
+
+        <attr name="stv_gradientStartColor" format="color"/>
+        <attr name="stv_gradientEndColor" format="color"/>
+        <attr name="stv_gradientOrientation">
+            <enum name="TOP_BOTTOM" value="0" />
+            <enum name="TR_BL" value="1" />
+            <enum name="RIGHT_LEFT" value="2" />
+            <enum name="BR_TL" value="3" />
+            <enum name="BOTTOM_TOP" value="4" />
+            <enum name="BL_TR" value="5" />
+            <enum name="LEFT_RIGHT" value="6" />
+            <enum name="TL_BR" value="7" />
+        </attr>
     </declare-styleable>
 
     <declare-styleable name="ShapeEditText">
@@ -169,6 +228,19 @@
         <attr name="set_topLineColor" format="color"/>
         <attr name="set_bottomLineColor" format="color"/>
         <attr name="set_lineSize" format="dimension"/>
+
+        <attr name="set_gradientStartColor" format="color"/>
+        <attr name="set_gradientEndColor" format="color"/>
+        <attr name="set_gradientOrientation">
+            <enum name="TOP_BOTTOM" value="0" />
+            <enum name="TR_BL" value="1" />
+            <enum name="RIGHT_LEFT" value="2" />
+            <enum name="BR_TL" value="3" />
+            <enum name="BOTTOM_TOP" value="4" />
+            <enum name="BL_TR" value="5" />
+            <enum name="LEFT_RIGHT" value="6" />
+            <enum name="TL_BR" value="7" />
+        </attr>
     </declare-styleable>
 
     <!--验证码View-->

@@ -4,8 +4,9 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Rect
+import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
-import android.widget.TextView
+import androidx.appcompat.widget.AppCompatTextView
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.createDrawable
 import com.lxj.androidktx.core.dp2px
@@ -16,7 +17,7 @@ import com.lxj.androidktx.core.sizeDrawable
  * Create by dance, at 2019/5/21
  */
 open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null, defStyleAttr: Int = 0)
-    : TextView(context, attributeSet, defStyleAttr) {
+    : AppCompatTextView(context, attributeSet, defStyleAttr) {
 
     var mDrawableWidth = 0
         set(value) {
@@ -77,6 +78,21 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
             field = value
             applySelf()
         }
+    var mGradientStartColor = 0
+        set(value) {
+            field = value
+            applySelf()
+        }
+    var mGradientEndColor = 0
+        set(value) {
+            field = value
+            applySelf()
+        }
+    var mGradientOrientation = GradientDrawable.Orientation.LEFT_RIGHT  //从左到右
+        set(value) {
+            field = value
+            applySelf()
+        }
 
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.ShapeTextView)
@@ -99,6 +115,20 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
         mTopLineColor = ta.getColor(R.styleable.ShapeTextView_stv_topLineColor, mTopLineColor)
         mBottomLineColor = ta.getColor(R.styleable.ShapeTextView_stv_bottomLineColor, mBottomLineColor)
         mLineSize = ta.getDimensionPixelSize(R.styleable.ShapeTextView_stv_lineSize, mLineSize)
+
+        mGradientStartColor = ta.getColor(R.styleable.ShapeTextView_stv_gradientStartColor, 0)
+        mGradientEndColor = ta.getColor(R.styleable.ShapeTextView_stv_gradientEndColor, 0)
+        val orientation = ta.getInt(R.styleable.ShapeTextView_stv_gradientOrientation, GradientDrawable.Orientation.LEFT_RIGHT.ordinal)
+        mGradientOrientation = when(orientation){
+            0 -> GradientDrawable.Orientation.TOP_BOTTOM
+            1 -> GradientDrawable.Orientation.TR_BL
+            2 -> GradientDrawable.Orientation.RIGHT_LEFT
+            3 -> GradientDrawable.Orientation.BR_TL
+            4 -> GradientDrawable.Orientation.BOTTOM_TOP
+            5 -> GradientDrawable.Orientation.BL_TR
+            6 -> GradientDrawable.Orientation.LEFT_RIGHT
+            else -> GradientDrawable.Orientation.TL_BR
+        }
         ta.recycle()
         if (mDrawableWidth != 0 && mDrawableHeight != 0) {
             sizeDrawable(width = mDrawableWidth, height = mDrawableHeight)
@@ -108,9 +138,10 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
 
 
     fun applySelf() {
-        if (mSolid != 0 || mStroke != 0 ) {
+        if (mSolid != 0 || mStroke != 0 || mGradientEndColor!=0 || mGradientStartColor!=0) {
             val drawable = createDrawable(color = mSolid, radius = mCorner.toFloat(), strokeColor = mStroke, strokeWidth = mStrokeWidth,
-                    enableRipple = mEnableRipple, rippleColor = mRippleColor)
+                    enableRipple = mEnableRipple, rippleColor = mRippleColor, gradientStartColor = mGradientStartColor,
+            gradientEndColor = mGradientEndColor, gradientOrientation = mGradientOrientation)
             setBackgroundDrawable(drawable)
         }
     }

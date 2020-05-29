@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Rect
+import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatEditText
 import com.lxj.androidktx.R
@@ -77,6 +78,21 @@ open class ShapeEditText @JvmOverloads constructor(context: Context, attributeSe
             field = value
             applySelf()
         }
+    var mGradientStartColor = 0
+        set(value) {
+            field = value
+            applySelf()
+        }
+    var mGradientEndColor = 0
+        set(value) {
+            field = value
+            applySelf()
+        }
+    var mGradientOrientation = GradientDrawable.Orientation.LEFT_RIGHT  //从左到右
+        set(value) {
+            field = value
+            applySelf()
+        }
 
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.ShapeEditText)
@@ -99,6 +115,20 @@ open class ShapeEditText @JvmOverloads constructor(context: Context, attributeSe
         mTopLineColor = ta.getColor(R.styleable.ShapeEditText_set_topLineColor, mTopLineColor)
         mBottomLineColor = ta.getColor(R.styleable.ShapeEditText_set_bottomLineColor, mBottomLineColor)
         mLineSize = ta.getDimensionPixelSize(R.styleable.ShapeEditText_set_lineSize, mLineSize)
+        
+        mGradientStartColor = ta.getColor(R.styleable.ShapeEditText_set_gradientStartColor, 0)
+        mGradientEndColor = ta.getColor(R.styleable.ShapeEditText_set_gradientEndColor, 0)
+        val orientation = ta.getInt(R.styleable.ShapeEditText_set_gradientOrientation, GradientDrawable.Orientation.LEFT_RIGHT.ordinal)
+        mGradientOrientation = when(orientation){
+            0 -> GradientDrawable.Orientation.TOP_BOTTOM
+            1 -> GradientDrawable.Orientation.TR_BL
+            2 -> GradientDrawable.Orientation.RIGHT_LEFT
+            3 -> GradientDrawable.Orientation.BR_TL
+            4 -> GradientDrawable.Orientation.BOTTOM_TOP
+            5 -> GradientDrawable.Orientation.BL_TR
+            6 -> GradientDrawable.Orientation.LEFT_RIGHT
+            else -> GradientDrawable.Orientation.TL_BR
+        }
         ta.recycle()
         if (mDrawableWidth != 0 && mDrawableHeight != 0) {
             sizeDrawable(width = mDrawableWidth, height = mDrawableHeight)
@@ -108,11 +138,11 @@ open class ShapeEditText @JvmOverloads constructor(context: Context, attributeSe
         isFocusableInTouchMode = true
     }
 
-
     fun applySelf() {
-        if (mSolid != 0 || mStroke != 0 ) {
+        if (mSolid != 0 || mStroke != 0 || mGradientEndColor!=0 || mGradientStartColor!=0) {
             val drawable = createDrawable(color = mSolid, radius = mCorner.toFloat(), strokeColor = mStroke, strokeWidth = mStrokeWidth,
-                    enableRipple = mEnableRipple, rippleColor = mRippleColor)
+                    enableRipple = mEnableRipple, rippleColor = mRippleColor, gradientStartColor = mGradientStartColor,
+                    gradientEndColor = mGradientEndColor, gradientOrientation = mGradientOrientation)
             setBackgroundDrawable(drawable)
         }
     }

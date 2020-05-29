@@ -81,5 +81,18 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"/>
 
+        <com.lxj.androidktx.widget.ShapeTextView
+            android:layout_marginTop="15dp"
+            app:stv_gradientStartColor="#0fc"
+            app:stv_gradientEndColor="#f00"
+            android:clickable="true"
+            android:text="支持线性渐变色"
+            android:gravity="center"
+            android:layout_marginBottom="15dp"
+            app:stv_corner="130dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"/>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
@@ -268,6 +269,22 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
             applyAttr()
             applySelf()
         }
+    var mGradientStartColor = 0
+        set(value) {
+            field = value
+            applySelf()
+        }
+    var mGradientEndColor = 0
+        set(value) {
+            field = value
+            applySelf()
+        }
+    var mGradientOrientation = GradientDrawable.Orientation.LEFT_RIGHT  //从左到右
+        set(value) {
+            field = value
+            applySelf()
+        }
+
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.SuperLayout)
         mleftImage = ta.getDrawable(R.styleable.SuperLayout_sl_leftImageSrc)
@@ -317,6 +334,19 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
         menableRipple = ta.getBoolean(R.styleable.SuperLayout_sl_enableRipple, menableRipple)
         mrippleColor = ta.getColor(R.styleable.SuperLayout_sl_rippleColor, mrippleColor)
 
+        mGradientStartColor = ta.getColor(R.styleable.SuperLayout_sl_gradientStartColor, 0)
+        mGradientEndColor = ta.getColor(R.styleable.SuperLayout_sl_gradientEndColor, 0)
+        val orientation = ta.getInt(R.styleable.SuperLayout_sl_gradientOrientation, GradientDrawable.Orientation.LEFT_RIGHT.ordinal)
+        mGradientOrientation = when(orientation){
+            0 -> GradientDrawable.Orientation.TOP_BOTTOM
+            1 -> GradientDrawable.Orientation.TR_BL
+            2 -> GradientDrawable.Orientation.RIGHT_LEFT
+            3 -> GradientDrawable.Orientation.BR_TL
+            4 -> GradientDrawable.Orientation.BOTTOM_TOP
+            5 -> GradientDrawable.Orientation.BL_TR
+            6 -> GradientDrawable.Orientation.LEFT_RIGHT
+            else -> GradientDrawable.Orientation.TL_BR
+        }
         ta.recycle()
         inflate(context, R.layout._ktx_super_layout, this)
         applyAttr()
@@ -345,9 +375,10 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
         orientation = HORIZONTAL
         gravity = Gravity.CENTER_VERTICAL
 
-        if (msolid != 0 || mstroke != 0) {
+        if (msolid != 0 || mstroke != 0 || mGradientEndColor!=0 || mGradientStartColor!=0) {
             val drawable = createDrawable(color = msolid, radius = mcorner.toFloat(), strokeColor = mstroke, strokeWidth = mstrokeWidth,
-                    enableRipple = menableRipple, rippleColor = mrippleColor)
+                    enableRipple = menableRipple, rippleColor = mrippleColor, gradientStartColor = mGradientStartColor,
+                    gradientEndColor = mGradientEndColor, gradientOrientation = mGradientOrientation)
             setBackgroundDrawable(drawable)
         }
     }

@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
+import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import android.widget.LinearLayout
 import com.lxj.androidktx.R
@@ -68,6 +69,21 @@ open class ShapeLinearLayout @JvmOverloads constructor(context: Context, attribu
             field = value
             applySelf()
         }
+    var mGradientStartColor = 0
+        set(value) {
+            field = value
+            applySelf()
+        }
+    var mGradientEndColor = 0
+        set(value) {
+            field = value
+            applySelf()
+        }
+    var mGradientOrientation = GradientDrawable.Orientation.LEFT_RIGHT  //从左到右
+        set(value) {
+            field = value
+            applySelf()
+        }
 
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.ShapeLinearLayout)
@@ -82,14 +98,28 @@ open class ShapeLinearLayout @JvmOverloads constructor(context: Context, attribu
         enableRipple = ta.getBoolean(R.styleable.ShapeLinearLayout_sll_enableRipple, enableRipple)
         rippleColor = ta.getColor(R.styleable.ShapeLinearLayout_sll_rippleColor, rippleColor)
 
+        mGradientStartColor = ta.getColor(R.styleable.ShapeLinearLayout_sll_gradientStartColor, 0)
+        mGradientEndColor = ta.getColor(R.styleable.ShapeLinearLayout_sll_gradientEndColor, 0)
+        val orientation = ta.getInt(R.styleable.ShapeLinearLayout_sll_gradientOrientation, GradientDrawable.Orientation.LEFT_RIGHT.ordinal)
+        mGradientOrientation = when(orientation){
+            0 -> GradientDrawable.Orientation.TOP_BOTTOM
+            1 -> GradientDrawable.Orientation.TR_BL
+            2 -> GradientDrawable.Orientation.RIGHT_LEFT
+            3 -> GradientDrawable.Orientation.BR_TL
+            4 -> GradientDrawable.Orientation.BOTTOM_TOP
+            5 -> GradientDrawable.Orientation.BL_TR
+            6 -> GradientDrawable.Orientation.LEFT_RIGHT
+            else -> GradientDrawable.Orientation.TL_BR
+        }
         ta.recycle()
         applySelf()
     }
 
     fun applySelf() {
-        if (solid != 0 || stroke != 0 ) {
+        if (solid != 0 || stroke != 0 || mGradientEndColor!=0 || mGradientStartColor!=0) {
             val drawable = createDrawable(color = solid, radius = corner.toFloat(), strokeColor = stroke, strokeWidth = strokeWidth,
-                    enableRipple = enableRipple, rippleColor = rippleColor)
+                    enableRipple = enableRipple, rippleColor = rippleColor, gradientStartColor = mGradientStartColor,
+                    gradientEndColor = mGradientEndColor, gradientOrientation = mGradientOrientation)
             setBackgroundDrawable(drawable)
         }
     }

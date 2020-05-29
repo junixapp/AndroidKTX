@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.LinearGradient
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.RippleDrawable
@@ -108,11 +109,18 @@ fun RecyclerView.ViewHolder.px2sp(pxValue: Float): Int {
 fun Context.createDrawable(color: Int = Color.TRANSPARENT, radius: Float = 0f,
                            strokeColor: Int = Color.TRANSPARENT, strokeWidth: Int = 0,
                            enableRipple: Boolean = true,
-                           rippleColor: Int = Color.parseColor("#88999999")): Drawable {
+                           rippleColor: Int = Color.parseColor("#88999999"),
+                           gradientStartColor: Int = 0, gradientEndColor : Int = 0, gradientOrientation: GradientDrawable.Orientation = GradientDrawable.Orientation.LEFT_RIGHT): Drawable {
     val content = GradientDrawable().apply {
-        setColor(color)
         cornerRadius = radius
         setStroke(strokeWidth, strokeColor)
+        gradientType = GradientDrawable.LINEAR_GRADIENT
+        if(gradientStartColor!=0 || gradientEndColor!=0){
+            orientation = gradientOrientation
+            colors = intArrayOf(gradientStartColor, gradientEndColor)
+        }else{
+            setColor(color)
+        }
     }
     if (Build.VERSION.SDK_INT >= 21 && enableRipple) {
         return RippleDrawable(ColorStateList.valueOf(rippleColor), content, null)
@@ -123,22 +131,19 @@ fun Context.createDrawable(color: Int = Color.TRANSPARENT, radius: Float = 0f,
 fun Fragment.createDrawable(color: Int = Color.TRANSPARENT, radius: Float = 0f,
                             strokeColor: Int = Color.TRANSPARENT, strokeWidth: Int = 0,
                             enableRipple: Boolean = true,
-                            rippleColor: Int = Color.parseColor("#88999999")): Drawable {
-    return context!!.createDrawable(color, radius, strokeColor, strokeWidth, enableRipple, rippleColor)
+                            rippleColor: Int = Color.parseColor("#88999999"),
+                            gradientStartColor: Int = 0, gradientEndColor : Int = 0, gradientOrientation: GradientDrawable.Orientation = GradientDrawable.Orientation.LEFT_RIGHT): Drawable {
+    return context!!.createDrawable(color, radius, strokeColor, strokeWidth, enableRipple, rippleColor, gradientStartColor = gradientStartColor,
+    gradientEndColor = gradientEndColor, gradientOrientation = gradientOrientation)
 }
 
 fun View.createDrawable(color: Int = Color.TRANSPARENT, radius: Float = 0f,
                         strokeColor: Int = Color.TRANSPARENT, strokeWidth: Int = 0,
                         enableRipple: Boolean = true,
-                        rippleColor: Int = Color.parseColor("#88999999")): Drawable {
-    return context!!.createDrawable(color, radius, strokeColor, strokeWidth, enableRipple, rippleColor)
-}
-
-fun RecyclerView.ViewHolder.createDrawable(color: Int = Color.TRANSPARENT, radius: Float = 0f,
-                                           strokeColor: Int = Color.TRANSPARENT, strokeWidth: Int = 0,
-                                           enableRipple: Boolean = true,
-                                           rippleColor: Int = Color.parseColor("#88999999")): Drawable {
-    return itemView.createDrawable(color, radius, strokeColor, strokeWidth, enableRipple, rippleColor)
+                        rippleColor: Int = Color.parseColor("#88999999"),
+                        gradientStartColor: Int = 0, gradientEndColor : Int = 0, gradientOrientation: GradientDrawable.Orientation = GradientDrawable.Orientation.LEFT_RIGHT): Drawable {
+    return context!!.createDrawable(color, radius, strokeColor, strokeWidth, enableRipple, rippleColor, gradientStartColor = gradientStartColor,
+            gradientEndColor = gradientEndColor, gradientOrientation = gradientOrientation)
 }
 
 
@@ -147,6 +152,7 @@ fun RecyclerView.ViewHolder.createDrawable(color: Int = Color.TRANSPARENT, radiu
 fun Context.toast(msg: CharSequence) {
     Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
 }
+
 @Deprecated(message = "请使用ToastUtil")
 fun Context.longToast(msg: CharSequence) {
     Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
