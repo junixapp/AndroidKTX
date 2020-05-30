@@ -1,16 +1,23 @@
 package com.lxj.androidktx.base
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
+import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ImageView
 import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.lxj.androidktx.AndroidKtxConfig
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.click
 import com.lxj.androidktx.core.gone
 import com.lxj.androidktx.core.load
-import com.shuyu.gsyvideoplayer.utils.GSYVideoType
-import com.shuyu.gsyvideoplayer.utils.GSYVideoType.SCREEN_TYPE_FULL
+import com.lxj.androidktx.core.visible
+import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
+import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
+import com.shuyu.gsyvideoplayer.listener.VideoAllCallBack
+import com.shuyu.gsyvideoplayer.utils.OrientationUtils
 import kotlinx.android.synthetic.main._ktx_activity_player.*
 
 
@@ -39,22 +46,31 @@ class PlayerActivity : AdaptActivity(){
             finish()
         }
         var title = intent.getStringExtra("title")?:""
-        var cover = intent.getStringExtra("cover")?:""
-        if(!cover.isNullOrEmpty()){
-            val imageView = ImageView(this)
-            imageView.scaleType = ImageView.ScaleType.CENTER_CROP
-            imageView.load(cover)
-            video_player.thumbImageView = imageView
-        }
-        GSYVideoType.setShowType(SCREEN_TYPE_FULL)
+        var cover = intent.getStringExtra("cover")
+        if(cover.isNullOrEmpty())cover = url
+        val imageView = ImageView(this)
+        imageView.load(cover)
+        video_player.thumbImageView = imageView
+
+        video_player.setVideoAllCallBack(object : GSYSampleCallBack() {
+            override fun onPrepared(url: String?, vararg objects: Any?) {
+                super.onPrepared(url, *objects)
+                video_player.post {
+                    val isRotate = video_player.gsyVideoManager.videoWidth > video_player.gsyVideoManager.videoHeight && video_player.renderProxy.rotation==0f
+                            && requestedOrientation!=ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+//                    LogUtils.e("isRotate:$isRotate   rotation: ${video_player.renderProxy.rotation}")
+                    if(isRotate){
+                        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)
+                    }
+                }
+            }
+        })
         video_player.setUp(url, true, title)
         video_player.startPlayLogic()
         video_player.backButton.scaleX = 1.2f
         video_player.backButton.scaleY = 1.2f
-//        (video_player.backButton.parent as ViewGroup).translationY = AdaptScreenUtils.pt2Px(10f)*1f
         video_player.backButton.click { finish() }
         video_player.fullscreenButton.gone()
-
     }
 
     override fun initView() {

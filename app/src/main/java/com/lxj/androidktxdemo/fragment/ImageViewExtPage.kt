@@ -4,6 +4,7 @@ import android.content.Intent
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.lxj.androidktx.base.PlayerActivity
 import com.lxj.androidktx.base.WebActivity
 import com.lxj.androidktx.core.click
 import com.lxj.androidktx.core.load
@@ -53,9 +54,9 @@ class ImageViewExtPage: BaseFragment(){
 //            ImagePicker.startCamera(this, 1, isCompress = false) //打开相机不压缩
 //            ImagePicker.startCamera(this, 1, isCrop = true) //打开相机并裁剪
 //            ImagePicker.startCamera(this, 1) //打开相机不裁剪
-            ImagePicker.startPicker(this, 1, isCrop = true) //打开相机并裁剪
 //            ImagePicker.startPicker(this, 1, isCrop = true) //打开相机并裁剪
-//            ImagePicker.startPicker(this, 1, types = MimeType.ofVideo(), isCrop = true) //打开相机并裁剪
+//            ImagePicker.startPicker(this, 1, isCrop = true) //打开相机并裁剪
+            ImagePicker.startPicker(this, 1, types = MimeType.ofVideo()) //打开相机并裁剪
 //
 //            Share.init(context!!, BuildConfig.DEBUG, umengAppKey = "5e5d0267570df3806d0002fb",
 //                    wxAppId = "wx31386f28f849f6fe", wxAppKey = "6414a5c0dd7b97d540adef8922d4c31b")
@@ -76,9 +77,10 @@ class ImageViewExtPage: BaseFragment(){
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode==1&& resultCode==-1){
             val url = ImagePicker.fetchResult(data)
-            image1.load(url[0])
-            val len = FileUtils.getFileLength(url[0])
-            LogUtils.e("拍照返回：${url}   大小：${len/1024}k")
+//            image1.load(url[0])
+//            val len = FileUtils.getFileLength(url[0])
+//            LogUtils.e("拍照返回：${url}   大小：${len/1024}k")
+            PlayerActivity.start(url = url[0])
         }
     }
 }

@@ -40,7 +40,7 @@
         <activity android:name="com.king.zxing.CaptureActivity" android:theme="@style/_FullScreenTheme"/>
         <activity android:name=".base.CameraActivity" android:theme="@style/_FullScreenTheme"/>
         <activity android:name=".base.PlayerActivity" android:theme="@style/_FullScreenTheme"
-            android:hardwareAccelerated="true" android:screenOrientation="landscape"/>
+            android:hardwareAccelerated="true" />
         <activity android:name=".picker.PickerEmptyActivity" android:theme="@style/_TranslucentTheme" android:launchMode="singleTop"/>
         <activity android:name=".base.FragmentWrapperActivity" />
 
