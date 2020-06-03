@@ -51,7 +51,7 @@ dependencies {
     api "androidx.lifecycle:lifecycle-extensions:2.2.0"
     api 'com.lxj:statelayout:1.0.7'
     api 'me.jessyan:progressmanager:1.5.0'
-    api 'com.blankj:utilcodex:1.28.4'
+    api 'com.blankj:utilcodex:1.29.0'
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.2'
     api 'top.zibin:Luban:1.1.8'
     api 'com.jeremyliao:live-event-bus-x:1.5.7'  //事件总线
@@ -85,7 +85,7 @@ publish {
     userOrg = 'li-xiaojun'
     groupId = 'com.lxj'
     artifactId = 'androidktx'
-    publishVersion = '1.7.16-x'
+    publishVersion = '1.7.17-x'
     repoName = 'jrepo'
     desc = 'Some very useful kotlin extensions for android development！好用到爆的Kotlin扩展，加速你的Android开发！'
     website = 'https://github.com/li-xiaojun/AndroidKTX'

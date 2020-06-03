@@ -1,18 +1,13 @@
 package com.lxj.androidktxdemo.fragment
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.blankj.utilcode.util.LogUtils
-import com.lxj.androidktx.base.PagerLazyFragment
+import com.lxj.androidktx.base.StateFragment
 
 /**
  * Description:
  * Create by lxj, at 2018/12/4
  */
-abstract class BaseFragment: PagerLazyFragment(){
+abstract class BaseFragment: StateFragment(){
     override fun initView() {
         LogUtils.e("${javaClass::getSimpleName} initView")
     }

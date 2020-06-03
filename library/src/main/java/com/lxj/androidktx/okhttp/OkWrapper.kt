@@ -79,6 +79,9 @@ object OkWrapper {
         return this
     }
 
+    /**
+     * 配置解析Json时的时间格式
+     */
     fun dateFormat(format: String): OkWrapper{
         dateFormat = format
         return this
