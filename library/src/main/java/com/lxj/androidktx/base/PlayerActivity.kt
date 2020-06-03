@@ -2,22 +2,15 @@ package com.lxj.androidktx.base
 
 import android.content.Intent
 import android.content.pm.ActivityInfo
-import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.ImageView
 import com.blankj.utilcode.util.BarUtils
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.lxj.androidktx.AndroidKtxConfig
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.click
 import com.lxj.androidktx.core.gone
 import com.lxj.androidktx.core.load
-import com.lxj.androidktx.core.visible
-import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
-import com.shuyu.gsyvideoplayer.listener.VideoAllCallBack
-import com.shuyu.gsyvideoplayer.utils.OrientationUtils
 import kotlinx.android.synthetic.main._ktx_activity_player.*
 
 

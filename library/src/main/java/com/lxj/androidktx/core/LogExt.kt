@@ -1,6 +1,5 @@
 package com.lxj.androidktx.core
 
-import android.util.Log
 import com.blankj.utilcode.util.LogUtils
 import com.lxj.androidktx.AndroidKtxConfig
 

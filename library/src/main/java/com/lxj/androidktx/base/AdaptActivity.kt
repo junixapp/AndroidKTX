@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Bundle
 import com.blankj.utilcode.util.AdaptScreenUtils
 import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.ScreenUtils
 
 /**
  * Description:
@@ -18,10 +19,14 @@ abstract class AdaptActivity : BaseActivity() {
     }
 
     override fun getResources(): Resources {
+        if(ScreenUtils.isLandscape()){
+            return AdaptScreenUtils.adaptWidth(super.getResources(), getDesignHeight())
+        }
         return AdaptScreenUtils.adaptWidth(super.getResources(), getDesignWidth())
     }
 
     open fun getDesignWidth() = 375
+    open fun getDesignHeight() = 750
 
     open fun isLightMode() = true
 

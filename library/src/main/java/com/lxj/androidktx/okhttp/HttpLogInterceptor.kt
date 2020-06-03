@@ -1,6 +1,6 @@
 package com.lxj.androidktx.okhttp
 
-import com.lxj.androidktx.core.logd
+import android.util.Log
 import okhttp3.Headers
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -23,7 +23,7 @@ class HttpLogInterceptor @JvmOverloads constructor(var printResponseHeader: Bool
     private val requestPrefixEnd = "--------------------------------------->"
     private val responsePrefixStart = "<--------"
     private val responsePrefixEnd = "<-------------------------------------"
-
+    private val tag = "HttpLogInterceptor"
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
@@ -60,14 +60,14 @@ class HttpLogInterceptor @JvmOverloads constructor(var printResponseHeader: Bool
             requestMessage += "\n$requestPrefixEnd END ${request.method()} (no request body)"
         }
         // 4. 打印请求信息
-        logd(requestMessage)
+        log(requestMessage)
 
         val startNs = System.nanoTime()
         val response: Response
         try {
             response = chain.proceed(request)
         } catch (e: Exception) {
-            logd("$responsePrefixStart HTTP FAILED: $e")
+            log("$responsePrefixStart HTTP FAILED: $e")
             throw e
         }
 
@@ -131,7 +131,7 @@ class HttpLogInterceptor @JvmOverloads constructor(var printResponseHeader: Bool
                 "\n$responsePrefixEnd END HTTP (" + buffer.size() + "-byte body)"
             }
         }
-        logd(responseMessage)
+        log(responseMessage)
         return response
     }
 
@@ -189,5 +189,9 @@ class HttpLogInterceptor @JvmOverloads constructor(var printResponseHeader: Bool
                     && !contentEncoding.equals("identity", ignoreCase = true)
                     && !contentEncoding.equals("gzip", ignoreCase = true))
         }
+    }
+    
+    private fun log(msg: String){
+        Log.d(tag, msg)
     }
 }
