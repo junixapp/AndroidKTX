@@ -1,6 +1,7 @@
 package com.lxj.androidktxdemo
 
 import androidx.lifecycle.Observer
+import com.lxj.androidktx.base.StateTitleBarActivity
 import com.lxj.androidktx.base.TitleBarActivity
 import com.lxj.androidktx.core.click
 import com.lxj.androidktx.core.toast
@@ -10,7 +11,7 @@ import kotlinx.android.synthetic.main.demo.*
  * Description:
  * Create by dance, at 2019/7/11
  */
-class DemoActivity : TitleBarActivity(){
+class DemoActivity : StateTitleBarActivity(){
     override fun getBodyLayout() = R.layout.demo
 
     override fun initData() {
@@ -23,4 +24,10 @@ class DemoActivity : TitleBarActivity(){
             AppVM.data.postValue("第一次设置的值。。。")
         }
     }
+
+    override fun onConfigStateLayout() {
+        super.onConfigStateLayout()
+        stateLayout?.config(loadingText = "嘻嘻嘻嘻嘻嘻")
+    }
+
 }

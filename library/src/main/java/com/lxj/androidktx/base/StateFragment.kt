@@ -20,7 +20,7 @@ abstract class StateFragment : Fragment() {
         if (cacheView == null) {
             cacheView = inflater.inflate(getLayoutId(), container, false)
             stateLayout = StateLayout(context!!).wrap(cacheView)
-
+            onConfigStateLayout()
             stateLayout!!.showLoading()
         }
         return stateLayout!!
@@ -56,7 +56,7 @@ abstract class StateFragment : Fragment() {
         if (cacheView != null && userVisibleHint && !isInit) {
             initView()
             initData()
-            if(autoShowContent())postDelay(450){showContent()}
+            if(autoShowContent())postDelay(400){showContent()}
             isInit = true
         }
     }

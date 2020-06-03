@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         app:rightImagePadding="10pt"
         app:leftImagePadding="10pt"
+        app:leftImageSrc="@mipmap/_ktx_ic_back"
         android:layout_height="40pt"/>
     <View
         android:id="@+id/titleDivider"
