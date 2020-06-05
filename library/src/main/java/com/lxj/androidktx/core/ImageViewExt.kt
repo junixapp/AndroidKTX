@@ -1,11 +1,15 @@
 package com.lxj.androidktx.core
 
+import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 
@@ -30,7 +34,9 @@ fun ImageView.load(url: Any?, placeholder: Int = 0, error: Int = 0,
                    isCenterCrop: Boolean = false,
                    roundRadius: Int = 0,
                    isCrossFade: Boolean = false,
-                   isForceOriginalSize: Boolean = false) {
+                   isForceOriginalSize: Boolean = false,
+                   onImageLoad: ((resource: Drawable)->Unit)? = null
+    ) {
     val options = RequestOptions().placeholder(placeholder).error(error).apply {
         if (isCenterCrop && scaleType != ImageView.ScaleType.CENTER_CROP)
             scaleType = ImageView.ScaleType.CENTER_CROP
@@ -55,6 +61,17 @@ fun ImageView.load(url: Any?, placeholder: Int = 0, error: Int = 0,
             .apply(options)
             .apply {
                 if (isCrossFade) transition(DrawableTransitionOptions.withCrossFade())
+                if(onImageLoad!=null){
+                    listener(object : RequestListener<Drawable>{
+                        override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                            return false
+                        }
+                        override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                            onImageLoad(resource!!)
+                            return false
+                        }
+                    })
+                }
             }
             .into(this)
 }

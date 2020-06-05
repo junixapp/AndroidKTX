@@ -1,6 +1,7 @@
 package com.lxj.androidktxdemo.fragment
 
 import android.content.Intent
+import android.graphics.drawable.BitmapDrawable
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -31,7 +32,9 @@ class ImageViewExtPage: BaseFragment(){
     }
 
     private fun loadImage(){
-        image1.load(images[0], placeholder = R.mipmap.ic_launcher)
+        image1.load(images[0], placeholder = R.mipmap.ic_launcher, onImageLoad = {
+            LogUtils.e("图片加载完成：${(it as BitmapDrawable).bitmap.byteCount}")
+        })
         title1.text = "image1.load(url)"
 
 
