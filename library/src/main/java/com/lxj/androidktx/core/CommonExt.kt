@@ -221,24 +221,6 @@ fun RecyclerView.ViewHolder.windowHeight(): Int {
     return itemView.windowHeight()
 }
 
-
-/** 网络相关 **/
-/**
- * 当前网络是否有连接
- */
-fun Any.isNetworkConnected() = NetworkUtils.isConnected()
-
-/**
- * 当前是否是Wifi连接
- */
-fun Any.isWifiConnected() = NetworkUtils.isWifiConnected()
-
-/**
- * 当前是否是移动数据连接
- */
-fun Any.isMobileConnected() = NetworkUtils.isMobileData()
-
-
 /**
  * 数组转bundle
  */
