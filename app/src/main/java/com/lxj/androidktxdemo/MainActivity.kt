@@ -7,6 +7,7 @@ import com.lxj.androidktxdemo.entity.PageInfo
 import com.lxj.androidktxdemo.entity.User
 import com.lxj.androidktxdemo.fragment.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlin.random.Random
 
 
 data class UserTest(
@@ -76,10 +77,28 @@ class MainActivity : AppCompatActivity() {
 //        }
 
 
-        val u1 = UserTest("李晓俊", 25)
-        val u3 = u1.copy()
-        loge("u3： $u3   u1==u3: ${u1===u3}" )
+//        val u1 = UserTest("李晓俊", 25)
+//        val u3 = u1.copy()
+//        loge("u3： $u3   u1==u3: ${u1===u3}" )
+//        val ed = "123456".encryptAES("babamamababamama")
+//        loge("ed: ${ed}")
+//        loge("data: ${ed.decryptAES("babamamababamama")}")
+
+        loge("gen sign：${genSign()}")
+
     }
-
-
+    val signKey = "babamamababamama"
+    fun genSign(): String{
+        //1. 生成10000以内的随机数
+        val random = Random.Default.nextInt(10000)
+        val b = "${10000 - random}".encryptAES(signKey)
+        val c = Random.Default.nextInt(10000)
+        val json = mapOf<String,Any>(
+                "a" to random,
+                "b" to b,
+                "c" to c,
+                "d" to System.currentTimeMillis()
+        ).toJson()
+        return json.encryptAES(signKey)
+    }
 }

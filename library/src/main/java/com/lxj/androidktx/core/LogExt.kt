@@ -69,11 +69,11 @@ fun Any.loge(msg: String){
 private fun intervalLog(level: LogLevel, tag: String, msg: String){
     if(AndroidKtxConfig.isDebug){
         when (level) {
-            LogLevel.Verbose -> LogUtils.v(tag, msg)
-            LogLevel.Debug -> LogUtils.d(tag, msg)
-            LogLevel.Info -> LogUtils.i(tag, msg)
-            LogLevel.Warn -> LogUtils.w(tag, msg)
-            LogLevel.Error -> LogUtils.e(tag, msg)
+            LogLevel.Verbose -> LogUtils.vTag(tag, msg)
+            LogLevel.Debug -> LogUtils.dTag(tag, msg)
+            LogLevel.Info -> LogUtils.iTag(tag, msg)
+            LogLevel.Warn -> LogUtils.wTag(tag, msg)
+            LogLevel.Error -> LogUtils.eTag(tag, msg)
         }
     }
 }

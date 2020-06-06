@@ -1,6 +1,7 @@
 package com.lxj.androidktx.core
 
-import com.lxj.androidktx.util.EncryptUtils
+import android.util.Base64
+import com.blankj.utilcode.util.EncryptUtils
 
 /**
  * Description: 哈希，加密相关
@@ -28,23 +29,31 @@ fun String.sha256Hmac(salt: String) = EncryptUtils.encryptHmacSHA256ToString(thi
  * DES对称加密
  * @param key 长度必须是8位
  */
-fun String.encryptDES(key: String) = EncryptUtils.encryptDES(this, key)
+fun String.encryptDES(key: String) =
+        Base64.encodeToString(
+                EncryptUtils.encryptDES(this.toByteArray(), key.toByteArray(), "DES/CBC/PKCS5Padding", null),
+                Base64.NO_WRAP
+        )
+
 
 /**
  * DES对称解密
  * @param key 长度必须是8位
  */
-fun String.decryptDES(key: String) = EncryptUtils.decryptDES(this, key)
+fun String.decryptDES(key: String) = String(EncryptUtils.decryptDES(Base64.decode(this, Base64.NO_WRAP), key.toByteArray(), "DES/CBC/PKCS5Padding", null))
 
 /**
  * AES对称加密
  * @param key 长度必须是16位
  */
-fun String.encryptAES(key: String) = EncryptUtils.encryptAES(this, key)
+fun String.encryptAES(key: String) = Base64.encodeToString(
+        EncryptUtils.encryptAES(this.toByteArray(), key.toByteArray(), "AES/ECB/PKCS5Padding", null),
+        Base64.NO_WRAP
+)
 
 /**
  * AES对称解密
  * @param key 长度必须是16位
  */
-fun String.decryptAES(key: String) = EncryptUtils.decryptAES(this, key)
+fun String.decryptAES(key: String) = String(EncryptUtils.decryptAES(Base64.decode(this, Base64.NO_WRAP), key.toByteArray(), "AES/ECB/PKCS5Padding", null))
 
