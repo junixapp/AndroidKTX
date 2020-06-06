@@ -35,7 +35,7 @@ fun ImageView.load(url: Any?, placeholder: Int = 0, error: Int = 0,
                    roundRadius: Int = 0,
                    isCrossFade: Boolean = false,
                    isForceOriginalSize: Boolean = false,
-                   onImageLoad: ((resource: Drawable)->Unit)? = null
+                   onImageLoad: ((resource: Drawable?)->Unit)? = null
     ) {
     val options = RequestOptions().placeholder(placeholder).error(error).apply {
         if (isCenterCrop && scaleType != ImageView.ScaleType.CENTER_CROP)
@@ -67,7 +67,7 @@ fun ImageView.load(url: Any?, placeholder: Int = 0, error: Int = 0,
                             return false
                         }
                         override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                            onImageLoad(resource!!)
+                            onImageLoad(resource)
                             return false
                         }
                     })
