@@ -8,13 +8,14 @@ import java.nio.charset.Charset
 /**
  * 通用的Token拦截器，支持bearer token；支持json response text callback.
  */
-class TokenInterceptor(var tokenAction: (resData: String) -> Unit, var isBearerToken: Boolean = false) : Interceptor {
+class TokenInterceptor(var isBearerToken: Boolean = false,  var tokenField: String = "token",
+                       var tokenAction: (resData: String) -> Unit) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         var request = chain.request()
         val token = sp().getString("token", null)
         if (token != null) {
             if (!isBearerToken) {
-                request = request.newBuilder().addHeader("token", token).build()
+                request = request.newBuilder().addHeader(tokenField, token).build()
             } else {
                 request = request.newBuilder().addHeader("Authorization", "bearer ${token}").build()
             }
