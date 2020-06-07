@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.widget.ImageView
 import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.lxj.androidktx.AndroidKtxConfig
 import com.lxj.androidktx.R
@@ -15,7 +16,7 @@ import kotlinx.android.synthetic.main._ktx_activity_player.*
 
 
 /**
- * Description:
+ * Description: 视频播放界面
  * Create by dance, at 2019/8/15
  */
 class PlayerActivity : AdaptActivity(){
@@ -50,10 +51,10 @@ class PlayerActivity : AdaptActivity(){
                 super.onPrepared(url, *objects)
                 video_player.post {
                     val isRotate = video_player.gsyVideoManager.videoWidth > video_player.gsyVideoManager.videoHeight && video_player.renderProxy.rotation==0f
-                            && requestedOrientation!=ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+                            && ScreenUtils.isPortrait()
 //                    LogUtils.e("isRotate:$isRotate   rotation: ${video_player.renderProxy.rotation}")
                     if(isRotate){
-                        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)
+                        ScreenUtils.setLandscape(this@PlayerActivity)
                     }
                 }
             }
