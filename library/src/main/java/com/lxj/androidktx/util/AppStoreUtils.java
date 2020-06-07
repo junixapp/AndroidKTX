@@ -75,7 +75,7 @@ public final class AppStoreUtils {
         }
 
         Uri uri = Uri.parse("market://details?id=" + packageName);
-        Intent intent = new Intent();
+        Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(uri);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         List<ResolveInfo> resolveInfos = Utils.getApp().getPackageManager()
@@ -115,7 +115,7 @@ public final class AppStoreUtils {
     }
 
     private static Intent getNormalAppStoreIntent() {
-        Intent intent = new Intent();
+        Intent intent = new Intent(Intent.ACTION_VIEW);
         Uri uri = Uri.parse("market://details?id=" + Utils.getApp().getPackageName());
         intent.setData(uri);
         if (getAvailableIntentSize(intent) > 0) {
@@ -125,7 +125,7 @@ public final class AppStoreUtils {
     }
 
     private static Intent getSamsungAppStoreIntent(final String packageName) {
-        Intent intent = new Intent();
+        Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setClassName("com.sec.android.app.samsungapps", "com.sec.android.app.samsungapps.Main");
         intent.setData(Uri.parse("http://www.samsungapps.com/appquery/appDetail.as?appId=" + packageName));
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -136,7 +136,7 @@ public final class AppStoreUtils {
     }
 
     private static Intent getLeecoAppStoreIntent(final String packageName) {
-        Intent intent = new Intent();
+        Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setClassName("com.letv.app.appstore", "com.letv.app.appstore.appmodule.details.DetailsActivity");
         intent.setAction("com.letv.app.appstore.appdetailactivity");
         intent.putExtra("packageName", packageName);
