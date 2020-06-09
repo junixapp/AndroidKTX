@@ -141,15 +141,15 @@ object Share {
         UMShareAPI.get(activity).deleteOauth(activity, convertPlatform(platform), OauthCallback(callback))
     }
 
-    fun shareWithUI(
-            activity: Activity, platform: SharePlatform, bitmap: Bitmap? = null, text: String = "", url: String = "",
-            title: String = "", callback: ShareCallback? = null
-    ) {
-        checkPermission(activity) {
-            XPopup.Builder(activity).asCustom(SharePopup(activity)).show()
-//            doShare(activity, platform, bitmap, text, url, title, callback)
-        }
-    }
+//    fun shareWithUI(
+//            activity: Activity, platform: SharePlatform, bitmap: Bitmap? = null, text: String = "", url: String = "",
+//            title: String = "", callback: ShareCallback? = null
+//    ) {
+//        checkPermission(activity) {
+//            XPopup.Builder(activity).asCustom(SharePopup(activity)).show()
+////            doShare(activity, platform, bitmap, text, url, title, callback)
+//        }
+//    }
 
     private fun doShare(
             activity: Activity, platform: SHARE_MEDIA, bitmap: Bitmap? = null, text: String? = null, url: String? = null,

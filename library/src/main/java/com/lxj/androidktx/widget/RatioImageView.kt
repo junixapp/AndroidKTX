@@ -7,11 +7,11 @@ package com.lxj.androidktx.widget
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
-import android.widget.ImageView
+import androidx.appcompat.widget.AppCompatImageView
 import com.lxj.androidktx.R
 
 class RatioImageView @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null, defStyleAttr: Int = 0)
-    : ImageView(context, attributeSet, defStyleAttr) {
+    : AppCompatImageView(context, attributeSet, defStyleAttr) {
 
     var ratio = 0f
 
