@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.lxj.androidktx.livedata.StateLiveData
+import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.impl.LoadingPopupView
 import com.lxj.xpopup.interfaces.XPopupImageLoader
 import java.io.File
@@ -21,23 +22,24 @@ fun LoadingPopupView.bindState(state: StateLiveData.State,
                                onSuccess: (()->Unit)? = null,
                                onError: (()->Unit)? = null,
                                onEmpty: (()->Unit)? = null){
+    val delay = XPopup.getAnimationDuration().toLong()+50
     when(state){
         StateLiveData.State.Loading->{
             show()
             onLoading?.invoke()
         }
         StateLiveData.State.Success->{
-            delayDismissWith(500){
+            delayDismissWith(delay){
                 onSuccess?.invoke()
             }
         }
         StateLiveData.State.Empty->{
-            delayDismissWith(500){
+            delayDismissWith(delay){
                 onEmpty?.invoke()
             }
         }
         StateLiveData.State.Error->{
-            delayDismissWith(500){
+            delayDismissWith(delay){
                 onError?.invoke()
             }
         }

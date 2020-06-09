@@ -30,9 +30,9 @@ class StateLiveData<T> : NoStickyLiveData<T>() {
         super.postValue(value)
         postSuccess()
     }
-    fun postEmptyAndSuccess(t: T){
+    fun postEmpty(t: T?){
         super.postValue(t)
-        postEmpty()
+        state.postValue(State.Empty)
     }
 
     fun clearState() {
@@ -51,10 +51,6 @@ class StateLiveData<T> : NoStickyLiveData<T>() {
     fun postError(error: String = "") {
         if(error.isNotEmpty()) this.errMsg = error
         state.postValue(State.Error)
-    }
-
-    fun postEmpty() {
-        state.postValue(State.Empty)
     }
 
     fun changeState(s: State) {
@@ -83,12 +79,17 @@ class StateLiveData<T> : NoStickyLiveData<T>() {
     /**
      * 智能post值，能根据值进行智能的设置自己的状态，无需手工编写代码
      * @param dataValue 目标值，根据目标值去设置对应的state
+     * @param nullIsEmpty 是否把null当做Empty状态，默认false
      */
-    fun smartPost(dataValue: T?){
+    fun smartPost(dataValue: T?, nullIsEmpty: Boolean = false){
         if(dataValue==null){
-            postError() //未得到期望数据，不传递null
+            if(nullIsEmpty){
+                postEmpty(dataValue)
+            }else{
+                postError() //未得到期望数据，不传递null
+            }
         }else if(dataValue is Collection<*> && dataValue.isEmpty()){
-            postEmptyAndSuccess(dataValue) //数据成功但是空，需要传递空，UI需要刷新
+            postEmpty(dataValue) //数据成功但是空，需要传递空，UI需要刷新
         }else{
             postValueAndSuccess(dataValue)
         }
@@ -99,10 +100,12 @@ class StateLiveData<T> : NoStickyLiveData<T>() {
      * launchAndSmartPost {
      *      "https://iandroid.xyz/api".http().get<T>().await()
      * }
+     * @param block 执行块
+     * @param nullIsEmpty 是否把null值当做Empty处理，默认false
      */
-    fun launchAndSmartPost(block: suspend CoroutineScope.() -> T?): Job {
+    fun launchAndSmartPost(block: suspend CoroutineScope.() -> T?, nullIsEmpty: Boolean = false): Job {
         postLoading()
-        return GlobalScope.launch { smartPost(block()) }
+        return GlobalScope.launch { smartPost(block(), nullIsEmpty) }
     }
 
 
