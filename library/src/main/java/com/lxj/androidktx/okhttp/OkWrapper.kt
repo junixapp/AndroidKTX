@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit
  */
 object OkWrapper {
     const val DefaultUrlTag = "okhttp"
+    const val NoBaseUrl = ""
     private var httpTimeout = 15000L  //15s
     val globalHeaders = arrayListOf<Pair<String, String>>()
     val requestCache = hashMapOf<Any, Call>()
@@ -63,6 +64,9 @@ object OkWrapper {
         return this
     }
 
+    /**
+     * 设置baseUrl，必须以/结尾；支持多个baseUrl设置
+     */
     fun baseUrl(tag: String = DefaultUrlTag, url: String): OkWrapper{
         if(!url.endsWith("/")){
             throw IllegalArgumentException("baseUrl必须以/结尾")
@@ -87,6 +91,9 @@ object OkWrapper {
         return this
     }
 
+    /**
+     * 取消请求
+     */
     fun cancel(tag: Any){
         requestCache[tag]?.cancel()
         requestCache.remove(tag)
