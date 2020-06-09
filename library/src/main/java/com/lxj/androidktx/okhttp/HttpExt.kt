@@ -42,10 +42,11 @@ inline fun <reified T> RequestWrapper.get(cb: HttpCallback<T>) {
 /**
  * post请求，需在协程中使用。结果为空即为http请求失败，并会将失败信息打印日志。
  */
-inline fun <reified T> RequestWrapper.post(forceMultiPart: Boolean = false): Deferred<T?> {
-    return defferedRequest(buildPostRequest(forceMultiPart = forceMultiPart), this)
+inline fun <reified T> RequestWrapper.post(): Deferred<T?> {
+    return defferedRequest(buildPostRequest(), this)
 }
 
+@Deprecated(message = "过时，请使用params()方法来设置", replaceWith = ReplaceWith(" 'url'.http().params(map, isJson = true) "))
 inline fun <reified T> RequestWrapper.postJson(json: String = ""): Deferred<T?> {
     return defferedRequest(buildPostRequest(buildJsonBody(json)), this)
 }
@@ -53,10 +54,11 @@ inline fun <reified T> RequestWrapper.postJson(json: String = ""): Deferred<T?> 
 /**
  * callback style，不在协程中使用
  */
-inline fun <reified T> RequestWrapper.post(cb: HttpCallback<T>, forceMultiPart: Boolean = false) {
-    callbackRequest(buildPostRequest(forceMultiPart = forceMultiPart), cb, this)
+inline fun <reified T> RequestWrapper.post(cb: HttpCallback<T>) {
+    callbackRequest(buildPostRequest(), cb, this)
 }
 
+@Deprecated(message = "过时，请使用params()方法来设置", replaceWith = ReplaceWith(" 'url'.http().params(map, isJson = true) "))
 inline fun <reified T> RequestWrapper.postJson(json: String = "", cb: HttpCallback<T>) {
     callbackRequest(buildPostRequest(buildJsonBody(json)), cb, this)
 }
@@ -64,10 +66,11 @@ inline fun <reified T> RequestWrapper.postJson(json: String = "", cb: HttpCallba
 /**
  * put请求，需在协程中使用。结果为空即为http请求失败，并会将失败信息打印日志。
  */
-inline fun <reified T> RequestWrapper.put(forceMultiPart: Boolean = false): Deferred<T?> {
-    return defferedRequest(buildPutRequest(forceMultiPart = forceMultiPart), this)
+inline fun <reified T> RequestWrapper.put(): Deferred<T?> {
+    return defferedRequest(buildPutRequest(), this)
 }
 
+@Deprecated(message = "过时，请使用params()方法来设置", replaceWith = ReplaceWith(" 'url'.http().params(map, isJson = true) "))
 inline fun <reified T> RequestWrapper.putJson(json: String = ""): Deferred<T?> {
     return defferedRequest(buildPutRequest(buildJsonBody(json)), this)
 }
@@ -76,9 +79,10 @@ inline fun <reified T> RequestWrapper.putJson(json: String = ""): Deferred<T?> {
  * callback style，不在协程中使用
  */
 inline fun <reified T> RequestWrapper.put(cb: HttpCallback<T>, forceMultiPart: Boolean = false) {
-    callbackRequest(buildPutRequest(forceMultiPart = forceMultiPart), cb, this)
+    callbackRequest(buildPutRequest(), cb, this)
 }
 
+@Deprecated(message = "过时，请使用params()方法来设置", replaceWith = ReplaceWith(" 'url'.http().params(map, isJson = true) "))
 inline fun <reified T> RequestWrapper.putJson(json: String = "", cb: HttpCallback<T>) {
     callbackRequest(buildPutRequest(buildJsonBody(json)), cb, this)
 }

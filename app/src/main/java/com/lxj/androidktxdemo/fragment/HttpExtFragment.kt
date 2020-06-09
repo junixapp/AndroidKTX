@@ -7,6 +7,7 @@ import com.lxj.androidktx.core.*
 import com.lxj.androidktx.livedata.StateLiveData
 import com.lxj.androidktx.okhttp.*
 import com.lxj.androidktxdemo.R
+import com.lxj.androidktxdemo.entity.HttpResult
 import com.lxj.androidktxdemo.entity.User
 import kotlinx.android.synthetic.main.fragment_http_ext.*
 import java.io.File
@@ -44,14 +45,12 @@ class HttpExtFragment : BaseFragment() {
         OkWrapper.interceptors()
 
         btnSend.click {
-//            loginData.launchAndSmartPost {
-//                val result = "http://47.111.131.25:8080/yezi-api/api/students/vcodeLogin".http()
-//                        .postJson<HttpResult<User>>(
-//                                mapOf(
-//                                        "account" to "15172326747",
-//                                        "vcode" to "1234"
-//                                ).toJson()
-//                        ).await()
+            loginData.launchAndSmartPost {
+                val result = "http://47.111.131.25:8080/yezi-api/api/students/vcodeLogin".http()
+                        .params(mapOf(), isJson = true)
+                        .post<HttpResult<User>>()
+                        .await()?.data
+                result
 //                loge("result: $result")
 //                if (result?.isSuccess() == true) {
 //                    val user = result.data
@@ -60,7 +59,7 @@ class HttpExtFragment : BaseFragment() {
 //                    loginData.errMsg = result?.errmsg ?: "登录失败"
 //                }
 //                result?.data //内部会根据数据自动设置data的状态
-//            }
+            }
         }
     }
 

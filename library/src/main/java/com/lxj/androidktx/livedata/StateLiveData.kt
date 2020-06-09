@@ -49,7 +49,7 @@ class StateLiveData<T> : NoStickyLiveData<T>() {
     }
 
     fun postError(error: String = "") {
-        if(error.isNotEmpty()) this.errMsg = ""
+        if(error.isNotEmpty()) this.errMsg = error
         state.postValue(State.Error)
     }
 
