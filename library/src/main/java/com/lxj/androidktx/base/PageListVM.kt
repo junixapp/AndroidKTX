@@ -63,7 +63,7 @@ abstract class PageListVM<T> : ViewModel(),
 
     abstract fun load()
 
-    fun processData(listWrapper: ListWrapper<T>?) {
+    fun processData(listWrapper: ListWrapper<T>?, nullIsEmpty: Boolean = false) {
         if (listWrapper != null) {
             hasMore = page < listWrapper.pages
             var list = listData.value
@@ -73,11 +73,11 @@ abstract class PageListVM<T> : ViewModel(),
                 list?.addAll(listWrapper.records)
                 listData.postValueAndSuccess(list!!)
             } else {
-//                listData.postEmpty()
-                listData.postEmptyAndSuccess(list!!)
+                listData.postEmpty(list)
             }
         } else {
-            listData.postError()
+            if(nullIsEmpty) listData.postEmpty(null)
+            else listData.postError()
         }
     }
 

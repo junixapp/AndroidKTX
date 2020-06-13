@@ -30,7 +30,7 @@ class StateLiveData<T> : NoStickyLiveData<T>() {
         super.postValue(value)
         postSuccess()
     }
-    fun postEmpty(t: T?){
+    fun postEmpty(t: T? = null){
         super.postValue(t)
         state.postValue(State.Empty)
     }
@@ -103,7 +103,7 @@ class StateLiveData<T> : NoStickyLiveData<T>() {
      * @param block 执行块
      * @param nullIsEmpty 是否把null值当做Empty处理，默认false
      */
-    fun launchAndSmartPost(block: suspend CoroutineScope.() -> T?, nullIsEmpty: Boolean = false): Job {
+    fun launchAndSmartPost( nullIsEmpty: Boolean = false, block: suspend CoroutineScope.() -> T?): Job {
         postLoading()
         return GlobalScope.launch { smartPost(block(), nullIsEmpty) }
     }

@@ -49,7 +49,7 @@ dependencies {
     // inline函数在运行时插入使用处，需要暴露出去
     api "com.squareup.okhttp3:okhttp:3.12.1"
     api "androidx.lifecycle:lifecycle-extensions:2.2.0"
-    api 'com.lxj:statelayout:1.0.7'
+    api 'com.lxj:statelayout:1.0.8'
     api 'me.jessyan:progressmanager:1.5.0'
     api 'com.blankj:utilcodex:1.29.0'
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.2'
@@ -60,14 +60,14 @@ dependencies {
     api 'com.shuyu:gsyVideoPlayer-armv7a:7.1.4'
     api 'com.shuyu:gsyVideoPlayer-arm64:7.1.4'
     api 'cjt.library.wheel:camera:1.1.9'    //拍照和拍摄视频
-    api 'com.lxj:xpopup:1.9.8'       //弹窗
+    api 'com.lxj:xpopup:1.9.9'       //弹窗
     api 'com.king.zxing:zxing-lite:1.1.9-androidx'  //二维码扫描
     api 'com.google.android:flexbox:2.0.1'
     api 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
     api "androidx.viewpager2:viewpager2:1.0.0"
     api 'com.just.agentweb:agentweb:4.1.3' // (必选)
-    api 'com.just.agentweb:filechooser:4.1.3'// (可选)
-    api 'com.download.library:Downloader:4.1.3'// (可选)
+//    api 'com.just.agentweb:filechooser:4.1.3'// (可选)
+//    api 'com.download.library:Downloader:4.1.3'// (可选)
     api 'com.contrarywind:Android-PickerView:4.1.9' //picker
     implementation files('libs/umeng-common-2.2.5.jar')
     implementation files('libs/umeng-share-core-6.9.8.jar')
@@ -85,7 +85,7 @@ publish {
     userOrg = 'li-xiaojun'
     groupId = 'com.lxj'
     artifactId = 'androidktx'
-    publishVersion = '1.7.27-x'
+    publishVersion = '1.7.28-x'
     repoName = 'jrepo'
     desc = 'Some very useful kotlin extensions for android development！好用到爆的Kotlin扩展，加速你的Android开发！'
     website = 'https://github.com/li-xiaojun/AndroidKTX'
