@@ -86,6 +86,7 @@ class MainActivity : AppCompatActivity() {
 
         loge("gen sign：${genSign()}")
 
+
     }
     val signKey = "babamamababamama"
     fun genSign(): String{
