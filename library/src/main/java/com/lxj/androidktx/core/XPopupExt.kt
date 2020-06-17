@@ -3,8 +3,8 @@ package com.lxj.androidktx.core
 import android.content.Context
 import android.widget.ImageView
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
@@ -18,13 +18,13 @@ import java.io.File
 /**
  * 绑定LiveData的状态，警惕LoadingView过早关闭的时候，state的状态还未执行
  */
-fun LoadingPopupView.bindState(state: StateLiveData.State,
+fun LoadingPopupView.bindState(liveData: StateLiveData<*>,
                                onLoading: (()->Unit)? = null,
                                onSuccess: (()->Unit)? = null,
                                onError: (()->Unit)? = null,
                                onEmpty: (()->Unit)? = null){
     val delay = XPopup.getAnimationDuration().toLong()+50
-    when(state){
+    when(liveData.state.value){
         StateLiveData.State.Loading->{
             show()
             onLoading?.invoke()
@@ -47,6 +47,7 @@ fun LoadingPopupView.bindState(state: StateLiveData.State,
         StateLiveData.State.Error->{
             if(popupStatus==PopupStatus.Dismissing || popupStatus==PopupStatus.Dismiss){
                 //如果已经关闭
+                if(liveData.errMsg.isNotEmpty())ToastUtils.showShort(liveData.errMsg)
                 onError?.invoke()
             }else{
                 delayDismissWith(delay){
@@ -61,13 +62,13 @@ fun LoadingPopupView.bindState(state: StateLiveData.State,
  * 直接监听state状态
  */
 fun LoadingPopupView.observeState(owner: LifecycleOwner,
-                                  state: MutableLiveData<StateLiveData.State>,
+                                  liveData: StateLiveData<*>,
                                   onLoading: (()->Unit)? = null,
                                   onSuccess: (()->Unit)? = null,
                                   onError: (()->Unit)? = null,
                                   onEmpty: (()->Unit)? = null){
-    state.observe(owner, Observer<StateLiveData.State> {
-        bindState(it, onLoading = onLoading, onSuccess = onSuccess,
+    liveData.state.observe(owner, Observer<StateLiveData.State> {
+        bindState(liveData, onLoading = onLoading, onSuccess = onSuccess,
                 onError = onError, onEmpty = onEmpty)
     })
 }
