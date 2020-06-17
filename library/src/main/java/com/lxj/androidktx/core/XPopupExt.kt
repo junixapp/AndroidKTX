@@ -10,12 +10,13 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.lxj.androidktx.livedata.StateLiveData
 import com.lxj.xpopup.XPopup
+import com.lxj.xpopup.enums.PopupStatus
 import com.lxj.xpopup.impl.LoadingPopupView
 import com.lxj.xpopup.interfaces.XPopupImageLoader
 import java.io.File
 
 /**
- * 绑定LiveData的状态
+ * 绑定LiveData的状态，警惕LoadingView过早关闭的时候，state的状态还未执行
  */
 fun LoadingPopupView.bindState(state: StateLiveData.State,
                                onLoading: (()->Unit)? = null,
@@ -34,13 +35,23 @@ fun LoadingPopupView.bindState(state: StateLiveData.State,
             }
         }
         StateLiveData.State.Empty->{
-            delayDismissWith(delay){
+            if(popupStatus==PopupStatus.Dismissing || popupStatus==PopupStatus.Dismiss){
+                //如果已经关闭
                 onEmpty?.invoke()
+            }else{
+                delayDismissWith(delay){
+                    onEmpty?.invoke()
+                }
             }
         }
         StateLiveData.State.Error->{
-            delayDismissWith(delay){
+            if(popupStatus==PopupStatus.Dismissing || popupStatus==PopupStatus.Dismiss){
+                //如果已经关闭
                 onError?.invoke()
+            }else{
+                delayDismissWith(delay){
+                    onError?.invoke()
+                }
             }
         }
     }

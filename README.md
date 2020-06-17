@@ -573,6 +573,30 @@ Share.wechatLogin(this@AccountSettingActivity, object : Share.ShareLoginCallback
 })
 ```
 
+## 图片和视频选择，拍照
+- 拍照
+```
+ImagePicker.startCamera()
+```
+- 选择照片或视频
+```
+ImagePicker.startPicker()
+```
+- 获取结果
+```
+ImagePicker.fetchResult(intent) //在onActivityResult方法中使用
+```
+
+## 支付
+- 支付宝支付
+```
+PayVM.aliPay(...)
+```
+- 微信支付
+```
+PayVM.wxPay(...)
+```
+
 
 ## TODO
 - 其他常用方法集成
