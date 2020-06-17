@@ -32,7 +32,8 @@ class ImageViewExtPage: BaseFragment(){
     }
 
     private fun loadImage(){
-        image1.load(images[0], placeholder = R.mipmap.ic_launcher, onImageLoad = {
+        image1.load(images[0], placeholder = R.mipmap.ic_launcher, isCenterCrop = true,
+                roundRadius = 100, onImageLoad = {
             LogUtils.e("图片加载完成：${(it as BitmapDrawable).bitmap.byteCount}")
         })
         title1.text = "image1.load(url)"
