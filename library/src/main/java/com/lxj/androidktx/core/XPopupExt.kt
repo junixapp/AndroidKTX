@@ -51,6 +51,7 @@ fun LoadingPopupView.bindState(liveData: StateLiveData<*>,
                 onError?.invoke()
             }else{
                 delayDismissWith(delay){
+                    if(liveData.errMsg.isNotEmpty())ToastUtils.showShort(liveData.errMsg)
                     onError?.invoke()
                 }
             }
@@ -63,10 +64,12 @@ fun LoadingPopupView.bindState(liveData: StateLiveData<*>,
  */
 fun LoadingPopupView.observeState(owner: LifecycleOwner,
                                   liveData: StateLiveData<*>,
+                                  title: String = "加载中",
                                   onLoading: (()->Unit)? = null,
                                   onSuccess: (()->Unit)? = null,
                                   onError: (()->Unit)? = null,
                                   onEmpty: (()->Unit)? = null){
+    setTitle(title)
     liveData.state.observe(owner, Observer<StateLiveData.State> {
         bindState(liveData, onLoading = onLoading, onSuccess = onSuccess,
                 onError = onError, onEmpty = onEmpty)

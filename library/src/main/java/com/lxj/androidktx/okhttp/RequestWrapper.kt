@@ -18,7 +18,7 @@ data class RequestWrapper(
         private var url: String = "",
         var savePath: String = "",
         private var headers: ArrayList<Pair<String, String>> = arrayListOf(),
-        private var params: ArrayList<Pair<String, Any>> = arrayListOf(),
+        private var params: Map<String, Any> = mapOf(),
         private var isJsonParam: Boolean = false, //是否是json编码
         private var isMultiPartParam: Boolean = false //是否是multi-part编码
 ) {
@@ -34,18 +34,6 @@ data class RequestWrapper(
 
     /**
      * 设置参数
-     * @param params 参数
-     * @param isJson 是否是json编码，默认false
-     * @param isMultiPart 是否是multi-part编码，默认为false。OkWrapper会自动识别是否为multi-part编码，只有你想强制指定的时候会用到这个参数
-     */
-    fun params(vararg params: Pair<String, Any>, isJson: Boolean = false, isMultiPart: Boolean = false): RequestWrapper {
-        isJsonParam = isJson
-        isMultiPartParam = isMultiPart
-        params.forEach { this.params.add(Pair(it.first, if (it.second is File || it.second is Array<*> || it.second is List<*>) it.second else "${it.second}")) }
-        return this
-    }
-    /**
-     * 设置参数
      * @param map 参数
      * @param isJson 是否是json编码，默认false
      * @param isMultiPart 是否是multi-part编码，默认为false。OkWrapper会自动识别是否为multi-part编码，只有你想强制指定的时候会用到这个参数
@@ -53,7 +41,7 @@ data class RequestWrapper(
     fun params(map: Map<String, Any>, isJson: Boolean = false, isMultiPart: Boolean = false): RequestWrapper {
         isJsonParam = isJson
         isMultiPartParam = isMultiPart
-        map.forEach { this.params.add(Pair(it.key, if (it.value is File || it.value is Array<*>) it.value else "${it.value}")) }
+        this.params = map
         return this
     }
 
@@ -96,9 +84,11 @@ data class RequestWrapper(
 
     private fun buildRequestBody(): RequestBody {
         if (isMultiPart()) {
+            val pairs = arrayListOf<Pair<String, Any>>()
+            params.forEach { pairs.add(Pair(it.key, if (it.value is File || it.value is Array<*>) it.value else "${it.value}")) }
             // 自动识别 multipart/form-data
             val builder = MultipartBody.Builder()
-            params.forEach {
+            pairs.forEach {
                 if (it.second is String) {
                     builder.addFormDataPart(it.first, it.second as String)
                 } else if (it.second is File) { //single file
@@ -125,7 +115,7 @@ data class RequestWrapper(
             return builder.setType(MultipartBody.FORM).build()
         } else if(isMultiPartParam){
             val builder = MultipartBody.Builder()
-            params.forEach { builder.addFormDataPart(it.first, it.second as String) }
+            params.forEach { builder.addFormDataPart(it.key, it.value as String)   }
             return builder.setType(MultipartBody.FORM).build()
         } else if(isJsonParam){
             // json编码
@@ -133,7 +123,7 @@ data class RequestWrapper(
         }else{
             // default is form-data url-encoded
             val builder = FormBody.Builder()
-            params.forEach { builder.add(it.first, it.second as String) }
+            params.forEach { builder.add(it.key, it.value as String)  }
             return builder.build()
         }
     }
@@ -142,10 +132,10 @@ data class RequestWrapper(
         return RequestBody.create(MediaType.parse("application/json"), json)
     }
 
-    private fun isMultiPart() = params.any { it.second is File || it.second is Array<*> || it.second is List<*>}
+    private fun isMultiPart() = params.any { it.value is File || it.value is Array<*> || it.value is List<*>}
 
     private fun urlParams(): String {
-        val queryParams = if (params().isEmpty()) "" else "?" + params.joinToString(separator = "&", transform = {
+        val queryParams = if (params().isEmpty()) "" else "?" + params.toList().joinToString(separator = "&", transform = {
             "${it.first}=${it.second}"
         })
         return "${url()}$queryParams"
