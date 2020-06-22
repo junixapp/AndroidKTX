@@ -19,9 +19,9 @@ implementation 'com.lxj:androidktx:${latest-version}'
 使用之前需要先初始化，初始化的作用是初始默认配置和注入Context。
 ```kotlin
 // 简单注册，保持默认配置
-AndroidKtxConfig.init(this)
+AndroidKTX.init(this)
 // 也可以详细注册，自定义配置
-AndroidKtxConfig.init(context = this,
+AndroidKTX.init(context = this,
         isDebug = BuildConfig.DEBUG,
         defaultLogTag = "logTag",
         sharedPrefName = "spName")
@@ -59,7 +59,7 @@ AndroidKtxConfig.init(context = this,
 "我是测试".loge()
 ```
 ![weather_humidity](imgs/log.png)
-> Log的默认tag和开关配置在AndroidKtxConfig类中，可动态配置。
+> Log的默认tag和开关配置在AndroidKTX类中，可动态配置。
 
 或者这样使用：
 ```kotlin
