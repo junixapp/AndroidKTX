@@ -385,7 +385,7 @@ vm.userData.state.observe(this, Observer {
     }
 })
 ```
-3. LifecycleHandler: 自动在UI销毁时移除msg和任务，避免内存泄露的Handler
+3. LifecycleHandler: 自动在UI销毁时移除msg和任务，天然不会内存泄露的Handler
 
 
 

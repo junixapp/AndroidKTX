@@ -46,7 +46,6 @@ class ViewExtPage : BaseFragment() {
 //                    "a" to 1,
 //                    "b" to "lala"
 //            ))
-            toast("w: ${windowWidth()} h:${windowHeight()}")
             "click just only 1 time in 350 ms".loge()
 //            text4.gone()
 //            text4.isVisible.toString().v()
