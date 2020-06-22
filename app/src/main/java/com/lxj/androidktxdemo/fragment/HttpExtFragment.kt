@@ -32,7 +32,7 @@ class HttpExtFragment : BaseFragment() {
         tvResponse.sizeDrawable(dp2px(20f), topDrawable = R.mipmap.ic_launcher)
 
         // 全局header
-        OkWrapper.headers("site" to "CN",
+        OkExt.headers("site" to "CN",
                 "name" to "GullMap_world",
                 "language" to "zh-CN",
                 "currency" to "CNY",
@@ -42,7 +42,7 @@ class HttpExtFragment : BaseFragment() {
         )
 
 //        OkWrapper.headers("header1" to "a", "header2" to "b")
-        OkWrapper.interceptors()
+        OkExt.interceptors()
 
         btnSend.click {
             loginData.launchAndSmartPost {

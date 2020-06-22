@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
  * Description: OkHttp封装
  * Create by lxj, at 2018/12/25
  */
-object OkWrapper {
+object OkExt {
     const val DefaultUrlTag = "okhttp"
     const val NoBaseUrl = ""
     private var httpTimeout = 15000L  //15s
@@ -49,7 +49,7 @@ object OkWrapper {
     /**
      * 设置全局公共Header
      */
-    fun headers(vararg headers: Pair<String, String>): OkWrapper {
+    fun headers(vararg headers: Pair<String, String>): OkExt {
         headers.forEach { globalHeaders.add(it) }
         return this
     }
@@ -57,7 +57,7 @@ object OkWrapper {
     /**
      * 设置拦截器
      */
-    fun interceptors(vararg interceptors: Interceptor): OkWrapper {
+    fun interceptors(vararg interceptors: Interceptor): OkExt {
         val builder = okHttpClient.newBuilder()
         interceptors.forEach { builder.addInterceptor(it) }
         okHttpClient = builder.build()
@@ -67,7 +67,7 @@ object OkWrapper {
     /**
      * 设置baseUrl，必须以/结尾；支持多个baseUrl设置
      */
-    fun baseUrl(tag: String = DefaultUrlTag, url: String): OkWrapper{
+    fun baseUrl(tag: String = DefaultUrlTag, url: String): OkExt{
         if(!url.endsWith("/")){
             throw IllegalArgumentException("baseUrl必须以/结尾")
         }
@@ -78,7 +78,7 @@ object OkWrapper {
     /**
      * 设置自定义的Client
      */
-    fun setClient(client: OkHttpClient): OkWrapper{
+    fun setClient(client: OkHttpClient): OkExt{
         okHttpClient = client
         return this
     }
@@ -86,7 +86,7 @@ object OkWrapper {
     /**
      * 配置解析Json时的时间格式
      */
-    fun dateFormat(format: String): OkWrapper{
+    fun dateFormat(format: String): OkExt{
         dateFormat = format
         return this
     }

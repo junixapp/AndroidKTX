@@ -344,16 +344,16 @@ GlobalScope.launch {
 - 其他
 ```kotlin
         // 设置自定义的Client
-OkWrapper.setClient(...)
+OkExt.setClient(...)
         // 设置全局header
         .headers("header1" to "a", "header2" to "b", ...)
         // 设置拦截器
         .interceptors(...)
-        .baseUrl("https://lixiaojun.xin")
+        .baseUrl("https://lixiaojun.xin/")
 
 // 取消请求
 "http://192.168.1.103:3000/json".http(tag = "abc").get<String>() //需要先指定tag
-OkWrapper.cancel("abc")
+OkExt.cancel("abc")
 ```
 
 ### LiveDataBus相关

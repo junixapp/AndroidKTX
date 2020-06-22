@@ -21,8 +21,8 @@ import java.net.URLConnection.getFileNameMap
  * @param tag 请求的tag，用于取消请求的时候可以调用
  * @param baseUrlTag baseUrlTag和baseUrl一一对应，可以实现多个baseUrl；如果不想带baseUrl，可以传 OkWrapper.NoBaseUrl
  */
-fun String.http(httpTag: Any = this, baseUrlTag: String = OkWrapper.DefaultUrlTag): RequestWrapper {
-    val baseUrl = OkWrapper.baseUrlMap[baseUrlTag]
+fun String.http(httpTag: Any = this, baseUrlTag: String = OkExt.DefaultUrlTag): RequestWrapper {
+    val baseUrl = OkExt.baseUrlMap[baseUrlTag]
     return RequestWrapper(httpTag, url = "${baseUrl ?: ""}${this}")
 }
 
@@ -106,12 +106,12 @@ inline fun <reified T> RequestWrapper.delete(cb: HttpCallback<T>) {
 inline fun <reified T> defferedRequest(request: Request, reqWrapper: RequestWrapper): Deferred<T?> {
     val req = request.newBuilder().tag(reqWrapper.tag())
             .build()
-    val call = OkWrapper.okHttpClient.newCall(req)
-            .apply { OkWrapper.requestCache[reqWrapper.tag()] = this } //cache req
+    val call = OkExt.okHttpClient.newCall(req)
+            .apply { OkExt.requestCache[reqWrapper.tag()] = this } //cache req
     val deferred = CompletableDeferred<T?>()
     deferred.invokeOnCompletion {
         if (deferred.isCancelled) {
-            OkWrapper.requestCache.remove(reqWrapper.tag())
+            OkExt.requestCache.remove(reqWrapper.tag())
             call.cancel()
         }
     }
@@ -126,7 +126,7 @@ inline fun <reified T> defferedRequest(request: Request, reqWrapper: RequestWrap
                     response.body()!!.byteStream().copyTo(file.outputStream())
                     deferred.complete(file as T)
                 }
-                else -> deferred.complete(response.body()!!.string().toBean<T>(dateFormat = OkWrapper.dateFormat))
+                else -> deferred.complete(response.body()!!.string().toBean<T>(dateFormat = OkExt.dateFormat))
             }
         } else {
             deferred.complete(null) //not throw, pass null
@@ -135,23 +135,23 @@ inline fun <reified T> defferedRequest(request: Request, reqWrapper: RequestWrap
         e.printStackTrace()
         deferred.complete(null) //pass null
     } finally {
-        OkWrapper.requestCache.remove(reqWrapper.tag())
+        OkExt.requestCache.remove(reqWrapper.tag())
     }
     return deferred
 }
 
 inline fun <reified T> callbackRequest(request: Request, cb: HttpCallback<T>, reqWrapper: RequestWrapper) {
     val req = request.newBuilder().tag(reqWrapper.tag()).build()
-    OkWrapper.okHttpClient.newCall(req).apply {
-        OkWrapper.requestCache[reqWrapper.tag()] = this //cache req
+    OkExt.okHttpClient.newCall(req).apply {
+        OkExt.requestCache[reqWrapper.tag()] = this //cache req
         enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                OkWrapper.requestCache.remove(reqWrapper.tag())
+                OkExt.requestCache.remove(reqWrapper.tag())
                 cb.onFail(e)
             }
 
             override fun onResponse(call: Call, response: Response) {
-                OkWrapper.requestCache.remove(reqWrapper.tag())
+                OkExt.requestCache.remove(reqWrapper.tag())
                 if (response.isSuccessful && response.body()!=null) {
                     when {
                         T::class.java == String::class.java -> cb.onSuccess(response.body()!!.string() as T)
@@ -161,7 +161,7 @@ inline fun <reified T> callbackRequest(request: Request, cb: HttpCallback<T>, re
                             response.body()!!.byteStream().copyTo(file.outputStream())
                             cb.onSuccess(file as T)
                         }
-                        else -> cb.onSuccess(response.body()!!.string().toBean<T>(dateFormat = OkWrapper.dateFormat))
+                        else -> cb.onSuccess(response.body()!!.string().toBean<T>(dateFormat = OkExt.dateFormat))
                     }
                 } else {
                     cb.onFail(IOException("request to ${request.url()} is fail; http code: ${response.code()}!"))

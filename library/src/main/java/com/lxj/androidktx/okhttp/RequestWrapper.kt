@@ -59,7 +59,7 @@ data class RequestWrapper(
     fun buildGetRequest(): Request {
         return Request.Builder().url(urlParams())
                 .apply {
-                    OkWrapper.globalHeaders.forEach { addHeader(it.first, it.second) }
+                    OkExt.globalHeaders.forEach { addHeader(it.first, it.second) }
                     headers.forEach { addHeader(it.first, it.second) }
                 }
                 .get().build()
@@ -77,7 +77,7 @@ data class RequestWrapper(
     private fun bodyBuilder(): Request.Builder{
         return Request.Builder().url(url())
                 .apply {
-                    OkWrapper.globalHeaders.forEach { addHeader(it.first, it.second) }
+                    OkExt.globalHeaders.forEach { addHeader(it.first, it.second) }
                     headers.forEach { addHeader(it.first, it.second) }
                 }
     }
@@ -119,7 +119,7 @@ data class RequestWrapper(
             return builder.setType(MultipartBody.FORM).build()
         } else if(isJsonParam){
             // json编码
-            return buildJsonBody(params.toJson(dateFormat = OkWrapper.dateFormat))
+            return buildJsonBody(params.toJson(dateFormat = OkExt.dateFormat))
         }else{
             // default is form-data url-encoded
             val builder = FormBody.Builder()
