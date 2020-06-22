@@ -16,7 +16,7 @@ import com.scwang.smartrefresh.layout.header.ClassicsHeader
  * Create by lxj, at 2018/12/4
  */
 @SuppressLint("StaticFieldLeak")
-object AndroidKtxConfig {
+object AndroidKTX {
     lateinit var context: Context
     var isDebug = true
     var defaultLogTag = "androidktx"
@@ -28,8 +28,8 @@ object AndroidKtxConfig {
      */
     fun init(context: Context,
              isDebug: Boolean = true,
-             defaultLogTag: String = AndroidKtxConfig.defaultLogTag,
-             sharedPrefName: String = AndroidKtxConfig.sharedPrefName
+             defaultLogTag: String = AndroidKTX.defaultLogTag,
+             sharedPrefName: String = AndroidKTX.sharedPrefName
     ) {
         this.context = context
         this.isDebug = isDebug

@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.lxj.androidktx.AndroidKtxConfig
+import com.lxj.androidktx.AndroidKTX
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.replace
 
@@ -13,7 +13,7 @@ class FragmentWrapperActivity : TitleBarActivity() {
 
     companion object{
         fun start(title: String, fragmentName: String, bundle: Bundle? = null){
-            val intent = Intent(AndroidKtxConfig.context, FragmentWrapperActivity::class.java).apply {
+            val intent = Intent(AndroidKTX.context, FragmentWrapperActivity::class.java).apply {
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 putExtra("title", title)
                 putExtra("fragment", fragmentName)
@@ -23,7 +23,7 @@ class FragmentWrapperActivity : TitleBarActivity() {
                 ToastUtils.showShort("Fragment的名字不能为空")
                 return
             }
-            AndroidKtxConfig.context.startActivity(intent)
+            AndroidKTX.context.startActivity(intent)
         }
     }
 

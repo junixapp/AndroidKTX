@@ -1,10 +1,9 @@
 package com.lxj.androidktxdemo
 
 import android.app.Application
-import com.lxj.androidktx.AndroidKtxConfig
+import com.lxj.androidktx.AndroidKTX
 import com.lxj.androidktx.core.*
 import com.lxj.androidktxdemo.entity.User
-import kotlin.math.log
 
 /**
  * Description:
@@ -14,7 +13,7 @@ class AndroidKtxApp: Application(){
     override fun onCreate() {
         super.onCreate()
 //        AndroidKtxConfig.init(this)
-        AndroidKtxConfig.init(context = this,
+        AndroidKTX.init(context = this,
                 isDebug = BuildConfig.DEBUG,
                 defaultLogTag = "androidktx",
                 sharedPrefName = "demo")

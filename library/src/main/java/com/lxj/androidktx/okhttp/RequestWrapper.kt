@@ -115,7 +115,7 @@ data class RequestWrapper(
             return builder.setType(MultipartBody.FORM).build()
         } else if(isMultiPartParam){
             val builder = MultipartBody.Builder()
-            params.forEach { builder.addFormDataPart(it.key, it.value as String)   }
+            params.forEach { builder.addFormDataPart(it.key, "${it.value}")   }
             return builder.setType(MultipartBody.FORM).build()
         } else if(isJsonParam){
             // json编码
@@ -123,7 +123,7 @@ data class RequestWrapper(
         }else{
             // default is form-data url-encoded
             val builder = FormBody.Builder()
-            params.forEach { builder.add(it.key, it.value as String)  }
+            params.forEach { builder.add(it.key, "${it.value}")  }
             return builder.build()
         }
     }

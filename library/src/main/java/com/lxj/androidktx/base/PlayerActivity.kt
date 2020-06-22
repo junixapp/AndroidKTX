@@ -1,12 +1,11 @@
 package com.lxj.androidktx.base
 
 import android.content.Intent
-import android.content.pm.ActivityInfo
 import android.widget.ImageView
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.lxj.androidktx.AndroidKtxConfig
+import com.lxj.androidktx.AndroidKTX
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.click
 import com.lxj.androidktx.core.gone
@@ -23,11 +22,11 @@ class PlayerActivity : AdaptActivity(){
 
     companion object{
         fun start(url: String, title: String = "", cover: String = ""){
-            val intent = Intent(AndroidKtxConfig.context, PlayerActivity::class.java)
+            val intent = Intent(AndroidKTX.context, PlayerActivity::class.java)
             intent.putExtra("title", title)
             intent.putExtra("url", url)
             intent.putExtra("cover", cover)
-            AndroidKtxConfig.context.startActivity(intent)
+            AndroidKTX.context.startActivity(intent)
         }
     }
 

@@ -5,7 +5,7 @@ import android.webkit.WebView
 import android.widget.FrameLayout
 import com.just.agentweb.AgentWeb
 import com.just.agentweb.WebChromeClient
-import com.lxj.androidktx.AndroidKtxConfig
+import com.lxj.androidktx.AndroidKTX
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.click
 import kotlinx.android.synthetic.main._ktx_activity_web.*
@@ -31,7 +31,7 @@ class WebActivity : TitleBarActivity(){
                   enableCache: Boolean? = false, showProgress: Boolean = true,
                   rightIconRes: Int = 0, rightIconClickAction: (() -> Unit)? = null){
             onRightClickAction = rightIconClickAction
-            val intent = Intent(AndroidKtxConfig.context, WebActivity::class.java)
+            val intent = Intent(AndroidKTX.context, WebActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             intent.putExtra("title", title)
             intent.putExtra("url", url)
@@ -42,7 +42,7 @@ class WebActivity : TitleBarActivity(){
             }
             intent.putExtra("enableCache", enableCache)
             intent.putExtra("showProgress", showProgress)
-            AndroidKtxConfig.context.startActivity(intent)
+            AndroidKTX.context.startActivity(intent)
         }
 
     }

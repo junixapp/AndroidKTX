@@ -8,7 +8,7 @@ import android.net.wifi.WifiManager;
 
 import androidx.annotation.RequiresPermission;
 
-import com.lxj.androidktx.AndroidKtxConfig;
+import com.lxj.androidktx.AndroidKTX;
 import static android.Manifest.permission.ACCESS_NETWORK_STATE;
 import static android.Manifest.permission.ACCESS_WIFI_STATE;
 import static android.Manifest.permission.CHANGE_WIFI_STATE;
@@ -67,7 +67,7 @@ public final class NetworkUtils {
     @RequiresPermission(ACCESS_WIFI_STATE)
     public static boolean getWifiEnabled() {
         @SuppressLint("WifiManagerLeak")
-        WifiManager manager = (WifiManager) AndroidKtxConfig.context.getSystemService(WIFI_SERVICE);
+        WifiManager manager = (WifiManager) AndroidKTX.context.getSystemService(WIFI_SERVICE);
         if (manager == null) return false;
         return manager.isWifiEnabled();
     }
@@ -82,7 +82,7 @@ public final class NetworkUtils {
     @RequiresPermission(CHANGE_WIFI_STATE)
     public static void setWifiEnabled(final boolean enabled) {
         @SuppressLint("WifiManagerLeak")
-        WifiManager manager = (WifiManager) AndroidKtxConfig.context.getSystemService(WIFI_SERVICE);
+        WifiManager manager = (WifiManager) AndroidKTX.context.getSystemService(WIFI_SERVICE);
         if (manager == null) return;
         if (enabled == manager.isWifiEnabled()) return;
         manager.setWifiEnabled(enabled);
@@ -98,7 +98,7 @@ public final class NetworkUtils {
     @RequiresPermission(ACCESS_NETWORK_STATE)
     public static boolean isWifiConnected() {
         ConnectivityManager cm =
-                (ConnectivityManager) AndroidKtxConfig.context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) AndroidKTX.context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (cm == null) return false;
         NetworkInfo ni = cm.getActiveNetworkInfo();
         return ni != null && ni.getType() == ConnectivityManager.TYPE_WIFI;
@@ -108,7 +108,7 @@ public final class NetworkUtils {
     @RequiresPermission(ACCESS_NETWORK_STATE)
     private static NetworkInfo getActiveNetworkInfo() {
         ConnectivityManager cm =
-                (ConnectivityManager) AndroidKtxConfig.context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) AndroidKTX.context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (cm == null) return null;
         return cm.getActiveNetworkInfo();
     }

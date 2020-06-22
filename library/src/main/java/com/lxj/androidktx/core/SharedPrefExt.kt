@@ -2,14 +2,14 @@ package com.lxj.androidktx.core
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.lxj.androidktx.AndroidKtxConfig
+import com.lxj.androidktx.AndroidKTX
 
 /**
  * Description: SharedPreferences相关
  * Create by dance, at 2018/12/5
  */
 
-fun Any.sp(name: String = AndroidKtxConfig.sharedPrefName) = AndroidKtxConfig.context.getSharedPreferences(name, Context.MODE_PRIVATE)
+fun Any.sp(name: String = AndroidKTX.sharedPrefName) = AndroidKTX.context.getSharedPreferences(name, Context.MODE_PRIVATE)
 
 /**
  * 批处理

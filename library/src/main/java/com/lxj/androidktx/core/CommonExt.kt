@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.graphics.LinearGradient
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.RippleDrawable
@@ -20,16 +19,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.TimeUtils
 import com.google.gson.*
 import com.google.gson.reflect.TypeToken
-import com.lxj.androidktx.AndroidKtxConfig
-import com.lxj.androidktx.util.NetworkUtils
+import com.lxj.androidktx.AndroidKTX
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.Serializable
-import java.lang.Exception
-import java.lang.reflect.Type
 import java.util.*
 
 
@@ -185,42 +181,6 @@ fun Any.toJson(dateFormat: String = "yyyy-MM-dd HH:mm:ss") = GsonBuilder().setDa
 inline fun <reified T> String.toBean(dateFormat: String = "yyyy-MM-dd HH:mm:ss") = GsonBuilder().setDateFormat(dateFormat).create()
         .fromJson<T>(this, object : TypeToken<T>() {}.type)
 
-
-/** Window相关 **/
-fun Context.windowWidth(): Int {
-    val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
-    return windowManager.defaultDisplay.width
-}
-
-fun Context.windowHeight(): Int {
-    val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
-    return windowManager.defaultDisplay.height
-}
-
-fun Fragment.windowWidth(): Int {
-    return context!!.windowWidth()
-}
-
-fun Fragment.windowHeight(): Int {
-    return context!!.windowHeight()
-}
-
-fun View.windowWidth(): Int {
-    return context!!.windowWidth()
-}
-
-fun View.windowHeight(): Int {
-    return context!!.windowHeight()
-}
-
-fun RecyclerView.ViewHolder.windowWidth(): Int {
-    return itemView.windowWidth()
-}
-
-fun RecyclerView.ViewHolder.windowHeight(): Int {
-    return itemView.windowHeight()
-}
-
 /**
  * 数组转bundle
  */
@@ -287,7 +247,7 @@ fun Bitmap.saveToAlbum(format: Bitmap.CompressFormat = Bitmap.CompressFormat.PNG
             //2. save
             compress(format, quality, FileOutputStream(target))
             //3. notify
-            MediaScannerConnection.scanFile(AndroidKtxConfig.context, arrayOf(target.absolutePath),
+            MediaScannerConnection.scanFile(AndroidKTX.context, arrayOf(target.absolutePath),
                     arrayOf("image/$ext")) { path, uri ->
                 runOnUIThread {
                     callback?.invoke(path, uri)

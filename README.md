@@ -428,19 +428,6 @@ context/fragment/view/holder.drawable(R.mipmap.ic_launcher) // 获取图片
 context/fragment/view/holder.dimenPx(R.dimen.abc) // 获取dp值
 ```
 
-- 网络相关
-```kotlin
-context.isNetworkConnected()  // 当前是否有网络连接
-context.isWifiConnected()     // 当前是否是WIFI连接
-context.isMobileConnected()   // 当前是否是移动数据连接
-```
-
-- window相关
-```kotlin
-ctx/fragment/view/holder.windowWidth()
-ctx/fragment/view/holder.windowHeight()
-```
-
 - TextView相关
 
 给TextView增加sizeDrawable方法，用于给TextView的drawable设置大小：

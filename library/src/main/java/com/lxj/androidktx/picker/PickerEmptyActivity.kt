@@ -14,7 +14,7 @@ import androidx.core.content.FileProvider
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.blankj.utilcode.util.UriUtils
-import com.lxj.androidktx.AndroidKtxConfig.context
+import com.lxj.androidktx.AndroidKTX.context
 import com.lxj.androidktx.R
 import com.lxj.androidktx.widget.LoadingDialog
 import com.yalantis.ucrop.UCrop
