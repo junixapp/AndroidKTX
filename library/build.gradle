@@ -54,7 +54,7 @@ dependencies {
     api 'com.blankj:utilcodex:1.29.0'
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.2'
     api 'top.zibin:Luban:1.1.8'
-    api 'com.jeremyliao:live-event-bus-x:1.5.7'  //事件总线
+    api 'com.jeremyliao:live-event-bus-x:1.7.2'  //事件总线
     api 'com.shuyu:gsyVideoPlayer-java:7.1.4'
     api 'com.shuyu:gsyVideoPlayer-armv5:7.1.4'
     api 'com.shuyu:gsyVideoPlayer-armv7a:7.1.4'

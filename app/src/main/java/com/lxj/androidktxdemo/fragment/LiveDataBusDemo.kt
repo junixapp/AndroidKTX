@@ -20,7 +20,7 @@ class LiveDataBusDemo : BaseFragment(){
     override fun initView() {
         super.initView()
         sData.state.observe(this, Observer {
-            loge("it")
+            loge("收到消息")
         })
         btnSendString.setOnClickListener {
             sData.postLoading()
