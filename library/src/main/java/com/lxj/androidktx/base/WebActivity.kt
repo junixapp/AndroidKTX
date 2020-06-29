@@ -11,7 +11,7 @@ import com.lxj.androidktx.core.click
 import kotlinx.android.synthetic.main._ktx_activity_web.*
 
 
-class WebActivity : TitleBarActivity(){
+open class WebActivity : TitleBarActivity(){
 
     companion object{
         var onRightClickAction: (()->Unit)? = null
