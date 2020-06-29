@@ -52,9 +52,15 @@ class WebActivity : TitleBarActivity(){
     lateinit var agentWeb: AgentWeb
     var enableCache = false
     override fun initData() {
-        title = intent.getStringExtra("title")
+        setupTitle()
+
         val url = intent.getStringExtra("url")?:""
         val content = intent.getStringExtra("content")?:""
+        loadData(url, content)
+    }
+
+    fun setupTitle(){
+        title = intent.getStringExtra("title")
         val leftIconRes = intent.getIntExtra("leftIconRes", R.mipmap._ktx_ic_back)
         val rightIconRes = intent.getIntExtra("rightIconRes", 0)
         enableCache = intent.getBooleanExtra("enableCache", false)
@@ -65,7 +71,9 @@ class WebActivity : TitleBarActivity(){
             titleBar().setupRightImage(imageRes = rightIconRes)
             titleBar().rightImageView().click { onRightClickAction?.invoke() }
         }
+    }
 
+    fun loadData(url: String, content: String){
         if(url.isNotEmpty()){
             agentWeb = AgentWeb.with(this)
                     .setAgentWebParent(webViewParent, FrameLayout.LayoutParams(-1, -1))
