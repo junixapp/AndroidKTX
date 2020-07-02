@@ -27,27 +27,33 @@ class CameraActivity : AdaptActivity() {
 
     var videoDir = ""
     var tempDir = ""
+    var mode = All //两种都拍
 
     companion object{
-        const val CaptureVideo = "CaptureVideo"
-        const val CaptureImage = "CaptureImage"
+        const val All = "VideoMode" //拍视频
+        const val OnlyVideo = "OnlyVideo" //拍视频
+        const val OnlyImage = "OnlyImage" //拍照片
 
-        fun start(from: Activity, requestCode: Int = 1){
+        fun start(from: Activity, requestCode: Int = 1, mode: String = All){
             PermissionUtils.permission(PermissionConstants.CAMERA, PermissionConstants.MICROPHONE,PermissionConstants.STORAGE)
                     .callback(object : PermissionUtils.SimpleCallback{
                         override fun onGranted() {
-                            from.startActivityForResult(Intent(from, CameraActivity::class.java), requestCode)
+                            var intent = Intent(from, CameraActivity::class.java)
+                            intent.putExtra("mode", mode)
+                            from.startActivityForResult(intent, requestCode)
                         }
                         override fun onDenied() {
                             ToastUtils.showShort("权限获取失败，无法进行拍摄")
                         }
                     }).request()
         }
-        fun startFromFragment(from: Fragment, requestCode: Int = 1){
+        fun startFromFragment(from: Fragment, requestCode: Int = 1, mode: String = All){
             PermissionUtils.permission(PermissionConstants.CAMERA, PermissionConstants.MICROPHONE,PermissionConstants.STORAGE)
                     .callback(object : PermissionUtils.SimpleCallback{
                         override fun onGranted() {
-                            from.startActivityForResult(Intent(from.activity, CameraActivity::class.java), requestCode)
+                            var intent = Intent(from.activity, CameraActivity::class.java)
+                            intent.putExtra("mode", mode)
+                            from.startActivityForResult(intent, requestCode)
                         }
                         override fun onDenied() {
                             ToastUtils.showShort("权限获取失败，无法进行拍摄")
@@ -64,6 +70,7 @@ class CameraActivity : AdaptActivity() {
     override fun initView() {
         videoDir = Environment.getExternalStorageDirectory().path + File.separator + packageName + File.separator + "_ktx_" + File.separator + "video"
         tempDir = Environment.getExternalStorageDirectory().path + File.separator + packageName + File.separator + "_ktx_" + File.separator + "temp"
+        mode = intent.getStringExtra("mode")
 
         var dir = File(videoDir)
         if(!dir.exists())dir.mkdirs()
@@ -73,7 +80,11 @@ class CameraActivity : AdaptActivity() {
         jCameraView.findViewById<View>(com.cjt2325.cameralibrary.R.id.image_flash).gone()
         jCameraView.findViewById<View>(com.cjt2325.cameralibrary.R.id.image_switch).margin(topMargin = AdaptScreenUtils.pt2Px(30f))
         jCameraView.setSaveVideoPath(videoDir)
-        jCameraView.setFeatures(JCameraView.BUTTON_STATE_BOTH)
+        jCameraView.setFeatures(when(mode){
+            All -> JCameraView.BUTTON_STATE_BOTH
+            OnlyImage -> JCameraView.BUTTON_STATE_ONLY_CAPTURE
+            else -> JCameraView.BUTTON_STATE_ONLY_RECORDER
+        })
         jCameraView.setMediaQuality(JCameraView.MEDIA_QUALITY_MIDDLE)
         jCameraView.setErrorLisenter(object : ErrorListener {
             override fun AudioPermissionError() {
