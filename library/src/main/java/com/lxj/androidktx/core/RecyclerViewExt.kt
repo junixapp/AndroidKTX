@@ -18,7 +18,7 @@ import com.lxj.easyadapter.*
  * @param isReplace 是否覆盖之前的ItemDecoration，默认是true
  *
  */
-fun RecyclerView.divider(color: Int = Color.parseColor("#DEDEDE"), size: Int = 1, isReplace: Boolean = true): RecyclerView {
+fun RecyclerView.divider(color: Int = Color.parseColor("#DEDEDE"), size: Int = dp2px(1f), isReplace: Boolean = true): RecyclerView {
     val decoration = DividerItemDecoration(context, orientation)
     decoration.setDrawable(GradientDrawable().apply {
         setColor(color)
@@ -152,6 +152,6 @@ fun RecyclerView.scrollToEnd(){
 fun RecyclerView.scrollTop(position: Int){
     scrollToPosition(position)
     if(layoutManager is LinearLayoutManager){
-        (layoutManager as LinearLayoutManager)?.scrollToPositionWithOffset(position, 0)
+        (layoutManager as LinearLayoutManager).scrollToPositionWithOffset(position, 0)
     }
 }

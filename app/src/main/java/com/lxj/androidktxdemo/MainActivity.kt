@@ -1,7 +1,10 @@
 package com.lxj.androidktxdemo
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.blankj.utilcode.util.LogUtils
 import com.lxj.androidktx.core.*
 import com.lxj.androidktxdemo.entity.PageInfo
 import com.lxj.androidktxdemo.entity.User
@@ -102,4 +105,5 @@ class MainActivity : AppCompatActivity() {
         ).toJson()
         return json.encryptAES(signKey)
     }
+
 }

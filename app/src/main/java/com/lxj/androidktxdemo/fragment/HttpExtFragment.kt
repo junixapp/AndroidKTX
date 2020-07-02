@@ -1,8 +1,16 @@
 package com.lxj.androidktxdemo.fragment
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Environment
+import androidx.lifecycle.Observer
+import com.blankj.utilcode.constant.PermissionConstants
+import com.blankj.utilcode.util.FileUtils
+import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.jeremyliao.liveeventbus.LiveEventBus
+import com.lxj.androidktx.base.CameraActivity
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.livedata.StateLiveData
 import com.lxj.androidktx.okhttp.*
@@ -45,12 +53,13 @@ class HttpExtFragment : BaseFragment() {
         OkExt.interceptors()
 
         btnSend.click {
-            loginData.launchAndSmartPost {
-                val result = "http://47.111.131.25:8080/yezi-api/api/students/vcodeLogin".http()
-                        .params(mapOf(), isJson = true)
-                        .post<HttpResult<User>>()
-                        .await()?.data
-                result
+            CameraActivity.start()
+//            loginData.launchAndSmartPost {
+//                val result = "http://47.111.131.25:8080/yezi-api/api/students/vcodeLogin".http()
+//                        .params(mapOf(), isJson = true)
+//                        .post<HttpResult<User>>()
+//                        .await()?.data
+//                result
 //                loge("result: $result")
 //                if (result?.isSuccess() == true) {
 //                    val user = result.data
@@ -59,14 +68,18 @@ class HttpExtFragment : BaseFragment() {
 //                    loginData.errMsg = result?.errmsg ?: "登录失败"
 //                }
 //                result?.data //内部会根据数据自动设置data的状态
-            }
+//            }
         }
+        LiveEventBus.get(CameraActivity.CaptureVideo).observe(this, Observer {
+            val map = it as Map<String,String>
+            LogUtils.json(map)
+            LogUtils.d(FileUtils.getSize(map["path"]))
+        })
+        LiveEventBus.get(CameraActivity.CaptureImage).observe(this, Observer {
+            LogUtils.d(it)
+        })
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        ToastUtils.showShort("xxxxxxxxx")
-    }
 
 }
 
