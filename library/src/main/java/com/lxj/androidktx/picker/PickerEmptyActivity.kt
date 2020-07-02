@@ -1,6 +1,7 @@
 package com.lxj.androidktx.picker
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
@@ -11,9 +12,7 @@ import android.os.Environment
 import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
-import com.blankj.utilcode.util.FileUtils
-import com.blankj.utilcode.util.ToastUtils
-import com.blankj.utilcode.util.UriUtils
+import com.blankj.utilcode.util.*
 import com.lxj.androidktx.AndroidKTX.context
 import com.lxj.androidktx.R
 import com.lxj.androidktx.widget.LoadingDialog
@@ -21,6 +20,9 @@ import com.yalantis.ucrop.UCrop
 import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MimeType
 import com.zhihu.matisse.engine.impl.GlideEngine
+import com.zhihu.matisse.filter.Filter
+import com.zhihu.matisse.internal.entity.IncapableCause
+import com.zhihu.matisse.internal.entity.Item
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.GlobalScope
@@ -53,7 +55,7 @@ class PickerEmptyActivity : AppCompatActivity() {
                         .maxSelectable(pickerData!!.maxNum)
                         .theme(R.style.Matisse_Dracula)
                         .showSingleMediaType(true)
-//                .addFilter(GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
+                        .addFilter(VideoSizeFilter())
 //                .gridExpectedSize(resources.getDimensionPixelSize(R.dimen.grid_expected_size))
                         .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
                         .thumbnailScale(0.85f)
@@ -202,5 +204,21 @@ class PickerEmptyActivity : AppCompatActivity() {
         }else{
             finish()
         }
+    }
+
+    //上限是20M
+    class VideoSizeFilter(var maxSize: Long = 20*1024*1024): Filter(){
+        override fun filter(context: Context, item: Item): IncapableCause? {
+            val size = UriUtils.uri2File(item.uri)?.length() ?: 0
+            if(size>maxSize){
+                return IncapableCause(IncapableCause.DIALOG, "视频体积过大，超出了${ConvertUtils.byte2FitMemorySize(maxSize,0)}")
+            }
+            return null
+        }
+
+        override fun constraintTypes(): MutableSet<MimeType> {
+            return mutableSetOf(MimeType.MP4, MimeType.AVI, MimeType.MPEG)
+        }
+
     }
 }
