@@ -53,7 +53,7 @@ class HttpExtFragment : BaseFragment() {
         OkExt.interceptors()
 
         btnSend.click {
-            CameraActivity.start()
+            CameraActivity.startFromFragment(this, 1)
 //            loginData.launchAndSmartPost {
 //                val result = "http://47.111.131.25:8080/yezi-api/api/students/vcodeLogin".http()
 //                        .params(mapOf(), isJson = true)
@@ -70,16 +70,23 @@ class HttpExtFragment : BaseFragment() {
 //                result?.data //内部会根据数据自动设置data的状态
 //            }
         }
-        LiveEventBus.get(CameraActivity.CaptureVideo).observe(this, Observer {
-            val map = it as Map<String,String>
-            LogUtils.json(map)
-            LogUtils.d(FileUtils.getSize(map["path"]))
-        })
-        LiveEventBus.get(CameraActivity.CaptureImage).observe(this, Observer {
-            LogUtils.d(it)
-        })
+//        LiveEventBus.get(CameraActivity.CaptureVideo).observe(this, Observer {
+//            val map = it as Map<String,String>
+//            LogUtils.json(map)
+//            LogUtils.d(FileUtils.getSize(map["path"]))
+//        })
+//        LiveEventBus.get(CameraActivity.CaptureImage).observe(this, Observer {
+//            LogUtils.d(it)
+//        })
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode==1 && resultCode==Activity.RESULT_OK){
+            val path  = data?.getStringExtra("path") ?:""
+            LogUtils.d("path: $path")
+        }
+    }
 
 }
 

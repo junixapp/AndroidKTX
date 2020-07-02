@@ -1,24 +1,21 @@
 package com.lxj.androidktx.base
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
-import android.media.MediaMetadataRetriever
 import android.os.Environment
 import android.view.View
+import androidx.fragment.app.Fragment
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.AdaptScreenUtils
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.cjt2325.cameralibrary.JCameraView
 import com.cjt2325.cameralibrary.listener.ErrorListener
 import com.cjt2325.cameralibrary.listener.JCameraListener
-import com.jeremyliao.liveeventbus.LiveEventBus
-import com.lxj.androidktx.AndroidKTX
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.gone
 import com.lxj.androidktx.core.margin
-import com.lxj.androidktx.core.start
 import kotlinx.android.synthetic.main._ktx_activity_camera.*
 import top.zibin.luban.Luban
 import top.zibin.luban.OnCompressListener
@@ -35,11 +32,22 @@ class CameraActivity : AdaptActivity() {
         const val CaptureVideo = "CaptureVideo"
         const val CaptureImage = "CaptureImage"
 
-        fun start(){
+        fun start(from: Activity, requestCode: Int = 1){
             PermissionUtils.permission(PermissionConstants.CAMERA, PermissionConstants.MICROPHONE,PermissionConstants.STORAGE)
                     .callback(object : PermissionUtils.SimpleCallback{
                         override fun onGranted() {
-                            AndroidKTX.context.startActivity(Intent(AndroidKTX.context, CameraActivity::class.java))
+                            from.startActivityForResult(Intent(from, CameraActivity::class.java), requestCode)
+                        }
+                        override fun onDenied() {
+                            ToastUtils.showShort("权限获取失败，无法进行拍摄")
+                        }
+                    }).request()
+        }
+        fun startFromFragment(from: Fragment, requestCode: Int = 1){
+            PermissionUtils.permission(PermissionConstants.CAMERA, PermissionConstants.MICROPHONE,PermissionConstants.STORAGE)
+                    .callback(object : PermissionUtils.SimpleCallback{
+                        override fun onGranted() {
+                            from.startActivityForResult(Intent(from.activity, CameraActivity::class.java), requestCode)
                         }
                         override fun onDenied() {
                             ToastUtils.showShort("权限获取失败，无法进行拍摄")
@@ -81,14 +89,17 @@ class CameraActivity : AdaptActivity() {
         jCameraView.setJCameraLisenter(object : JCameraListener {
             override fun recordSuccess(url: String?, firstFrame: Bitmap?) {
                 //录制成功，路径
-                val retriever = MediaMetadataRetriever()
-                retriever.setDataSource(url)
-                val duration = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
-                LiveEventBus.get(CaptureVideo).post(mapOf(
-                    "path" to url,
-                    "duration" to duration
-                ))
+//                val retriever = MediaMetadataRetriever()
+//                retriever.setDataSource(url)
+//                val duration = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
+//                LiveEventBus.get(CaptureVideo).post(mapOf(
+//                    "path" to url,
+//                    "duration" to duration
+//                ))
 //                LogUtils.d("录制成功：" + url +"  文件大小：${File(url).length()}  时长：${duration}")
+                val intent = Intent()
+                intent.putExtra("path", url)
+                setResult(Activity.RESULT_OK, intent)
                 finish()
             }
 
@@ -105,14 +116,20 @@ class CameraActivity : AdaptActivity() {
                         override fun onStart() {}
                         override fun onSuccess(file: File) {
 //                            LogUtils.d("压缩成功，文件大小：${file.length()}")
-                            LiveEventBus.get(CaptureImage).post(file.absolutePath)
+//                            LiveEventBus.get(CaptureImage).post(file.absolutePath)
+                            val intent = Intent()
+                            intent.putExtra("path", file.absolutePath)
+                            setResult(Activity.RESULT_OK, intent)
                             //删除旧的图片文件
                             rawFile.delete()
                             finish()
                         }
                         override fun onError(e: Throwable) {
 //                            LogUtils.d("压缩失败")
-                            LiveEventBus.get(CaptureImage).post(rawFile.absolutePath)
+//                            LiveEventBus.get(CaptureImage).post(rawFile.absolutePath)
+                            val intent = Intent()
+                            intent.putExtra("path", rawFile.absolutePath)
+                            setResult(Activity.RESULT_OK, intent)
                             //删除旧的图片文件
                             rawFile.delete()
                             finish()
