@@ -270,16 +270,6 @@ fragmentManager {
 }
 ```
 
-### 字符串处理相关
-使用范围：String对象
-```kotlin
-"13899990000".isPhone()  // 是否是电话号码
-"aaa@aas.com".isEmail()  // 是否是邮箱地址
-"41282119900909337z".isIDCard()   // 是否是身份证号码
-"洒水".isChinese()      // 是否是汉字
-```
-
-
 ### 时间日期处理
 ```kotlin
 // 默认格式：yyyy-MM-dd HH:mm:ss
@@ -356,18 +346,8 @@ OkExt.setClient(...)
 OkExt.cancel("abc")
 ```
 
-### LiveDataBus相关
-基于LiveData的事件总线，好处是：轻量，无内存泄露，自动解注册。
-```kotlin
-// 接收消息
-LiveDataBus.with<String>("key1").observe(this, observer = Observer {
-    it?.v()
-})
-// 发送消息
-LiveDataBus.with<String>("key1").setValue("message1")
-```
-
-内置实用类：
+### LiveData和Lifecycle相关
+内置了一些实用类：
 1. OnceLiveData: 只执行一次的LiveData
 2. StateLiveData: 携带状态的LiveData
 ```kotlin
@@ -388,8 +368,17 @@ vm.userData.state.observe(this, Observer {
 3. LifecycleHandler: 自动在UI销毁时移除msg和任务，天然不会内存泄露的Handler
 
 
-
 ### 通用扩展
+
+- Json转换相关：
+```kotlin
+User("李晓俊", 25).toJson()   // {"age":25,"name":"李晓俊"}
+// 底层是Gson解析，但是不用传class或者TypeToken了，得益于Kotlin的reified功能
+"{\"age\":25,\"name\":\"李晓俊\"}".toBean<User>()
+// 集合类型需要这样写
+"[{\"age\":25,\"name\":\"李晓俊\"}]".toBean<List<User>>()
+```
+
 - toast相关
 ```kotlin
 ctx/fragment/view.toast("测试短吐司")
@@ -408,15 +397,6 @@ ctx/fragment/view/holder.createDrawable(color = Color.GREEN,
                                          strokeWidth = dp2px(2f),
                                          radius = dp2px(30f).toFloat(),
                                          enableRipple = true)
-```
-
-- Json转换相关：
-```kotlin
-User("李晓俊", 25).toJson()   // {"age":25,"name":"李晓俊"}
-// 底层是Gson解析，但是不用传class或者TypeToken了，得益于Kotlin的reified功能
-"{\"age\":25,\"name\":\"李晓俊\"}".toBean<User>()
-// 集合类型需要这样写
-"[{\"age\":25,\"name\":\"李晓俊\"}]".toBean<List<User>>()
 ```
 
 - Resource获取相关
