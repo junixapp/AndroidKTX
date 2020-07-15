@@ -52,6 +52,8 @@ class MainActivity : AppCompatActivity() {
         toast("测试短吐司")
         longToast("测试长吐司")
 
+        handler.post { toast("哈哈哈哈哈啊啊啊啊啊啊") }
+
         """{"age":25,"name":"李晓俊","date":"2020-05-12 13:37:33"}
         """.trimIndent().toBean<User>().toString().logw()
 //        """{"age":25,"name":"李晓俊","date":"Mar 12, 1990 00:00:00"}

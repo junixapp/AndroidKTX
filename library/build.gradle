@@ -43,7 +43,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     api "com.github.bumptech.glide:glide:4.11.0"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3"
-    api 'com.lxj:easyadapter:1.2.0'
+    api 'com.lxj:easyadapter:1.2.1'
     api 'com.jaeger.ninegridimageview:library:1.1.1'  //九宫格
     implementation 'com.google.code.gson:gson:2.8.6'
     // inline函数在运行时插入使用处，需要暴露出去
@@ -63,28 +63,30 @@ dependencies {
     compileOnly 'com.lxj:xpopup:2.0.0'       //弹窗
     api 'com.king.zxing:zxing-lite:1.1.9-androidx'  //二维码扫描
     api 'com.google.android:flexbox:2.0.1'
-    api 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+//    api 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
     api "androidx.viewpager2:viewpager2:1.0.0"
     api 'com.just.agentweb:agentweb:4.1.3' // (必选)
 //    api 'com.just.agentweb:filechooser:4.1.3'// (可选)
 //    api 'com.download.library:Downloader:4.1.3'// (可选)
-    implementation files('libs/umeng-common-2.2.5.jar')
-    implementation files('libs/umeng-share-core-6.9.8.jar')
-    implementation files('libs/umeng-share-QQ-simplify-6.9.8.jar')
-    implementation files('libs/umeng-share-sina-simplify-6.9.8.jar')
-    implementation files('libs/umeng-share-wechat-simplify-6.9.8.jar')
-    implementation files('libs/umeng-sharetool-6.9.8.jar')
-//    implementation files('libs/libammsdk.jar')
 
     api 'com.zhihu.android:matisse:0.5.3-beta3'
     implementation 'com.github.yalantis:ucrop:2.2.5'
+    //友盟相关
+    api  'com.umeng.umsdk:common:9.1.0'
+//    implementation  'com.umeng.umsdk:utdid:1.1.5.3'
+//    implementation  'com.umeng.umsdk:asms:1.1.3' // asms包依赖(必选)
+//    implementation 'com.umeng.umsdk:crash:0.0.4' // native crash包依赖(必选)
+    api  'com.umeng.umsdk:share-core:7.0.2'
+//    implementation  'com.umeng.umsdk:share-qq:7.0.2'
+    api  'com.umeng.umsdk:share-wx:7.0.2'
+//    implementation  'com.umeng.umsdk:share-sina:7.0.2'
 }
 
 publish {
     userOrg = 'li-xiaojun'
     groupId = 'com.lxj'
     artifactId = 'androidktx'
-    publishVersion = '1.8.7'
+    publishVersion = '1.8.10'
     repoName = 'jrepo'
     desc = 'Some very useful kotlin extensions for android development！好用到爆的Kotlin扩展，加速你的Android开发！'
     website = 'https://github.com/li-xiaojun/AndroidKTX'

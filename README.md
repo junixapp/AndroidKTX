@@ -187,26 +187,15 @@ recyclerView.vertical()
 // 实现多个Item类型
 class OneItem : ItemViewDelegate<String>{
         override fun bind(holder: ViewHolder, t: String, position: Int) {
-            holder.setText(android.R.id.text1, t)
+                    holder.setText(android.R.id.text1, t)
         }
-        override fun isForViewType(item: String, position: Int): Boolean {
-            return true
+        override fun isThisType(item: String, position: Int): Boolean {
+            return item != "header" && item != "footer"
         }
         override fun getLayoutId(): Int {
             return android.R.layout.simple_list_item_1
         }
     }
-class TwoItem : ItemViewDelegate<String>{
-    override fun bind(holder: ViewHolder, t: String, position: Int) {
-        holder.setText(android.R.id.text1, t)
-    }
-    override fun isForViewType(item: String, position: Int): Boolean {
-        return true
-    }
-    override fun getLayoutId(): Int {
-        return android.R.layout.simple_list_item_1
-    }
-}
 ```
 
 

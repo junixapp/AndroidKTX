@@ -3,7 +3,9 @@ package com.lxj.androidktx.core
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.os.Looper
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
@@ -81,3 +83,10 @@ fun FragmentActivity.postDelay(delay:Long = 0, action: ()->Unit){
 
 //view model
 fun <T: ViewModel> FragmentActivity.getVM(clazz: Class<T>) = ViewModelProviders.of(this).get(clazz)
+
+
+inline val FragmentActivity.handler
+    get() = LifecycleHandler(this, Looper.getMainLooper())
+
+inline val Fragment.handler
+    get() = LifecycleHandler(this, Looper.getMainLooper())

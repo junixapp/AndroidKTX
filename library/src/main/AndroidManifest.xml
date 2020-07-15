@@ -18,7 +18,7 @@
             android:configChanges="keyboardHidden|orientation"
             android:exported="false"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
-        <activity
+        <!--<activity
             android:name="com.sina.weibo.sdk.web.WeiboSdkWebActivity"
             android:configChanges="keyboardHidden|orientation"
             android:exported="false"
@@ -31,8 +31,7 @@
                 <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
-        </activity>
+        </activity>-->
         <activity android:name=".base.WebActivity" android:theme="@style/_FullScreenTheme"
             android:hardwareAccelerated="true"
             android:configChanges="orientation|screenSize"/>
@@ -76,6 +75,7 @@
         </activity>
         <activity
             android:name="com.tencent.connect.common.AssistActivity"
+            tools:replace="android:configChanges"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!--支付需要的-->

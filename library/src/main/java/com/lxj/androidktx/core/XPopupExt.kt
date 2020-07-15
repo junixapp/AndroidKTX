@@ -47,11 +47,11 @@ fun LoadingPopupView.bindState(liveData: StateLiveData<*>,
         StateLiveData.State.Error->{
             if(popupStatus==PopupStatus.Dismissing || popupStatus==PopupStatus.Dismiss){
                 //如果已经关闭
-                if(liveData.errMsg.isNotEmpty())ToastUtils.showShort(liveData.errMsg)
+                if(liveData.errMsg?.isNotEmpty()==true)ToastUtils.showShort(liveData.errMsg)
                 onError?.invoke()
             }else{
                 delayDismissWith(delay){
-                    if(liveData.errMsg.isNotEmpty())ToastUtils.showShort(liveData.errMsg)
+                    if(liveData.errMsg?.isNotEmpty()==true)ToastUtils.showShort(liveData.errMsg)
                     onError?.invoke()
                 }
             }
