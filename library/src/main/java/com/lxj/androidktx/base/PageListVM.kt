@@ -28,7 +28,7 @@ abstract class PageListVM<T> : ViewModel(),
         listData.value = arrayListOf()
     }
 
-    fun bindRecyclerView(
+    open fun bindRecyclerView(
         owner: LifecycleOwner,
         rv: RecyclerView?,
         smartRefresh: SmartRefreshLayout?,
@@ -49,12 +49,12 @@ abstract class PageListVM<T> : ViewModel(),
         smartRefresh?.post { smartRefresh.autoRefresh() }
     }
 
-    fun refresh() {
+    open fun refresh() {
         page = 1
         load()
     }
 
-    fun loadMore() {
+    open fun loadMore() {
         if (hasMore) {
             page += 1
             load()
@@ -63,7 +63,7 @@ abstract class PageListVM<T> : ViewModel(),
 
     abstract fun load()
 
-    fun processData(listWrapper: ListWrapper<T>?, nullIsEmpty: Boolean = false) {
+    open fun processData(listWrapper: ListWrapper<T>?, nullIsEmpty: Boolean = false) {
         if (listWrapper != null) {
             hasMore = page < listWrapper.pages
             var list = listData.value
