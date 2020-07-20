@@ -15,8 +15,7 @@ import java.io.IOException
 
 data class CommonUpdateInfo(
     var download_url: String? = null,
-    var update_info: String? = null,
-    var need_update: Boolean? = null
+    var update_info: String? = null
 )
 
 /**
@@ -61,16 +60,17 @@ object VersionUpdateUtil {
                             LogUtils.e("apk下载地址为空")
                             return
                         }
-                        val filename = "${Base64.encode(updateData.download_url!!.toByteArray(), Base64.DEFAULT)}.apk"
+                        DirManager.init(context)
+                        val filename = "${Base64.encodeToString(updateData.download_url!!.toByteArray(), Base64.DEFAULT)}.apk"
                         val downloadDir = File(DirManager.downloadDir)
                         FileUtils.createOrExistsDir(downloadDir)
                         val file = File("${DirManager.downloadDir}/${filename}")
                         FileUtils.createFileByDeleteOldFile(file)
-                        LogUtils.e("apk下载保存路径：${file.absolutePath}")
                         updateData.download_url!!.http(baseUrlTag = "")
                                 .savePath(file.absolutePath)
                                 .get<File>(object : HttpCallback<File>{
                                     override fun onSuccess(t: File) {
+                                        LogUtils.e("新版本下载成功，路径为：${file.absolutePath}")
                                         //缓存路径
                                         sp().putString(cacheKey, t.absolutePath)
                                         if(onShowUpdateUI!=null){
