@@ -55,9 +55,11 @@ class HttpExtFragment : BaseFragment() {
         OkExt.interceptors()
 
         btnSend.click {
+
+
 //            CameraActivity.startFromFragment(this, 1)
-            VersionUpdateUtil.downloadAndInstallApk(context!!, CommonUpdateInfo(download_url = "https://lxj-bama-happy.oss-cn-zhangjiakou.aliyuncs.com/%E5%A4%A9%E5%A4%A9%E5%B9%BF%E5%9C%BA%E8%88%9E-1.0-2020_07_20_11_34_22.apk",
-            update_info = "大萨达所大撒大所大所"))
+//            VersionUpdateUtil.downloadAndInstallApk(context!!, CommonUpdateInfo(download_url = "https://lxj-bama-happy.oss-cn-zhangjiakou.aliyuncs.com/%E5%A4%A9%E5%A4%A9%E5%B9%BF%E5%9C%BA%E8%88%9E-1.0-2020_07_20_11_34_22.apk",
+//            update_info = "大萨达所大撒大所大所"))
 //            loginData.launchAndSmartPost {
 //                val result = "http://47.111.131.25:8080/yezi-api/api/students/vcodeLogin".http()
 //                        .params(mapOf(), isJson = true)

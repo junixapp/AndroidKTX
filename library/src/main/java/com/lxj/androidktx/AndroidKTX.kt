@@ -10,7 +10,11 @@ import com.blankj.utilcode.util.Utils
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
+import com.shuyu.gsyvideoplayer.player.IjkPlayerManager
+import com.shuyu.gsyvideoplayer.video.GSYADVideoPlayer
+import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer
 import com.umeng.commonsdk.UMConfigure
+import tv.danmaku.ijk.media.player.IjkMediaPlayer
 
 /**
  * Description: 统一配置扩展方法中的变量
@@ -43,6 +47,7 @@ object AndroidKTX {
         ToastUtils.setBgColor(Color.parseColor("#222222"))
         ToastUtils.setMsgColor(Color.WHITE)
         initRefresh()
+        IjkPlayerManager.setLogLevel(IjkMediaPlayer.IJK_LOG_SILENT)
     }
 
     fun initRefresh() {

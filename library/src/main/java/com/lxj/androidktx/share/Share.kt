@@ -29,7 +29,7 @@ import java.net.URLEncoder
 object Share {
     private var isDebug: Boolean = false
     fun init(
-            context: Context, isDebug: Boolean, umengAppKey: String,
+            context: Context, isDebug: Boolean, umengAppKey: String, umengMessageSecret: String? = null,
             wxAppId: String, wxAppKey: String,
             qqAppId: String = "", qqAppKey: String = "",
             weiboAppId: String = "", weiboAppKey: String = "", weiboCallbackUrl: String = ""
@@ -37,7 +37,7 @@ object Share {
         this.isDebug = isDebug
 
         UMConfigure.setLogEnabled(isDebug)
-        UMConfigure.init( context, umengAppKey, "Umeng", UMConfigure.DEVICE_TYPE_PHONE, null)
+        UMConfigure.init( context, umengAppKey, "Umeng", UMConfigure.DEVICE_TYPE_PHONE, umengMessageSecret)
         PlatformConfig.setWeixin(wxAppId, wxAppKey)
         if(qqAppId.isNotEmpty()) PlatformConfig.setQQZone(qqAppId, qqAppKey)
         if(weiboAppId.isNotEmpty()) PlatformConfig.setSinaWeibo(weiboAppId, weiboAppKey, weiboCallbackUrl)

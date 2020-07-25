@@ -13,11 +13,11 @@
         android:hardwareAccelerated="true"
         android:networkSecurityConfig="@xml/network_security_config">
         <!--新浪微博需要的-->
-        <activity
-            android:name="com.umeng.socialize.media.WBShareCallBackActivity"
-            android:configChanges="keyboardHidden|orientation"
-            android:exported="false"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+<!--        <activity-->
+<!--            android:name="com.umeng.socialize.media.WBShareCallBackActivity"-->
+<!--            android:configChanges="keyboardHidden|orientation"-->
+<!--            android:exported="false"-->
+<!--            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>-->
         <!--<activity
             android:name="com.sina.weibo.sdk.web.WeiboSdkWebActivity"
             android:configChanges="keyboardHidden|orientation"
@@ -49,7 +49,7 @@
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <!--微信需要的-->
         <activity
-            android:name=".share.wxapi.WXEntryActivity"
+            android:name="com.lxj.androidktx.share.wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
@@ -60,24 +60,24 @@
             android:targetActivity=".share.wxapi.WXEntryActivity" />
 
         <!--qq需要的-->
-        <activity
-            android:name="com.tencent.tauth.AuthActivity"
-            android:launchMode="singleTask"
-            android:noHistory="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+<!--        <activity-->
+<!--            android:name="com.tencent.tauth.AuthActivity"-->
+<!--            android:launchMode="singleTask"-->
+<!--            android:noHistory="true">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.VIEW" />-->
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
+<!--                <category android:name="android.intent.category.DEFAULT" />-->
+<!--                <category android:name="android.intent.category.BROWSABLE" />-->
 
-                <data android:scheme="tencent100424468" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.tencent.connect.common.AssistActivity"
-            tools:replace="android:configChanges"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+<!--                <data android:scheme="tencent100424468" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
+<!--        <activity-->
+<!--            android:name="com.tencent.connect.common.AssistActivity"-->
+<!--            tools:replace="android:configChanges"-->
+<!--            android:configChanges="orientation|keyboardHidden|screenSize"-->
+<!--            android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
         <!--支付需要的-->
         <activity
             android:name=".pay.wxapi.WXPayEntryActivity"
