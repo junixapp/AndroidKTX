@@ -35,7 +35,7 @@ abstract class PageListVM<T> : ViewModel(),
         onDataUpdate: (()->Unit)? = null
     ) {
         listData.observe(owner, Observer {
-            rv?.updateData(listData.value!!)
+            rv?.adapter?.notifyDataSetChanged()
             onDataUpdate?.invoke()
         })
 
@@ -66,8 +66,8 @@ abstract class PageListVM<T> : ViewModel(),
     open fun processData(listWrapper: ListWrapper<T>?, nullIsEmpty: Boolean = false) {
         if (listWrapper != null) {
             hasMore = page < listWrapper.pages
-            var list = listData.value
-            if (page == 1) list = arrayListOf()
+            if (page == 1) listData.value?.clear()
+            val list = listData.value
 
             if (!listWrapper.records.isNullOrEmpty()) {
                 list?.addAll(listWrapper.records)
