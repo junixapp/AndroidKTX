@@ -283,3 +283,12 @@ fun View.toBitmap(): Bitmap {
 // 所有子View
 inline val ViewGroup.children
     get() = (0 until childCount).map { getChildAt(it) }
+
+
+/**
+ * 设置View不可用
+ */
+fun View.disable() {
+    isEnabled = false
+    alpha = 0.5f
+}

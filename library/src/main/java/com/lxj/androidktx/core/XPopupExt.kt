@@ -22,7 +22,8 @@ fun LoadingPopupView.bindState(liveData: StateLiveData<*>,
                                onLoading: (()->Unit)? = null,
                                onSuccess: (()->Unit)? = null,
                                onError: (()->Unit)? = null,
-                               onEmpty: (()->Unit)? = null){
+                               onEmpty: (()->Unit)? = null,
+                               autoShowError: Boolean = true){
     val delay = XPopup.getAnimationDuration().toLong()+50
     when(liveData.state.value){
         StateLiveData.State.Loading->{
@@ -36,7 +37,7 @@ fun LoadingPopupView.bindState(liveData: StateLiveData<*>,
         }
         StateLiveData.State.Empty->{
             if(popupStatus==PopupStatus.Dismissing || popupStatus==PopupStatus.Dismiss){
-                //如果已经关闭
+                //如果已经关闭或正在关闭
                 onEmpty?.invoke()
             }else{
                 delayDismissWith(delay){
@@ -47,11 +48,11 @@ fun LoadingPopupView.bindState(liveData: StateLiveData<*>,
         StateLiveData.State.Error->{
             if(popupStatus==PopupStatus.Dismissing || popupStatus==PopupStatus.Dismiss){
                 //如果已经关闭
-                if(liveData.errMsg?.isNotEmpty()==true)ToastUtils.showShort(liveData.errMsg)
+                if(liveData.errMsg?.isNotEmpty()==true && autoShowError)ToastUtils.showLong(liveData.errMsg)
                 onError?.invoke()
             }else{
                 delayDismissWith(delay){
-                    if(liveData.errMsg?.isNotEmpty()==true)ToastUtils.showShort(liveData.errMsg)
+                    if(liveData.errMsg?.isNotEmpty()==true  && autoShowError)ToastUtils.showLong(liveData.errMsg)
                     onError?.invoke()
                 }
             }
@@ -68,11 +69,12 @@ fun LoadingPopupView.observeState(owner: LifecycleOwner,
                                   onLoading: (()->Unit)? = null,
                                   onSuccess: (()->Unit)? = null,
                                   onError: (()->Unit)? = null,
-                                  onEmpty: (()->Unit)? = null){
+                                  onEmpty: (()->Unit)? = null,
+                                  autoShowError: Boolean = true){
     if(title!=null) setTitle(title)
     liveData.state.observe(owner, Observer<StateLiveData.State> {
         bindState(liveData, onLoading = onLoading, onSuccess = onSuccess,
-                onError = onError, onEmpty = onEmpty)
+                onError = onError, onEmpty = onEmpty, autoShowError = autoShowError)
     })
 }
 
