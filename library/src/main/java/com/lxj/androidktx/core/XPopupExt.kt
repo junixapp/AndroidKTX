@@ -23,7 +23,7 @@ fun LoadingPopupView.bindState(liveData: StateLiveData<*>,
                                onSuccess: (()->Unit)? = null,
                                onError: (()->Unit)? = null,
                                onEmpty: (()->Unit)? = null,
-                               autoShowError: Boolean = true){
+                               autoShowError: Boolean = false){
     val delay = XPopup.getAnimationDuration().toLong()+50
     when(liveData.state.value){
         StateLiveData.State.Loading->{
@@ -31,8 +31,13 @@ fun LoadingPopupView.bindState(liveData: StateLiveData<*>,
             onLoading?.invoke()
         }
         StateLiveData.State.Success->{
-            delayDismissWith(delay){
+            //如果状态异常，已经关闭或正在关闭
+            if(popupStatus==PopupStatus.Dismissing || popupStatus==PopupStatus.Dismiss){
                 onSuccess?.invoke()
+            }else{
+                delayDismissWith(delay){
+                    onSuccess?.invoke()
+                }
             }
         }
         StateLiveData.State.Empty->{
@@ -70,7 +75,7 @@ fun LoadingPopupView.observeState(owner: LifecycleOwner,
                                   onSuccess: (()->Unit)? = null,
                                   onError: (()->Unit)? = null,
                                   onEmpty: (()->Unit)? = null,
-                                  autoShowError: Boolean = true){
+                                  autoShowError: Boolean = false){
     if(title!=null) setTitle(title)
     liveData.state.observe(owner, Observer<StateLiveData.State> {
         bindState(liveData, onLoading = onLoading, onSuccess = onSuccess,
