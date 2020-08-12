@@ -273,3 +273,15 @@ fun Any.doOnceInDay(action: () -> Unit) {
     sp().putString(key, todayFormat)
     action()
 }
+
+//第一次启动的时候执行
+fun Any.doWhenFirstLaunch(action: () -> Unit) {
+    val key = "has_done_first_launch"
+    val hasDone = sp().getBoolean(key, false)
+    if (hasDone) {
+        //说明执行过
+        return
+    }
+    sp().putBoolean(key, true)
+    action()
+}

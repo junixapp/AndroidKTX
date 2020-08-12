@@ -53,11 +53,19 @@ fun LoadingPopupView.bindState(liveData: StateLiveData<*>,
         StateLiveData.State.Error->{
             if(popupStatus==PopupStatus.Dismissing || popupStatus==PopupStatus.Dismiss){
                 //如果已经关闭
-                if(liveData.errMsg?.isNotEmpty()==true && autoShowError)ToastUtils.showLong(liveData.errMsg)
+                if(autoShowError){
+                    if(liveData.value==null){
+                        ToastUtils.showShort("数据为空，请检查网络")
+                    }else if(liveData.errMsg?.isNotEmpty()==true)ToastUtils.showLong(liveData.errMsg)
+                }
                 onError?.invoke()
             }else{
                 delayDismissWith(delay){
-                    if(liveData.errMsg?.isNotEmpty()==true  && autoShowError)ToastUtils.showLong(liveData.errMsg)
+                    if(autoShowError){
+                        if(liveData.value==null){
+                            ToastUtils.showShort("数据为空，请检查网络")
+                        }else if(liveData.errMsg?.isNotEmpty()==true )ToastUtils.showLong(liveData.errMsg)
+                    }
                     onError?.invoke()
                 }
             }
