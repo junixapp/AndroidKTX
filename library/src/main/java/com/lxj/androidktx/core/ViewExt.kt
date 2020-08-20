@@ -292,3 +292,11 @@ fun View.disable() {
     isEnabled = false
     alpha = 0.5f
 }
+
+/**
+ * 设置View不可用
+ */
+fun View.enable() {
+    isEnabled = true
+    alpha = 1f
+}
