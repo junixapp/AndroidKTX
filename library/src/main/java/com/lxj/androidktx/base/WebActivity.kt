@@ -117,8 +117,10 @@ open class WebActivity : TitleBarActivity(){
     }
 
     override fun onDestroy() {
-        if(!enableCache) agentWeb.webLifeCycle.onDestroy()
-        agentWeb.clearWebCache()
+        if(!enableCache) {
+            agentWeb.webLifeCycle.onDestroy()
+            agentWeb.clearWebCache()
+        }
         super.onDestroy()
     }
 }
