@@ -9,6 +9,7 @@ import android.graphics.Color
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.lxj.androidktx.util.FixClickSpanTouchListener
 
 /**
  * Description: View相关
@@ -178,6 +179,7 @@ fun View.animateWidthAndHeight(targetWidth: Int, targetHeight: Int, duration: Lo
 var _viewClickFlag = false
 var _clickRunnable = Runnable { _viewClickFlag = false }
 fun View.click(action: (view: View) -> Unit) {
+    setOnTouchListener(FixClickSpanTouchListener())
     setOnClickListener {
         if (!_viewClickFlag) {
             _viewClickFlag = true
@@ -192,6 +194,7 @@ fun View.click(action: (view: View) -> Unit) {
  * 设置长按监听
  */
 fun View.longClick(action: (view: View) -> Boolean) {
+    setOnTouchListener(FixClickSpanTouchListener())
     setOnLongClickListener {
         action(it)
     }

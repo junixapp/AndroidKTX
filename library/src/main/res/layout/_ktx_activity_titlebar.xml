@@ -14,7 +14,7 @@
         app:rightImagePadding="10pt"
         app:leftImagePadding="10pt"
         app:leftImageSrc="@mipmap/_ktx_ic_back"
-        android:layout_height="40pt"/>
+        android:layout_height="46pt"/>
     <View
         android:id="@+id/titleDivider"
         android:background="#f1f1f1"
