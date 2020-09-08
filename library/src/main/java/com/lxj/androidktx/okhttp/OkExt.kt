@@ -6,6 +6,7 @@ import me.jessyan.progressmanager.ProgressManager
 import okhttp3.Call
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import java.lang.Exception
 import java.lang.IllegalArgumentException
 import java.util.concurrent.TimeUnit
 
@@ -30,6 +31,7 @@ object OkExt {
                     HttpsUtils.getSslSocketFactory().trustManager)
             .build()
     var dateFormat: String = "yyyy-MM-dd HH:mm:ss"
+    var globalFailHandler: ((e: Exception?)->Unit)? = null
 
     init {
         okHttpClient = ProgressManager.getInstance().with(okHttpClient.newBuilder()).build()

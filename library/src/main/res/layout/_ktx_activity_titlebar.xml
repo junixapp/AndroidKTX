@@ -11,8 +11,8 @@
         android:id="@+id/titleBar"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        app:rightImagePadding="10pt"
-        app:leftImagePadding="10pt"
+        app:rightImagePadding="13pt"
+        app:leftImagePadding="13pt"
         app:leftImageSrc="@mipmap/_ktx_ic_back"
         android:layout_height="46pt"/>
     <View

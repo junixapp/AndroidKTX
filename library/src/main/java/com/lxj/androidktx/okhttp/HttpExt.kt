@@ -130,10 +130,12 @@ inline fun <reified T> defferedRequest(request: Request, reqWrapper: RequestWrap
             }
         } else {
             deferred.complete(null) //not throw, pass null
+            OkExt.globalFailHandler?.invoke(null)
         }
     } catch (e: Exception) {
         e.printStackTrace()
         deferred.complete(null) //pass null
+        OkExt.globalFailHandler?.invoke(e)
     } finally {
         OkExt.requestCache.remove(reqWrapper.tag())
     }
@@ -148,6 +150,7 @@ inline fun <reified T> callbackRequest(request: Request, cb: HttpCallback<T>, re
             override fun onFailure(call: Call, e: IOException) {
                 OkExt.requestCache.remove(reqWrapper.tag())
                 cb.onFail(e)
+                OkExt.globalFailHandler?.invoke(e)
             }
 
             override fun onResponse(call: Call, response: Response) {

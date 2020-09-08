@@ -35,8 +35,10 @@ fun ImageView.load(url: Any?, placeholder: Int = 0, error: Int = 0,
                    roundRadius: Int = 0,
                    isCrossFade: Boolean = false,
                    isForceOriginalSize: Boolean = false,
-                   onImageLoad: ((resource: Drawable?)->Unit)? = null
-    ) {
+                   onlyLoadImage: Boolean = false,
+                   onImageLoad: ((resource: Drawable?) -> Unit)? = null,
+                   onImageFail: (() -> Unit)? = null
+) {
     val options = RequestOptions().placeholder(placeholder).error(error).apply {
         if (isCenterCrop && scaleType != ImageView.ScaleType.CENTER_CROP)
             scaleType = ImageView.ScaleType.CENTER_CROP
@@ -53,25 +55,30 @@ fun ImageView.load(url: Any?, placeholder: Int = 0, error: Int = 0,
                 transform(RoundedCorners(roundRadius))
             }
         }
-        if(isForceOriginalSize){
+        if (isForceOriginalSize) {
             override(Target.SIZE_ORIGINAL)
         }
     }
-    Glide.with(context).load(url)
+    val glide = Glide.with(context).load(url)
             .apply(options)
             .apply {
                 if (isCrossFade) transition(DrawableTransitionOptions.withCrossFade())
-                if(onImageLoad!=null){
-                    listener(object : RequestListener<Drawable>{
+                if (onImageLoad != null) {
+                    listener(object : RequestListener<Drawable> {
                         override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                            onImageFail?.invoke()
                             return false
                         }
+
                         override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
                             onImageLoad(resource)
                             return false
                         }
                     })
                 }
+
             }
-            .into(this)
+    if (!onlyLoadImage) {
+        glide.into(this)
+    }
 }

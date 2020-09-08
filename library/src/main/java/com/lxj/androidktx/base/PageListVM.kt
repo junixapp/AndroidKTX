@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.lxj.androidktx.core.updateData
 import com.lxj.androidktx.livedata.StateLiveData
+import com.lxj.statelayout.StateLayout
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
@@ -32,11 +33,16 @@ abstract class PageListVM<T> : ViewModel(),
         owner: LifecycleOwner,
         rv: RecyclerView?,
         smartRefresh: SmartRefreshLayout?,
+        stateLayout: StateLayout? = null,
         onDataUpdate: (()->Unit)? = null
     ) {
         listData.observe(owner, Observer {
             rv?.adapter?.notifyDataSetChanged()
             onDataUpdate?.invoke()
+            if(stateLayout!=null){
+                if(listData.value.isNullOrEmpty()) stateLayout.showEmpty()
+                else stateLayout.showContent()
+            }
         })
 
         listData.state.observe(owner, Observer {
