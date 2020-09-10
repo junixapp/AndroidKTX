@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.blankj.utilcode.util.LogUtils
 import com.lxj.androidktx.core.*
+import com.lxj.androidktx.widget.LoadingDialog
 import com.lxj.androidktxdemo.entity.PageInfo
 import com.lxj.androidktxdemo.entity.User
 import com.lxj.androidktxdemo.fragment.*
@@ -49,8 +50,10 @@ class MainActivity : AppCompatActivity() {
 //            return@bind TextView(this)
 //        })
 
-        toast("测试短吐司")
-        longToast("测试长吐司")
+//        toast("测试短吐司")
+//        longToast("测试长吐司")
+
+//        LoadingDialog(this).setMessage("阿萨啊").show()
 
         handler.post { toast("哈哈哈哈哈啊啊啊啊啊啊") }
 

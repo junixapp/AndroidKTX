@@ -294,7 +294,17 @@ inline val ViewGroup.children
  */
 fun View.disable() {
     isEnabled = false
-    alpha = 0.5f
+    alpha = 0.55f
+}
+
+fun View.disableAll() {
+    isEnabled = false
+    alpha = 0.55f
+    if(this is ViewGroup){
+        children.forEach {
+            it.disableAll()
+        }
+    }
 }
 
 /**
@@ -303,4 +313,14 @@ fun View.disable() {
 fun View.enable() {
     isEnabled = true
     alpha = 1f
+}
+
+fun View.enableAll() {
+    isEnabled = true
+    alpha = 1f
+    if(this is ViewGroup){
+        children.forEach {
+            it.enableAll()
+        }
+    }
 }

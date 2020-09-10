@@ -24,7 +24,7 @@ fun LoadingPopupView.bindState(liveData: StateLiveData<*>,
                                onError: (()->Unit)? = null,
                                onEmpty: (()->Unit)? = null,
                                autoShowError: Boolean = false){
-    val delay = XPopup.getAnimationDuration().toLong()+50
+    val delay = XPopup.getAnimationDuration().toLong()+10
     when(liveData.state.value){
         StateLiveData.State.Loading->{
             show()
@@ -54,14 +54,14 @@ fun LoadingPopupView.bindState(liveData: StateLiveData<*>,
             if(popupStatus==PopupStatus.Dismissing || popupStatus==PopupStatus.Dismiss){
                 //如果已经关闭
                 if(autoShowError && liveData.errMsg?.isNotEmpty()==true){
-                    ToastUtils.showLong(liveData.errMsg)
+                    ToastUtils.showShort(liveData.errMsg)
                     liveData.errMsg = ""
                 }
                 onError?.invoke()
             }else{
                 delayDismissWith(delay){
                     if(autoShowError && liveData.errMsg?.isNotEmpty()==true){
-                        ToastUtils.showLong(liveData.errMsg)
+                        ToastUtils.showShort(liveData.errMsg)
                         liveData.errMsg = ""
                     }
                     onError?.invoke()

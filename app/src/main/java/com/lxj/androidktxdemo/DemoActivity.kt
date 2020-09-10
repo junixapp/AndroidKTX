@@ -4,7 +4,10 @@ import androidx.lifecycle.Observer
 import com.lxj.androidktx.base.StateTitleBarActivity
 import com.lxj.androidktx.base.TitleBarActivity
 import com.lxj.androidktx.core.click
+import com.lxj.androidktx.core.observeState
 import com.lxj.androidktx.core.toast
+import com.lxj.xpopup.XPopup
+import com.lxj.xpopup.impl.LoadingPopupView
 import kotlinx.android.synthetic.main.demo.*
 
 /**
@@ -14,14 +17,25 @@ import kotlinx.android.synthetic.main.demo.*
 class DemoActivity : StateTitleBarActivity(){
     override fun getBodyLayout() = R.layout.demo
 
+    var isFirst = true
+    val loadingPopupView: LoadingPopupView by lazy { XPopup.Builder(this).asLoading("加载中") }
     override fun initData() {
         titleBar().setup(title = "大萨达撒大多撒")
-        AppVM.data.observe(this, Observer{
-            toast("it：$it")
+//        AppVM.data.observe(this, Observer{
+//            toast("it：$it")
+//        })
+        loadingPopupView.observeState(this, AppVM.data, autoShowError = true, onSuccess = {
+            toast("it：${ AppVM.data.value}")
         })
 
         btn.click {
-            AppVM.data.postValue("第一次设置的值。。。")
+            if(isFirst){
+                AppVM.data.postError("错误信息。。。")
+                isFirst = false
+            }else{
+
+                AppVM.data.postValueAndSuccess("第一次设置的值。。。")
+            }
         }
     }
 
