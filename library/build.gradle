@@ -55,10 +55,10 @@ dependencies {
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.2'
     api 'top.zibin:Luban:1.1.8'
     api 'com.jeremyliao:live-event-bus-x:1.7.2'  //事件总线
-    api 'com.shuyu:gsyVideoPlayer-java:7.1.4'
-    api 'com.shuyu:gsyVideoPlayer-armv5:7.1.4'
-    api 'com.shuyu:gsyVideoPlayer-armv7a:7.1.4'
-    api 'com.shuyu:gsyVideoPlayer-arm64:7.1.4'
+    api 'com.shuyu:gsyVideoPlayer-java:7.1.6'
+    api 'com.shuyu:gsyVideoPlayer-armv5:7.1.6'
+    api 'com.shuyu:gsyVideoPlayer-armv7a:7.1.6'
+    api 'com.shuyu:gsyVideoPlayer-arm64:7.1.6'
     api 'cjt.library.wheel:camera:1.1.9'    //拍照和拍摄视频
     compileOnly 'com.lxj:xpopup:2.0.0'       //弹窗
     api 'com.king.zxing:zxing-lite:1.1.9-androidx'  //二维码扫描
@@ -86,7 +86,7 @@ publish {
     userOrg = 'li-xiaojun'
     groupId = 'com.lxj'
     artifactId = 'androidktx'
-    publishVersion = '1.8.37'
+    publishVersion = '1.8.40'
     repoName = 'jrepo'
     desc = 'Some very useful kotlin extensions for android development！好用到爆的Kotlin扩展，加速你的Android开发！'
     website = 'https://github.com/li-xiaojun/AndroidKTX'

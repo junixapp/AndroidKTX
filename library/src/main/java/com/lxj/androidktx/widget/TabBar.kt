@@ -89,7 +89,8 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
         if(mTabChangeListener!=null && !mTabChangeListener!!(index))return
         if(tabIndex==index)return
         tabIndex = index
-        vp?.currentItem = tabIndex
+//        vp?.currentItem = tabIndex
+        vp?.setCurrentItem(tabIndex, false)
         children.forEachIndexed { i, it ->
             val group = it as ViewGroup
             if(index==i){

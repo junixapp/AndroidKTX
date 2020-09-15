@@ -292,9 +292,9 @@ inline val ViewGroup.children
 /**
  * 设置View不可用
  */
-fun View.disable() {
+fun View.disable(value: Float = 0.5f) {
     isEnabled = false
-    alpha = 0.55f
+    alpha = value
 }
 
 fun View.disableAll() {

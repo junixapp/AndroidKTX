@@ -11,6 +11,8 @@ import com.lxj.androidktxdemo.entity.PageInfo
 import com.lxj.androidktxdemo.entity.User
 import com.lxj.androidktxdemo.fragment.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 
@@ -59,6 +61,10 @@ class MainActivity : AppCompatActivity() {
 
         """{"age":25,"name":"李晓俊","date":"2020-05-12 13:37:33"}
         """.trimIndent().toBean<User>().toString().logw()
+
+        GlobalScope.launch {
+            loge(Thread.currentThread().name)
+        }
 //        """{"age":25,"name":"李晓俊","date":"Mar 12, 1990 00:00:00"}
 //        """.trimIndent().toBean<User>().toString().w()
 //        "[{\"age\":25,\"name\":\"李晓俊\"}]".toBean<List<User>>().toString().e()
