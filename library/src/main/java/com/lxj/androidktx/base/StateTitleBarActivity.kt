@@ -38,6 +38,6 @@ abstract class StateTitleBarActivity : TitleBarActivity(){
     }
 
     //是否自动显示Content
-    open fun autoShowContent() = true
+    open fun autoShowContent() = false
 
 }

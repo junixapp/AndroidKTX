@@ -45,7 +45,7 @@ abstract class StateFragment : Fragment() {
     }
 
     //是否自动显示Content
-    open fun autoShowContent() = true
+    open fun autoShowContent() = false
 
     override fun onResume() {
         super.onResume()
