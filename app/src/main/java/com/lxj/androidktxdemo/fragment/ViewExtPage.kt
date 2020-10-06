@@ -73,7 +73,7 @@ class ViewExtPage : BaseFragment() {
 
 
         tvVerify.click {
-            tvVerify.startCountDown()
+            tvVerify.start()
         }
 
         tabbar.setTabs(listOf(

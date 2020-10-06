@@ -164,10 +164,11 @@ object Share {
                         setTitle(title)
                     })
 
-                    if (url!=null) withMedia(UMWeb(URLEncoder.encode(url)).apply {
+                    if (url!=null) withMedia(UMWeb(url).apply {
                         //微信分享链接时需要标题和描述
                         description = text
                         setTitle(title)
+                        if(bitmap!=null)setThumb(UMImage(activity, bitmap))
                     })
                 }
                 .setCallback(object : UMShareListener {

@@ -1,5 +1,7 @@
 package com.lxj.androidktx.widget
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.content.Context
 import android.util.AttributeSet
 import com.lxj.androidktx.R
@@ -24,35 +26,69 @@ class VerifyView @JvmOverloads constructor(context: Context, attributeSet: Attri
     var resendText = "重新发送验证码" //重新发送的文字
     var resendDuration = 60 //重新发送的时间周期，默认是60秒
     var currTime = 0 //当前时间
+    var alphaWhenCountDown = true //在倒计时的时候是否显示半透明
+    var callback: CountDownCallback? = null
+    var status = VerifyStatus.Init
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.VerifyView)
         defText = ta.getString(R.styleable.VerifyView_vv_defText) ?: defText
         countDownText = ta.getString(R.styleable.VerifyView_vv_countDownText) ?: countDownText
         resendText = ta.getString(R.styleable.VerifyView_vv_resendText) ?: resendText
         resendDuration = ta.getInt(R.styleable.VerifyView_vv_resendDuration, resendDuration)
+        alphaWhenCountDown = ta.getBoolean(R.styleable.VerifyView_vv_alphaWhenCountDown, alphaWhenCountDown)
         ta.recycle()
         currTime = resendDuration
         text = defText
     }
 
-    fun startCountDown(){
+    //开始倒计时
+    fun start(){
         if(currTime==0){
-            animate().alpha(1f).setDuration(300).start()
+            animate().alpha(1f).setDuration(300).setListener(object : AnimatorListenerAdapter(){
+                override fun onAnimationEnd(animation: Animator?) {
+                    super.onAnimationEnd(animation)
+                    callback?.onEnd()
+                }
+            }).start()
             isEnabled = true
             text = resendText
             currTime = resendDuration
             handler.removeCallbacksAndMessages(null)
+            status = VerifyStatus.End
             return
         }
-        animate().alpha(.7f).setDuration(300).start()
+        if(alphaWhenCountDown) animate().alpha(.6f).setDuration(300).start()
         isEnabled = false
         text = "${currTime}${countDownText}"
         currTime--
-        handler.postDelayed({startCountDown()}, 1000)
+        handler.postDelayed({start()}, 1000)
+        callback?.onStart()
+        status = VerifyStatus.CountingDown
+    }
+
+    /**
+     * 结束倒计时
+     */
+    fun stop(){
+        handler.removeCallbacksAndMessages(null)
+        text = defText
+        currTime = resendDuration
+        callback?.onStop()
+        status = VerifyStatus.End
     }
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        handler.removeCallbacksAndMessages(null)
+        stop()
     }
+
+    interface CountDownCallback{
+        fun onStart(){}
+        fun onStop(){}
+        fun onEnd(){}
+    }
+}
+
+enum class VerifyStatus{
+    Init, CountingDown, End
 }

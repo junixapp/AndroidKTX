@@ -207,8 +207,8 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
 
     private fun applySelf() {
         if (background == null) setBackgroundColor(Color.WHITE)
-        if (paddingLeft == 0) setPadding(dp2px(4f), paddingTop, paddingRight, paddingBottom)
-        if (paddingRight == 0) setPadding(paddingLeft, paddingTop, dp2px(4f), paddingBottom)
+        if (paddingLeft == 0) setPadding(dp2px(1f), paddingTop, paddingRight, paddingBottom)
+        if (paddingRight == 0) setPadding(paddingLeft, paddingTop, dp2px(1f), paddingBottom)
     }
 
     val paint = Paint()

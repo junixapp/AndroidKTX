@@ -249,6 +249,7 @@
         <attr name="vv_countDownText" format="string"/>
         <attr name="vv_resendText" format="string"/>
         <attr name="vv_resendDuration" format="integer"/>
+        <attr name="vv_alphaWhenCountDown" format="boolean"/>
     </declare-styleable>
 
     <!--RatioImageView-->

@@ -34,12 +34,14 @@ abstract class PageListVM<T> : ViewModel(),
         rv: RecyclerView?,
         smartRefresh: SmartRefreshLayout?,
         stateLayout: StateLayout? = null,
+        emptyText: String = "暂无数据",
         onDataUpdate: (()->Unit)? = null
     ) {
         listData.observe(owner, Observer {
             rv?.adapter?.notifyDataSetChanged()
             onDataUpdate?.invoke()
             if(stateLayout!=null){
+                stateLayout.config(emptyText = emptyText)
                 if(listData.value.isNullOrEmpty()) stateLayout.showEmpty()
                 else stateLayout.showContent()
             }
