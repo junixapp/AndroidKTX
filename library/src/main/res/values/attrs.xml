@@ -261,8 +261,19 @@
     <!--TabBar-->
     <declare-styleable name="TabBar">
         <attr name="tb_iconSize" format="dimension"/>
+        <attr name="tb_iconWidth" format="dimension"/>
+        <attr name="tb_iconHeight" format="dimension"/>
         <attr name="tb_textSize" format="dimension"/>
+        <attr name="tb_normalTextSize" format="dimension"/>
+        <attr name="tb_selectTextSize" format="dimension"/>
         <attr name="tb_iconSpace" format="dimension"/>
+        <attr name="tb_iconPosition" format="integer">
+            <enum name="left" value="0" />
+            <enum name="top" value="1" />
+            <enum name="right" value="2" />
+            <enum name="bottom" value="3" />
+        </attr>
+        <attr name="tb_isSelectBold" format="boolean"/>
         <attr name="tb_selectedColor" format="color"/>
         <attr name="tb_normalColor" format="color"/>
         <attr name="tb_tabHeight" format="dimension"/>

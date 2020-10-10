@@ -12,10 +12,14 @@
         <com.lxj.androidktx.widget.TabBar
             android:id="@+id/tabbar"
             app:sll_topLineColor="#f00"
+            app:tb_isSelectBold="true"
             app:tb_normalColor="#666"
             app:tb_selectedColor="@color/colorPrimary"
-            app:tb_iconSize="30dp"
-            app:tb_iconSpace="0dp"
+            app:tb_selectTextSize="16sp"
+            app:tb_iconHeight="4dp"
+            app:tb_iconWidth="30dp"
+            app:tb_iconSpace="3dp"
+            app:tb_iconPosition="bottom"
             android:layout_width="match_parent"
             android:layout_height="60dp"/>
 
