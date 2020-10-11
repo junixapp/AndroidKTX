@@ -43,13 +43,9 @@ fun ImageView.load(url: Any?, placeholder: Int = 0, error: Int = 0,
         if (isCenterCrop && scaleType != ImageView.ScaleType.CENTER_CROP)
             scaleType = ImageView.ScaleType.CENTER_CROP
         if (isCircle) {
-            if (scaleType == ImageView.ScaleType.CENTER_CROP) {
-                transforms(CenterCrop(), CircleCrop())
-            } else {
-                transform(CircleCrop())
-            }
+            transform(CircleCrop())
         } else if (roundRadius != 0) {
-            if (scaleType == ImageView.ScaleType.CENTER_CROP) {
+            if (isCenterCrop) {
                 transforms(CenterCrop(), RoundedCorners(roundRadius))
             } else {
                 transform(RoundedCorners(roundRadius))
@@ -72,7 +68,7 @@ fun ImageView.load(url: Any?, placeholder: Int = 0, error: Int = 0,
 
                         override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
                             onImageLoad(resource)
-                            return false
+                            return true
                         }
                     })
                 }

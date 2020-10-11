@@ -47,7 +47,7 @@ class SpanExtPage : BaseFragment() {
             tv.clickSpan(str, 2..6, listener)
         """.trimIndent()
         tvClickResult.clickSpan(str = str, range = 2..6, color = Color.BLUE, clickAction = {
-            toast("哈哈我被点击了".toColorSpan(0..2))
+            ToastUtils.showShort("哈哈我被点击了".toColorSpan(0..2))
             start<DemoActivity>()
 //            QrCodeUtil.start(this, 1)
 //            PlayerActivity.start(url = "https://lxj-bama-happy.oss-cn-zhangjiakou.aliyuncs.com/e015e0a9-ed2d-47b6-9b70-e4feb263a09f.mp4",
@@ -68,7 +68,7 @@ class SpanExtPage : BaseFragment() {
                 .appendBackgroundColorSpan("我是有底色的", color = Color.parseColor("#cacee0"))
                 .appendStrikeThrougthSpan("添加删除线哦哦哦哦")
                 .appendClickSpan("来点我一下试试啊", isUnderlineText = true, clickAction = {
-                    toast("哎呀，您点到我了呢，嘿嘿")
+                    ToastUtils.showShort("哎呀，您点到我了呢，嘿嘿")
                 })
                 .appendStyleSpan("我是粗体的")
     }

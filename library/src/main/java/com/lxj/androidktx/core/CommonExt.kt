@@ -142,39 +142,6 @@ fun View.createDrawable(color: Int = Color.TRANSPARENT, radius: Float = 0f,
             gradientEndColor = gradientEndColor, gradientOrientation = gradientOrientation)
 }
 
-
-/** toast相关 **/
-@Deprecated(message = "请使用ToastUtil")
-fun Context.toast(msg: CharSequence) {
-    Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
-}
-
-@Deprecated(message = "请使用ToastUtil")
-fun Context.longToast(msg: CharSequence) {
-    Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
-}
-
-@Deprecated(message = "请使用ToastUtil")
-fun Fragment.toast(msg: CharSequence) {
-    context?.toast(msg)
-}
-
-@Deprecated(message = "请使用ToastUtil")
-fun Fragment.longToast(msg: CharSequence) {
-    context?.longToast(msg)
-}
-
-@Deprecated(message = "请使用ToastUtil")
-fun View.toast(msg: CharSequence) {
-    context?.toast(msg)
-}
-
-@Deprecated(message = "请使用ToastUtil")
-fun View.longToast(msg: CharSequence) {
-    context?.longToast(msg)
-}
-
-
 /** json相关 **/
 fun Any.toJson(dateFormat: String = "yyyy-MM-dd HH:mm:ss") = GsonBuilder().setDateFormat(dateFormat).create().toJson(this)
 

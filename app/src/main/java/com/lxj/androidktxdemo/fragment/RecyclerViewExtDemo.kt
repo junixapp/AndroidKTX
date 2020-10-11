@@ -25,12 +25,10 @@ class RecyclerViewExtDemo : BaseFragment() {
         val header = TextView(context).apply {
             text = "我是header"
             setPadding(120, 120, 120, 120)
-            click { toast(this.text) }
         }
         val footer = TextView(context).apply {
             text = "我是footer"
             setPadding(120, 120, 120, 120)
-            click { toast(this.text) }
         }
 
         btn.click {
@@ -48,10 +46,8 @@ class RecyclerViewExtDemo : BaseFragment() {
                 .addHeader(header) //必须在bindData之后调用
                 .addFooter(footer) //必须在bindData之后调用
                 .itemClick<String> { data, holder, position ->
-                    toast("click ${data[position]}")
                 }
 
-        toast(recyclerView.adapter!!::class.java.simpleName)
 
     }
 

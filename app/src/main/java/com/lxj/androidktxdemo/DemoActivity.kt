@@ -1,11 +1,10 @@
 package com.lxj.androidktxdemo
 
 import androidx.lifecycle.Observer
+import com.blankj.utilcode.util.ToastUtils
 import com.lxj.androidktx.base.StateTitleBarActivity
-import com.lxj.androidktx.base.TitleBarActivity
 import com.lxj.androidktx.core.click
 import com.lxj.androidktx.core.observeState
-import com.lxj.androidktx.core.toast
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.impl.LoadingPopupView
 import kotlinx.android.synthetic.main.demo.*
@@ -25,7 +24,7 @@ class DemoActivity : StateTitleBarActivity(){
 //            toast("it：$it")
 //        })
         loadingPopupView.observeState(this, AppVM.data, autoShowError = true, onSuccess = {
-            toast("it：${ AppVM.data.value}")
+            ToastUtils.showShort("it：${ AppVM.data.value}")
         })
 
         btn.click {

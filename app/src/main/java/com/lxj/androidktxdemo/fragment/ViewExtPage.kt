@@ -2,6 +2,7 @@ package com.lxj.androidktxdemo.fragment
 
 
 import android.graphics.Color
+import com.blankj.utilcode.util.ToastUtils
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.widget.TabBar
 import com.lxj.androidktxdemo.R
@@ -67,7 +68,7 @@ class ViewExtPage : BaseFragment() {
 
         saveToAlbum.click {
             text4.toBitmap().saveToAlbum(callback = { path, uri ->
-                toast("保存成功")
+                ToastUtils.showShort("保存成功")
             })
         }
 
@@ -82,7 +83,7 @@ class ViewExtPage : BaseFragment() {
                 TabBar.Tab("视频", R.mipmap.ic_launcher, R.mipmap.ic_launcher_round),
                 TabBar.Tab("我的", R.mipmap.ic_launcher, R.mipmap.ic_launcher_round)
                 )){
-            toast("选择了："+it)
+            ToastUtils.showShort("选择了："+it)
             loge("select: " + it)
             true
         }

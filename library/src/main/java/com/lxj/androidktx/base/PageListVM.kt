@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lxj.androidktx.core.updateData
 import com.lxj.androidktx.livedata.StateLiveData
 import com.lxj.statelayout.StateLayout
-import com.scwang.smartrefresh.layout.SmartRefreshLayout
-import com.scwang.smartrefresh.layout.api.RefreshLayout
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
+import com.scwang.smart.refresh.layout.api.RefreshLayout
+import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
 import java.io.Serializable
 
 data class ListWrapper<T>(

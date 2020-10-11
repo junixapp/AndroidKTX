@@ -11,6 +11,7 @@
 
         <com.lxj.androidktx.widget.TabBar
             android:id="@+id/tabbar"
+            android:layout_marginTop="100pt"
             app:sll_topLineColor="#f00"
             app:tb_isSelectBold="true"
             app:tb_normalColor="#666"

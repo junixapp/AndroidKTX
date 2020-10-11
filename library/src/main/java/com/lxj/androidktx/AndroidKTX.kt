@@ -7,13 +7,10 @@ import android.graphics.Color
 import android.view.Gravity
 import com.blankj.utilcode.util.ToastUtils
 import com.blankj.utilcode.util.Utils
-import com.scwang.smartrefresh.layout.SmartRefreshLayout
-import com.scwang.smartrefresh.layout.footer.ClassicsFooter
-import com.scwang.smartrefresh.layout.header.ClassicsHeader
+import com.scwang.smart.refresh.footer.ClassicsFooter
+import com.scwang.smart.refresh.header.ClassicsHeader
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.shuyu.gsyvideoplayer.player.IjkPlayerManager
-import com.shuyu.gsyvideoplayer.video.GSYADVideoPlayer
-import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer
-import com.umeng.commonsdk.UMConfigure
 import tv.danmaku.ijk.media.player.IjkMediaPlayer
 
 /**
@@ -43,8 +40,9 @@ object AndroidKTX {
         if(context is Application){
             Utils.init(context)
         }
-        ToastUtils.setGravity(Gravity.CENTER, 0 , 20)
-        ToastUtils.setBgColor(Color.parseColor("#222222"))
+        ToastUtils.setGravity(Gravity.CENTER, 0 , 50)
+//        ToastUtils.setBgColor(Color.parseColor("#222222"))
+        ToastUtils.setBgResource(R.drawable._ktx_toast_bg)
         ToastUtils.setMsgColor(Color.WHITE)
         initRefresh()
         IjkPlayerManager.setLogLevel(IjkMediaPlayer.IJK_LOG_SILENT)
@@ -54,11 +52,12 @@ object AndroidKTX {
         //设置全局的Header构建器
         SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, layout ->
 //            layout.setPrimaryColorsId(R.color.bg_color, R.color.colorPrimary)
-            layout.setPrimaryColors(Color.parseColor("#f1f1f1"), Color.parseColor("#000000"))
-            return@setDefaultRefreshHeaderCreator ClassicsHeader(context)
-        };
+            layout.setPrimaryColors(Color.parseColor("#f1f1f1"), Color.parseColor("#111111"))
+            ClassicsHeader(context)
+        }
         //设置全局的Footer构建器
         SmartRefreshLayout.setDefaultRefreshFooterCreator { context, layout ->
+            layout.setPrimaryColors(Color.parseColor("#f1f1f1"), Color.parseColor("#111111"))
             ClassicsFooter(
                     context
             ).setDrawableSize(20f)

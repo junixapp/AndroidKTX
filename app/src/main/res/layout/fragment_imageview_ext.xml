@@ -14,10 +14,12 @@
             android:id="@+id/title1"
             style="@style/TitleStyle"/>
 
-        <ImageView
+        <com.lxj.androidktx.widget.RatioImageView
             android:id="@+id/image1"
-            android:layout_width="120dp"
-            android:layout_height="100dp" />
+            app:riv_ratio="2"
+            app:riv_limitHeight="200dp"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content" />
 
         <include layout="@layout/divider"/>
 
@@ -38,7 +40,6 @@
 
         <ImageView
             android:id="@+id/image3"
-            android:scaleType="centerCrop"
             android:layout_width="100dp"
             android:layout_height="100dp" />
 

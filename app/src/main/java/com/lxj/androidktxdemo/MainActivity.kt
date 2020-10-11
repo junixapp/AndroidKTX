@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.widget.LoadingDialog
 import com.lxj.androidktxdemo.entity.PageInfo
@@ -52,12 +53,11 @@ class MainActivity : AppCompatActivity() {
 //            return@bind TextView(this)
 //        })
 
-//        toast("测试短吐司")
-//        longToast("测试长吐司")
 
+//        ToastUtils.showShort("撒大大撒多撒多撒")
 //        LoadingDialog(this).setMessage("阿萨啊").show()
 
-        handler.post { toast("哈哈哈哈哈啊啊啊啊啊啊") }
+        handler.post { ToastUtils.showShort("哈哈哈哈哈啊啊啊啊啊啊") }
 
         """{"age":25,"name":"李晓俊","date":"2020-05-12 13:37:33"}
         """.trimIndent().toBean<User>().toString().logw()

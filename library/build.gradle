@@ -44,7 +44,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     api "com.github.bumptech.glide:glide:4.11.0"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3"
-    api 'com.lxj:easyadapter:1.2.1'
+    api 'com.lxj:easyadapter:1.2.2'
     api 'com.jaeger.ninegridimageview:library:1.1.1'  //九宫格
     implementation 'com.google.code.gson:gson:2.8.6'
     // inline函数在运行时插入使用处，需要暴露出去
@@ -53,7 +53,10 @@ dependencies {
     api 'com.lxj:statelayout:1.0.9'
     api 'me.jessyan:progressmanager:1.5.0'
     api 'com.blankj:utilcodex:1.29.0'
-    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.2'
+//    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.2'
+    api  'com.scwang.smart:refresh-layout-kernel:2.0.1'      //核心必须依赖
+    api  'com.scwang.smart:refresh-header-classics:2.0.1'    //经典刷新头
+    api  'com.scwang.smart:refresh-footer-classics:2.0.1'    //经典加载
     api 'top.zibin:Luban:1.1.8'
     api 'com.jeremyliao:live-event-bus-x:1.7.2'  //事件总线
     api 'com.shuyu:gsyVideoPlayer-java:7.1.6'
@@ -72,7 +75,6 @@ dependencies {
 
     api 'com.zhihu.android:matisse:0.5.3-beta3'
     implementation 'com.github.yalantis:ucrop:2.2.5'
-
     //友盟相关
 //    api  'com.umeng.umsdk:common:9.1.0'
     api  'com.umeng.umsdk:asms:1.1.3' // asms包依赖(必选)
@@ -87,7 +89,7 @@ publish {
     userOrg = 'li-xiaojun'
     groupId = 'com.lxj'
     artifactId = 'androidktx'
-    publishVersion = '1.8.51'
+    publishVersion = '1.9.2'
     repoName = 'jrepo'
     desc = 'Some very useful kotlin extensions for android development！好用到爆的Kotlin扩展，加速你的Android开发！'
     website = 'https://github.com/li-xiaojun/AndroidKTX'
