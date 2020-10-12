@@ -9,6 +9,7 @@ import com.blankj.utilcode.util.ToastUtils
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.*
+import com.lxj.xpopup.XPopup
 
 /**
  * 图片上传UI组件
@@ -21,6 +22,8 @@ class ImageUploader @JvmOverloads constructor(
 
     private var addImage: Drawable?
     private var delImage : Drawable?
+    var delImageMargin = 0
+    var imageRadius = 0
     var spanCount = 3
     var hSpace = 10 //横向间距
     var vSpace = 10
@@ -30,12 +33,14 @@ class ImageUploader @JvmOverloads constructor(
 
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.ImageUploader)
+        imageRadius = ta.getDimensionPixelSize(R.styleable.ImageUploader_imageRadius, dp2px(imageRadius.toFloat()))
+        delImageMargin = ta.getDimensionPixelSize(R.styleable.ImageUploader_delImageMargin, dp2px(delImageMargin.toFloat()))
         addImage = ta.getDrawable(R.styleable.ImageUploader_addImageRes)
         delImage = ta.getDrawable(R.styleable.ImageUploader_delImageRes)
         spanCount = ta.getInt(R.styleable.ImageUploader_spanCount, spanCount)
         maxImages = ta.getInt(R.styleable.ImageUploader_maxImages, maxImages)
-        hSpace = ta.getDimensionPixelSize(R.styleable.ImageUploader_hSpace, dp2px(hSpace * 1f))
-        vSpace = ta.getDimensionPixelSize(R.styleable.ImageUploader_vSpace, dp2px(vSpace * 1f))
+        hSpace = ta.getDimensionPixelSize(R.styleable.ImageUploader_hSpace, dp2px(hSpace.toFloat()))
+        vSpace = ta.getDimensionPixelSize(R.styleable.ImageUploader_vSpace, dp2px(vSpace.toFloat()))
 
         ta.recycle()
 
@@ -62,23 +67,29 @@ class ImageUploader @JvmOverloads constructor(
                     bottomMargin = vSpace
             )
             holder.getView<ImageView>(R.id.close).setImageDrawable(delImage)
+            if(delImageMargin>0){
+                holder.getView<ImageView>(R.id.close).margin(rightMargin = delImageMargin, topMargin = delImageMargin)
+            }
             if (t == add_button) {
                 holder.getView<ImageView>(R.id.close).gone()
-                holder.getView<ImageView>(R.id.image).setImageDrawable(addImage)
+                holder.getView<RoundImageView>(R.id.image).apply {
+                    setImageDrawable(addImage)
+                    setCornerRadius(0)
+                    click { addButtonClickAction?.invoke() }
+                }
             } else {
                 holder.getView<ImageView>(R.id.close).visible()
-                holder.getView<ImageView>(R.id.image).load(t)
+                holder.getView<RoundImageView>(R.id.image).apply {
+                    load(t, isForceOriginalSize = true)
+                    setCornerRadius(imageRadius)
+                    click { XPopup.Builder(context).asImageViewer(it as ImageView, t,GlideImageLoader()).show() }
+                }
             }
             holder.getView<ImageView>(R.id.close).click {
                 paths.remove(t)
                 adapter?.notifyDataSetChanged()
             }
         })
-                .itemClick<String> { data, holder, position ->
-                    if (data[position] == add_button) {
-                        addButtonClickAction?.invoke()
-                    }
-                }
     }
 
     var addButtonClickAction: (() -> Unit)? = null

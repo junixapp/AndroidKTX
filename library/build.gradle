@@ -33,6 +33,9 @@ android {
         sourceCompatibility 1.8
         targetCompatibility 1.8
     }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 dependencies {
@@ -79,6 +82,8 @@ dependencies {
 //    api  'com.umeng.umsdk:common:9.1.0'
     api  'com.umeng.umsdk:asms:1.1.3' // asms包依赖(必选)
     api 'com.umeng.umsdk:crash:0.0.4' // native crash包依赖(必选)
+
+    implementation 'androidx.core:core-ktx:1.3.1'
 //    api  'com.umeng.umsdk:share-core:7.0.2'
 //    implementation  'com.umeng.umsdk:share-qq:7.0.2'
 //    api  'com.umeng.umsdk:share-wx:7.0.2'
@@ -89,7 +94,7 @@ publish {
     userOrg = 'li-xiaojun'
     groupId = 'com.lxj'
     artifactId = 'androidktx'
-    publishVersion = '1.9.2'
+    publishVersion = '1.9.7'
     repoName = 'jrepo'
     desc = 'Some very useful kotlin extensions for android development！好用到爆的Kotlin扩展，加速你的Android开发！'
     website = 'https://github.com/li-xiaojun/AndroidKTX'

@@ -1,10 +1,7 @@
 package com.lxj.androidktx.widget
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Rect
+import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
@@ -285,6 +282,10 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
             applySelf()
         }
 
+    var leftTextBold = false
+    var centerTextBold = false
+    var rightTextBold = false
+
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.SuperLayout)
         mleftImage = ta.getDrawable(R.styleable.SuperLayout_sl_leftImageSrc)
@@ -347,6 +348,10 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
             6 -> GradientDrawable.Orientation.LEFT_RIGHT
             else -> GradientDrawable.Orientation.TL_BR
         }
+        leftTextBold = ta.getBoolean(R.styleable.SuperLayout_sl_leftTextBold, leftTextBold)
+        centerTextBold = ta.getBoolean(R.styleable.SuperLayout_sl_centerTextBold, centerTextBold)
+        rightTextBold = ta.getBoolean(R.styleable.SuperLayout_sl_rightTextBold, rightTextBold)
+
         ta.recycle()
         inflate(context, R.layout._ktx_super_layout, this)
         applyAttr()
@@ -404,6 +409,7 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
             tvLeftText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mleftTextSize.toFloat())
             tvLeftText.margin(bottomMargin = mleftTextMarginBottom, topMargin = mleftTextMarginTop)
             llLeft.margin(leftMargin = mleftTextMarginLeft, rightMargin = mleftTextMarginRight)
+            if(leftTextBold) tvLeftText.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
         }
 
         //左边子文字
@@ -425,6 +431,7 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
             tvCenterText.setTextColor(mcenterTextColor)
             tvCenterText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mcenterTextSize.toFloat())
             if (mcenterTextBg != null) tvCenterText.setBackgroundDrawable(mcenterTextBg)
+            if(centerTextBold) tvCenterText.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
         }
 
         //右边文字
@@ -439,6 +446,7 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
             if(mrightTextWidth!=0)tvRightText.width(mrightTextWidth)
             if(mrightTextHeight!=0)tvRightText.height(mrightTextHeight)
             if (mrightTextBgColor != 0) tvRightText.setBackgroundColor(mrightTextBgColor)
+            if(rightTextBold) tvRightText.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
         }
 
         //右边图片

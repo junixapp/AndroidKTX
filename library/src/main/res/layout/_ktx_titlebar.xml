@@ -22,7 +22,7 @@
         android:minWidth="48dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:visibility="gone" />
 
     <com.lxj.androidktx.widget.ShapeTextView
@@ -36,7 +36,7 @@
         android:gravity="center"
         android:scrollHorizontally="true"
         android:singleLine="true"
-        android:textSize="18sp" />
+        android:textSize="17sp" />
 
     <com.lxj.androidktx.widget.ShapeTextView
         android:id="@+id/tvRightText"
@@ -49,7 +49,7 @@
         android:gravity="center"
         android:minWidth="48dp"
         android:padding="10dp"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:visibility="gone" />
 
     <ImageView

@@ -44,6 +44,7 @@
         <attr name="sl_leftText" format="string" />
         <attr name="sl_leftTextColor" format="color" />
         <attr name="sl_leftTextSize" format="dimension" />
+        <attr name="sl_leftTextBold" format="boolean" />
         <attr name="sl_leftTextMarginLeft" format="dimension" />
         <attr name="sl_leftTextMarginTop" format="dimension" />
         <attr name="sl_leftTextMarginRight" format="dimension" />
@@ -57,6 +58,7 @@
         <attr name="sl_centerTextColor" format="color" />
         <attr name="sl_centerTextBg" format="reference" />
         <attr name="sl_centerTextSize" format="dimension" />
+        <attr name="sl_centerTextBold" format="boolean" />
 
         <attr name="sl_rightText" format="string" />
         <attr name="sl_rightTextColor" format="color" />
@@ -65,6 +67,7 @@
         <attr name="sl_rightTextBgColor" format="color" />
         <attr name="sl_rightTextWidth" format="dimension" />
         <attr name="sl_rightTextHeight" format="dimension" />
+        <attr name="sl_rightTextBold" format="boolean" />
 
         <attr name="sl_rightImageSrc" format="reference" />
         <attr name="sl_rightImageMarginLeft" format="dimension" />
@@ -286,9 +289,11 @@
         <attr name="addImageRes" format="reference" />
         <attr name="spanCount" format="integer" />
         <attr name="maxImages" format="integer" />
+        <attr name="imageRadius" format="dimension" />
         <attr name="hSpace" format="dimension" />
         <attr name="vSpace" format="dimension" />
         <attr name="delImageRes" format="reference" />
+        <attr name="delImageMargin" format="dimension" />
     </declare-styleable>
 
     <!-- RoundImageView -->
@@ -305,6 +310,18 @@
         <attr name="riv_inner_border_width" format="dimension" />
         <attr name="riv_inner_border_color" format="color" />
         <attr name="riv_mask_color" format="color" />
+    </declare-styleable>
+
+
+    <!-- EditLayout -->
+    <declare-styleable name="EditLayout">
+        <attr name="el_hint" format="string" />
+        <attr name="el_hintColor" format="color" />
+        <attr name="el_textSize" format="dimension" />
+        <attr name="el_textColor" format="color" />
+        <attr name="el_clearIconRes" format="reference" />
+        <attr name="el_searchIconRes" format="reference" />
+        <attr name="el_clearSize" format="dimension" />
     </declare-styleable>
 
 
