@@ -283,6 +283,7 @@
         <attr name="tb_selectedColor" format="color" />
         <attr name="tb_normalColor" format="color" />
         <attr name="tb_tabHeight" format="dimension" />
+        <attr name="tb_tabPadding" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="ImageUploader">

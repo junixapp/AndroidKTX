@@ -16,12 +16,12 @@
             app:tb_normalColor="#666"
             app:tb_selectedColor="@color/colorPrimary"
             app:tb_selectTextSize="16sp"
-            app:tb_iconHeight="4dp"
-            app:tb_iconWidth="30dp"
-            app:tb_iconSpace="3dp"
+            app:tb_iconSpace="14dp"
+            app:tb_iconSize="30dp"
             app:tb_iconPosition="bottom"
+            app:tb_tabPadding="10dp"
             android:layout_width="match_parent"
-            android:layout_height="60dp"/>
+            android:layout_height="50dp"/>
 
         <TextView
             android:text="以下View默认宽高都是100dp"

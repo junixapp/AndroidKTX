@@ -32,6 +32,7 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
     var iconSpace = dp2px(2f) //图片和文字间距
     var mTabs = listOf<Tab>()
     var tabIndex = -1
+    var tabPadding = 0
 
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.TabBar)
@@ -40,19 +41,24 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
         val iconSize = ta.getDimensionPixelSize(R.styleable.TabBar_tb_iconSize, 0)
         iconWidth = ta.getDimensionPixelSize(R.styleable.TabBar_tb_iconWidth, iconWidth)
         iconHeight = ta.getDimensionPixelSize(R.styleable.TabBar_tb_iconHeight, iconHeight)
-        if (iconWidth == 0) iconWidth = iconSize
-        if (iconHeight == 0) iconHeight = iconSize
+        if (iconSize != 0) {
+            iconWidth = iconSize
+            iconHeight = iconSize
+        }
 
         val mTextSize = ta.getDimensionPixelSize(R.styleable.TabBar_tb_textSize, 0)
         normalTextSize = ta.getDimensionPixelSize(R.styleable.TabBar_tb_normalTextSize, normalTextSize)
         selectTextSize = ta.getDimensionPixelSize(R.styleable.TabBar_tb_selectTextSize, selectTextSize)
-        if(normalTextSize==0) normalTextSize = mTextSize
-        if(selectTextSize==0) selectTextSize = mTextSize
+        if(mTextSize!=0) {
+            normalTextSize = mTextSize
+            selectTextSize = mTextSize
+        }
 
         iconSpace = ta.getDimensionPixelSize(R.styleable.TabBar_tb_iconSpace, iconSpace)
         selectedColor = ta.getColor(R.styleable.TabBar_tb_selectedColor, selectedColor)
         normalColor = ta.getColor(R.styleable.TabBar_tb_normalColor, normalColor)
         tabHeight = ta.getDimension(R.styleable.TabBar_tb_tabHeight, tabHeight.toFloat()).toInt()
+        tabPadding = ta.getDimensionPixelSize(R.styleable.TabBar_tb_tabPadding, tabPadding)
 
         ta.recycle()
         orientation = HORIZONTAL
@@ -67,10 +73,18 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
             lp.weight = 1f
             val wrapper = LinearLayout(context)
             wrapper.gravity = Gravity.CENTER
+            if(tabPadding>0){
+                wrapper.setPadding(if(iconPosition==0) tabPadding else 0,
+                        if(iconPosition==1) tabPadding else 0,
+                        if(iconPosition==2) tabPadding else 0,
+                        if(iconPosition==3) tabPadding else 0)
+            }
             addView(wrapper, lp)
 
             wrapper.addView(ShapeTextView(context).apply {
+                enableRipple = false
                 gravity = Gravity.CENTER
+                layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
                 compoundDrawablePadding = iconSpace
                 text = it.text
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, normalTextSize.toFloat())
@@ -107,8 +121,8 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
         tabIndex = index
 //        vp?.currentItem = tabIndex
         vp?.setCurrentItem(tabIndex, false)
-        children.forEachIndexed { i, it ->
-            val group = it as ViewGroup
+        children.forEachIndexed { i, p ->
+            val group = p as ViewGroup
             (group.getChildAt(0) as TextView).apply {
                 val icon = if(index == i) mTabs[i].selectedIconRes else mTabs[i].normalIconRes
                 when (iconPosition) {
@@ -134,7 +148,7 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
     }
 
     data class Tab(
-            var text: String = "",
+            var text: String? = "",
             var normalIconRes: Int = 0,
             var selectedIconRes: Int = 0
     )

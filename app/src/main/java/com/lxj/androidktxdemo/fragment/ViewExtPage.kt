@@ -78,10 +78,10 @@ class ViewExtPage : BaseFragment() {
         }
 
         tabbar.setTabs(listOf(
-                TabBar.Tab("首页", R.mipmap.ic_launcher, R.mipmap.ic_launcher_round),
-                TabBar.Tab("购物", R.mipmap.ic_launcher, R.mipmap.ic_launcher_round),
-                TabBar.Tab("视频", R.mipmap.ic_launcher, R.mipmap.ic_launcher_round),
-                TabBar.Tab("我的", R.mipmap.ic_launcher, R.mipmap.ic_launcher_round)
+                TabBar.Tab(normalIconRes = R.mipmap.ic_launcher_round, selectedIconRes = R.mipmap.ic_launcher_round),
+                TabBar.Tab( normalIconRes = R.mipmap.ic_launcher, selectedIconRes = R.mipmap.ic_launcher_round),
+                TabBar.Tab(normalIconRes = R.mipmap.ic_launcher, selectedIconRes = R.mipmap.ic_launcher_round),
+                TabBar.Tab(normalIconRes = R.mipmap.ic_launcher, selectedIconRes = R.mipmap.ic_launcher_round)
                 )){
             ToastUtils.showShort("选择了："+it)
             loge("select: " + it)
