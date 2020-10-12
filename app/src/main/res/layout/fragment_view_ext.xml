@@ -134,6 +134,7 @@
 
         <com.lxj.androidktx.widget.EditLayout
             android:layout_margin="20pt"
+            app:el_showIconWhenEmpty="false"
             app:sll_solid="#889a0c"
             app:sll_corner="30pt"
             app:el_textColor="#f00"

@@ -319,9 +319,10 @@
         <attr name="el_hintColor" format="color" />
         <attr name="el_textSize" format="dimension" />
         <attr name="el_textColor" format="color" />
+        <attr name="el_showIconWhenEmpty" format="boolean" />
         <attr name="el_clearIconRes" format="reference" />
         <attr name="el_searchIconRes" format="reference" />
-        <attr name="el_clearSize" format="dimension" />
+        <attr name="el_iconSize" format="dimension" />
     </declare-styleable>
 
 

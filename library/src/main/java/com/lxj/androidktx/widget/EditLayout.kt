@@ -24,7 +24,8 @@ open class EditLayout @JvmOverloads constructor(context: Context, attributeSet: 
     var textSize = sp2px(14f)
     var clearIconRes : Drawable? = null
     var searchIconRes : Drawable? = null
-    var clearSize = 0
+    var iconSize = 0
+    var showIconWhenEmpty = true
 
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.EditLayout)
@@ -34,7 +35,8 @@ open class EditLayout @JvmOverloads constructor(context: Context, attributeSet: 
         textSize = ta.getDimensionPixelSize(R.styleable.EditLayout_el_textSize, textSize)
         clearIconRes = ta.getDrawable(R.styleable.EditLayout_el_clearIconRes) ?: drawable(R.mipmap._ktx_ic_clear)
         searchIconRes = ta.getDrawable(R.styleable.EditLayout_el_searchIconRes) ?: drawable(R.mipmap._ktx_ic_search)
-        clearSize = ta.getDimensionPixelSize(R.styleable.EditLayout_el_clearSize, clearSize)
+        iconSize = ta.getDimensionPixelSize(R.styleable.EditLayout_el_iconSize, iconSize)
+        showIconWhenEmpty = ta.getBoolean(R.styleable.EditLayout_el_showIconWhenEmpty, showIconWhenEmpty)
         ta.recycle()
 
         orientation = HORIZONTAL
@@ -45,13 +47,20 @@ open class EditLayout @JvmOverloads constructor(context: Context, attributeSet: 
     }
 
     fun initSelf(){
-        if(clearSize>0) ivClear.widthAndHeight(clearSize, clearSize)
+        if(iconSize>0) ivClear.widthAndHeight(iconSize, iconSize)
         ivClear.setImageDrawable(searchIconRes)
+        if(!showIconWhenEmpty) ivClear.invisible()
+
         ivClear.click { et_content.setText("") }
         et_content.doAfterTextChanged {
             if(it.isNullOrEmpty()) {
-                ivClear.setImageDrawable(searchIconRes)
+                if(showIconWhenEmpty){
+                    ivClear.setImageDrawable(searchIconRes)
+                }else{
+                    ivClear.invisible()
+                }
             } else {
+                ivClear.visible()
                 ivClear.setImageDrawable(clearIconRes)
             }
         }

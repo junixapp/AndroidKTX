@@ -15,8 +15,8 @@
 
     <ImageView
         android:id="@+id/ivClear"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
         android:padding="5dp"
         android:src="@mipmap/_ktx_ic_image_del" />
 </merge>
