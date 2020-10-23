@@ -1,6 +1,7 @@
 package com.lxj.androidktxdemo.fragment
 
 import android.graphics.Color
+import com.blankj.utilcode.util.ShadowUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.util.QrCodeUtil

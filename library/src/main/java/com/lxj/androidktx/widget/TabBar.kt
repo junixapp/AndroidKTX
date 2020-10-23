@@ -5,8 +5,7 @@ package com.lxj.androidktx.widget
  * Create by dance, at 2019/7/8
  */
 import android.content.Context
-import android.graphics.Color
-import android.graphics.Typeface
+import android.graphics.*
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
@@ -74,10 +73,10 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
             val wrapper = LinearLayout(context)
             wrapper.gravity = Gravity.CENTER
             if(tabPadding>0){
-                wrapper.setPadding(if(iconPosition==0) tabPadding else 0,
-                        if(iconPosition==1) tabPadding else 0,
-                        if(iconPosition==2) tabPadding else 0,
-                        if(iconPosition==3) tabPadding else 0)
+                wrapper.setPadding(if (iconPosition == 0) tabPadding else 0,
+                        if (iconPosition == 1) tabPadding else 0,
+                        if (iconPosition == 2) tabPadding else 0,
+                        if (iconPosition == 3) tabPadding else 0)
             }
             addView(wrapper, lp)
 
@@ -131,8 +130,8 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
                     2 -> sizeDrawable(width = iconWidth, height = iconHeight, rightDrawable = icon)
                     3 -> sizeDrawable(width = iconWidth, height = iconHeight, bottomDrawable = icon)
                 }
-                setTextColor(if(index == i) selectedColor else normalColor)
-                setTextSize(TypedValue.COMPLEX_UNIT_PX, if(index == i) selectTextSize.toFloat() else normalTextSize.toFloat())
+                setTextColor(if (index == i) selectedColor else normalColor)
+                setTextSize(TypedValue.COMPLEX_UNIT_PX, if (index == i) selectTextSize.toFloat() else normalTextSize.toFloat())
                 typeface = if (isSelectBold && index == i) {
                     Typeface.defaultFromStyle(Typeface.BOLD)
                 } else  {
@@ -140,6 +139,18 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
                 }
             }
         }
+    }
+    val p = Paint()
+    override fun dispatchDraw(canvas: Canvas) {
+
+        // radius=10, y-offset=2, color=black
+        setLayerType(LAYER_TYPE_SOFTWARE, p)
+        p.setShadowLayer(10.0f, 10.0f, 10.0f, Color.BLACK)
+        // in onDraw(Canvas)
+//        canvas.drawColor(Color.WHITE)
+        val bmp = Bitmap.createBitmap(measuredWidth, measuredHeight, Bitmap.Config.ARGB_4444)
+        canvas.drawBitmap(bmp, 0.0f, 0.0f, p);
+        super.dispatchDraw(canvas)
     }
 
     override fun onDetachedFromWindow() {

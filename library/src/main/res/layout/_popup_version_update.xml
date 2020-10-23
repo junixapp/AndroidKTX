@@ -56,7 +56,7 @@
                 android:gravity="center"
                 android:text="取消"
                 android:textColor="#4C536D"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:stv_enableRipple="true"
                 app:stv_solid="#fff" />
 
@@ -73,7 +73,7 @@
                 android:gravity="center"
                 android:text="安装新版本"
                 android:textColor="#3070FF"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:stv_enableRipple="true"
                 app:stv_solid="#fff" />
         </com.lxj.androidktx.widget.ShapeLinearLayout>
