@@ -140,19 +140,6 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
             }
         }
     }
-    val p = Paint()
-    override fun dispatchDraw(canvas: Canvas) {
-
-        // radius=10, y-offset=2, color=black
-        setLayerType(LAYER_TYPE_SOFTWARE, p)
-        p.setShadowLayer(10.0f, 10.0f, 10.0f, Color.BLACK)
-        // in onDraw(Canvas)
-//        canvas.drawColor(Color.WHITE)
-        val bmp = Bitmap.createBitmap(measuredWidth, measuredHeight, Bitmap.Config.ARGB_4444)
-        canvas.drawBitmap(bmp, 0.0f, 0.0f, p);
-        super.dispatchDraw(canvas)
-    }
-
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         vp?.removeOnPageChangeListener(pagerChangeListener)

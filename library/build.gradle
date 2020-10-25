@@ -56,7 +56,6 @@ dependencies {
     api 'com.lxj:statelayout:1.0.9'
     api 'me.jessyan:progressmanager:1.5.0'
     api 'com.blankj:utilcodex:1.29.0'
-//    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.2'
     api  'com.scwang.smart:refresh-layout-kernel:2.0.1'      //核心必须依赖
     api  'com.scwang.smart:refresh-header-classics:2.0.1'    //经典刷新头
     api  'com.scwang.smart:refresh-footer-classics:2.0.1'    //经典加载
@@ -94,7 +93,7 @@ publish {
     userOrg = 'li-xiaojun'
     groupId = 'com.lxj'
     artifactId = 'androidktx'
-    publishVersion = '1.9.11'
+    publishVersion = '1.9.13'
     repoName = 'jrepo'
     desc = 'Some very useful kotlin extensions for android development！好用到爆的Kotlin扩展，加速你的Android开发！'
     website = 'https://github.com/li-xiaojun/AndroidKTX'

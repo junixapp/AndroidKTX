@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.view.View
 import androidx.recyclerview.widget.*
+import com.lxj.androidktx.util.RecyclerViewDivider
 import com.lxj.easyadapter.*
 
 /**
@@ -18,8 +19,8 @@ import com.lxj.easyadapter.*
  * @param isReplace 是否覆盖之前的ItemDecoration，默认是true
  *
  */
-fun RecyclerView.divider(color: Int = Color.parseColor("#DEDEDE"), size: Int = dp2px(1f), isReplace: Boolean = true): RecyclerView {
-    val decoration = DividerItemDecoration(context, orientation)
+fun RecyclerView.divider(color: Int = Color.parseColor("#f1f1f1"), size: Int = dp2px(1f), isReplace: Boolean = true): RecyclerView {
+    val decoration = RecyclerViewDivider(context, orientation)
     decoration.setDrawable(GradientDrawable().apply {
         setColor(color)
         shape = GradientDrawable.RECTANGLE
