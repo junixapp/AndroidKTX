@@ -3,9 +3,8 @@ package com.lxj.androidktx.okhttp
 import com.lxj.androidktx.okhttp.cookie.PersistentCookieStore
 import com.lxj.androidktx.util.HttpsUtils
 import me.jessyan.progressmanager.ProgressManager
-import okhttp3.Call
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
+import okhttp3.*
+import java.io.File
 import java.lang.Exception
 import java.lang.IllegalArgumentException
 import java.util.concurrent.TimeUnit
@@ -101,4 +100,14 @@ object OkExt {
         requestCache.remove(tag)
     }
 
+
+    /** 一些帮助方法 **/
+    fun streamBodyFromFile(filePath: String) =
+            RequestBody.create(MediaType.parse("application/octet-stream"), File(filePath))
+
+    fun streamBodyFromBytes(bytes: ByteArray) =
+            RequestBody.create(MediaType.parse("application/octet-stream"), bytes)
+
+    fun streamBodyFromString(string: String) =
+            RequestBody.create(MediaType.parse("application/octet-stream"), string)
 }

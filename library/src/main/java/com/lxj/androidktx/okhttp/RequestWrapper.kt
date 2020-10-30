@@ -72,8 +72,6 @@ data class RequestWrapper(
                 .get().build()
     }
 
-
-
     fun buildPostRequest(): Request {
         return bodyBuilder().post(customReqBody?: buildRequestBody()).build()
     }
@@ -92,7 +90,7 @@ data class RequestWrapper(
     }
 
     private fun buildRequestBody(): RequestBody {
-        if (isMultiPart()) {
+        if (isMultiPartParam) {
             val pairs = arrayListOf<Pair<String, Any>>()
             params.forEach { pairs.add(Pair(it.key, if (it.value is File || it.value is Array<*>) it.value else "${it.value}")) }
             // 自动识别 multipart/form-data
@@ -122,11 +120,13 @@ data class RequestWrapper(
                 }
             }
             return builder.setType(MultipartBody.FORM).build()
-        } else if(isMultiPartParam){
-            val builder = MultipartBody.Builder()
-            params.forEach { builder.addFormDataPart(it.key, "${it.value}")   }
-            return builder.setType(MultipartBody.FORM).build()
-        } else if(isJsonParam){
+        }
+//        else if(isMultiPartParam){
+//            val builder = MultipartBody.Builder()
+//            params.forEach { builder.addFormDataPart(it.key, "${it.value}")   }
+//            return builder.setType(MultipartBody.FORM).build()
+//        }
+        else if(isJsonParam){
             // json编码
             return buildJsonBody(params.toJson(dateFormat = OkExt.dateFormat))
         }else{
