@@ -19,7 +19,7 @@ import com.lxj.easyadapter.*
  * @param isReplace 是否覆盖之前的ItemDecoration，默认是true
  *
  */
-fun RecyclerView.divider(color: Int = Color.parseColor("#f1f1f1"), size: Int = dp2px(1f), isReplace: Boolean = true): RecyclerView {
+fun RecyclerView.divider(color: Int = Color.parseColor("#f5f5f5"), size: Int = dp2px(1f), isReplace: Boolean = true): RecyclerView {
     val decoration = RecyclerViewDivider(context, orientation)
     decoration.setDrawable(GradientDrawable().apply {
         setColor(color)

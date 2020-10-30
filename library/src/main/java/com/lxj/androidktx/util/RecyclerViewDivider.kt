@@ -10,6 +10,8 @@ import android.view.View
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import com.lxj.androidktx.core.loge
+import com.lxj.androidktx.core.orientation
 
 class RecyclerViewDivider(context: Context, orientation: Int)
     : DividerItemDecoration(context, orientation){
@@ -53,7 +55,7 @@ class RecyclerViewDivider(context: Context, orientation: Int)
      * @param orientation [.HORIZONTAL] or [.VERTICAL]
      */
     override fun setOrientation(orientation: Int) {
-        require(!(orientation != HORIZONTAL && orientation != VERTICAL)) { "Invalid orientation. It should be either HORIZONTAL or VERTICAL" }
+//        require(!(orientation != HORIZONTAL && orientation != VERTICAL)) { "Invalid orientation. It should be either HORIZONTAL or VERTICAL" }
         mOrientation = orientation
     }
 

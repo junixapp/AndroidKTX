@@ -175,7 +175,7 @@ fun View.animateWidthAndHeight(targetWidth: Int, targetHeight: Int, duration: Lo
 }
 
 /**
- * 设置点击监听, 并实现事件节流
+ * 设置点击监听, 并实现事件节流，350毫秒内只允许点击一次
  */
 var _viewClickFlag = false
 var _clickRunnable = Runnable { _viewClickFlag = false }

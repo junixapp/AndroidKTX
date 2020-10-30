@@ -20,6 +20,8 @@ import com.lxj.androidktxdemo.R
 import com.lxj.androidktxdemo.entity.HttpResult
 import com.lxj.androidktxdemo.entity.User
 import kotlinx.android.synthetic.main.fragment_http_ext.*
+import okhttp3.MediaType
+import okhttp3.RequestBody
 import java.io.File
 
 /**
@@ -60,12 +62,13 @@ class HttpExtFragment : BaseFragment() {
 //            CameraActivity.startFromFragment(this, 1)
 //            VersionUpdateUtil.downloadAndInstallApk(context!!, CommonUpdateInfo(download_url = "https://lxj-bama-happy.oss-cn-zhangjiakou.aliyuncs.com/%E5%A4%A9%E5%A4%A9%E5%B9%BF%E5%9C%BA%E8%88%9E-1.0-2020_07_20_11_34_22.apk",
 //            update_info = "大萨达所大撒大所大所"))
-//            loginData.launchAndSmartPost {
-//                val result = "http://47.111.131.25:8080/yezi-api/api/students/vcodeLogin".http()
-//                        .params(mapOf(), isJson = true)
-//                        .post<HttpResult<User>>()
-//                        .await()?.data
-//                result
+            loginData.launchAndSmartPost {
+                val result = "http://47.111.131.25:8080/yezi-api/api/students/vcodeLogin".http()
+                        .params(mapOf(), isJson = true)
+                        .customReqBody(RequestBody.create(MediaType.parse("application/octet-stream"),File("")))
+                        .post<HttpResult<User>>()
+                        .await()?.data
+                result
 //                loge("result: $result")
 //                if (result?.isSuccess() == true) {
 //                    val user = result.data
@@ -74,7 +77,7 @@ class HttpExtFragment : BaseFragment() {
 //                    loginData.errMsg = result?.errmsg ?: "登录失败"
 //                }
 //                result?.data //内部会根据数据自动设置data的状态
-//            }
+            }
         }
 //        LiveEventBus.get(CameraActivity.CaptureVideo).observe(this, Observer {
 //            val map = it as Map<String,String>

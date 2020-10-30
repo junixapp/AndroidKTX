@@ -3,10 +3,7 @@ package com.lxj.androidktx.okhttp
 import com.lxj.androidktx.core.toBean
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Deferred
-import okhttp3.Call
-import okhttp3.Callback
-import okhttp3.Request
-import okhttp3.Response
+import okhttp3.*
 import java.io.File
 import java.io.IOException
 import java.lang.Exception
@@ -19,7 +16,7 @@ import java.net.URLConnection.getFileNameMap
  * 非协程中使用：  "http://www.baidu.com".http().get<Bean>(callback)
  * Create by lxj, at 2018/12/19
  * @param tag 请求的tag，用于取消请求的时候可以调用
- * @param baseUrlTag baseUrlTag和baseUrl一一对应，可以实现多个baseUrl；如果不想带baseUrl，可以传 OkWrapper.NoBaseUrl
+ * @param baseUrlTag baseUrlTag和baseUrl一一对应，可以实现多个baseUrl；如果不想带baseUrl，可以传 OkExt.NoBaseUrl
  */
 fun String.http(httpTag: Any = this, baseUrlTag: String = OkExt.DefaultUrlTag): RequestWrapper {
     val baseUrl = OkExt.baseUrlMap[baseUrlTag]
@@ -47,21 +44,11 @@ inline fun <reified T> RequestWrapper.post(): Deferred<T?> {
     return defferedRequest(buildPostRequest(), this)
 }
 
-@Deprecated(message = "过时，请使用params()方法来设置", replaceWith = ReplaceWith(" 'url'.http().params(map, isJson = true) "))
-inline fun <reified T> RequestWrapper.postJson(json: String = ""): Deferred<T?> {
-    return defferedRequest(buildPostRequest(buildJsonBody(json)), this)
-}
-
 /**
  * callback style，不在协程中使用
  */
 inline fun <reified T> RequestWrapper.post(cb: HttpCallback<T>) {
     callbackRequest(buildPostRequest(), cb, this)
-}
-
-@Deprecated(message = "过时，请使用params()方法来设置", replaceWith = ReplaceWith(" 'url'.http().params(map, isJson = true) "))
-inline fun <reified T> RequestWrapper.postJson(json: String = "", cb: HttpCallback<T>) {
-    callbackRequest(buildPostRequest(buildJsonBody(json)), cb, this)
 }
 
 /**
@@ -71,22 +58,13 @@ inline fun <reified T> RequestWrapper.put(): Deferred<T?> {
     return defferedRequest(buildPutRequest(), this)
 }
 
-@Deprecated(message = "过时，请使用params()方法来设置", replaceWith = ReplaceWith(" 'url'.http().params(map, isJson = true) "))
-inline fun <reified T> RequestWrapper.putJson(json: String = ""): Deferred<T?> {
-    return defferedRequest(buildPutRequest(buildJsonBody(json)), this)
-}
-
 /**
  * callback style，不在协程中使用
  */
-inline fun <reified T> RequestWrapper.put(cb: HttpCallback<T>, forceMultiPart: Boolean = false) {
+inline fun <reified T> RequestWrapper.put(cb: HttpCallback<T>) {
     callbackRequest(buildPutRequest(), cb, this)
 }
 
-@Deprecated(message = "过时，请使用params()方法来设置", replaceWith = ReplaceWith(" 'url'.http().params(map, isJson = true) "))
-inline fun <reified T> RequestWrapper.putJson(json: String = "", cb: HttpCallback<T>) {
-    callbackRequest(buildPutRequest(buildJsonBody(json)), cb, this)
-}
 
 /**
  * delete请求，需在协程中使用。结果为空即为http请求失败，并会将失败信息打印日志。
