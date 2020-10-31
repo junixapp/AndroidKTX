@@ -162,7 +162,7 @@ fun RecyclerView.scrollTop(position: Int){
  * 启用条目拖拽，必须在设置完adapter之后调用
  * @param isDisableLast 是否禁用最后一个拖拽
  */
-fun RecyclerView.enableItemDrag(isDisableLast: Boolean = false ){
+fun RecyclerView.enableItemDrag(isDisableLast: Boolean = false, onDragFinish: (()->Unit)? = null ){
     ItemTouchHelper(object : ItemTouchHelper.Callback() {
         override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
             if(adapter==null) return 0
@@ -210,6 +210,7 @@ fun RecyclerView.enableItemDrag(isDisableLast: Boolean = false ){
 
         override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
             super.clearView(recyclerView, viewHolder)
+            onDragFinish?.invoke()
         }
 
     }).attachToRecyclerView(this)

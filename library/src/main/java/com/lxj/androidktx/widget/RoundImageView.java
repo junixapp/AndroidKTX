@@ -18,8 +18,6 @@ import androidx.appcompat.widget.AppCompatImageView;
 import com.lxj.androidktx.R;
 
 public class RoundImageView extends AppCompatImageView {
-    private Context context;
-
     private boolean isCircle; // 是否显示为圆形，如果为圆形则设置的corner无效
     private boolean isCoverSrc; // border、inner_border是否覆盖图片
     private int borderWidth; // 边框宽度
@@ -61,9 +59,6 @@ public class RoundImageView extends AppCompatImageView {
 
     public RoundImageView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
-        this.context = context;
-
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.RoundImageView, 0, 0);
         for (int i = 0; i < ta.getIndexCount(); i++) {
             int attr = ta.getIndex(i);
@@ -284,7 +279,7 @@ public class RoundImageView extends AppCompatImageView {
     }
 
     public void setBorderWidth(int borderWidth) {
-        this.borderWidth =dp2px(context, borderWidth);
+        this.borderWidth = borderWidth;
         calculateRadiiAndRectF(false);
     }
 
@@ -294,7 +289,7 @@ public class RoundImageView extends AppCompatImageView {
     }
 
     public void setInnerBorderWidth(int innerBorderWidth) {
-        this.innerBorderWidth = dp2px(context, innerBorderWidth);
+        this.innerBorderWidth = innerBorderWidth;
         clearInnerBorderWidth();
         invalidate();
     }
@@ -305,27 +300,27 @@ public class RoundImageView extends AppCompatImageView {
     }
 
     public void setCornerRadius(int cornerRadius) {
-        this.cornerRadius = dp2px(context, cornerRadius);
+        this.cornerRadius = cornerRadius;
         calculateRadiiAndRectF(false);
     }
 
     public void setTopLeftRadius(int cornerTopLeftRadius) {
-        this.cornerTopLeftRadius = dp2px(context, cornerTopLeftRadius);
+        this.cornerTopLeftRadius = cornerTopLeftRadius;
         calculateRadiiAndRectF(true);
     }
 
     public void setTopRightRadius(int cornerTopRightRadius) {
-        this.cornerTopRightRadius = dp2px(context, cornerTopRightRadius);
+        this.cornerTopRightRadius = cornerTopRightRadius;
         calculateRadiiAndRectF(true);
     }
 
     public void setBottomLeftRadius(int cornerBottomLeftRadius) {
-        this.cornerBottomLeftRadius = dp2px(context, cornerBottomLeftRadius);
+        this.cornerBottomLeftRadius = cornerBottomLeftRadius;
         calculateRadiiAndRectF(true);
     }
 
     public void setBottomRightRadius(int cornerBottomRightRadius) {
-        this.cornerBottomRightRadius = dp2px(context, cornerBottomRightRadius);
+        this.cornerBottomRightRadius = cornerBottomRightRadius;
         calculateRadiiAndRectF(true);
     }
 
@@ -334,8 +329,4 @@ public class RoundImageView extends AppCompatImageView {
         invalidate();
     }
 
-    int dp2px(Context context, float dipValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dipValue * scale + 0.5f);
-    }
 }
