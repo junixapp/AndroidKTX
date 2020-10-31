@@ -6,6 +6,7 @@ import android.view.View
 import androidx.recyclerview.widget.*
 import com.lxj.androidktx.util.RecyclerViewDivider
 import com.lxj.easyadapter.*
+import java.util.*
 
 /**
  * Description: RecyclerView扩展
@@ -155,4 +156,61 @@ fun RecyclerView.scrollTop(position: Int){
     if(layoutManager is LinearLayoutManager){
         (layoutManager as LinearLayoutManager).scrollToPositionWithOffset(position, 0)
     }
+}
+
+/**
+ * 启用条目拖拽，必须在设置完adapter之后调用
+ * @param isDisableLast 是否禁用最后一个拖拽
+ */
+fun RecyclerView.enableItemDrag(isDisableLast: Boolean = false ){
+    ItemTouchHelper(object : ItemTouchHelper.Callback() {
+        override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
+            if(adapter==null) return 0
+            if(isDisableLast && viewHolder.adapterPosition == (adapter!!.itemCount-1) ) return 0
+            return if (recyclerView.layoutManager is GridLayoutManager) {
+                val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN or
+                        ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+                val swipeFlags = 0
+                makeMovementFlags(dragFlags, swipeFlags)
+            } else {
+                val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN
+                val swipeFlags = 0
+                makeMovementFlags(dragFlags, swipeFlags)
+            }
+        }
+        override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+        ): Boolean {
+            if(adapter==null) return false
+            //得到当拖拽的viewHolder的Position
+            val fromPosition = viewHolder.adapterPosition
+            //拿到当前拖拽到的item的viewHolder
+            val toPosition = target.adapterPosition
+            if(isDisableLast && toPosition== (adapter!!.itemCount-1) )return false
+            if (fromPosition < toPosition) {
+                for (i in fromPosition until toPosition) {
+                    Collections.swap((adapter as EasyAdapter<*>).data, i, i + 1)
+                }
+            } else {
+                for (i in fromPosition downTo toPosition + 1) {
+                    Collections.swap((adapter as EasyAdapter<*>).data, i, i - 1)
+                }
+            }
+            recyclerView.adapter?.notifyItemMoved(fromPosition, toPosition)
+            return true
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {}
+
+        override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+            super.onSelectedChanged(viewHolder, actionState)
+        }
+
+        override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
+            super.clearView(recyclerView, viewHolder)
+        }
+
+    }).attachToRecyclerView(this)
 }

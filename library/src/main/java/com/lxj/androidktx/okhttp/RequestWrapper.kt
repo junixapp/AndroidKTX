@@ -90,7 +90,7 @@ data class RequestWrapper(
     }
 
     private fun buildRequestBody(): RequestBody {
-        if (isMultiPartParam) {
+        if (isMultiPartParam || isAutoMultiPart()) {
             val pairs = arrayListOf<Pair<String, Any>>()
             params.forEach { pairs.add(Pair(it.key, if (it.value is File || it.value is Array<*>) it.value else "${it.value}")) }
             // 自动识别 multipart/form-data
@@ -120,17 +120,11 @@ data class RequestWrapper(
                 }
             }
             return builder.setType(MultipartBody.FORM).build()
-        }
-//        else if(isMultiPartParam){
-//            val builder = MultipartBody.Builder()
-//            params.forEach { builder.addFormDataPart(it.key, "${it.value}")   }
-//            return builder.setType(MultipartBody.FORM).build()
-//        }
-        else if(isJsonParam){
+        } else if(isJsonParam){
             // json编码
             return buildJsonBody(params.toJson(dateFormat = OkExt.dateFormat))
         }else{
-            // default is form-data url-encoded
+            // default is form-data/url-encoded
             val builder = FormBody.Builder()
             params.forEach { builder.add(it.key, "${it.value}")  }
             return builder.build()
@@ -141,7 +135,10 @@ data class RequestWrapper(
         return RequestBody.create(MediaType.parse("application/json"), json)
     }
 
-    private fun isMultiPart() = params.any { it.value is File || it.value is Array<*> || it.value is List<*>}
+    private fun isAutoMultiPart() = params.any { it.value is File ||
+            (it.value is Array<*> && (it.value as Array<*>).isArrayOf<File>()) ||
+            (it.value is List<*> && (it.value as List<*>).isNotEmpty()
+                    && (it.value as List<*>)[0] is File)}
 
     private fun urlParams(): String {
         val queryParams = if (params().isEmpty()) "" else "?" + params.toList().joinToString(separator = "&", transform = {

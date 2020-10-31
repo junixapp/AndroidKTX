@@ -47,6 +47,7 @@ class RecyclerViewExtDemo : BaseFragment() {
                 .addFooter(footer) //必须在bindData之后调用
                 .itemClick<String> { data, holder, position ->
                 }
+                .enableItemDrag(isDisableLast = true)
 
 
     }

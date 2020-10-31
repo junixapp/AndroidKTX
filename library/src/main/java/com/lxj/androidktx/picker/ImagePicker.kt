@@ -65,7 +65,7 @@ object ImagePicker {
     }
 
     /**
-     * 从Activity中直接开启选择器，注意：maxNum>1时和types包含video时无法使用裁剪；types包含video时无法使用压缩
+     * 从Activity中直接开启选择器，选择器自带拍摄功能，注意：maxNum>1时和types包含video时无法使用裁剪；types包含video时无法使用压缩
      * @param isCrop 是否开启裁剪，默认false
      * @param isCompress 是否使用Luban压缩，默认是true
      * @param maxNum 最多选择数量，默认是1
@@ -73,7 +73,7 @@ object ImagePicker {
      */
     fun startPicker(from: Activity, reqCode: Int, isCrop: Boolean = false, isCompress: Boolean = true, maxNum: Int = 1, types: Set<MimeType> = MimeType.ofImage()) {
         PermissionUtils
-                .permission(PermissionConstants.STORAGE)
+                .permission(PermissionConstants.STORAGE, PermissionConstants.CAMERA)
                 .callback(object : PermissionUtils.SimpleCallback {
                     override fun onGranted() {
                         //必须三个条件同时成立，才能开启裁剪
@@ -98,7 +98,7 @@ object ImagePicker {
      */
     fun startPicker(from: Fragment, reqCode: Int, isCrop: Boolean = false, isCompress: Boolean = true, maxNum: Int = 1, types: Set<MimeType> = MimeType.ofImage()) {
         PermissionUtils
-                .permission(PermissionConstants.STORAGE)
+                .permission(PermissionConstants.STORAGE, PermissionConstants.CAMERA)
                 .callback(object : PermissionUtils.SimpleCallback {
                     override fun onGranted() {
                         //必须三个条件同时成立，才能开启裁剪

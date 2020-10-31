@@ -21,6 +21,7 @@ import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MimeType
 import com.zhihu.matisse.engine.impl.GlideEngine
 import com.zhihu.matisse.filter.Filter
+import com.zhihu.matisse.internal.entity.CaptureStrategy
 import com.zhihu.matisse.internal.entity.IncapableCause
 import com.zhihu.matisse.internal.entity.Item
 import kotlinx.coroutines.CompletableDeferred
@@ -52,6 +53,8 @@ class PickerEmptyActivity : AppCompatActivity() {
             "picker" -> {
                 Matisse.from(this).choose(pickerData!!.types)
                         .countable(true)
+                        .capture(true)
+                        .captureStrategy(CaptureStrategy(true, "${context.packageName}.fileprovider", "test"))
                         .maxSelectable(pickerData!!.maxNum)
                         .theme(R.style.Matisse_Dracula)
                         .showSingleMediaType(true)
