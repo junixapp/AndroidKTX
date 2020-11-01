@@ -10,12 +10,11 @@ import com.lxj.xpopup.XPopup
 /**
  * 绑定数据
  */
-fun <T> NineGridImageView<T>.setup(urls: List<T>, forceOriginalSize: Boolean = true, corner: Int = 0,
-                                   placeholder: Int = 0){
+fun <T> NineGridImageView<T>.setup(urls: List<T>, corner: Int = 0,
+                                   placeholder: Int = 0, error: Int = 0){
     setAdapter(object : NineGridImageViewAdapter<String>() {
         override fun onDisplayImage(context: Context?, imageView: ImageView?, t: String?) {
-            imageView?.load(t, isForceOriginalSize = forceOriginalSize,
-                    placeholder = placeholder)
+            imageView?.load(t, placeholder = placeholder, error = error)
         }
 
         override fun onItemImageClick(context: Context?, imageView: ImageView, index: Int, list: MutableList<String>) {
