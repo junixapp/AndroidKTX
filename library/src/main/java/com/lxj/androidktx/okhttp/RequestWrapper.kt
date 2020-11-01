@@ -19,6 +19,7 @@ data class RequestWrapper(
         var savePath: String = "",
         private var headers: ArrayList<Pair<String, String>> = arrayListOf(),
         private var params: Map<String, Any> = mapOf(),
+        private var listParams: List<Any>? = null,
         private var isJsonParam: Boolean = false, //是否是json编码
         private var isMultiPartParam: Boolean = false, //是否是multi-part编码
         private var customReqBody: RequestBody? = null //自定义body
@@ -38,12 +39,17 @@ data class RequestWrapper(
      * @param map 参数
      * @param isJson 是否是json编码，默认false
      * @param isMultiPart 是否是multi-part编码，默认为false。OkWrapper会自动识别是否为multi-part编码，只有你想强制指定的时候会用到这个参数
-     * @param customBody 是否是自定义内容
      */
     fun params(map: Map<String, Any>, isJson: Boolean = false, isMultiPart: Boolean = false): RequestWrapper {
         isJsonParam = isJson
         isMultiPartParam = isMultiPart
         this.params = map
+        return this
+    }
+
+    fun params(list: List<Any>, isJson: Boolean = false): RequestWrapper {
+        isJsonParam = isJson
+        this.listParams = list
         return this
     }
 
@@ -122,7 +128,8 @@ data class RequestWrapper(
             return builder.setType(MultipartBody.FORM).build()
         } else if(isJsonParam){
             // json编码
-            return buildJsonBody(params.toJson(dateFormat = OkExt.dateFormat))
+            return buildJsonBody(if(listParams!=null && params.isEmpty()) listParams!!.toJson(dateFormat = OkExt.dateFormat)
+            else params.toJson(dateFormat = OkExt.dateFormat))
         }else{
             // default is form-data/url-encoded
             val builder = FormBody.Builder()
