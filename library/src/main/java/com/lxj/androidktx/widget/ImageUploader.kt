@@ -80,7 +80,7 @@ class ImageUploader @JvmOverloads constructor(
             } else {
                 holder.getView<ImageView>(R.id.close).visible()
                 holder.getView<RoundImageView>(R.id.image).apply {
-                    load(t, isForceOriginalSize = true)
+                    load(t)
                     setCornerRadius(imageRadius)
                     click { XPopup.Builder(context).asImageViewer(it as ImageView, t,GlideImageLoader()).show() }
                 }

@@ -66,7 +66,7 @@ class NineGridViewDemo : BaseFragment() {
                     holder.getView<NineGridImageView<String>>(R.id.nineGrid).apply {
                         setShowStyle(NineGridImageView.STYLE_GRID)
                         setSingleImgSize(AdaptScreenUtils.pt2Px(200f))
-                        setup(t.urls, corner = 10, forceOriginalSize = true)
+                        setup(t.urls, corner = 10)
                     }
 
 

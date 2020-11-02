@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="200pt">
+    android:layout_height="200dp">
     <com.lxj.androidktx.widget.RoundImageView
         android:id="@+id/image"
         android:scaleType="centerCrop"
@@ -11,6 +11,7 @@
         android:id="@+id/close"
         android:layout_alignParentRight="true"
         android:src="@mipmap/_ktx_ic_image_del"
-        android:layout_width="25pt"
-        android:layout_height="25pt"/>
+        android:padding="5dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"/>
 </RelativeLayout>
