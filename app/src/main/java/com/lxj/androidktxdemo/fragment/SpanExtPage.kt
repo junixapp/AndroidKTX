@@ -3,6 +3,7 @@ package com.lxj.androidktxdemo.fragment
 import android.graphics.Color
 import com.blankj.utilcode.util.ShadowUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.lxj.androidktx.base.WebActivity
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.util.QrCodeUtil
 import com.lxj.androidktxdemo.DemoActivity
@@ -50,6 +51,7 @@ class SpanExtPage : BaseFragment() {
         tvClickResult.clickSpan(str = str, range = 2..6, color = Color.BLUE, clickAction = {
             ToastUtils.showShort("哈哈我被点击了".toColorSpan(0..2))
             start<DemoActivity>()
+            WebActivity.start(url = "https://www.baidu.com")
 //            QrCodeUtil.start(this, 1)
 //            PlayerActivity.start(url = "https://lxj-bama-happy.oss-cn-zhangjiakou.aliyuncs.com/e015e0a9-ed2d-47b6-9b70-e4feb263a09f.mp4",
 //            title = "视频标题", cover = "https://lxj-bama-happy.oss-cn-zhangjiakou.aliyuncs.com/f156340b-d519-43a6-a714-1d24d3a37ed8.jpeg@s_0,w_460,h_260,q_80")

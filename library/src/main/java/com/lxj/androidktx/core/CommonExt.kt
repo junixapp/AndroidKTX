@@ -252,3 +252,10 @@ fun Any.doWhenFirstLaunch(action: () -> Unit) {
     sp().putBoolean(key, true)
     action()
 }
+
+//500毫秒内只做一次
+val _innerHandler = Handler(Looper.getMainLooper())
+fun Any.doOnceIn(time: Long = 500, action: ()->Unit){
+    _innerHandler.removeCallbacksAndMessages(null)
+    _innerHandler.postDelayed({action()}, time)
+}

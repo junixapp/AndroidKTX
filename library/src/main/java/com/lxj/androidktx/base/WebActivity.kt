@@ -1,6 +1,7 @@
 package com.lxj.androidktx.base
 
 import android.content.Intent
+import android.graphics.Color
 import android.webkit.WebView
 import android.widget.FrameLayout
 import com.just.agentweb.AgentWeb
@@ -8,6 +9,7 @@ import com.just.agentweb.WebChromeClient
 import com.lxj.androidktx.AndroidKTX
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.click
+import com.lxj.androidktx.core.dp2px
 import kotlinx.android.synthetic.main._ktx_activity_web.*
 
 
@@ -28,7 +30,7 @@ open class WebActivity : TitleBarActivity(){
          * @param rightIconClickAction 右边按钮的点击监听器
          */
         fun start(title: String? = null, url: String? = null, content: String? = null, leftIconRes: Int = R.mipmap._ktx_ic_back,
-                  enableCache: Boolean? = false, showProgress: Boolean = true,
+                  enableCache: Boolean? = false, showProgress: Boolean = true, indicatorColor : Int = 0,
                   rightIconRes: Int = 0, rightIconClickAction: (() -> Unit)? = null){
             onRightClickAction = rightIconClickAction
             val intent = Intent(AndroidKTX.context, WebActivity::class.java)
@@ -37,6 +39,9 @@ open class WebActivity : TitleBarActivity(){
             intent.putExtra("url", url)
             intent.putExtra("content", content)
             intent.putExtra("leftIconRes", leftIconRes)
+            if(indicatorColor!=0){
+                intent.putExtra("indicatorColor", indicatorColor)
+            }
             if(rightIconRes!=0){
                 intent.putExtra("rightIconRes", rightIconRes)
             }
@@ -51,6 +56,7 @@ open class WebActivity : TitleBarActivity(){
     var title: String? = null
     lateinit var agentWeb: AgentWeb
     var enableCache = false
+    val indicatorColor : Int by lazy { intent.getIntExtra("indicatorColor", Color.parseColor("#14d068")) }
     override fun initData() {
         setupTitle()
 
@@ -77,14 +83,14 @@ open class WebActivity : TitleBarActivity(){
         if(url.isNotEmpty()){
             agentWeb = AgentWeb.with(this)
                     .setAgentWebParent(webViewParent, FrameLayout.LayoutParams(-1, -1))
-                    .useDefaultIndicator()
+                    .useDefaultIndicator(indicatorColor, dp2px(1f))
                     .setWebChromeClient(mWebChromeClient)
                     .createAgentWeb()
                     .ready().go(url)
         }else{
             agentWeb = AgentWeb.with(this)
                     .setAgentWebParent(webViewParent, FrameLayout.LayoutParams(-1, -1))
-                    .useDefaultIndicator()
+                    .useDefaultIndicator(indicatorColor, dp2px(1f))
                     .setWebChromeClient(mWebChromeClient)
                     .createAgentWeb()
                     .ready().go(null)
