@@ -133,7 +133,6 @@ public class RoundImageView extends AppCompatImageView {
         super.onDraw(canvas);
         paint.reset();
         path.reset();
-        srcPath.reset();
         if (isCircle) {
             path.addCircle(width / 2.0f, height / 2.0f, radius, Path.Direction.CCW);
         } else {
@@ -146,6 +145,7 @@ public class RoundImageView extends AppCompatImageView {
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.O_MR1) {
             canvas.drawPath(path, paint);
         } else {
+            srcPath.reset();
             srcPath.addRect(srcRectF, Path.Direction.CCW);
             // 计算tempPath和path的差集
             srcPath.op(path, Path.Op.DIFFERENCE);

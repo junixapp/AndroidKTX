@@ -64,7 +64,7 @@ class NineGridViewDemo : BaseFragment() {
         recyclerView.vertical()
                 .bindData(list, R.layout.adapter_nine_grid, bindFn = { holder, t, position ->
                     holder.getView<NineGridImageView<String>>(R.id.nineGrid).apply {
-                        setShowStyle(NineGridImageView.STYLE_GRID)
+//                        setShowStyle(NineGridImageView.STYLE_GRID)
                         setSingleImgSize(AdaptScreenUtils.pt2Px(200f))
                         setup(t.urls, corner = 10)
                     }
