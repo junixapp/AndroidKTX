@@ -59,7 +59,11 @@ class VerifyView @JvmOverloads constructor(context: Context, attributeSet: Attri
         }
         if(alphaWhenCountDown) animate().alpha(.6f).setDuration(300).start()
         isEnabled = false
-        text = "${currTime}${countDownText}"
+        if(countDownText.contains("time")){
+            text = countDownText.replace("time", "$currTime")
+        }else{
+            text = "${currTime}${countDownText}"
+        }
         currTime--
         handler.postDelayed({start()}, 1000)
         callback?.onStart()

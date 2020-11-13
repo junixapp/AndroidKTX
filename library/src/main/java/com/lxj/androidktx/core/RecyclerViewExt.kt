@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.view.View
 import androidx.recyclerview.widget.*
+import com.google.android.flexbox.FlexboxLayoutManager
 import com.lxj.androidktx.util.RecyclerViewDivider
 import com.lxj.easyadapter.*
 import java.util.*
@@ -34,6 +35,10 @@ fun RecyclerView.divider(color: Int = Color.parseColor("#f5f5f5"), size: Int = d
     return this
 }
 
+fun RecyclerView.flexbox(): RecyclerView {
+    layoutManager = FlexboxLayoutManager(context)
+    return this
+}
 
 fun RecyclerView.vertical(spanCount: Int = 0, isStaggered: Boolean = false): RecyclerView {
     layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)

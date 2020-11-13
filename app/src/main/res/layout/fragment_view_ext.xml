@@ -134,7 +134,7 @@
             android:id="@+id/tvVerify"
             app:stv_corner="30dp"
             app:stv_solid="#f0accf"
-            app:vv_countDownText="后重发"
+            app:vv_countDownText="还剩time秒"
             app:vv_resendDuration="10"
             app:vv_resendText="重发吧"
             android:layout_width="100dp"

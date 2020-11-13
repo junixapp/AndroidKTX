@@ -40,7 +40,7 @@ class DemoActivity : StateTitleBarActivity(){
 
     override fun onConfigStateLayout() {
         super.onConfigStateLayout()
-        stateLayout?.config(loadingText = "嘻嘻嘻嘻嘻嘻")
+        stateLayout?.config()
     }
 
 }

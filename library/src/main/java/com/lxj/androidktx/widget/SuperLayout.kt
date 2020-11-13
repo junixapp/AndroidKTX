@@ -485,6 +485,7 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
 
     fun leftImageView() = ivLeftImage
     fun leftTextView() = tvLeftText
+    fun leftSubTextView() = tvLeftSubText
     fun rightTextView() = tvRightText
     fun centerTextView() = tvCenterText
     fun rightImageView() = ivRightImage

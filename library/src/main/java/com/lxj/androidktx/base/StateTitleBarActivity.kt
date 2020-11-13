@@ -27,7 +27,7 @@ abstract class StateTitleBarActivity : TitleBarActivity(){
     }
 
     open fun showContent() = stateLayout?.showContent()
-    open fun showLoading(showText: Boolean = true) = stateLayout?.showLoading(showText)
+    open fun showLoading() = stateLayout?.showLoading()
     open fun showError() = stateLayout?.showError()
     open fun showEmpty(noDataIconRes: Int = 0){
         if(noDataIconRes!=0){

@@ -40,10 +40,9 @@ object AndroidKTX {
         if(context is Application){
             Utils.init(context)
         }
-        ToastUtils.setGravity(Gravity.CENTER, 0 , 50)
-//        ToastUtils.setBgColor(Color.parseColor("#222222"))
-        ToastUtils.setBgResource(R.drawable._ktx_toast_bg)
-        ToastUtils.setMsgColor(Color.WHITE)
+        ToastUtils.getDefaultMaker().setGravity(Gravity.CENTER, 0 , 50)
+        ToastUtils.getDefaultMaker().setBgResource(R.drawable._ktx_toast_bg)
+        ToastUtils.getDefaultMaker().setTextColor(Color.WHITE)
         initRefresh()
         IjkPlayerManager.setLogLevel(IjkMediaPlayer.IJK_LOG_SILENT)
     }
