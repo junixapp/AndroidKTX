@@ -98,7 +98,10 @@ class MainActivity : AppCompatActivity() {
 //        loge("ed: ${ed}")
 //        loge("data: ${ed.decryptAES("babamamababamama")}")
 
-        loge("gen sign：${genSign()}")
+//        loge("gen sign：${genSign()}")
+
+        val list = arrayListOf<String>("a", "b", "c","d","e")
+        loge(list.groupByCount(count = 2).toJson())
     }
     val signKey = "babamamababamama"
     fun genSign(): String{
