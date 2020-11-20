@@ -40,7 +40,7 @@ object AndroidKTX {
         if(context is Application){
             Utils.init(context)
         }
-        ToastUtils.getDefaultMaker().setGravity(Gravity.CENTER, 0 , 50)
+        ToastUtils.getDefaultMaker().setGravity(Gravity.CENTER, 0 , 10)
         ToastUtils.getDefaultMaker().setBgResource(R.drawable._ktx_toast_bg)
         ToastUtils.getDefaultMaker().setTextColor(Color.WHITE)
         initRefresh()
@@ -51,15 +51,13 @@ object AndroidKTX {
         //设置全局的Header构建器
         SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, layout ->
 //            layout.setPrimaryColorsId(R.color.bg_color, R.color.colorPrimary)
-            layout.setPrimaryColors(Color.parseColor("#f1f1f1"), Color.parseColor("#111111"))
+            layout.setPrimaryColors(Color.parseColor("#f0f0f0"), Color.parseColor("#111111"))
             ClassicsHeader(context)
         }
         //设置全局的Footer构建器
         SmartRefreshLayout.setDefaultRefreshFooterCreator { context, layout ->
-            layout.setPrimaryColors(Color.parseColor("#f1f1f1"), Color.parseColor("#111111"))
-            ClassicsFooter(
-                    context
-            ).setDrawableSize(20f)
+            layout.setPrimaryColors(Color.parseColor("#f0f0f0"), Color.parseColor("#111111"))
+            ClassicsFooter(context)
         }
     }
 }

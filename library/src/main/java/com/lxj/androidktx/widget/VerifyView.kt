@@ -3,6 +3,7 @@ package com.lxj.androidktx.widget
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.content.Context
+import android.os.Handler
 import android.util.AttributeSet
 import com.lxj.androidktx.R
 
@@ -29,6 +30,7 @@ class VerifyView @JvmOverloads constructor(context: Context, attributeSet: Attri
     var alphaWhenCountDown = true //在倒计时的时候是否显示半透明
     var callback: CountDownCallback? = null
     var status = VerifyStatus.Init
+    val mHandler = Handler()
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.VerifyView)
         defText = ta.getString(R.styleable.VerifyView_vv_defText) ?: defText
@@ -53,7 +55,7 @@ class VerifyView @JvmOverloads constructor(context: Context, attributeSet: Attri
             isEnabled = true
             text = resendText
             currTime = resendDuration
-            handler.removeCallbacksAndMessages(null)
+            mHandler.removeCallbacksAndMessages(null)
             status = VerifyStatus.End
             return
         }
@@ -65,7 +67,7 @@ class VerifyView @JvmOverloads constructor(context: Context, attributeSet: Attri
             text = "${currTime}${countDownText}"
         }
         currTime--
-        handler.postDelayed({start()}, 1000)
+        mHandler.postDelayed({start()}, 1000)
         callback?.onStart()
         status = VerifyStatus.CountingDown
     }
@@ -74,11 +76,13 @@ class VerifyView @JvmOverloads constructor(context: Context, attributeSet: Attri
      * 结束倒计时
      */
     fun stop(){
-        handler.removeCallbacksAndMessages(null)
+        mHandler.removeCallbacksAndMessages(null)
         text = defText
         currTime = resendDuration
         callback?.onStop()
         status = VerifyStatus.End
+        isEnabled = true
+        alpha = 1f
     }
 
     override fun onDetachedFromWindow() {

@@ -11,10 +11,11 @@ import com.lxj.xpopup.XPopup
  * 绑定数据
  */
 fun <T> NineGridImageView<T>.setup(urls: List<T>, corner: Int = 0,
-                                   placeholder: Int = 0, error: Int = 0){
+                                   placeholder: Int = 0, error: Int = 0,
+                                    isCrossFade: Boolean = true){
     setAdapter(object : NineGridImageViewAdapter<T>() {
         override fun onDisplayImage(context: Context?, imageView: ImageView?, t: T?) {
-            imageView?.load(t, placeholder = placeholder, error = error)
+            imageView?.load(t, placeholder = placeholder, error = error, isCrossFade = isCrossFade)
         }
 
         override fun onItemImageClick(context: Context?, imageView: ImageView, index: Int, list: MutableList<T>) {

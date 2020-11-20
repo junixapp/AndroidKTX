@@ -29,12 +29,14 @@ open class WebActivity : TitleBarActivity(){
          * @param rightIconRes 右边按钮的图片
          * @param rightIconClickAction 右边按钮的点击监听器
          */
-        fun start(title: String? = null, url: String? = null, content: String? = null, leftIconRes: Int = R.mipmap._ktx_ic_back,
+        fun start(title: String? = null, url: String? = null, content: String? = null,
+                  hideTitleBar: Boolean = false, leftIconRes: Int = R.mipmap._ktx_ic_back,
                   enableCache: Boolean? = false, showProgress: Boolean = true, indicatorColor : Int = 0,
                   rightIconRes: Int = 0, rightIconClickAction: (() -> Unit)? = null){
             onRightClickAction = rightIconClickAction
             val intent = Intent(AndroidKTX.context, WebActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            intent.putExtra("hideTitleBar", hideTitleBar)
             intent.putExtra("title", title)
             intent.putExtra("url", url)
             intent.putExtra("content", content)
@@ -57,6 +59,7 @@ open class WebActivity : TitleBarActivity(){
     lateinit var agentWeb: AgentWeb
     var enableCache = false
     val indicatorColor : Int by lazy { intent.getIntExtra("indicatorColor", Color.parseColor("#14d068")) }
+    val hideTitleBar: Boolean by lazy { intent.getBooleanExtra("hideTitleBar", false) }
     override fun initData() {
         setupTitle()
 
@@ -71,11 +74,15 @@ open class WebActivity : TitleBarActivity(){
         val rightIconRes = intent.getIntExtra("rightIconRes", 0)
         enableCache = intent.getBooleanExtra("enableCache", false)
 
-        titleBar().setup(leftImageRes = leftIconRes, title = title ?: "加载中...")
-        titleBar().leftImageView().click { finish() }
-        if(rightIconRes!=0){
-            titleBar().setupRightImage(imageRes = rightIconRes)
-            titleBar().rightImageView().click { onRightClickAction?.invoke() }
+        if(hideTitleBar){
+            hideTitleBar()
+        }else{
+            titleBar().setup(leftImageRes = leftIconRes, title = title ?: "加载中...")
+            titleBar().leftImageView().click { finish() }
+            if(rightIconRes!=0){
+                titleBar().setupRightImage(imageRes = rightIconRes)
+                titleBar().rightImageView().click { onRightClickAction?.invoke() }
+            }
         }
     }
 

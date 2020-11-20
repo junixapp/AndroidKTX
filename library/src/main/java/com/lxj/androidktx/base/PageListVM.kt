@@ -34,14 +34,15 @@ abstract class PageListVM<T> : ViewModel(),
         rv: RecyclerView?,
         smartRefresh: SmartRefreshLayout?,
         stateLayout: StateLayout? = null,
+        firstShowLoading: Boolean = false,
         emptyText: String = "暂无数据",
         onDataUpdate: (()->Unit)? = null
     ) {
+        stateLayout?.config(emptyText = emptyText)
         listData.observe(owner, Observer {
             rv?.adapter?.notifyDataSetChanged()
             onDataUpdate?.invoke()
             if(stateLayout!=null){
-                stateLayout.config(emptyText = emptyText)
                 if(listData.value.isNullOrEmpty()) stateLayout.showEmpty()
                 else stateLayout.showContent()
             }
@@ -54,7 +55,11 @@ abstract class PageListVM<T> : ViewModel(),
         })
 
         smartRefresh?.setOnRefreshLoadMoreListener(this)
-        smartRefresh?.post { smartRefresh.autoRefresh() }
+        if(firstShowLoading && stateLayout!=null){
+            stateLayout.showLoading()
+        }else{
+            smartRefresh?.post { smartRefresh.autoRefresh() }
+        }
     }
 
     open fun refresh() {

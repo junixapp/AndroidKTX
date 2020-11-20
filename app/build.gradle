@@ -23,10 +23,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    testOptions {
-        unitTests.returnDefaultValues = true
-    }
-
     lintOptions {
         abortOnError false
     }
@@ -42,9 +38,6 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "androidx.appcompat:appcompat:$androidx_version"
@@ -57,6 +50,6 @@ dependencies {
 
     implementation "com.github.bumptech.glide:glide:4.11.0"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1'
-    def lifecycle_version = "2.2.0-alpha01"
-    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+//    def lifecycle_version = "2.2.0-alpha01"
+//    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
 }

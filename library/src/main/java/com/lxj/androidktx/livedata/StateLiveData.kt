@@ -49,6 +49,7 @@ class StateLiveData<T> : NoStickyLiveData<T>() {
     }
 
     fun postError(error: String? = null) {
+        super.postValue(null)
         if(error?.isNotEmpty()==true) this.errMsg = error
         state.postValue(State.Error)
     }
@@ -86,7 +87,7 @@ class StateLiveData<T> : NoStickyLiveData<T>() {
             if(nullIsEmpty){
                 postEmpty(dataValue)
             }else{
-                postError() //未得到期望数据，不传递null
+                postError() //出错
             }
         }else if(dataValue is Collection<*> && dataValue.isEmpty()){
             postEmpty(dataValue) //数据成功但是空，需要传递空，UI需要刷新
@@ -107,8 +108,6 @@ class StateLiveData<T> : NoStickyLiveData<T>() {
         postLoading()
         return GlobalScope.launch { smartPost(block(), nullIsEmpty) }
     }
-
-
 
 }
 

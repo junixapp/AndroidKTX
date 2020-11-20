@@ -47,18 +47,19 @@ class ImageViewExtPage: BaseFragment(){
 
         image1.click {
 //            Share.shareWithUI(activity!!, SharePlatform.WxCircle)
-//            WebActivity.start(
-//                    title = "xxxx",
-//                    url = "https://player.youku.com/embed/XNDI1MTY2MTYwMA==?client_id=fe317d1cbae86c63&password=&autoplay=true#www.wu888.cn",
-//                    rightIconRes = R.mipmap.ic_launcher, rightIconClickAction = {
-//                ToastUtils.showShort("点击了")
-//            })
+            WebActivity.start(
+                    hideTitleBar = true,
+                    title = "xxxx",
+                    url = "https://player.youku.com/embed/XNDI1MTY2MTYwMA==?client_id=fe317d1cbae86c63&password=&autoplay=true#www.wu888.cn",
+                    rightIconRes = R.mipmap.ic_launcher, rightIconClickAction = {
+                ToastUtils.showShort("点击了")
+            })
 
 //            ImagePicker.startCamera(this, 1) //打开相机
 //            ImagePicker.startCamera(this, 1, isCompress = false) //打开相机不压缩
 //            ImagePicker.startCamera(this, 1, isCrop = true) //打开相机并裁剪
 //            ImagePicker.startCamera(this, 1) //打开相机不裁剪
-            ImagePicker.startPicker(this, 1, isCrop = true) //打开相机并裁剪
+//            ImagePicker.startPicker(this, 1, isCrop = true) //打开相机并裁剪
 //            ImagePicker.startPicker(this, 1, isCrop = true) //打开相机并裁剪
 //            ImagePicker.startPicker(this, 1, types = MimeType.ofVideo()) //打开相机并裁剪
 //

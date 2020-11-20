@@ -99,8 +99,6 @@ class MainActivity : AppCompatActivity() {
 //        loge("data: ${ed.decryptAES("babamamababamama")}")
 
         loge("gen sign：${genSign()}")
-
-
     }
     val signKey = "babamamababamama"
     fun genSign(): String{

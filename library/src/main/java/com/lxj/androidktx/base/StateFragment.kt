@@ -36,12 +36,8 @@ abstract class StateFragment : Fragment() {
     open fun showContent() = stateLayout?.showContent()
     open fun showLoading() = stateLayout?.showLoading()
     open fun showError() = stateLayout?.showError()
-    open fun showEmpty(noDataIconRes: Int = 0){
-        if(noDataIconRes!=0){
-            stateLayout?.showEmpty(noDataIconRes)
-        }else{
-            stateLayout?.showEmpty()
-        }
+    open fun showEmpty(){
+        stateLayout?.showEmpty()
     }
 
     //是否自动显示Content
