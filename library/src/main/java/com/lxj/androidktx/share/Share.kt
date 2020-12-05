@@ -215,6 +215,7 @@ object Share {
         SharePlatform.WxFriend -> SHARE_MEDIA.WEIXIN
         SharePlatform.WxCircle -> SHARE_MEDIA.WEIXIN_CIRCLE
         SharePlatform.QQ -> SHARE_MEDIA.QQ
+        SharePlatform.QZone -> SHARE_MEDIA.QZONE
         SharePlatform.Sina -> SHARE_MEDIA.SINA
     }
 

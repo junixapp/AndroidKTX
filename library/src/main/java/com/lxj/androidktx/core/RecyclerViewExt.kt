@@ -146,18 +146,21 @@ fun <T> RecyclerView.itemLongClick(listener: (data: List<T>, holder: RecyclerVie
 }
 
 fun RecyclerView.smoothScrollToEnd(){
-    if(adapter!=null && adapter!!.itemCount>0) smoothScrollToPosition(adapter!!.itemCount)
+    if(adapter!=null && adapter!!.itemCount>0){
+        smoothScrollToPosition(adapter!!.itemCount-1)
+    }
 }
 
 fun RecyclerView.scrollToEnd(){
-    if(adapter!=null && adapter!!.itemCount>0) scrollToPosition(adapter!!.itemCount)
+    if(adapter!=null && adapter!!.itemCount>0){
+        scrollToPosition(adapter!!.itemCount-1)
+    }
 }
 
 /**
  * 滚动置顶，只支持线性布局
  */
 fun RecyclerView.scrollTop(position: Int){
-    scrollToPosition(position)
     if(layoutManager is LinearLayoutManager){
         (layoutManager as LinearLayoutManager).scrollToPositionWithOffset(position, 0)
     }

@@ -19,7 +19,7 @@ class DemoActivity : StateTitleBarActivity(){
     var isFirst = true
     val loadingPopupView: LoadingPopupView by lazy { XPopup.Builder(this).asLoading("加载中") }
     override fun initData() {
-        titleBar().setup(title = "大萨达撒大多撒")
+        titleBar().setup(title = "大萨达撒大多撒", rightImageRes = R.mipmap.gengxingb)
 //        AppVM.data.observe(this, Observer{
 //            toast("it：$it")
 //        })

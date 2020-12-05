@@ -76,6 +76,7 @@ class VerifyView @JvmOverloads constructor(context: Context, attributeSet: Attri
      * 结束倒计时
      */
     fun stop(){
+        animate().cancel()
         mHandler.removeCallbacksAndMessages(null)
         text = defText
         currTime = resendDuration

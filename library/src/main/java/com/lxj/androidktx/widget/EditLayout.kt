@@ -74,4 +74,8 @@ open class EditLayout @JvmOverloads constructor(context: Context, attributeSet: 
     fun getEditText() = et_content
     fun getClearView() = ivClear
 
+    fun setReadMode(){
+        ivClear.gone()
+        et_content.isEnabled = false
+    }
 }

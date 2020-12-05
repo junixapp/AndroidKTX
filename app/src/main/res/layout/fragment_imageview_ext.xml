@@ -17,8 +17,8 @@
         <com.lxj.androidktx.widget.RatioImageView
             android:id="@+id/image1"
             app:riv_ratio="2"
-            app:riv_limitHeight="200dp"
-            android:layout_width="200dp"
+            app:riv_limitHeight="150dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content" />
 
         <include layout="@layout/divider"/>
@@ -29,8 +29,8 @@
 
         <ImageView
             android:id="@+id/image2"
-            android:layout_width="100dp"
-            android:layout_height="100dp" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <include layout="@layout/divider"/>
 
@@ -38,7 +38,8 @@
             android:id="@+id/title3"
             style="@style/TitleStyle"/>
 
-        <ImageView
+        <com.lxj.androidktx.widget.RoundImageView
+            app:riv_corner_radius="100pt"
             android:id="@+id/image3"
             android:layout_width="100dp"
             android:layout_height="100dp" />

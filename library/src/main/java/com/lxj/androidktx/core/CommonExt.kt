@@ -228,25 +228,27 @@ fun Bitmap.saveToAlbum(format: Bitmap.CompressFormat = Bitmap.CompressFormat.PNG
 }
 
 //一天只做一次
-fun Any.doOnceInDay(action: () -> Unit) {
-    val key = "once_in_day_last_check"
+fun Any.doOnceInDay(actionName: String = "", action: () -> Unit, whenHasDone: (()->Unit)? = null) {
+    val key = "once_in_day_last_check_${actionName}"
     val today = Date()
     val todayFormat = TimeUtils.date2String(today, "yyyy-MM-dd")
     val last = sp().getString(key, "")
     if (last != null && last.isNotEmpty() && last == todayFormat) {
         //说明执行过
+        whenHasDone?.invoke()
         return
     }
     sp().putString(key, todayFormat)
     action()
 }
 
-//第一次启动的时候执行
-fun Any.doWhenFirstLaunch(action: () -> Unit) {
-    val key = "has_done_first_launch"
+//只执行一次的行为
+fun Any.doOnlyOnce(actionName: String = "", action: () -> Unit, whenHasDone: (()->Unit)? = null) {
+    val key = "has_done_${actionName}"
     val hasDone = sp().getBoolean(key, false)
     if (hasDone) {
         //说明执行过
+        whenHasDone?.invoke()
         return
     }
     sp().putBoolean(key, true)
@@ -255,7 +257,19 @@ fun Any.doWhenFirstLaunch(action: () -> Unit) {
 
 //500毫秒内只做一次
 val _innerHandler = Handler(Looper.getMainLooper())
-fun Any.doOnceIn(time: Long = 500, action: ()->Unit){
-    _innerHandler.removeCallbacksAndMessages(null)
-    _innerHandler.postDelayed({action()}, time)
+val _actionCache = arrayListOf<String>()
+
+/**
+ * 事件节流
+ * @param actionName 事件的名字
+ * @param time 事件的节流时间
+ * @param action 事件
+ */
+fun Any.doOnceIn( actionName: String, time: Long = 500, action: ()->Unit){
+    if(_actionCache.contains(actionName)) return
+    _actionCache.add(actionName)
+    action() //执行行为
+    _innerHandler.postDelayed({
+        if(_actionCache.contains(actionName)) _actionCache.remove(actionName)
+    }, time)
 }

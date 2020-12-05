@@ -7,6 +7,7 @@ package com.lxj.androidktx.share
 enum class SharePlatform {
     WxFriend,
     WxCircle,
+    QZone,
     QQ,
     Sina
 }

@@ -43,17 +43,17 @@ dependencies {
     api "androidx.appcompat:appcompat:$androidx_version"
     api 'androidx.multidex:multidex:2.0.1'
     api "androidx.recyclerview:recyclerview:$androidx_version"
-    api 'com.google.android.material:material:1.1.0'
+    api 'com.google.android.material:material:1.2.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     api "com.github.bumptech.glide:glide:4.11.0"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7"
     api 'com.lxj:easyadapter:1.2.2'
     api 'com.jaeger.ninegridimageview:library:1.1.1'  //九宫格
     implementation 'com.google.code.gson:gson:2.8.6'
     // inline函数在运行时插入使用处，需要暴露出去
-    api "com.squareup.okhttp3:okhttp:3.12.1"
+    api "com.squareup.okhttp3:okhttp:3.12.3"
     api "androidx.lifecycle:lifecycle-extensions:2.2.0"
-    api 'com.lxj:statelayout:1.1.7'
+    api 'com.lxj:statelayout:1.1.8'
     api 'me.jessyan:progressmanager:1.5.0'
     api 'com.blankj:utilcodex:1.30.4'
     api  'com.scwang.smart:refresh-layout-kernel:2.0.1'      //核心必须依赖
@@ -65,7 +65,7 @@ dependencies {
     api 'com.shuyu:gsyVideoPlayer-armv5:7.1.6'
     api 'com.shuyu:gsyVideoPlayer-armv7a:7.1.6'
     api 'com.shuyu:gsyVideoPlayer-arm64:7.1.6'
-    api 'cjt.library.wheel:camera:1.1.9'    //拍照和拍摄视频
+    api 'cjt.library.wheel:camera:1.1.9'  //拍照和拍摄视频
     compileOnly 'com.lxj:xpopup:2.2.0'       //弹窗
     api 'com.king.zxing:zxing-lite:1.1.9-androidx'  //二维码扫描
     api 'com.google.android:flexbox:2.0.1'
@@ -80,10 +80,8 @@ dependencies {
     //友盟相关
 //    api  'com.umeng.umsdk:common:9.1.0'
     api  'com.umeng.umsdk:asms:1.1.3' // asms包依赖(必选)
-//    api 'com.umeng.umsdk:crash:0.0.4' // native crash包依赖(必选)
-
-//    api "androidx.lifecycle.lifecycle-viewmodel-ktx:2.2.0"
-    implementation 'androidx.core:core-ktx:1.3.1'
+    api 'com.umeng.umsdk:crash:0.0.4' // native crash包依赖(必选)
+    implementation 'androidx.core:core-ktx:1.3.2'
 //    api  'com.umeng.umsdk:share-core:7.0.2'
 //    implementation  'com.umeng.umsdk:share-qq:7.0.2'
 //    api  'com.umeng.umsdk:share-wx:7.0.2'
@@ -94,7 +92,7 @@ publish {
     userOrg = 'li-xiaojun'
     groupId = 'com.lxj'
     artifactId = 'androidktx'
-    publishVersion = '1.9.52'
+    publishVersion = '1.9.75'
     repoName = 'jrepo'
     desc = 'Some very useful kotlin extensions for android development！好用到爆的Kotlin扩展，加速你的Android开发！'
     website = 'https://github.com/li-xiaojun/AndroidKTX'

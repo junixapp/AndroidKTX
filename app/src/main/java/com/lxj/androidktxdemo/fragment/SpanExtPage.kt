@@ -50,7 +50,7 @@ class SpanExtPage : BaseFragment() {
         """.trimIndent()
         tvClickResult.clickSpan(str = str, range = 2..6, color = Color.BLUE, clickAction = {
             ToastUtils.showShort("哈哈我被点击了".toColorSpan(0..2))
-//            start<DemoActivity>()
+            start<DemoActivity>()
 //            WebActivity.start(url = "https://www.baidu.com")
 //            QrCodeUtil.start(this, 1)
 //            PlayerActivity.start(url = "https://lxj-bama-happy.oss-cn-zhangjiakou.aliyuncs.com/e015e0a9-ed2d-47b6-9b70-e4feb263a09f.mp4",

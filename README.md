@@ -553,6 +553,17 @@ PayVM.aliPay(...)
 PayVM.wxPay(...)
 ```
 
+## 二维码扫描
+```
+QrCodeUtil.start(this, 1)
+```
+扫描框颜色自定义：
+```
+<color name="viewfinder_frame">#D81B60</color>
+<color name="viewfinder_corner">#D81B60</color>
+<color name="viewfinder_laser">#D81B60</color>
+```
+
 
 ## TODO
 - 其他常用方法集成

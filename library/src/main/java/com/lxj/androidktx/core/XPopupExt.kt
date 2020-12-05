@@ -96,7 +96,8 @@ class GlideImageLoader(var placeholder: Int = 0) : XPopupImageLoader {
             imageView: ImageView
     ) {
         Glide.with(imageView).load(url)
-                .apply(RequestOptions().placeholder(placeholder).override(Target.SIZE_ORIGINAL))
+                .apply(RequestOptions().placeholder(placeholder)
+                        .override(Target.SIZE_ORIGINAL))
                 .into(imageView)
     }
 

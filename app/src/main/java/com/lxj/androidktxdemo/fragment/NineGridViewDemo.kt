@@ -4,6 +4,7 @@ import android.content.Context
 import android.widget.ImageView
 import com.blankj.utilcode.util.AdaptScreenUtils
 import com.blankj.utilcode.util.ScreenUtils
+import com.bumptech.glide.Glide
 import com.jaeger.ninegridimageview.NineGridImageView
 import com.jaeger.ninegridimageview.NineGridImageViewAdapter
 import com.lxj.androidktx.core.*
@@ -61,14 +62,14 @@ class NineGridViewDemo : BaseFragment() {
 
     override fun initView() {
         super.initView()
+        Glide.getPhotoCacheDir(context!!)?.deleteRecursively()
         recyclerView.vertical()
                 .bindData(list, R.layout.adapter_nine_grid, bindFn = { holder, t, position ->
                     holder.getView<NineGridImageView<String>>(R.id.nineGrid).apply {
 //                        setShowStyle(NineGridImageView.STYLE_GRID)
-                        setSingleImgSize(AdaptScreenUtils.pt2Px(200f))
-                        setup(t.urls, corner = 10)
+                        setSingleImgSize(AdaptScreenUtils.pt2Px(100f))
+                        setup(t.urls, corner = 36, placeholder = R.mipmap.ic_launcher)
                     }
-
 
                 })
     }

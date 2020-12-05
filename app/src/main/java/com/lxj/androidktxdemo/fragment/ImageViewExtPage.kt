@@ -5,11 +5,13 @@ import android.graphics.drawable.BitmapDrawable
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.bumptech.glide.Glide
 import com.lxj.androidktx.base.PlayerActivity
 import com.lxj.androidktx.base.WebActivity
 import com.lxj.androidktx.core.click
 import com.lxj.androidktx.core.load
 import com.lxj.androidktx.picker.ImagePicker
+import com.lxj.androidktx.util.QrCodeUtil
 import com.lxj.androidktxdemo.R
 import com.zhihu.matisse.MimeType
 import kotlinx.android.synthetic.main.fragment_imageview_ext.*
@@ -20,14 +22,13 @@ import kotlinx.android.synthetic.main.fragment_imageview_ext.*
  */
 class ImageViewExtPage: BaseFragment(){
     private val images = arrayOf(
-            "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1602328780180&di=ab7ecb26ac85e9ff97f6cbb0248103a1&imgtype=0&src=http%3A%2F%2Ft7.baidu.com%2Fit%2Fu%3D3616242789%2C1098670747%26fm%3D79%26app%3D86%26f%3DJPEG%3Fw%3D900%26h%3D1350",
-            "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544028336056&di=a120afc7cfb3708de4f7a22741901b20&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F908fa0ec08fa513d946d2de5366d55fbb3fbd9c2.jpg",
-            "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544028336055&di=e51bbe4f5b67266d644c8f650950df9c&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3D3b5bbe029ddda144ce0464f1dadebad7%2Fac345982b2b7d0a23b781e8cc1ef76094b369a69.jpg",
-            "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544028336055&di=f3c3a95d264cbf33841127370aa0b018&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F6f061d950a7b0208bf8b59c969d9f2d3572cc85c.jpg"
+            "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1606302655766&di=52555c75e485292ca456f44e0f98fcc1&imgtype=0&src=http%3A%2F%2Fimg.aiimg.com%2Fuploads%2Fuserup%2F0909%2F2Z64022L38.jpg",
+            "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1606302655766&di=4e7d90ee24391f684eaa421e4a4ab423&imgtype=0&src=http%3A%2F%2Fa2.att.hudong.com%2F11%2F48%2F01300000195282124296481807051.jpg"
     )
     override fun getLayoutId() = R.layout.fragment_imageview_ext
 
     override fun initView() {
+        Glide.getPhotoCacheDir(context!!)?.deleteRecursively()
         loadImage()
     }
 
@@ -39,21 +40,22 @@ class ImageViewExtPage: BaseFragment(){
         title1.text = "image1.load(url)"
 
 
-        image2.load(images[2], placeholder = R.mipmap.ic_launcher, isCircle = true)
+        image2.load(images[0], placeholder = R.mipmap.ic_launcher, roundRadius = 20, isCrossFade = true)
         title2.text = "image2.load(url, isCircle = true)"
 
-        image3.load(images[2], placeholder = R.mipmap.ic_launcher, roundRadius = 20, isCenterCrop = true)
+        image3.load(images[1])
         title3.text = "image3.load(url, roundRadius = 20)"
 
         image1.click {
+            QrCodeUtil.start(this,1)
 //            Share.shareWithUI(activity!!, SharePlatform.WxCircle)
-            WebActivity.start(
-                    hideTitleBar = true,
-                    title = "xxxx",
-                    url = "https://player.youku.com/embed/XNDI1MTY2MTYwMA==?client_id=fe317d1cbae86c63&password=&autoplay=true#www.wu888.cn",
-                    rightIconRes = R.mipmap.ic_launcher, rightIconClickAction = {
-                ToastUtils.showShort("点击了")
-            })
+//            WebActivity.start(
+//                    hideTitleBar = true,
+//                    title = "xxxx",
+//                    url = "https://player.youku.com/embed/XNDI1MTY2MTYwMA==?client_id=fe317d1cbae86c63&password=&autoplay=true#www.wu888.cn",
+//                    rightIconRes = R.mipmap.ic_launcher, rightIconClickAction = {
+//                ToastUtils.showShort("点击了")
+//            })
 
 //            ImagePicker.startCamera(this, 1) //打开相机
 //            ImagePicker.startCamera(this, 1, isCompress = false) //打开相机不压缩

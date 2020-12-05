@@ -57,14 +57,14 @@ class MainActivity : AppCompatActivity() {
 //        ToastUtils.showShort("撒大大撒多撒多撒")
 //        LoadingDialog(this).setMessage("阿萨啊").show()
 
-        handler.post { ToastUtils.showShort("哈哈哈哈哈啊啊啊啊啊啊") }
+//        handler.post { ToastUtils.showShort("哈哈哈哈哈啊啊啊啊啊啊") }
 
-        """{"age":25,"name":"李晓俊","date":"2020-05-12 13:37:33"}
-        """.trimIndent().toBean<User>().toString().logw()
-
-        GlobalScope.launch {
-            loge(Thread.currentThread().name)
-        }
+//        """{"age":25,"name":"李晓俊","date":"2020-05-12 13:37:33"}
+//        """.trimIndent().toBean<User>().toString().logw()
+//
+//        GlobalScope.launch {
+//            loge(Thread.currentThread().name)
+//        }
 //        """{"age":25,"name":"李晓俊","date":"Mar 12, 1990 00:00:00"}
 //        """.trimIndent().toBean<User>().toString().w()
 //        "[{\"age\":25,\"name\":\"李晓俊\"}]".toBean<List<User>>().toString().e()
@@ -100,8 +100,13 @@ class MainActivity : AppCompatActivity() {
 
 //        loge("gen sign：${genSign()}")
 
-        val list = arrayListOf<String>("a", "b", "c","d","e")
-        loge(list.groupByCount(count = 2).toJson())
+//        val list = arrayListOf<String>("a", "b", "c","d","e")
+//        loge(list.groupByCount(count = 2).toJson())
+
+//        "dasdsa?a=b&c=d".parseQueryParams().toJson().loge()
+//        "dasdsa?".parseQueryParams().toJson().loge()
+//        "dasdsa".parseQueryParams().toJson().loge()
+//        "dasdsa1?da=c?".parseQueryParams().toJson().loge()
     }
     val signKey = "babamamababamama"
     fun genSign(): String{

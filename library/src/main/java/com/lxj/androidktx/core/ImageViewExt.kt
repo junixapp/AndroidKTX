@@ -35,6 +35,8 @@ fun ImageView.load(url: Any?, placeholder: Int = 0, error: Int = 0,
                    roundRadius: Int = 0,
                    isCrossFade: Boolean = false,
                    isForceOriginalSize: Boolean = false,
+                   targetWidth: Int = 0,
+                   targetHeight: Int = 0,
                    onlyLoadImage: Boolean = false,
                    onImageLoad: ((resource: Drawable?) -> Unit)? = null,
                    onImageFail: (() -> Unit)? = null
@@ -53,6 +55,9 @@ fun ImageView.load(url: Any?, placeholder: Int = 0, error: Int = 0,
         }
         if (isForceOriginalSize) {
             override(Target.SIZE_ORIGINAL)
+        }
+        if(targetWidth!=0 &&  targetHeight!=0){
+            override(targetWidth, targetHeight)
         }
     }
     val glide = Glide.with(context).load(url)

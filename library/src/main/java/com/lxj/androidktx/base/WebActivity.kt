@@ -78,7 +78,11 @@ open class WebActivity : TitleBarActivity(){
             hideTitleBar()
         }else{
             titleBar().setup(leftImageRes = leftIconRes, title = title ?: "加载中...")
-            titleBar().leftImageView().click { finish() }
+            titleBar().leftImageView().click {
+                if(!agentWeb.back()){
+                    finish()
+                }
+            }
             if(rightIconRes!=0){
                 titleBar().setupRightImage(imageRes = rightIconRes)
                 titleBar().rightImageView().click { onRightClickAction?.invoke() }

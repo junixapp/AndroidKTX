@@ -64,7 +64,7 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
     }
 
     var mTabChangeListener: ((index: Int) -> Boolean)? = null
-    fun setTabs(tabs: List<Tab>, tabChangeListener: ((index: Int) -> Boolean)? = null): TabBar {
+    fun setTabs(tabs: List<Tab>, defSelectFirst : Boolean = true, tabChangeListener: ((index: Int) -> Boolean)? = null): TabBar {
         mTabs = tabs
         mTabChangeListener = tabChangeListener
         mTabs.forEachIndexed { index, it ->
@@ -89,6 +89,13 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, normalTextSize.toFloat())
                 setTextColor(normalColor)
                 if (tabHeight != 0) height(tabHeight)
+                when (iconPosition) {
+                    0 -> sizeDrawable(width = iconWidth, height = iconHeight, leftDrawable = mTabs[index].normalIconRes)
+                    1 -> sizeDrawable(width = iconWidth, height = iconHeight, topDrawable = mTabs[index].normalIconRes)
+                    2 -> sizeDrawable(width = iconWidth, height = iconHeight, rightDrawable = mTabs[index].normalIconRes)
+                    3 -> sizeDrawable(width = iconWidth, height = iconHeight, bottomDrawable = mTabs[index].normalIconRes)
+                }
+                typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
             }, LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT))
             wrapper.apply {
                 val typedValue = TypedValue()
@@ -99,7 +106,7 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
                 }
             }
         }
-        selectTab(0)
+        if(defSelectFirst)selectTab(0)
         return this
     }
 

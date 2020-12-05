@@ -3,6 +3,7 @@ package com.lxj.androidktxdemo
 import android.app.Application
 import com.lxj.androidktx.AndroidKTX
 import com.lxj.androidktx.core.*
+import com.lxj.androidktx.share.Share
 import com.lxj.androidktxdemo.entity.User
 
 /**
@@ -27,6 +28,7 @@ class AndroidKtxApp: Application(){
         sp().putObject("user", User(name = "李晓俊", age = 1000))
         loge("user: ${sp().getObject<User>("user")}")
 
+        Share.init(this, BuildConfig.DEBUG, umengAppKey = "", wxAppId = "", wxAppKey = "")
 
     }
 }

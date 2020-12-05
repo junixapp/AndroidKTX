@@ -48,9 +48,9 @@ class StateLiveData<T> : NoStickyLiveData<T>() {
         state.postValue(State.Success)
     }
 
-    fun postError(error: String? = null) {
-        super.postValue(null)
+    fun postError(error: String? = null, postNull: Boolean = false) {
         if(error?.isNotEmpty()==true) this.errMsg = error
+        if(postNull) super.postValue(null)
         state.postValue(State.Error)
     }
 
@@ -82,12 +82,12 @@ class StateLiveData<T> : NoStickyLiveData<T>() {
      * @param dataValue 目标值，根据目标值去设置对应的state
      * @param nullIsEmpty 是否把null当做Empty状态，默认false
      */
-    fun smartPost(dataValue: T?, nullIsEmpty: Boolean = false){
+    fun smartPost(dataValue: T?, nullIsEmpty: Boolean = false, postNull: Boolean = false){
         if(dataValue==null){
             if(nullIsEmpty){
                 postEmpty(dataValue)
             }else{
-                postError() //出错
+                postError(postNull = postNull) //出错
             }
         }else if(dataValue is Collection<*> && dataValue.isEmpty()){
             postEmpty(dataValue) //数据成功但是空，需要传递空，UI需要刷新
@@ -104,9 +104,10 @@ class StateLiveData<T> : NoStickyLiveData<T>() {
      * @param block 执行块
      * @param nullIsEmpty 是否把null值当做Empty处理，默认false
      */
-    fun launchAndSmartPost( nullIsEmpty: Boolean = false, block: suspend CoroutineScope.() -> T?): Job {
+    fun launchAndSmartPost( postNull: Boolean = false,  nullIsEmpty: Boolean = false,
+                            block: suspend CoroutineScope.() -> T?): Job {
         postLoading()
-        return GlobalScope.launch { smartPost(block(), nullIsEmpty) }
+        return GlobalScope.launch { smartPost(block(), nullIsEmpty, postNull) }
     }
 
 }

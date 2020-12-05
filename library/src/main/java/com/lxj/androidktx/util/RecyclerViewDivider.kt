@@ -10,8 +10,6 @@ import android.view.View
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
-import com.lxj.androidktx.core.loge
-import com.lxj.androidktx.core.orientation
 
 class RecyclerViewDivider(context: Context, orientation: Int)
     : DividerItemDecoration(context, orientation){

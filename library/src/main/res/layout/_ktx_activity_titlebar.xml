@@ -6,15 +6,15 @@
         android:id="@+id/fakeTitleBar"
         android:background="#fff"
         android:layout_width="match_parent"
-        android:layout_height="25pt"/>
+        android:layout_height="26pt"/>
     <com.lxj.androidktx.widget.TitleBar
         android:id="@+id/titleBar"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        app:rightImagePadding="13pt"
-        app:leftImagePadding="13pt"
+        app:rightImagePadding="12pt"
+        app:leftImagePadding="10pt"
         app:leftImageSrc="@mipmap/_ktx_ic_back"
-        android:layout_height="46pt"/>
+        android:layout_height="48pt"/>
     <View
         android:id="@+id/titleDivider"
         android:background="#f1f1f1"
