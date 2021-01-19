@@ -223,3 +223,7 @@ fun RecyclerView.enableItemDrag(isDisableLast: Boolean = false, onDragFinish: ((
 
     }).attachToRecyclerView(this)
 }
+
+fun RecyclerView.disableItemChangeAnimation(){
+    (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+}

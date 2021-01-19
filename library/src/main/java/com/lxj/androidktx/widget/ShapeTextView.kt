@@ -3,8 +3,11 @@ package com.lxj.androidktx.widget
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Paint
 import android.graphics.Rect
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
+import android.text.TextPaint
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
 import com.lxj.androidktx.R
@@ -116,8 +119,8 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
         mBottomLineColor = ta.getColor(R.styleable.ShapeTextView_stv_bottomLineColor, mBottomLineColor)
         mLineSize = ta.getDimensionPixelSize(R.styleable.ShapeTextView_stv_lineSize, mLineSize)
 
-        mGradientStartColor = ta.getColor(R.styleable.ShapeTextView_stv_gradientStartColor, 0)
-        mGradientEndColor = ta.getColor(R.styleable.ShapeTextView_stv_gradientEndColor, 0)
+        mGradientStartColor = ta.getColor(R.styleable.ShapeTextView_stv_gradientStartColor, mGradientStartColor)
+        mGradientEndColor = ta.getColor(R.styleable.ShapeTextView_stv_gradientEndColor, mGradientEndColor)
         val orientation = ta.getInt(R.styleable.ShapeTextView_stv_gradientOrientation, GradientDrawable.Orientation.LEFT_RIGHT.ordinal)
         mGradientOrientation = when(orientation){
             0 -> GradientDrawable.Orientation.TOP_BOTTOM
@@ -136,18 +139,18 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
         applySelf()
     }
 
-
     fun applySelf() {
-        if (mSolid != 0 || mStroke != 0 || mGradientEndColor!=0 || mGradientStartColor!=0) {
-            val drawable = createDrawable(color = mSolid, radius = mCorner.toFloat(), strokeColor = mStroke, strokeWidth = mStrokeWidth,
-                    enableRipple = mEnableRipple, rippleColor = mRippleColor, gradientStartColor = mGradientStartColor,
-            gradientEndColor = mGradientEndColor, gradientOrientation = mGradientOrientation)
-            setBackgroundDrawable(drawable)
+        if (background !=null && background is ColorDrawable && mSolid==Color.TRANSPARENT){
+            mSolid = ( background as ColorDrawable) .color
         }
+        val drawable = createDrawable(color = mSolid, radius = mCorner.toFloat(), strokeColor = mStroke, strokeWidth = mStrokeWidth,
+                enableRipple = mEnableRipple, rippleColor = mRippleColor, gradientStartColor = mGradientStartColor,
+                gradientEndColor = mGradientEndColor, gradientOrientation = mGradientOrientation)
+        setBackgroundDrawable(drawable)
     }
 
-    val topLine = Rect(0,0,0,0)
-    val bottomLine = Rect(0,0,0,0)
+    val topLine = Rect(0, 0, 0, 0)
+    val bottomLine = Rect(0, 0, 0, 0)
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         topLine.right = measuredWidth

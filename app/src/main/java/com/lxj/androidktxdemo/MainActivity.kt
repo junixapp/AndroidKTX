@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.lxj.androidktx.core.*
+import com.lxj.androidktx.share.Share
 import com.lxj.androidktx.widget.LoadingDialog
 import com.lxj.androidktxdemo.entity.PageInfo
 import com.lxj.androidktxdemo.entity.User
@@ -37,7 +38,8 @@ class MainActivity : AppCompatActivity() {
             PageInfo("LiveDataBus", LiveDataBusDemo()),
             PageInfo("RecyclerView相关", RecyclerViewExtDemo()),
             PageInfo("ViewPager2", ViewPager2Demo()),
-            PageInfo("九宫格View", NineGridViewDemo())
+            PageInfo("九宫格View", NineGridViewDemo()),
+            PageInfo("播放器", PlayerFragment())
 
 
     )
@@ -123,4 +125,8 @@ class MainActivity : AppCompatActivity() {
         return json.encryptAES(signKey)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        Share.onActivityResult(this, requestCode, resultCode, data)
+    }
 }

@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import android.widget.FrameLayout
@@ -98,10 +99,10 @@ open class ShapeFrameLayout @JvmOverloads constructor(context: Context, attribut
         enableRipple = ta.getBoolean(R.styleable.ShapeFrameLayout_sfl_enableRipple, enableRipple)
         rippleColor = ta.getColor(R.styleable.ShapeFrameLayout_sfl_rippleColor, rippleColor)
 
-        mGradientStartColor = ta.getColor(R.styleable.ShapeFrameLayout_sfl_gradientStartColor, 0)
-        mGradientEndColor = ta.getColor(R.styleable.ShapeFrameLayout_sfl_gradientEndColor, 0)
+        mGradientStartColor = ta.getColor(R.styleable.ShapeFrameLayout_sfl_gradientStartColor, mGradientStartColor)
+        mGradientEndColor = ta.getColor(R.styleable.ShapeFrameLayout_sfl_gradientEndColor, mGradientEndColor)
         val orientation = ta.getInt(R.styleable.ShapeFrameLayout_sfl_gradientOrientation, GradientDrawable.Orientation.LEFT_RIGHT.ordinal)
-        mGradientOrientation = when(orientation){
+        mGradientOrientation = when (orientation) {
             0 -> GradientDrawable.Orientation.TOP_BOTTOM
             1 -> GradientDrawable.Orientation.TR_BL
             2 -> GradientDrawable.Orientation.RIGHT_LEFT
@@ -116,12 +117,13 @@ open class ShapeFrameLayout @JvmOverloads constructor(context: Context, attribut
     }
 
     fun applySelf() {
-        if (solid != 0 || stroke != 0 || mGradientEndColor!=0 || mGradientStartColor!=0) {
-            val drawable = createDrawable(color = solid, radius = corner.toFloat(), strokeColor = stroke, strokeWidth = strokeWidth,
-                    enableRipple = enableRipple, rippleColor = rippleColor, gradientStartColor = mGradientStartColor,
-                    gradientEndColor = mGradientEndColor, gradientOrientation = mGradientOrientation)
-            setBackgroundDrawable(drawable)
+        if (background !=null && background is ColorDrawable && solid==Color.TRANSPARENT){
+            solid = ( background as ColorDrawable) .color
         }
+        val drawable = createDrawable(color = solid, radius = corner.toFloat(), strokeColor = stroke, strokeWidth = strokeWidth,
+                enableRipple = enableRipple, rippleColor = rippleColor, gradientStartColor = mGradientStartColor,
+                gradientEndColor = mGradientEndColor, gradientOrientation = mGradientOrientation)
+        setBackgroundDrawable(drawable)
     }
 
     val paint = Paint()

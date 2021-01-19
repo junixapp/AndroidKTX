@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Rect
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatEditText
@@ -29,6 +30,7 @@ open class ShapeEditText @JvmOverloads constructor(context: Context, attributeSe
             field = value
             sizeDrawable(width = mDrawableWidth, height = mDrawableHeight)
         }
+
     //背景
     var mSolid = 0 //填充色
         set(value) {
@@ -62,6 +64,7 @@ open class ShapeEditText @JvmOverloads constructor(context: Context, attributeSe
             field = value
             applySelf()
         }
+
     //上下分割线
     var mTopLineColor = 0
         set(value) {
@@ -115,11 +118,11 @@ open class ShapeEditText @JvmOverloads constructor(context: Context, attributeSe
         mTopLineColor = ta.getColor(R.styleable.ShapeEditText_set_topLineColor, mTopLineColor)
         mBottomLineColor = ta.getColor(R.styleable.ShapeEditText_set_bottomLineColor, mBottomLineColor)
         mLineSize = ta.getDimensionPixelSize(R.styleable.ShapeEditText_set_lineSize, mLineSize)
-        
-        mGradientStartColor = ta.getColor(R.styleable.ShapeEditText_set_gradientStartColor, 0)
-        mGradientEndColor = ta.getColor(R.styleable.ShapeEditText_set_gradientEndColor, 0)
+
+        mGradientStartColor = ta.getColor(R.styleable.ShapeEditText_set_gradientStartColor, mGradientStartColor)
+        mGradientEndColor = ta.getColor(R.styleable.ShapeEditText_set_gradientEndColor, mGradientStartColor)
         val orientation = ta.getInt(R.styleable.ShapeEditText_set_gradientOrientation, GradientDrawable.Orientation.LEFT_RIGHT.ordinal)
-        mGradientOrientation = when(orientation){
+        mGradientOrientation = when (orientation) {
             0 -> GradientDrawable.Orientation.TOP_BOTTOM
             1 -> GradientDrawable.Orientation.TR_BL
             2 -> GradientDrawable.Orientation.RIGHT_LEFT
@@ -139,16 +142,17 @@ open class ShapeEditText @JvmOverloads constructor(context: Context, attributeSe
     }
 
     fun applySelf() {
-        if (mSolid != 0 || mStroke != 0 || mGradientEndColor!=0 || mGradientStartColor!=0) {
-            val drawable = createDrawable(color = mSolid, radius = mCorner.toFloat(), strokeColor = mStroke, strokeWidth = mStrokeWidth,
-                    enableRipple = mEnableRipple, rippleColor = mRippleColor, gradientStartColor = mGradientStartColor,
-                    gradientEndColor = mGradientEndColor, gradientOrientation = mGradientOrientation)
-            setBackgroundDrawable(drawable)
+        if (background !=null && background is ColorDrawable && mSolid==Color.TRANSPARENT){
+            mSolid = ( background as ColorDrawable) .color
         }
+        val drawable = createDrawable(color = mSolid, radius = mCorner.toFloat(), strokeColor = mStroke, strokeWidth = mStrokeWidth,
+                enableRipple = mEnableRipple, rippleColor = mRippleColor, gradientStartColor = mGradientStartColor,
+                gradientEndColor = mGradientEndColor, gradientOrientation = mGradientOrientation)
+        setBackgroundDrawable(drawable)
     }
 
-    val topLine = Rect(0,0,0,0)
-    val bottomLine = Rect(0,0,0,0)
+    val topLine = Rect(0, 0, 0, 0)
+    val bottomLine = Rect(0, 0, 0, 0)
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         topLine.right = measuredWidth
@@ -173,7 +177,7 @@ open class ShapeEditText @JvmOverloads constructor(context: Context, attributeSe
     fun setup(drawableWidth: Int = mDrawableWidth, drawableHeight: Int = mDrawableHeight,
               solid: Int = mSolid, stroke: Int = mStroke, strokeWidth: Int = mStrokeWidth,
               corner: Int = mCorner, enableRipple: Boolean = mEnableRipple, rippleColor: Int = mRippleColor,
-              topLineColor: Int = mTopLineColor, bottomLineColor: Int = mBottomLineColor, lineSize: Int = mLineSize){
+              topLineColor: Int = mTopLineColor, bottomLineColor: Int = mBottomLineColor, lineSize: Int = mLineSize) {
         mDrawableWidth = drawableWidth
         mDrawableHeight = drawableHeight
         mSolid = solid

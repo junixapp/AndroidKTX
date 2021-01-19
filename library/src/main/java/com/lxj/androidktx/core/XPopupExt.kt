@@ -10,6 +10,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.lxj.androidktx.livedata.StateLiveData
 import com.lxj.xpopup.XPopup
+import com.lxj.xpopup.core.BasePopupView
 import com.lxj.xpopup.enums.PopupStatus
 import com.lxj.xpopup.impl.LoadingPopupView
 import com.lxj.xpopup.interfaces.XPopupImageLoader
@@ -18,7 +19,7 @@ import java.io.File
 /**
  * 绑定LiveData的状态，警惕LoadingView过早关闭的时候，state的状态还未执行
  */
-fun LoadingPopupView.bindState(liveData: StateLiveData<*>,
+fun BasePopupView.bindState(liveData: StateLiveData<*>,
                                onLoading: (()->Unit)? = null,
                                onSuccess: (()->Unit)? = null,
                                onError: (()->Unit)? = null,
@@ -74,15 +75,13 @@ fun LoadingPopupView.bindState(liveData: StateLiveData<*>,
 /**
  * 直接监听state状态
  */
-fun LoadingPopupView.observeState(owner: LifecycleOwner,
+fun BasePopupView.observeState(owner: LifecycleOwner,
                                   liveData: StateLiveData<*>,
-                                  title: String? = null,
                                   onLoading: (()->Unit)? = null,
                                   onSuccess: (()->Unit)? = null,
                                   onError: (()->Unit)? = null,
                                   onEmpty: (()->Unit)? = null,
                                   autoShowError: Boolean = false){
-    if(title!=null) setTitle(title)
     liveData.state.observe(owner, Observer<StateLiveData.State> {
         bindState(liveData, onLoading = onLoading, onSuccess = onSuccess,
                 onError = onError, onEmpty = onEmpty, autoShowError = autoShowError)

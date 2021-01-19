@@ -16,6 +16,7 @@ android {
 //        ndk {
 //            abiFilters 'armeabi-v7a'
 //        }
+        manifestPlaceholders= [qqappid: "101909069"]
     }
     buildTypes {
         release {
@@ -44,7 +45,7 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$androidx_version"
     implementation "androidx.constraintlayout:constraintlayout:1.1.3"
     implementation "com.google.android.material:material:1.2.1"
-    implementation 'com.lxj:xpopup:2.1.17'       //弹窗
+    implementation 'com.lxj:xpopup:2.2.10'       //弹窗
 
     implementation project(':library')
 

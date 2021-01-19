@@ -30,6 +30,7 @@ object OkExt {
                     HttpsUtils.getSslSocketFactory().trustManager)
             .build()
     var dateFormat: String = "yyyy-MM-dd HH:mm:ss"
+    var lenientJson: Boolean = false
     var globalFailHandler: ((e: Exception?)->Unit)? = null
 
     init {
@@ -39,12 +40,13 @@ object OkExt {
     /**
      * 自定义超时时间
      */
-    fun timeout(timeout: Long){
+    fun timeout(timeout: Long): OkExt{
         val builder = okHttpClient.newBuilder()
                 .writeTimeout(timeout, TimeUnit.MILLISECONDS)
                 .readTimeout(timeout, TimeUnit.MILLISECONDS)
                 .connectTimeout(timeout, TimeUnit.MILLISECONDS)
         okHttpClient = builder.build()
+        return this
     }
 
     /**
@@ -85,10 +87,11 @@ object OkExt {
     }
 
     /**
-     * 配置解析Json时的时间格式
+     * 配置解析Json
      */
-    fun dateFormat(format: String): OkExt{
+    fun jsonConfig(format: String = "yyyy-MM-dd HH:mm:ss", lenient: Boolean = false): OkExt{
         dateFormat = format
+        lenientJson = lenient
         return this
     }
 

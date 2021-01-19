@@ -29,6 +29,6 @@ class LiveDataBusDemo : BaseFragment(){
             }
 //            "click".v()
         }
-        XPopup.Builder(context).asLoading().observeState(this, sData, title = "自定义文字")
+        XPopup.Builder(context).asLoading().observeState(this, sData)
     }
 }

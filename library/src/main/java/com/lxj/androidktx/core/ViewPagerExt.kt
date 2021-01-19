@@ -17,7 +17,8 @@ import androidx.viewpager.widget.ViewPager
 /**
  * 给ViewPager绑定数据
  */
-fun ViewPager.bind(count: Int, bindView: (container: ViewGroup, position: Int) -> View): ViewPager {
+fun ViewPager.bind(count: Int, bindView: (container: ViewGroup, position: Int) -> View,
+        pageTitles: List<String>? = null): ViewPager {
     adapter = object : PagerAdapter() {
         override fun isViewFromObject(v: View, p: Any) = v == p
         override fun getCount() = count
@@ -29,6 +30,7 @@ fun ViewPager.bind(count: Int, bindView: (container: ViewGroup, position: Int) -
         override fun destroyItem(container: ViewGroup, position: Int, obj: Any) {
             container.removeView(obj as View)
         }
+        override fun getPageTitle(position: Int) = if(pageTitles==null) null else pageTitles[position]
     }
     return this
 }

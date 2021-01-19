@@ -23,13 +23,18 @@ class ViewPager2Demo : BaseFragment() {
     lateinit var data: ArrayList<String>
     override fun initView() {
         super.initView()
-        p1.offscreenPageLimit = 1
-        p1.adapter = object : EasyAdapter<String>(listOf("1", "2", "3"), R.layout.adapter_vp1){
+        p1.bind(5, bindView = {container, position ->
+            View.inflate(context, R.layout.adapter_vp1, null)
+        })
+        p1.asCard(pageMargin = -dp2px(200f))
+
+        p2.offscreenPageLimit = 3
+        p2.adapter = object : EasyAdapter<String>(listOf("1", "2", "3"), R.layout.adapter_vp1){
             override fun bind(holder: ViewHolder, t: String, position: Int) {
                 holder.getView<TextView>(R.id.text).text = "大萨达所大撒"
             }
         }
-        p1.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        p2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageScrollStateChanged(state: Int) {
                 super.onPageScrollStateChanged(state)
             }
@@ -38,10 +43,11 @@ class ViewPager2Demo : BaseFragment() {
                 loge("posi: $position")
             }
         })
-        p1.setPageTransformer(CardPager2Transformer(context!!))
-//        p1.setPadding(80,80,80,80)
-        p1.clipToPadding = false
-        p1.clipChildren = false
+        p2.setPageTransformer(CardPager2Transformer(context!!))
+        p2.setPadding(80,80,80,80)
+        p2.clipToPadding = false
+        p2.clipChildren = false
+
 
     }
 

@@ -39,9 +39,9 @@ class HttpLogInterceptor @JvmOverloads constructor(var printResponseHeader: Bool
         } else if (requestBody != null) {
             requestMessage += "\n"
             val contentType = requestBody.contentType()
-            if(contentType.toString().contains("multipart")){
-                requestMessage += "\n$requestPrefixEnd END ${request.method()} (multipart binary ${requestBody.contentLength()} -byte body omitted)"
-            } else{
+//            if(contentType.toString().contains("multipart")){
+//                requestMessage += "\n$requestPrefixEnd END ${request.method()} (multipart binary ${requestBody.contentLength()} -byte body omitted)"
+//            } else{
                 val buffer = Buffer()
                 requestBody.writeTo(buffer)
 
@@ -55,7 +55,7 @@ class HttpLogInterceptor @JvmOverloads constructor(var printResponseHeader: Bool
                 } else {
                     requestMessage += "\n$requestPrefixEnd END ${request.method()} (binary ${requestBody.contentLength()} -byte body omitted)"
                 }
-            }
+//            }
         } else {
             requestMessage += "\n$requestPrefixEnd END ${request.method()} (no request body)"
         }

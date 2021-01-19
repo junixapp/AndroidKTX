@@ -1,6 +1,7 @@
 package com.lxj.androidktx.pay
 
 import com.lxj.androidktx.core.toBean
+import com.tencent.mm.opensdk.modelbase.BaseResp
 import java.io.Serializable
 
 /**
@@ -43,3 +44,5 @@ data class OrderInfo(
     var trade_no: String? = "",
     var seller_id: String? = ""
 ): Serializable
+
+fun BaseResp.isSuccess() = errCode==0

@@ -5,6 +5,8 @@ import com.blankj.utilcode.util.ShadowUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.lxj.androidktx.base.WebActivity
 import com.lxj.androidktx.core.*
+import com.lxj.androidktx.share.Share
+import com.lxj.androidktx.share.SharePlatform
 import com.lxj.androidktx.util.QrCodeUtil
 import com.lxj.androidktxdemo.DemoActivity
 import com.lxj.androidktxdemo.R
@@ -25,6 +27,7 @@ class SpanExtPage : BaseFragment() {
             tv.sizeSpan(str, 0..2)
         """.trimIndent()
         tvSizeResult.sizeSpan(str, 0..2).colorSpan(range = 0..1)
+        tvSizeSpan.setShadowLayer(1.6f,1.5f,1.3f,Color.BLACK);
 
         // toColorSpan
         tvColorSpan.text = """
@@ -43,14 +46,32 @@ class SpanExtPage : BaseFragment() {
             tv.strikethrougthSpan(str,2..6)
         """.trimIndent()
         tvStrikethrougthResult.strikeThrougthSpan(str, 2..6)
-
+        Share.init(isDebug = true, umengAppKey = "5fadfcac43e9f56479c7262b",
+                wxAppId = "wxd9f85e015cc9ed70", wxAppKey = "ff3b1319baf9adfa04d35093015cd693",
+                qqAppId = "101909069", qqAppKey = "a5feb5c684a77bdeca609f71864cd526",
+                weiboAppId = "1205214008", weiboAppKey = "159e9862228b99876da0a7d554835fbe", weiboCallbackUrl = "http://sg.qingjuyx.com"
+        )
         // clickSpan
         tvClickSpan.text = """
             tv.clickSpan(str, 2..6, listener)
         """.trimIndent()
         tvClickResult.clickSpan(str = str, range = 2..6, color = Color.BLUE, clickAction = {
             ToastUtils.showShort("哈哈我被点击了".toColorSpan(0..2))
-            start<DemoActivity>()
+            Share.wxLogin(activity!!,callback = object : Share.ShareCallback{
+
+            })
+//            Share.shareImage(activity!!,platform = SharePlatform.QQ, bitmap = tvClickSpan.toBitmap(), cb = object : Share.ShareCallback{
+//
+//            })
+//            Share.shareWeb(activity!!,platform = SharePlatform.QQ,
+//                    url = "https://www.baidu.com", title = "三生三世",
+//                    thumbRes = R.mipmap.ic_launcher, cb = object : Share.ShareCallback{
+//
+//            })
+//            Share.sinaLogin(activity!!, callback = object : Share.ShareCallback{
+//
+//            })
+//            start<DemoActivity>()
 //            WebActivity.start(url = "https://www.baidu.com")
 //            QrCodeUtil.start(this, 1)
 //            PlayerActivity.start(url = "https://lxj-bama-happy.oss-cn-zhangjiakou.aliyuncs.com/e015e0a9-ed2d-47b6-9b70-e4feb263a09f.mp4",

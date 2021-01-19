@@ -57,6 +57,7 @@ abstract class PageListVM<T> : ViewModel(),
         smartRefresh?.setOnRefreshLoadMoreListener(this)
         if(firstShowLoading && stateLayout!=null){
             stateLayout.showLoading()
+            refresh()
         }else{
             smartRefresh?.post { smartRefresh.autoRefresh() }
         }

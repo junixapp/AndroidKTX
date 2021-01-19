@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#eee"
     android:layout_height="match_parent"
     android:layout_width="match_parent">
 
@@ -8,31 +9,19 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.lxj.androidktxdemo.ShadowLayout
-            android:layout_margin="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            app:shadowColor="#66000000"
-            app:shadowShape="rectangle"
-            app:shadowDx="0dp"
-            app:shadowDy="0dp"
-            app:shadowRadius="6dp"
-            app:shadowSide="all">
-        <com.lxj.androidktx.widget.TabBar
-            android:id="@+id/tabbar"
-            android:background="#fff"
-            app:tb_isSelectBold="true"
-            app:tb_normalColor="#666"
-            app:tb_selectedColor="@color/colorPrimary"
-            app:tb_selectTextSize="16sp"
-            app:tb_iconSpace="14dp"
-            app:tb_iconSize="30dp"
-            app:tb_iconPosition="bottom"
-            app:tb_tabPadding="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"/>
-        </com.lxj.androidktxdemo.ShadowLayout>
+<!--        <com.lxj.androidktx.widget.TabBar-->
+<!--            android:id="@+id/tabbar"-->
+<!--            android:background="#fff"-->
+<!--            app:tb_isSelectBold="true"-->
+<!--            app:tb_normalColor="#666"-->
+<!--            app:tb_selectedColor="@color/colorPrimary"-->
+<!--            app:tb_selectTextSize="16sp"-->
+<!--            app:tb_iconSpace="14dp"-->
+<!--            app:tb_iconSize="30dp"-->
+<!--            app:tb_iconPosition="bottom"-->
+<!--            app:tb_tabPadding="10dp"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"/>-->
 
         <TextView
             android:text="以下View默认宽高都是100dp"
@@ -100,32 +89,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <com.lxj.androidktx.widget.ShapeTextView
-            android:layout_margin="20dp"
-            android:clickable="true"
-            app:stv_corner="30dp"
-            app:stv_solid="@color/colorPrimary"
-            app:stv_stroke="#f00"
-            app:stv_strokeWidth="2dp"
-            android:padding="20dp"
-            android:text="哈哈"
-            android:textColor="#f00"
-            android:textSize="29sp"
-            android:drawableLeft="@drawable/wechat"
-            android:gravity="center"
+        <com.lxj.androidktx.widget.ShapeLinearLayout
+            android:layout_margin="30dp"
+            app:sll_corner="20dp"
+            app:sll_gradientOrientation="TL_BR"
+            app:sll_gradientStartColor="#f1f1f1"
+            app:sll_gradientEndColor="#0c9aec"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
+            android:layout_height="50dp"/>
         <com.lxj.androidktx.widget.ShapeTextView
             android:layout_margin="20dp"
             android:clickable="true"
-            app:stv_solid="@color/colorPrimary"
             android:padding="20dp"
             android:text="哈哈"
             android:textColor="#f00"
             android:textSize="29sp"
+            android:background="#999"
             android:drawableLeft="@drawable/wechat"
-            app:stv_topLineColor="#f00"
+            app:stv_corner="30dp"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -133,7 +114,9 @@
         <com.lxj.androidktx.widget.VerifyView
             android:id="@+id/tvVerify"
             app:stv_corner="30dp"
-            app:stv_solid="#f0accf"
+            app:stv_solid="#ff0000"
+            app:stv_strokeWidth="1dp"
+            app:stv_stroke="#0000ff"
             app:vv_countDownText="还剩time秒"
             app:vv_resendDuration="10"
             app:vv_resendText="重发吧"
@@ -144,10 +127,10 @@
             android:layout_height="40dp" />
 
         <com.lxj.androidktx.widget.EditLayout
-            android:layout_margin="20pt"
+            android:layout_margin="30dp"
             app:el_showIconWhenEmpty="false"
-            app:sll_solid="#889a0c"
-            app:sll_corner="30pt"
+            app:sll_solid="#f00ac1"
+            app:sll_corner="30dp"
             app:el_textColor="#f00"
             app:el_hint="输入东西"
             app:el_textSize="20sp"
@@ -155,6 +138,7 @@
             android:paddingBottom="7dp"
             android:paddingLeft="18dp"
             android:paddingRight="18dp"
+            android:layout_marginLeft="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

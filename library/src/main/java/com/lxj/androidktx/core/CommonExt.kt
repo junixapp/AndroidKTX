@@ -143,9 +143,18 @@ fun View.createDrawable(color: Int = Color.TRANSPARENT, radius: Float = 0f,
 }
 
 /** json相关 **/
-fun Any.toJson(dateFormat: String = "yyyy-MM-dd HH:mm:ss") = GsonBuilder().setDateFormat(dateFormat).create().toJson(this)
+fun Any.toJson(dateFormat: String = "yyyy-MM-dd HH:mm:ss", lenient: Boolean = false)
+        = GsonBuilder().setDateFormat(dateFormat)
+        .apply {
+            if(lenient) setLenient()
+        }
+        .create().toJson(this)
 
-inline fun <reified T> String.toBean(dateFormat: String = "yyyy-MM-dd HH:mm:ss") = GsonBuilder().setDateFormat(dateFormat).create()
+inline fun <reified T> String.toBean(dateFormat: String = "yyyy-MM-dd HH:mm:ss", lenient: Boolean = false)
+        = GsonBuilder().setDateFormat(dateFormat)
+        .apply {
+            if(lenient) setLenient()
+        }.create()
         .fromJson<T>(this, object : TypeToken<T>() {}.type)
 
 /**

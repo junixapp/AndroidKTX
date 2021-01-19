@@ -1,0 +1,277 @@
+package com.lxj.androidktx.player
+
+import android.os.Handler
+import android.os.Looper
+import androidx.lifecycle.ViewModel
+import com.blankj.utilcode.util.LogUtils
+import com.google.android.exoplayer2.ExoPlaybackException
+import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.Player
+import com.google.android.exoplayer2.SimpleExoPlayer
+import com.lxj.androidktx.AndroidKTX
+import com.lxj.androidktx.core.getObject
+import com.lxj.androidktx.core.putObject
+import com.lxj.androidktx.core.putString
+import com.lxj.androidktx.core.sp
+import com.lxj.androidktx.livedata.StateLiveData
+import kotlin.random.Random
+
+/**
+ * ExoPlayer实现的播放器封装
+ */
+object ExoPlayerVM : ViewModel(){
+    val RandomMode = "RandomMode" //随机播放
+    val RepeatOneMode = "RepeatOneMode" //单曲循环播放
+    val RepeatAllMode = "RepeatAllMode" //顺序循环播放
+
+    private var enableRepeatMode = true
+    val handler = Handler(Looper.getMainLooper())
+    lateinit var player :SimpleExoPlayer
+    var playMode = StateLiveData<String>()
+    val playState = StateLiveData<PlayState>()
+    var currentIndex = -1
+    val playInfo = StateLiveData<PlayInfo>() //播放进度, 位置
+    val uriList = arrayListOf<String>()
+    var isCacheLastData = false
+    fun init(cacheLastData: Boolean = false) {
+        this.isCacheLastData = cacheLastData
+        playState.value = PlayState.Idle
+        playMode.value = sp().getString("_ktx_player_mode", RepeatAllMode) ?: RepeatAllMode
+        playInfo.value = if(isCacheLastData) sp().getObject<PlayInfo>("_last_playinfo_")?: PlayInfo() else PlayInfo()
+        currentIndex = playInfo.value!!.index
+
+        player = SimpleExoPlayer.Builder(AndroidKTX.context).build()
+        player.repeatMode = Player.REPEAT_MODE_OFF
+        player.shuffleModeEnabled = false
+//        if(AndroidKTX.isDebug)player.addAnalyticsListener( EventLogger(DefaultTrackSelector()))
+        player.addListener(object : Player.EventListener{
+            override fun onIsPlayingChanged(isPlaying: Boolean) {
+                super.onIsPlayingChanged(isPlaying)
+//                LogUtils.e("onIsPlayingChanged:  isPlaying: ${isPlaying} state: ${player.playbackState}" +
+//                        " playWhenReady : ${player.playWhenReady}")
+                if(isPlaying){
+                    playState.postValueAndSuccess(PlayState.Playing)
+                    postProgress()
+                }else{
+                    if(player.playbackState==Player.STATE_READY && !player.playWhenReady){
+                        //暂停
+                        playState.postValueAndSuccess(PlayState.Pause)
+                        stopPostProgress()
+                    }
+                }
+            }
+
+            override fun onPlaybackStateChanged(state: Int) {
+                super.onPlaybackStateChanged(state)
+                when(state){
+                    Player.STATE_IDLE -> playState.postValueAndSuccess(PlayState.Idle)
+                    Player.STATE_BUFFERING -> playState.postValueAndSuccess(PlayState.Buffering)
+                    Player.STATE_READY -> {
+                        playState.postValueAndSuccess(PlayState.Ready)
+                        if(!player.playWhenReady)playState.postValueAndSuccess(PlayState.Pause)
+                    }
+                    Player.STATE_ENDED -> {
+                        playState.postValueAndSuccess(PlayState.Complete)
+                        stopPostProgress()
+                        autoNextWhenComplete()
+                    }
+                }
+            }
+
+            override fun onPlayerError(error: ExoPlaybackException) {
+                super.onPlayerError(error)
+                LogUtils.e("onPlayerError:  ${error.localizedMessage}")
+                playState.postValueAndSuccess(PlayState.Error)
+                stopPostProgress()
+            }
+        })
+    }
+
+    /**
+     * 绑定列表不播放
+     * @param list 地址列表
+     */
+    fun bindList(list: List<String>){
+        uriList.clear()
+        uriList.addAll(list)
+    }
+
+    /**
+     * 设置列表并播放第一个
+     */
+    fun playList(list: List<String>){
+        bindList(list)
+        play(0)
+    }
+
+    fun currentUri() = if(isIndexOrListWrong()) "" else uriList[currentIndex]
+
+//    private fun innerPlay(){
+//        if(isIndexOrListWrong()) return
+//        val mediaItem: MediaItem = MediaItem.fromUri(uriList[currentIndex])
+//        player.setMediaItem(mediaItem)
+//        player.stop()
+//        player.prepare()
+//        player.play()
+//    }
+
+    private fun isIndexOrListWrong() = currentIndex<0 || currentIndex>=uriList.size
+
+    private fun postProgress(){
+        if(isIndexOrListWrong()) return
+        val info = PlayInfo(index = currentIndex, current = currentPosition(),
+                total = duration(), uri = uriList[currentIndex])
+        playInfo.postValueAndSuccess(info)
+        if(isCacheLastData) sp().putObject("_last_playinfo_", info)
+        handler.postDelayed({ postProgress()}, 500)
+    }
+
+    private fun stopPostProgress(){
+        handler.removeCallbacksAndMessages(null)
+    }
+
+    //启用播放模式
+    fun enableRepeatMode(){
+        enableRepeatMode = true
+    }
+    //禁用播放模式
+    fun disableRepeatMode(){
+        enableRepeatMode = false
+    }
+    /**
+     * 设置播放模式
+     */
+    fun setPlayMode(mode: String){
+        playMode.postValueAndSuccess(mode)
+        sp().putString("_ktx_player_mode", mode)
+    }
+
+    //自动切换播放模式
+    fun autoSwitchPlayMode(){
+        when(playMode.value){
+            RepeatAllMode -> {  //切换到单曲循环
+                setPlayMode(RepeatOneMode)
+            }
+            RepeatOneMode -> {  //切换到随机循环
+                setPlayMode(RandomMode)
+            }
+            RandomMode -> {  //切换到顺序循环
+                setPlayMode(RepeatAllMode)
+            }
+            else->{
+                setPlayMode(RepeatAllMode)
+            }
+        }
+    }
+
+    fun hasPrevious() = !isIndexOrListWrong() && currentIndex>0
+    fun hasNext() = !isIndexOrListWrong() && currentIndex<(uriList.size-1)
+    fun previous() {
+        if(isIndexOrListWrong()) return
+        when(playMode.value){
+            RandomMode -> {
+                currentIndex = Random.Default.nextInt(uriList.size)
+            }
+            else -> {
+                if(currentIndex== uriList.lastIndex) currentIndex = 0
+                else currentIndex -= 1
+            }
+        }
+        play(currentIndex)
+    }
+    fun next(){
+        if(isIndexOrListWrong()) return
+        when(playMode.value){
+            RandomMode -> {
+                currentIndex = Random.Default.nextInt(uriList.size)
+            }
+            else -> {
+                if(currentIndex== uriList.lastIndex) currentIndex = 0
+                else currentIndex += 1
+            }
+        }
+        play(currentIndex)
+    }
+
+    fun autoNextWhenComplete(){
+        if(isIndexOrListWrong()) return
+        when(playMode.value){
+            RandomMode -> {
+                currentIndex = Random.Default.nextInt(uriList.size)
+            }
+            RepeatAllMode -> {
+                if(currentIndex== uriList.lastIndex) currentIndex = 0
+                else currentIndex -= 1
+            }
+        }
+        play(currentIndex)
+    }
+
+    fun isPlaying() = player.isPlaying
+
+    fun duration() = player.duration
+    fun currentPosition() = player.currentPosition
+
+    fun play(index: Int){
+        currentIndex = index
+        if(isIndexOrListWrong())return
+//        player.seekTo(index, 0)
+//        if(player.playbackState==Player.STATE_IDLE || index!= playInfo.value?.index){
+//            innerPlay()
+//        }
+        val mediaItem: MediaItem = MediaItem.fromUri(uriList[currentIndex])
+        player.setMediaItem(mediaItem)
+        player.stop()
+        player.prepare()
+        player.play()
+    }
+
+    fun seekTo(position: Long){
+        player.seekTo(position)
+    }
+
+    fun resume(){
+        if(player.playbackState==Player.STATE_IDLE && (playInfo.value?.index ?: -1) >=0){
+            //闲置
+            play(currentIndex)
+        }else{
+            if(playState.value==PlayState.Complete){
+                player.seekTo(0)
+            }
+            player.play()
+        }
+    }
+
+    /**
+     * @param autoPlayFirst 当没有指定索引时，自动播放第1个
+     */
+    fun toggle(autoPlayFirst: Boolean = true){
+        if(autoPlayFirst && currentIndex<0){
+            play(0)
+        }else{
+            if(isIndexOrListWrong())return
+            if(isPlaying()) pause()
+            else resume()
+        }
+    }
+    fun pause(){
+        player.pause()
+    }
+
+    fun stop(){
+        stopPostProgress()
+        player.stop()
+    }
+
+    fun release(){
+        stopPostProgress()
+        player.release()
+    }
+}
+
+data class PlayInfo(
+        var index: Int = -1,
+        var uri: String = "",
+        var current: Long = 0,
+        var total: Long = 0,
+)

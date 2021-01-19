@@ -25,6 +25,8 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
     var iconPosition = 1
     var selectedColor = Color.RED
     var normalColor = Color.BLACK
+    var selectedBgColor = Color.TRANSPARENT
+    var normalBgColor = Color.TRANSPARENT
     var normalTextSize = sp2px(14f)
     var selectTextSize = sp2px(14f)
     var tabHeight = 0
@@ -56,6 +58,8 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
         iconSpace = ta.getDimensionPixelSize(R.styleable.TabBar_tb_iconSpace, iconSpace)
         selectedColor = ta.getColor(R.styleable.TabBar_tb_selectedColor, selectedColor)
         normalColor = ta.getColor(R.styleable.TabBar_tb_normalColor, normalColor)
+        selectedBgColor = ta.getColor(R.styleable.TabBar_tb_selectedBgColor, selectedBgColor)
+        normalBgColor = ta.getColor(R.styleable.TabBar_tb_normalBgColor, normalBgColor)
         tabHeight = ta.getDimension(R.styleable.TabBar_tb_tabHeight, tabHeight.toFloat()).toInt()
         tabPadding = ta.getDimensionPixelSize(R.styleable.TabBar_tb_tabPadding, tabPadding)
 
@@ -138,6 +142,7 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
                     3 -> sizeDrawable(width = iconWidth, height = iconHeight, bottomDrawable = icon)
                 }
                 setTextColor(if (index == i) selectedColor else normalColor)
+                group.setBackgroundColor(if (index == i) selectedBgColor else normalBgColor)
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, if (index == i) selectTextSize.toFloat() else normalTextSize.toFloat())
                 typeface = if (isSelectBold && index == i) {
                     Typeface.defaultFromStyle(Typeface.BOLD)

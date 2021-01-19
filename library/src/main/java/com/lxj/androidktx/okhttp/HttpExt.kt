@@ -104,7 +104,7 @@ inline fun <reified T> defferedRequest(request: Request, reqWrapper: RequestWrap
                     response.body()!!.byteStream().copyTo(file.outputStream())
                     deferred.complete(file as T)
                 }
-                else -> deferred.complete(response.body()!!.string().toBean<T>(dateFormat = OkExt.dateFormat))
+                else -> deferred.complete(response.body()!!.string().toBean<T>(dateFormat = OkExt.dateFormat, lenient = OkExt.lenientJson))
             }
         } else {
             deferred.complete(null) //not throw, pass null
@@ -142,7 +142,7 @@ inline fun <reified T> callbackRequest(request: Request, cb: HttpCallback<T>, re
                             response.body()!!.byteStream().copyTo(file.outputStream())
                             cb.onSuccess(file as T)
                         }
-                        else -> cb.onSuccess(response.body()!!.string().toBean<T>(dateFormat = OkExt.dateFormat))
+                        else -> cb.onSuccess(response.body()!!.string().toBean<T>(dateFormat = OkExt.dateFormat, lenient = OkExt.lenientJson))
                     }
                 } else {
                     cb.onFail(IOException("request to ${request.url()} is fail; http code: ${response.code()}!"))

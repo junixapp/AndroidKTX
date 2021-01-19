@@ -2,6 +2,7 @@ package com.lxj.androidktx.widget
 
 import android.content.Context
 import android.graphics.*
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
@@ -208,7 +209,7 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
         }
 
     //背景
-    var msolid = 0 //填充色
+    var mSolid = 0 //填充色
         set(value) {
             field = value
             applyAttr()
@@ -324,7 +325,7 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
         mrightImage2Size = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_rightImage2Size, mrightImage2Size)
         mrightImage2MarginLeft = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_rightImage2MarginLeft, mrightImage2MarginLeft)
 
-        msolid = ta.getColor(R.styleable.SuperLayout_sl_solid, msolid)
+        mSolid = ta.getColor(R.styleable.SuperLayout_sl_solid, mSolid)
         mstroke = ta.getColor(R.styleable.SuperLayout_sl_stroke, mstroke)
         mstrokeWidth = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_strokeWidth, mstrokeWidth)
         mcorner = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_corner, mcorner)
@@ -335,10 +336,10 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
         menableRipple = ta.getBoolean(R.styleable.SuperLayout_sl_enableRipple, menableRipple)
         mrippleColor = ta.getColor(R.styleable.SuperLayout_sl_rippleColor, mrippleColor)
 
-        mGradientStartColor = ta.getColor(R.styleable.SuperLayout_sl_gradientStartColor, 0)
-        mGradientEndColor = ta.getColor(R.styleable.SuperLayout_sl_gradientEndColor, 0)
+        mGradientStartColor = ta.getColor(R.styleable.SuperLayout_sl_gradientStartColor, mGradientStartColor)
+        mGradientEndColor = ta.getColor(R.styleable.SuperLayout_sl_gradientEndColor, mGradientEndColor)
         val orientation = ta.getInt(R.styleable.SuperLayout_sl_gradientOrientation, GradientDrawable.Orientation.LEFT_RIGHT.ordinal)
-        mGradientOrientation = when(orientation){
+        mGradientOrientation = when (orientation) {
             0 -> GradientDrawable.Orientation.TOP_BOTTOM
             1 -> GradientDrawable.Orientation.TR_BL
             2 -> GradientDrawable.Orientation.RIGHT_LEFT
@@ -379,17 +380,17 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
     fun applySelf() {
         orientation = HORIZONTAL
         gravity = Gravity.CENTER_VERTICAL
-
-        if (msolid != 0 || mstroke != 0 || mGradientEndColor!=0 || mGradientStartColor!=0) {
-            val drawable = createDrawable(color = msolid, radius = mcorner.toFloat(), strokeColor = mstroke, strokeWidth = mstrokeWidth,
-                    enableRipple = menableRipple, rippleColor = mrippleColor, gradientStartColor = mGradientStartColor,
-                    gradientEndColor = mGradientEndColor, gradientOrientation = mGradientOrientation)
-            setBackgroundDrawable(drawable)
+        if (background !=null && background is ColorDrawable && mSolid==Color.TRANSPARENT){
+            mSolid = ( background as ColorDrawable) .color
         }
+        val drawable = createDrawable(color = mSolid, radius = mcorner.toFloat(), strokeColor = mstroke, strokeWidth = mstrokeWidth,
+                enableRipple = menableRipple, rippleColor = mrippleColor, gradientStartColor = mGradientStartColor,
+                gradientEndColor = mGradientEndColor, gradientOrientation = mGradientOrientation)
+        setBackgroundDrawable(drawable)
     }
 
     fun applyAttr() {
-        if(childCount==0)return
+        if (childCount == 0) return
         //左边图片
         if (mleftImage == null) {
             ivLeftImage.gone()
@@ -409,7 +410,7 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
             tvLeftText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mleftTextSize.toFloat())
             tvLeftText.margin(bottomMargin = mleftTextMarginBottom, topMargin = mleftTextMarginTop)
             llLeft.margin(leftMargin = mleftTextMarginLeft, rightMargin = mleftTextMarginRight)
-            if(leftTextBold) tvLeftText.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+            if (leftTextBold) tvLeftText.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
         }
 
         //左边子文字
@@ -431,7 +432,7 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
             tvCenterText.setTextColor(mcenterTextColor)
             tvCenterText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mcenterTextSize.toFloat())
             if (mcenterTextBg != null) tvCenterText.setBackgroundDrawable(mcenterTextBg)
-            if(centerTextBold) tvCenterText.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+            if (centerTextBold) tvCenterText.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
         }
 
         //右边文字
@@ -443,10 +444,10 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
             tvRightText.setTextColor(mrightTextColor)
             tvRightText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mrightTextSize.toFloat())
             if (mrightTextBg != null) tvRightText.setBackgroundDrawable(mrightTextBg)
-            if(mrightTextWidth!=0)tvRightText.width(mrightTextWidth)
-            if(mrightTextHeight!=0)tvRightText.height(mrightTextHeight)
+            if (mrightTextWidth != 0) tvRightText.width(mrightTextWidth)
+            if (mrightTextHeight != 0) tvRightText.height(mrightTextHeight)
             if (mrightTextBgColor != 0) tvRightText.setBackgroundColor(mrightTextBgColor)
-            if(rightTextBold) tvRightText.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+            if (rightTextBold) tvRightText.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
         }
 
         //右边图片

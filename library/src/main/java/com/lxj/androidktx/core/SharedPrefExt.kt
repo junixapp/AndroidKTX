@@ -59,6 +59,9 @@ fun SharedPreferences.putStringSet(key: String, value: Set<String>) {
     edit { putStringSet(key, value) }
 }
 
+fun SharedPreferences.clear(key: String) {
+    edit { remove(key) }
+}
 
 fun SharedPreferences.clear() {
     edit { clear() }

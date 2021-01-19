@@ -16,9 +16,8 @@ import kotlin.concurrent.thread
  */
 object PayVM : ViewModel() {
 
-    var wechatAppId = ""
-
-    val aliPayData = StateLiveData<AliPayResult>()
+    var wxAppId = ""
+    val aliPayData = StateLiveData<AliPayResult?>()
     fun aliPay(orderParam: String, activity: Activity) {
         thread(start = true) {
             val result = PayTask(activity).payV2(orderParam, true)
@@ -28,15 +27,15 @@ object PayVM : ViewModel() {
 
     val wxPayData = StateLiveData<BaseResp>()
     fun wxPay(
-        context: Context, appid: String, partnerId: String, prepayId: String,
+        context: Context, appId: String, partnerId: String, prepayId: String,
         nonceStr: String, timeStamp: String, packageValue: String = "Sign=WXPay",
         sign: String, extData: String = ""
     ) {
-        this.wechatAppId = appid
-        val wxapi = WXAPIFactory.createWXAPI(context, wechatAppId)
-        wxapi.registerApp(wechatAppId)
+        wxAppId = appId
+        val wxapi = WXAPIFactory.createWXAPI(context, appId)
+        wxapi.registerApp(appId)
         val req = PayReq()
-        req.appId = appid
+        req.appId = appId
         req.partnerId = partnerId
         req.prepayId = prepayId
         req.nonceStr = nonceStr
@@ -44,6 +43,22 @@ object PayVM : ViewModel() {
         req.packageValue = packageValue
         req.sign = sign
         if(!extData.isNullOrEmpty()) req.extData = extData // optional
+        wxapi.sendReq(req)
+    }
+    fun wxPay2(
+            context: Context, param: WxPayParam) {
+        wxAppId = param.appId
+        val wxapi = WXAPIFactory.createWXAPI(context, param.appId)
+        wxapi.registerApp(param.appId)
+        val req = PayReq()
+        req.appId = param.appId
+        req.partnerId = param.partnerId
+        req.prepayId = param.prepayId
+        req.nonceStr = param.nonceStr
+        req.timeStamp = param.timeStamp
+        req.packageValue = param.packageValue
+        req.sign = param.sign
+        if(!param.extData.isNullOrEmpty()) req.extData = param.extData // optional
         wxapi.sendReq(req)
     }
 }

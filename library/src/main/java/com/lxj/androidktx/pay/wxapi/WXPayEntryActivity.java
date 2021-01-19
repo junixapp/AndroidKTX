@@ -4,9 +4,8 @@ package com.lxj.androidktx.pay.wxapi;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import com.blankj.utilcode.util.LogUtils;
 import com.lxj.androidktx.pay.PayVM;
-import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -22,7 +21,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-		api = WXAPIFactory.createWXAPI(this, PayVM.INSTANCE.getWechatAppId());
+		api = WXAPIFactory.createWXAPI(this, PayVM.INSTANCE.getWxAppId());
 		api.handleIntent(getIntent(), this);
     }
 
@@ -39,16 +38,16 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
 	@Override
 	public void onResp(BaseResp resp) {
-		Log.d(TAG, "onPayFinish, errCode = " + resp.errCode);
+		LogUtils.d(TAG, "onPayFinish, errCode = " + resp.errCode);
 		if (resp.errCode==0) {
 			//success
 			PayVM.INSTANCE.getWxPayData().postValue(resp);
 		}else if(resp.errCode==-1){
 			PayVM.INSTANCE.getWxPayData().setErrMsg("支付失败");
-			PayVM.INSTANCE.getWxPayData().postValue(null);
+			PayVM.INSTANCE.getWxPayData().postValue(resp);
 		}else {
 			PayVM.INSTANCE.getWxPayData().setErrMsg("取消支付");
-			PayVM.INSTANCE.getWxPayData().postValue(null);
+			PayVM.INSTANCE.getWxPayData().postValue(resp);
 		}
 		finish();
 	}

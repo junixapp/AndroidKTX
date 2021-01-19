@@ -40,6 +40,7 @@ android {
 
 dependencies {
     api fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
+    implementation 'androidx.core:core-ktx:1.3.2'
     api "androidx.appcompat:appcompat:$androidx_version"
     api 'androidx.multidex:multidex:2.0.1'
     api "androidx.recyclerview:recyclerview:$androidx_version"
@@ -47,15 +48,15 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     api "com.github.bumptech.glide:glide:4.11.0"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7"
-    api 'com.lxj:easyadapter:1.2.2'
+    api 'com.lxj:easyadapter:1.2.3'
     api 'com.jaeger.ninegridimageview:library:1.1.1'  //九宫格
     implementation 'com.google.code.gson:gson:2.8.6'
     // inline函数在运行时插入使用处，需要暴露出去
     api "com.squareup.okhttp3:okhttp:3.12.3"
     api "androidx.lifecycle:lifecycle-extensions:2.2.0"
-    api 'com.lxj:statelayout:1.1.8'
+    api 'com.lxj:statelayout:1.1.9'
     api 'me.jessyan:progressmanager:1.5.0'
-    api 'com.blankj:utilcodex:1.30.4'
+    api 'com.blankj:utilcodex:1.30.5'
     api  'com.scwang.smart:refresh-layout-kernel:2.0.1'      //核心必须依赖
     api  'com.scwang.smart:refresh-header-classics:2.0.1'    //经典刷新头
     api  'com.scwang.smart:refresh-footer-classics:2.0.1'    //经典加载
@@ -66,7 +67,7 @@ dependencies {
     api 'com.shuyu:gsyVideoPlayer-armv7a:7.1.6'
     api 'com.shuyu:gsyVideoPlayer-arm64:7.1.6'
     api 'cjt.library.wheel:camera:1.1.9'  //拍照和拍摄视频
-    compileOnly 'com.lxj:xpopup:2.2.0'       //弹窗
+    compileOnly 'com.lxj:xpopup:2.2.14'       //弹窗
     api 'com.king.zxing:zxing-lite:1.1.9-androidx'  //二维码扫描
     api 'com.google.android:flexbox:2.0.1'
     api 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:6.6.5.2'
@@ -76,23 +77,21 @@ dependencies {
 //    api 'com.download.library:Downloader:4.1.3'// (可选)
 
     api 'com.zhihu.android:matisse:0.5.3-beta3'
-    implementation 'com.github.yalantis:ucrop:2.2.5'
+    implementation 'com.github.yalantis:ucrop:2.2.6'
     //友盟相关
-//    api  'com.umeng.umsdk:common:9.1.0'
-    api  'com.umeng.umsdk:asms:1.1.3' // asms包依赖(必选)
+    api 'com.umeng.umsdk:asms:1.1.3'  // asms包依赖(必选)
     api 'com.umeng.umsdk:crash:0.0.4' // native crash包依赖(必选)
-    implementation 'androidx.core:core-ktx:1.3.2'
-//    api  'com.umeng.umsdk:share-core:7.0.2'
-//    implementation  'com.umeng.umsdk:share-qq:7.0.2'
-//    api  'com.umeng.umsdk:share-wx:7.0.2'
-//    implementation  'com.umeng.umsdk:share-sina:7.0.2'
+    api 'com.sina.weibo.sdk:core:4.4.3:openDefaultRelease@aar'
+    //player
+    implementation 'com.google.android.exoplayer:exoplayer:2.12.2'
+
 }
 
 publish {
     userOrg = 'li-xiaojun'
     groupId = 'com.lxj'
     artifactId = 'androidktx'
-    publishVersion = '1.9.75'
+    publishVersion = '1.10.39'
     repoName = 'jrepo'
     desc = 'Some very useful kotlin extensions for android development！好用到爆的Kotlin扩展，加速你的Android开发！'
     website = 'https://github.com/li-xiaojun/AndroidKTX'
