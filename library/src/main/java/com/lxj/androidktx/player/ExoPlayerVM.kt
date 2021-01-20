@@ -24,7 +24,7 @@ object ExoPlayerVM : ViewModel(){
     val RepeatOneMode = "RepeatOneMode" //单曲循环播放
     val RepeatAllMode = "RepeatAllMode" //顺序循环播放
 
-    private var enableRepeatMode = true
+    private var autoPlayNext = true
     val handler = Handler(Looper.getMainLooper())
     lateinit var player :SimpleExoPlayer
     var playMode = StateLiveData<String>()
@@ -73,7 +73,7 @@ object ExoPlayerVM : ViewModel(){
                     Player.STATE_ENDED -> {
                         playState.postValueAndSuccess(PlayState.Complete)
                         stopPostProgress()
-                        autoNextWhenComplete()
+                        if(autoPlayNext)autoNextWhenComplete()
                     }
                 }
             }
@@ -106,15 +106,6 @@ object ExoPlayerVM : ViewModel(){
 
     fun currentUri() = if(isIndexOrListWrong()) "" else uriList[currentIndex]
 
-//    private fun innerPlay(){
-//        if(isIndexOrListWrong()) return
-//        val mediaItem: MediaItem = MediaItem.fromUri(uriList[currentIndex])
-//        player.setMediaItem(mediaItem)
-//        player.stop()
-//        player.prepare()
-//        player.play()
-//    }
-
     private fun isIndexOrListWrong() = currentIndex<0 || currentIndex>=uriList.size
 
     private fun postProgress(){
@@ -130,14 +121,13 @@ object ExoPlayerVM : ViewModel(){
         handler.removeCallbacksAndMessages(null)
     }
 
-    //启用播放模式
-    fun enableRepeatMode(){
-        enableRepeatMode = true
+    /**
+     * 是否自动播放下一个，默认为true
+     */
+    fun autoPlayNext(b: Boolean){
+        autoPlayNext = b
     }
-    //禁用播放模式
-    fun disableRepeatMode(){
-        enableRepeatMode = false
-    }
+
     /**
      * 设置播放模式
      */
@@ -146,7 +136,9 @@ object ExoPlayerVM : ViewModel(){
         sp().putString("_ktx_player_mode", mode)
     }
 
-    //自动切换播放模式
+    /**
+     * 切换播放模式
+     */
     fun autoSwitchPlayMode(){
         when(playMode.value){
             RepeatAllMode -> {  //切换到单曲循环
@@ -193,6 +185,9 @@ object ExoPlayerVM : ViewModel(){
         play(currentIndex)
     }
 
+    /**
+     * 自动播放下一个
+     */
     fun autoNextWhenComplete(){
         if(isIndexOrListWrong()) return
         when(playMode.value){
@@ -201,17 +196,19 @@ object ExoPlayerVM : ViewModel(){
             }
             RepeatAllMode -> {
                 if(currentIndex== uriList.lastIndex) currentIndex = 0
-                else currentIndex -= 1
+                else currentIndex += 1
             }
         }
         play(currentIndex)
     }
 
     fun isPlaying() = player.isPlaying
-
     fun duration() = player.duration
     fun currentPosition() = player.currentPosition
 
+    /**
+     * 播放指定位置，必须在bindList()之后调用，否则无效
+     */
     fun play(index: Int){
         currentIndex = index
         if(isIndexOrListWrong())return
@@ -231,7 +228,7 @@ object ExoPlayerVM : ViewModel(){
     }
 
     fun resume(){
-        if(player.playbackState==Player.STATE_IDLE && (playInfo.value?.index ?: -1) >=0){
+        if(player.playbackState==Player.STATE_IDLE){
             //闲置
             play(currentIndex)
         }else{
@@ -243,6 +240,7 @@ object ExoPlayerVM : ViewModel(){
     }
 
     /**
+     * 自动切换播放和暂停
      * @param autoPlayFirst 当没有指定索引时，自动播放第1个
      */
     fun toggle(autoPlayFirst: Boolean = true){

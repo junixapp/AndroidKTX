@@ -76,7 +76,7 @@ class PlayerFragment : BaseFragment() {
             ExoPlayerVM.play(1)
         }
         btnForbiddenMode.click {
-            ExoPlayerVM.disableRepeatMode()
+            ExoPlayerVM.autoPlayNext(false)
         }
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
