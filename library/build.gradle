@@ -61,7 +61,7 @@ dependencies {
     api  'com.scwang.smart:refresh-header-classics:2.0.1'    //经典刷新头
     api  'com.scwang.smart:refresh-footer-classics:2.0.1'    //经典加载
     api 'top.zibin:Luban:1.1.8'
-    api 'com.jeremyliao:live-event-bus-x:1.7.2'  //事件总线
+    api 'com.jeremyliao:live-event-bus-x:1.7.3'  //事件总线
     api 'com.shuyu:gsyVideoPlayer-java:7.1.6'
     api 'com.shuyu:gsyVideoPlayer-armv5:7.1.6'
     api 'com.shuyu:gsyVideoPlayer-armv7a:7.1.6'
@@ -91,7 +91,7 @@ publish {
     userOrg = 'li-xiaojun'
     groupId = 'com.lxj'
     artifactId = 'androidktx'
-    publishVersion = '1.10.55'
+    publishVersion = '1.10.56'
     repoName = 'jrepo'
     desc = 'Some very useful kotlin extensions for android development！好用到爆的Kotlin扩展，加速你的Android开发！'
     website = 'https://github.com/li-xiaojun/AndroidKTX'
