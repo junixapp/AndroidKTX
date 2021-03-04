@@ -11,6 +11,7 @@ import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.jeremyliao.liveeventbus.LiveEventBus
 import com.lxj.androidktx.base.CameraActivity
+import com.lxj.androidktx.base.WebActivity
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.livedata.StateLiveData
 import com.lxj.androidktx.okhttp.*
@@ -57,6 +58,8 @@ class HttpExtFragment : BaseFragment() {
         OkExt.interceptors()
 
         btnSend.click {
+
+            WebActivity.start(url = "https://click.lixiaojun.xin/article/?posid=1")
 
 
 //            CameraActivity.startFromFragment(this, 1)

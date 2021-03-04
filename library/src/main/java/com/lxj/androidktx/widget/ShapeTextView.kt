@@ -140,10 +140,11 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
     }
 
     fun applySelf() {
+        var color : Int? = null
         if (background !=null && background is ColorDrawable && mSolid==Color.TRANSPARENT){
-            mSolid = ( background as ColorDrawable) .color
+            color = ( background as ColorDrawable) .color
         }
-        val drawable = createDrawable(color = mSolid, radius = mCorner.toFloat(), strokeColor = mStroke, strokeWidth = mStrokeWidth,
+        val drawable = createDrawable(color = color ?: mSolid, radius = mCorner.toFloat(), strokeColor = mStroke, strokeWidth = mStrokeWidth,
                 enableRipple = mEnableRipple, rippleColor = mRippleColor, gradientStartColor = mGradientStartColor,
                 gradientEndColor = mGradientEndColor, gradientOrientation = mGradientOrientation)
         setBackgroundDrawable(drawable)

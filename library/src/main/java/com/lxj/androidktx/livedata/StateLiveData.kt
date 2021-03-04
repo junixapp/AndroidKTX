@@ -35,7 +35,8 @@ class StateLiveData<T> : NoStickyLiveData<T>() {
         state.postValue(State.Empty)
     }
 
-    fun clearState() {
+    fun clearState(owner: LifecycleOwner) {
+        state.removeObservers(owner)
         this.errMsg = null
         state.postValue(State.Idle)
     }
@@ -110,5 +111,9 @@ class StateLiveData<T> : NoStickyLiveData<T>() {
         return GlobalScope.launch { smartPost(block(), nullIsEmpty, postNull) }
     }
 
+    fun isSuccess() = state.value==State.Success
+    fun isEmpty() = state.value==State.Empty
+    fun isError() = state.value==State.Error
+    fun isIdle() = state.value==State.Idle
 }
 

@@ -2,10 +2,14 @@ package com.lxj.androidktx.base
 
 import android.content.Intent
 import android.graphics.Color
+import android.net.http.SslError
+import android.webkit.SslErrorHandler
 import android.webkit.WebView
 import android.widget.FrameLayout
+import com.blankj.utilcode.util.LogUtils
 import com.just.agentweb.AgentWeb
 import com.just.agentweb.WebChromeClient
+import com.just.agentweb.WebViewClient
 import com.lxj.androidktx.AndroidKTX
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.click
@@ -34,6 +38,13 @@ open class WebActivity : TitleBarActivity(){
                   enableCache: Boolean? = false, showProgress: Boolean = true, indicatorColor : Int = 0,
                   rightIconRes: Int = 0, rightIconClickAction: (() -> Unit)? = null){
             onRightClickAction = rightIconClickAction
+            if(AndroidKTX.isDebug){
+                if(!url.isNullOrEmpty()){
+                    LogUtils.d("url: $url")
+                }else{
+                    LogUtils.d("content: $content")
+                }
+            }
             val intent = Intent(AndroidKTX.context, WebActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             intent.putExtra("hideTitleBar", hideTitleBar)
@@ -95,6 +106,7 @@ open class WebActivity : TitleBarActivity(){
             agentWeb = AgentWeb.with(this)
                     .setAgentWebParent(webViewParent, FrameLayout.LayoutParams(-1, -1))
                     .useDefaultIndicator(indicatorColor, dp2px(1f))
+                    .setWebViewClient(mWebViewClient)
                     .setWebChromeClient(mWebChromeClient)
                     .createAgentWeb()
                     .ready().go(url)
@@ -102,10 +114,18 @@ open class WebActivity : TitleBarActivity(){
             agentWeb = AgentWeb.with(this)
                     .setAgentWebParent(webViewParent, FrameLayout.LayoutParams(-1, -1))
                     .useDefaultIndicator(indicatorColor, dp2px(1f))
+                    .setWebViewClient(mWebViewClient)
                     .setWebChromeClient(mWebChromeClient)
                     .createAgentWeb()
                     .ready().go(null)
             agentWeb.webCreator.webView.loadDataWithBaseURL("", content, null,null,null)
+        }
+    }
+
+    private val mWebViewClient = object : WebViewClient(){
+        override fun onReceivedSslError(view: WebView?, handler: SslErrorHandler?, error: SslError?) {
+//            super.onReceivedSslError(view, handler, error)
+            handler?.proceed()
         }
     }
 

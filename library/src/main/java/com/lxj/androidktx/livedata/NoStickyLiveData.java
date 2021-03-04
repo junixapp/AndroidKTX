@@ -34,7 +34,7 @@ public class NoStickyLiveData<T> {
     private static final Object NOT_SET = new Object();
     private Handler handler = new Handler(Looper.getMainLooper());
 
-    private Map<Observer<T>, ObserverWrapper> mObservers = new ConcurrentHashMap<>();
+    protected Map<Observer<T>, ObserverWrapper> mObservers = new ConcurrentHashMap<>();
 
     private volatile Object mData = NOT_SET;
 

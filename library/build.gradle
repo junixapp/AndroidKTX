@@ -54,9 +54,9 @@ dependencies {
     // inline函数在运行时插入使用处，需要暴露出去
     api "com.squareup.okhttp3:okhttp:3.12.3"
     api "androidx.lifecycle:lifecycle-extensions:2.2.0"
-    api 'com.lxj:statelayout:1.1.9'
+    api 'com.lxj:statelayout:1.2.2'
     api 'me.jessyan:progressmanager:1.5.0'
-    api 'com.blankj:utilcodex:1.30.5'
+    api 'com.blankj:utilcodex:1.30.6'
     api  'com.scwang.smart:refresh-layout-kernel:2.0.1'      //核心必须依赖
     api  'com.scwang.smart:refresh-header-classics:2.0.1'    //经典刷新头
     api  'com.scwang.smart:refresh-footer-classics:2.0.1'    //经典加载
@@ -67,7 +67,7 @@ dependencies {
     api 'com.shuyu:gsyVideoPlayer-armv7a:7.1.6'
     api 'com.shuyu:gsyVideoPlayer-arm64:7.1.6'
     api 'cjt.library.wheel:camera:1.1.9'  //拍照和拍摄视频
-    compileOnly 'com.lxj:xpopup:2.2.14'       //弹窗
+    compileOnly 'com.lxj:xpopup:2.2.20'       //弹窗
     api 'com.king.zxing:zxing-lite:1.1.9-androidx'  //二维码扫描
     api 'com.google.android:flexbox:2.0.1'
     api 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:6.6.5.2'
@@ -91,7 +91,7 @@ publish {
     userOrg = 'li-xiaojun'
     groupId = 'com.lxj'
     artifactId = 'androidktx'
-    publishVersion = '1.10.42'
+    publishVersion = '1.10.55'
     repoName = 'jrepo'
     desc = 'Some very useful kotlin extensions for android development！好用到爆的Kotlin扩展，加速你的Android开发！'
     website = 'https://github.com/li-xiaojun/AndroidKTX'

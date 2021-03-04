@@ -380,10 +380,11 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
     fun applySelf() {
         orientation = HORIZONTAL
         gravity = Gravity.CENTER_VERTICAL
+        var color : Int? = null
         if (background !=null && background is ColorDrawable && mSolid==Color.TRANSPARENT){
-            mSolid = ( background as ColorDrawable) .color
+            color = ( background as ColorDrawable) .color
         }
-        val drawable = createDrawable(color = mSolid, radius = mcorner.toFloat(), strokeColor = mstroke, strokeWidth = mstrokeWidth,
+        val drawable = createDrawable(color = color?: mSolid, radius = mcorner.toFloat(), strokeColor = mstroke, strokeWidth = mstrokeWidth,
                 enableRipple = menableRipple, rippleColor = mrippleColor, gradientStartColor = mGradientStartColor,
                 gradientEndColor = mGradientEndColor, gradientOrientation = mGradientOrientation)
         setBackgroundDrawable(drawable)

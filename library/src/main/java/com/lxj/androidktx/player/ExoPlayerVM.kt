@@ -165,7 +165,7 @@ object ExoPlayerVM : ViewModel(){
                 currentIndex = Random.Default.nextInt(uriList.size)
             }
             else -> {
-                if(currentIndex== uriList.lastIndex) currentIndex = 0
+                if(currentIndex== 0) currentIndex = uriList.lastIndex
                 else currentIndex -= 1
             }
         }

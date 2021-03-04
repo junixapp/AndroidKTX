@@ -45,7 +45,7 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$androidx_version"
     implementation "androidx.constraintlayout:constraintlayout:1.1.3"
     implementation "com.google.android.material:material:1.2.1"
-    implementation 'com.lxj:xpopup:2.2.10'       //弹窗
+    implementation 'com.lxj:xpopup:2.2.20'       //弹窗
 
     implementation project(':library')
 

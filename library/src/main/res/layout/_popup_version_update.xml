@@ -71,7 +71,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="安装新版本"
+                android:text="安装"
                 android:textColor="#3070FF"
                 android:textSize="14sp"
                 app:stv_enableRipple="true"

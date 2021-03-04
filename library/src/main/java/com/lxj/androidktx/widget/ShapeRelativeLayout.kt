@@ -117,10 +117,11 @@ open class ShapeRelativeLayout @JvmOverloads constructor(context: Context, attri
     }
 
     fun applySelf() {
+        var color : Int? = null
         if (background !=null && background is ColorDrawable && solid==Color.TRANSPARENT){
-            solid = ( background as ColorDrawable) .color
+            color = ( background as ColorDrawable) .color
         }
-        val drawable = createDrawable(color = solid, radius = corner.toFloat(), strokeColor = stroke, strokeWidth = strokeWidth,
+        val drawable = createDrawable(color = color?: solid, radius = corner.toFloat(), strokeColor = stroke, strokeWidth = strokeWidth,
                 enableRipple = enableRipple, rippleColor = rippleColor, gradientStartColor = mGradientStartColor,
                 gradientEndColor = mGradientEndColor, gradientOrientation = mGradientOrientation)
         setBackgroundDrawable(drawable)

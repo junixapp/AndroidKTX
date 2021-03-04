@@ -1,7 +1,6 @@
 package com.lxj.androidktx.util
 
 import android.content.Context
-import android.util.Base64
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.*
 import com.lxj.androidktx.core.putString
@@ -45,7 +44,7 @@ object VersionUpdateUtil {
      * 下载并安装Apk，会自动检测是否有缓存过的apk文件，如果有则直接提示安装。如果没有则进行下载，一旦安装就删除缓存的文件路径
      * @param updateData 更新相关信息
      * @param onShowUpdateUI 默认会有个更新的提示，如果想自己实现UI，则实现这个监听器
-     * @param useCache 是否使用缓存的apk文件
+     * @param useCache 是否使用缓存的apk文件,使用下载url作为缓存的key
      */
     fun downloadAndInstallApk(context: Context, updateData: CommonUpdateInfo, onShowUpdateUI: ((apkPath: String) -> Unit)? = null,
         useCache: Boolean = true) {
@@ -59,7 +58,7 @@ object VersionUpdateUtil {
             if (onShowUpdateUI != null) {
                 onShowUpdateUI(cacheApkPath)
             } else {
-                showUpdatePopup(context, updateData, cacheApkPath)
+                showUpdatePopup(ActivityUtils.getTopActivity(), updateData, cacheApkPath)
             }
             return
         }
@@ -80,7 +79,7 @@ object VersionUpdateUtil {
                                         if (onShowUpdateUI != null) {
                                             onShowUpdateUI(t.absolutePath)
                                         } else {
-                                            showUpdatePopup(context, updateData, t.absolutePath)
+                                            showUpdatePopup(ActivityUtils.getTopActivity(), updateData, t.absolutePath)
                                         }
                                     }
 
@@ -91,7 +90,7 @@ object VersionUpdateUtil {
                     }
 
                     override fun onDenied() {
-                        ToastUtils.showShort("权限获取失败，无法下载新版本")
+                        ToastUtils.showShort("存储权限获取失败，无法下载新版本")
                     }
                 }).request()
     }
