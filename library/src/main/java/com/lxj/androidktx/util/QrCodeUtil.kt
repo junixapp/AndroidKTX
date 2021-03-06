@@ -1,21 +1,20 @@
 package com.lxj.androidktx.util
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import androidx.fragment.app.Fragment
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.king.zxing.CaptureActivity
 import com.king.zxing.Intents
+import com.lxj.androidktx.qrcode.CustomCaptureActivity
 
 /**
  * 二维码工具类
  */
 object QrCodeUtil {
     var requestCode = 1
-    fun start(source: Any, reqCode: Int = 1){
+    fun start(source: Any, reqCode: Int = 1, color: Int? = null){
         requestCode = reqCode
         PermissionUtils.permission(
                 PermissionConstants.CAMERA,
@@ -23,9 +22,14 @@ object QrCodeUtil {
                 .callback(object: PermissionUtils.SimpleCallback{
                     override fun onGranted() {
                         if(source is Activity){
-                            source.startActivityForResult(Intent(source, CaptureActivity::class.java), reqCode)
+                            val intent = Intent(source, CustomCaptureActivity::class.java)
+                            if(color!=null) intent.putExtra("color", color)
+                            source.startActivityForResult(intent, reqCode)
+
                         }else if(source is Fragment){
-                            source.startActivityForResult(Intent(source.context, CaptureActivity::class.java), reqCode)
+                            val intent = Intent(source.context, CustomCaptureActivity::class.java)
+                            if(color!=null) intent.putExtra("color", color)
+                            source.startActivityForResult(intent, reqCode)
                         }
                     }
                     override fun onDenied() {

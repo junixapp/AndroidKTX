@@ -1,6 +1,7 @@
 package com.lxj.androidktxdemo.fragment
 
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.LogUtils
@@ -47,7 +48,7 @@ class ImageViewExtPage: BaseFragment(){
         title3.text = "image3.load(url, roundRadius = 20)"
 
         image1.click {
-            QrCodeUtil.start(this,1)
+            QrCodeUtil.start(this,1, color = Color.parseColor("#00ff00"))
 //            Share.shareWithUI(activity!!, SharePlatform.WxCircle)
 //            WebActivity.start(
 //                    hideTitleBar = true,
@@ -82,12 +83,13 @@ class ImageViewExtPage: BaseFragment(){
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode==1&& resultCode==-1){
-            val url = ImagePicker.fetchResult(data)
-            image1.load(url[0])
-//            val len = FileUtils.getFileLength(url[0])
-//            LogUtils.e("拍照返回：${url}   大小：${len/1024}k")
-//            PlayerActivity.start(url = url[0])
-        }
+        ToastUtils.showShort(QrCodeUtil.fetchResult(1, data))
+//        if(requestCode==1&& resultCode==-1){
+//            val url = ImagePicker.fetchResult(data)
+//            image1.load(url[0])
+////            val len = FileUtils.getFileLength(url[0])
+////            LogUtils.e("拍照返回：${url}   大小：${len/1024}k")
+////            PlayerActivity.start(url = url[0])
+//        }
     }
 }

@@ -19,7 +19,7 @@
             android:theme="@style/_FullScreenTheme" />
 
         <activity
-            android:name="com.king.zxing.CaptureActivity"
+            android:name="com.lxj.androidktx.qrcode.CustomCaptureActivity"
             android:launchMode="singleTop"
             android:theme="@style/_FullScreenTheme" />
         <activity
