@@ -16,7 +16,7 @@ object DirManager{
     val tempDir: String by lazy { "${rootDir}/temp" }
     val cacheDir: String by lazy { "${rootDir}/cache" }
 
-    fun init(context: Context, permissionResult: ((b: Boolean)->Unit)? = null){
+    fun init(permissionResult: ((b: Boolean)->Unit)? = null){
         //检查权限
         PermissionUtils.permission(PermissionConstants.STORAGE)
             .callback(object : PermissionUtils.SimpleCallback{

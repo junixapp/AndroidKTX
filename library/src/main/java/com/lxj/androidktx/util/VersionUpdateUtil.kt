@@ -3,6 +3,7 @@ package com.lxj.androidktx.util
 import android.content.Context
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.*
+import com.lxj.androidktx.core.md5
 import com.lxj.androidktx.core.putString
 import com.lxj.androidktx.core.sp
 import com.lxj.androidktx.okhttp.*
@@ -46,11 +47,11 @@ object VersionUpdateUtil {
      * @param onShowUpdateUI 默认会有个更新的提示，如果想自己实现UI，则实现这个监听器
      * @param useCache 是否使用缓存的apk文件,使用下载url作为缓存的key
      */
-    fun downloadAndInstallApk(context: Context, updateData: CommonUpdateInfo, onShowUpdateUI: ((apkPath: String) -> Unit)? = null,
+    fun downloadAndInstallApk(updateData: CommonUpdateInfo, onShowUpdateUI: ((apkPath: String) -> Unit)? = null,
         useCache: Boolean = true) {
         //检测是否有缓存的apk路径，如果有说明已经下载过了
-        DirManager.init(context)
-        val filename = "${URLEncoder.encode(updateData.download_url!!)}.apk"
+        DirManager.init()
+        val filename = "${updateData.download_url!!.md5()}.apk"
         val file = File("${DirManager.downloadDir}/${filename}")
         val cacheApkPath = sp().getString(cacheKey, "")
         if (cacheApkPath.isNotEmpty() && FileUtils.isFileExists(cacheApkPath) && cacheApkPath==file.absolutePath && useCache) {
@@ -62,6 +63,7 @@ object VersionUpdateUtil {
             }
             return
         }
+        LogUtils.d("开始下载新版本......")
         PermissionUtils.permission(PermissionConstants.STORAGE)
                 .callback(object : PermissionUtils.SimpleCallback {
                     override fun onGranted() {
