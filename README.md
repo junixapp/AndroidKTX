@@ -6,7 +6,7 @@ Some very useful kotlin extensions for android development !
 一系列非常有用的Kotlin扩展和组件，目标提高Android开发速度！注意这个不是官方的AndroidKTX ！
 
 ## Gradle
-[![Download](https://api.bintray.com/packages/li-xiaojun/jrepo/androidktx/images/download.svg)](https://bintray.com/li-xiaojun/jrepo/androidktx/_latestVersion)
+[![](https://jitpack.io/v/li-xiaojun/AndroidKTX.svg)](https://jitpack.io/#li-xiaojun/AndroidKTX)
 
 ```
 implementation 'com.lxj:androidktx:${latest-version}'
