@@ -1,6 +1,5 @@
 package com.lxj.androidktx.util
 
-import android.content.Context
 import android.os.Environment
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.PermissionUtils
