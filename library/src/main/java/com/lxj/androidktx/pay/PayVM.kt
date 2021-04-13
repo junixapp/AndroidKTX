@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import com.alipay.sdk.app.PayTask
+import com.blankj.utilcode.util.ToastUtils
 import com.lxj.androidktx.livedata.StateLiveData
 import com.tencent.mm.opensdk.modelbase.BaseResp
 import com.tencent.mm.opensdk.modelpay.PayReq
@@ -27,13 +28,17 @@ object PayVM : ViewModel() {
 
     val wxPayData = StateLiveData<BaseResp>()
     fun wxPay(
-        context: Context, appId: String, partnerId: String, prepayId: String,
-        nonceStr: String, timeStamp: String, packageValue: String = "Sign=WXPay",
-        sign: String, extData: String = ""
+            context: Context, appId: String, partnerId: String, prepayId: String,
+            nonceStr: String, timeStamp: String, packageValue: String = "Sign=WXPay",
+            sign: String, extData: String = ""
     ) {
         wxAppId = appId
         val wxapi = WXAPIFactory.createWXAPI(context, appId)
         wxapi.registerApp(appId)
+        if (!wxapi.isWXAppInstalled){
+            ToastUtils.showShort("未安装微信，无法支付")
+            return
+        }
         val req = PayReq()
         req.appId = appId
         req.partnerId = partnerId
@@ -50,6 +55,10 @@ object PayVM : ViewModel() {
         wxAppId = param.appId
         val wxapi = WXAPIFactory.createWXAPI(context, param.appId)
         wxapi.registerApp(param.appId)
+        if (!wxapi.isWXAppInstalled){
+            ToastUtils.showShort("未安装微信，无法支付")
+            return
+        }
         val req = PayReq()
         req.appId = param.appId
         req.partnerId = param.partnerId

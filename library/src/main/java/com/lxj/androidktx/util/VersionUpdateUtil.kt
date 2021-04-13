@@ -6,20 +6,20 @@ import com.blankj.utilcode.util.*
 import com.lxj.androidktx.core.md5
 import com.lxj.androidktx.core.putString
 import com.lxj.androidktx.core.sp
+import com.lxj.androidktx.core.toJson
 import com.lxj.androidktx.okhttp.*
 import com.lxj.androidktx.popup.VersionUpdatePopup
 import com.lxj.xpopup.XPopup
 import java.io.File
 import java.io.IOException
-import java.net.URLEncoder
 
 
 data class CommonUpdateInfo(
         var download_url: String? = null,
         var version_name: String? = null,
-        var version_code: String? = null,
         var package_name: String? = null,
-        var update_info: String? = null
+        var update_info: String? = null,
+        var force_update: Boolean? = false
 )
 
 /**
@@ -31,8 +31,8 @@ object VersionUpdateUtil {
     const val cacheKey = "_version_update_download_apk_"
     private fun showUpdatePopup(context: Context, updateData: CommonUpdateInfo, path: String) {
         XPopup.Builder(context)
-                .dismissOnBackPressed(false)
-                .dismissOnTouchOutside(false)
+                .dismissOnBackPressed(updateData.force_update)
+                .dismissOnTouchOutside(updateData.force_update)
                 .asCustom(VersionUpdatePopup(context = context, updateInfo = updateData, onOkClick = {
                     //删除缓存
                     sp().putString(cacheKey, "")
@@ -63,7 +63,7 @@ object VersionUpdateUtil {
             }
             return
         }
-        LogUtils.d("开始下载新版本......")
+        LogUtils.d("开始下载新版本: ${updateData.toJson()}")
         PermissionUtils.permission(PermissionConstants.STORAGE)
                 .callback(object : PermissionUtils.SimpleCallback {
                     override fun onGranted() {
@@ -73,6 +73,9 @@ object VersionUpdateUtil {
                         FileUtils.createFileByDeleteOldFile(file)
                         updateData.download_url!!.http(baseUrlTag = "")
                                 .savePath(file.absolutePath)
+                                .downloadListener(onProgress = {
+                                   LogUtils.d("新版本下载进度：${ it?.percent}")
+                                })
                                 .get<File>(object : HttpCallback<File> {
                                     override fun onSuccess(t: File) {
                                         LogUtils.e("新版本下载成功，路径为：${file.absolutePath}")
@@ -87,6 +90,7 @@ object VersionUpdateUtil {
 
                                     override fun onFail(e: IOException) {
                                         super.onFail(e)
+                                        LogUtils.e("新版本下载失败：${e.localizedMessage}")
                                     }
                                 })
                     }

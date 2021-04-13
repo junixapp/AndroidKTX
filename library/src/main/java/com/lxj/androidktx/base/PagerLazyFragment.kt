@@ -36,7 +36,9 @@ abstract class PagerLazyFragment : Fragment() {
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         lazyInit()
-        if(isVisibleToUser) onShow() else onHide()
+        if(isInit){
+            if(isVisibleToUser) onShow() else onHide()
+        }
     }
 
     //执行初始化，只会执行一次

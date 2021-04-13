@@ -23,7 +23,7 @@ class StateLiveData<T> : NoStickyLiveData<T>() {
     var errMsg: String? = null
 
     init {
-        state.value = State.Idle
+        state.postValue(State.Idle)
     }
 
     fun postValueAndSuccess(value: T) {
@@ -35,8 +35,8 @@ class StateLiveData<T> : NoStickyLiveData<T>() {
         state.postValue(State.Empty)
     }
 
-    fun clearState(owner: LifecycleOwner) {
-        state.removeObservers(owner)
+    fun clearState(owner: LifecycleOwner? = null) {
+        if(owner!=null) state.removeObservers(owner)
         this.errMsg = null
         state.postValue(State.Idle)
     }
