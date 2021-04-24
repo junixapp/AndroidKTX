@@ -1,6 +1,5 @@
 package com.lxj.androidktx.base
 
-import android.content.Intent
 import android.widget.ImageView
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ScreenUtils
@@ -10,6 +9,7 @@ import com.lxj.androidktx.R
 import com.lxj.androidktx.core.click
 import com.lxj.androidktx.core.gone
 import com.lxj.androidktx.core.load
+import com.lxj.androidktx.core.startActivity
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
 import kotlinx.android.synthetic.main._ktx_activity_player.*
 
@@ -22,11 +22,9 @@ class PlayerActivity : AdaptActivity(){
 
     companion object{
         fun start(url: String, title: String = "", cover: String = ""){
-            val intent = Intent(AndroidKTX.context, PlayerActivity::class.java)
-            intent.putExtra("title", title)
-            intent.putExtra("url", url)
-            intent.putExtra("cover", cover)
-            AndroidKTX.context.startActivity(intent)
+            AndroidKTX.context.startActivity<PlayerActivity>(bundle = arrayOf(
+                    "title" to title, "url" to url, "cover" to cover
+            ))
         }
     }
 
