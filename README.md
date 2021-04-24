@@ -6,12 +6,25 @@ Some very useful kotlin extensions for android development !
 一系列非常有用的Kotlin扩展和组件，目标提高Android开发速度！注意这个不是官方的AndroidKTX ！
 
 ## Gradle
+由于jcenter跑路，不得已迁移到jitpack。
+
+Step1. Add it in your root build.gradle at the end of repositories:
+```
+allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
+
+Step2. Add the dependency
 [![](https://jitpack.io/v/li-xiaojun/AndroidKTX.svg)](https://jitpack.io/#li-xiaojun/AndroidKTX)
-
 ```
-implementation 'com.lxj:androidktx:${latest-version}'
+dependencies {
+	  implementation 'com.github.li-xiaojun:AndroidKTX:最新版本' //最新版本号看图标
+}
 ```
-
 
 ## Usage
 
