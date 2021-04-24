@@ -54,7 +54,7 @@ object VersionUpdateUtil {
         val filename = "${updateData.download_url!!.md5()}.apk"
         val file = File("${DirManager.downloadDir}/${filename}")
         val cacheApkPath = sp().getString(cacheKey, "")
-        if (cacheApkPath.isNotEmpty() && FileUtils.isFileExists(cacheApkPath) && cacheApkPath==file.absolutePath && useCache) {
+        if (cacheApkPath!!.isNotEmpty() && FileUtils.isFileExists(cacheApkPath) && cacheApkPath==file.absolutePath && useCache) {
             LogUtils.e("新版本Apk已存在，无需下载，路径：$cacheApkPath")
             if (onShowUpdateUI != null) {
                 onShowUpdateUI(cacheApkPath)

@@ -14,11 +14,10 @@ class LoadingDialog @JvmOverloads constructor(context: Context, theme: Int = 0)
     init {
         setCanceledOnTouchOutside(false)
         setContentView(R.layout._wx_progress_dialog)
-        val params = window.attributes
-        params.width = WindowManager.LayoutParams.WRAP_CONTENT
-        params.height = WindowManager.LayoutParams.WRAP_CONTENT
-        window.attributes = params
-
+        val params = window?.attributes
+        params?.width = WindowManager.LayoutParams.WRAP_CONTENT
+        params?.height = WindowManager.LayoutParams.WRAP_CONTENT
+        window?.attributes = params
     }
 
     fun setMessage(msg: String): LoadingDialog{

@@ -58,7 +58,7 @@ class PickerEmptyActivity : AppCompatActivity() {
                         .maxSelectable(pickerData!!.maxNum)
                         .theme(R.style.Matisse_Dracula)
                         .showSingleMediaType(true)
-                        .addFilter(VideoSizeFilter())
+                        .addFilter(VideoSizeFilter(maxSize = if(pickerData!!.maxVideoSize>0) pickerData!!.maxVideoSize else  20*1024*1024))
 //                .gridExpectedSize(resources.getDimensionPixelSize(R.dimen.grid_expected_size))
                         .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
                         .thumbnailScale(0.85f)
@@ -97,7 +97,7 @@ class PickerEmptyActivity : AppCompatActivity() {
         var cacheRootPath: String? = ""
         cacheRootPath = if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()) {
             // /sdcard/Android/data/<application package>/cache
-            externalCacheDir.path
+            externalCacheDir?.path
         } else {
             // /data/data/<application package>/cache
             cacheDir.path
