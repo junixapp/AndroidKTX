@@ -14,6 +14,7 @@ data class _PickerData(
         var action: String = "",
         var isCrop: Boolean = false,
         var isCompress: Boolean = true,
+        var showCapture: Boolean = true,
         var maxNum: Int = 9,
         var maxVideoSize: Long = 0,
         var types: Set<MimeType> = MimeType.ofImage()
@@ -72,18 +73,20 @@ object ImagePicker {
      * @param maxNum 最多选择数量，默认是1
      * @param types 选择的类型，默认是Image类型
      * @param maxVideoSize 最大视频大小，默认是20M
+     * @param showCapture 是否显示拍照
      */
     fun startPicker(from: Activity, reqCode: Int, isCrop: Boolean = false, isCompress: Boolean = true, maxNum: Int = 1, types: Set<MimeType> = MimeType.ofImage(),
-    maxVideoSize: Long = 0) {
+    maxVideoSize: Long = 0, showCapture: Boolean = true) {
         PermissionUtils
                 .permission(PermissionConstants.STORAGE, PermissionConstants.CAMERA)
                 .callback(object : PermissionUtils.SimpleCallback {
                     override fun onGranted() {
+                        val max = if(maxNum < 1) 1 else maxNum
                         //必须三个条件同时成立，才能开启裁剪
-                        val canCrop = isCrop && maxNum==1 && !types.containsAll(MimeType.ofVideo())
+                        val canCrop = isCrop && max==1 && !types.containsAll(MimeType.ofVideo())
                         from.startForResult<PickerEmptyActivity>(bundle = arrayOf("pickerData" to _PickerData(
-                                isCrop = canCrop, maxNum = maxNum, types = types, action = "picker", isCompress = isCompress,
-                                maxVideoSize = maxVideoSize
+                                isCrop = canCrop, maxNum = max, types = types, action = "picker", isCompress = isCompress,
+                                maxVideoSize = maxVideoSize, showCapture = showCapture
                         )), requestCode = reqCode)
                     }
                     override fun onDenied() {
@@ -100,18 +103,20 @@ object ImagePicker {
      * @param maxNum 最多选择数量，默认是1
      * @param types 选择的类型，默认是Image类型
      * @param maxVideoSize 最大视频大小，默认是20M
+     * @param showCapture 是否显示拍照
      */
     fun startPicker(from: Fragment, reqCode: Int, isCrop: Boolean = false, isCompress: Boolean = true, maxNum: Int = 1, types: Set<MimeType> = MimeType.ofImage(),
-                    maxVideoSize: Long = 0) {
+                    maxVideoSize: Long = 0, showCapture: Boolean = true) {
         PermissionUtils
                 .permission(PermissionConstants.STORAGE, PermissionConstants.CAMERA)
                 .callback(object : PermissionUtils.SimpleCallback {
                     override fun onGranted() {
+                        val max = if(maxNum < 1) 1 else maxNum
                         //必须三个条件同时成立，才能开启裁剪
-                        val canCrop = isCrop && maxNum==1 && !types.containsAll(MimeType.ofVideo())
+                        val canCrop = isCrop && max==1 && !types.containsAll(MimeType.ofVideo())
                         from.startForResult<PickerEmptyActivity>(bundle = arrayOf("pickerData" to _PickerData(
-                                isCrop = canCrop, maxNum = maxNum, types = types, action = "picker", isCompress = isCompress,
-                                maxVideoSize = maxVideoSize
+                                isCrop = canCrop, maxNum = max, types = types, action = "picker", isCompress = isCompress,
+                                maxVideoSize = maxVideoSize, showCapture = showCapture
                         )), requestCode = reqCode)
                     }
                     override fun onDenied() {
