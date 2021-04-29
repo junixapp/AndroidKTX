@@ -87,6 +87,9 @@ class ImageUploader @JvmOverloads constructor(
             }
             holder.getView<ImageView>(R.id.close).click {
                 paths.remove(t)
+                if(paths.size<maxImages && !paths.contains(add_button)){
+                    paths.add(add_button)
+                }
                 adapter?.notifyDataSetChanged()
             }
         })
@@ -100,13 +103,16 @@ class ImageUploader @JvmOverloads constructor(
             ToastUtils.showShort("最多添加${maxImages}张图片")
             return
         }
-        paths.remove(add_button)
-        paths.add(path)
-        paths.add(add_button)
+        val index = paths.indexOf(add_button)
+        paths.add(index, path)
+        if(paths.size == (maxImages+1)) {
+            paths.remove(add_button)
+        }
         adapter?.notifyDataSetChanged()
     }
 
     fun addImages(images: List<String>) {
+        if(images.isNullOrEmpty())return
         if (paths.size >= (maxImages + 1) ||
             (paths.size + images.size) > (maxImages + 1)
         ) {
@@ -114,9 +120,11 @@ class ImageUploader @JvmOverloads constructor(
             ToastUtils.showShort("最多添加${maxImages}张图片")
             return
         }
-        paths.remove(add_button)
-        paths.addAll(images)
-        paths.add(add_button)
+        val index = paths.indexOf(add_button)
+        paths.addAll(index, images)
+        if(paths.size == (maxImages+1)) {
+            paths.remove(add_button)
+        }
         adapter?.notifyDataSetChanged()
     }
 

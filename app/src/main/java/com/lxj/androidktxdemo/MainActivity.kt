@@ -39,7 +39,8 @@ class MainActivity : AppCompatActivity() {
             PageInfo("RecyclerView相关", RecyclerViewExtDemo()),
             PageInfo("ViewPager2", ViewPager2Demo()),
             PageInfo("九宫格View", NineGridViewDemo()),
-            PageInfo("播放器", PlayerFragment())
+            PageInfo("播放器", PlayerFragment()),
+            PageInfo("Uploader", UploaderFragment()),
 
 
     )
