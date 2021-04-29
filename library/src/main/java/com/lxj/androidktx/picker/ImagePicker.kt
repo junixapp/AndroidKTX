@@ -2,12 +2,16 @@ package com.lxj.androidktx.picker
 
 import android.app.Activity
 import android.content.Intent
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.blankj.utilcode.util.UriUtils
 import com.lxj.androidktx.core.startForResult
+import com.lxj.androidktx.util.DirManager
 import com.zhihu.matisse.MimeType
+import java.io.File
 import java.io.Serializable
 
 data class _PickerData(
@@ -21,7 +25,7 @@ data class _PickerData(
 ): Serializable
 
 /**
- * 图片选择器，整合了Matisse，uCrop和Luban。
+ * 图片和视频选择器，整合了Matisse，uCrop和Luban。
  */
 object ImagePicker {
     /**
@@ -29,7 +33,7 @@ object ImagePicker {
      * @param isCrop 是否开启裁剪，默认false
      * @param isCompress 是否使用Luban压缩，默认是true
      */
-    fun startCamera(from: Activity, reqCode: Int, isCrop: Boolean = false, isCompress: Boolean = true) {
+    fun startCamera(from: Activity, reqCode: Int, isCrop: Boolean = false, isCompress: Boolean = true,) {
         PermissionUtils
                 .permission(PermissionConstants.STORAGE, PermissionConstants.CAMERA)
                 .callback(object : PermissionUtils.SimpleCallback {
@@ -127,9 +131,37 @@ object ImagePicker {
     }
 
     /**
+     * 开启录制视频
+     * @param from
+     * @param reqCode
+     * @param maxDuration 最大时长限制，默认是15秒，暂时实现
+     */
+    fun startRecord(from: Activity, reqCode: Int, maxDuration: Int = 15){
+        CameraActivity.start(from = from, requestCode = reqCode, mode = CameraActivity.OnlyVideo)
+    }
+
+    /**
+     * 开启录制视频
+     * @param from
+     * @param reqCode
+     * @param maxDuration 最大时长限制，默认是15秒，暂时实现
+     */
+    fun startRecord(from: Fragment, reqCode: Int, maxDuration: Int = 15){
+        CameraActivity.start(from = from, requestCode = reqCode, mode = CameraActivity.OnlyVideo)
+    }
+
+    /**
      * 获取结果
      */
     fun fetchResult(data: Intent?): ArrayList<String>{
         return data?.getStringArrayListExtra("result") ?: arrayListOf()
     }
+    /**
+     * 获取视频录制结果
+     */
+    fun fetchRecordResult(data: Intent?): String{
+        if(data==null)return ""
+        return data.getStringExtra("path") ?: ""
+    }
+
 }

@@ -24,7 +24,7 @@
             android:launchMode="singleTop"
             android:theme="@style/_FullScreenTheme" />
         <activity
-            android:name=".base.CameraActivity"
+            android:name=".picker.CameraActivity"
             android:theme="@style/_FullScreenTheme" />
         <activity
             android:name=".base.PlayerActivity"

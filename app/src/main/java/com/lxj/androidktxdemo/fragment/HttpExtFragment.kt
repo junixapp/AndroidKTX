@@ -3,26 +3,15 @@ package com.lxj.androidktxdemo.fragment
 import android.app.Activity
 import android.content.Intent
 import android.os.Environment
-import androidx.lifecycle.Observer
-import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.PermissionUtils
-import com.blankj.utilcode.util.ToastUtils
-import com.jeremyliao.liveeventbus.LiveEventBus
-import com.lxj.androidktx.base.CameraActivity
-import com.lxj.androidktx.base.WebActivity
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.livedata.StateLiveData
 import com.lxj.androidktx.okhttp.*
-import com.lxj.androidktx.util.CommonUpdateInfo
-import com.lxj.androidktx.util.VersionUpdateUtil
+import com.lxj.androidktx.picker.ImagePicker
 import com.lxj.androidktxdemo.R
-import com.lxj.androidktxdemo.entity.HttpResult
 import com.lxj.androidktxdemo.entity.User
 import kotlinx.android.synthetic.main.fragment_http_ext.*
-import okhttp3.MediaType
-import okhttp3.RequestBody
 import java.io.File
 
 /**
@@ -59,19 +48,19 @@ class HttpExtFragment : BaseFragment() {
 
         btnSend.click {
 
-            WebActivity.start(url = "https://click.lixiaojun.xin/article/?posid=1")
-
+            ImagePicker.startRecord(this, 1)
+//            WebActivity.start(url = "https://click.lixiaojun.xin/article/?posid=1")
 
 //            CameraActivity.startFromFragment(this, 1)
 //            VersionUpdateUtil.downloadAndInstallApk(context!!, CommonUpdateInfo(download_url = "https://lxj-bama-happy.oss-cn-zhangjiakou.aliyuncs.com/%E5%A4%A9%E5%A4%A9%E5%B9%BF%E5%9C%BA%E8%88%9E-1.0-2020_07_20_11_34_22.apk",
 //            update_info = "大萨达所大撒大所大所"))
-            loginData.launchAndSmartPost {
-                val result = "http://47.111.131.25:8080/yezi-api/api/students/vcodeLogin".http()
-                        .params(mapOf(), isJson = true)
-                        .customReqBody(RequestBody.create(MediaType.parse("application/octet-stream"),File("")))
-                        .post<HttpResult<User>>()
-                        .await()?.data
-                result
+//            loginData.launchAndSmartPost {
+//                val result = "http://47.111.131.25:8080/yezi-api/api/students/vcodeLogin".http()
+//                        .params(mapOf(), isJson = true)
+//                        .customReqBody(RequestBody.create(MediaType.parse("application/octet-stream"),File("")))
+//                        .post<HttpResult<User>>()
+//                        .await()?.data
+//                result
 //                loge("result: $result")
 //                if (result?.isSuccess() == true) {
 //                    val user = result.data
@@ -80,7 +69,7 @@ class HttpExtFragment : BaseFragment() {
 //                    loginData.errMsg = result?.errmsg ?: "登录失败"
 //                }
 //                result?.data //内部会根据数据自动设置data的状态
-            }
+//            }
         }
 //        LiveEventBus.get(CameraActivity.CaptureVideo).observe(this, Observer {
 //            val map = it as Map<String,String>
@@ -95,8 +84,9 @@ class HttpExtFragment : BaseFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode==1 && resultCode==Activity.RESULT_OK){
-            val path  = data?.getStringExtra("path") ?:""
-            LogUtils.d("path: $path")
+            val path  = ImagePicker.fetchRecordResult(data)
+
+            LogUtils.e("视频路径：$path  文件大小：${FileUtils.getSize(File(path))}")
         }
     }
 
