@@ -20,6 +20,7 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
     : ShapeLinearLayout(context, attributeSet, defStyleAttr) {
 
     var isSelectBold = false
+    var tabWidthEqual = true
     var iconWidth = dp2px(20f)
     var iconHeight = dp2px(20f)
     var iconPosition = 1
@@ -62,6 +63,7 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
         normalBgColor = ta.getColor(R.styleable.TabBar_tb_normalBgColor, normalBgColor)
         tabHeight = ta.getDimension(R.styleable.TabBar_tb_tabHeight, tabHeight.toFloat()).toInt()
         tabPadding = ta.getDimensionPixelSize(R.styleable.TabBar_tb_tabPadding, tabPadding)
+        tabWidthEqual = ta.getBoolean(R.styleable.TabBar_tb_tabWidthEqual, tabWidthEqual)
 
         ta.recycle()
         orientation = HORIZONTAL
@@ -72,15 +74,12 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
         mTabs = tabs
         mTabChangeListener = tabChangeListener
         mTabs.forEachIndexed { index, it ->
-            val lp = LayoutParams(0, LayoutParams.MATCH_PARENT)
-            lp.weight = 1f
+            val lp = LayoutParams(if(tabWidthEqual) 0 else LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT)
+            if(tabWidthEqual) lp.weight = 1f
             val wrapper = LinearLayout(context)
             wrapper.gravity = Gravity.CENTER
             if(tabPadding>0){
-                wrapper.setPadding(if (iconPosition == 0) tabPadding else 0,
-                        if (iconPosition == 1) tabPadding else 0,
-                        if (iconPosition == 2) tabPadding else 0,
-                        if (iconPosition == 3) tabPadding else 0)
+                wrapper.setPadding(tabPadding, tabPadding, tabPadding, tabPadding)
             }
             addView(wrapper, lp)
 

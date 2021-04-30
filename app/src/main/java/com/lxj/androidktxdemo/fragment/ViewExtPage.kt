@@ -78,16 +78,16 @@ class ViewExtPage : BaseFragment() {
             tvVerify.start()
         }
 
-//        tabbar.setTabs(listOf(
-//                TabBar.Tab(normalIconRes = R.mipmap.ic_launcher_round, selectedIconRes = R.mipmap.ic_launcher_round),
-//                TabBar.Tab( normalIconRes = R.mipmap.ic_launcher, selectedIconRes = R.mipmap.ic_launcher_round),
-//                TabBar.Tab(normalIconRes = R.mipmap.ic_launcher, selectedIconRes = R.mipmap.ic_launcher_round),
-//                TabBar.Tab(normalIconRes = R.mipmap.ic_launcher, selectedIconRes = R.mipmap.ic_launcher_round)
-//                )){
-//            ToastUtils.showShort("选择了："+it)
-//            loge("select: " + it)
-//            true
-//        }
+        tabbar.setTabs(listOf(
+                TabBar.Tab(text = "首页" ,),
+                TabBar.Tab( text = "分类" ,),
+//                TabBar.Tab( selectedIconRes = R.mipmap.ic_launcher_round),
+//                TabBar.Tab( selectedIconRes = R.mipmap.ic_launcher_round)
+                )){
+            ToastUtils.showShort("选择了："+it)
+            loge("select: " + it)
+            true
+        }
     }
 
 }
