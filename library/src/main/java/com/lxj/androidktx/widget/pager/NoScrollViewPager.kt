@@ -1,4 +1,4 @@
-package com.lxj.androidktx.widget
+package com.lxj.androidktx.widget.pager
 
 import android.content.Context
 import android.util.AttributeSet

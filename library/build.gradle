@@ -43,7 +43,7 @@ dependencies {
     api "androidx.appcompat:appcompat:$androidx_version"
     api 'androidx.multidex:multidex:2.0.1'
     api "androidx.recyclerview:recyclerview:$androidx_version"
-    api 'com.google.android.material:material:1.2.1'
+    api 'com.google.android.material:material:1.3.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     api "com.github.bumptech.glide:glide:4.11.0"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7"
@@ -53,7 +53,7 @@ dependencies {
     // inline函数在运行时插入使用处，需要暴露出去
     api "com.squareup.okhttp3:okhttp:3.12.3"
     api "androidx.lifecycle:lifecycle-extensions:2.2.0"
-    api 'com.lxj:statelayout:1.2.2'
+    api 'com.github.li-xiaojun:StateLayout:1.2.3'
     api 'me.jessyan:progressmanager:1.5.0'
     api 'com.blankj:utilcodex:1.30.6'
     api  'com.scwang.smart:refresh-layout-kernel:2.0.1'      //核心必须依赖
@@ -66,7 +66,7 @@ dependencies {
     api 'com.shuyu:gsyVideoPlayer-armv7a:7.1.6'
     api 'com.shuyu:gsyVideoPlayer-arm64:7.1.6'
     api 'cjt.library.wheel:camera:1.1.9'  //拍照和拍摄视频
-    compileOnly 'com.lxj:xpopup:2.2.20'       //弹窗
+    compileOnly 'com.github.li-xiaojun:XPopup:2.2.24'       //弹窗
     api 'com.king.zxing:zxing-lite:1.1.9-androidx'  //二维码扫描
     api 'com.google.android:flexbox:2.0.1'
     api 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:6.6.5.2'
@@ -82,6 +82,6 @@ dependencies {
     api 'com.umeng.umsdk:crash:0.0.4' // native crash包依赖(必选)
     api 'com.sina.weibo.sdk:core:4.4.3:openDefaultRelease@aar'
     //player
-    implementation 'com.google.android.exoplayer:exoplayer:2.12.2'
+    implementation 'com.google.android.exoplayer:exoplayer:2.13.3'
 
 }

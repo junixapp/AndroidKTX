@@ -104,8 +104,8 @@
             android:text="哈哈"
             android:textColor="#f00"
             android:textSize="29sp"
-            android:background="#999"
             android:drawableLeft="@drawable/wechat"
+            app:stv_solid="#999"
             app:stv_corner="30dp"
             android:gravity="center"
             android:layout_width="match_parent"
@@ -114,7 +114,7 @@
         <com.lxj.androidktx.widget.VerifyView
             android:id="@+id/tvVerify"
             app:stv_corner="30dp"
-            app:stv_solid="#ff0000"
+            app:stv_solid="#00ff90"
             app:stv_strokeWidth="1dp"
             app:stv_stroke="#0000ff"
             app:vv_countDownText="还剩time秒"
