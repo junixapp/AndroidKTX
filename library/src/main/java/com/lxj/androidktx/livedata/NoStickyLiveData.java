@@ -32,7 +32,7 @@ public class NoStickyLiveData<T> {
 
     static final int START_VERSION = -1;
     private static final Object NOT_SET = new Object();
-    private Handler handler = new Handler(Looper.getMainLooper());
+    private final Handler handler = new Handler(Looper.getMainLooper());
 
     protected Map<Observer<T>, ObserverWrapper> mObservers = new ConcurrentHashMap<>();
 
