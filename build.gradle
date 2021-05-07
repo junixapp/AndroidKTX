@@ -8,9 +8,7 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        jcenter()
-        maven { url "https://dl.bintray.com/thelasterstar/maven/" }
-        maven { url 'https://dl.bintray.com/umsdk/release' }
+//        maven { url  'https://repo1.maven.org/maven2/'} //umeng的maven库
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.3'
@@ -24,8 +22,7 @@ allprojects {
         mavenCentral()
         jcenter()
         maven { url "https://jitpack.io" }
-        maven { url "https://dl.bintray.com/thelasterstar/maven/" }
-        maven { url 'https://dl.bintray.com/umsdk/release' }
+//        maven { url  'https://repo1.maven.org/maven2/'} //umeng的maven库
     }
 }
 

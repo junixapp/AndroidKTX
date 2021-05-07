@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.lxj.androidktx.AndroidKTX
 import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
@@ -49,12 +50,22 @@ object Share {
     }
 
     private fun innerLogin(activity: Activity, platform: SharePlatform, alwaysNeedConfirm: Boolean = false, callback: ShareCallback? = null){
+        val innerPlatform = convertPlatform(platform)
+        if(!checkInstall(activity, innerPlatform)) return
         if(alwaysNeedConfirm){
             val config = UMShareConfig()
             config.isNeedAuthOnGetUserInfo(true)
             UMShareAPI.get(activity).setShareConfig(config)
         }
-        UMShareAPI.get(activity).getPlatformInfo(activity, convertPlatform(platform), OauthCallback(callback))
+        UMShareAPI.get(activity).getPlatformInfo(activity, innerPlatform, OauthCallback(callback))
+    }
+
+    private fun checkInstall(activity: Activity, platform: SHARE_MEDIA): Boolean{
+        if(!UMShareAPI.get(activity).isInstall(activity, platform)){
+            ToastUtils.showShort("未安装${getAppNameByPlatform(platform)}")
+            return false
+        }
+        return true
     }
 
     /**
@@ -63,13 +74,15 @@ object Share {
     fun shareWeb(activity: Activity, platform: SharePlatform, url: String, title: String,
                  thumbUrl: String? = null, thumbRes: Int? = null,
                  desc: String? = "", cb: ShareCallback? = null){
+        val innerPlatform = convertPlatform(platform)
+        if(!checkInstall(activity, innerPlatform)) return
         val web = UMWeb(url)
         web.title = title
         if(thumbUrl!=null) web.setThumb(UMImage(activity, thumbUrl))
         if(thumbRes!=null) web.setThumb(UMImage(activity, thumbRes))
         web.description = desc
         ShareAction(activity)
-                .setPlatform(convertPlatform(platform))
+                .setPlatform(innerPlatform)
                 .withMedia(web)
                 .setCallback(InnerShareCallback(cb = cb))
                 .share()
@@ -81,13 +94,15 @@ object Share {
      */
     fun shareImage(activity: Activity, platform: SharePlatform, imgUrl: String? = null,
                    bitmap: Bitmap? = null, imgRes: Int? = null, cb: ShareCallback? = null){
+        val innerPlatform = convertPlatform(platform)
+        if(!checkInstall(activity, innerPlatform)) return
         var image:UMImage? = null
         if(imgUrl!=null)image = UMImage(activity, imgUrl)
         if(bitmap!=null)image = UMImage(activity, bitmap)
         if(imgRes!=null)image = UMImage(activity, imgRes)
         if(image==null)return
         ShareAction(activity)
-                .setPlatform(convertPlatform(platform))
+                .setPlatform(innerPlatform)
                 .withMedia(image)
                 .setCallback(InnerShareCallback(cb = cb))
                 .share()
@@ -96,8 +111,10 @@ object Share {
      * 分享文本
      */
     fun shareText(activity: Activity, platform: SharePlatform, text: String, cb: ShareCallback? = null){
+        val innerPlatform = convertPlatform(platform)
+        if(!checkInstall(activity, innerPlatform)) return
         ShareAction(activity)
-                .setPlatform(convertPlatform(platform))
+                .setPlatform(innerPlatform)
                 .withText(text)
                 .setCallback(InnerShareCallback(cb = cb))
                 .share()
@@ -111,6 +128,10 @@ object Share {
     fun shareMiniProgram(activity: Activity, url: String, bitmap: Bitmap? = null, imgRes: Int? = null, title: String, desc: String, path: String,
                          miniAppId: String, forTestVersion: Boolean = false,
                          forPreviewVersion: Boolean = false, cb: ShareCallback? = null) {
+        if(!UMShareAPI.get(activity).isInstall(activity, SHARE_MEDIA.WEIXIN)){
+            ToastUtils.showShort("未安装微信")
+            return
+        }
         if (forTestVersion) {
             Config.setMiniTest()
         }
@@ -139,6 +160,10 @@ object Share {
     fun openMiniProgram(activity: Activity, appId: String, miniAppId: String,
                         path: String, forTestVersion: Boolean = false,
                         forPreviewVersion: Boolean = false) {
+        if(!UMShareAPI.get(activity).isInstall(activity, SHARE_MEDIA.WEIXIN)){
+            ToastUtils.showShort("未安装微信")
+            return
+        }
         val api = WXAPIFactory.createWXAPI(activity, appId)
         val req: WXLaunchMiniProgram.Req = WXLaunchMiniProgram.Req()
         req.userName = miniAppId // 填小程序原始id
@@ -166,6 +191,25 @@ object Share {
 ////            doShare(activity, platform, bitmap, text, url, title, callback)
 //        }
 //    }
+
+    private fun getAppNameByPlatform(platform: SHARE_MEDIA) = when(platform){
+        SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE -> "微信"
+        SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE -> "QQ"
+        SHARE_MEDIA.SINA -> "新浪微博"
+        SHARE_MEDIA.ALIPAY -> "支付宝"
+        SHARE_MEDIA.DINGTALK -> "钉钉"
+        SHARE_MEDIA.DOUBAN -> "豆瓣"
+        SHARE_MEDIA.DROPBOX -> "DROPBOX"
+        SHARE_MEDIA.FACEBOOK, SHARE_MEDIA.FACEBOOK_MESSAGER -> "Facebook"
+        SHARE_MEDIA.TWITTER -> "Twitter"
+        SHARE_MEDIA.WHATSAPP -> "WhatsApp"
+        SHARE_MEDIA.GOOGLEPLUS -> "GooglePlus"
+        SHARE_MEDIA.EVERNOTE -> "Evernote"
+        SHARE_MEDIA.INSTAGRAM -> "Instagram"
+        SHARE_MEDIA.LINE -> "Line"
+        SHARE_MEDIA.LINKEDIN -> "LinkedIn"
+        else -> "目标App"
+    }
 
     private fun convertPlatform(platform: SharePlatform) = when (platform) {
         SharePlatform.WxFriend -> SHARE_MEDIA.WEIXIN

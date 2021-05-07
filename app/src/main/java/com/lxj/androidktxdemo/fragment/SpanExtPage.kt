@@ -1,14 +1,9 @@
 package com.lxj.androidktxdemo.fragment
 
 import android.graphics.Color
-import com.blankj.utilcode.util.ShadowUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.lxj.androidktx.base.WebActivity
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.share.Share
-import com.lxj.androidktx.share.SharePlatform
-import com.lxj.androidktx.util.QrCodeUtil
-import com.lxj.androidktxdemo.DemoActivity
 import com.lxj.androidktxdemo.R
 import kotlinx.android.synthetic.main.fragment_span_ext.*
 

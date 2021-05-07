@@ -20,7 +20,7 @@
             android:theme="@style/_FullScreenTheme" />
 
         <activity
-            android:name="com.lxj.androidktx.qrcode.CustomCaptureActivity"
+            android:name="com.lxj.androidktx.qrcode.QrCodeActivity"
             android:launchMode="singleTop"
             android:theme="@style/_FullScreenTheme" />
         <activity

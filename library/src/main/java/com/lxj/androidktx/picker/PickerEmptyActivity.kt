@@ -79,7 +79,7 @@ class PickerEmptyActivity : AppCompatActivity() {
         if (cameraIntent.resolveActivity(packageManager) != null) {
             tempPhotoFile = File(createRootPath() + "/" + System.currentTimeMillis() + ".jpg")
             FileUtils.createFileByDeleteOldFile(tempPhotoFile)
-            val uri: Uri = FileProvider.getUriForFile(this, "$packageName.image_provider", tempPhotoFile!!)
+            val uri: Uri = FileProvider.getUriForFile(this, "$packageName.fileprovider", tempPhotoFile!!)
             val resInfoList = packageManager.queryIntentActivities(cameraIntent, PackageManager.MATCH_DEFAULT_ONLY)
             for (resolveInfo in resInfoList) {
                 val packageName = resolveInfo.activityInfo.packageName
@@ -214,7 +214,7 @@ class PickerEmptyActivity : AppCompatActivity() {
         override fun filter(context: Context, item: Item): IncapableCause? {
             val size = UriUtils.uri2File(item.uri)?.length() ?: 0
             if(size>maxSize){
-                return IncapableCause(IncapableCause.DIALOG, "视频体积过大，超出了${ConvertUtils.byte2FitMemorySize(maxSize,0)}")
+                return IncapableCause(IncapableCause.DIALOG, "视频体积过大，超出${ConvertUtils.byte2FitMemorySize(maxSize,0)}")
             }
             return null
         }

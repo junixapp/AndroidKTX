@@ -2,19 +2,13 @@ package com.lxj.androidktxdemo.fragment
 
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.drawable.BitmapDrawable
-import com.blankj.utilcode.util.FileUtils
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
-import com.lxj.androidktx.base.PlayerActivity
-import com.lxj.androidktx.base.WebActivity
 import com.lxj.androidktx.core.click
 import com.lxj.androidktx.core.load
 import com.lxj.androidktx.picker.ImagePicker
-import com.lxj.androidktx.util.QrCodeUtil
+import com.lxj.androidktx.qrcode.QrCodeUtil
 import com.lxj.androidktxdemo.R
-import com.zhihu.matisse.MimeType
 import kotlinx.android.synthetic.main.fragment_imageview_ext.*
 
 /**
@@ -48,7 +42,7 @@ class ImageViewExtPage: BaseFragment(){
         title3.text = "image3.load(url, roundRadius = 20)"
 
         image1.click {
-            QrCodeUtil.start(this,1, color = Color.parseColor("#00ff00"))
+//            QrCodeUtil.start(this,1, color = Color.parseColor("#ff0000"))
 //            Share.shareWithUI(activity!!, SharePlatform.WxCircle)
 //            WebActivity.start(
 //                    hideTitleBar = true,
@@ -62,7 +56,7 @@ class ImageViewExtPage: BaseFragment(){
 //            ImagePicker.startCamera(this, 1, isCompress = false) //打开相机不压缩
 //            ImagePicker.startCamera(this, 1, isCrop = true) //打开相机并裁剪
 //            ImagePicker.startCamera(this, 1) //打开相机不裁剪
-//            ImagePicker.startPicker(this, 1, isCrop = true) //打开相机并裁剪
+            ImagePicker.startPicker(this, 1, ) //打开相机并裁剪
 //            ImagePicker.startPicker(this, 1, isCrop = true) //打开相机并裁剪
 //            ImagePicker.startPicker(this, 1, types = MimeType.ofVideo()) //打开相机并裁剪
 //
@@ -83,13 +77,17 @@ class ImageViewExtPage: BaseFragment(){
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        ToastUtils.showShort(QrCodeUtil.fetchResult(1, data))
-//        if(requestCode==1&& resultCode==-1){
-//            val url = ImagePicker.fetchResult(data)
-//            image1.load(url[0])
-////            val len = FileUtils.getFileLength(url[0])
-////            LogUtils.e("拍照返回：${url}   大小：${len/1024}k")
-////            PlayerActivity.start(url = url[0])
-//        }
+        if(data==null)return
+//        ToastUtils.showShort(QrCodeUtil.fetchResult(1, data))
+        if(requestCode==1&& resultCode==-1){
+            val url = ImagePicker.fetchResult(data)
+            image1.load(url[0])
+            QrCodeUtil.parseQrCode(url[0], onFinish= { result->
+                ToastUtils.showLong(result)
+            })
+//            val len = FileUtils.getFileLength(url[0])
+//            LogUtils.e("拍照返回：${url}   大小：${len/1024}k")
+//            PlayerActivity.start(url = url[0])
+        }
     }
 }
