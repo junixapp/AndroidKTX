@@ -80,7 +80,7 @@ dependencies {
     implementation 'com.github.yalantis:ucrop:2.2.6'
     //友盟相关
     api 'com.umeng.umsdk:asms:1.2.2'  // asms包依赖(必选)
-    api 'com.sina.weibo.sdk:core:4.4.3:openDefaultRelease@aar'
+//    api 'com.sina.weibo.sdk:core:4.4.3:openDefaultRelease@aar'
     //player
     implementation 'com.google.android.exoplayer:exoplayer:2.13.3'
 
