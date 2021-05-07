@@ -6,7 +6,6 @@ import android.graphics.Bitmap
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.blankj.utilcode.constant.PermissionConstants
-import com.blankj.utilcode.util.AdaptScreenUtils
 import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.cjt2325.cameralibrary.JCameraView
@@ -15,7 +14,6 @@ import com.cjt2325.cameralibrary.listener.JCameraListener
 import com.lxj.androidktx.R
 import com.lxj.androidktx.base.AdaptActivity
 import com.lxj.androidktx.core.gone
-import com.lxj.androidktx.core.margin
 import com.lxj.androidktx.util.DirManager
 import kotlinx.android.synthetic.main._ktx_activity_camera.*
 import top.zibin.luban.Luban
@@ -72,7 +70,6 @@ class CameraActivity : AdaptActivity() {
         mode = intent.getStringExtra("mode")
         DirManager.init {
             jCameraView.findViewById<View>(com.cjt2325.cameralibrary.R.id.image_flash).gone()
-            jCameraView.findViewById<View>(com.cjt2325.cameralibrary.R.id.image_switch).margin(topMargin = AdaptScreenUtils.pt2Px(30f))
             jCameraView.setSaveVideoPath(DirManager.tempDir)
             jCameraView.setFeatures(when(mode){
                 All -> JCameraView.BUTTON_STATE_BOTH
@@ -127,7 +124,6 @@ class CameraActivity : AdaptActivity() {
                             val intent = Intent()
                             intent.putExtra("path", rawFile.absolutePath)
                             setResult(Activity.RESULT_OK, intent)
-                            //删除旧的图片文件
                             rawFile.delete()
                             finish()
                         }
@@ -143,13 +139,4 @@ class CameraActivity : AdaptActivity() {
         }
     }
 
-//    override fun onResume() {
-//        super.onResume()
-//        jCameraView.onResume()
-//    }
-//
-//    override fun onPause() {
-//        super.onPause()
-//        jCameraView.onPause()
-//    }
 }

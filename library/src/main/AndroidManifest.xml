@@ -24,9 +24,6 @@
             android:launchMode="singleTop"
             android:theme="@style/_FullScreenTheme" />
         <activity
-            android:name=".picker.CameraActivity"
-            android:theme="@style/_FullScreenTheme" />
-        <activity
             android:name=".base.PlayerActivity"
             android:hardwareAccelerated="true"
             android:theme="@style/_FullScreenTheme" />
@@ -35,6 +32,9 @@
             android:launchMode="singleTop"
             android:theme="@style/_TranslucentTheme" />
         <activity android:name=".base.FragmentWrapperActivity" />
+
+        <activity android:name=".picker.CameraActivity"
+            android:theme="@style/_FullScreenTheme"/>
 
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"

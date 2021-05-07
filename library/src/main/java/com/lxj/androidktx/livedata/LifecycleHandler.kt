@@ -11,7 +11,7 @@ import androidx.lifecycle.OnLifecycleEvent
  * Description: 自动在UI销毁时移除msg和任务的Handler，不会有内存泄露
  * Create by dance, at 2019/5/21
  */
-class LifecycleHandler(private val lifecycleOwner: LifecycleOwner?,
+open class LifecycleHandler(private val lifecycleOwner: LifecycleOwner?,
                        looper: Looper = Looper.getMainLooper())
     : Handler(looper), LifecycleObserver {
     init {

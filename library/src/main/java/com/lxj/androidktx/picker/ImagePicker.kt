@@ -2,17 +2,14 @@ package com.lxj.androidktx.picker
 
 import android.app.Activity
 import android.content.Intent
-import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.blankj.utilcode.util.UriUtils
 import com.lxj.androidktx.core.start
+import com.lxj.androidktx.core.startActivity
 import com.lxj.androidktx.core.startForResult
-import com.lxj.androidktx.util.DirManager
 import com.zhihu.matisse.MimeType
-import java.io.File
 import java.io.Serializable
 
 data class _PickerData(
@@ -100,11 +97,21 @@ object ImagePicker {
      * @param maxDuration 最大时长限制，默认是15秒，暂时实现
      */
     fun startRecord(from: Any, reqCode: Int,){
-        if(from is Activity){
-            CameraActivity.start(from = from, requestCode = reqCode, mode = CameraActivity.OnlyVideo)
-        }else if(from is Fragment){
-            CameraActivity.start(from = from, requestCode = reqCode, mode = com.lxj.androidktx.picker.CameraActivity.OnlyVideo)
-        }
+        PermissionUtils
+            .permission(PermissionConstants.STORAGE, PermissionConstants.CAMERA, )
+            .callback(object : PermissionUtils.SimpleCallback {
+                override fun onGranted() {
+                    if(from is Activity){
+                        CameraActivity.start(from, requestCode = reqCode, mode = CameraActivity.OnlyVideo)
+                    }else if(from is Fragment){
+                        CameraActivity.start(from, requestCode = reqCode, mode = CameraActivity.OnlyVideo)
+                    }
+                }
+                override fun onDenied() {
+                    ToastUtils.showShort("权限获取失败，无法使用相册功能")
+                }
+            })
+            .request()
 
     }
 

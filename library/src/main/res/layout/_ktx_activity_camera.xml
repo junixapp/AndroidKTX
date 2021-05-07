@@ -4,7 +4,5 @@
     android:id="@+id/jCameraView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:duration_max="15000"
-    app:iconMargin="50dp"
-    app:iconSize="40dp"
-    app:iconSrc="@mipmap/_ktx_ic_switch" />
+    app:duration_max="15000" />
+
