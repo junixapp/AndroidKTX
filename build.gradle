@@ -8,6 +8,7 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        jcenter()
         maven { url "https://dl.bintray.com/thelasterstar/maven/" } //新浪微博的maven库
     }
     dependencies {
