@@ -78,6 +78,10 @@ class ViewExtPage : BaseFragment() {
             tvVerify.start()
         }
 
+        verifyCodeInput.onInputFinish = {
+            ToastUtils.showLong(it)
+        }
+
         tabbar.setTabs(listOf(
                 TabBar.Tab(text = "首页" ,),
                 TabBar.Tab( text = "分类" ,),

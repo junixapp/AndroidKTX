@@ -20,7 +20,7 @@ import com.lxj.androidktx.core.loge
  * 4. 显示重发文字：如重新发送验证码
  * Create by dance, at 2019/6/9
  */
-class VerifyView @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null, defStyleAttr: Int = 0)
+class VerifyCodeButton @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null, defStyleAttr: Int = 0)
     : ShapeTextView(context, attributeSet, defStyleAttr){
 
     var defText = "发送验证码" //默认文字
@@ -33,12 +33,12 @@ class VerifyView @JvmOverloads constructor(context: Context, attributeSet: Attri
     var status = VerifyStatus.Init
     val mHandler = Handler()
     init {
-        val ta = context.obtainStyledAttributes(attributeSet, R.styleable.VerifyView)
-        defText = ta.getString(R.styleable.VerifyView_vv_defText) ?: defText
-        countDownText = ta.getString(R.styleable.VerifyView_vv_countDownText) ?: countDownText
-        resendText = ta.getString(R.styleable.VerifyView_vv_resendText) ?: resendText
-        resendDuration = ta.getInt(R.styleable.VerifyView_vv_resendDuration, resendDuration)
-        alphaWhenCountDown = ta.getBoolean(R.styleable.VerifyView_vv_alphaWhenCountDown, alphaWhenCountDown)
+        val ta = context.obtainStyledAttributes(attributeSet, R.styleable.VerifyCodeButton)
+        defText = ta.getString(R.styleable.VerifyCodeButton_vcb_defText) ?: defText
+        countDownText = ta.getString(R.styleable.VerifyCodeButton_vcb_countDownText) ?: countDownText
+        resendText = ta.getString(R.styleable.VerifyCodeButton_vcb_resendText) ?: resendText
+        resendDuration = ta.getInt(R.styleable.VerifyCodeButton_vcb_resendDuration, resendDuration)
+        alphaWhenCountDown = ta.getBoolean(R.styleable.VerifyCodeButton_vcb_alphaWhenCountDown, alphaWhenCountDown)
         ta.recycle()
         currTime = resendDuration
         text = defText

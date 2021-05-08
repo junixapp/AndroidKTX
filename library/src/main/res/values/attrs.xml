@@ -246,13 +246,26 @@
         </attr>
     </declare-styleable>
 
-    <!--验证码View-->
-    <declare-styleable name="VerifyView">
-        <attr name="vv_defText" format="string" />
-        <attr name="vv_countDownText" format="string" />
-        <attr name="vv_resendText" format="string" />
-        <attr name="vv_resendDuration" format="integer" />
-        <attr name="vv_alphaWhenCountDown" format="boolean" />
+    <!--验证码发送按钮-->
+    <declare-styleable name="VerifyCodeButton">
+        <attr name="vcb_defText" format="string" />
+        <attr name="vcb_countDownText" format="string" />
+        <attr name="vcb_resendText" format="string" />
+        <attr name="vcb_resendDuration" format="integer" />
+        <attr name="vcb_alphaWhenCountDown" format="boolean" />
+    </declare-styleable>
+
+    <!--验证码输入框-->
+    <declare-styleable name="VerifyCodeInput">
+        <attr name="vci_count" format="integer" />
+        <attr name="vci_corner" format="dimension" />
+        <attr name="vci_solid" format="color" />
+        <attr name="vci_focusBorder" format="color" />
+        <attr name="vci_space" format="dimension" />
+        <attr name="vci_size" format="dimension" />
+        <attr name="vci_textSize" format="dimension" />
+        <attr name="vci_textColor" format="color" />
+        <attr name="vci_observerClipboard" format="boolean" />
     </declare-styleable>
 
     <!--RatioImageView-->

@@ -1,8 +1,10 @@
 package com.lxj.androidktx.core
 
+import android.graphics.Color
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.widget.TextView
+import com.lxj.androidktx.widget.ShapeTextView
 
 /**
  * Description:
@@ -43,4 +45,16 @@ fun TextView.sizeDrawable(size: Int, leftDrawable: Int = 0, topDrawable: Int = 0
                           rightDrawable: Int = 0, bottomDrawable: Int = 0): TextView {
     sizeDrawable(size, size, leftDrawable, topDrawable, rightDrawable, bottomDrawable)
     return this
+}
+
+fun ShapeTextView.disable(solid: Int? = null, textColor: Int? = null){
+    isEnabled = false
+    if(solid!=null) mSolid = solid
+    if(textColor!=null) setTextColor(textColor)
+}
+
+fun ShapeTextView.enable(solid: Int? = null, textColor: Int? = null){
+    isEnabled = true
+    if(solid!=null) mSolid = solid
+    if(textColor!=null) setTextColor(textColor)
 }

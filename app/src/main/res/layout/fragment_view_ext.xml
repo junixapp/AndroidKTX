@@ -111,20 +111,42 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <com.lxj.androidktx.widget.VerifyView
+        <com.lxj.androidktx.widget.VerifyCodeButton
             android:id="@+id/tvVerify"
             app:stv_corner="30dp"
             app:stv_solid="#00ff90"
             app:stv_strokeWidth="1dp"
             app:stv_stroke="#0000ff"
-            app:vv_countDownText="还剩time秒"
-            app:vv_resendDuration="10"
-            app:vv_resendText="重发吧"
+            app:vcb_countDownText="还剩time秒"
+            app:vcb_resendDuration="10"
+            app:vcb_resendText="重发吧"
             android:layout_width="100dp"
             android:gravity="center"
             android:layout_marginBottom="20dp"
             android:layout_gravity="center_horizontal"
             android:layout_height="40dp" />
+
+        <TextView
+            android:textSize="26sp"
+            android:text="1234"
+            android:textIsSelectable="true"
+            android:padding="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <com.lxj.androidktx.widget.VerifyCodeInput
+            android:id="@+id/verifyCodeInput"
+            app:vci_corner="10dp"
+            app:vci_solid="#aaa"
+            app:vci_focusBorder="#f00"
+            app:vci_size="80dp"
+            app:vci_space="10dp"
+            app:vci_textSize="24sp"
+            app:vci_textColor="#f00"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="20dp" />
 
         <com.lxj.androidktx.widget.EditLayout
             android:layout_margin="30dp"
