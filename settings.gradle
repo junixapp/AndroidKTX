@@ -1,1 +1,1 @@
-include ':app', ':library',':camera'
+include ':app', ':library', ':camera', ':http-progress-manager'

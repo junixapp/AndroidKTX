@@ -9,10 +9,12 @@ import com.lxj.androidktx.core.*
 import com.lxj.androidktx.livedata.StateLiveData
 import com.lxj.androidktx.okhttp.*
 import com.lxj.androidktx.picker.ImagePicker
+import com.lxj.androidktx.util.DirManager
 import com.lxj.androidktxdemo.R
 import com.lxj.androidktxdemo.entity.User
 import kotlinx.android.synthetic.main.fragment_http_ext.*
 import java.io.File
+import kotlin.concurrent.fixedRateTimer
 
 /**
  * Description: Okhttp扩展
@@ -21,17 +23,10 @@ import java.io.File
 class HttpExtFragment : BaseFragment() {
     val loginData = StateLiveData<User>()
     val imageUrl = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1560151504361&di=ce11648353ac380140bce2579683ed59&imgtype=0&src=http%3A%2F%2Fs14.sinaimg.cn%2Fmw690%2F001xcz9rzy6PqH78yLPed%26690"
-    val zipFile = "https://github.com/li-xiaojun/XPopup/archive/master.zip"
+    val zipFile = "http://samples.mplayerhq.hu/V-codecs/2vuy.avi"
     override fun getLayoutId() = R.layout.fragment_http_ext
     override fun initView() {
-        val file = File(Environment.getExternalStorageDirectory().toString() + "/mnt")
-//        vm = ViewModelProviders.of(this).get(HttpExtVM::class.java)
-//
-//        vm!!.data.observe(this, Observer<String> {
-//
-//            tvResponse.text = if (it == null) "请求失败" else JSONObject(it).toString(2)
-//        })
-        tvResponse.sizeDrawable(dp2px(20f), topDrawable = R.mipmap.ic_launcher)
+
 
         // 全局header
         OkExt.headers("site" to "CN",
@@ -44,11 +39,22 @@ class HttpExtFragment : BaseFragment() {
         )
 
 //        OkWrapper.headers("header1" to "a", "header2" to "b")
-        OkExt.interceptors()
 
         btnSend.click {
+            DirManager.init {
+                zipFile.http().savePath("${DirManager.tempDir}/xxx.avi")
+                    .downloadListener(onProgress = {progressInfo ->
+                        LogUtils.e("下载进度：${progressInfo!!.percent}")
+                    })
+                    .get(object : HttpCallback<File>{
+                        override fun onSuccess(t: File) {
+                            LogUtils.e("下载完毕，文件大小：${FileUtils.getSize(t)}  文件路径: ${t.absolutePath}")
+                        }
+                    })
 
-            ImagePicker.startRecord(this, 1)
+            }
+
+//            ImagePicker.startRecord(this, 1)
 //            WebActivity.start(url = "https://click.lixiaojun.xin/article/?posid=1")
 
 //            CameraActivity.startFromFragment(this, 1)
@@ -70,6 +76,9 @@ class HttpExtFragment : BaseFragment() {
 //                }
 //                result?.data //内部会根据数据自动设置data的状态
 //            }
+        }
+        btnSend2.click {
+            OkExt.cancel(zipFile)
         }
 //        LiveEventBus.get(CameraActivity.CaptureVideo).observe(this, Observer {
 //            val map = it as Map<String,String>
