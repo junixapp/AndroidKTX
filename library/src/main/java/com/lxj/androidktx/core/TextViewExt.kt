@@ -3,7 +3,10 @@ package com.lxj.androidktx.core
 import android.graphics.Color
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
+import android.text.Editable
+import android.widget.EditText
 import android.widget.TextView
+import androidx.core.widget.doAfterTextChanged
 import com.lxj.androidktx.widget.ShapeTextView
 
 /**
@@ -57,4 +60,20 @@ fun ShapeTextView.enable(solid: Int? = null, textColor: Int? = null){
     isEnabled = true
     if(solid!=null) mSolid = solid
     if(textColor!=null) setTextColor(textColor)
+}
+
+/**
+ * 根据输入框的内容来切决定是否禁用
+ */
+fun ShapeTextView.switchStateByEditText(et: EditText, enableSolid: Int? = null, disableSolid: Int? = null,
+                                   enableTextColor: Int? = null, disableTextColor: Int? = null,
+                                  onTextChange: ((Editable?)->Unit)? = null ){
+    et.doAfterTextChanged {
+        if(it?.length?:0>0){
+            enable(solid = enableSolid, textColor = enableTextColor)
+        }else{
+            disable(solid = disableSolid, textColor = disableTextColor)
+        }
+        onTextChange?.invoke(it)
+    }
 }
