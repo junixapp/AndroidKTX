@@ -126,8 +126,12 @@ class VerifyCodeInput @JvmOverloads constructor(context: Context, attributeSet: 
     var onInputFinish: ((code: String)->Unit)? = null
     private fun checkInputFinish(){
         val code = children.map { (it as EditText).text.toString().trim() }.joinToString(separator = "")
-        if(code.length == mCount && onInputFinish!=null) onInputFinish!!(code)
+        if(code.length == mCount && onInputFinish!=null){
+            onInputFinish!!(code)
+        }
     }
+
+    fun getCode() = children.map { (it as EditText).text.toString().trim() }.joinToString(separator = "")
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
