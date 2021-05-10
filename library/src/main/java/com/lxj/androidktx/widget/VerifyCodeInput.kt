@@ -48,6 +48,7 @@ class VerifyCodeInput @JvmOverloads constructor(context: Context, attributeSet: 
         if(mObserverClipboard){
             ClipboardUtils.addChangedListener(this)
         }
+
     }
 
     private fun genEditText() {
@@ -146,5 +147,4 @@ class VerifyCodeInput @JvmOverloads constructor(context: Context, attributeSet: 
             }
         }
     }
-
 }
