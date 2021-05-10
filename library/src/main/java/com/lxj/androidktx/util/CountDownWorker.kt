@@ -9,8 +9,14 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
 
 /**
- * 精准倒计时实现，如果传入了LifecycleOwner，将自动cancel
+ * 精准倒计时实现，如果传入了LifecycleOwner，将自动cancel，无需调用cancel
  * 系统的CountDownTimer以时间戳作为任务值，容易有误差
+ * @param total 总步数
+ * @param step 步长
+ * @param countDownInterval 递减时间间隔
+ * @param immediately 是否立即执行onChange，false的话会间隔一个countDownInterval再执行onChange
+ * @param onChange 递减回调
+ * @param onFinish 倒计时结束回调
  */
 class CountDownWorker(var total: Int = 60, var step: Int = 1, var countDownInterval: Long = 1000,
                       var immediately: Boolean = true,
