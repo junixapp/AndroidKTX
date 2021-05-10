@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.Rect
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.StateListDrawable
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatEditText
 import com.lxj.androidktx.R
@@ -136,7 +137,6 @@ open class ShapeEditText @JvmOverloads constructor(context: Context, attributeSe
         if (mDrawableWidth != 0 && mDrawableHeight != 0) {
             sizeDrawable(width = mDrawableWidth, height = mDrawableHeight)
         }
-        applySelf()
         isFocusable = true
         isFocusableInTouchMode = true
     }
@@ -149,7 +149,11 @@ open class ShapeEditText @JvmOverloads constructor(context: Context, attributeSe
         val drawable = createDrawable(color = color?:mSolid, radius = mCorner.toFloat(), strokeColor = mStroke, strokeWidth = mStrokeWidth,
                 enableRipple = mEnableRipple, rippleColor = mRippleColor, gradientStartColor = mGradientStartColor,
                 gradientEndColor = mGradientEndColor, gradientOrientation = mGradientOrientation)
-        setBackgroundDrawable(drawable)
+        //目的是为了移除EditText在获取焦点时默认的背景色
+        val selector = StateListDrawable()
+        selector.addState(intArrayOf(android.R.attr.state_focused, android.R.attr.state_pressed), drawable)
+        selector.addState(intArrayOf(), drawable)
+        setBackgroundDrawable(selector)
     }
 
     val topLine = Rect(0, 0, 0, 0)

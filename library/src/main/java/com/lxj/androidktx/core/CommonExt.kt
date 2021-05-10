@@ -12,12 +12,10 @@ import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.*
 import android.view.View
-import android.view.WindowManager
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.TimeUtils
-import com.google.gson.*
+import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import com.lxj.androidktx.AndroidKTX
 import kotlinx.coroutines.GlobalScope
