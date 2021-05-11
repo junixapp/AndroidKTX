@@ -83,8 +83,10 @@ class ViewExtPage : BaseFragment() {
         }
 
         tabbar.setTabs(listOf(
-                TabBar.Tab(text = "首页" ,),
-                TabBar.Tab( text = "分类" ,),
+                TabBar.Tab(text = "Home" ,),
+                TabBar.Tab( text = "Category" ,),
+                TabBar.Tab( text = "Message" ,),
+                TabBar.Tab( text = "My" ,),
 //                TabBar.Tab( selectedIconRes = R.mipmap.ic_launcher_round),
 //                TabBar.Tab( selectedIconRes = R.mipmap.ic_launcher_round)
                 )){

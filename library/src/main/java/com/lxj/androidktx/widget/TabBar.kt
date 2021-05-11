@@ -36,6 +36,7 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
     var tabIndex = -1
     var tabPadding = 0
     var typefacePath: String? = null
+    private var customTypeface: Typeface? = null
 
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.TabBar)
@@ -66,6 +67,7 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
         tabPadding = ta.getDimensionPixelSize(R.styleable.TabBar_tb_tabPadding, tabPadding)
         tabWidthEqual = ta.getBoolean(R.styleable.TabBar_tb_tabWidthEqual, tabWidthEqual)
         typefacePath = ta.getString(R.styleable.TabBar_tb_typefacePath)
+        if(!typefacePath.isNullOrEmpty()) customTypeface = Typeface.createFromAsset(context.assets, typefacePath)
 
         ta.recycle()
         orientation = HORIZONTAL
@@ -93,7 +95,11 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
                 text = it.text
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, normalTextSize.toFloat())
                 setTextColor(normalColor)
-                if(!typefacePath.isNullOrEmpty()) typeface = Typeface.createFromAsset(context.assets, typefacePath)
+                if(!typefacePath.isNullOrEmpty()) {
+                    typeface = customTypeface
+                }else{
+                    typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
+                }
                 if (tabHeight != 0) height(tabHeight)
                 when (iconPosition) {
                     0 -> sizeDrawable(width = iconWidth, height = iconHeight, leftDrawable = mTabs[index].normalIconRes)
@@ -101,7 +107,6 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
                     2 -> sizeDrawable(width = iconWidth, height = iconHeight, rightDrawable = mTabs[index].normalIconRes)
                     3 -> sizeDrawable(width = iconWidth, height = iconHeight, bottomDrawable = mTabs[index].normalIconRes)
                 }
-                typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
             }, LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT))
             wrapper.apply {
                 val typedValue = TypedValue()
@@ -146,10 +151,14 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
                 setTextColor(if (index == i) selectedColor else normalColor)
                 group.setBackgroundColor(if (index == i) selectedBgColor else normalBgColor)
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, if (index == i) selectTextSize.toFloat() else normalTextSize.toFloat())
-                typeface = if (isSelectBold && index == i) {
-                    Typeface.defaultFromStyle(Typeface.BOLD)
-                } else  {
-                    Typeface.defaultFromStyle(Typeface.NORMAL)
+                if(!typefacePath.isNullOrEmpty()) {
+                    typeface = customTypeface
+                }else{
+                    typeface = if (isSelectBold && index == i) {
+                        Typeface.defaultFromStyle(Typeface.BOLD)
+                    } else  {
+                        Typeface.defaultFromStyle(Typeface.NORMAL)
+                    }
                 }
             }
         }
