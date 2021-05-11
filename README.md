@@ -3,7 +3,7 @@
 
 Some very useful kotlin extensions for android development !
 
-一系列非常有用的Kotlin扩展和组件，目标提高Android开发速度！注意这个不是官方的AndroidKTX ！
+一系列非常有用的Kotlin扩展和组件，专注于通用业务的封装，目标提高Android开发速度！注意这个不是官方的AndroidKTX ！
 
 ## Gradle
 由于jcenter跑路，不得已迁移到jitpack。
@@ -11,18 +11,18 @@ Some very useful kotlin extensions for android development !
 Step1. Add it in your root build.gradle at the end of repositories:
 ```
 allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
-	}
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
 ```
 
 Step2. Add the dependency
 [![](https://jitpack.io/v/li-xiaojun/AndroidKTX.svg)](https://jitpack.io/#li-xiaojun/AndroidKTX)
 ```
 dependencies {
-	  implementation 'com.github.li-xiaojun:AndroidKTX:最新版本' //最新版本号看图标
+    implementation 'com.github.li-xiaojun:AndroidKTX:最新版本' //最新版本号看图标
 }
 ```
 
@@ -570,23 +570,7 @@ PayVM.wxPay(...)
 ```
 QrCodeUtil.start(this, 1)
 ```
-扫描框颜色自定义：
-```
-<color name="viewfinder_frame">#D81B60</color>
-<color name="viewfinder_corner">#D81B60</color>
-<color name="viewfinder_laser">#D81B60</color>
-```
 
 
-## TODO
-- 其他常用方法集成
-
-
-## 意见收集
-为了让这个库更好用，更快地加速Android开发，请到Issue中提出您宝贵的意见或建议。我将对其进行评估，如果合适，立即采用。
-
-
-## 联系方式
-**QQ: 16167479**
-
-**Email: 16167479@qq.com**
+## 文档
+文档懒得写了，主要自用。
