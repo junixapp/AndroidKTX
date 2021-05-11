@@ -333,15 +333,22 @@
 
 
     <!-- EditLayout -->
-    <declare-styleable name="EditLayout">
-        <attr name="el_hint" format="string" />
-        <attr name="el_hintColor" format="color" />
-        <attr name="el_textSize" format="dimension" />
-        <attr name="el_textColor" format="color" />
-        <attr name="el_showIconWhenEmpty" format="boolean" />
-        <attr name="el_clearIconRes" format="reference" />
-        <attr name="el_searchIconRes" format="reference" />
-        <attr name="el_iconSize" format="dimension" />
+    <declare-styleable name="SearchLayout">
+        <attr name="sl_hint" format="string" />
+        <attr name="sl_hintColor" format="color" />
+        <attr name="sl_textSize" format="dimension" />
+        <attr name="sl_textColor" format="color" />
+        <attr name="sl_showClearIconWhenEmpty" format="boolean" />
+        <attr name="sl_showSearchIcon" format="boolean" />
+        <attr name="sl_clearIcon" format="reference" />
+        <attr name="sl_searchIcon" format="reference" />
+        <attr name="sl_searchIconPosition" format="integer">
+            <enum name="left" value="0" />
+            <enum name="right" value="1" />
+        </attr>
+        <attr name="sl_searchIconSpace" format="dimension" />
+        <attr name="sl_searchIconSize" format="dimension" />
+        <attr name="sl_clearIconSize" format="dimension" />
     </declare-styleable>
 
 

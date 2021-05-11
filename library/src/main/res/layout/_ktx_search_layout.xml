@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
+
+    <ImageView
+        android:id="@+id/ivSearchLeft"
+        android:visibility="gone"
+        android:src="@mipmap/_ktx_ic_search"
+        android:layout_width="28dp"
+        android:layout_height="28dp" />
+
     <EditText
         android:id="@+id/et_content"
         android:layout_width="0dp"
@@ -13,10 +21,19 @@
         android:textColorHint="#888"
         android:textSize="14sp" />
 
+
+    <ImageView
+        android:id="@+id/ivSearchRight"
+        android:src="@mipmap/_ktx_ic_search"
+        android:visibility="gone"
+        android:layout_width="28dp"
+        android:layout_height="28dp" />
+
     <ImageView
         android:id="@+id/ivClear"
         android:layout_width="28dp"
         android:layout_height="28dp"
+        android:visibility="gone"
         android:padding="5dp"
         android:src="@mipmap/_ktx_ic_image_del" />
 </merge>

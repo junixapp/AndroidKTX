@@ -1,6 +1,5 @@
 package com.lxj.androidktx.core
 
-import android.graphics.Color
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.text.Editable

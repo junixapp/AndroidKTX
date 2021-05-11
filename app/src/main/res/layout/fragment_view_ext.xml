@@ -151,14 +151,18 @@
             android:layout_marginRight="30dp"
             android:layout_marginBottom="20dp" />
 
-        <com.lxj.androidktx.widget.EditLayout
+        <com.lxj.androidktx.widget.SearchLayout
             android:layout_margin="30dp"
-            app:el_showIconWhenEmpty="false"
-            app:sll_solid="#f00ac1"
+            app:sll_solid="#aaa"
             app:sll_corner="30dp"
-            app:el_textColor="#f00"
-            app:el_hint="输入东西"
-            app:el_textSize="20sp"
+            app:sl_textColor="#111"
+            app:sl_hintColor="#555"
+            app:sl_hint="输入东西"
+            app:sl_textSize="20sp"
+            app:sl_showClearIconWhenEmpty="true"
+            app:sl_showSearchIcon="true"
+            app:sl_searchIconSize="20dp"
+            app:sl_searchIconSpace="10dp"
             android:paddingTop="7dp"
             android:paddingBottom="7dp"
             android:paddingLeft="18dp"
