@@ -35,6 +35,7 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
     var mTabs = listOf<Tab>()
     var tabIndex = -1
     var tabPadding = 0
+    var typefacePath: String? = null
 
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.TabBar)
@@ -64,6 +65,7 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
         tabHeight = ta.getDimension(R.styleable.TabBar_tb_tabHeight, tabHeight.toFloat()).toInt()
         tabPadding = ta.getDimensionPixelSize(R.styleable.TabBar_tb_tabPadding, tabPadding)
         tabWidthEqual = ta.getBoolean(R.styleable.TabBar_tb_tabWidthEqual, tabWidthEqual)
+        typefacePath = ta.getString(R.styleable.TabBar_tb_typefacePath)
 
         ta.recycle()
         orientation = HORIZONTAL
@@ -91,6 +93,7 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
                 text = it.text
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, normalTextSize.toFloat())
                 setTextColor(normalColor)
+                if(!typefacePath.isNullOrEmpty()) typeface = Typeface.createFromAsset(context.assets, typefacePath)
                 if (tabHeight != 0) height(tabHeight)
                 when (iconPosition) {
                     0 -> sizeDrawable(width = iconWidth, height = iconHeight, leftDrawable = mTabs[index].normalIconRes)

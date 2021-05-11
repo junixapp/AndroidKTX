@@ -300,6 +300,7 @@
         <attr name="tb_tabHeight" format="dimension" />
         <attr name="tb_tabPadding" format="dimension" />
         <attr name="tb_tabWidthEqual" format="boolean" />
+        <attr name="tb_typefacePath" format="string" />
     </declare-styleable>
 
     <declare-styleable name="ImageUploader">
