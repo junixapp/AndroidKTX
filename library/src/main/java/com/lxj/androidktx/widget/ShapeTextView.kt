@@ -1,10 +1,7 @@
 package com.lxj.androidktx.widget
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Rect
+import android.graphics.*
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
 import android.text.TextPaint
@@ -96,6 +93,7 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
             field = value
             applySelf()
         }
+    var typefacePath: String? = null
 
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.ShapeTextView)
@@ -132,6 +130,9 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
             6 -> GradientDrawable.Orientation.LEFT_RIGHT
             else -> GradientDrawable.Orientation.TL_BR
         }
+        typefacePath = ta.getString(R.styleable.ShapeTextView_stv_typefacePath)
+        if(!typefacePath.isNullOrEmpty()) typeface = Typeface.createFromAsset(context.assets, typefacePath)
+
         ta.recycle()
         if (mDrawableWidth != 0 && mDrawableHeight != 0) {
             sizeDrawable(width = mDrawableWidth, height = mDrawableHeight)

@@ -27,13 +27,16 @@
             android:text="以下View默认宽高都是100dp"
             style="@style/TitleStyle" />
 
-        <TextView
+        <com.lxj.androidktx.widget.ShapeTextView
             android:id="@+id/text1"
             android:textSize="14sp"
             android:textColor="#000"
+            android:padding="10dp"
+            android:text="自定义字体 \nMy Name is Jun"
+            app:stv_typefacePath="FredokaOne-Regular.ttf"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:background="#ff9009" />
+            app:stv_solid="#ff9009" />
 
         <include layout="@layout/divider"/>
 

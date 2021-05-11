@@ -14,7 +14,7 @@ class ViewExtPage : BaseFragment() {
     override fun initView() {
         val value = dp2px(150f)
         text1.width(value)
-        text1.text = "text1.width($value)"
+        text1.text = "自定义字体：text1.width($value)"
 
         text2.widthAndHeight(value, value)
         text2.text = "text2.widthAndHeight($value,$value)"
