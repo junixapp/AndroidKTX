@@ -63,7 +63,6 @@ open class SearchLayout @JvmOverloads constructor(
     fun initSelf() {
         ivClear.widthAndHeight(clearIconSize, clearIconSize)
         ivClear.setImageDrawable(clearIcon)
-        if(showClearIconWhenEmpty) ivClear.visible() else ivClear.invisible()
         if(showSearchIcon){
             if(searchIconPosition==0){
                 ivSearchLeft.visible()
@@ -83,12 +82,27 @@ open class SearchLayout @JvmOverloads constructor(
             ivSearchRight.gone()
         }
 
+        if(showClearIconWhenEmpty) {
+            ivClear.visible()
+            //如果搜索图标也在右边，则强制隐藏
+            if(searchIconPosition==1) ivSearchRight.gone()
+        } else {
+            if(searchIconPosition==1) ivClear.gone()
+            else ivClear.invisible()
+        }
+
         ivClear.click { et_content.setText("") }
         et_content.doAfterTextChanged {
             if (!it.isNullOrEmpty() || showClearIconWhenEmpty) {
                  ivClear.visible()
+                if(searchIconPosition==1) ivSearchRight.gone()
             } else {
-                ivClear.invisible()
+                if(searchIconPosition==1) {
+                    ivSearchRight.visible()
+                    ivClear.gone()
+                }else{
+                    ivClear.invisible()
+                }
             }
         }
 
