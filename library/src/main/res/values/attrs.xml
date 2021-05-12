@@ -75,7 +75,8 @@
 
         <attr name="sl_rightImage2Src" format="reference" />
         <attr name="sl_rightImage2MarginLeft" format="dimension" />
-        <attr name="sl_rightImage2Size" format="dimension" />
+        <attr name="sl_rightImage2Width" format="dimension" />
+        <attr name="sl_rightImage2Height" format="dimension" />
 
         <attr name="sl_solid" format="color" />
         <attr name="sl_corner" format="dimension" />
