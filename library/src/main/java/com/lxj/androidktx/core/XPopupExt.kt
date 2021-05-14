@@ -117,10 +117,12 @@ class GlideImageLoader(var placeholder: Int = 0, var hasSuperImage: Boolean = fa
                                 Glide.with(imageView).load(url).apply(buildOptions().override(w, h))
                                     .into(imageView)
                             } else {
-                                imageView.setImageDrawable(resource)
+                                Glide.with(imageView).load(url).apply(RequestOptions().placeholder(placeholder).override(Target.SIZE_ORIGINAL))
+                                    .into(imageView)
                             }
                         } else {
-                            imageView.setImageDrawable(resource)
+                            Glide.with(imageView).load(url).apply(RequestOptions().placeholder(placeholder).override(Target.SIZE_ORIGINAL))
+                                .into(imageView)
                         }
                     }
                     override fun onLoadCleared(placeholder: Drawable?) {}
@@ -130,7 +132,7 @@ class GlideImageLoader(var placeholder: Int = 0, var hasSuperImage: Boolean = fa
     private fun buildOptions(): RequestOptions {
         return RequestOptions()
             .dontAnimate()
-            .dontTransform()
+            .dontTransform().placeholder(placeholder)
             .skipMemoryCache(false)
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
     }
