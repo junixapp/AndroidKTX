@@ -1,18 +1,22 @@
 package com.lxj.androidktx.core
 
 import android.content.Context
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
+import com.bumptech.glide.request.transition.Transition
 import com.lxj.androidktx.livedata.StateLiveData
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.BasePopupView
 import com.lxj.xpopup.enums.PopupStatus
-import com.lxj.xpopup.impl.LoadingPopupView
 import com.lxj.xpopup.interfaces.XPopupImageLoader
 import java.io.File
 
@@ -88,18 +92,48 @@ fun BasePopupView.observeState(owner: LifecycleOwner,
     })
 }
 
-class GlideImageLoader(var placeholder: Int = 0) : XPopupImageLoader {
+class GlideImageLoader(var placeholder: Int = 0, var hasSuperImage: Boolean = false,
+    var superImageUnit : Int = 10 * 1024 * 1024) : XPopupImageLoader {
     override fun loadImage(
             position: Int,
             url: Any,
             imageView: ImageView
     ) {
-        Glide.with(imageView).load(url)
+        if(!hasSuperImage){
+            Glide.with(imageView).load(url)
                 .apply(RequestOptions().placeholder(placeholder)
-                        .override(Target.SIZE_ORIGINAL))
+                    .override(Target.SIZE_ORIGINAL))
                 .into(imageView)
+        }else{
+            //下面的写法，可以加载超级大图
+            Glide.with(imageView).load(url).apply(buildOptions())
+                .into(object : CustomTarget<Drawable>() {
+                    override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                        if (resource != null && resource is BitmapDrawable) {
+                            val r = resource.bitmap.byteCount / superImageUnit
+                            if (r >= 1) {
+                                val w = resource.getIntrinsicWidth() / r
+                                val h = resource.getIntrinsicHeight() / r
+                                Glide.with(imageView).load(url).apply(buildOptions().override(w, h))
+                                    .into(imageView)
+                            } else {
+                                imageView.setImageDrawable(resource)
+                            }
+                        } else {
+                            imageView.setImageDrawable(resource)
+                        }
+                    }
+                    override fun onLoadCleared(placeholder: Drawable?) {}
+                })
+        }
     }
-
+    private fun buildOptions(): RequestOptions {
+        return RequestOptions()
+            .dontAnimate()
+            .dontTransform()
+            .skipMemoryCache(false)
+            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+    }
     override fun getImageFile(
             context: Context,
             uri: Any
