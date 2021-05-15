@@ -3,10 +3,7 @@ package com.lxj.androidktxdemo
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.lxj.androidktx.core.bindFragment
-import com.lxj.androidktx.core.bindTabLayout
-import com.lxj.androidktx.core.encryptAES
-import com.lxj.androidktx.core.toJson
+import com.lxj.androidktx.core.*
 import com.lxj.androidktx.share.Share
 import com.lxj.androidktxdemo.entity.PageInfo
 import com.lxj.androidktxdemo.fragment.*

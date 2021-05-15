@@ -5,20 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.lxj.androidktx.core.postDelay
 import com.lxj.statelayout.StateLayout
 
 /**
  * 自带StateLayout的Fragment基类
  */
 abstract class StateFragment : Fragment() {
-    protected var cacheView: View? = null
+    private var hasInitView = false
     private var hasInitData = false
     protected var stateLayout: StateLayout? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        if (cacheView == null) {
-            cacheView = inflater.inflate(getLayoutId(), container, false)
+        if (stateLayout == null) {
+            val cacheView = inflater.inflate(getLayoutId(), container, false)
             stateLayout = StateLayout(context!!).wrap(cacheView)
             onConfigStateLayout()
             stateLayout!!.showLoading()
@@ -28,7 +27,10 @@ abstract class StateFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initView()
+        if(!hasInitView){
+            hasInitView = true
+            initView()
+        }
     }
 
     /**
@@ -42,9 +44,6 @@ abstract class StateFragment : Fragment() {
     open fun showLoading() = stateLayout?.showLoading()
     open fun showError() = stateLayout?.showError()
     open fun showEmpty() = stateLayout?.showEmpty()
-
-    //是否自动显示Content
-    open fun autoShowContent() = false
 
     override fun onResume() {
         super.onResume()

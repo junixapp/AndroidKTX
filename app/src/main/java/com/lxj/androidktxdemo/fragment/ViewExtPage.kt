@@ -91,7 +91,6 @@ class ViewExtPage : BaseFragment() {
 //                TabBar.Tab( selectedIconRes = R.mipmap.ic_launcher_round)
                 )){
             ToastUtils.showShort("选择了："+it)
-            loge("select: " + it)
             true
         }
     }

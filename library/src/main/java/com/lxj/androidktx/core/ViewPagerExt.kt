@@ -28,6 +28,7 @@ fun ViewPager.bind(
     count: Int, bindView: (container: ViewGroup, position: Int) -> View,
     pageTitles: List<String>? = null
 ): ViewPager {
+    offscreenPageLimit = count
     adapter = object : PagerAdapter() {
         override fun isViewFromObject(v: View, p: Any) = v == p
         override fun getCount() = count
@@ -55,6 +56,7 @@ fun ViewPager.bindFragment(
     fragments: List<Fragment>,
     pageTitles: List<String>? = null
 ): ViewPager {
+    offscreenPageLimit = fragments.size
     adapter = object : FragmentPagerAdapter(fm) {
         override fun getItem(p: Int) = fragments[p]
         override fun getCount() = fragments.size
@@ -104,6 +106,7 @@ class CardPagerTransformer(context: Context) : ViewPager.PageTransformer {
  * 给ViewPager2绑定Fragment
  */
 fun ViewPager2.bindFragment(act: FragmentActivity, fragments: List<Fragment>): ViewPager2 {
+    offscreenPageLimit = fragments.size
     adapter = object : FragmentStateAdapter(act) {
         override fun getItemCount() = fragments.size
         override fun createFragment(position: Int) = fragments[position]
@@ -111,6 +114,7 @@ fun ViewPager2.bindFragment(act: FragmentActivity, fragments: List<Fragment>): V
     return this
 }
 fun ViewPager2.bindFragment(frag: Fragment, fragments: List<Fragment>): ViewPager2 {
+    offscreenPageLimit = fragments.size
     adapter = object : FragmentStateAdapter(frag) {
         override fun getItemCount() = fragments.size
         override fun createFragment(position: Int) = fragments[position]
