@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.*
 
@@ -122,6 +123,13 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
     }
 
     var vp: ViewPager? = null
+    var vp2: ViewPager2? = null
+
+    var pager2ChangeListener = object : ViewPager2.OnPageChangeCallback() {
+        override fun onPageSelected(p: Int) {
+            selectTab(p)
+        }
+    }
     var pagerChangeListener = object : ViewPager.SimpleOnPageChangeListener() {
         override fun onPageSelected(p: Int) {
             selectTab(p)
@@ -131,13 +139,16 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
         vp = pager
         pager.addOnPageChangeListener(pagerChangeListener)
     }
-
+    fun setupWithViewPager2(pager2: ViewPager2) {
+        vp2 = pager2
+        pager2.registerOnPageChangeCallback(pager2ChangeListener)
+    }
     fun selectTab(index: Int) {
         if (mTabChangeListener != null && !mTabChangeListener!!(index)) return
         if (tabIndex == index) return
         tabIndex = index
         vp?.currentItem = tabIndex
-//        vp?.setCurrentItem(tabIndex, false)
+        vp2?.currentItem = tabIndex
         children.forEachIndexed { i, p ->
             val group = p as ViewGroup
             (group.getChildAt(0) as TextView).apply {
@@ -166,6 +177,7 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         vp?.removeOnPageChangeListener(pagerChangeListener)
+        vp2?.unregisterOnPageChangeCallback(pager2ChangeListener)
     }
 
     data class Tab(
