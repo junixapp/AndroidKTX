@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.lxj.androidktx.widget.ShapeTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/text"
+    app:stv_corner="30dp"
+    app:stv_solid="#501234"
+    android:textSize="30sp"
+    android:textColor="#fff"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+</com.lxj.androidktx.widget.ShapeTextView>

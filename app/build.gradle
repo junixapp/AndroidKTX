@@ -16,7 +16,7 @@ android {
 //        ndk {
 //            abiFilters 'armeabi-v7a'
 //        }
-        manifestPlaceholders= [qqappid: "101909069"]
+        manifestPlaceholders = [qqappid: "101909069"]
     }
     buildTypes {
         release {
@@ -48,6 +48,7 @@ dependencies {
     implementation 'com.github.li-xiaojun:XPopup:2.2.25'       //弹窗
 
     implementation project(':library')
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
 
 
     implementation "com.github.bumptech.glide:glide:4.12.0"

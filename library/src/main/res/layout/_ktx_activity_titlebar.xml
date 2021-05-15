@@ -6,7 +6,7 @@
         android:id="@+id/fakeTitleBar"
         android:background="#fff"
         android:layout_width="match_parent"
-        android:layout_height="26pt"/>
+        android:layout_height="25pt"/>
     <com.lxj.androidktx.widget.TitleBar
         android:id="@+id/titleBar"
         xmlns:app="http://schemas.android.com/apk/res-auto"

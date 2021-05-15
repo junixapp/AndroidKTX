@@ -13,7 +13,7 @@ import com.lxj.statelayout.StateLayout
  */
 abstract class StateFragment : Fragment() {
     protected var cacheView: View? = null
-    protected var isInit = false
+    private var hasInitData = false
     protected var stateLayout: StateLayout? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -26,6 +26,11 @@ abstract class StateFragment : Fragment() {
         return stateLayout!!
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView()
+    }
+
     /**
      * 用来对StateLayout进行各种配置
      */
@@ -36,40 +41,25 @@ abstract class StateFragment : Fragment() {
     open fun showContent() = stateLayout?.showContent()
     open fun showLoading() = stateLayout?.showLoading()
     open fun showError() = stateLayout?.showError()
-    open fun showEmpty(){
-        stateLayout?.showEmpty()
-    }
+    open fun showEmpty() = stateLayout?.showEmpty()
 
     //是否自动显示Content
     open fun autoShowContent() = false
 
     override fun onResume() {
         super.onResume()
-        lazyInit()
-    }
-
-    private fun lazyInit() {
-        if (cacheView != null && userVisibleHint && !isInit) {
-            initView()
+        if(!hasInitData){
+            hasInitData = true
             initData()
-            if(autoShowContent())postDelay(400){showContent()}
-            isInit = true
         }
     }
 
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        lazyInit()
-        if(isInit){
-            if(isVisibleToUser) onShow() else onHide()
-        }
+    override fun onPause() {
+        super.onPause()
     }
 
     //执行初始化，只会执行一次
     protected abstract fun getLayoutId(): Int
     abstract fun initView()
     abstract fun initData()
-    open fun onShow(){}
-    open fun onHide(){}
-
 }

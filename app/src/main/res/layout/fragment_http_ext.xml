@@ -253,7 +253,6 @@
                 app:sl_leftTextSize="18sp"
                 app:sl_rightImageSrc="@mipmap/jt"
                 app:sl_rightImage2Src="@drawable/avatar"
-                app:sl_rightImage2Size="65dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 

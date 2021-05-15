@@ -117,12 +117,12 @@ class GlideImageLoader(var placeholder: Int = 0, var hasSuperImage: Boolean = fa
                                 Glide.with(imageView).load(url).apply(buildOptions().override(w, h))
                                     .into(imageView)
                             } else {
-                                Glide.with(imageView).load(url).apply(RequestOptions().placeholder(placeholder).override(Target.SIZE_ORIGINAL))
-                                    .into(imageView)
+                                Glide.with(imageView).load(url).apply(RequestOptions().placeholder(placeholder)
+                                    .override(Target.SIZE_ORIGINAL)).into(imageView)
                             }
                         } else {
-                            Glide.with(imageView).load(url).apply(RequestOptions().placeholder(placeholder).override(Target.SIZE_ORIGINAL))
-                                .into(imageView)
+                            Glide.with(imageView).load(url).apply(RequestOptions().placeholder(placeholder)
+                                .override(Target.SIZE_ORIGINAL)).into(imageView)
                         }
                     }
                     override fun onLoadCleared(placeholder: Drawable?) {}

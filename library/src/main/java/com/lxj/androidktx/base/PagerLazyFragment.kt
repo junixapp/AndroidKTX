@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
  * Description: 使用ViewPager中的懒加载Fragment
  * Create by dance, at 2019/4/22
  */
+@Deprecated(message = "直接使用BaseFragment配合ViewPager2即可")
 abstract class PagerLazyFragment : Fragment() {
     protected var cacheView: View? = null
     protected var isInit = false

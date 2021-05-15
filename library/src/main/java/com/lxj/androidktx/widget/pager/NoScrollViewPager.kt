@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import androidx.viewpager.widget.ViewPager
 
+@Deprecated(message = "推荐使用ViewPager2")
 class NoScrollViewPager @JvmOverloads constructor(
     context: Context,
     attributeSet: AttributeSet? = null

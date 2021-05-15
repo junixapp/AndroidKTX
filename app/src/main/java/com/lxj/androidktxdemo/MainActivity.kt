@@ -1,20 +1,16 @@
 package com.lxj.androidktxdemo
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.ToastUtils
-import com.lxj.androidktx.core.*
+import com.lxj.androidktx.core.bindFragment
+import com.lxj.androidktx.core.bindTabLayout
+import com.lxj.androidktx.core.encryptAES
+import com.lxj.androidktx.core.toJson
 import com.lxj.androidktx.share.Share
-import com.lxj.androidktx.widget.LoadingDialog
 import com.lxj.androidktxdemo.entity.PageInfo
-import com.lxj.androidktxdemo.entity.User
 import com.lxj.androidktxdemo.fragment.*
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 
@@ -48,8 +44,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        viewPager.bindFragment(fm = supportFragmentManager, fragments = pages.map { it.page!! }, pageTitles = pages.map { it.title })
-        tabLayout.setupWithViewPager(viewPager)
+        viewPager.bindFragment(this, fragments = pages.map { it.page!! })
+        viewPager.bindTabLayout(tabLayout, pages.map { it.title })
 
 //        viewPager.asCard()
 //        viewPager.bind(10, bindView = {container, position ->

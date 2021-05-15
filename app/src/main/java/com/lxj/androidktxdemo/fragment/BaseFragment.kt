@@ -9,6 +9,7 @@ import com.lxj.androidktx.core.postDelay
  */
 abstract class BaseFragment: StateFragment(){
     override fun initView() {
+
     }
     override fun initData() {
         postDelay(500){stateLayout?.showContent()}
