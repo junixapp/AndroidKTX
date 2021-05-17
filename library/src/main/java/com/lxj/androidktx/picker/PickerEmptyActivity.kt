@@ -8,13 +8,13 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import com.blankj.utilcode.util.*
 import com.lxj.androidktx.AndroidKTX.context
 import com.lxj.androidktx.R
+import com.lxj.androidktx.util.DirManager
 import com.lxj.androidktx.widget.LoadingDialog
 import com.yalantis.ucrop.UCrop
 import com.zhihu.matisse.Matisse
@@ -77,7 +77,7 @@ class PickerEmptyActivity : AppCompatActivity() {
     fun startCamera() {
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         if (cameraIntent.resolveActivity(packageManager) != null) {
-            tempPhotoFile = File(createRootPath() + "/" + System.currentTimeMillis() + ".jpg")
+            tempPhotoFile = File(DirManager.tempDir,  "${System.currentTimeMillis()}.jpg")
             FileUtils.createFileByDeleteOldFile(tempPhotoFile)
             val uri: Uri = FileProvider.getUriForFile(this, "$packageName.fileprovider", tempPhotoFile!!)
             val resInfoList = packageManager.queryIntentActivities(cameraIntent, PackageManager.MATCH_DEFAULT_ONLY)
@@ -93,17 +93,17 @@ class PickerEmptyActivity : AppCompatActivity() {
         }
     }
 
-    private fun createRootPath(): String? {
-        var cacheRootPath: String? = ""
-        cacheRootPath = if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()) {
-            // /sdcard/Android/data/<application package>/cache
-            externalCacheDir?.path
-        } else {
-            // /data/data/<application package>/cache
-            cacheDir.path
-        }
-        return cacheRootPath
-    }
+//    private fun createRootPath(): String? {
+//        var cacheRootPath: String? = ""
+//        cacheRootPath = if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()) {
+//            // /sdcard/Android/data/<application package>/cache
+//            externalCacheDir?.path
+//        } else {
+//            // /data/data/<application package>/cache
+//            cacheDir.path
+//        }
+//        return cacheRootPath
+//    }
 
     private var cropImageFile: File? = null
     private fun startCrop(uri: Uri){
@@ -115,7 +115,7 @@ class PickerEmptyActivity : AppCompatActivity() {
         options.setStatusBarColor(Color.parseColor("#1D282C"))//Matisse的主题色
         options.setActiveControlsWidgetColor(primaryColor)
         options.setHideBottomControls(true)
-        cropImageFile = File(context.cacheDir, System.nanoTime().toString() + "_crop.jpg")
+        cropImageFile = File(DirManager.tempDir, System.nanoTime().toString() + "_crop.jpg")
         UCrop.of(uri, Uri.fromFile(cropImageFile))
                 .withAspectRatio(1f, 1f)
                 .withOptions(options)
@@ -177,18 +177,22 @@ class PickerEmptyActivity : AppCompatActivity() {
             val list = arrayListOf<String>()
             if (requestCode == _pickerCode) {
                 //打开照片和视频选择器
-                val uriList = if(data!=null) Matisse.obtainResult(data) else listOf()
-                uriList.forEach { list.add(UriUtils.uri2File(it).absolutePath) }
+//                val uriList = if(data!=null) Matisse.obtainResult(data) else listOf()
+                val pathList = if(data!=null) Matisse.obtainPathResult(data) else listOf()
+//                LogUtils.e("pathList:" +pathList.toJson())
+//                uriList.forEach { if(it!=null)list.add(UriUtils.uri2File(it).absolutePath) }
+                list.addAll(pathList)
                 if(pickerData!!.isCrop){
                     //裁剪
-                    if(uriList.isEmpty())finish()
-                    startCrop(uriList[0])
+                    if(pathList.isEmpty())finish()
+                    startCrop(UriUtils.file2Uri(File(pathList[0])))
                 }else{
                     //看看是否需要压缩
                     tryCompressImgs(list)
                 }
             } else if (requestCode == _cameraCode) {
                 //拍照
+                LogUtils.e("_cameraCode:" +tempPhotoFile?.absolutePath)
                 if(pickerData!!.isCrop){
                     //裁剪
                     if(tempPhotoFile==null)return

@@ -83,15 +83,15 @@ class ImageViewExtPage: BaseFragment(){
         if(data==null)return
 //        ToastUtils.showShort(QrCodeUtil.fetchResult(1, data))
         if(requestCode==1&& resultCode==-1){
-//            val url = ImagePicker.fetchResult(data)
-//            image1.load(url[0])
+            val url = ImagePicker.fetchResult(data)
+            image1.load(url[0])
 //            QrCodeUtil.parseQrCode(url[0], onFinish= { result->
 //                ToastUtils.showLong(result)
 //            })
-            val videoPath = ImagePicker.fetchRecordResult(data)
-            val len = FileUtils.getFileLength(videoPath)
-            LogUtils.e("拍照返回：${videoPath}   大小：${len/1024}k")
-            PlayerActivity.start(url = videoPath)
+//            val videoPath = ImagePicker.fetchRecordResult(data)
+//            val len = FileUtils.getFileLength(videoPath)
+//            LogUtils.e("拍照返回：${videoPath}   大小：${len/1024}k")
+//            PlayerActivity.start(url = videoPath)
         }
     }
 }

@@ -41,18 +41,15 @@ class HttpExtFragment : BaseFragment() {
 //        OkWrapper.headers("header1" to "a", "header2" to "b")
 
         btnSend.click {
-            DirManager.init {
-                zipFile.http().savePath("${DirManager.tempDir}/xxx.avi")
-                    .downloadListener(onProgress = {progressInfo ->
-                        LogUtils.e("下载进度：${progressInfo!!.percent}")
-                    })
-                    .get(object : HttpCallback<File>{
-                        override fun onSuccess(t: File) {
-                            LogUtils.e("下载完毕，文件大小：${FileUtils.getSize(t)}  文件路径: ${t.absolutePath}")
-                        }
-                    })
-
-            }
+            zipFile.http().savePath("${DirManager.tempDir}/xxx.avi")
+                .downloadListener(onProgress = {progressInfo ->
+                    LogUtils.e("下载进度：${progressInfo!!.percent}")
+                })
+                .get(object : HttpCallback<File>{
+                    override fun onSuccess(t: File) {
+                        LogUtils.e("下载完毕，文件大小：${FileUtils.getSize(t)}  文件路径: ${t.absolutePath}")
+                    }
+                })
 
 //            ImagePicker.startRecord(this, 1)
 //            WebActivity.start(url = "https://click.lixiaojun.xin/article/?posid=1")

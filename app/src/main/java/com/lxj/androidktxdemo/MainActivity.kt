@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.share.Share
+import com.lxj.androidktx.util.DirManager
 import com.lxj.androidktxdemo.entity.PageInfo
 import com.lxj.androidktxdemo.fragment.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -44,6 +45,7 @@ class MainActivity : AppCompatActivity() {
         viewPager.bindFragment(this, fragments = pages.map { it.page!! })
         viewPager.bindTabLayout(tabLayout, pages.map { it.title })
 
+        DirManager.init {  }
 //        viewPager.asCard()
 //        viewPager.bind(10, bindView = {container, position ->
 //            return@bind TextView(this)

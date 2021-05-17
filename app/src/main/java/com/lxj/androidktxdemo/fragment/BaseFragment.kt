@@ -17,10 +17,8 @@ abstract class BaseFragment: StateFragment(){
     }
 
     override fun initView() {
-        LogUtils.e("initView: ${javaClass.simpleName}")
     }
     override fun initData() {
-        LogUtils.e("initData: ${javaClass.simpleName}")
         postDelay(300){stateLayout?.showContent()}
     }
 

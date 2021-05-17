@@ -15,22 +15,18 @@ class DemoFragment(var position: Int): BaseFragment() {
 
     override fun onStart() {
         super.onStart()
-        LogUtils.e("onStart $position")
     }
 
     override fun onResume() {
         super.onResume()
-        LogUtils.e("onResume $position")
     }
 
     override fun onPause() {
         super.onPause()
-        LogUtils.e("onPause $position")
     }
 
     override fun onStop() {
         super.onStop()
-        LogUtils.e("onStop $position")
 
     }
 
