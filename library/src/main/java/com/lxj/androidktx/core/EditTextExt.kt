@@ -1,5 +1,6 @@
 package com.lxj.androidktx.core
 
+import android.text.InputFilter
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.widget.EditText
@@ -18,4 +19,11 @@ fun EditText.showPassword(){
 fun EditText.hidePassword(){
     transformationMethod = PasswordTransformationMethod.getInstance()
     setSelection(text.length)
+}
+
+/**
+ * 动态设置最大长度限制
+ */
+fun EditText.maxLength(max: Int){
+    filters = arrayOf<InputFilter>(InputFilter.LengthFilter(max))
 }
