@@ -1,11 +1,15 @@
 package com.lxj.androidktxdemo.fragment
 
-import android.graphics.Color
+import android.graphics.*
+import com.blankj.utilcode.util.SpanUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.share.Share
+import com.lxj.androidktx.widget.GradientOrientation
+import com.lxj.androidktx.widget.SuperDrawable
 import com.lxj.androidktxdemo.R
 import kotlinx.android.synthetic.main.fragment_span_ext.*
+
 
 /**
  * Description:
@@ -90,5 +94,27 @@ class SpanExtPage : BaseFragment() {
                     ToastUtils.showShort("哎呀，您点到我了呢，嘿嘿")
                 })
                 .appendStyleSpan("我是粗体的")
+
+        val td = SuperDrawable()
+            .setPadding(left = dp2px(8f), right = dp2px(8f), top = dp2px(4f), bottom = dp2px(4f))
+            .setBg(bgRadius = dp2px(30f).toFloat(), gradientColors = intArrayOf(Color.RED, Color.BLUE),
+            gradientOrientation = GradientOrientation.TL_BR)
+            .setText("Lv 12345", textColor = Color.WHITE, textSize = sp2px(13f).toFloat(),
+            bold = true, typeface = Typeface.createFromAsset(context!!.assets,"FredokaOne-Regular.ttf"))
+            .setLeftDrawable(R.mipmap._ktx_ic_clear, drawableWidth = dp2px(12f), drawableHeight = dp2px(12f),
+            drawablePadding = dp2px(4f))
+            .setRightDrawable(R.mipmap._ktx_ic_clear, drawableWidth = dp2px(12f), drawableHeight = dp2px(12f),
+                drawablePadding = dp2px(4f))
+
+        val td2 = SuperDrawable().setBgDrawable(R.mipmap.test, drawableWidth = dp2px(46f), drawableHeight = dp2px(15f))
+        SpanUtils.with(tvDemo)
+            .appendImage(td, SpanUtils.ALIGN_CENTER)
+            .append("齐天大圣")
+            .appendImage(td2, SpanUtils.ALIGN_CENTER)
+            .appendSpace(dp2px(10f))
+            .appendImage(R.mipmap._ktx_ic_switch)
+            .append("齐天大圣说：")
+            .append("哒哒哒哒哒所大所多所多撒大所大所大所大所大所大所大所大所大所").setForegroundColor(Color.parseColor("#cccccc"))
+            .create()
     }
 }
