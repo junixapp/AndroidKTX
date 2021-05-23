@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
@@ -189,6 +190,7 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
 
         ta.recycle()
         inflate(context, R.layout._ktx_titlebar, this)
+        if(Build.VERSION.SDK_INT >= 21) setClipToOutline(true)
         applyAttr()
         applySelf()
         initClick()

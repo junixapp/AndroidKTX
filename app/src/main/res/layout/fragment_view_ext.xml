@@ -22,6 +22,15 @@
             app:tb_typefacePath="FredokaOne-Regular.ttf"
             android:layout_width="match_parent"
             android:layout_height="50dp"/>
+        <com.lxj.androidktx.widget.ShapeFrameLayout
+            app:sfl_corner="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+            <View
+                android:background="#f00"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </com.lxj.androidktx.widget.ShapeFrameLayout>
 
         <TextView
             android:text="以下View默认宽高都是100dp"

@@ -5,6 +5,7 @@ import android.graphics.*
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
+import android.os.Build
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
@@ -374,6 +375,7 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
 
         ta.recycle()
         inflate(context, R.layout._ktx_super_layout, this)
+        if(Build.VERSION.SDK_INT >= 21) setClipToOutline(true)
         applyAttr()
         applySelf()
     }

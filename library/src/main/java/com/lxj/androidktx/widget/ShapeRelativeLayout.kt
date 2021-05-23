@@ -7,6 +7,7 @@ import android.graphics.Paint
 import android.graphics.Rect
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
+import android.os.Build
 import android.util.AttributeSet
 import android.widget.RelativeLayout
 import com.lxj.androidktx.R
@@ -114,6 +115,7 @@ open class ShapeRelativeLayout @JvmOverloads constructor(context: Context, attri
         }
         ta.recycle()
         applySelf()
+        if(Build.VERSION.SDK_INT >= 21) setClipToOutline(true)
     }
 
     fun applySelf() {
