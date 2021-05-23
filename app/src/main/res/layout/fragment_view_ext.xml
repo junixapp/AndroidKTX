@@ -32,6 +32,16 @@
                 android:layout_height="match_parent"/>
         </com.lxj.androidktx.widget.ShapeFrameLayout>
 
+        <com.lxj.androidktx.widget.ShapeImageView
+            android:layout_margin="20dp"
+            app:siv_corner="50dp"
+            app:siv_solid="#6f00"
+            app:siv_stroke="#00f"
+            app:siv_strokeWidth="20dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/t"
+            android:layout_width="100dp"
+            android:layout_height="100dp"/>
         <TextView
             android:text="以下View默认宽高都是100dp"
             style="@style/TitleStyle" />

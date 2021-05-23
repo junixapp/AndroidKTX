@@ -217,6 +217,27 @@
         <attr name="stv_typefacePath" format="string" />
     </declare-styleable>
 
+    <declare-styleable name="ShapeImageView">
+        <attr name="siv_solid" format="color" />
+        <attr name="siv_corner" format="dimension" />
+        <attr name="siv_stroke" format="color" />
+        <attr name="siv_strokeWidth" format="dimension" />
+        <attr name="siv_enableRipple" format="boolean" />
+        <attr name="siv_rippleColor" format="color" />
+        <attr name="siv_gradientStartColor" format="color" />
+        <attr name="siv_gradientEndColor" format="color" />
+        <attr name="siv_gradientOrientation">
+            <enum name="TOP_BOTTOM" value="0" />
+            <enum name="TR_BL" value="1" />
+            <enum name="RIGHT_LEFT" value="2" />
+            <enum name="BR_TL" value="3" />
+            <enum name="BOTTOM_TOP" value="4" />
+            <enum name="BL_TR" value="5" />
+            <enum name="LEFT_RIGHT" value="6" />
+            <enum name="TL_BR" value="7" />
+        </attr>
+    </declare-styleable>
+
     <declare-styleable name="ShapeEditText">
         <attr name="set_drawableWidth" format="dimension" />
         <attr name="set_drawableHeight" format="dimension" />
