@@ -49,11 +49,16 @@
         <com.lxj.androidktx.widget.ShapeTextView
             android:id="@+id/text1"
             android:textSize="14sp"
-            android:textColor="#000"
+            android:textColor="#fff"
             android:padding="10dp"
             android:text="自定义字体 \nMy Name is Jun"
+            app:stv_gradientStartColor="#6F4725"
+            app:stv_gradientEndColor="#FFD88F"
+            app:stv_gradientOrientation="TOP_BOTTOM"
             app:stv_typefacePath="FredokaOne-Regular.ttf"
-            android:layout_width="100dp"
+            app:stv_corner="40pt"
+            android:gravity="center"
+            android:layout_width="200dp"
             android:layout_height="100dp"
             app:stv_solid="#ff9009" />
 

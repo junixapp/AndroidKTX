@@ -22,18 +22,17 @@ import com.lxj.androidktx.core.createDrawable
 open class ShapeImageView @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null, defStyleAttr: Int = 0)
     : AppCompatImageView(context, attributeSet, defStyleAttr) {
 
-    //背景
-    var mSolid = 0 //填充色
-    var mStroke = 0 //边框颜色
-    var mStrokeWidth = 0 //边框大小
-    var mCorner = 0 //圆角
-    //是否启用水波纹
-    var mEnableRipple = true
-    var mRippleColor = Color.parseColor("#88999999")
-    var mGradientStartColor = 0
-    var mGradientEndColor = 0
-    var mGradientOrientation = GradientDrawable.Orientation.LEFT_RIGHT  //从左到右
-    val strokePaint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private var mSolid = 0 //填充色
+    private var mStroke = 0 //边框颜色
+    private var mStrokeWidth = 0 //边框大小
+    private var mCorner = 0 //圆角
+    private var mEnableRipple = true
+    private var mRippleColor = Color.parseColor("#88999999")
+    private var mGradientStartColor = 0
+    private var mGradientCenterColor = 0
+    private var mGradientEndColor = 0
+    private var mGradientOrientation = GradientDrawable.Orientation.LEFT_RIGHT  //从左到右
+    private val strokePaint = Paint(Paint.ANTI_ALIAS_FLAG)
 
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.ShapeImageView)
@@ -46,6 +45,7 @@ open class ShapeImageView @JvmOverloads constructor(context: Context, attributeS
         mRippleColor = ta.getColor(R.styleable.ShapeImageView_siv_rippleColor, mRippleColor)
 
         mGradientStartColor = ta.getColor(R.styleable.ShapeImageView_siv_gradientStartColor, mGradientStartColor)
+        mGradientCenterColor = ta.getColor(R.styleable.ShapeImageView_siv_gradientCenterColor, mGradientCenterColor)
         mGradientEndColor = ta.getColor(R.styleable.ShapeImageView_siv_gradientEndColor, mGradientEndColor)
         val orientation = ta.getInt(R.styleable.ShapeImageView_siv_gradientOrientation, GradientDrawable.Orientation.LEFT_RIGHT.ordinal)
         mGradientOrientation = when(orientation){

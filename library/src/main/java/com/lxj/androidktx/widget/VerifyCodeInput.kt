@@ -54,18 +54,15 @@ class VerifyCodeInput @JvmOverloads constructor(context: Context, attributeSet: 
     private fun genEditText() {
         (0 until mCount).forEach {
             val et = ShapeEditText(context)
-            et.mSolid = mSolid
-            et.mCorner = mCorner
+            et.setup(solid = mSolid, corner = mCorner, enableRipple = false, strokeWidth = dp2px(1f))
             et.setTextColor(mTextColor)
             et.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize.toFloat())
-            et.mEnableRipple = false
-            et.mStrokeWidth = dp2px(1f)
             et.maxLines = 1
             et.gravity = Gravity.CENTER
             et.tag = it
             et.inputType = InputType.TYPE_CLASS_NUMBER
             et.setOnFocusChangeListener { v, hasFocus ->
-                et.mStroke = if (hasFocus) mFocusBorder else mSolid
+                et.setup(stroke = if (hasFocus) mFocusBorder else mSolid)
             }
             val ms = MeasureSpec.makeMeasureSpec(mSize, MeasureSpec.getMode(MeasureSpec.EXACTLY))
             val lp = MarginLayoutParams(ms, ms)

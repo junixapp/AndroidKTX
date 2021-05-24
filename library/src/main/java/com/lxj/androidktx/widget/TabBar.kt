@@ -89,7 +89,7 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
             addView(wrapper, lp)
 
             wrapper.addView(ShapeTextView(context).apply {
-                enableRipple = false
+                setup(enableRipple = false)
                 gravity = Gravity.CENTER
                 layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
                 compoundDrawablePadding = iconSpace

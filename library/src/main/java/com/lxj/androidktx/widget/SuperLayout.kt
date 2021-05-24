@@ -19,292 +19,43 @@ import kotlinx.android.synthetic.main._ktx_super_layout.view.*
  * Create by dance, at 2019/5/21
  */
 class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null, defStyleAttr: Int = 0)
-    : LinearLayout(context, attributeSet, defStyleAttr) {
+    : ShapeLinearLayout(context, attributeSet, defStyleAttr) {
 
     //左边图片
-    var mLeftImage: Drawable? = null
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-    var mLeftImageSize = dp2px(34f)
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
+    private var mLeftImage: Drawable? = null
+    private var mLeftImageSize = dp2px(34f)
+    private var mLeftText: CharSequence = ""
+    private var mLeftTextColor = Color.parseColor("#222222")
+    private var mLeftTextSize = sp2px(16f)
+    private var mLeftTextMarginLeft = dp2px(8f)
+    private var mLeftTextMarginRight = dp2px(8f)
+    private var mLeftTextMarginBottom = 0
+    private var mLeftTextMarginTop = 0
+    private var mLeftSubText: CharSequence = ""
+    private var mLeftSubTextColor = Color.parseColor("#777777")
+    private var mLeftSubTextSize = sp2px(13f)
+    private var mCenterText: CharSequence = ""
+    private var mCenterTextColor = Color.parseColor("#222222")
+    private var mCenterTextSize = sp2px(15f)
+    private var mCenterTextBg: Drawable? = null
+    private var mRightText: CharSequence = ""
+    private var mRightTextColor = Color.parseColor("#777777")
+    private var mRightTextSize = sp2px(15f)
+    private var mRightTextBg: Drawable? = null
+    private var mRightTextBgColor = 0
+    private var mRightTextWidth = 0
+    private var mRightTextHeight = 0
 
-    //左边文字
-    var mLeftText: CharSequence = ""
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-    var mLeftTextColor = Color.parseColor("#222222")
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-    var mLeftTextSize = sp2px(16f)
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-    var mLeftTextMarginLeft = dp2px(8f)
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-    var mLeftTextMarginRight = dp2px(8f)
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-    var mLeftTextMarginTop = 0
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-    var mLeftTextMarginBottom = 0
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-
-    //左边子文字
-    var mLeftSubText: CharSequence = ""
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-    var mLeftSubTextColor = Color.parseColor("#777777")
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-    var mLeftSubTextSize = sp2px(13f)
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-
-    //中间文字
-    var mCenterText: CharSequence = ""
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-    var mCenterTextColor = Color.parseColor("#222222")
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-    var mCenterTextSize = sp2px(15f)
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-    var mCenterTextBg: Drawable? = null
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-
-    //右边文字
-    var mRightText: CharSequence = ""
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-    var mRightTextColor = Color.parseColor("#777777")
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-    var mRightTextSize = sp2px(15f)
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-    var mRightTextBg: Drawable? = null
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-    var mRightTextBgColor = 0
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-    var mRightTextWidth = 0
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-    var mRightTextHeight = 0
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-
-    //右边图片
-    var mRightImage: Drawable? = null
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-    var mRightImageSize = dp2px(20f)
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-    var mRightImageMarginLeft = dp2px(10f)
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-
-    //右边图片2
-    var mRightImage2: Drawable? = null
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-    var mRightImage2Width = dp2px(25f)
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-    var mRightImage2Height = dp2px(25f)
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-    var mRightImage2MarginLeft = dp2px(10f)
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-
-    //背景
-    var mSolid = 0 //填充色
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-    var mStroke = 0 //边框颜色
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-    var mStrokeWidth = 0 //边框大小
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-    var mCorner = 0 //圆角
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-
-    //上下分割线
-    var mTopLine = 0
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-    var mBottomLineColor = 0
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-    var mLineSize = dp2px(.6f)
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-
-    //是否启用水波纹
-    var mEnableRipple = true
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-    var mRippleColor = Color.parseColor("#88999999")
-        set(value) {
-            field = value
-            applyAttr()
-            applySelf()
-        }
-    var mGradientStartColor = 0
-        set(value) {
-            field = value
-            applySelf()
-        }
-    var mGradientEndColor = 0
-        set(value) {
-            field = value
-            applySelf()
-        }
-    var mGradientOrientation = GradientDrawable.Orientation.LEFT_RIGHT  //从左到右
-        set(value) {
-            field = value
-            applySelf()
-        }
-
-    var leftTextBold = false
-        set(value) {
-            field = value
-            applySelf()
-        }
-    var centerTextBold = false
-        set(value) {
-            field = value
-            applySelf()
-        }
-    var rightTextBold = false
-        set(value) {
-            field = value
-            applySelf()
-        }
+    private var mRightImage: Drawable? = null
+    private var mRightImageSize = dp2px(20f)
+    private var mRightImageMarginLeft = dp2px(10f)
+    private var mRightImage2: Drawable? = null
+    private var mRightImage2Width = dp2px(25f)
+    private var mRightImage2Height = dp2px(25f)
+    private var mRightImage2MarginLeft = dp2px(10f)
+    private var mLeftTextBold = false
+    private var mCenterTextBold = false
+    private var mRightTextBold = false
 
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.SuperLayout)
@@ -345,70 +96,39 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
         mRightImage2Height = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_rightImage2Height, mRightImage2Height)
         mRightImage2MarginLeft = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_rightImage2MarginLeft, mRightImage2MarginLeft)
 
-        mSolid = ta.getColor(R.styleable.SuperLayout_sl_solid, mSolid)
-        mStroke = ta.getColor(R.styleable.SuperLayout_sl_stroke, mStroke)
-        mStrokeWidth = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_strokeWidth, mStrokeWidth)
-        mCorner = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_corner, mCorner)
-
-        mTopLine = ta.getColor(R.styleable.SuperLayout_sl_topLineColor, mTopLine)
-        mBottomLineColor = ta.getColor(R.styleable.SuperLayout_sl_bottomLineColor, mBottomLineColor)
-        mLineSize = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_lineSize, mLineSize)
-        mEnableRipple = ta.getBoolean(R.styleable.SuperLayout_sl_enableRipple, mEnableRipple)
-        mRippleColor = ta.getColor(R.styleable.SuperLayout_sl_rippleColor, mRippleColor)
-
-        mGradientStartColor = ta.getColor(R.styleable.SuperLayout_sl_gradientStartColor, mGradientStartColor)
-        mGradientEndColor = ta.getColor(R.styleable.SuperLayout_sl_gradientEndColor, mGradientEndColor)
-        val orientation = ta.getInt(R.styleable.SuperLayout_sl_gradientOrientation, GradientDrawable.Orientation.LEFT_RIGHT.ordinal)
-        mGradientOrientation = when (orientation) {
-            0 -> GradientDrawable.Orientation.TOP_BOTTOM
-            1 -> GradientDrawable.Orientation.TR_BL
-            2 -> GradientDrawable.Orientation.RIGHT_LEFT
-            3 -> GradientDrawable.Orientation.BR_TL
-            4 -> GradientDrawable.Orientation.BOTTOM_TOP
-            5 -> GradientDrawable.Orientation.BL_TR
-            6 -> GradientDrawable.Orientation.LEFT_RIGHT
-            else -> GradientDrawable.Orientation.TL_BR
-        }
-        leftTextBold = ta.getBoolean(R.styleable.SuperLayout_sl_leftTextBold, leftTextBold)
-        centerTextBold = ta.getBoolean(R.styleable.SuperLayout_sl_centerTextBold, centerTextBold)
-        rightTextBold = ta.getBoolean(R.styleable.SuperLayout_sl_rightTextBold, rightTextBold)
+        mLeftTextBold = ta.getBoolean(R.styleable.SuperLayout_sl_leftTextBold, mLeftTextBold)
+        mCenterTextBold = ta.getBoolean(R.styleable.SuperLayout_sl_centerTextBold, mCenterTextBold)
+        mRightTextBold = ta.getBoolean(R.styleable.SuperLayout_sl_rightTextBold, mRightTextBold)
 
         ta.recycle()
         inflate(context, R.layout._ktx_super_layout, this)
         if(Build.VERSION.SDK_INT >= 21) setClipToOutline(true)
         applyAttr()
-        applySelf()
-    }
-
-    fun setup(leftImageRes: Int = 0,
-              leftText: CharSequence = mLeftText,
-              leftSubText: CharSequence = mLeftSubText,
-              centerText: CharSequence = mCenterText,
-              rightText: CharSequence = mRightText,
-              rightImageRes: Int = 0,
-              rightImage2Res: Int = 0) {
-        if (leftImageRes != 0) mLeftImage = drawable(leftImageRes)
-        if (rightImageRes != 0) mRightImage = drawable(rightImageRes)
-        if (rightImage2Res != 0) mRightImage2 = drawable(rightImage2Res)
-        this.mLeftText = leftText
-        this.mLeftSubText = leftSubText
-        this.mCenterText = centerText
-        this.mRightText = rightText
-        applyAttr()
-        applySelf()
-    }
-
-    fun applySelf() {
-        orientation = HORIZONTAL
         gravity = Gravity.CENTER_VERTICAL
-        var color : Int? = null
-        if (background !=null && background is ColorDrawable && mSolid==Color.TRANSPARENT){
-            color = ( background as ColorDrawable) .color
-        }
-        val drawable = createDrawable(color = color?: mSolid, radius = mCorner.toFloat(), strokeColor = mStroke, strokeWidth = mStrokeWidth,
-                enableRipple = mEnableRipple, rippleColor = mRippleColor, gradientStartColor = mGradientStartColor,
-                gradientEndColor = mGradientEndColor, gradientOrientation = mGradientOrientation)
-        setBackgroundDrawable(drawable)
+    }
+
+    fun setup(leftImageRes: Int? = null,
+              leftText: CharSequence? = null,
+              leftSubText: CharSequence? = null,
+              centerText: CharSequence? = null,
+              rightText: CharSequence? = null,
+              rightImageRes: Int? = null,
+              rightImage2Res: Int? = null,
+              leftTextBold: Boolean? = null,
+              centerTextBold: Boolean? = null,
+              rightTextBold: Boolean? = null,
+              ) {
+        if (leftImageRes != null) mLeftImage = drawable(leftImageRes)
+        if (rightImageRes != null) mRightImage = drawable(rightImageRes)
+        if (rightImage2Res != null) mRightImage2 = drawable(rightImage2Res)
+        if(leftText!=null)this.mLeftText = leftText
+        if(leftSubText!=null)this.mLeftSubText = leftSubText
+        if(centerText!=null)this.mCenterText = centerText
+        if(rightText!=null)this.mRightText = rightText
+        if(leftTextBold!=null)this.mLeftTextBold = leftTextBold
+        if(centerTextBold!=null)this.mCenterTextBold = centerTextBold
+        if(rightTextBold!=null)this.mRightTextBold = rightTextBold
+        applyAttr()
     }
 
     fun applyAttr() {
@@ -432,7 +152,7 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
             tvLeftText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mLeftTextSize.toFloat())
             tvLeftText.margin(bottomMargin = mLeftTextMarginBottom, topMargin = mLeftTextMarginTop)
             llLeft.margin(leftMargin = mLeftTextMarginLeft, rightMargin = mLeftTextMarginRight)
-            if (leftTextBold) tvLeftText.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+            if (mLeftTextBold) tvLeftText.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
         }
 
         //左边子文字
@@ -454,7 +174,7 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
             tvCenterText.setTextColor(mCenterTextColor)
             tvCenterText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mCenterTextSize.toFloat())
             if (mCenterTextBg != null) tvCenterText.setBackgroundDrawable(mCenterTextBg)
-            if (centerTextBold) tvCenterText.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+            if (mCenterTextBold) tvCenterText.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
         }
 
         //右边文字
@@ -469,7 +189,7 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
             if (mRightTextWidth != 0) tvRightText.width(mRightTextWidth)
             if (mRightTextHeight != 0) tvRightText.height(mRightTextHeight)
             if (mRightTextBgColor != 0) tvRightText.setBackgroundColor(mRightTextBgColor)
-            if (rightTextBold) tvRightText.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+            if (mRightTextBold) tvRightText.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
         }
 
         //右边图片
@@ -490,19 +210,6 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
             ivRightImage2.setImageDrawable(mRightImage2)
             ivRightImage2.widthAndHeight(mRightImage2Width, mRightImage2Height)
             ivRightImage2.margin(leftMargin = mRightImage2MarginLeft)
-        }
-    }
-
-    private val paint = Paint()
-    override fun dispatchDraw(canvas: Canvas) {
-        super.dispatchDraw(canvas)
-        if (mTopLine != 0) {
-            paint.color = mTopLine
-            canvas.drawRect(Rect(0, 0, measuredWidth, mLineSize), paint)
-        }
-        if (mBottomLineColor != 0) {
-            paint.color = mBottomLineColor
-            canvas.drawRect(Rect(0, measuredHeight - mLineSize, measuredWidth, measuredHeight), paint)
         }
     }
 

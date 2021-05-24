@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Rect
+import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.StateListDrawable
@@ -21,82 +22,24 @@ import com.lxj.androidktx.core.sizeDrawable
 open class ShapeEditText @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null, defStyleAttr: Int = 0)
     : AppCompatEditText(context, attributeSet, defStyleAttr) {
 
-    var mDrawableWidth = 0
-        set(value) {
-            field = value
-            sizeDrawable(width = mDrawableWidth, height = mDrawableHeight)
-        }
-    var mDrawableHeight = 0
-        set(value) {
-            field = value
-            sizeDrawable(width = mDrawableWidth, height = mDrawableHeight)
-        }
-
-    //背景
-    var mSolid = 0 //填充色
-        set(value) {
-            field = value
-            applySelf()
-        }
-    var mStroke = 0 //边框颜色
-        set(value) {
-            field = value
-            applySelf()
-        }
-    var mStrokeWidth = 0 //边框大小
-        set(value) {
-            field = value
-            applySelf()
-        }
-    var mCorner = 0 //圆角
-        set(value) {
-            field = value
-            applySelf()
-        }
-
+    private var mDrawableWidth = 0
+    private var mDrawableHeight = 0
+    private var mSolid = 0 //填充色
+    private var mStroke = 0 //边框颜色
+    private var mStrokeWidth = 0 //边框大小
+    private var mCorner = 0 //圆角
     //是否启用水波纹
-    var mEnableRipple = true
-        set(value) {
-            field = value
-            applySelf()
-        }
-    var mRippleColor = Color.parseColor("#88999999")
-        set(value) {
-            field = value
-            applySelf()
-        }
-
+    private var mEnableRipple = true
+    private var mRippleColor = Color.parseColor("#88999999")
     //上下分割线
-    var mTopLineColor = 0
-        set(value) {
-            field = value
-            applySelf()
-        }
-    var mBottomLineColor = 0
-        set(value) {
-            field = value
-            applySelf()
-        }
-    var mLineSize = dp2px(.6f)
-        set(value) {
-            field = value
-            applySelf()
-        }
-    var mGradientStartColor = 0
-        set(value) {
-            field = value
-            applySelf()
-        }
-    var mGradientEndColor = 0
-        set(value) {
-            field = value
-            applySelf()
-        }
-    var mGradientOrientation = GradientDrawable.Orientation.LEFT_RIGHT  //从左到右
-        set(value) {
-            field = value
-            applySelf()
-        }
+    private var mTopLineColor = 0
+    private var mBottomLineColor = 0
+    private var mLineSize = dp2px(1f)
+    private var mGradientStartColor = 0
+    private var mGradientCenterColor = 0
+    private var mGradientEndColor = 0
+    private var mGradientOrientation = GradientDrawable.Orientation.LEFT_RIGHT  //从左到右
+    private var mTypefacePath: String? = null
 
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.ShapeEditText)
@@ -121,6 +64,7 @@ open class ShapeEditText @JvmOverloads constructor(context: Context, attributeSe
         mLineSize = ta.getDimensionPixelSize(R.styleable.ShapeEditText_set_lineSize, mLineSize)
 
         mGradientStartColor = ta.getColor(R.styleable.ShapeEditText_set_gradientStartColor, mGradientStartColor)
+        mGradientCenterColor = ta.getColor(R.styleable.ShapeEditText_set_gradientCenterColor, mGradientCenterColor)
         mGradientEndColor = ta.getColor(R.styleable.ShapeEditText_set_gradientEndColor, mGradientStartColor)
         val orientation = ta.getInt(R.styleable.ShapeEditText_set_gradientOrientation, GradientDrawable.Orientation.LEFT_RIGHT.ordinal)
         mGradientOrientation = when (orientation) {
@@ -133,15 +77,18 @@ open class ShapeEditText @JvmOverloads constructor(context: Context, attributeSe
             6 -> GradientDrawable.Orientation.LEFT_RIGHT
             else -> GradientDrawable.Orientation.TL_BR
         }
+        mTypefacePath = ta.getString(R.styleable.ShapeEditText_set_typefacePath)
         ta.recycle()
-        if (mDrawableWidth != 0 && mDrawableHeight != 0) {
-            sizeDrawable(width = mDrawableWidth, height = mDrawableHeight)
-        }
         isFocusable = true
         isFocusableInTouchMode = true
+        applySelf()
     }
 
     fun applySelf() {
+        if (mDrawableWidth != 0 && mDrawableHeight != 0) {
+            sizeDrawable(width = mDrawableWidth, height = mDrawableHeight)
+        }
+        if(!mTypefacePath.isNullOrEmpty()) typeface = Typeface.createFromAsset(context.assets, mTypefacePath)
         var color : Int? = null
         if (background !=null && background is ColorDrawable && mSolid==Color.TRANSPARENT){
             color = ( background as ColorDrawable) .color
@@ -179,21 +126,28 @@ open class ShapeEditText @JvmOverloads constructor(context: Context, attributeSe
         }
     }
 
-    fun setup(drawableWidth: Int = mDrawableWidth, drawableHeight: Int = mDrawableHeight,
-              solid: Int = mSolid, stroke: Int = mStroke, strokeWidth: Int = mStrokeWidth,
-              corner: Int = mCorner, enableRipple: Boolean = mEnableRipple, rippleColor: Int = mRippleColor,
-              topLineColor: Int = mTopLineColor, bottomLineColor: Int = mBottomLineColor, lineSize: Int = mLineSize) {
-        mDrawableWidth = drawableWidth
-        mDrawableHeight = drawableHeight
-        mSolid = solid
-        mStroke = stroke
-        mStrokeWidth = strokeWidth
-        mCorner = corner
-        mEnableRipple = enableRipple
-        mRippleColor = rippleColor
-        mTopLineColor = topLineColor
-        mBottomLineColor = bottomLineColor
-        mLineSize = lineSize
+    fun setup(drawableWidth: Int? = null, drawableHeight: Int? = null,
+              solid: Int? = null, stroke: Int? = null, strokeWidth: Int? = null,
+              corner: Int? = null, enableRipple: Boolean? = null, rippleColor: Int? = null,
+              topLineColor: Int? = null, bottomLineColor: Int? = null, lineSize: Int? = null,
+              gradientOrientation: GradientDrawable.Orientation? = null,  gradientStartColor: Int? = null,
+              gradientCenterColor: Int? = null,gradientEndColor: Int? = null, typefacePath: String? = null){
+        if(drawableWidth!=null) mDrawableWidth = drawableWidth
+        if(drawableHeight!=null) mDrawableHeight = drawableHeight
+        if(solid!=null) mSolid = solid
+        if(stroke!=null) mStroke = stroke
+        if(strokeWidth!=null) mStrokeWidth = strokeWidth
+        if(corner!=null) mCorner = corner
+        if(enableRipple!=null) mEnableRipple = enableRipple
+        if(rippleColor!=null) mRippleColor = rippleColor
+        if(topLineColor!=null) mTopLineColor = topLineColor
+        if(bottomLineColor!=null) mBottomLineColor = bottomLineColor
+        if(lineSize!=null) mLineSize = lineSize
+        if(gradientOrientation!=null) mGradientOrientation = gradientOrientation
+        if(gradientStartColor!=null) mGradientStartColor = gradientStartColor
+        if(gradientCenterColor!=null) mGradientCenterColor = gradientCenterColor
+        if(gradientEndColor!=null) mGradientEndColor = gradientEndColor
+        if(typefacePath!=null) mTypefacePath = typefacePath
         applySelf()
     }
 }

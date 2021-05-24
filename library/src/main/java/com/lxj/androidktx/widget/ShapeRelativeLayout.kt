@@ -21,86 +21,35 @@ import com.lxj.androidktx.core.dp2px
 open class ShapeRelativeLayout @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null, defStyleAttr: Int = 0)
     : RelativeLayout(context, attributeSet, defStyleAttr) {
 
-    //背景
-    var solid = 0 //填充色
-        set(value) {
-            field = value
-            applySelf()
-        }
-    var stroke = 0 //边框颜色
-        set(value) {
-            field = value
-            applySelf()
-        }
-    var strokeWidth = 0 //边框大小
-        set(value) {
-            field = value
-            applySelf()
-        }
-    var corner = 0 //圆角
-        set(value) {
-            field = value
-            applySelf()
-        }
-
-    //上下分割线
-    var topLineColor = 0
-        set(value) {
-            field = value
-            applySelf()
-        }
-    var bottomLineColor = 0
-        set(value) {
-            field = value
-            applySelf()
-        }
-    var lineSize = dp2px(.6f)
-        set(value) {
-            field = value
-            applySelf()
-        }
-
-    //是否启用水波纹
-    var enableRipple = true
-        set(value) {
-            field = value
-            applySelf()
-        }
-    var rippleColor = Color.parseColor("#88999999")
-        set(value) {
-            field = value
-            applySelf()
-        }
-    var mGradientStartColor = 0
-        set(value) {
-            field = value
-            applySelf()
-        }
-    var mGradientEndColor = 0
-        set(value) {
-            field = value
-            applySelf()
-        }
-    var mGradientOrientation = GradientDrawable.Orientation.LEFT_RIGHT  //从左到右
-        set(value) {
-            field = value
-            applySelf()
-        }
+    private var mSolid = 0 //填充色
+    private var mStroke = 0 //边框颜色
+    private var mStrokeWidth = 0 //边框大小
+    private var mCorner = 0 //圆角
+    private var mTopLineColor = 0
+    private var mBottomLineColor = 0
+    private var mLineSize = dp2px(1f)
+    private var mEnableRipple = true
+    private var mRippleColor = Color.parseColor("#88999999")
+    private var mGradientStartColor = 0
+    private var mGradientCenterColor = 0
+    private var mGradientEndColor = 0
+    private var mGradientOrientation = GradientDrawable.Orientation.LEFT_RIGHT  //从左到右
 
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.ShapeRelativeLayout)
-        solid = ta.getColor(R.styleable.ShapeRelativeLayout_srl_solid, solid)
-        stroke = ta.getColor(R.styleable.ShapeRelativeLayout_srl_stroke, stroke)
-        strokeWidth = ta.getDimensionPixelSize(R.styleable.ShapeRelativeLayout_srl_strokeWidth, strokeWidth)
-        corner = ta.getDimensionPixelSize(R.styleable.ShapeRelativeLayout_srl_corner, corner)
+        mSolid = ta.getColor(R.styleable.ShapeRelativeLayout_srl_solid, mSolid)
+        mStroke = ta.getColor(R.styleable.ShapeRelativeLayout_srl_stroke, mStroke)
+        mStrokeWidth = ta.getDimensionPixelSize(R.styleable.ShapeRelativeLayout_srl_strokeWidth, mStrokeWidth)
+        mCorner = ta.getDimensionPixelSize(R.styleable.ShapeRelativeLayout_srl_corner, mCorner)
 
-        topLineColor = ta.getColor(R.styleable.ShapeRelativeLayout_srl_topLineColor, topLineColor)
-        bottomLineColor = ta.getColor(R.styleable.ShapeRelativeLayout_srl_bottomLineColor, bottomLineColor)
-        lineSize = ta.getDimensionPixelSize(R.styleable.ShapeRelativeLayout_srl_lineSize, lineSize)
-        enableRipple = ta.getBoolean(R.styleable.ShapeRelativeLayout_srl_enableRipple, enableRipple)
-        rippleColor = ta.getColor(R.styleable.ShapeRelativeLayout_srl_rippleColor, rippleColor)
+        mTopLineColor = ta.getColor(R.styleable.ShapeRelativeLayout_srl_topLineColor, mTopLineColor)
+        mBottomLineColor = ta.getColor(R.styleable.ShapeRelativeLayout_srl_bottomLineColor, mBottomLineColor)
+        mLineSize = ta.getDimensionPixelSize(R.styleable.ShapeRelativeLayout_srl_lineSize, mLineSize)
+        mEnableRipple = ta.getBoolean(R.styleable.ShapeRelativeLayout_srl_enableRipple, mEnableRipple)
+        mRippleColor = ta.getColor(R.styleable.ShapeRelativeLayout_srl_rippleColor, mRippleColor)
 
         mGradientStartColor = ta.getColor(R.styleable.ShapeRelativeLayout_srl_gradientStartColor, mGradientStartColor)
+        mGradientCenterColor = ta.getColor(R.styleable.ShapeRelativeLayout_srl_gradientCenterColor, mGradientCenterColor)
         mGradientEndColor = ta.getColor(R.styleable.ShapeRelativeLayout_srl_gradientEndColor, mGradientEndColor)
         val orientation = ta.getInt(R.styleable.ShapeRelativeLayout_srl_gradientOrientation, GradientDrawable.Orientation.LEFT_RIGHT.ordinal)
         mGradientOrientation = when (orientation) {
@@ -120,25 +69,47 @@ open class ShapeRelativeLayout @JvmOverloads constructor(context: Context, attri
 
     fun applySelf() {
         var color : Int? = null
-        if (background !=null && background is ColorDrawable && solid==Color.TRANSPARENT){
+        if (background !=null && background is ColorDrawable && mSolid==Color.TRANSPARENT){
             color = ( background as ColorDrawable) .color
         }
-        val drawable = createDrawable(color = color?: solid, radius = corner.toFloat(), strokeColor = stroke, strokeWidth = strokeWidth,
-                enableRipple = enableRipple, rippleColor = rippleColor, gradientStartColor = mGradientStartColor,
-                gradientEndColor = mGradientEndColor, gradientOrientation = mGradientOrientation)
+        val drawable = createDrawable(color = color ?: mSolid, radius = mCorner.toFloat(), strokeColor = mStroke, strokeWidth = mStrokeWidth,
+            enableRipple = mEnableRipple, rippleColor = mRippleColor, gradientStartColor = mGradientStartColor,
+            gradientEndColor = mGradientEndColor, gradientCenterColor = mGradientCenterColor, gradientOrientation = mGradientOrientation)
         setBackgroundDrawable(drawable)
     }
 
     val paint = Paint()
     override fun dispatchDraw(canvas: Canvas) {
         super.dispatchDraw(canvas)
-        if (topLineColor != 0) {
-            paint.color = topLineColor
-            canvas.drawRect(Rect(0, 0, measuredWidth, lineSize), paint)
+        if (mTopLineColor != 0) {
+            paint.color = mTopLineColor
+            canvas.drawRect(Rect(0, 0, measuredWidth, mLineSize), paint)
         }
-        if (bottomLineColor != 0) {
-            paint.color = bottomLineColor
-            canvas.drawRect(Rect(0, measuredHeight - lineSize, measuredWidth, measuredHeight), paint)
+        if (mBottomLineColor != 0) {
+            paint.color = mBottomLineColor
+            canvas.drawRect(Rect(0, measuredHeight - mLineSize, measuredWidth, measuredHeight), paint)
         }
+    }
+
+    fun setup(
+        solid: Int? = null, stroke: Int? = null, strokeWidth: Int? = null,
+        corner: Int? = null, enableRipple: Boolean? = null, rippleColor: Int? = null,
+        topLineColor: Int? = null, bottomLineColor: Int? = null, lineSize: Int? = null,
+        gradientOrientation: GradientDrawable.Orientation? = null,  gradientStartColor: Int? = null,
+        gradientCenterColor: Int? = null,gradientEndColor: Int? = null){
+        if(solid!=null) mSolid = solid
+        if(stroke!=null) mStroke = stroke
+        if(strokeWidth!=null) mStrokeWidth = strokeWidth
+        if(corner!=null) mCorner = corner
+        if(enableRipple!=null) mEnableRipple = enableRipple
+        if(rippleColor!=null) mRippleColor = rippleColor
+        if(topLineColor!=null) mTopLineColor = topLineColor
+        if(bottomLineColor!=null) mBottomLineColor = bottomLineColor
+        if(lineSize!=null) mLineSize = lineSize
+        if(gradientOrientation!=null) mGradientOrientation = gradientOrientation
+        if(gradientStartColor!=null) mGradientStartColor = gradientStartColor
+        if(gradientCenterColor!=null) mGradientCenterColor = gradientCenterColor
+        if(gradientEndColor!=null) mGradientEndColor = gradientEndColor
+        applySelf()
     }
 }

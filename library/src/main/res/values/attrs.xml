@@ -77,31 +77,6 @@
         <attr name="sl_rightImage2MarginLeft" format="dimension" />
         <attr name="sl_rightImage2Width" format="dimension" />
         <attr name="sl_rightImage2Height" format="dimension" />
-
-        <attr name="sl_solid" format="color" />
-        <attr name="sl_corner" format="dimension" />
-        <attr name="sl_stroke" format="color" />
-        <attr name="sl_strokeWidth" format="dimension" />
-
-        <attr name="sl_topLineColor" format="color" />
-        <attr name="sl_bottomLineColor" format="color" />
-        <attr name="sl_lineSize" format="dimension" />
-
-        <attr name="sl_enableRipple" format="boolean" />
-        <attr name="sl_rippleColor" format="color" />
-
-        <attr name="sl_gradientStartColor" format="color" />
-        <attr name="sl_gradientEndColor" format="color" />
-        <attr name="sl_gradientOrientation">
-            <enum name="TOP_BOTTOM" value="0" />
-            <enum name="TR_BL" value="1" />
-            <enum name="RIGHT_LEFT" value="2" />
-            <enum name="BR_TL" value="3" />
-            <enum name="BOTTOM_TOP" value="4" />
-            <enum name="BL_TR" value="5" />
-            <enum name="LEFT_RIGHT" value="6" />
-            <enum name="TL_BR" value="7" />
-        </attr>
     </declare-styleable>
 
     <declare-styleable name="ShapeFrameLayout">
@@ -118,6 +93,7 @@
         <attr name="sfl_rippleColor" format="color" />
 
         <attr name="sfl_gradientStartColor" format="color" />
+        <attr name="sfl_gradientCenterColor" format="color" />
         <attr name="sfl_gradientEndColor" format="color" />
         <attr name="sfl_gradientOrientation">
             <enum name="TOP_BOTTOM" value="0" />
@@ -145,6 +121,7 @@
         <attr name="sll_rippleColor" format="color" />
 
         <attr name="sll_gradientStartColor" format="color" />
+        <attr name="sll_gradientCenterColor" format="color" />
         <attr name="sll_gradientEndColor" format="color" />
         <attr name="sll_gradientOrientation">
             <enum name="TOP_BOTTOM" value="0" />
@@ -172,6 +149,7 @@
         <attr name="srl_rippleColor" format="color" />
 
         <attr name="srl_gradientStartColor" format="color" />
+        <attr name="srl_gradientCenterColor" format="color" />
         <attr name="srl_gradientEndColor" format="color" />
         <attr name="srl_gradientOrientation">
             <enum name="TOP_BOTTOM" value="0" />
@@ -203,6 +181,7 @@
         <attr name="stv_lineSize" format="dimension" />
 
         <attr name="stv_gradientStartColor" format="color" />
+        <attr name="stv_gradientCenterColor" format="color" />
         <attr name="stv_gradientEndColor" format="color" />
         <attr name="stv_gradientOrientation">
             <enum name="TOP_BOTTOM" value="0" />
@@ -225,6 +204,7 @@
         <attr name="siv_enableRipple" format="boolean" />
         <attr name="siv_rippleColor" format="color" />
         <attr name="siv_gradientStartColor" format="color" />
+        <attr name="siv_gradientCenterColor" format="color" />
         <attr name="siv_gradientEndColor" format="color" />
         <attr name="siv_gradientOrientation">
             <enum name="TOP_BOTTOM" value="0" />
@@ -255,7 +235,9 @@
         <attr name="set_bottomLineColor" format="color" />
         <attr name="set_lineSize" format="dimension" />
 
+        <attr name="set_typefacePath" format="string" />
         <attr name="set_gradientStartColor" format="color" />
+        <attr name="set_gradientCenterColor" format="color" />
         <attr name="set_gradientEndColor" format="color" />
         <attr name="set_gradientOrientation">
             <enum name="TOP_BOTTOM" value="0" />

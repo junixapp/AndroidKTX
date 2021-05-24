@@ -51,13 +51,13 @@ fun TextView.sizeDrawable(size: Int, leftDrawable: Int = 0, topDrawable: Int = 0
 
 fun ShapeTextView.disable(solid: Int? = null, textColor: Int? = null){
     isEnabled = false
-    if(solid!=null) mSolid = solid
+    setup(solid = solid)
     if(textColor!=null) setTextColor(textColor)
 }
 
 fun ShapeTextView.enable(solid: Int? = null, textColor: Int? = null){
     isEnabled = true
-    if(solid!=null) mSolid = solid
+    setup(solid = solid)
     if(textColor!=null) setTextColor(textColor)
 }
 

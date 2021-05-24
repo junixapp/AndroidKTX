@@ -113,10 +113,10 @@
                 app:sl_leftTextColor="#222"
                 app:sl_leftTextSize="18sp"
                 app:sl_rightImageSrc="@mipmap/jt"
-                app:sl_solid="#3EDCE9"
-                app:sl_corner="15dp"
-                app:sl_strokeWidth="2dp"
-                app:sl_stroke="#f00"
+                app:sll_solid="#3EDCE9"
+                app:sll_corner="15dp"
+                app:sll_strokeWidth="2dp"
+                app:sll_stroke="#f00"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -136,7 +136,7 @@
                 app:sl_leftTextColor="#222"
                 app:sl_leftTextSize="16sp"
                 app:sl_rightImageSrc="@drawable/checked"
-                app:sl_bottomLineColor="#ccc"
+                app:sll_bottomLineColor="#ccc"
                 app:sl_rightText="更新"
                 app:sl_rightTextBgColor="#f00"
                 app:sl_rightTextWidth="50dp"
@@ -144,7 +144,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <com.lxj.androidktx.widget.SuperLayout
-                app:sl_rippleColor="#f00"
+                app:sll_rippleColor="#f00"
                 android:clickable="true"
                 android:background="#fff"
                 android:paddingLeft="16dp"
