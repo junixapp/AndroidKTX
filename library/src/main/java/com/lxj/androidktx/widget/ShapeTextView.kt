@@ -85,7 +85,7 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
         if(!mTypefacePath.isNullOrEmpty()) typeface = Typeface.createFromAsset(context.assets, mTypefacePath)
         var color : Int? = null
         if (background !=null && background is ColorDrawable && mSolid==Color.TRANSPARENT){
-            color = ( background as ColorDrawable) .color
+            color = ( background as ColorDrawable).color
         }
         val drawable = createDrawable(color = color ?: mSolid, radius = mCorner.toFloat(), strokeColor = mStroke, strokeWidth = mStrokeWidth,
                 enableRipple = mEnableRipple, rippleColor = mRippleColor, gradientStartColor = mGradientStartColor,
@@ -93,8 +93,8 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
         setBackgroundDrawable(drawable)
     }
 
-    val topLine = Rect(0, 0, 0, 0)
-    val bottomLine = Rect(0, 0, 0, 0)
+    private val topLine = Rect(0, 0, 0, 0)
+    private val bottomLine = Rect(0, 0, 0, 0)
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         topLine.right = measuredWidth
@@ -116,7 +116,7 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
         }
     }
 
-    fun setup(drawableWidth: Int? = null, drawableHeight: Int? = null,
+    fun setup(drawableWidth: Int? = null, drawableHeight: Int? = null,drawableSize: Int? = null,
               solid: Int? = null, stroke: Int? = null, strokeWidth: Int? = null,
               corner: Int? = null, enableRipple: Boolean? = null, rippleColor: Int? = null,
               topLineColor: Int? = null, bottomLineColor: Int? = null, lineSize: Int? = null,
@@ -124,6 +124,10 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
            gradientCenterColor: Int? = null,gradientEndColor: Int? = null, typefacePath: String? = null){
         if(drawableWidth!=null) mDrawableWidth = drawableWidth
         if(drawableHeight!=null) mDrawableHeight = drawableHeight
+        if (drawableSize != null) {
+            mDrawableWidth = drawableSize
+            mDrawableHeight = drawableSize
+        }
         if(solid!=null) mSolid = solid
         if(stroke!=null) mStroke = stroke
         if(strokeWidth!=null) mStrokeWidth = strokeWidth

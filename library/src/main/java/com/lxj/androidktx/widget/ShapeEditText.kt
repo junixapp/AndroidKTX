@@ -126,7 +126,7 @@ open class ShapeEditText @JvmOverloads constructor(context: Context, attributeSe
         }
     }
 
-    fun setup(drawableWidth: Int? = null, drawableHeight: Int? = null,
+    fun setup(drawableWidth: Int? = null, drawableHeight: Int? = null,drawableSize: Int? = null,
               solid: Int? = null, stroke: Int? = null, strokeWidth: Int? = null,
               corner: Int? = null, enableRipple: Boolean? = null, rippleColor: Int? = null,
               topLineColor: Int? = null, bottomLineColor: Int? = null, lineSize: Int? = null,
@@ -134,6 +134,10 @@ open class ShapeEditText @JvmOverloads constructor(context: Context, attributeSe
               gradientCenterColor: Int? = null,gradientEndColor: Int? = null, typefacePath: String? = null){
         if(drawableWidth!=null) mDrawableWidth = drawableWidth
         if(drawableHeight!=null) mDrawableHeight = drawableHeight
+        if (drawableSize != null) {
+            mDrawableWidth = drawableSize
+            mDrawableHeight = drawableSize
+        }
         if(solid!=null) mSolid = solid
         if(stroke!=null) mStroke = stroke
         if(strokeWidth!=null) mStrokeWidth = strokeWidth
