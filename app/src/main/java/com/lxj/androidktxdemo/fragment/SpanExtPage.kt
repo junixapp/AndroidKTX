@@ -1,11 +1,11 @@
 package com.lxj.androidktxdemo.fragment
 
 import android.graphics.*
+import android.graphics.drawable.GradientDrawable
 import com.blankj.utilcode.util.SpanUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.share.Share
-import com.lxj.androidktx.widget.GradientOrientation
 import com.lxj.androidktx.widget.SuperDrawable
 import com.lxj.androidktx.widget.SuperLayout
 import com.lxj.androidktxdemo.R
@@ -99,7 +99,7 @@ class SpanExtPage : BaseFragment() {
         val td = SuperDrawable()
             .setPadding(left = dp2px(8f), right = dp2px(8f), top = dp2px(4f), bottom = dp2px(4f))
             .setBg(bgRadius = dp2px(30f).toFloat(), gradientColors = intArrayOf(Color.RED, Color.BLUE),
-            gradientOrientation = GradientOrientation.TL_BR)
+            gradientOrientation = GradientDrawable.Orientation.TL_BR)
             .setText("Lv 12345", textColor = Color.WHITE, textSize = sp2px(13f).toFloat(),
             bold = true, typeface = Typeface.createFromAsset(context!!.assets,"FredokaOne-Regular.ttf"))
             .setLeftDrawable(R.mipmap._ktx_ic_clear, drawableWidth = dp2px(12f), drawableHeight = dp2px(12f),

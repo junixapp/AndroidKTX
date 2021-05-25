@@ -2,35 +2,10 @@ package com.lxj.androidktx.widget
 
 import android.graphics.*
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.ResourceUtils
 import kotlin.math.max
-
-enum class GradientOrientation {
-    /** draw the gradient from the top to the bottom  */
-    TOP_BOTTOM,
-
-    /** draw the gradient from the top-right to the bottom-left  */
-    TR_BL,
-
-    /** draw the gradient from the right to the left  */
-    RIGHT_LEFT,
-
-    /** draw the gradient from the bottom-right to the top-left  */
-    BR_TL,
-
-    /** draw the gradient from the bottom to the top  */
-    BOTTOM_TOP,
-
-    /** draw the gradient from the bottom-left to the top-right  */
-    BL_TR,
-
-    /** draw the gradient from the left to the right  */
-    LEFT_RIGHT,
-
-    /** draw the gradient from the top-left to the bottom-right  */
-    TL_BR
-}
 
 /**
  * 支持设置渐变，背景，文字，leftDrawable和rightDrawable的drawable；好处是可以放到span中与文字一起换行
@@ -42,7 +17,7 @@ class SuperDrawable : Drawable() {
     private var bgRadius = 0f
     private var bgColor = Color.WHITE
     private var gradientColors: IntArray? = null
-    private var gradientOrientation = GradientOrientation.LEFT_RIGHT
+    private var mGradientOrientation = GradientDrawable.Orientation.LEFT_RIGHT
 
     private var bgDrawableWidth = 0
     private var bgDrawableHeight = 0
@@ -147,44 +122,44 @@ class SuperDrawable : Drawable() {
         val y0: Float
         val y1: Float
         val level = 1f
-        when (gradientOrientation) {
-            GradientOrientation.TOP_BOTTOM -> {
+        when (mGradientOrientation) {
+            GradientDrawable.Orientation.TOP_BOTTOM -> {
                 x0 = r.left.toFloat()
                 y0 = r.top.toFloat()
                 x1 = x0
                 y1 = level * r.bottom.toFloat()
             }
-            GradientOrientation.TR_BL -> {
+            GradientDrawable.Orientation.TR_BL -> {
                 x0 = r.right.toFloat()
                 y0 = r.top.toFloat()
                 x1 = level * r.left
                 y1 = level * r.bottom
             }
-            GradientOrientation.RIGHT_LEFT -> {
+            GradientDrawable.Orientation.RIGHT_LEFT -> {
                 x0 = r.right.toFloat()
                 y0 = r.top.toFloat()
                 x1 = level * r.left
                 y1 = y0
             }
-            GradientOrientation.BR_TL -> {
+            GradientDrawable.Orientation.BR_TL -> {
                 x0 = r.right.toFloat()
                 y0 = r.bottom.toFloat()
                 x1 = level * r.left
                 y1 = level * r.top
             }
-            GradientOrientation.BOTTOM_TOP -> {
+            GradientDrawable.Orientation.BOTTOM_TOP -> {
                 x0 = r.left.toFloat()
                 y0 = r.bottom.toFloat()
                 x1 = x0
                 y1 = level * r.top
             }
-            GradientOrientation.BL_TR -> {
+            GradientDrawable.Orientation.BL_TR -> {
                 x0 = r.left.toFloat()
                 y0 = r.bottom.toFloat()
                 x1 = level * r.right
                 y1 = level * r.top
             }
-            GradientOrientation.LEFT_RIGHT -> {
+            GradientDrawable.Orientation.LEFT_RIGHT -> {
                 x0 = r.left.toFloat()
                 y0 = r.top.toFloat()
                 x1 = level * r.right
@@ -245,7 +220,7 @@ class SuperDrawable : Drawable() {
 
     fun setBg(
         bgColor: Int? = null, bgRadius: Float? = null, gradientColors: IntArray? = null,
-        gradientOrientation: GradientOrientation? = null
+        gradientOrientation: GradientDrawable.Orientation? = null
     ): SuperDrawable {
         if (bgColor != null) {
             this.bgColor = bgColor
@@ -253,7 +228,7 @@ class SuperDrawable : Drawable() {
         }
         if (bgRadius != null) this.bgRadius = bgRadius
         if (gradientColors != null) this.gradientColors = gradientColors
-        if (gradientOrientation != null) this.gradientOrientation = gradientOrientation
+        if (gradientOrientation != null) this.mGradientOrientation = gradientOrientation
         return this
     }
 
