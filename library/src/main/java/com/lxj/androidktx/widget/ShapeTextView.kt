@@ -3,6 +3,7 @@ package com.lxj.androidktx.widget
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.text.TextPaint
 import android.util.AttributeSet
@@ -36,6 +37,7 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
     private var mGradientEndColor = 0
     private var mGradientOrientation = GradientDrawable.Orientation.LEFT_RIGHT  //从左到右
     private var mTypefacePath: String? = null
+    private var mBgDrawable: Drawable? = null
 
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.ShapeTextView)
@@ -74,6 +76,7 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
             else -> GradientDrawable.Orientation.TL_BR
         }
         mTypefacePath = ta.getString(R.styleable.ShapeTextView_stv_typefacePath)
+        mBgDrawable = ta.getDrawable(R.styleable.ShapeTextView_stv_background)
         ta.recycle()
         applySelf()
     }
@@ -83,14 +86,14 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
             sizeDrawable(width = mDrawableWidth, height = mDrawableHeight)
         }
         if(!mTypefacePath.isNullOrEmpty()) typeface = Typeface.createFromAsset(context.assets, mTypefacePath)
-        var color : Int? = null
-        if (background !=null && background is ColorDrawable && mSolid==Color.TRANSPARENT){
-            color = ( background as ColorDrawable).color
-        }
-        val drawable = createDrawable(color = color ?: mSolid, radius = mCorner.toFloat(), strokeColor = mStroke, strokeWidth = mStrokeWidth,
+        if(mBgDrawable!=null) {
+            setBackgroundDrawable(mBgDrawable)
+        } else{
+            val drawable = createDrawable(color = mSolid, radius = mCorner.toFloat(), strokeColor = mStroke, strokeWidth = mStrokeWidth,
                 enableRipple = mEnableRipple, rippleColor = mRippleColor, gradientStartColor = mGradientStartColor,
-            gradientCenterColor = mGradientCenterColor, gradientEndColor = mGradientEndColor, gradientOrientation = mGradientOrientation)
-        setBackgroundDrawable(drawable)
+                gradientCenterColor = mGradientCenterColor, gradientEndColor = mGradientEndColor, gradientOrientation = mGradientOrientation)
+            setBackgroundDrawable(drawable)
+        }
     }
 
     private val topLine = Rect(0, 0, 0, 0)

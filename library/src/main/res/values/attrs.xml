@@ -194,6 +194,7 @@
             <enum name="TL_BR" value="7" />
         </attr>
         <attr name="stv_typefacePath" format="string" />
+        <attr name="stv_background" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="ShapeImageView">
