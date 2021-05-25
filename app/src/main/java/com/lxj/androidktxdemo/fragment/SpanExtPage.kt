@@ -7,6 +7,7 @@ import com.lxj.androidktx.core.*
 import com.lxj.androidktx.share.Share
 import com.lxj.androidktx.widget.GradientOrientation
 import com.lxj.androidktx.widget.SuperDrawable
+import com.lxj.androidktx.widget.SuperLayout
 import com.lxj.androidktxdemo.R
 import kotlinx.android.synthetic.main.fragment_span_ext.*
 
@@ -116,5 +117,6 @@ class SpanExtPage : BaseFragment() {
             .append("齐天大圣说：")
             .append("哒哒哒哒哒所大所多所多撒大所大所大所大所大所大所大所大所大所").setForegroundColor(Color.parseColor("#cccccc"))
             .create()
+
     }
 }

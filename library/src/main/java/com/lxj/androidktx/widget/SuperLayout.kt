@@ -107,7 +107,7 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
         gravity = Gravity.CENTER_VERTICAL
     }
 
-    fun setup(leftImageRes: Int? = null,
+    fun setupContent(leftImageRes: Int? = null,
               leftText: CharSequence? = null,
               leftSubText: CharSequence? = null,
               centerText: CharSequence? = null,
