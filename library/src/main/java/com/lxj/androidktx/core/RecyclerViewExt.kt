@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.view.View
 import androidx.recyclerview.widget.*
+import com.blankj.utilcode.util.AdaptScreenUtils
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.lxj.androidktx.util.RecyclerViewDivider
 import com.lxj.easyadapter.*
@@ -226,4 +227,14 @@ fun RecyclerView.enableItemDrag(isDisableLast: Boolean = false, onDragFinish: ((
 
 fun RecyclerView.disableItemChangeAnimation(){
     (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+}
+
+/**
+ * 边界模糊
+ */
+fun RecyclerView.fadeEdge(length: Int = AdaptScreenUtils.pt2Px(25f), isHorizontal: Boolean = false){
+    if(isHorizontal) isHorizontalFadingEdgeEnabled = true
+    else isVerticalFadingEdgeEnabled = true
+    overScrollMode = View.OVER_SCROLL_ALWAYS
+    setFadingEdgeLength(length)
 }
