@@ -5,6 +5,7 @@ import android.graphics.drawable.GradientDrawable
 import com.blankj.utilcode.util.SpanUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.lxj.androidktx.core.*
+import com.lxj.androidktx.player.VideoPlayerActivity
 import com.lxj.androidktx.share.Share
 import com.lxj.androidktx.widget.SuperDrawable
 import com.lxj.androidktx.widget.SuperLayout
@@ -19,6 +20,8 @@ import kotlinx.android.synthetic.main.fragment_span_ext.*
 class SpanExtPage : BaseFragment() {
     override fun getLayoutId(): Int = R.layout.fragment_span_ext
 
+    val video1 = "https://vdn.vzuu.com/HD/5538387e-1735-11eb-ba6b-627074da3f61.mp4?disable_local_cache=1&auth_key=1622029639-0-0-048e4615994dda73bd629bd1062eb6c0&f=mp4&bu=http-com&expiration=1622029639&v=ali"
+    val video2 = "https://vdn1.vzuu.com/HD/84dd1e18-c128-11ea-aa63-1efae2afc434.mp4?disable_local_cache=1&auth_key=1622029974-0-0-e94da64385079e4f31c3f58a036a3c8f&f=mp4&bu=http-com&expiration=1622029974&v=hw"
     override fun initView() {
         val str = "我是测试文字"
 
@@ -28,6 +31,10 @@ class SpanExtPage : BaseFragment() {
         """.trimIndent()
         tvSizeResult.sizeSpan(str, 0..2).colorSpan(range = 0..1)
         tvSizeSpan.setShadowLayer(1.6f,1.5f,1.3f,Color.BLACK);
+        tvSizeSpan.click {
+            VideoPlayerActivity.start(url = "android.resource://" + context!!.packageName + "/" + R.raw.heng, title = "视频敖德萨大所大所大所大所大所多")
+//            VideoPlayerActivity.start(url = video2, title = "视频敖德萨大所大所大所大所大所多")
+        }
 
         // toColorSpan
         tvColorSpan.text = """

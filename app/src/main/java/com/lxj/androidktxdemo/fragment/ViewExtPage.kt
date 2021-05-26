@@ -4,8 +4,10 @@ package com.lxj.androidktxdemo.fragment
 import android.graphics.Color
 import com.blankj.utilcode.util.ToastUtils
 import com.lxj.androidktx.core.*
+import com.lxj.androidktx.player.VideoPlayerActivity
 import com.lxj.androidktx.widget.TabBar
 import com.lxj.androidktxdemo.R
+import kotlinx.android.synthetic.main.adapter_pager2.*
 import kotlinx.android.synthetic.main.fragment_view_ext.*
 
 class ViewExtPage : BaseFragment() {
@@ -15,6 +17,7 @@ class ViewExtPage : BaseFragment() {
         val value = dp2px(150f)
         text1.width(value)
         text1.text = "自定义字体：text1.width($value)"
+
 
         text2.widthAndHeight(value, value)
         text2.text = "text2.widthAndHeight($value,$value)"

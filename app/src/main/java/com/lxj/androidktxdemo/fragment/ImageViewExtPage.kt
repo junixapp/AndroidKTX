@@ -1,16 +1,11 @@
 package com.lxj.androidktxdemo.fragment
 
 import android.content.Intent
-import android.graphics.Color
-import com.blankj.utilcode.util.FileUtils
-import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.ToastUtils
+import android.media.MediaMetadataRetriever
 import com.bumptech.glide.Glide
-import com.lxj.androidktx.base.PlayerActivity
 import com.lxj.androidktx.core.click
 import com.lxj.androidktx.core.load
 import com.lxj.androidktx.picker.ImagePicker
-import com.lxj.androidktx.qrcode.QrCodeUtil
 import com.lxj.androidktxdemo.R
 import kotlinx.android.synthetic.main.fragment_imageview_ext.*
 

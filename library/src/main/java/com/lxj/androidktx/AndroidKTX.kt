@@ -7,12 +7,9 @@ import android.graphics.Color
 import android.view.Gravity
 import com.blankj.utilcode.util.ToastUtils
 import com.blankj.utilcode.util.Utils
-import com.lxj.androidktx.player.ExoPlayerVM
 import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.header.ClassicsHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
-import com.shuyu.gsyvideoplayer.player.IjkPlayerManager
-import tv.danmaku.ijk.media.player.IjkMediaPlayer
 
 /**
  * Description: 统一配置扩展方法中的变量
@@ -45,7 +42,6 @@ object AndroidKTX {
         ToastUtils.getDefaultMaker().setBgResource(R.drawable._ktx_toast_bg)
         ToastUtils.getDefaultMaker().setTextColor(Color.WHITE)
         initRefresh()
-        IjkPlayerManager.setLogLevel(IjkMediaPlayer.IJK_LOG_SILENT)
     }
 
     fun initRefresh() {

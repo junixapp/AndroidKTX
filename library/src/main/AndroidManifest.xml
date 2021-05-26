@@ -24,7 +24,7 @@
             android:launchMode="singleTop"
             android:theme="@style/_FullScreenTheme" />
         <activity
-            android:name=".base.PlayerActivity"
+            android:name=".player.VideoPlayerActivity"
             android:hardwareAccelerated="true"
             android:theme="@style/_FullScreenTheme" />
         <activity
