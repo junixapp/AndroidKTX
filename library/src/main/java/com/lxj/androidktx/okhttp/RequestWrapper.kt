@@ -98,12 +98,12 @@ data class RequestWrapper(
     private fun buildRequestBody(): RequestBody {
         if (isMultiPartParam || isAutoMultiPart()) {
             val pairs = arrayListOf<Pair<String, Any>>()
-            params.forEach { pairs.add(Pair(it.key, if (it.value is File || it.value is Array<*>) it.value else "${it.value}")) }
+            params.forEach { pairs.add(Pair(it.key, if (it.value is File || it.value is Array<*>) it.value else URLEncoder.encode("${it.value}"))) }
             // 自动识别 multipart/form-data
             val builder = MultipartBody.Builder()
             pairs.forEach {
                 if (it.second is String) {
-                    builder.addFormDataPart(it.first, it.second as String)
+                    builder.addFormDataPart(it.first, URLEncoder.encode(it.second as String))
                 } else if (it.second is File) { //single file
                     val file = it.second as File
                     builder.addFormDataPart(it.first, URLEncoder.encode(file.name), RequestBody.create(MediaType.parse(file.mediaType()), file))
@@ -133,7 +133,7 @@ data class RequestWrapper(
         }else{
             // default is form-data/url-encoded
             val builder = FormBody.Builder()
-            params.forEach { builder.add(it.key, "${it.value}")  }
+            params.forEach { builder.add(it.key, URLEncoder.encode("${it.value}"))  }
             return builder.build()
         }
     }
@@ -149,7 +149,7 @@ data class RequestWrapper(
 
     private fun urlParams(): String {
         val queryParams = if (params().isEmpty()) "" else "?" + params.toList().joinToString(separator = "&", transform = {
-            "${it.first}=${it.second}"
+            "${it.first}=${URLEncoder.encode(it.second.toString())}"
         })
         return "${url()}$queryParams"
     }
