@@ -6,19 +6,16 @@ import okhttp3.Response
 import java.nio.charset.Charset
 
 /**
- * 通用的Token拦截器，支持bearer token；支持json response text callback.
+ * 通用的Token拦截器，支持json response text callback.
  */
-class TokenInterceptor(var isBearerToken: Boolean = false,  var tokenField: String = "token",
-                       var tokenAction: (resData: String) -> Unit) : Interceptor {
+class TokenInterceptor(var tokenField: String = "token",
+                       var tokenCreator: (()->String)? = null,
+                       var onGetBodyData: (resData: String) -> Unit) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         var request = chain.request()
-        val token = sp().getString("token", null)
-        if (token != null) {
-            if (!isBearerToken) {
-                request = request.newBuilder().addHeader(tokenField, token).build()
-            } else {
-                request = request.newBuilder().addHeader("Authorization", "bearer ${token}").build()
-            }
+        val tokenValue = if(tokenCreator!=null) tokenCreator!!() else sp().getString("token", null)
+        if (tokenValue != null) {
+            request = request.newBuilder().addHeader(tokenField, tokenValue).build()
         }
         val response = chain.proceed(request)
         if (response.header("content-type")?.contains("application/json") == true) {
@@ -26,7 +23,7 @@ class TokenInterceptor(var isBearerToken: Boolean = false,  var tokenField: Stri
             val source = response.body()?.source()
             source?.request(java.lang.Long.MAX_VALUE) // Buffer the entire body.
             val data = source?.buffer()?.clone()?.readString(Charset.forName("UTF-8"))
-            if (data != null) tokenAction(data)
+            if (data != null) onGetBodyData(data)
         }
         return response
     }
