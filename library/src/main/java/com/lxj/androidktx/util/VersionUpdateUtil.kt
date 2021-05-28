@@ -47,7 +47,7 @@ object VersionUpdateUtil {
      * @param onShowUpdateUI 默认会有个更新的提示，如果想自己实现UI，则实现这个监听器
      * @param useCache 是否使用缓存的apk文件,使用下载url作为缓存的key
      */
-    fun downloadAndInstallApk(updateData: CommonUpdateInfo, onShowUpdateUI: ((apkPath: String) -> Unit)? = null,
+    fun downloadAndInstallApk(context: Context, updateData: CommonUpdateInfo, onShowUpdateUI: ((apkPath: String) -> Unit)? = null,
         useCache: Boolean = true) {
         //检测是否有缓存的apk路径，如果有说明已经下载过了
         DirManager.init()
@@ -59,7 +59,7 @@ object VersionUpdateUtil {
             if (onShowUpdateUI != null) {
                 onShowUpdateUI(cacheApkPath)
             } else {
-                showUpdatePopup(ActivityUtils.getTopActivity(), updateData, cacheApkPath)
+                showUpdatePopup(context, updateData, cacheApkPath)
             }
             return
         }
@@ -84,7 +84,7 @@ object VersionUpdateUtil {
                                         if (onShowUpdateUI != null) {
                                             onShowUpdateUI(t.absolutePath)
                                         } else {
-                                            showUpdatePopup(ActivityUtils.getTopActivity(), updateData, t.absolutePath)
+                                            showUpdatePopup(context, updateData, t.absolutePath)
                                         }
                                     }
 
