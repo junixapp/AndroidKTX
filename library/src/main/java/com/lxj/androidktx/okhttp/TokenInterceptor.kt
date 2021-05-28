@@ -10,7 +10,7 @@ import java.nio.charset.Charset
  */
 class TokenInterceptor(var tokenField: String = "token",
                        var tokenCreator: (()->String)? = null,
-                       var onGetBodyData: (resData: String) -> Unit) : Interceptor {
+                       var onGetBodyData: (resData: String) -> Unit  ) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         var request = chain.request()
         val tokenValue = if(tokenCreator!=null) tokenCreator!!() else sp().getString("token", null)

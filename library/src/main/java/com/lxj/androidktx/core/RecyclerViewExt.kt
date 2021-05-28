@@ -225,16 +225,18 @@ fun RecyclerView.enableItemDrag(isDisableLast: Boolean = false, onDragFinish: ((
     }).attachToRecyclerView(this)
 }
 
-fun RecyclerView.disableItemChangeAnimation(){
+fun RecyclerView.disableItemChangeAnimation(): RecyclerView{
     (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+    return this
 }
 
 /**
  * 边界模糊
  */
-fun RecyclerView.fadeEdge(length: Int = AdaptScreenUtils.pt2Px(25f), isHorizontal: Boolean = false){
+fun RecyclerView.fadeEdge(length: Int = AdaptScreenUtils.pt2Px(25f), isHorizontal: Boolean = false): RecyclerView{
     if(isHorizontal) isHorizontalFadingEdgeEnabled = true
     else isVerticalFadingEdgeEnabled = true
     overScrollMode = View.OVER_SCROLL_ALWAYS
     setFadingEdgeLength(length)
+    return this
 }
