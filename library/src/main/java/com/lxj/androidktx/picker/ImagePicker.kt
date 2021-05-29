@@ -6,8 +6,6 @@ import androidx.fragment.app.Fragment
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.lxj.androidktx.core.start
-import com.lxj.androidktx.core.startActivity
 import com.lxj.androidktx.core.startForResult
 import com.zhihu.matisse.MimeType
 import java.io.Serializable

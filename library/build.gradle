@@ -76,7 +76,7 @@ dependencies {
     api 'com.github.Justson.AgentWeb:agentweb-filechooser:v4.1.9-androidx' // (可选)
 //    api 'com.github.Justson:Downloader:v4.1.9-androidx' // (可选)
 
-    implementation 'com.github.yalantis:ucrop:2.2.6'
+    implementation 'com.github.yalantis:ucrop:2.2.7'
 
     api 'com.umeng.umsdk:asms:1.2.2'  // asms包依赖(必选)友盟相关
 //    implementation 'com.google.android.exoplayer:exoplayer:2.13.3'     //player

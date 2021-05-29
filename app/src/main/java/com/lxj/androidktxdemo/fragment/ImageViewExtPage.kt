@@ -2,6 +2,7 @@ package com.lxj.androidktxdemo.fragment
 
 import android.content.Intent
 import android.media.MediaMetadataRetriever
+import com.blankj.utilcode.util.LogUtils
 import com.bumptech.glide.Glide
 import com.lxj.androidktx.core.click
 import com.lxj.androidktx.core.load
@@ -79,6 +80,7 @@ class ImageViewExtPage: BaseFragment(){
 //        ToastUtils.showShort(QrCodeUtil.fetchResult(1, data))
         if(requestCode==1&& resultCode==-1){
             val url = ImagePicker.fetchResult(data)
+            LogUtils.e(url)
             image1.load(url[0])
 //            QrCodeUtil.parseQrCode(url[0], onFinish= { result->
 //                ToastUtils.showLong(result)

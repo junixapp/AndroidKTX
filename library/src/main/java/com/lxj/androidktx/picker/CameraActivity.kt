@@ -67,7 +67,7 @@ class CameraActivity : AdaptActivity() {
     }
 
     override fun initView() {
-        mode = intent.getStringExtra("mode")
+        mode = intent.getStringExtra("mode") ?: CameraActivity.All
         DirManager.init {
             jCameraView.findViewById<View>(com.cjt2325.cameralibrary.R.id.image_flash).gone()
             jCameraView.setSaveVideoPath(DirManager.tempDir)

@@ -7,8 +7,10 @@ import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.provider.OpenableColumns
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import com.blankj.utilcode.util.*
@@ -30,6 +32,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import top.zibin.luban.Luban
 import java.io.File
+import java.io.FileOutputStream
 
 /**
  * 选择器的中转界面，本身是透明的，为了统一处理startActivityForResult
@@ -76,7 +79,9 @@ class PickerEmptyActivity : AppCompatActivity() {
     private var tempPhotoFile: File? = null
     fun startCamera() {
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        if (cameraIntent.resolveActivity(packageManager) != null) {
+        cameraIntent.action = MediaStore.ACTION_IMAGE_CAPTURE_SECURE
+        //在Google Pixel2手机返回null，但实际可以打开相机
+//        if (cameraIntent.resolveActivity(packageManager) != null) {
             tempPhotoFile = File(DirManager.tempDir,  "${System.currentTimeMillis()}.jpg")
             FileUtils.createFileByDeleteOldFile(tempPhotoFile)
             val uri: Uri = FileProvider.getUriForFile(this, "$packageName.fileprovider", tempPhotoFile!!)
@@ -87,23 +92,11 @@ class PickerEmptyActivity : AppCompatActivity() {
             }
             cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri) //Uri.fromFile(tempFile)
             startActivityForResult(cameraIntent, _cameraCode)
-        } else {
-            ToastUtils.showShort("打开相机失败")
-            finish()
-        }
-    }
-
-//    private fun createRootPath(): String? {
-//        var cacheRootPath: String? = ""
-//        cacheRootPath = if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()) {
-//            // /sdcard/Android/data/<application package>/cache
-//            externalCacheDir?.path
 //        } else {
-//            // /data/data/<application package>/cache
-//            cacheDir.path
+//            ToastUtils.showShort("打开相机失败")
+//            finish()
 //        }
-//        return cacheRootPath
-//    }
+    }
 
     private var cropImageFile: File? = null
     private fun startCrop(uri: Uri){
@@ -115,7 +108,7 @@ class PickerEmptyActivity : AppCompatActivity() {
         options.setStatusBarColor(Color.parseColor("#1D282C"))//Matisse的主题色
         options.setActiveControlsWidgetColor(primaryColor)
         options.setHideBottomControls(true)
-        cropImageFile = File(DirManager.tempDir, System.nanoTime().toString() + "_crop.jpg")
+        cropImageFile = File(DirManager.tempDir,  "${System.currentTimeMillis()}_crop.jpg")
         UCrop.of(uri, Uri.fromFile(cropImageFile))
                 .withAspectRatio(1f, 1f)
                 .withOptions(options)
@@ -144,10 +137,8 @@ class PickerEmptyActivity : AppCompatActivity() {
             try {
                 val compressPaths = arrayListOf<String>()
                 list.map {
-//                    LogUtils.e("压缩之前大小：${File(it).length()/1024}k")
                     val f = compressImage(it).await()
                     compressPaths.add(f.absolutePath)
-//                    LogUtils.e("压缩后大小：${f.length()/1024}k")
                 }
                 finishWithResult(compressPaths)
             }catch (e: Exception){
@@ -177,22 +168,39 @@ class PickerEmptyActivity : AppCompatActivity() {
             val list = arrayListOf<String>()
             if (requestCode == _pickerCode) {
                 //打开照片和视频选择器
-//                val uriList = if(data!=null) Matisse.obtainResult(data) else listOf()
-                val pathList = if(data!=null) Matisse.obtainPathResult(data) else listOf()
-//                LogUtils.e("pathList:" +pathList.toJson())
-//                uriList.forEach { if(it!=null)list.add(UriUtils.uri2File(it).absolutePath) }
-                list.addAll(pathList)
+                val uriList = if(data!=null) Matisse.obtainResult(data) else listOf()
+                if(Build.VERSION.SDK_INT >= 29){
+                    uriList.forEach {
+                        //相册在android11之后只能以uri方式访问，为了统一返回路径，需要拷贝的有权限的目录
+                        val cursor = context.contentResolver.query(it, null, null, null, null)
+                        if(cursor!=null && cursor.moveToFirst()){
+                            val ois = context.contentResolver.openInputStream(it) ?:return@forEach
+                            val displayName =
+                                cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+                            val file = File(DirManager.cacheDir, "${System.currentTimeMillis()}$displayName")
+                            val fos = FileOutputStream(file)
+                            android.os.FileUtils.copy(ois, fos)
+                            fos.close()
+                            ois.close()
+                            list.add(file.absolutePath)
+                        }
+                    }
+                }else{
+                    uriList.forEach { if(it!=null)list.add(UriUtils.uri2File(it).absolutePath) }
+                }
+                if(list.isEmpty()){
+                    finish()
+                    return
+                }
                 if(pickerData!!.isCrop){
                     //裁剪
-                    if(pathList.isEmpty())finish()
-                    startCrop(UriUtils.file2Uri(File(pathList[0])))
+                    startCrop(UriUtils.file2Uri(File(list[0])))
                 }else{
                     //看看是否需要压缩
                     tryCompressImgs(list)
                 }
             } else if (requestCode == _cameraCode) {
                 //拍照
-                LogUtils.e("_cameraCode:" +tempPhotoFile?.absolutePath)
                 if(pickerData!!.isCrop){
                     //裁剪
                     if(tempPhotoFile==null)return
