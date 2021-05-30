@@ -45,7 +45,6 @@ class MainActivity : AppCompatActivity() {
         viewPager.bindFragment(this, fragments = pages.map { it.page!! })
         viewPager.bindTabLayout(tabLayout, pages.map { it.title })
 
-        DirManager.init {  }
 //        viewPager.asCard()
 //        viewPager.bind(10, bindView = {container, position ->
 //            return@bind TextView(this)

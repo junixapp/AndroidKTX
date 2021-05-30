@@ -68,19 +68,17 @@ class CameraActivity : AdaptActivity() {
 
     override fun initView() {
         mode = intent.getStringExtra("mode") ?: CameraActivity.All
-        DirManager.init {
-            jCameraView.findViewById<View>(com.cjt2325.cameralibrary.R.id.image_flash).gone()
-            jCameraView.setSaveVideoPath(DirManager.tempDir)
-            jCameraView.setFeatures(when(mode){
-                All -> JCameraView.BUTTON_STATE_BOTH
-                OnlyImage -> JCameraView.BUTTON_STATE_ONLY_CAPTURE
-                else -> {
-                    jCameraView.setTip("")
-                    JCameraView.BUTTON_STATE_ONLY_RECORDER
-                }
-            })
-            jCameraView.setMediaQuality(JCameraView.MEDIA_QUALITY_MIDDLE)
-        }
+        jCameraView.findViewById<View>(com.cjt2325.cameralibrary.R.id.image_flash).gone()
+        jCameraView.setSaveVideoPath(DirManager.tempDir)
+        jCameraView.setFeatures(when(mode){
+            All -> JCameraView.BUTTON_STATE_BOTH
+            OnlyImage -> JCameraView.BUTTON_STATE_ONLY_CAPTURE
+            else -> {
+                jCameraView.setTip("")
+                JCameraView.BUTTON_STATE_ONLY_RECORDER
+            }
+        })
+        jCameraView.setMediaQuality(JCameraView.MEDIA_QUALITY_MIDDLE)
 
         jCameraView.setErrorLisenter(object : ErrorListener {
             override fun AudioPermissionError() {
