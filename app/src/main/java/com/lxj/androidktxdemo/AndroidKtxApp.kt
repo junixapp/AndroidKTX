@@ -1,6 +1,7 @@
 package com.lxj.androidktxdemo
 
 import android.app.Application
+import androidx.multidex.MultiDexApplication
 import com.lxj.androidktx.AndroidKTX
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.share.Share
@@ -10,7 +11,7 @@ import com.lxj.androidktxdemo.entity.User
  * Description:
  * Create by dance, at 2018/12/5
  */
-class AndroidKtxApp: Application(){
+class AndroidKtxApp: MultiDexApplication(){
     override fun onCreate() {
         super.onCreate()
 //        AndroidKtxConfig.init(this)
