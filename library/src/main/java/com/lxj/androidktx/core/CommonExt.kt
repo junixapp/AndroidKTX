@@ -14,6 +14,8 @@ import android.os.*
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.AdaptScreenUtils
+import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.TimeUtils
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
@@ -33,68 +35,95 @@ import java.util.*
  */
 
 /** dp和px转换 **/
+inline val Float.dp
+    get() = ConvertUtils.dp2px(this)
+inline val Float.sp
+    get() = ConvertUtils.sp2px(this)
+inline val Float.pt
+    get() = AdaptScreenUtils.pt2Px(this)
+inline val Int.dp
+    get() = ConvertUtils.dp2px(this.toFloat())
+inline val Int.sp
+    get() = ConvertUtils.sp2px(this.toFloat())
+inline val Int.pt
+    get() = AdaptScreenUtils.pt2Px(this.toFloat())
+
+@Deprecated(message = "请使用1.dp")
 fun Context.dp2px(dpValue: Float): Int {
     return (dpValue * resources.displayMetrics.density + 0.5f).toInt()
 }
 
+@Deprecated(message = "请使用1.dp")
 fun Context.px2dp(pxValue: Float): Int {
     return (pxValue / resources.displayMetrics.density + 0.5f).toInt()
 }
 
+@Deprecated(message = "请使用1.dp")
 fun Context.sp2px(spValue: Float): Int {
     return (spValue * resources.displayMetrics.scaledDensity + 0.5f).toInt()
 }
 
+@Deprecated(message = "请使用1.dp")
 fun Context.px2sp(pxValue: Float): Int {
     return (pxValue / resources.displayMetrics.scaledDensity + 0.5f).toInt()
 }
 
-
+@Deprecated(message = "请使用1.dp")
 fun Fragment.dp2px(dpValue: Float): Int {
     return context!!.dp2px(dpValue)
 }
 
+@Deprecated(message = "请使用1.dp")
 fun Fragment.px2dp(pxValue: Float): Int {
     return context!!.px2dp(pxValue)
 }
 
+@Deprecated(message = "请使用1.dp")
 fun Fragment.sp2px(dpValue: Float): Int {
     return context!!.sp2px(dpValue)
 }
 
+@Deprecated(message = "请使用1.dp")
 fun Fragment.px2sp(pxValue: Float): Int {
     return context!!.px2sp(pxValue)
 }
 
-
+@Deprecated(message = "请使用1.dp")
 fun View.px2dp(pxValue: Float): Int {
     return context!!.px2dp(pxValue)
 }
 
+@Deprecated(message = "请使用1.dp")
 fun View.dp2px(dpValue: Float): Int {
     return context!!.dp2px(dpValue)
 }
 
+@Deprecated(message = "请使用1.dp")
 fun View.sp2px(dpValue: Float): Int {
     return context!!.sp2px(dpValue)
 }
 
+@Deprecated(message = "请使用1.dp")
 fun View.px2sp(pxValue: Float): Int {
     return context!!.px2sp(pxValue)
 }
 
+@Deprecated(message = "请使用1.dp")
 fun RecyclerView.ViewHolder.px2dp(pxValue: Float): Int {
     return itemView.px2dp(pxValue)
 }
 
+@Deprecated(message = "请使用1.dp")
 fun RecyclerView.ViewHolder.dp2px(dpValue: Float): Int {
     return itemView.dp2px(dpValue)
 }
 
+@Deprecated(message = "请使用1.dp")
 fun RecyclerView.ViewHolder.sp2px(dpValue: Float): Int {
     return itemView.sp2px(dpValue)
 }
 
+@Deprecated(message = "请使用1.dp")
 fun RecyclerView.ViewHolder.px2sp(pxValue: Float): Int {
     return itemView.px2sp(pxValue)
 }

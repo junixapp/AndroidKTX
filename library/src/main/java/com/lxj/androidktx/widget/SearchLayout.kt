@@ -24,11 +24,11 @@ open class SearchLayout @JvmOverloads constructor(
     var hint = ""
     var hintColor = Color.parseColor("#888888")
     var textColor = Color.parseColor("#222222")
-    var textSize = sp2px(14f)
+    var textSize = context.sp2px(14f)
     var clearIcon: Drawable? = null
     var searchIcon: Drawable? = null
-    var clearIconSize = dp2px(28f)
-    var searchIconSize =  dp2px(28f)
+    var clearIconSize = context.dp2px(28f)
+    var searchIconSize =  context.dp2px(28f)
     var showClearIconWhenEmpty = false  //内容为空时是否显示删除按钮
     var showSearchIcon = true  //是否显示搜索图标
     var searchIconPosition = 0  //搜索框默认在右边

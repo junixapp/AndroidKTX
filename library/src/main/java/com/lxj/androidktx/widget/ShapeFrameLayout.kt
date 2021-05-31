@@ -27,7 +27,7 @@ open class ShapeFrameLayout @JvmOverloads constructor(context: Context, attribut
     private var mCorner = 0 //圆角
     private var mTopLineColor = 0
     private var mBottomLineColor = 0
-    private var mLineSize = dp2px(1f)
+    private var mLineSize = context.dp2px(1f)
     private var mEnableRipple = true
     private var mRippleColor = Color.parseColor("#88999999")
     private var mGradientStartColor = 0

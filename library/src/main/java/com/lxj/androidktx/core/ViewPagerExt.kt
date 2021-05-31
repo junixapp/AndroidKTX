@@ -71,8 +71,8 @@ fun ViewPager.bindFragment(
  * @param padding 用来调节ViewPager的padding
  */
 fun ViewPager.asCard(
-    pageMargin: Int = dp2px(30.toFloat()),
-    padding: Int = dp2px(45.toFloat())
+    pageMargin: Int = 30.dp,
+    padding: Int = 45.dp
 ): ViewPager {
     setPageTransformer(false, CardPagerTransformer(context))
     setPageMargin(pageMargin)
@@ -136,8 +136,8 @@ fun ViewPager2.bindTabLayout(tabLayout: TabLayout, titles: List<String>): ViewPa
  * @param padding 用来调节ViewPager的padding
  */
 fun ViewPager2.asCard(
-    pageMargin: Int = dp2px(10.toFloat()), padding: Int = dp2px(45.toFloat()),
-    offsetVal: Int = context.dp2px(150f),
+    pageMargin: Int = 10f.dp, padding: Int = 45.dp,
+    offsetVal: Int = 150.dp,
     scaleRatio: Float = 0.3f
 ): ViewPager2 {
     setPageTransformer(CardPager2Transformer(context, orientation = orientation,

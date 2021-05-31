@@ -34,7 +34,7 @@ open class ShapeEditText @JvmOverloads constructor(context: Context, attributeSe
     //上下分割线
     private var mTopLineColor = 0
     private var mBottomLineColor = 0
-    private var mLineSize = dp2px(1f)
+    private var mLineSize = context.dp2px(1f)
     private var mGradientStartColor = 0
     private var mGradientCenterColor = 0
     private var mGradientEndColor = 0
