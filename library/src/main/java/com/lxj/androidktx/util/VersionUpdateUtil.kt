@@ -48,9 +48,8 @@ object VersionUpdateUtil {
      * @param useCache 是否使用缓存的apk文件,使用下载url作为缓存的key
      */
     fun downloadAndInstallApk(context: Context, updateData: CommonUpdateInfo, onShowUpdateUI: ((apkPath: String) -> Unit)? = null,
-        useCache: Boolean = true) {
+        useCache: Boolean = true, onDownloadProgress: ((Int)->Unit)? = null) {
         //检测是否有缓存的apk路径，如果有说明已经下载过了
-        DirManager.init()
         val filename = "${updateData.download_url!!.md5()}.apk"
         val file = File("${DirManager.downloadDir}/${filename}")
         val cacheApkPath = sp().getString(cacheKey, "")
@@ -74,6 +73,7 @@ object VersionUpdateUtil {
                         updateData.download_url!!.http(baseUrlTag = "")
                                 .savePath(file.absolutePath)
                                 .downloadListener(onProgress = {
+                                    onDownloadProgress?.invoke(it?.percent?:0)
                                    LogUtils.d("新版本下载进度：${ it?.percent}")
                                 })
                                 .get<File>(object : HttpCallback<File> {
