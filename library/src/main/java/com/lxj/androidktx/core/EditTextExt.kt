@@ -27,3 +27,8 @@ fun EditText.hidePassword(){
 fun EditText.maxLength(max: Int){
     filters = arrayOf<InputFilter>(InputFilter.LengthFilter(max))
 }
+
+fun EditText.setTextWidthEndCursor(s: CharSequence){
+    setText(s)
+    setSelection(text.toString().length)
+}
