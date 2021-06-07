@@ -112,6 +112,10 @@ class StateLiveData<T> : NoStickyLiveData<T>() {
 
     /**
      * 使用viewModeScope启动协程，会随着UI销毁而停止，推荐使用
+     * 强大而实用的封装，启动协程执行逻辑（比如网络请求），并对逻辑结果进行智能post。示例如下：
+     * launchAndSmartPost2 {
+     *      "https://iandroid.xyz/api".http().get<T>().await()
+     * }
      */
     fun launchAndSmartPost2(viewModel : ViewModel, postNull: Boolean = false,  nullIsEmpty: Boolean = false,
                             block: suspend CoroutineScope.() -> T?): Job {
