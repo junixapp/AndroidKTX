@@ -1,8 +1,6 @@
 package com.lxj.androidktx.livedata
 
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
+import androidx.lifecycle.*
 import com.lxj.statelayout.StateLayout
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
@@ -102,6 +100,7 @@ class StateLiveData<T> : NoStickyLiveData<T>() {
      * launchAndSmartPost {
      *      "https://iandroid.xyz/api".http().get<T>().await()
      * }
+     * 启动的任务不会随着UI销毁而停止，如果需要需要随UI销毁而停止，则使用 launchAndSmartPost2
      * @param block 执行块
      * @param nullIsEmpty 是否把null值当做Empty处理，默认false
      */
@@ -109,6 +108,15 @@ class StateLiveData<T> : NoStickyLiveData<T>() {
                             block: suspend CoroutineScope.() -> T?): Job {
         postLoading()
         return GlobalScope.launch { smartPost(block(), nullIsEmpty, postNull) }
+    }
+
+    /**
+     * 使用viewModeScope启动协程，会随着UI销毁而停止，推荐使用
+     */
+    fun launchAndSmartPost2(viewModel : ViewModel, postNull: Boolean = false,  nullIsEmpty: Boolean = false,
+                            block: suspend CoroutineScope.() -> T?): Job {
+        postLoading()
+        return viewModel.viewModelScope.launch { smartPost(block(), nullIsEmpty, postNull) }
     }
 
     fun isSuccess() = state.value==State.Success
