@@ -18,8 +18,8 @@ class TempFragment: BaseFragment(){
 
     override fun initView() {
         content.text = """
-            $Key1 => ${arguments!!.get(Key1)}
-            $Key2 => ${arguments!!.get(Key2)}
+            $Key1 => ${requireArguments()!!.get(Key1)}
+            $Key2 => ${requireArguments()!!.get(Key2)}
         """.trimIndent()
     }
 }

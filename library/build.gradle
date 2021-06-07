@@ -89,4 +89,5 @@ dependencies {
     api project(':http-progress-manager')
     api project(':luban')
     api project(':matisse')
+    api project(':audio-recorder')
 }
