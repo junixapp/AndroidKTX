@@ -28,15 +28,19 @@ open class WebActivity : TitleBarActivity(){
          * @param url 网页的url地址
          * @param content 本地的html内容
          * @param leftIconRes 自定义左边返回按钮的图片
+         * @param hideTitleBar 是否保持隐藏标题栏
+         * @param keepMarginTop 是否保持顶部边距
+         * @param statusBarColor 状态栏颜色
+         * @param isLightStatusBar 是否是亮色调状态栏
          * @param enableCache 是否开启缓存，默认不开启
          * @param showProgress 是否显示进度条，默认显示
          * @param rightIconRes 右边按钮的图片
          * @param rightIconClickAction 右边按钮的点击监听器
          */
         fun start(title: String? = null, url: String? = null, content: String? = null,
-                  hideTitleBar: Boolean = false, leftIconRes: Int = R.mipmap._ktx_ic_back,
+                  hideTitleBar: Boolean = false, keepMarginTop: Boolean = false, leftIconRes: Int = R.mipmap._ktx_ic_back,
                   enableCache: Boolean? = false, showProgress: Boolean = true, indicatorColor : Int = 0,
-                  rightIconRes: Int = 0, rightIconClickAction: (() -> Unit)? = null){
+                  statusBarColor : Int = -1, isLightStatusBar: Boolean = true, rightIconRes: Int = 0, rightIconClickAction: (() -> Unit)? = null){
             onRightClickAction = rightIconClickAction
             if(AndroidKTX.isDebug){
                 if(!url.isNullOrEmpty()){
@@ -48,10 +52,15 @@ open class WebActivity : TitleBarActivity(){
             val intent = Intent(AndroidKTX.context, WebActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             intent.putExtra("hideTitleBar", hideTitleBar)
+            intent.putExtra("keepMarginTop", keepMarginTop)
+            intent.putExtra("isLightStatusBar", isLightStatusBar)
             intent.putExtra("title", title)
             intent.putExtra("url", url)
             intent.putExtra("content", content)
             intent.putExtra("leftIconRes", leftIconRes)
+            if(indicatorColor!=-1){
+                intent.putExtra("statusBarColor", statusBarColor)
+            }
             if(indicatorColor!=0){
                 intent.putExtra("indicatorColor", indicatorColor)
             }
@@ -70,7 +79,13 @@ open class WebActivity : TitleBarActivity(){
     lateinit var agentWeb: AgentWeb
     var enableCache = false
     val indicatorColor : Int by lazy { intent.getIntExtra("indicatorColor", Color.parseColor("#14d068")) }
+    val mStatusBarColor : Int by lazy { intent.getIntExtra("statusBarColor", -1) }
     val hideTitleBar: Boolean by lazy { intent.getBooleanExtra("hideTitleBar", false) }
+    val keepMarginTop: Boolean by lazy { intent.getBooleanExtra("keepMarginTop", false) }
+    val isLightStatusBar: Boolean by lazy { intent.getBooleanExtra("isLightStatusBar", false) }
+
+    override fun isLightMode() = isLightStatusBar
+
     override fun initData() {
         setupTitle()
 
@@ -85,8 +100,11 @@ open class WebActivity : TitleBarActivity(){
         val rightIconRes = intent.getIntExtra("rightIconRes", 0)
         enableCache = intent.getBooleanExtra("enableCache", false)
 
+        if(mStatusBarColor!=-1) setStatusBarColor(mStatusBarColor)
+
         if(hideTitleBar){
-            hideTitleBar()
+            if(keepMarginTop) hideTitleBarWithMarginTop()
+            else hideTitleBar()
         }else{
             titleBar().setup(leftImageRes = leftIconRes, title = title ?: "加载中...")
             titleBar().leftImageView().click {

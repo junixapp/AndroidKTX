@@ -30,6 +30,11 @@ abstract class TitleBarActivity : AdaptActivity(){
         fakeTitleBar.gone()
         titleDivider.gone()
     }
+    fun hideTitleBarWithMarginTop(){
+        titleBar().gone()
+        titleDivider.gone()
+    }
+
     fun showTitleBar(){
         titleBar().visible()
         fakeTitleBar.visible()

@@ -1,14 +1,14 @@
 package com.lxj.androidktxdemo.fragment
 
-import android.graphics.*
+import android.graphics.Color
+import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import com.blankj.utilcode.util.SpanUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.lxj.androidktx.base.WebActivity
 import com.lxj.androidktx.core.*
-import com.lxj.androidktx.player.VideoPlayerActivity
 import com.lxj.androidktx.share.Share
 import com.lxj.androidktx.widget.SuperDrawable
-import com.lxj.androidktx.widget.SuperLayout
 import com.lxj.androidktxdemo.R
 import kotlinx.android.synthetic.main.fragment_span_ext.*
 
@@ -30,9 +30,11 @@ class SpanExtPage : BaseFragment() {
             tv.sizeSpan(str, 0..2)
         """.trimIndent()
         tvSizeResult.sizeSpan(str, 0..2).colorSpan(range = 0..1)
-        tvSizeSpan.setShadowLayer(1.6f,1.5f,1.3f,Color.BLACK);
+        tvSizeSpan.setShadowLayer(1.6f,1.5f,1.3f,Color.BLACK)
         tvSizeSpan.click {
-            VideoPlayerActivity.start(url = "android.resource://" + context!!.packageName + "/" + R.raw.heng, title = "视频敖德萨大所大所大所大所大所多")
+            WebActivity.start(url = "https://www.baidu.com", hideTitleBar = true, keepMarginTop = true,
+            statusBarColor = Color.RED,  isLightStatusBar = false)
+//            VideoPlayerActivity.start(url = "android.resource://" + requireContext()!!.packageName + "/" + R.raw.heng, title = "视频敖德萨大所大所大所大所大所多")
 //            VideoPlayerActivity.start(url = video2, title = "视频敖德萨大所大所大所大所大所多")
         }
 
@@ -64,7 +66,7 @@ class SpanExtPage : BaseFragment() {
         """.trimIndent()
         tvClickResult.clickSpan(str = str, range = 2..6, color = Color.BLUE, clickAction = {
             ToastUtils.showShort("哈哈我被点击了".toColorSpan(0..2))
-            Share.wxLogin(activity!!,callback = object : Share.ShareCallback{
+            Share.wxLogin(requireActivity()!!,callback = object : Share.ShareCallback{
 
             })
 //            Share.shareImage(activity!!,platform = SharePlatform.QQ, bitmap = tvClickSpan.toBitmap(), cb = object : Share.ShareCallback{
@@ -108,7 +110,7 @@ class SpanExtPage : BaseFragment() {
             .setBg(bgRadius = dp2px(30f).toFloat(), gradientColors = intArrayOf(Color.RED, Color.BLUE),
             gradientOrientation = GradientDrawable.Orientation.TL_BR)
             .setText("Lv 12345", textColor = Color.WHITE, textSize = sp2px(13f).toFloat(),
-            bold = true, typeface = Typeface.createFromAsset(context!!.assets,"FredokaOne-Regular.ttf"))
+            bold = true, typeface = Typeface.createFromAsset(requireContext()!!.assets,"FredokaOne-Regular.ttf"))
             .setLeftDrawable(R.mipmap._ktx_ic_clear, drawableWidth = dp2px(12f), drawableHeight = dp2px(12f),
             drawablePadding = dp2px(4f))
             .setRightDrawable(R.mipmap._ktx_ic_clear, drawableWidth = dp2px(12f), drawableHeight = dp2px(12f),
