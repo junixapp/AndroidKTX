@@ -20,7 +20,7 @@ import java.net.URLConnection.getFileNameMap
  */
 fun String.http(httpTag: Any = this, baseUrlTag: String = OkExt.DefaultUrlTag): RequestWrapper {
     val baseUrl = OkExt.baseUrlMap[baseUrlTag]
-    return RequestWrapper(httpTag, url = "${baseUrl ?: ""}${this}")
+    return RequestWrapper(httpTag , url = "${baseUrl ?: ""}${this}")
 }
 
 /**

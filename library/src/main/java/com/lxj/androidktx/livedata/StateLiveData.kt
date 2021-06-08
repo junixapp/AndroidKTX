@@ -1,6 +1,8 @@
 package com.lxj.androidktx.livedata
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.lxj.statelayout.StateLayout
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
@@ -111,16 +113,17 @@ class StateLiveData<T> : NoStickyLiveData<T>() {
     }
 
     /**
-     * 使用viewModeScope启动协程，会随着UI销毁而停止，推荐使用
+     * 使用定制的httpScope启动http专用的协程，会随着UI销毁而停止协程和http请求，推荐使用
      * 强大而实用的封装，启动协程执行逻辑（比如网络请求），并对逻辑结果进行智能post。示例如下：
-     * launchAndSmartPost2 {
+     * launchHttp(viewModel, httpTag) {
      *      "https://iandroid.xyz/api".http().get<T>().await()
      * }
      */
-    fun launchAndSmartPost2(viewModel : ViewModel, postNull: Boolean = false,  nullIsEmpty: Boolean = false,
+    fun launchHttp(viewModel : SmartViewModel, url: String? = null,
+                   postNull: Boolean = false,  nullIsEmpty: Boolean = false,
                             block: suspend CoroutineScope.() -> T?): Job {
         postLoading()
-        return viewModel.viewModelScope.launch { smartPost(block(), nullIsEmpty, postNull) }
+        return viewModel.httpScope(url).launch { smartPost(block(), nullIsEmpty, postNull) }
     }
 
     fun isSuccess() = state.value==State.Success

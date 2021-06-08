@@ -3,15 +3,20 @@ package com.lxj.androidktxdemo.fragment
 import android.app.Activity
 import android.content.Intent
 import android.os.Environment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.LogUtils
 import com.lxj.androidktx.core.*
+import com.lxj.androidktx.livedata.SmartViewModel
 import com.lxj.androidktx.livedata.StateLiveData
 import com.lxj.androidktx.okhttp.*
 import com.lxj.androidktx.picker.ImagePicker
 import com.lxj.androidktx.util.DirManager
 import com.lxj.androidktxdemo.R
 import com.lxj.androidktxdemo.entity.User
+import com.lxj.xpopup.XPopup
+import com.lxj.xpopup.impl.LoadingPopupView
 import kotlinx.android.synthetic.main.fragment_http_ext.*
 import java.io.File
 import kotlin.concurrent.fixedRateTimer
@@ -24,6 +29,9 @@ class HttpExtFragment : BaseFragment() {
     val loginData = StateLiveData<User>()
     val imageUrl = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1560151504361&di=ce11648353ac380140bce2579683ed59&imgtype=0&src=http%3A%2F%2Fs14.sinaimg.cn%2Fmw690%2F001xcz9rzy6PqH78yLPed%26690"
     val zipFile = "http://samples.mplayerhq.hu/V-codecs/2vuy.avi"
+    val demoVM: DemoVM by lazy { getVM(DemoVM::class.java) }
+    val loadingDialog : LoadingPopupView by lazy { XPopup.Builder(requireContext()).dismissOnTouchOutside(false)
+            .asLoading()}
     override fun getLayoutId() = R.layout.fragment_http_ext
     override fun initView() {
 
@@ -39,17 +47,26 @@ class HttpExtFragment : BaseFragment() {
         )
 
 //        OkWrapper.headers("header1" to "a", "header2" to "b")
-
+        loadingDialog.observeState(this, demoVM.testData, onSuccess = {
+            tvHttpResult.text = demoVM.testData.value?:""
+        })
+        demoVM.downloadProgressData.observe(this, Observer {
+            var str = "下载进度：${it.progress}%"
+            if(it.file!=null) str = "${str}  文件大小：${FileUtils.getSize(it.file)}  路径: ${it.file?.absolutePath}"
+            tvHttpResult.text = str
+        })
         btnSend.click {
-            zipFile.http().savePath("${DirManager.tempDir}/xxx.avi")
-                .downloadListener(onProgress = {progressInfo ->
-                    LogUtils.e("下载进度：${progressInfo!!.percent}")
-                })
-                .get(object : HttpCallback<File>{
-                    override fun onSuccess(t: File) {
-                        LogUtils.e("下载完毕，文件大小：${FileUtils.getSize(t)}  文件路径: ${t.absolutePath}")
-                    }
-                })
+//            zipFile.http().savePath("${DirManager.tempDir}/xxx.avi")
+//                .downloadListener(onProgress = {progressInfo ->
+//                    LogUtils.e("下载进度：${progressInfo!!.percent}")
+//                })
+//                .get(object : HttpCallback<File>{
+//                    override fun onSuccess(t: File) {
+//                        LogUtils.e("下载完毕，文件大小：${FileUtils.getSize(t)}  文件路径: ${t.absolutePath}")
+//                    }
+//                })
+
+            demoVM.loadBaiduHomePage()
 
 //            ImagePicker.startRecord(this, 1)
 //            WebActivity.start(url = "https://click.lixiaojun.xin/article/?posid=1")
@@ -75,7 +92,7 @@ class HttpExtFragment : BaseFragment() {
 //            }
         }
         btnSend2.click {
-            OkExt.cancel(zipFile)
+            demoVM.downloadRequest()
         }
 //        LiveEventBus.get(CameraActivity.CaptureVideo).observe(this, Observer {
 //            val map = it as Map<String,String>
@@ -98,4 +115,43 @@ class HttpExtFragment : BaseFragment() {
 
 }
 
+
+class DemoVM : SmartViewModel(){
+    val zipFile = "http://samples.mplayerhq.hu/V-codecs/2vuy.avi"
+    val testData = StateLiveData<String>()
+    val downloadProgressData = StateLiveData<DownloadInfo>()
+
+    init {
+        downloadProgressData.value = DownloadInfo(0, null)
+    }
+
+    fun loadBaiduHomePage(){
+        testData.launchHttp(this, "https://www.baidu.com"){
+            "https://www.baidu.com".http()
+                .get<String>().await()
+        }
+    }
+
+    fun downloadRequest(){
+        downloadProgressData.launchHttp(this){
+            val file = zipFile.http().savePath("${DirManager.tempDir}/xxx.avi")
+                .downloadListener(onProgress = {progressInfo ->
+                    LogUtils.e("下载进度：${progressInfo!!.percent}")
+                    val info = downloadProgressData.value
+                    info!!.progress = progressInfo.percent
+                    downloadProgressData.postValueAndSuccess(info)
+                }).get<File>().await()
+            val info = downloadProgressData.value
+            info!!.file = file
+            info
+        }
+
+    }
+
+}
+
+data class DownloadInfo(
+    var progress: Int,
+    var file: File?
+)
 

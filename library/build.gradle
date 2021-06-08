@@ -82,7 +82,7 @@ dependencies {
 //    implementation 'com.google.android.exoplayer:exoplayer:2.13.3'     //player
     api 'com.youth.banner:banner:2.1.0'
     // ViewModelScope
-    api "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
+//    api "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
 
 
     implementation project(':camera')
