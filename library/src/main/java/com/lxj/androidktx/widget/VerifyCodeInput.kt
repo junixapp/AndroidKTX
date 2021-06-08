@@ -51,6 +51,7 @@ class VerifyCodeInput @JvmOverloads constructor(context: Context, attributeSet: 
 
     }
 
+    var onInputChange: ((code: String)->Unit)? = null
     private fun genEditText() {
         (0 until mCount).forEach {
             val et = ShapeEditText(context)
@@ -88,6 +89,7 @@ class VerifyCodeInput @JvmOverloads constructor(context: Context, attributeSet: 
             et.doAfterTextChanged {
                 val index = et.tag as Int
                 val length = et.text?.toString()?.length?:0
+                onInputChange?.invoke(children.map { (it as EditText).text.toString().trim() }.joinToString(separator = ""))
                 if (length>0) {
                     if(length>1) {
                         et.setText(et.text.toString().substring(length-1))
