@@ -18,6 +18,7 @@
             android:name=".base.WebActivity"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize"
             android:theme="@style/_FullScreenTheme" />
 
         <activity
