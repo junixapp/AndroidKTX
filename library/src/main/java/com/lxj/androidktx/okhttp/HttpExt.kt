@@ -20,7 +20,7 @@ import java.net.URLConnection.getFileNameMap
  */
 fun String.http(httpTag: Any = this, baseUrlTag: String = OkExt.DefaultUrlTag): RequestWrapper {
     val baseUrl = OkExt.baseUrlMap[baseUrlTag]
-    return RequestWrapper(httpTag , url = "${baseUrl ?: ""}${this}")
+    return RequestWrapper(httpTag, url = "${baseUrl ?: ""}${this}")
 }
 
 /**
@@ -38,6 +38,11 @@ inline fun <reified T> RequestWrapper.get(cb: HttpCallback<T>) {
 }
 
 /**
+ * 同步请求
+ */
+inline fun <reified T> RequestWrapper.getSync() = syncRequest<T>(buildGetRequest(), this)
+
+/**
  * post请求，需在协程中使用。结果为空即为http请求失败，并会将失败信息打印日志。
  */
 inline fun <reified T> RequestWrapper.post(): Deferred<T?> {
@@ -50,6 +55,11 @@ inline fun <reified T> RequestWrapper.post(): Deferred<T?> {
 inline fun <reified T> RequestWrapper.post(cb: HttpCallback<T>) {
     callbackRequest(buildPostRequest(), cb, this)
 }
+
+/**
+ * 同步请求
+ */
+inline fun <reified T> RequestWrapper.postSync() = syncRequest<T>(buildPostRequest(), this)
 
 /**
  * put请求，需在协程中使用。结果为空即为http请求失败，并会将失败信息打印日志。
@@ -65,6 +75,10 @@ inline fun <reified T> RequestWrapper.put(cb: HttpCallback<T>) {
     callbackRequest(buildPutRequest(), cb, this)
 }
 
+/**
+ * 同步请求
+ */
+inline fun <reified T> RequestWrapper.putSync() = syncRequest<T>(buildPutRequest(), this)
 
 /**
  * delete请求，需在协程中使用。结果为空即为http请求失败，并会将失败信息打印日志。
@@ -80,12 +94,16 @@ inline fun <reified T> RequestWrapper.delete(cb: HttpCallback<T>) {
     callbackRequest(buildDeleteRequest(), cb, this)
 }
 
+/**
+ * 同步请求
+ */
+inline fun <reified T> RequestWrapper.deleteSync() = syncRequest<T>(buildDeleteRequest(), this)
 
 inline fun <reified T> defferedRequest(request: Request, reqWrapper: RequestWrapper): Deferred<T?> {
     val req = request.newBuilder().tag(reqWrapper.tag())
-            .build()
+        .build()
     val call = OkExt.okHttpClient.newCall(req)
-            .apply { OkExt.requestCache[reqWrapper.tag()] = this } //cache req
+        .apply { OkExt.requestCache[reqWrapper.tag()] = this } //cache req
     val deferred = CompletableDeferred<T?>()
     deferred.invokeOnCompletion {
         if (deferred.isCancelled) {
@@ -95,16 +113,21 @@ inline fun <reified T> defferedRequest(request: Request, reqWrapper: RequestWrap
     }
     try {
         val response = call.execute()
-        if (response.isSuccessful && response.body()!=null) {
-            when {
-                T::class.java == String::class.java -> deferred.complete(response.body()!!.string() as T)
-                T::class.java == File::class.java -> {
+        if (response.isSuccessful && response.body() != null) {
+            when (T::class.java) {
+                String::class.java -> deferred.complete(
+                    response.body()!!.string() as T
+                )
+                File::class.java -> {
                     val file = File(reqWrapper.savePath)
-                    if(!file.exists())file.createNewFile()
+                    if (!file.exists()) file.createNewFile()
                     response.body()!!.byteStream().copyTo(file.outputStream())
                     deferred.complete(file as T)
                 }
-                else -> deferred.complete(response.body()!!.string().toBean<T>(dateFormat = OkExt.dateFormat, lenient = OkExt.lenientJson))
+                else -> deferred.complete(
+                    response.body()!!.string()
+                        .toBean<T>(dateFormat = OkExt.dateFormat, lenient = OkExt.lenientJson)
+                )
             }
         } else {
             deferred.complete(null) //not throw, pass null
@@ -120,7 +143,11 @@ inline fun <reified T> defferedRequest(request: Request, reqWrapper: RequestWrap
     return deferred
 }
 
-inline fun <reified T> callbackRequest(request: Request, cb: HttpCallback<T>, reqWrapper: RequestWrapper) {
+inline fun <reified T> callbackRequest(
+    request: Request,
+    cb: HttpCallback<T>,
+    reqWrapper: RequestWrapper
+) {
     val req = request.newBuilder().tag(reqWrapper.tag()).build()
     OkExt.okHttpClient.newCall(req).apply {
         OkExt.requestCache[reqWrapper.tag()] = this //cache req
@@ -133,16 +160,23 @@ inline fun <reified T> callbackRequest(request: Request, cb: HttpCallback<T>, re
 
             override fun onResponse(call: Call, response: Response) {
                 OkExt.requestCache.remove(reqWrapper.tag())
-                if (response.isSuccessful && response.body()!=null) {
-                    when {
-                        T::class.java == String::class.java -> cb.onSuccess(response.body()!!.string() as T)
-                        T::class.java == File::class.java -> {
+                if (response.isSuccessful && response.body() != null) {
+                    when (T::class.java) {
+                        String::class.java -> cb.onSuccess(
+                            response.body()!!.string() as T
+                        )
+                        File::class.java -> {
                             val file = File(reqWrapper.savePath)
-                            if(!file.exists())file.createNewFile()
+                            if (!file.exists()) file.createNewFile()
                             response.body()!!.byteStream().copyTo(file.outputStream())
                             cb.onSuccess(file as T)
                         }
-                        else -> cb.onSuccess(response.body()!!.string().toBean<T>(dateFormat = OkExt.dateFormat, lenient = OkExt.lenientJson))
+                        else -> cb.onSuccess(
+                            response.body()!!.string().toBean<T>(
+                                dateFormat = OkExt.dateFormat,
+                                lenient = OkExt.lenientJson
+                            )
+                        )
                     }
                 } else {
                     cb.onFail(IOException("request to ${request.url()} is fail; http code: ${response.code()}!"))
@@ -151,6 +185,36 @@ inline fun <reified T> callbackRequest(request: Request, cb: HttpCallback<T>, re
         })
     }
 }
+
+inline fun <reified T> syncRequest(request: Request, reqWrapper: RequestWrapper): T? {
+    val req = request.newBuilder().tag(reqWrapper.tag()).build()
+    val call = OkExt.okHttpClient.newCall(req)
+    OkExt.requestCache[reqWrapper.tag()] = call //cache req
+    try {
+        val response = call.execute()
+        return if (response.isSuccessful && response.body() != null) {
+            when (T::class.java) {
+                String::class.java -> response.body()!!.string() as T
+                File::class.java -> {
+                    val file = File(reqWrapper.savePath)
+                    if (!file.exists()) file.createNewFile()
+                    response.body()!!.byteStream().copyTo(file.outputStream())
+                    file as T
+                }
+                else -> response.body()!!.string()
+                    .toBean<T>(dateFormat = OkExt.dateFormat, lenient = OkExt.lenientJson)
+            }
+        } else {
+            null
+        }
+    } catch (e: Exception) {
+        OkExt.globalFailHandler?.invoke(e)
+    } finally {
+        OkExt.requestCache.remove(reqWrapper.tag())
+    }
+    return null
+}
+
 
 // parse some new media type.
 fun File.mediaType(): String {
