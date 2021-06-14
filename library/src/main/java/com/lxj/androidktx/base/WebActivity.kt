@@ -6,6 +6,7 @@ import android.net.http.SslError
 import android.webkit.SslErrorHandler
 import android.webkit.WebView
 import android.widget.FrameLayout
+import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.LogUtils
 import com.just.agentweb.AgentWeb
 import com.just.agentweb.WebChromeClient
@@ -85,6 +86,11 @@ open class WebActivity : TitleBarActivity(){
     val isLightStatusBar: Boolean by lazy { intent.getBooleanExtra("isLightStatusBar", false) }
 
     override fun isLightMode() = isLightStatusBar
+
+    override fun initView() {
+        super.initView()
+        KeyboardUtils.fixAndroidBug5497(this)
+    }
 
     override fun initData() {
         setupTitle()
