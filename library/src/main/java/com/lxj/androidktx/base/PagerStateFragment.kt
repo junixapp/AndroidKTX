@@ -5,32 +5,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.lxj.androidktx.core.postDelay
 import com.lxj.statelayout.StateLayout
 
 /**
- * 自带StateLayout的Fragment基类，适用于ViewPager2的懒加载方案
+ * 自带StateLayout的Fragment基类，适用于ViewPager的懒加载方案
  */
-abstract class StateFragment : Fragment() {
-    private var hasInitView = false
-    private var hasInitData = false
+abstract class PagerStateFragment : Fragment() {
+    protected var cacheView: View? = null
+    protected var isInit = false
     protected var stateLayout: StateLayout? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        if (stateLayout == null) {
-            val cacheView = inflater.inflate(getLayoutId(), container, false)
+        if (cacheView == null) {
+            cacheView = inflater.inflate(getLayoutId(), container, false)
             stateLayout = StateLayout(requireContext()).wrap(cacheView)
             onConfigStateLayout()
             stateLayout!!.showLoading()
         }
         return stateLayout!!
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        if(!hasInitView){
-            hasInitView = true
-            initView()
-        }
     }
 
     /**
@@ -43,22 +36,38 @@ abstract class StateFragment : Fragment() {
     open fun showContent() = stateLayout?.showContent()
     open fun showLoading() = stateLayout?.showLoading()
     open fun showError() = stateLayout?.showError()
-    open fun showEmpty() = stateLayout?.showEmpty()
+    open fun showEmpty(){
+        stateLayout?.showEmpty()
+    }
+
+    //是否自动显示Content
+    open fun autoShowContent() = false
 
     override fun onResume() {
         super.onResume()
-        if(!hasInitData){
-            hasInitData = true
+        lazyInit()
+    }
+
+    private fun lazyInit() {
+        if (cacheView != null && userVisibleHint && !isInit) {
+            initView()
             initData()
+            if(autoShowContent())postDelay(350){showContent()}
+            isInit = true
         }
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        lazyInit()
+        if(isVisibleToUser) onShow() else onHide()
     }
 
     //执行初始化，只会执行一次
     protected abstract fun getLayoutId(): Int
     abstract fun initView()
     abstract fun initData()
+    open fun onShow(){}
+    open fun onHide(){}
+
 }
