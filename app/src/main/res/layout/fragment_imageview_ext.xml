@@ -41,14 +41,19 @@
         <com.lxj.androidktx.widget.RoundImageView
             app:riv_corner_radius="0pt"
             android:id="@+id/image3"
-            android:layout_width="140dp"
-            android:layout_height="140dp" />
+            android:layout_width="190dp"
+            android:layout_height="190dp" />
 
 
         <ImageView
             android:id="@+id/image4"
-            android:layout_width="140dp"
-            android:layout_height="140dp" />
+            android:layout_width="190dp"
+            android:layout_height="190dp" />
+
+        <ImageView
+            android:id="@+id/image5"
+            android:layout_width="190dp"
+            android:layout_height="190dp" />
 
 
         <include layout="@layout/divider"/>

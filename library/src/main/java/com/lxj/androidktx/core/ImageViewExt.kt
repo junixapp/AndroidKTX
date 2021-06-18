@@ -34,6 +34,7 @@ fun ImageView.load(url: Any?, placeholder: Int = 0, error: Int = 0,
                    isCircle: Boolean = false,
                    isCenterCrop: Boolean = false,
                    blurScale: Float = 0f,
+                   blurRadius: Float = 20f,
                    roundRadius: Int = 0,
                    isCrossFade: Boolean = false,
                    isForceOriginalSize: Boolean = false,
@@ -55,7 +56,7 @@ fun ImageView.load(url: Any?, placeholder: Int = 0, error: Int = 0,
                 transform(RoundedCorners(roundRadius))
             }
         }
-        if(blurScale>0) transform(GlideBlurTransformation(scale = blurScale))
+        if(blurScale>0) transform(GlideBlurTransformation(scale = blurScale, blurRadius = blurRadius))
         if (isForceOriginalSize) {
             override(Target.SIZE_ORIGINAL)
         }
