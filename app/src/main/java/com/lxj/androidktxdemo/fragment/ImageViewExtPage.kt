@@ -41,7 +41,7 @@ class ImageViewExtPage: BaseFragment(){
 
         image3.load(images[2], isCenterCrop = true )
         image4.load(images[2], isCenterCrop = true, blurScale = 1f)
-        image5.load(images[2], isCenterCrop = true, blurScale = 0.5f)
+        image5.load(images[2], isCenterCrop = true, blurScale = 0.3f, )
         title3.text = "image3.load(url, roundRadius = 20)"
 
         image1.click {
