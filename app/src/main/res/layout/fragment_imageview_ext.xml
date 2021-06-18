@@ -29,8 +29,8 @@
 
         <ImageView
             android:id="@+id/image2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="160dp"
+            android:layout_height="160dp" />
 
         <include layout="@layout/divider"/>
 
@@ -39,10 +39,16 @@
             style="@style/TitleStyle"/>
 
         <com.lxj.androidktx.widget.RoundImageView
-            app:riv_corner_radius="100pt"
+            app:riv_corner_radius="0pt"
             android:id="@+id/image3"
-            android:layout_width="100dp"
-            android:layout_height="100dp" />
+            android:layout_width="140dp"
+            android:layout_height="140dp" />
+
+
+        <ImageView
+            android:id="@+id/image4"
+            android:layout_width="140dp"
+            android:layout_height="140dp" />
 
 
         <include layout="@layout/divider"/>

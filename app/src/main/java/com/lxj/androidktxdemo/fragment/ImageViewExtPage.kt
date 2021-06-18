@@ -16,13 +16,14 @@ import kotlinx.android.synthetic.main.fragment_imageview_ext.*
  */
 class ImageViewExtPage: BaseFragment(){
     private val images = arrayOf(
-            "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1606302655766&di=52555c75e485292ca456f44e0f98fcc1&imgtype=0&src=http%3A%2F%2Fimg.aiimg.com%2Fuploads%2Fuserup%2F0909%2F2Z64022L38.jpg",
-            "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1606302655766&di=4e7d90ee24391f684eaa421e4a4ab423&imgtype=0&src=http%3A%2F%2Fa2.att.hudong.com%2F11%2F48%2F01300000195282124296481807051.jpg"
+            "https://images.unsplash.com/photo-1606787619248-f301830a5a57?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+            "https://images.unsplash.com/photo-1624020491079-a369d85f00cd?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxOHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+            "https://images.unsplash.com/photo-1623961848133-bf6ee2d8d7d4?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
     )
     override fun getLayoutId() = R.layout.fragment_imageview_ext
 
     override fun initView() {
-        Glide.getPhotoCacheDir(context!!)?.deleteRecursively()
+        Glide.getPhotoCacheDir(requireContext())?.deleteRecursively()
         loadImage()
     }
 
@@ -34,10 +35,12 @@ class ImageViewExtPage: BaseFragment(){
         title1.text = "image1.load(url)"
 
 
-        image2.load(images[0], placeholder = R.mipmap.ic_launcher, roundRadius = 20, isCrossFade = true)
+        image2.load(images[1], placeholder = R.mipmap.ic_launcher, roundRadius = 20, isCrossFade = true, isCenterCrop = true,
+            targetWidth = 400, targetHeight = 400)
         title2.text = "image2.load(url, isCircle = true)"
 
-        image3.load(images[1])
+        image3.load(images[2], )
+        image4.load(images[2], blurScale = 0.9f)
         title3.text = "image3.load(url, roundRadius = 20)"
 
         image1.click {
