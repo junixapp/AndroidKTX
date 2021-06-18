@@ -12,6 +12,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
+import com.lxj.androidktx.util.GlideBlurTransformation
 
 /**
  * Description: ImageView相关
@@ -32,6 +33,7 @@ import com.bumptech.glide.request.target.Target
 fun ImageView.load(url: Any?, placeholder: Int = 0, error: Int = 0,
                    isCircle: Boolean = false,
                    isCenterCrop: Boolean = false,
+                   blurScale: Float = 0f,
                    roundRadius: Int = 0,
                    isCrossFade: Boolean = false,
                    isForceOriginalSize: Boolean = false,
@@ -48,11 +50,12 @@ fun ImageView.load(url: Any?, placeholder: Int = 0, error: Int = 0,
             transform(CircleCrop())
         } else if (roundRadius != 0) {
             if (isCenterCrop) {
-                transforms(CenterCrop(), RoundedCorners(roundRadius))
+                transform(CenterCrop(), RoundedCorners(roundRadius))
             } else {
                 transform(RoundedCorners(roundRadius))
             }
         }
+        if(blurScale>0) transform(GlideBlurTransformation(scale = blurScale))
         if (isForceOriginalSize) {
             override(Target.SIZE_ORIGINAL)
         }
@@ -73,13 +76,11 @@ fun ImageView.load(url: Any?, placeholder: Int = 0, error: Int = 0,
 
                         override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
                             onImageLoad(resource)
-                            return true
+                            return onlyLoadImage
                         }
                     })
                 }
 
             }
-    if (!onlyLoadImage) {
-        glide.into(this)
-    }
+    glide.into(this)
 }
