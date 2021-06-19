@@ -3,6 +3,7 @@ package com.lxj.androidktxdemo.fragment
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
+import com.blankj.utilcode.util.FragmentUtils
 import com.blankj.utilcode.util.SpanUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.lxj.androidktx.base.WebActivity
@@ -127,5 +128,10 @@ class SpanExtPage : BaseFragment() {
             .append("哒哒哒哒哒所大所多所多撒大所大所大所大所大所大所大所大所大所").setForegroundColor(Color.parseColor("#cccccc"))
             .create()
 
+    }
+
+    override fun onBackClick(): Boolean {
+        ToastUtils.showShort("onBackPressed - ${javaClass.simpleName}")
+        return true
     }
 }

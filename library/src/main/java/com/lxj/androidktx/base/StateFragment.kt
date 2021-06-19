@@ -5,12 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.blankj.utilcode.util.FragmentUtils
 import com.lxj.statelayout.StateLayout
 
 /**
  * 自带StateLayout的Fragment基类，适用于ViewPager2的懒加载方案
  */
-abstract class StateFragment : Fragment() {
+abstract class StateFragment : Fragment(), FragmentUtils.OnBackClickListener {
     private var hasInitView = false
     private var hasInitData = false
     protected var stateLayout: StateLayout? = null
@@ -61,4 +62,6 @@ abstract class StateFragment : Fragment() {
     protected abstract fun getLayoutId(): Int
     abstract fun initView()
     abstract fun initData()
+
+    override fun onBackClick() = false
 }

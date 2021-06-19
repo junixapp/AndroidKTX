@@ -5,13 +5,14 @@ import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.Fragment
+import com.blankj.utilcode.util.FragmentUtils
 
 
 /**
  * Description: 适用于ViewPager中的懒加载Fragment
  * Create by dance, at 2019/4/22
  */
-abstract class PagerLazyFragment : Fragment() {
+abstract class PagerLazyFragment : Fragment(), FragmentUtils.OnBackClickListener {
     protected var cacheView: View? = null
     protected var isInit = false
 
@@ -47,4 +48,6 @@ abstract class PagerLazyFragment : Fragment() {
     abstract fun initData()
     open fun onShow(){}
     open fun onHide(){}
+
+    override fun onBackClick() = false
 }

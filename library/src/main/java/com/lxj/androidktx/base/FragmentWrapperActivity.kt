@@ -31,8 +31,8 @@ class FragmentWrapperActivity : TitleBarActivity() {
 
     override fun initData() {
         val bundle = intent?.getBundleExtra("bundle")
-        titleBar().setup(title = intent.getStringExtra("title"), leftImageRes = R.mipmap._ktx_ic_back)
-        replace(R.id.flWrapper, Fragment.instantiate(this, intent.getStringExtra("fragment"),
+        titleBar().setup(title = intent.getStringExtra("title")?:"", leftImageRes = R.mipmap._ktx_ic_back)
+        replace(R.id.flWrapper, Fragment.instantiate(this, intent.getStringExtra("fragment")?:"",
             bundle))
         LogUtils.e(bundle)
     }

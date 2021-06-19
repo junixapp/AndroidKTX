@@ -3,6 +3,7 @@ package com.lxj.androidktxdemo
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.blankj.utilcode.util.FragmentUtils
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.share.Share
 import com.lxj.androidktx.util.DirManager
@@ -123,5 +124,11 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         Share.onActivityResult(this, requestCode, resultCode, data)
+    }
+
+    override fun onBackPressed() {
+        if(!FragmentUtils.dispatchBackPress(supportFragmentManager)){
+            super.onBackPressed()
+        }
     }
 }
