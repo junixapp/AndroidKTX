@@ -26,7 +26,7 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
     private var mStrokeWidth = 0 //边框大小
     private var mCorner = 0 //圆角
     //是否启用水波纹
-    private var mEnableRipple = true
+    private var mEnableRipple = false
     private var mRippleColor = Color.parseColor("#88999999")
     //上下分割线
     private var mTopLineColor = 0
