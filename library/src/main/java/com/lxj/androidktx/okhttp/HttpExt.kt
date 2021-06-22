@@ -102,7 +102,7 @@ inline fun <reified T> RequestWrapper.deleteSync() = syncRequest<T>(buildDeleteR
 
 inline fun <reified T> defferedRequest(request: Request, reqWrapper: RequestWrapper): Deferred<T?> {
     val deferred = CompletableDeferred<T?>()
-    if(!NetworkUtils.isAvailable()) {
+    if(!NetworkUtils.isConnected()) {
         deferred.complete(null)
         OkExt.globalFailHandler?.invoke(IOException("Network is not available!"))
         return deferred
@@ -154,7 +154,7 @@ inline fun <reified T> callbackRequest(
     cb: HttpCallback<T>,
     reqWrapper: RequestWrapper
 ) {
-    if(!NetworkUtils.isAvailable()) {
+    if(!NetworkUtils.isConnected()) {
         cb.onFail(IOException("Network is not available!"))
         return
     }
@@ -197,7 +197,7 @@ inline fun <reified T> callbackRequest(
 }
 
 inline fun <reified T> syncRequest(request: Request, reqWrapper: RequestWrapper): T? {
-    if(!NetworkUtils.isAvailable()) {
+    if(!NetworkUtils.isConnected()) {
         OkExt.globalFailHandler?.invoke(IOException("Network is not available!"))
         return null
     }
