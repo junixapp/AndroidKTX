@@ -1,5 +1,6 @@
 package com.lxj.androidktx.okhttp
 
+import com.blankj.utilcode.util.NetworkUtils
 import com.lxj.androidktx.core.toBean
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Deferred
@@ -100,11 +101,16 @@ inline fun <reified T> RequestWrapper.delete(cb: HttpCallback<T>) {
 inline fun <reified T> RequestWrapper.deleteSync() = syncRequest<T>(buildDeleteRequest(), this)
 
 inline fun <reified T> defferedRequest(request: Request, reqWrapper: RequestWrapper): Deferred<T?> {
+    val deferred = CompletableDeferred<T?>()
+    if(!NetworkUtils.isAvailable()) {
+        deferred.complete(null)
+        OkExt.globalFailHandler?.invoke(IOException("Network is not available!"))
+        return deferred
+    }
     val req = request.newBuilder().tag(reqWrapper.tag())
         .build()
     val call = OkExt.okHttpClient.newCall(req)
         .apply { OkExt.requestCache[reqWrapper.tag()] = this } //cache req
-    val deferred = CompletableDeferred<T?>()
     deferred.invokeOnCompletion {
         if (deferred.isCancelled) {
             OkExt.requestCache.remove(reqWrapper.tag())
@@ -148,6 +154,10 @@ inline fun <reified T> callbackRequest(
     cb: HttpCallback<T>,
     reqWrapper: RequestWrapper
 ) {
+    if(!NetworkUtils.isAvailable()) {
+        cb.onFail(IOException("Network is not available!"))
+        return
+    }
     val req = request.newBuilder().tag(reqWrapper.tag()).build()
     OkExt.okHttpClient.newCall(req).apply {
         OkExt.requestCache[reqWrapper.tag()] = this //cache req
@@ -187,6 +197,10 @@ inline fun <reified T> callbackRequest(
 }
 
 inline fun <reified T> syncRequest(request: Request, reqWrapper: RequestWrapper): T? {
+    if(!NetworkUtils.isAvailable()) {
+        OkExt.globalFailHandler?.invoke(IOException("Network is not available!"))
+        return null
+    }
     val req = request.newBuilder().tag(reqWrapper.tag()).build()
     val call = OkExt.okHttpClient.newCall(req)
     OkExt.requestCache[reqWrapper.tag()] = call //cache req
