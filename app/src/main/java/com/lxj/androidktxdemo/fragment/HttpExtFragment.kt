@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.livedata.SmartViewModel
 import com.lxj.androidktx.livedata.StateLiveData
@@ -49,7 +50,7 @@ class HttpExtFragment : BaseFragment() {
 //        OkWrapper.headers("header1" to "a", "header2" to "b")
         loadingDialog.observeState(this, demoVM.testData, onSuccess = {
             tvHttpResult.text = demoVM.testData.value?:""
-        })
+        }, onError = { ToastUtils.showShort("数据为空") })
         demoVM.downloadProgressData.observe(this, Observer {
             var str = "下载进度：${it.progress}%"
             if(it.file!=null) str = "${str}  文件大小：${FileUtils.getSize(it.file)}  路径: ${it.file?.absolutePath}"
@@ -127,8 +128,10 @@ class DemoVM : SmartViewModel(){
 
     fun loadBaiduHomePage(){
         testData.launchHttp(this, "https://www.baidu.com"){
-            "https://www.baidu.com".http()
+            val res = "https://www.baidu.com".http()
                 .get<String>().await()
+            LogUtils.e("res: $res")
+            res
         }
     }
 

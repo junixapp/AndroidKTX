@@ -4,7 +4,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
-import com.lxj.androidktx.core.updateData
 import com.lxj.androidktx.livedata.StateLiveData
 import com.lxj.statelayout.StateLayout
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
@@ -35,10 +34,8 @@ abstract class PageListVM<T> : ViewModel(),
         smartRefresh: SmartRefreshLayout?,
         stateLayout: StateLayout? = null,
         firstShowLoading: Boolean = false,
-        emptyText: String = "暂无数据",
         onDataUpdate: (()->Unit)? = null
     ) {
-        stateLayout?.config(emptyText = emptyText)
         listData.observe(owner, Observer {
             rv?.adapter?.notifyDataSetChanged()
             onDataUpdate?.invoke()
@@ -79,7 +76,7 @@ abstract class PageListVM<T> : ViewModel(),
 
     open fun processData(listWrapper: ListWrapper<T>?, nullIsEmpty: Boolean = false) {
         if (listWrapper != null) {
-            if (page == 1) listData.value?.clear()
+            if (page == 1) listData.value!!.clear()
             val list = listData.value
             if (!listWrapper.records.isNullOrEmpty()) {
                 hasMore = true
@@ -90,7 +87,8 @@ abstract class PageListVM<T> : ViewModel(),
                 listData.postEmpty(list)
             }
         } else {
-            if(nullIsEmpty) listData.postEmpty(null)
+            val list = listData.value
+            if(nullIsEmpty) listData.postEmpty(list)
             else listData.postError()
         }
     }
