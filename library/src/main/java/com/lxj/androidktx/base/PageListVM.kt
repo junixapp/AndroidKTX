@@ -4,6 +4,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
+import com.lxj.androidktx.core.observeState
 import com.lxj.androidktx.livedata.StateLiveData
 import com.lxj.statelayout.StateLayout
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
@@ -12,11 +13,11 @@ import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
 import java.io.Serializable
 
 data class ListWrapper<T>(
-        var records: List<T> = arrayListOf(),
-        var total: Int = 10,
-        var current: Int = 1,
-        var pages: Int = 0
-): Serializable
+    var records: List<T> = arrayListOf(),
+    var total: Int = 10,
+    var current: Int = 1,
+    var pages: Int = 0
+) : Serializable
 
 abstract class PageListVM<T> : ViewModel(),
     OnRefreshLoadMoreListener {
@@ -34,15 +35,12 @@ abstract class PageListVM<T> : ViewModel(),
         smartRefresh: SmartRefreshLayout?,
         stateLayout: StateLayout? = null,
         firstShowLoading: Boolean = false,
-        onDataUpdate: (()->Unit)? = null
+        onDataUpdate: (() -> Unit)? = null
     ) {
+        stateLayout?.observeState(owner, listData)
         listData.observe(owner, Observer {
             rv?.adapter?.notifyDataSetChanged()
             onDataUpdate?.invoke()
-            if(stateLayout!=null){
-                if(listData.value.isNullOrEmpty()) stateLayout.showEmpty()
-                else stateLayout.showContent()
-            }
         })
 
         listData.state.observe(owner, Observer {
@@ -52,10 +50,10 @@ abstract class PageListVM<T> : ViewModel(),
         })
 
         smartRefresh?.setOnRefreshLoadMoreListener(this)
-        if(firstShowLoading && stateLayout!=null){
+        if (firstShowLoading && stateLayout != null) {
             stateLayout.showLoading()
             refresh()
-        }else{
+        } else {
             smartRefresh?.post { smartRefresh.autoRefresh() }
         }
     }
@@ -88,7 +86,7 @@ abstract class PageListVM<T> : ViewModel(),
             }
         } else {
             val list = listData.value
-            if(nullIsEmpty) listData.postEmpty(list)
+            if (nullIsEmpty) listData.postEmpty(list)
             else listData.postError()
         }
     }
