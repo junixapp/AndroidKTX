@@ -81,13 +81,16 @@ abstract class PageListVM<T> : ViewModel(),
                 list?.addAll(listWrapper.records)
                 listData.postValueAndSuccess(list!!)
             } else {
+                //listWrapper数据为空
                 hasMore = false
-                listData.postEmpty(list)
+                if(list!!.isEmpty()) listData.postEmpty(list)
             }
         } else {
             val list = listData.value
-            if (nullIsEmpty) listData.postEmpty(list)
-            else listData.postError()
+            if( list.isNullOrEmpty()){
+                if (nullIsEmpty) listData.postEmpty(list)
+                else listData.postError()
+            }
         }
     }
 
