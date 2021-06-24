@@ -179,7 +179,7 @@ fun View.animateWidthAndHeight(targetWidth: Int, targetHeight: Int, duration: Lo
  */
 var _viewClickFlag = false
 var _clickRunnable = Runnable { _viewClickFlag = false }
-fun View.click(action: (view: View) -> Unit) {
+fun View.click(duration: Long = 350, action: (view: View) -> Unit) {
     if(this is TextView)setOnTouchListener(FixClickSpanTouchListener())
     setOnClickListener {
         if (!_viewClickFlag) {
@@ -187,7 +187,7 @@ fun View.click(action: (view: View) -> Unit) {
             action(it)
         }
         removeCallbacks(_clickRunnable)
-        postDelayed(_clickRunnable, 350)
+        postDelayed(_clickRunnable, duration)
     }
 }
 
