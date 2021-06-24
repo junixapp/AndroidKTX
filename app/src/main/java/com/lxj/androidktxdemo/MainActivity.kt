@@ -4,12 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.blankj.utilcode.util.FragmentUtils
+import com.blankj.utilcode.util.LogUtils
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.share.Share
 import com.lxj.androidktx.util.DirManager
 import com.lxj.androidktxdemo.entity.PageInfo
+import com.lxj.androidktxdemo.entity.User
 import com.lxj.androidktxdemo.fragment.*
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 import kotlin.random.Random
 
 
@@ -67,7 +70,7 @@ class MainActivity : AppCompatActivity() {
 //        """.trimIndent().toBean<User>().toString().w()
 //        "[{\"age\":25,\"name\":\"李晓俊\"}]".toBean<List<User>>().toString().e()
 
-
+            LogUtils.e(User(name = "李晓俊", age = 123, date = Date()).toJson(excludeFields = listOf("date", "name")))
 
 //        // 便捷处理
 //        sp().getString("a", "default")

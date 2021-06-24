@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.AdaptScreenUtils
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.TimeUtils
+import com.google.gson.ExclusionStrategy
+import com.google.gson.FieldAttributes
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import com.lxj.androidktx.AndroidKTX
@@ -174,10 +176,18 @@ fun View.createDrawable(color: Int = Color.TRANSPARENT, radius: Float = 0f,
 }
 
 /** json相关 **/
-fun Any.toJson(dateFormat: String = "yyyy-MM-dd HH:mm:ss", lenient: Boolean = false)
+fun Any.toJson(dateFormat: String = "yyyy-MM-dd HH:mm:ss", lenient: Boolean = false, excludeFields: List<String>? = null)
         = GsonBuilder().setDateFormat(dateFormat)
         .apply {
             if(lenient) setLenient()
+            if(!excludeFields.isNullOrEmpty()){
+                setExclusionStrategies(object : ExclusionStrategy{
+                    override fun shouldSkipField(f: FieldAttributes?): Boolean {
+                        return f!=null && excludeFields.contains(f.name)
+                    }
+                    override fun shouldSkipClass(clazz: Class<*>?) = false
+                })
+            }
         }
         .create().toJson(this)
 
