@@ -10,7 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.ChangeBounds
+import androidx.transition.Fade
+import androidx.transition.TransitionManager
+import androidx.transition.TransitionSet
 import com.lxj.androidktx.util.FixClickSpanTouchListener
+import com.lxj.xpopup.XPopup
 
 /**
  * Description: View相关
@@ -206,12 +211,39 @@ fun View.longClick(action: (view: View) -> Boolean) {
 fun View.gone() {
     visibility = View.GONE
 }
+fun View.animateGone(duration: Long = 250) {
+    TransitionManager.beginDelayedTransition(
+        parent as ViewGroup, TransitionSet()
+            .setDuration(duration)
+            .addTransition(Fade())
+            .addTransition(ChangeBounds())
+    )
+    visibility = View.GONE
+}
 
 fun View.visible() {
     visibility = View.VISIBLE
 }
+fun View.animateVisible(duration: Long = 250) {
+    TransitionManager.beginDelayedTransition(
+        parent as ViewGroup, TransitionSet()
+            .setDuration(duration)
+            .addTransition(Fade())
+            .addTransition(ChangeBounds())
+    )
+    visibility = View.VISIBLE
+}
 
 fun View.invisible() {
+    visibility = View.INVISIBLE
+}
+fun View.animateInvisible(duration: Long = 250) {
+    TransitionManager.beginDelayedTransition(
+        parent as ViewGroup, TransitionSet()
+            .setDuration(duration)
+            .addTransition(Fade())
+            .addTransition(ChangeBounds())
+    )
     visibility = View.INVISIBLE
 }
 

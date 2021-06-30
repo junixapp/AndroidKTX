@@ -21,9 +21,11 @@ class ViewExtPage : BaseFragment() {
 
         text2.widthAndHeight(value, value)
         text2.text = "text2.widthAndHeight($value,$value)"
+//        text2.click { it.animateGone() }
 
         text3.margin(leftMargin = value)
         text3.text = "text3.margin(leftMargin = $value)"
+
 
 
         text3.click {
