@@ -162,11 +162,11 @@
             android:layout_height="wrap_content"/>
         <com.lxj.androidktx.widget.VerifyCodeInput
             android:id="@+id/verifyCodeInput"
-            app:vci_corner="10dp"
+            app:vci_corner="4dp"
             app:vci_solid="#aaa"
             app:vci_focusBorder="#f00"
-            app:vci_size="80dp"
-            app:vci_space="10dp"
+            app:vci_size="50dp"
+            app:vci_space="20dp"
             app:vci_textSize="24sp"
             app:vci_textColor="#f00"
             android:layout_width="match_parent"

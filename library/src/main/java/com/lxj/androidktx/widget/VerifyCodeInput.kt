@@ -65,9 +65,8 @@ class VerifyCodeInput @JvmOverloads constructor(context: Context, attributeSet: 
             et.setOnFocusChangeListener { v, hasFocus ->
                 et.setup(stroke = if (hasFocus) mFocusBorder else mSolid)
             }
-            val ms = MeasureSpec.makeMeasureSpec(mSize, MeasureSpec.getMode(MeasureSpec.EXACTLY))
-            val lp = MarginLayoutParams(ms, ms)
-            if(it< mCount-1){
+            val lp: MarginLayoutParams = LayoutParams(mSize, mSize)
+            if(it < (mCount-1) ){
                 lp.rightMargin = mSpace
             }
             et.layoutParams = lp
@@ -89,7 +88,7 @@ class VerifyCodeInput @JvmOverloads constructor(context: Context, attributeSet: 
             et.doAfterTextChanged {
                 val index = et.tag as Int
                 val length = et.text?.toString()?.length?:0
-                onInputChange?.invoke(children.map { (it as EditText).text.toString().trim() }.joinToString(separator = ""))
+                onInputChange?.invoke(getCode())
                 if (length>0) {
                     if(length>1) {
                         et.setText(et.text.toString().substring(length-1))
@@ -124,13 +123,13 @@ class VerifyCodeInput @JvmOverloads constructor(context: Context, attributeSet: 
 
     var onInputFinish: ((code: String)->Unit)? = null
     private fun checkInputFinish(){
-        val code = children.map { (it as EditText).text.toString().trim() }.joinToString(separator = "")
+        val code = getCode()
         if(code.length == mCount && onInputFinish!=null){
             onInputFinish!!(code)
         }
     }
 
-    fun getCode() = children.map { (it as EditText).text.toString().trim() }.joinToString(separator = "")
+    fun getCode() = children.filter { it is EditText }.map { (it as EditText).text.toString().trim() }.joinToString(separator = "")
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
@@ -142,7 +141,7 @@ class VerifyCodeInput @JvmOverloads constructor(context: Context, attributeSet: 
         val clipboardText = ClipboardUtils.getText()
         if(!clipboardText.isNullOrEmpty() && clipboardText.length==mCount && RegexUtils.isMatch(RegexConstants.REGEX_POSITIVE_INTEGER, clipboardText)){
             //认为是验证码
-            children.forEachIndexed { index, view ->
+            children.filter { it is EditText }.forEachIndexed { index, view ->
                 (view as EditText).apply {
                     setText(clipboardText.get(index).toString())
                     setSelection(text.length)
