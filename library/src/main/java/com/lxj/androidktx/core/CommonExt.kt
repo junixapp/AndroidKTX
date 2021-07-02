@@ -130,8 +130,10 @@ fun RecyclerView.ViewHolder.px2sp(pxValue: Float): Int {
     return itemView.px2sp(pxValue)
 }
 
-/** 动态创建Drawable **/
-fun Context.createDrawable(color: Int = Color.TRANSPARENT, radius: Float = 0f,
+/** 动态创建Drawable
+ * @param cornerRadiusArray [lt, lr, br, bl] ，长度必须为4
+ */
+fun Context.createDrawable(color: Int = Color.TRANSPARENT, radius: Float = 0f, cornerRadiusArray: Array<Float>? = null,
                            strokeColor: Int = Color.TRANSPARENT, strokeWidth: Int = 0,
                            enableRipple: Boolean = true,
                            rippleColor: Int = Color.parseColor("#88999999"),
@@ -139,6 +141,18 @@ fun Context.createDrawable(color: Int = Color.TRANSPARENT, radius: Float = 0f,
                            gradientOrientation: GradientDrawable.Orientation = GradientDrawable.Orientation.LEFT_RIGHT): Drawable {
     val content = GradientDrawable().apply {
         cornerRadius = radius
+        if(cornerRadiusArray!=null){
+            val arr = FloatArray(8)
+            arr[0] = cornerRadiusArray[0]
+            arr[1] = cornerRadiusArray[0]
+            arr[2] = cornerRadiusArray[1]
+            arr[3] = cornerRadiusArray[1]
+            arr[4] = cornerRadiusArray[2]
+            arr[5] = cornerRadiusArray[2]
+            arr[6] = cornerRadiusArray[3]
+            arr[7] = cornerRadiusArray[3]
+            cornerRadii = arr
+        }
         setStroke(strokeWidth, strokeColor)
         gradientType = GradientDrawable.LINEAR_GRADIENT
         if(gradientStartColor!=0 || gradientEndColor!=0 ){
@@ -155,23 +169,23 @@ fun Context.createDrawable(color: Int = Color.TRANSPARENT, radius: Float = 0f,
     return content
 }
 
-fun Fragment.createDrawable(color: Int = Color.TRANSPARENT, radius: Float = 0f,
+fun Fragment.createDrawable(color: Int = Color.TRANSPARENT, radius: Float = 0f, cornerRadiusArray: Array<Float>? = null,
                             strokeColor: Int = Color.TRANSPARENT, strokeWidth: Int = 0,
                             enableRipple: Boolean = true,
                             rippleColor: Int = Color.parseColor("#88999999"),
                             gradientStartColor: Int = 0, gradientCenterColor : Int = 0,gradientEndColor : Int = 0,
                             gradientOrientation: GradientDrawable.Orientation = GradientDrawable.Orientation.LEFT_RIGHT): Drawable {
-    return context!!.createDrawable(color, radius, strokeColor, strokeWidth, enableRipple, rippleColor, gradientStartColor = gradientStartColor,
+    return context!!.createDrawable(color, radius, cornerRadiusArray, strokeColor, strokeWidth, enableRipple, rippleColor, gradientStartColor = gradientStartColor,
     gradientEndColor = gradientEndColor, gradientOrientation = gradientOrientation, gradientCenterColor = gradientCenterColor)
 }
 
-fun View.createDrawable(color: Int = Color.TRANSPARENT, radius: Float = 0f,
+fun View.createDrawable(color: Int = Color.TRANSPARENT, radius: Float = 0f, cornerRadiusArray: Array<Float>? = null,
                         strokeColor: Int = Color.TRANSPARENT, strokeWidth: Int = 0,
                         enableRipple: Boolean = true,
                         rippleColor: Int = Color.parseColor("#88999999"),
                         gradientStartColor: Int = 0, gradientCenterColor : Int = 0, gradientEndColor : Int = 0,
                         gradientOrientation: GradientDrawable.Orientation = GradientDrawable.Orientation.LEFT_RIGHT): Drawable {
-    return context!!.createDrawable(color, radius, strokeColor, strokeWidth, enableRipple, rippleColor, gradientStartColor = gradientStartColor,
+    return context!!.createDrawable(color, radius, cornerRadiusArray, strokeColor, strokeWidth, enableRipple, rippleColor, gradientStartColor = gradientStartColor,
             gradientEndColor = gradientEndColor, gradientOrientation = gradientOrientation, gradientCenterColor = gradientCenterColor)
 }
 

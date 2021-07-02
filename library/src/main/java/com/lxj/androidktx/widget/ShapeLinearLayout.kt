@@ -25,6 +25,10 @@ open class ShapeLinearLayout @JvmOverloads constructor(context: Context, attribu
     private var mStroke = 0 //边框颜色
     private var mStrokeWidth = 0 //边框大小
     private var mCorner = 0 //圆角
+    private var mTopLeftCorner = 0
+    private var mTopRightCorner = 0
+    private var mBottomLeftCorner = 0
+    private var mBottomRightCorner = 0
     private var mTopLineColor = 0
     private var mBottomLineColor = 0
     private var mLineSize = dp2px(1f)
@@ -41,6 +45,10 @@ open class ShapeLinearLayout @JvmOverloads constructor(context: Context, attribu
         mStroke = ta.getColor(R.styleable.ShapeLinearLayout_sll_stroke, mStroke)
         mStrokeWidth = ta.getDimensionPixelSize(R.styleable.ShapeLinearLayout_sll_strokeWidth, mStrokeWidth)
         mCorner = ta.getDimensionPixelSize(R.styleable.ShapeLinearLayout_sll_corner, mCorner)
+        mTopLeftCorner = ta.getDimensionPixelSize(R.styleable.ShapeLinearLayout_sll_topLeftCorner, mTopLeftCorner)
+        mTopRightCorner = ta.getDimensionPixelSize(R.styleable.ShapeLinearLayout_sll_topRightCorner, mTopRightCorner)
+        mBottomRightCorner = ta.getDimensionPixelSize(R.styleable.ShapeLinearLayout_sll_bottomRightCorner, mBottomRightCorner)
+        mBottomLeftCorner = ta.getDimensionPixelSize(R.styleable.ShapeLinearLayout_sll_bottomLeftCorner, mBottomLeftCorner)
 
         mTopLineColor = ta.getColor(R.styleable.ShapeLinearLayout_sll_topLineColor, mTopLineColor)
         mBottomLineColor = ta.getColor(R.styleable.ShapeLinearLayout_sll_bottomLineColor, mBottomLineColor)
@@ -72,7 +80,12 @@ open class ShapeLinearLayout @JvmOverloads constructor(context: Context, attribu
         if (background !=null && background is ColorDrawable && mSolid==Color.TRANSPARENT){
             color = ( background as ColorDrawable) .color
         }
-        val drawable = createDrawable(color = color ?: mSolid, radius = mCorner.toFloat(), strokeColor = mStroke, strokeWidth = mStrokeWidth,
+        var cornerArr: Array<Float>? = null
+        if(mTopLeftCorner>0 || mTopRightCorner>0 || mBottomLeftCorner>0 || mBottomRightCorner>0){
+            cornerArr = arrayOf(mTopLeftCorner.toFloat(), mTopRightCorner.toFloat(), mBottomRightCorner.toFloat(),
+                mBottomLeftCorner.toFloat())
+        }
+        val drawable = createDrawable(color = color ?: mSolid, radius = mCorner.toFloat(), cornerRadiusArray = cornerArr, strokeColor = mStroke, strokeWidth = mStrokeWidth,
             enableRipple = mEnableRipple, rippleColor = mRippleColor, gradientStartColor = mGradientStartColor,
             gradientEndColor = mGradientEndColor, gradientCenterColor = mGradientCenterColor, gradientOrientation = mGradientOrientation)
         setBackgroundDrawable(drawable)
@@ -92,7 +105,7 @@ open class ShapeLinearLayout @JvmOverloads constructor(context: Context, attribu
     }
     fun setup(
         solid: Int? = null, stroke: Int? = null, strokeWidth: Int? = null,
-        corner: Int? = null, enableRipple: Boolean? = null, rippleColor: Int? = null,
+        corner: Int? = null, cornerArr: Array<Int>? = null, enableRipple: Boolean? = null, rippleColor: Int? = null,
         topLineColor: Int? = null, bottomLineColor: Int? = null, lineSize: Int? = null,
         gradientOrientation: GradientDrawable.Orientation? = null,  gradientStartColor: Int? = null,
         gradientCenterColor: Int? = null,gradientEndColor: Int? = null){
@@ -100,6 +113,12 @@ open class ShapeLinearLayout @JvmOverloads constructor(context: Context, attribu
         if(stroke!=null) mStroke = stroke
         if(strokeWidth!=null) mStrokeWidth = strokeWidth
         if(corner!=null) mCorner = corner
+        if(cornerArr!=null && cornerArr.size==4) {
+            mTopLeftCorner = cornerArr[0]
+            mTopRightCorner = cornerArr[1]
+            mBottomRightCorner = cornerArr[2]
+            mBottomLeftCorner = cornerArr[3]
+        }
         if(enableRipple!=null) mEnableRipple = enableRipple
         if(rippleColor!=null) mRippleColor = rippleColor
         if(topLineColor!=null) mTopLineColor = topLineColor

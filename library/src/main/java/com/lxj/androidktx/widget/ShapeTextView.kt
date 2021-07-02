@@ -25,6 +25,10 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
     private var mStroke = 0 //边框颜色
     private var mStrokeWidth = 0 //边框大小
     private var mCorner = 0 //圆角
+    private var mTopLeftCorner = 0
+    private var mTopRightCorner = 0
+    private var mBottomLeftCorner = 0
+    private var mBottomRightCorner = 0
     //是否启用水波纹
     private var mEnableRipple = false
     private var mRippleColor = Color.parseColor("#88999999")
@@ -53,6 +57,10 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
         mStroke = ta.getColor(R.styleable.ShapeTextView_stv_stroke, mStroke)
         mStrokeWidth = ta.getDimensionPixelSize(R.styleable.ShapeTextView_stv_strokeWidth, mStrokeWidth)
         mCorner = ta.getDimensionPixelSize(R.styleable.ShapeTextView_stv_corner, mCorner)
+        mTopLeftCorner = ta.getDimensionPixelSize(R.styleable.ShapeTextView_stv_topLeftCorner, mTopLeftCorner)
+        mTopRightCorner = ta.getDimensionPixelSize(R.styleable.ShapeTextView_stv_topRightCorner, mTopRightCorner)
+        mBottomRightCorner = ta.getDimensionPixelSize(R.styleable.ShapeTextView_stv_bottomRightCorner, mBottomRightCorner)
+        mBottomLeftCorner = ta.getDimensionPixelSize(R.styleable.ShapeTextView_stv_bottomLeftCorner, mBottomLeftCorner)
 
         mEnableRipple = ta.getBoolean(R.styleable.ShapeTextView_stv_enableRipple, mEnableRipple)
         mRippleColor = ta.getColor(R.styleable.ShapeTextView_stv_rippleColor, mRippleColor)
@@ -89,7 +97,12 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
         if(mBgDrawable!=null) {
             setBackgroundDrawable(mBgDrawable)
         } else{
-            val drawable = createDrawable(color = mSolid, radius = mCorner.toFloat(), strokeColor = mStroke, strokeWidth = mStrokeWidth,
+            var cornerArr: Array<Float>? = null
+            if(mTopLeftCorner>0 || mTopRightCorner>0 || mBottomLeftCorner>0 || mBottomRightCorner>0){
+                cornerArr = arrayOf(mTopLeftCorner.toFloat(), mTopRightCorner.toFloat(), mBottomRightCorner.toFloat(),
+                    mBottomLeftCorner.toFloat())
+            }
+            val drawable = createDrawable(color = mSolid, radius = mCorner.toFloat(), cornerRadiusArray = cornerArr,strokeColor = mStroke, strokeWidth = mStrokeWidth,
                 enableRipple = mEnableRipple, rippleColor = mRippleColor, gradientStartColor = mGradientStartColor,
                 gradientCenterColor = mGradientCenterColor, gradientEndColor = mGradientEndColor, gradientOrientation = mGradientOrientation)
             setBackgroundDrawable(drawable)
@@ -120,7 +133,7 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
     }
 
     fun setup(drawableWidth: Int? = null, drawableHeight: Int? = null,drawableSize: Int? = null,
-              solid: Int? = null, stroke: Int? = null, strokeWidth: Int? = null,
+              solid: Int? = null, cornerArr: Array<Int>? = null, stroke: Int? = null, strokeWidth: Int? = null,
               corner: Int? = null, enableRipple: Boolean? = null, rippleColor: Int? = null,
               topLineColor: Int? = null, bottomLineColor: Int? = null, lineSize: Int? = null,
             gradientOrientation: GradientDrawable.Orientation? = null,  gradientStartColor: Int? = null,
@@ -132,6 +145,12 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
             mDrawableHeight = drawableSize
         }
         if(solid!=null) mSolid = solid
+        if(cornerArr!=null && cornerArr.size==4) {
+            mTopLeftCorner = cornerArr[0]
+            mTopRightCorner = cornerArr[1]
+            mBottomRightCorner = cornerArr[2]
+            mBottomLeftCorner = cornerArr[3]
+        }
         if(stroke!=null) mStroke = stroke
         if(strokeWidth!=null) mStrokeWidth = strokeWidth
         if(corner!=null) mCorner = corner

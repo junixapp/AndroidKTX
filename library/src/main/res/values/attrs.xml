@@ -82,6 +82,10 @@
     <declare-styleable name="ShapeFrameLayout">
         <attr name="sfl_solid" format="color" />
         <attr name="sfl_corner" format="dimension" />
+        <attr name="sfl_topLeftCorner" format="dimension" />
+        <attr name="sfl_topRightCorner" format="dimension" />
+        <attr name="sfl_bottomRightCorner" format="dimension" />
+        <attr name="sfl_bottomLeftCorner" format="dimension" />
         <attr name="sfl_stroke" format="color" />
         <attr name="sfl_strokeWidth" format="dimension" />
 
@@ -110,6 +114,10 @@
     <declare-styleable name="ShapeLinearLayout">
         <attr name="sll_solid" format="color" />
         <attr name="sll_corner" format="dimension" />
+        <attr name="sll_topLeftCorner" format="dimension" />
+        <attr name="sll_topRightCorner" format="dimension" />
+        <attr name="sll_bottomRightCorner" format="dimension" />
+        <attr name="sll_bottomLeftCorner" format="dimension" />
         <attr name="sll_stroke" format="color" />
         <attr name="sll_strokeWidth" format="dimension" />
 
@@ -138,6 +146,10 @@
     <declare-styleable name="ShapeRelativeLayout">
         <attr name="srl_solid" format="color" />
         <attr name="srl_corner" format="dimension" />
+        <attr name="srl_topLeftCorner" format="dimension" />
+        <attr name="srl_topRightCorner" format="dimension" />
+        <attr name="srl_bottomRightCorner" format="dimension" />
+        <attr name="srl_bottomLeftCorner" format="dimension" />
         <attr name="srl_stroke" format="color" />
         <attr name="srl_strokeWidth" format="dimension" />
 
@@ -170,6 +182,10 @@
 
         <attr name="stv_solid" format="color" />
         <attr name="stv_corner" format="dimension" />
+        <attr name="stv_topLeftCorner" format="dimension" />
+        <attr name="stv_topRightCorner" format="dimension" />
+        <attr name="stv_bottomRightCorner" format="dimension" />
+        <attr name="stv_bottomLeftCorner" format="dimension" />
         <attr name="stv_stroke" format="color" />
         <attr name="stv_strokeWidth" format="dimension" />
 

@@ -56,7 +56,10 @@
             app:stv_gradientEndColor="#FFD88F"
             app:stv_gradientOrientation="TOP_BOTTOM"
             app:stv_typefacePath="FredokaOne-Regular.ttf"
-            app:stv_corner="40pt"
+            app:stv_topLeftCorner="2dp"
+            app:stv_topRightCorner="20dp"
+            app:stv_bottomRightCorner="4pt"
+            app:stv_bottomLeftCorner="20pt"
             android:gravity="center"
             android:layout_width="200dp"
             android:layout_height="100dp"
@@ -118,9 +121,10 @@
 
         <com.lxj.androidktx.widget.ShapeLinearLayout
             android:layout_margin="30dp"
-            app:sll_corner="20dp"
+            app:sll_topLeftCorner="20dp"
+            app:sll_topRightCorner="20dp"
             app:sll_gradientOrientation="TL_BR"
-            app:sll_gradientStartColor="#f1f1f1"
+            app:sll_gradientStartColor="#ff1356"
             app:sll_gradientEndColor="#0c9aec"
             android:layout_width="match_parent"
             android:layout_height="50dp"/>
