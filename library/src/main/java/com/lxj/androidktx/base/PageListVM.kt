@@ -29,14 +29,20 @@ abstract class PageListVM<T> : ViewModel(),
         listData.value = arrayListOf()
     }
 
+    var onRefreshCB: (() -> Unit)? = null
+    var onLoadMoreCB: (() -> Unit)? = null
     open fun bindRecyclerView(
         owner: LifecycleOwner,
         rv: RecyclerView?,
         smartRefresh: SmartRefreshLayout?,
         stateLayout: StateLayout? = null,
         firstShowLoading: Boolean = false,
-        onDataUpdate: (() -> Unit)? = null
+        onRefresh: (() -> Unit)? = null,
+        onLoadMore: (() -> Unit)? = null,
+        onDataUpdate: (() -> Unit)? = null,
     ) {
+        onRefreshCB = onRefresh
+        onLoadMoreCB = onLoadMore
         stateLayout?.observeState(owner, listData)
         listData.observe(owner, Observer {
             rv?.adapter?.notifyDataSetChanged()
@@ -61,12 +67,14 @@ abstract class PageListVM<T> : ViewModel(),
     open fun refresh() {
         page = 1
         load()
+        onRefreshCB?.invoke()
     }
 
     open fun loadMore() {
         if (hasMore) {
             page += 1
             load()
+            onLoadMoreCB?.invoke()
         }
     }
 
