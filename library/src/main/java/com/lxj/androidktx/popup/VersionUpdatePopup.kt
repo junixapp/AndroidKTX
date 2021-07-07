@@ -3,6 +3,7 @@ package com.lxj.androidktx.popup
 import android.content.Context
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.click
+import com.lxj.androidktx.core.gone
 import com.lxj.androidktx.util.CommonUpdateInfo
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.CenterPopupView
@@ -17,6 +18,10 @@ class VersionUpdatePopup (context: Context, var updateInfo: CommonUpdateInfo, va
         super.onCreate()
         tv_ok.setTextColor(XPopup.getPrimaryColor())
         tv_info.text = "${updateInfo.update_info}"
+        if(updateInfo.force_update==true){
+            tv_cancel.gone()
+            vv.gone()
+        }
         tv_cancel.click { dismiss() }
         tv_ok.click {
             onOkClick(updateInfo.download_url?:"")

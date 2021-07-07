@@ -61,6 +61,7 @@
                 app:stv_solid="#fff" />
 
             <View
+                android:id="@+id/vv"
                 android:layout_width="0.6dp"
                 android:layout_height="match_parent"
                 android:background="#eee" />

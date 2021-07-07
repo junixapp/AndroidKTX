@@ -27,6 +27,7 @@ class CountDownWorker(var total: Int = 60, var step: Int = 1, var countDownInter
     fun start(owner: LifecycleOwner? = null){
         owner?.lifecycle?.addObserver(this)
         mHandler.removeMessages(what)
+        mCancelled = false
         steps = 0
         if(immediately) onChange?.invoke(total)
         mHandler.sendEmptyMessageDelayed(what, countDownInterval)
