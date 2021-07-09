@@ -32,7 +32,7 @@ open class ShapeRelativeLayout @JvmOverloads constructor(context: Context, attri
     private var mTopLineColor = 0
     private var mBottomLineColor = 0
     private var mLineSize = dp2px(1f)
-    private var mEnableRipple = true
+    private var mEnableRipple = false
     private var mRippleColor = Color.parseColor("#88999999")
     private var mGradientStartColor = 0
     private var mGradientCenterColor = 0

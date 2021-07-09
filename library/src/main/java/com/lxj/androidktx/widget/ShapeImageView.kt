@@ -26,7 +26,7 @@ open class ShapeImageView @JvmOverloads constructor(context: Context, attributeS
     private var mStroke = 0 //边框颜色
     private var mStrokeWidth = 0 //边框大小
     private var mCorner = 0 //圆角
-    private var mEnableRipple = true
+    private var mEnableRipple = false
     private var mRippleColor = Color.parseColor("#88999999")
     private var mGradientStartColor = 0
     private var mGradientCenterColor = 0
