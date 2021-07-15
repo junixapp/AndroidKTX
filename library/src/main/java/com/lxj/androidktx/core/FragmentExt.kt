@@ -1,11 +1,11 @@
 package com.lxj.androidktx.core
 
+import android.app.Application
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.*
+import com.lxj.androidktx.AndroidKTX
 import com.lxj.androidktx.livedata.LifecycleHandler
 
 
@@ -96,6 +96,15 @@ fun Fragment.postDelay(delay:Long = 0, action: ()->Unit){
 }
 
 //view model
-fun <T: ViewModel> Fragment.getVM(clazz: Class<T>) = ViewModelProviders.of(this).get(clazz)
+fun <T: ViewModel> Fragment.getVM(clazz: Class<T>) = ViewModelProvider(this).get(clazz)
+/**
+ * saved state view model，要求ViewModel的构造必须接受SavedStateHandle类型的参数，比如：
+ * ```
+ * class TestVM( handler: SavedStateHandle): ViewModel()
+ * ```
+ */
+fun <T: ViewModel> Fragment.getSavedStateVM(clazz: Class<T>) = ViewModelProvider(this, SavedStateViewModelFactory(
+    AndroidKTX.context as Application, this)
+).get(clazz)
 
-fun <T: ViewModel> Fragment.getActivityVM(clazz: Class<T>) = ViewModelProviders.of(activity!!).get(clazz)
+

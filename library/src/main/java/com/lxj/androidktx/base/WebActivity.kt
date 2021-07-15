@@ -14,7 +14,7 @@ import com.just.agentweb.WebViewClient
 import com.lxj.androidktx.AndroidKTX
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.click
-import com.lxj.androidktx.core.dp2px
+import com.lxj.androidktx.core.dp
 import kotlinx.android.synthetic.main._ktx_activity_web.*
 
 
@@ -129,7 +129,7 @@ open class WebActivity : TitleBarActivity(){
         if(url.isNotEmpty()){
             agentWeb = AgentWeb.with(this)
                     .setAgentWebParent(webViewParent, FrameLayout.LayoutParams(-1, -1))
-                    .useDefaultIndicator(indicatorColor, dp2px(1f))
+                    .useDefaultIndicator(indicatorColor, 1.dp)
                     .setWebViewClient(mWebViewClient)
                     .setWebChromeClient(mWebChromeClient)
                     .createAgentWeb()
@@ -137,7 +137,7 @@ open class WebActivity : TitleBarActivity(){
         }else{
             agentWeb = AgentWeb.with(this)
                     .setAgentWebParent(webViewParent, FrameLayout.LayoutParams(-1, -1))
-                    .useDefaultIndicator(indicatorColor, dp2px(1f))
+                    .useDefaultIndicator(indicatorColor, 1.dp)
                     .setWebViewClient(mWebViewClient)
                     .setWebChromeClient(mWebChromeClient)
                     .createAgentWeb()

@@ -33,14 +33,14 @@ class ImageUploader @JvmOverloads constructor(
 
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.ImageUploader)
-        imageRadius = ta.getDimensionPixelSize(R.styleable.ImageUploader_imageRadius, context.dp2px(imageRadius.toFloat()))
-        delImageMargin = ta.getDimensionPixelSize(R.styleable.ImageUploader_delImageMargin, context.dp2px(delImageMargin.toFloat()))
+        imageRadius = ta.getDimensionPixelSize(R.styleable.ImageUploader_imageRadius, imageRadius.dp)
+        delImageMargin = ta.getDimensionPixelSize(R.styleable.ImageUploader_delImageMargin, delImageMargin.dp)
         addImage = ta.getDrawable(R.styleable.ImageUploader_addImageRes)
         delImage = ta.getDrawable(R.styleable.ImageUploader_delImageRes)
         spanCount = ta.getInt(R.styleable.ImageUploader_spanCount, spanCount)
         maxImages = ta.getInt(R.styleable.ImageUploader_maxImages, maxImages)
-        hSpace = ta.getDimensionPixelSize(R.styleable.ImageUploader_hSpace, context.dp2px(hSpace.toFloat()))
-        vSpace = ta.getDimensionPixelSize(R.styleable.ImageUploader_vSpace, context.dp2px(vSpace.toFloat()))
+        hSpace = ta.getDimensionPixelSize(R.styleable.ImageUploader_hSpace, hSpace.dp)
+        vSpace = ta.getDimensionPixelSize(R.styleable.ImageUploader_vSpace, vSpace.dp)
 
         ta.recycle()
 

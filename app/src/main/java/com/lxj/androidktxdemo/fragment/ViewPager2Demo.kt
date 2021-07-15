@@ -52,7 +52,7 @@ class ViewPager2Demo : BaseFragment() {
     }
 
     class CardPager2Transformer(context: Context) : ViewPager2.PageTransformer {
-        private val maxTranslateOffsetX: Int = context.dp2px(180f)
+        private val maxTranslateOffsetX: Int = 180.dp
         private var viewPager: RecyclerView? = null
 
         override fun transformPage(view: View, position: Float) {

@@ -10,7 +10,7 @@ import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.createDrawable
-import com.lxj.androidktx.core.dp2px
+import com.lxj.androidktx.core.dp
 import com.lxj.androidktx.core.sizeDrawable
 
 /**
@@ -35,7 +35,7 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
     //上下分割线
     private var mTopLineColor = 0
     private var mBottomLineColor = 0
-    private var mLineSize = dp2px(.6f)
+    private var mLineSize = (0.6f).dp
     private var mGradientStartColor = 0
     private var mGradientCenterColor = 0
     private var mGradientEndColor = 0

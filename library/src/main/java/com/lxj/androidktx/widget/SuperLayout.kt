@@ -2,14 +2,11 @@ package com.lxj.androidktx.widget
 
 import android.content.Context
 import android.graphics.*
-import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
-import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
-import android.widget.LinearLayout
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.*
 import kotlinx.android.synthetic.main._ktx_super_layout.view.*
@@ -23,36 +20,36 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
 
     //左边图片
     private var mLeftImage: Drawable? = null
-    private var mLeftImageSize = dp2px(34f)
+    private var mLeftImageSize = 34.dp
     private var mLeftText: CharSequence = ""
     private var mLeftTextColor = Color.parseColor("#222222")
-    private var mLeftTextSize = sp2px(16f)
-    private var mLeftTextMarginLeft = dp2px(8f)
-    private var mLeftTextMarginRight = dp2px(8f)
+    private var mLeftTextSize = 16.sp
+    private var mLeftTextMarginLeft = 8.dp
+    private var mLeftTextMarginRight = 8.dp
     private var mLeftTextMarginBottom = 0
     private var mLeftTextMarginTop = 0
     private var mLeftSubText: CharSequence = ""
     private var mLeftSubTextColor = Color.parseColor("#777777")
-    private var mLeftSubTextSize = sp2px(13f)
+    private var mLeftSubTextSize = 13.sp
     private var mCenterText: CharSequence = ""
     private var mCenterTextColor = Color.parseColor("#222222")
-    private var mCenterTextSize = sp2px(15f)
+    private var mCenterTextSize = 15.sp
     private var mCenterTextBg: Drawable? = null
     private var mRightText: CharSequence = ""
     private var mRightTextColor = Color.parseColor("#777777")
-    private var mRightTextSize = sp2px(15f)
+    private var mRightTextSize = 15.sp
     private var mRightTextBg: Drawable? = null
     private var mRightTextBgColor = 0
     private var mRightTextWidth = 0
     private var mRightTextHeight = 0
 
     private var mRightImage: Drawable? = null
-    private var mRightImageSize = dp2px(20f)
-    private var mRightImageMarginLeft = dp2px(10f)
+    private var mRightImageSize = 20.dp
+    private var mRightImageMarginLeft = 2.dp
     private var mRightImage2: Drawable? = null
-    private var mRightImage2Width = dp2px(25f)
-    private var mRightImage2Height = dp2px(25f)
-    private var mRightImage2MarginLeft = dp2px(10f)
+    private var mRightImage2Width = 2.dp
+    private var mRightImage2Height = 2.dp
+    private var mRightImage2MarginLeft = 10.dp
     private var mLeftTextBold = false
     private var mCenterTextBold = false
     private var mRightTextBold = false

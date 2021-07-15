@@ -82,7 +82,7 @@ fun ViewPager.asCard(
 }
 
 class CardPagerTransformer(context: Context) : ViewPager.PageTransformer {
-    private val maxTranslateOffsetX: Int = context.dp2px(180f)
+    private val maxTranslateOffsetX: Int = 180.dp
     private var viewPager: ViewPager? = null
 
     override fun transformPage(view: View, position: Float) {
@@ -155,8 +155,8 @@ fun ViewPager2.asCard(
  */
 class CardPager2Transformer(
     context: Context, var orientation: Int = ViewPager2.ORIENTATION_HORIZONTAL,
-    var offsetVal: Int = context.dp2px(150f),
-    var scaleRatio: Float = 0.3f, var pageMargin : Int = context.dp2px(10f)
+    var offsetVal: Int = 150.dp,
+    var scaleRatio: Float = 0.3f, var pageMargin : Int = 10.dp
 ) : ViewPager2.PageTransformer {
     override fun transformPage(view: View, position: Float) {
         if(view.marginTop==0)view.margin(pageMargin, pageMargin, pageMargin, pageMargin)

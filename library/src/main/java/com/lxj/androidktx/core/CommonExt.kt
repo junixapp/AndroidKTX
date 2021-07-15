@@ -50,84 +50,27 @@ inline val Int.sp
 inline val Int.pt
     get() = AdaptScreenUtils.pt2Px(this.toFloat())
 
-@Deprecated(message = "请使用1.dp")
 fun Context.dp2px(dpValue: Float): Int {
-    return (dpValue * resources.displayMetrics.density + 0.5f).toInt()
+    return ConvertUtils.dp2px(dpValue)
 }
 
-@Deprecated(message = "请使用1.dp")
-fun Context.px2dp(pxValue: Float): Int {
-    return (pxValue / resources.displayMetrics.density + 0.5f).toInt()
-}
-
-@Deprecated(message = "请使用1.dp")
 fun Context.sp2px(spValue: Float): Int {
-    return (spValue * resources.displayMetrics.scaledDensity + 0.5f).toInt()
+    return ConvertUtils.sp2px(spValue)
 }
 
-@Deprecated(message = "请使用1.dp")
-fun Context.px2sp(pxValue: Float): Int {
-    return (pxValue / resources.displayMetrics.scaledDensity + 0.5f).toInt()
-}
-
-@Deprecated(message = "请使用1.dp")
 fun Fragment.dp2px(dpValue: Float): Int {
     return context!!.dp2px(dpValue)
 }
 
-@Deprecated(message = "请使用1.dp")
-fun Fragment.px2dp(pxValue: Float): Int {
-    return context!!.px2dp(pxValue)
-}
-
-@Deprecated(message = "请使用1.dp")
 fun Fragment.sp2px(dpValue: Float): Int {
     return context!!.sp2px(dpValue)
 }
 
-@Deprecated(message = "请使用1.dp")
-fun Fragment.px2sp(pxValue: Float): Int {
-    return context!!.px2sp(pxValue)
-}
-
-@Deprecated(message = "请使用1.dp")
-fun View.px2dp(pxValue: Float): Int {
-    return context!!.px2dp(pxValue)
-}
-
-@Deprecated(message = "请使用1.dp")
 fun View.dp2px(dpValue: Float): Int {
     return context!!.dp2px(dpValue)
 }
-
-@Deprecated(message = "请使用1.dp")
 fun View.sp2px(dpValue: Float): Int {
     return context!!.sp2px(dpValue)
-}
-
-@Deprecated(message = "请使用1.dp")
-fun View.px2sp(pxValue: Float): Int {
-    return context!!.px2sp(pxValue)
-}
-
-@Deprecated(message = "请使用1.dp")
-fun RecyclerView.ViewHolder.px2dp(pxValue: Float): Int {
-    return itemView.px2dp(pxValue)
-}
-
-@Deprecated(message = "请使用1.dp")
-fun RecyclerView.ViewHolder.dp2px(dpValue: Float): Int {
-    return itemView.dp2px(dpValue)
-}
-
-@Deprecated(message = "请使用1.dp")
-fun RecyclerView.ViewHolder.sp2px(dpValue: Float): Int {
-    return itemView.sp2px(dpValue)
-}
-
-@Deprecated(message = "请使用1.dp")
-fun RecyclerView.ViewHolder.px2sp(pxValue: Float): Int {
-    return itemView.px2sp(pxValue)
 }
 
 /** 动态创建Drawable

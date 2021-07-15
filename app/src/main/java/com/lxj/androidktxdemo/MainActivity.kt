@@ -1,10 +1,16 @@
 package com.lxj.androidktxdemo
 
+import android.app.Application
 import android.content.Intent
 import android.os.Bundle
+import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.SavedStateViewModelFactory
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.blankj.utilcode.util.FragmentUtils
 import com.blankj.utilcode.util.LogUtils
+import com.lxj.androidktx.AndroidKTX
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.share.Share
 import com.lxj.androidktx.util.DirManager
@@ -43,12 +49,22 @@ class MainActivity : AppCompatActivity() {
 
     )
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         viewPager.bindFragment(this, fragments = pages.map { it.page!! })
         viewPager.bindTabLayout(tabLayout, pages.map { it.title })
-
+        val testVM = getSavedStateVM(TestVM::class.java)
+        testVM.num.observe(this, androidx.lifecycle.Observer {
+            btnTest.text = "Random: $it"
+        })
+        btnTest.click {
+            testVM.test()
+        }
+//        num = savedInstanceState?.getString("number")?:""
+//        btnTest.text = "Random: $num"
+//        LogUtils.e(savedInstanceState?.getString("number") ?: "暂无number")
 //        viewPager.asCard()
 //        viewPager.bind(10, bindView = {container, position ->
 //            return@bind TextView(this)
@@ -70,7 +86,7 @@ class MainActivity : AppCompatActivity() {
 //        """.trimIndent().toBean<User>().toString().w()
 //        "[{\"age\":25,\"name\":\"李晓俊\"}]".toBean<List<User>>().toString().e()
 
-            LogUtils.e(User(name = "李晓俊", age = 123, date = Date()).toJson(excludeFields = listOf("date", "name")))
+//            LogUtils.e(User(name = "李晓俊", age = 123, date = Date()).toJson(excludeFields = listOf("date", "name")))
 
 //        // 便捷处理
 //        sp().getString("a", "default")
@@ -109,6 +125,12 @@ class MainActivity : AppCompatActivity() {
 //        "dasdsa".parseQueryParams().toJson().loge()
 //        "dasdsa1?da=c?".parseQueryParams().toJson().loge()
     }
+
+//    override fun onSaveInstanceState(outState: Bundle) {
+////        outState.putString("number", num)
+//        super.onSaveInstanceState(outState)
+//    }
+
     val signKey = "babamamababamama"
     fun genSign(): String{
         //1. 生成10000以内的随机数

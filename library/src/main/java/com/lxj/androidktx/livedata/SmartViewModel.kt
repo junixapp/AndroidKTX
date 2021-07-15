@@ -12,6 +12,9 @@ import kotlin.coroutines.CoroutineContext
 
 private const val SmartViewModelKEY = "com.lxj.androidktx.livedata.SmartViewModelKEY"
 
+/**
+ * 当ViewModel执行onClear的时候，会自动取消协程和http请求
+ */
 open class SmartViewModel : ViewModel() {
     var mBagOfTags2 = hashMapOf<String, Any>()
 

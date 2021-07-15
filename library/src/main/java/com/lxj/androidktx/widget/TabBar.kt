@@ -22,17 +22,17 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
 
     var isSelectBold = false
     var tabWidthEqual = true
-    var iconWidth = dp2px(20f)
-    var iconHeight = dp2px(20f)
+    var iconWidth = 20.dp
+    var iconHeight = 20.dp
     var iconPosition = 1
     var selectedColor = Color.RED
     var normalColor = Color.BLACK
     var selectedBgColor = Color.TRANSPARENT
     var normalBgColor = Color.TRANSPARENT
-    var normalTextSize = sp2px(14f)
-    var selectTextSize = sp2px(14f)
+    var normalTextSize = 14.sp
+    var selectTextSize = 14.sp
     var tabHeight = 0
-    var iconSpace = dp2px(2f) //图片和文字间距
+    var iconSpace = 2.dp //图片和文字间距
     var mTabs = listOf<Tab>()
     var tabIndex = -1
     var tabPadding = 0

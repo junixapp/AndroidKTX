@@ -1,6 +1,5 @@
 package com.lxj.androidktx.util
 
-import android.os.Environment
 import com.lxj.androidktx.AndroidKTX.context
 import java.io.File
 

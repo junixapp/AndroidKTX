@@ -12,7 +12,7 @@ import android.util.AttributeSet
 import android.widget.FrameLayout
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.createDrawable
-import com.lxj.androidktx.core.dp2px
+import com.lxj.androidktx.core.dp
 
 /**
  * Description: 可以设置Shape的FrameLayout
@@ -31,7 +31,7 @@ open class ShapeFrameLayout @JvmOverloads constructor(context: Context, attribut
     private var mBottomRightCorner = 0
     private var mTopLineColor = 0
     private var mBottomLineColor = 0
-    private var mLineSize = context.dp2px(1f)
+    private var mLineSize = 1.dp
     private var mEnableRipple = false
     private var mRippleColor = Color.parseColor("#88999999")
     private var mGradientStartColor = 0
