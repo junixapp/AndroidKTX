@@ -10,10 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.transition.ChangeBounds
-import androidx.transition.Fade
-import androidx.transition.TransitionManager
-import androidx.transition.TransitionSet
+import androidx.transition.*
+import com.google.android.material.transition.MaterialElevationScale
+import com.google.android.material.transition.MaterialFade
+import com.google.android.material.transition.MaterialFadeThrough
+import com.google.android.material.transition.MaterialSharedAxis
 import com.lxj.androidktx.util.FixClickSpanTouchListener
 import com.lxj.xpopup.XPopup
 
@@ -26,8 +27,10 @@ import com.lxj.xpopup.XPopup
  * 设置View的高度
  */
 fun View.height(height: Int): View {
-    val params = layoutParams ?: ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT)
+    val params = layoutParams ?: ViewGroup.LayoutParams(
+        ViewGroup.LayoutParams.MATCH_PARENT,
+        ViewGroup.LayoutParams.WRAP_CONTENT
+    )
     params.height = height
     layoutParams = params
     return this
@@ -40,8 +43,10 @@ fun View.height(height: Int): View {
  * @param max 最大高度
  */
 fun View.limitHeight(h: Int, min: Int, max: Int): View {
-    val params = layoutParams ?: ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT)
+    val params = layoutParams ?: ViewGroup.LayoutParams(
+        ViewGroup.LayoutParams.MATCH_PARENT,
+        ViewGroup.LayoutParams.WRAP_CONTENT
+    )
     when {
         h < min -> params.height = min
         h > max -> params.height = max
@@ -55,8 +60,10 @@ fun View.limitHeight(h: Int, min: Int, max: Int): View {
  * 设置View的宽度
  */
 fun View.width(width: Int): View {
-    val params = layoutParams ?: ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT)
+    val params = layoutParams ?: ViewGroup.LayoutParams(
+        ViewGroup.LayoutParams.MATCH_PARENT,
+        ViewGroup.LayoutParams.WRAP_CONTENT
+    )
     params.width = width
     layoutParams = params
     return this
@@ -69,8 +76,10 @@ fun View.width(width: Int): View {
  * @param max 最大宽度
  */
 fun View.limitWidth(w: Int, min: Int, max: Int): View {
-    val params = layoutParams ?: ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT)
+    val params = layoutParams ?: ViewGroup.LayoutParams(
+        ViewGroup.LayoutParams.MATCH_PARENT,
+        ViewGroup.LayoutParams.WRAP_CONTENT
+    )
     when {
         w < min -> params.width = min
         w > max -> params.width = max
@@ -86,8 +95,10 @@ fun View.limitWidth(w: Int, min: Int, max: Int): View {
  * @param height 要设置的高度
  */
 fun View.widthAndHeight(width: Int, height: Int): View {
-    val params = layoutParams ?: ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT)
+    val params = layoutParams ?: ViewGroup.LayoutParams(
+        ViewGroup.LayoutParams.MATCH_PARENT,
+        ViewGroup.LayoutParams.WRAP_CONTENT
+    )
     params.width = width
     params.height = height
     layoutParams = params
@@ -101,7 +112,12 @@ fun View.widthAndHeight(width: Int, height: Int): View {
  * @param rightMargin 默认是保留原来的
  * @param bottomMargin 默认是保留原来的
  */
-fun View.margin(leftMargin: Int = Int.MAX_VALUE, topMargin: Int = Int.MAX_VALUE, rightMargin: Int = Int.MAX_VALUE, bottomMargin: Int = Int.MAX_VALUE): View {
+fun View.margin(
+    leftMargin: Int = Int.MAX_VALUE,
+    topMargin: Int = Int.MAX_VALUE,
+    rightMargin: Int = Int.MAX_VALUE,
+    bottomMargin: Int = Int.MAX_VALUE
+): View {
     val params = layoutParams as ViewGroup.MarginLayoutParams
     if (leftMargin != Int.MAX_VALUE)
         params.leftMargin = leftMargin
@@ -121,15 +137,17 @@ fun View.margin(leftMargin: Int = Int.MAX_VALUE, topMargin: Int = Int.MAX_VALUE,
  * @param duration 时长
  * @param action 可选行为
  */
-fun View.animateWidth(targetValue: Int, duration: Long = 400, listener: Animator.AnimatorListener? = null,
-                      action: ((Float) -> Unit)? = null) {
+fun View.animateWidth(
+    targetValue: Int, duration: Long = 400, listener: Animator.AnimatorListener? = null,
+    action: ((Float) -> Unit)? = null
+) {
     post {
         ValueAnimator.ofInt(width, targetValue).apply {
             addUpdateListener {
                 width(it.animatedValue as Int)
                 action?.invoke((it.animatedFraction))
             }
-            if(listener!=null)addListener(listener)
+            if (listener != null) addListener(listener)
             setDuration(duration)
             start()
         }
@@ -142,14 +160,19 @@ fun View.animateWidth(targetValue: Int, duration: Long = 400, listener: Animator
  * @param duration 时长
  * @param action 可选行为
  */
-fun View.animateHeight(targetValue: Int, duration: Long = 400, listener: Animator.AnimatorListener? = null, action: ((Float) -> Unit)? = null) {
+fun View.animateHeight(
+    targetValue: Int,
+    duration: Long = 400,
+    listener: Animator.AnimatorListener? = null,
+    action: ((Float) -> Unit)? = null
+) {
     post {
         ValueAnimator.ofInt(height, targetValue).apply {
             addUpdateListener {
                 height(it.animatedValue as Int)
                 action?.invoke((it.animatedFraction))
             }
-            if(listener!=null)addListener(listener)
+            if (listener != null) addListener(listener)
             setDuration(duration)
             start()
         }
@@ -163,16 +186,25 @@ fun View.animateHeight(targetValue: Int, duration: Long = 400, listener: Animato
  * @param duration 时长
  * @param action 可选行为
  */
-fun View.animateWidthAndHeight(targetWidth: Int, targetHeight: Int, duration: Long = 400, listener: Animator.AnimatorListener? = null, action: ((Float) -> Unit)? = null) {
+fun View.animateWidthAndHeight(
+    targetWidth: Int,
+    targetHeight: Int,
+    duration: Long = 400,
+    listener: Animator.AnimatorListener? = null,
+    action: ((Float) -> Unit)? = null
+) {
     post {
         val startHeight = height
         val evaluator = IntEvaluator()
         ValueAnimator.ofInt(width, targetWidth).apply {
             addUpdateListener {
-                widthAndHeight(it.animatedValue as Int, evaluator.evaluate(it.animatedFraction, startHeight, targetHeight))
+                widthAndHeight(
+                    it.animatedValue as Int,
+                    evaluator.evaluate(it.animatedFraction, startHeight, targetHeight)
+                )
                 action?.invoke((it.animatedFraction))
             }
-            if(listener!=null)addListener(listener)
+            if (listener != null) addListener(listener)
             setDuration(duration)
             start()
         }
@@ -180,12 +212,12 @@ fun View.animateWidthAndHeight(targetWidth: Int, targetHeight: Int, duration: Lo
 }
 
 /**
- * 设置点击监听, 并实现事件节流，350毫秒内只允许点击一次
+ * 设置点击监听, 并实现事件节流，500毫秒内只允许点击一次
  */
 var _viewClickFlag = false
 var _clickRunnable = Runnable { _viewClickFlag = false }
-fun View.click(duration: Long = 350, action: (view: View) -> Unit) {
-    if(this is TextView)setOnTouchListener(FixClickSpanTouchListener())
+fun View.click(duration: Long = 500, action: (view: View) -> Unit) {
+    if (this is TextView) setOnTouchListener(FixClickSpanTouchListener())
     setOnClickListener {
         if (!_viewClickFlag) {
             _viewClickFlag = true
@@ -200,7 +232,7 @@ fun View.click(duration: Long = 350, action: (view: View) -> Unit) {
  * 设置长按监听
  */
 fun View.longClick(action: (view: View) -> Boolean) {
-    if(this is TextView)setOnTouchListener(FixClickSpanTouchListener())
+    if (this is TextView) setOnTouchListener(FixClickSpanTouchListener())
     setOnLongClickListener {
         action(it)
     }
@@ -211,11 +243,16 @@ fun View.longClick(action: (view: View) -> Boolean) {
 fun View.gone() {
     visibility = View.GONE
 }
-fun View.animateGone(duration: Long = 250) {
+
+fun View.animateGone(duration: Long = 250, fade: Boolean = true, move: Boolean = true) {
     TransitionManager.beginDelayedTransition(
         parent as ViewGroup, TransitionSet()
             .setDuration(duration)
-            .addTransition(Fade())
+            .apply {
+                if(move) addTransition(MaterialSharedAxis(MaterialSharedAxis.Y, true))
+                if (fade) addTransition(Fade())
+            }
+            .addTransition(ChangeScroll())
             .addTransition(ChangeBounds())
     )
     visibility = View.GONE
@@ -224,11 +261,16 @@ fun View.animateGone(duration: Long = 250) {
 fun View.visible() {
     visibility = View.VISIBLE
 }
-fun View.animateVisible(duration: Long = 250) {
+
+fun View.animateVisible(duration: Long = 250, fade: Boolean = true, move: Boolean = true) {
     TransitionManager.beginDelayedTransition(
         parent as ViewGroup, TransitionSet()
             .setDuration(duration)
-            .addTransition(Fade())
+            .apply {
+                if (move) addTransition(MaterialSharedAxis(MaterialSharedAxis.Y, false))
+                if (fade) addTransition(Fade())
+            }
+            .addTransition(ChangeScroll())
             .addTransition(ChangeBounds())
     )
     visibility = View.VISIBLE
@@ -237,6 +279,7 @@ fun View.animateVisible(duration: Long = 250) {
 fun View.invisible() {
     visibility = View.INVISIBLE
 }
+
 fun View.animateInvisible(duration: Long = 250) {
     TransitionManager.beginDelayedTransition(
         parent as ViewGroup, TransitionSet()
@@ -281,8 +324,10 @@ fun View.toBitmap(): Bitmap {
     return when (this) {
         is RecyclerView -> {
             this.scrollToPosition(0)
-            this.measure(View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
-                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED))
+            this.measure(
+                View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+            )
 
             val bmp = Bitmap.createBitmap(width, measuredHeight, Bitmap.Config.ARGB_8888)
             val canvas = Canvas(bmp)
@@ -296,12 +341,15 @@ fun View.toBitmap(): Bitmap {
             }
             this.draw(canvas)
             //恢复高度
-            this.measure(View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
-                    View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.AT_MOST))
+            this.measure(
+                View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
+                View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.AT_MOST)
+            )
             bmp //return
         }
         else -> {
-            val screenshot = Bitmap.createBitmap(measuredWidth, measuredHeight, Bitmap.Config.ARGB_4444)
+            val screenshot =
+                Bitmap.createBitmap(measuredWidth, measuredHeight, Bitmap.Config.ARGB_4444)
             val canvas = Canvas(screenshot)
             if (background != null) {
                 background.setBounds(0, 0, width, measuredHeight)
@@ -332,7 +380,7 @@ fun View.disable(value: Float = 0.5f) {
 fun View.disableAll() {
     isEnabled = false
     alpha = 0.55f
-    if(this is ViewGroup){
+    if (this is ViewGroup) {
         children.forEach {
             it.disableAll()
         }
@@ -350,7 +398,7 @@ fun View.enable() {
 fun View.enableAll() {
     isEnabled = true
     alpha = 1f
-    if(this is ViewGroup){
+    if (this is ViewGroup) {
         children.forEach {
             it.enableAll()
         }
