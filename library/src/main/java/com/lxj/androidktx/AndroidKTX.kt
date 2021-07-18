@@ -11,7 +11,6 @@ import com.lxj.androidktx.util.DirManager
 import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.header.ClassicsHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
-import com.zlw.main.recorderlib.RecordManager
 
 /**
  * Description: 统一配置扩展方法中的变量
@@ -45,7 +44,7 @@ object AndroidKTX {
         ToastUtils.getDefaultMaker().setTextColor(Color.WHITE)
         initRefresh()
         DirManager.init()
-        RecordManager.getInstance().init(context as Application, isDebug)
+//        RecordManager.getInstance().init(context as Application, isDebug)
     }
 
     fun initRefresh() {
