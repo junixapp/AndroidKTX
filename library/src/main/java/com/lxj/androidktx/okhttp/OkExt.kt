@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit
  */
 object OkExt {
     const val DefaultUrlTag = "okhttp"
-    const val NoBaseUrl = ""
+    const val NoBaseUrl = "_OkExtNoBaseUrl_"
     private var httpTimeout = 30000L  //30s
     val globalHeaders = arrayListOf<Pair<String, String>>()
     val requestCache = hashMapOf<Any, Call>()

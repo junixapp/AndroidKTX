@@ -8,6 +8,7 @@ import okhttp3.*
 import java.io.File
 import java.io.IOException
 import java.lang.Exception
+import java.lang.IllegalArgumentException
 import java.net.URLConnection.getFileNameMap
 
 
@@ -16,11 +17,17 @@ import java.net.URLConnection.getFileNameMap
  * 协程中使用：    "http://www.baidu.com".http().get<Bean>().await()
  * 非协程中使用：  "http://www.baidu.com".http().get<Bean>(callback)
  * Create by lxj, at 2018/12/19
- * @param tag 请求的tag，用于取消请求的时候可以调用
+ * @param httpTag 请求的tag，用于取消请求的时候可以调用
  * @param baseUrlTag baseUrlTag和baseUrl一一对应，可以实现多个baseUrl；如果不想带baseUrl，可以传 OkExt.NoBaseUrl
  */
 fun String.http(httpTag: Any = this, baseUrlTag: String = OkExt.DefaultUrlTag): RequestWrapper {
     val baseUrl = OkExt.baseUrlMap[baseUrlTag]
+    if(this.startsWith("http")){
+        throw IllegalArgumentException("url不正确：${this}")
+    }
+    if(baseUrl==null){
+        throw IllegalArgumentException("tag为${baseUrlTag}的baseUrl不存在，请先调用OkExt.baseUrl(tag, url)方法进行配置")
+    }
     return RequestWrapper(httpTag, url = "${baseUrl ?: ""}${this}")
 }
 
