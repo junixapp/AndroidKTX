@@ -214,17 +214,18 @@ fun View.animateWidthAndHeight(
 /**
  * 设置点击监听, 并实现事件节流，500毫秒内只允许点击一次
  */
-var _viewClickFlag = false
-var _clickRunnable = Runnable { _viewClickFlag = false }
+var _clickCache_ = hashMapOf<Int, Runnable>()
 fun View.click(duration: Long = 500, action: (view: View) -> Unit) {
+    if(id == View.NO_ID) id = View.generateViewId()
     if (this is TextView) setOnTouchListener(FixClickSpanTouchListener())
     setOnClickListener {
-        if (!_viewClickFlag) {
-            _viewClickFlag = true
+        if(!_clickCache_.containsKey(id)){
+            //unclicked
+            _clickCache_[id] = Runnable { _clickCache_.remove(id) }
             action(it)
         }
-        removeCallbacks(_clickRunnable)
-        postDelayed(_clickRunnable, duration)
+        removeCallbacks(_clickCache_[id])
+        postDelayed(_clickCache_[id], duration)
     }
 }
 
