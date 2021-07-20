@@ -1,5 +1,6 @@
 package com.lxj.androidktx.okhttp
 
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.lxj.androidktx.core.toBean
 import kotlinx.coroutines.CompletableDeferred
@@ -22,11 +23,11 @@ import java.net.URLConnection.getFileNameMap
  */
 fun String.http(httpTag: Any = this, baseUrlTag: String = OkExt.DefaultUrlTag): RequestWrapper {
     val baseUrl = OkExt.baseUrlMap[baseUrlTag]
-    if(this.startsWith("http")){
+    if(!this.startsWith("http")){
         throw IllegalArgumentException("url不正确：${this}")
     }
     if(baseUrl==null){
-        throw IllegalArgumentException("tag为${baseUrlTag}的baseUrl不存在，请先调用OkExt.baseUrl(tag, url)方法进行配置")
+        LogUtils.e("tag为${baseUrlTag}的baseUrl不存在，请先调用OkExt.baseUrl(tag, url)方法进行配置")
     }
     return RequestWrapper(httpTag, url = "${baseUrl ?: ""}${this}")
 }
