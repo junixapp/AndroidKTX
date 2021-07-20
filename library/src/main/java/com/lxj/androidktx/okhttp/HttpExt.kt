@@ -23,9 +23,6 @@ import java.net.URLConnection.getFileNameMap
  */
 fun String.http(httpTag: Any = this, baseUrlTag: String = OkExt.DefaultUrlTag): RequestWrapper {
     val baseUrl = OkExt.baseUrlMap[baseUrlTag]
-    if(!"${baseUrl}${this}".startsWith("http")){
-        throw IllegalArgumentException("url不正确：${this}")
-    }
     if(baseUrl==null){
         LogUtils.wTag("OkExt","tag为${baseUrlTag}的baseUrl不存在，请先调用OkExt.baseUrl(tag, url)方法进行配置")
     }
