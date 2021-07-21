@@ -6,6 +6,7 @@ import android.widget.ImageView
 import com.jaeger.ninegridimageview.NineGridImageView
 import com.jaeger.ninegridimageview.NineGridImageViewAdapter
 import com.lxj.xpopup.XPopup
+import com.lxj.xpopup.util.SmartGlideImageLoader
 
 /**
  * 绑定数据
@@ -26,14 +27,10 @@ fun <T> NineGridImageView<T>.setup(urls: List<T>, corner: Int = 0,
                     -1, -1, corner, true, Color.rgb(32, 36, 46) ,
             { popupView, position ->
                 popupView.updateSrcView(getChildAt(position) as ImageView)
-            }, GlideImageLoader(placeholder = placeholder)).show()
+            }, SmartGlideImageLoader(error), null).show()
         }
 
         override fun generateImageView(context: Context?): ImageView {
-//            return RoundImageView(context).apply {
-//                setCornerRadius(corner)
-//                scaleType = ImageView.ScaleType.CENTER_CROP
-//            }
             return ImageView(context)
         }
     })

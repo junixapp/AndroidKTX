@@ -11,12 +11,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.*
-import com.google.android.material.transition.MaterialElevationScale
-import com.google.android.material.transition.MaterialFade
-import com.google.android.material.transition.MaterialFadeThrough
 import com.google.android.material.transition.MaterialSharedAxis
 import com.lxj.androidktx.util.FixClickSpanTouchListener
-import com.lxj.xpopup.XPopup
 
 /**
  * Description: View相关
@@ -215,7 +211,7 @@ fun View.animateWidthAndHeight(
  * 设置点击监听, 并实现事件节流，500毫秒内只允许点击一次
  */
 var _clickCache_ = hashMapOf<Int, Runnable>()
-fun View.click(duration: Long = 500, action: (view: View) -> Unit) {
+fun View.click(duration: Long = 400, action: (view: View) -> Unit) {
     if(id == View.NO_ID) id = View.generateViewId()
     if (this is TextView) setOnTouchListener(FixClickSpanTouchListener())
     setOnClickListener {

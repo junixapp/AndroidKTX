@@ -222,10 +222,6 @@ class TitleBar @JvmOverloads constructor(context: Context, attributeSet: Attribu
         }
     }
 
-//    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-//        super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(dp2px(48f), MeasureSpec.EXACTLY))
-//    }
-
     fun setup(leftImageRes: Int = 0, leftText: CharSequence = "", title: CharSequence = "",     rightImageRes: Int = 0,
               rightText: CharSequence = ""): TitleBar {
         if (leftImageRes != 0) this.leftImage = drawable(leftImageRes)

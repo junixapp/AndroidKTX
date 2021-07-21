@@ -10,6 +10,7 @@ import com.google.android.flexbox.FlexboxLayoutManager
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.*
 import com.lxj.xpopup.XPopup
+import com.lxj.xpopup.util.SmartGlideImageLoader
 
 /**
  * 图片上传UI组件
@@ -25,22 +26,22 @@ class ImageUploader @JvmOverloads constructor(
     var delImageMargin = 0
     var imageRadius = 0
     var spanCount = 3
-    var hSpace = 10 //横向间距
-    var vSpace = 10
+    var hSpace = 10.dp //横向间距
+    var vSpace = 10.dp
     var maxImages = 9
     private var add_button = "_add_button_"
     var paths = arrayListOf<String>(add_button)
 
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.ImageUploader)
-        imageRadius = ta.getDimensionPixelSize(R.styleable.ImageUploader_imageRadius, imageRadius.dp)
-        delImageMargin = ta.getDimensionPixelSize(R.styleable.ImageUploader_delImageMargin, delImageMargin.dp)
+        imageRadius = ta.getDimensionPixelSize(R.styleable.ImageUploader_imageRadius, imageRadius)
+        delImageMargin = ta.getDimensionPixelSize(R.styleable.ImageUploader_delImageMargin, delImageMargin)
         addImage = ta.getDrawable(R.styleable.ImageUploader_addImageRes)
         delImage = ta.getDrawable(R.styleable.ImageUploader_delImageRes)
         spanCount = ta.getInt(R.styleable.ImageUploader_spanCount, spanCount)
         maxImages = ta.getInt(R.styleable.ImageUploader_maxImages, maxImages)
-        hSpace = ta.getDimensionPixelSize(R.styleable.ImageUploader_hSpace, hSpace.dp)
-        vSpace = ta.getDimensionPixelSize(R.styleable.ImageUploader_vSpace, vSpace.dp)
+        hSpace = ta.getDimensionPixelSize(R.styleable.ImageUploader_hSpace, hSpace)
+        vSpace = ta.getDimensionPixelSize(R.styleable.ImageUploader_vSpace, vSpace)
 
         ta.recycle()
 
@@ -82,7 +83,7 @@ class ImageUploader @JvmOverloads constructor(
                 holder.getView<RoundImageView>(R.id.image).apply {
                     load(t)
                     setCornerRadius(imageRadius)
-                    click { XPopup.Builder(context).asImageViewer(it as ImageView, t,GlideImageLoader()).show() }
+                    click { XPopup.Builder(context).asImageViewer(it as ImageView, t, SmartGlideImageLoader()).show() }
                 }
             }
             holder.getView<ImageView>(R.id.close).click {
