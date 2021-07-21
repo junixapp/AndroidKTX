@@ -41,6 +41,7 @@
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"
+            tools:replace="android:theme"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name="com.umeng.socialize.media.WBShareCallBackActivity"
@@ -98,10 +99,6 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <service
-            android:name="com.zlw.main.recorderlib.recorder.RecordService"
-            android:enabled="true"
-            android:exported="false" />
     </application>
 
 </manifest>
