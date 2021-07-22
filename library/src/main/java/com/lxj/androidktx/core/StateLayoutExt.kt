@@ -2,6 +2,7 @@ package com.lxj.androidktx.core
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import com.blankj.utilcode.util.ToastUtils
 import com.lxj.androidktx.livedata.StateLiveData
 import com.lxj.statelayout.StateLayout
 
@@ -15,7 +16,8 @@ fun StateLayout.observeState(owner: LifecycleOwner,
                              onLoading: (() -> Unit)? = null,
                              onSuccess: (() -> Unit)? = null,
                              onError: (() -> Unit)? = null,
-                             onEmpty: (() -> Unit)? = null) {
+                             onEmpty: (() -> Unit)? = null,
+                            autoShowError: Boolean = true) {
     liveData.state.observe(owner, Observer<StateLiveData.State> {
         when (liveData.state.value) {
             StateLiveData.State.Loading -> {
@@ -36,6 +38,9 @@ fun StateLayout.observeState(owner: LifecycleOwner,
             }
             StateLiveData.State.Error -> {
                 postDelayed({
+                    if(autoShowError && !liveData.errMsg.isNullOrEmpty()){
+                        ToastUtils.showShort(liveData.errMsg)
+                    }
                     showError()
                     onError?.invoke()
                 }, delay)
