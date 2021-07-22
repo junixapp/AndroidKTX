@@ -4,7 +4,5 @@
     <cache-path name="cached_files" path="." />
     <external-files-path name="external_files" path="." />
     <external-files-path name="external_share_files" path="share/" />
-<!--    <external-path name="external_files" path="." />-->
     <external-cache-path name="cached_files" path="." />
-<!--    <root-path name="root" path="" />-->
 </paths>
