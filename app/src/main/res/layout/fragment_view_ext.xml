@@ -9,6 +9,21 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <com.lxj.androidktx.widget.NumberEditLayout
+            android:background="#fff"
+            android:padding="15dp"
+            app:nel_hintColor="#999999"
+            app:nel_hint="说点什么"
+            app:nel_inputTextSize="15sp"
+            app:nel_inputCorner="4dp"
+            app:nel_maxTextNumber="200"
+            app:nel_numberTextColor="#ff0000"
+            app:sll_lineSize="1dp"
+            app:sll_bottomLineColor="#EEEEEE"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+
         <com.lxj.androidktx.widget.TabBar
             android:id="@+id/tabbar"
             app:sll_solid="#fff"

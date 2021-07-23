@@ -24,7 +24,7 @@ open class SearchLayout @JvmOverloads constructor(
     var hint = ""
     var hintColor = Color.parseColor("#888888")
     var textColor = Color.parseColor("#222222")
-    var textSize = 14.dp
+    var textSize = 14.sp
     var clearIcon: Drawable? = null
     var searchIcon: Drawable? = null
     var clearIconSize = 28.dp

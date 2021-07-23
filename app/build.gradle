@@ -17,6 +17,9 @@ android {
 //            abiFilters 'armeabi-v7a'
 //        }
         manifestPlaceholders = [qqappid: "101909069"]
+        buildFeatures {
+            viewBinding true
+        }
     }
     buildTypes {
         release {

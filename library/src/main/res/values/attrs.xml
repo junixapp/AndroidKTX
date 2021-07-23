@@ -372,5 +372,19 @@
         <attr name="sl_clearIconSize" format="dimension" />
     </declare-styleable>
 
+    <!-- NumberEditLayout -->
+    <declare-styleable name="NumberEditLayout">
+        <attr name="nel_hint" format="string" />
+        <attr name="nel_hintColor" format="color" />
+        <attr name="nel_inputTextSize" format="dimension" />
+        <attr name="nel_inputTextColor" format="color" />
+        <attr name="nel_inputBgColor" format="color" />
+        <attr name="nel_inputCorner" format="dimension" />
+        <attr name="nel_inputPadding" format="dimension" />
+        <attr name="nel_numberTextSize" format="dimension" />
+        <attr name="nel_numberTextColor" format="color" />
+        <attr name="nel_maxTextNumber" format="integer" />
+        <attr name="nel_numberTopSpace" format="dimension" />
+    </declare-styleable>
 
 </resources>
