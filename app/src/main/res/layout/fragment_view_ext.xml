@@ -19,6 +19,7 @@
             app:nel_inputCorner="4dp"
             app:nel_maxTextNumber="200"
             app:nel_numberTextColor="#ff0000"
+            app:nel_inputBgColor="#F1f1f1"
             app:sll_lineSize="1dp"
             app:sll_bottomLineColor="#EEEEEE"
             android:layout_width="match_parent"

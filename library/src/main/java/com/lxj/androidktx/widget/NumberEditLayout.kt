@@ -21,8 +21,8 @@ class NumberEditLayout @JvmOverloads constructor(context: Context, attributeSet:
     var mHintColor = Color.parseColor("#888888")
     var mInputTextColor = Color.parseColor("#232323")
     var mInputTextSize = 14.sp
-    var mInputBgColor = Color.parseColor("#F1F1F1")
-    var mInputCorner = 4.dp
+    var mInputBgColor = Color.TRANSPARENT
+    var mInputCorner = 0
     var mInputPadding = 10.dp
     var mNumberTextColor = Color.parseColor("#777777")
     var mNumberTextSize = 12.sp
