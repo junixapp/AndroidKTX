@@ -389,6 +389,11 @@
 
     <!-- MarqueeTextView -->
     <declare-styleable name="MarqueeTextView">
+        <attr name="mtv_textAlign" format="integer">
+            <enum name="left" value="0" />
+            <enum name="center" value="1" />
+            <enum name="right" value="2" />
+        </attr>
         <attr name="mtv_textBold" format="boolean" />
         <attr name="mtv_typefacePath" format="string" />
         <attr name="mtv_textColor" format="color" />

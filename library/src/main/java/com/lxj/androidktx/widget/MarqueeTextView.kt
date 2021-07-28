@@ -13,6 +13,9 @@ import android.view.animation.LinearInterpolator
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.sp
 
+/**
+ * 支持一段文字进行滚动的View
+ */
 class MarqueeTextView @JvmOverloads constructor(
     context: Context,
     attributeSet: AttributeSet? = null,
@@ -29,6 +32,7 @@ class MarqueeTextView @JvmOverloads constructor(
     var mLoop : Boolean = true
     var mSlow: Float = 1.0f //缓慢系数，越大越慢
     var mScrollDelay = 400L
+    var mTextAlign = Paint.Align.LEFT
 
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.MarqueeTextView)
@@ -40,6 +44,12 @@ class MarqueeTextView @JvmOverloads constructor(
         mLoop = ta.getBoolean(R.styleable.MarqueeTextView_mtv_loop, mLoop)
         mSlow = ta.getFloat(R.styleable.MarqueeTextView_mtv_slow, mSlow)
         mScrollDelay = ta.getInteger(R.styleable.MarqueeTextView_mtv_scrollDelay, 400).toLong()
+        val align = ta.getInteger(R.styleable.MarqueeTextView_mtv_textAlign, Paint.Align.LEFT.ordinal)
+        mTextAlign = when(align){
+            0 -> Paint.Align.LEFT
+            1 -> Paint.Align.CENTER
+            else -> Paint.Align.RIGHT
+        }
         ta.recycle()
         applyAttr()
     }
@@ -48,13 +58,14 @@ class MarqueeTextView @JvmOverloads constructor(
         if(mTextBold) paint.isFakeBoldText = true
         paint.color = mTextColor
         paint.textSize = mTextSize
-        if(!mTypefacePath.isNullOrEmpty()) paint.setTypeface(Typeface.createFromAsset(context.assets, mTypefacePath))
+        paint.textAlign = mTextAlign
+        if(!mTypefacePath.isNullOrEmpty()) paint.typeface = Typeface.createFromAsset(context.assets, mTypefacePath)
         paint.getTextBounds(mText, 0 ,mText.length, textBounds)
     }
 
     fun setup(text: String? = null, textColor: Int? = null, textSize: Float? = null,
         typefacePath: String? = null, loop: Boolean? = null, slow: Float? = null,
-        scrollDelay: Long? = null, textBold: Boolean? = null){
+        scrollDelay: Long? = null, textBold: Boolean? = null, textAlign: Paint.Align? = null){
         if(text!=null) mText = text
         if(textColor!=null) mTextColor = textColor
         if(textSize!=null) mTextSize = textSize
@@ -63,6 +74,7 @@ class MarqueeTextView @JvmOverloads constructor(
         if(slow!=null) mSlow = slow
         if(scrollDelay!=null) mScrollDelay = scrollDelay
         if(textBold!=null) mTextBold = textBold
+        if(textAlign!=null) mTextAlign = textAlign
         applyAttr()
     }
 
@@ -79,8 +91,13 @@ class MarqueeTextView @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+        val x = when(mTextAlign){
+            Paint.Align.LEFT-> 0f
+            Paint.Align.CENTER-> measuredWidth/2f
+            else -> measuredWidth*1f
+        }
         val baseline: Float = measuredHeight/2f+(Math.abs(paint.ascent())-paint.descent())/2
-        canvas.drawText(mText, 0f, baseline, paint)
+        canvas.drawText(mText, x, baseline, paint)
     }
 
 
@@ -151,4 +168,6 @@ class MarqueeTextView @JvmOverloads constructor(
         super.onDetachedFromWindow()
         stopScroll()
     }
+
 }
+
