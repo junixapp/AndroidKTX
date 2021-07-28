@@ -98,6 +98,7 @@ class ViewExtPage : BaseFragment() {
             ToastUtils.showShort("选择了："+it)
             true
         }
+        mtv.startScroll()
     }
 
 }

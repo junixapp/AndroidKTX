@@ -2,7 +2,7 @@
 
 buildscript {
     ext {
-        kotlin_version = '1.4.0'
+        kotlin_version = '1.5.0'
         androidx_version = '1.1.0'
         compileSdkVersion = 29
         buildToolsVersion = 29

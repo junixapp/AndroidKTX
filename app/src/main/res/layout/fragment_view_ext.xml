@@ -10,6 +10,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.lxj.androidktx.widget.MarqueeTextView
+            android:id="@+id/mtv"
+            android:padding="15dp"
+            app:mtv_textColor="#ff0000"
+            app:mtv_textBold="true"
+            app:mtv_textSize="20sp"
+            app:mtv_loop="true"
+            app:mtv_text="我是滚动的View，支持循环滚动和不循环，床前明月光疑是地上霜，举头望明月低头思故乡"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"/>
+
         <com.lxj.androidktx.widget.NumberEditLayout
             android:background="#fff"
             android:padding="15dp"

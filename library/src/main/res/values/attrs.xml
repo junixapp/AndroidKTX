@@ -387,4 +387,17 @@
         <attr name="nel_numberTopSpace" format="dimension" />
     </declare-styleable>
 
+    <!-- MarqueeTextView -->
+    <declare-styleable name="MarqueeTextView">
+        <attr name="mtv_textBold" format="boolean" />
+        <attr name="mtv_typefacePath" format="string" />
+        <attr name="mtv_textColor" format="color" />
+        <attr name="mtv_textSize" format="dimension" />
+        <attr name="mtv_text" format="string" />
+        <attr name="mtv_slow" format="float" />
+        <attr name="mtv_loop" format="boolean" />
+        <attr name="mtv_scrollDelay" format="integer" />
+    </declare-styleable>
+
+
 </resources>
