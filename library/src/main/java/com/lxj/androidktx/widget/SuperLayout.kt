@@ -99,7 +99,6 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
 
         ta.recycle()
         inflate(context, R.layout._ktx_super_layout, this)
-        if(Build.VERSION.SDK_INT >= 21) setClipToOutline(true)
         applyAttr()
         gravity = Gravity.CENTER_VERTICAL
     }
@@ -130,6 +129,7 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
 
     fun applyAttr() {
         if (childCount == 0) return
+        if(Build.VERSION.SDK_INT >= 21) clipToOutline = clipChildren
         //左边图片
         if (mLeftImage == null) {
             ivLeftImage.gone()

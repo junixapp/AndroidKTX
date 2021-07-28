@@ -4,47 +4,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#eee"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     android:focusable="true"
     android:focusableInTouchMode="true">
 
     <LinearLayout
+        android:clipChildren="false"
+        android:clipToPadding="false"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+
+        <com.lxj.androidktx.widget.ShapeRelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:layout_marginLeft="30dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            app:srl_corner="20dp"
+            app:srl_solid="#fafa10">
 
-            <com.lxj.androidktx.widget.ShapeRelativeLayout
+            <com.lxj.androidktx.widget.MarqueeTextView
+                android:id="@+id/mtv"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                app:mtv_slow="0.4"
+                app:mtv_textAlign="left"
+                app:mtv_textBold="true"
+                app:mtv_textColor="#ff0000"
+                app:mtv_textSize="20sp" />
+
+            <TextView
+                android:layout_below="@id/mtv"
+                android:text="大叔大婶多"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="vertical"
-                android:padding="20dp"
-                app:srl_corner="20dp"
-                app:srl_solid="#fafa10">
-
-                <com.lxj.androidktx.widget.MarqueeTextView
-                    android:id="@+id/mtv"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    app:mtv_loop="false"
-                    app:mtv_slow="0.4"
-                    app:mtv_textAlign="left"
-                    app:mtv_textBold="true"
-                    app:mtv_textColor="#ff0000"
-                    app:mtv_textSize="20sp" />
-
-                <TextView
-                    android:layout_below="@id/mtv"
-                    android:text="大叔大婶多"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp" />
-            </com.lxj.androidktx.widget.ShapeRelativeLayout>
-        </LinearLayout>
+                android:layout_marginTop="5dp" />
+        </com.lxj.androidktx.widget.ShapeRelativeLayout>
 
         <com.lxj.androidktx.widget.NumberEditLayout
             android:layout_width="match_parent"

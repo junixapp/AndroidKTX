@@ -98,7 +98,7 @@ class ViewExtPage : BaseFragment() {
             ToastUtils.showShort("选择了："+it)
             true
         }
-        mtv.setup("床前明月光疑是地上霜")
+        mtv.setup("床前明月光疑是地上霜床前明月光疑是地上霜床前明月光疑是地上霜")
         mtv.startScroll()
     }
 

@@ -72,10 +72,10 @@ open class ShapeRelativeLayout @JvmOverloads constructor(context: Context, attri
         }
         ta.recycle()
         applySelf()
-        if(Build.VERSION.SDK_INT >= 21) setClipToOutline(true)
     }
 
     fun applySelf() {
+        if(Build.VERSION.SDK_INT >= 21) clipToOutline = clipChildren
         var color : Int? = null
         if (background !=null && background is ColorDrawable && mSolid==Color.TRANSPARENT){
             color = ( background as ColorDrawable) .color

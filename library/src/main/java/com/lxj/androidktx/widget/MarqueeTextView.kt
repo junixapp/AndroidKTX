@@ -92,6 +92,11 @@ class MarqueeTextView @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         if(mText!=null){
+            val clipLeft: Float = (scrollX).toFloat()
+            val clipTop: Float = scrollY.toFloat()
+            val clipRight: Float = (measuredWidth + scrollX).toFloat()
+            val clipBottom: Float = (measuredHeight + scrollY).toFloat()
+            canvas.clipRect(clipLeft, clipTop, clipRight, clipBottom)
             val x = when(mTextAlign){
                 Paint.Align.LEFT-> 0f
                 Paint.Align.CENTER-> measuredWidth/2f
