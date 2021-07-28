@@ -1,232 +1,262 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="#eee"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:background="#eee"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <com.lxj.androidktx.widget.MarqueeTextView
-            android:id="@+id/mtv"
-            android:padding="15dp"
-            app:mtv_slow="0.4"
-            app:mtv_textColor="#ff0000"
-            app:mtv_textBold="true"
-            app:mtv_textSize="20sp"
-            app:mtv_loop="false"
-            app:mtv_text="我是滚动的View，我是滚动的View，我是滚动的View，我是滚动的View，我是滚动的View，"
-            app:mtv_textAlign="left"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.lxj.androidktx.widget.ShapeRelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:padding="20dp"
+                app:srl_corner="20dp"
+                app:srl_solid="#fafa10">
+
+                <com.lxj.androidktx.widget.MarqueeTextView
+                    android:id="@+id/mtv"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    app:mtv_loop="false"
+                    app:mtv_slow="0.4"
+                    app:mtv_textAlign="left"
+                    app:mtv_textBold="true"
+                    app:mtv_textColor="#ff0000"
+                    app:mtv_textSize="20sp" />
+
+                <TextView
+                    android:layout_below="@id/mtv"
+                    android:text="大叔大婶多"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp" />
+            </com.lxj.androidktx.widget.ShapeRelativeLayout>
+        </LinearLayout>
 
         <com.lxj.androidktx.widget.NumberEditLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
             android:background="#fff"
             android:padding="15dp"
-            app:nel_hintColor="#999999"
             app:nel_hint="说点什么"
-            app:nel_inputTextSize="15sp"
+            app:nel_hintColor="#999999"
+            app:nel_inputBgColor="#F1f1f1"
             app:nel_inputCorner="4dp"
+            app:nel_inputTextSize="15sp"
             app:nel_maxTextNumber="200"
             app:nel_numberTextColor="#ff0000"
-            app:nel_inputBgColor="#F1f1f1"
-            app:sll_lineSize="1dp"
             app:sll_bottomLineColor="#EEEEEE"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"/>
+            app:sll_lineSize="1dp" />
 
         <com.lxj.androidktx.widget.TabBar
             android:id="@+id/tabbar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             app:sll_solid="#fff"
+            app:tb_iconPosition="bottom"
+            app:tb_iconSize="30dp"
             app:tb_isSelectBold="true"
             app:tb_normalColor="#666"
-            app:tb_selectedColor="@color/colorPrimary"
             app:tb_selectTextSize="19sp"
-            app:tb_iconSize="30dp"
-            app:tb_iconPosition="bottom"
+            app:tb_selectedColor="@color/colorPrimary"
             app:tb_tabWidthEqual="true"
-            app:tb_typefacePath="FredokaOne-Regular.ttf"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"/>
+            app:tb_typefacePath="FredokaOne-Regular.ttf" />
+
         <com.lxj.androidktx.widget.ShapeFrameLayout
-            app:sfl_corner="30dp"
             android:layout_width="match_parent"
-            android:layout_height="100dp">
+            android:layout_height="100dp"
+            app:sfl_corner="30dp">
+
             <View
-                android:background="#f00"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:background="#f00" />
         </com.lxj.androidktx.widget.ShapeFrameLayout>
 
         <com.lxj.androidktx.widget.ShapeImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_margin="20dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/t"
             app:siv_corner="50dp"
             app:siv_solid="#6f00"
             app:siv_stroke="#00f"
-            app:siv_strokeWidth="20dp"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/t"
-            android:layout_width="100dp"
-            android:layout_height="100dp"/>
+            app:siv_strokeWidth="20dp" />
+
         <TextView
-            android:text="以下View默认宽高都是100dp"
-            style="@style/TitleStyle" />
+            style="@style/TitleStyle"
+            android:text="以下View默认宽高都是100dp" />
 
         <com.lxj.androidktx.widget.ShapeTextView
             android:id="@+id/text1"
-            android:textSize="14sp"
-            android:textColor="#fff"
-            android:padding="10dp"
-            android:text="自定义字体 \nMy Name is Jun"
-            app:stv_gradientStartColor="#6F4725"
-            app:stv_gradientEndColor="#FFD88F"
-            app:stv_gradientOrientation="TOP_BOTTOM"
-            app:stv_typefacePath="FredokaOne-Regular.ttf"
-            app:stv_topLeftCorner="2dp"
-            app:stv_topRightCorner="20dp"
-            app:stv_bottomRightCorner="4pt"
-            app:stv_bottomLeftCorner="20pt"
-            android:gravity="center"
             android:layout_width="200dp"
             android:layout_height="100dp"
-            app:stv_solid="#ff9009" />
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="自定义字体 \nMy Name is Jun"
+            android:textColor="#fff"
+            android:textSize="14sp"
+            app:stv_bottomLeftCorner="20pt"
+            app:stv_bottomRightCorner="4pt"
+            app:stv_gradientEndColor="#FFD88F"
+            app:stv_gradientOrientation="TOP_BOTTOM"
+            app:stv_gradientStartColor="#6F4725"
+            app:stv_solid="#ff9009"
+            app:stv_topLeftCorner="2dp"
+            app:stv_topRightCorner="20dp"
+            app:stv_typefacePath="FredokaOne-Regular.ttf" />
 
-        <include layout="@layout/divider"/>
+        <include layout="@layout/divider" />
 
         <TextView
             android:id="@+id/text2"
-            android:textSize="14sp"
-            android:textColor="#000"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:background="#ff9009" />
+            android:background="#ff9009"
+            android:textColor="#000"
+            android:textSize="14sp" />
 
-        <include layout="@layout/divider"/>
+        <include layout="@layout/divider" />
 
         <TextView
             android:id="@+id/text3"
-            android:textSize="14sp"
-            android:textColor="#000"
-            android:text="100x100"
-            android:gravity="center"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:background="#ff9009" />
+            android:background="#ff9009"
+            android:gravity="center"
+            android:text="100x100"
+            android:textColor="#000"
+            android:textSize="14sp" />
 
-        <include layout="@layout/divider"/>
+        <include layout="@layout/divider" />
 
         <TextView
             android:id="@+id/text4"
-            android:clickable="true"
-            android:gravity="center"
-            android:textSize="14sp"
-            android:textColor="#000"
-            android:text="当前View的截图会显示在下方的ImageView中\n窗前明月光，疑是地上霜\n举头望明月，低头思故乡"
             android:layout_width="250dp"
             android:layout_height="150dp"
-            android:background="#ff9009" />
+            android:background="#ff9009"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="当前View的截图会显示在下方的ImageView中\n窗前明月光，疑是地上霜\n举头望明月，低头思故乡"
+            android:textColor="#000"
+            android:textSize="14sp" />
 
         <TextView
-            android:layout_marginTop="5dp"
-            android:textColor="#333"
-            android:textSize="14sp"
-            android:text="下面这个是ImageView,用来显示上面的截图"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="下面这个是ImageView,用来显示上面的截图"
+            android:textColor="#333"
+            android:textSize="14sp" />
+
         <ImageView
             android:id="@+id/image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <include layout="@layout/divider"/>
+
+        <include layout="@layout/divider" />
 
         <Button
             android:id="@+id/saveToAlbum"
-            android:text="保存到相册"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="保存到相册" />
 
         <com.lxj.androidktx.widget.ShapeLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             android:layout_margin="30dp"
-            app:sll_topLeftCorner="20dp"
-            app:sll_topRightCorner="20dp"
+            app:sll_gradientEndColor="#0c9aec"
             app:sll_gradientOrientation="TL_BR"
             app:sll_gradientStartColor="#ff1356"
-            app:sll_gradientEndColor="#0c9aec"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"/>
+            app:sll_topLeftCorner="20dp"
+            app:sll_topRightCorner="20dp" />
+
         <com.lxj.androidktx.widget.ShapeTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:clickable="true"
+            android:drawableLeft="@drawable/wechat"
+            android:gravity="center"
             android:padding="20dp"
             android:text="哈哈"
             android:textColor="#f00"
             android:textSize="29sp"
-            android:drawableLeft="@drawable/wechat"
-            app:stv_solid="#999"
             app:stv_corner="30dp"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            app:stv_solid="#999" />
 
         <com.lxj.androidktx.widget.VerifyCodeButton
             android:id="@+id/tvVerify"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
             app:stv_corner="30dp"
             app:stv_solid="#00ff90"
-            app:stv_strokeWidth="1dp"
             app:stv_stroke="#0000ff"
+            app:stv_strokeWidth="1dp"
             app:vcb_countDownText="还剩time秒"
             app:vcb_resendDuration="10"
-            app:vcb_resendText="重发吧"
-            android:layout_width="100dp"
-            android:gravity="center"
-            android:layout_marginBottom="20dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_height="40dp" />
+            app:vcb_resendText="重发吧" />
 
         <TextView
-            android:textSize="26sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="30dp"
             android:text="1234"
             android:textIsSelectable="true"
-            android:padding="30dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textSize="26sp" />
+
         <com.lxj.androidktx.widget.VerifyCodeInput
             android:id="@+id/verifyCodeInput"
-            app:vci_corner="4dp"
-            app:vci_solid="#aaa"
-            app:vci_focusBorder="#f00"
-            app:vci_size="50dp"
-            app:vci_space="20dp"
-            app:vci_textSize="24sp"
-            app:vci_textColor="#f00"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginBottom="20dp"
+            app:vci_corner="4dp"
+            app:vci_focusBorder="#f00"
+            app:vci_size="50dp"
+            app:vci_solid="#aaa"
+            app:vci_space="20dp"
+            app:vci_textColor="#f00"
+            app:vci_textSize="24sp" />
 
         <com.lxj.androidktx.widget.SearchLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="30dp"
-            app:sll_solid="#aaa"
-            app:sll_corner="30dp"
-            app:sl_textColor="#111"
-            app:sl_hintColor="#555"
+            android:layout_marginLeft="30dp"
+            android:paddingLeft="18dp"
+            android:paddingTop="7dp"
+            android:paddingRight="18dp"
+            android:paddingBottom="7dp"
             app:sl_hint="输入东西"
-            app:sl_textSize="20sp"
-            app:sl_showClearIconWhenEmpty="false"
-            app:sl_showSearchIcon="true"
+            app:sl_hintColor="#555"
             app:sl_searchIconSize="28dp"
             app:sl_searchIconSpace="10dp"
-            android:paddingTop="7dp"
-            android:paddingBottom="7dp"
-            android:paddingLeft="18dp"
-            android:paddingRight="18dp"
-            android:layout_marginLeft="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            app:sl_showClearIconWhenEmpty="false"
+            app:sl_showSearchIcon="true"
+            app:sl_textColor="#111"
+            app:sl_textSize="20sp"
+            app:sll_corner="30dp"
+            app:sll_solid="#aaa" />
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

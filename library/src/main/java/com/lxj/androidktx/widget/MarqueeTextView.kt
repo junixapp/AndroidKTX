@@ -24,7 +24,7 @@ class MarqueeTextView @JvmOverloads constructor(
 
     val paint = Paint()
     var textBounds = Rect()
-    var mText = ""
+    var mText : String? = null
     var mTextBold = false
     var mTextColor = Color.BLACK
     var mTextSize = (14.sp).toFloat()
@@ -36,7 +36,7 @@ class MarqueeTextView @JvmOverloads constructor(
 
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.MarqueeTextView)
-        mText = ta.getString(R.styleable.MarqueeTextView_mtv_text) ?: ""
+        mText = ta.getString(R.styleable.MarqueeTextView_mtv_text)
         mTextBold = ta.getBoolean(R.styleable.MarqueeTextView_mtv_textBold, false)
         mTextColor = ta.getColor(R.styleable.MarqueeTextView_mtv_textColor, mTextColor)
         mTextSize = ta.getDimension(R.styleable.MarqueeTextView_mtv_textSize, mTextSize)
@@ -60,7 +60,7 @@ class MarqueeTextView @JvmOverloads constructor(
         paint.textSize = mTextSize
         paint.textAlign = mTextAlign
         if(!mTypefacePath.isNullOrEmpty()) paint.typeface = Typeface.createFromAsset(context.assets, mTypefacePath)
-        paint.getTextBounds(mText, 0 ,mText.length, textBounds)
+        if(mText!=null)paint.getTextBounds(mText, 0 ,mText!!.length, textBounds)
     }
 
     fun setup(text: String? = null, textColor: Int? = null, textSize: Float? = null,
@@ -82,22 +82,24 @@ class MarqueeTextView @JvmOverloads constructor(
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         val widthMode = MeasureSpec.getMode(widthMeasureSpec)
         val heightMode = MeasureSpec.getMode(heightMeasureSpec)
-        val width = if(widthMode==MeasureSpec.UNSPECIFIED) (textBounds.width() + paddingLeft + paddingRight)
+        val width = if(widthMode!=MeasureSpec.EXACTLY) (textBounds.width() + paddingLeft + paddingRight)
         else MeasureSpec.getSize(widthMeasureSpec)
-        val height = if(heightMode==MeasureSpec.UNSPECIFIED) (textBounds.height() + paddingLeft + paddingRight)
+        val height = if(heightMode!=MeasureSpec.EXACTLY) (textBounds.height() + paddingTop + paddingBottom)
         else MeasureSpec.getSize(heightMeasureSpec)
         setMeasuredDimension(width, height)
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        val x = when(mTextAlign){
-            Paint.Align.LEFT-> 0f
-            Paint.Align.CENTER-> measuredWidth/2f
-            else -> measuredWidth*1f
+        if(mText!=null){
+            val x = when(mTextAlign){
+                Paint.Align.LEFT-> 0f
+                Paint.Align.CENTER-> measuredWidth/2f
+                else -> measuredWidth*1f
+            }
+            val baseline: Float = measuredHeight/2f+(Math.abs(paint.ascent())-paint.descent())/2
+            canvas.drawText(mText!!, x, baseline, paint)
         }
-        val baseline: Float = measuredHeight/2f+(Math.abs(paint.ascent())-paint.descent())/2
-        canvas.drawText(mText, x, baseline, paint)
     }
 
 
