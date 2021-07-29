@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/tvField"
+        android:textSize="16sp"
+        android:textColor="#111111"
+        android:layout_gravity="top"
+        tools:text="姓名"
+        android:gravity="center_vertical"
+        android:layout_marginEnd="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <com.lxj.androidktx.widget.ShapeEditText
+        android:id="@+id/etValue"
+        android:gravity="end|top"
+        android:textColor="#444444"
+        android:textColorHint="#999999"
+        android:textSize="14sp"
+        tools:hint="请输入姓名"
+        tools:text="你的多情出卖我的爱情你的多情出卖我的爱情你的多情出卖我的爱情你的多情出卖我的爱情你的多情出卖我的爱情你的多情出卖我的爱情你的多情出卖我的爱情你的多情出卖我的爱情你的多情出卖我的爱情"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+</merge>

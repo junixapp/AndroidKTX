@@ -17,6 +17,24 @@
         android:orientation="vertical">
 
 
+        <com.lxj.androidktx.widget.FormField
+            android:padding="15dp"
+            app:ff_fieldText="姓名"
+            app:ff_hint="请输入姓名"
+            app:sll_bottomLineColor="#f3f3f3"
+            app:sll_lineSize="1pt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <com.lxj.androidktx.widget.FormField
+            android:padding="15dp"
+            app:ff_fieldText="手机号"
+            app:ff_hint="请输入手机号"
+            app:ff_required="true"
+            app:sll_bottomLineColor="#f3f3f3"
+            app:sll_lineSize="1pt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
         <com.lxj.androidktx.widget.ShapeRelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

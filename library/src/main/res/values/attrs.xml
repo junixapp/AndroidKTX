@@ -404,5 +404,20 @@
         <attr name="mtv_scrollDelay" format="integer" />
     </declare-styleable>
 
-
+    <!-- FormField -->
+    <declare-styleable name="FormField">
+        <attr name="ff_hint" format="string" />
+        <attr name="ff_hintColor" format="color" />
+        <attr name="ff_inputTextSize" format="dimension" />
+        <attr name="ff_inputText" format="string" />
+        <attr name="ff_inputTextColor" format="color" />
+        <attr name="ff_inputMaxLines" format="integer" />
+        <attr name="ff_inputMaxLength" format="integer" />
+        <attr name="ff_fieldTextSize" format="dimension" />
+        <attr name="ff_fieldTextColor" format="color" />
+        <attr name="ff_fieldTextBold" format="boolean" />
+        <attr name="ff_fieldText" format="string" />
+        <attr name="ff_required" format="boolean" />
+        <attr name="ff_requiredColor" format="color" />
+    </declare-styleable>
 </resources>
