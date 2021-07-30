@@ -88,7 +88,7 @@ class MarqueeTextView @JvmOverloads constructor(
         else MeasureSpec.getSize(heightMeasureSpec)
         setMeasuredDimension(width, height)
 
-        if(textBounds.width() + paddingLeft + paddingRight > measuredWidth){
+        if((textBounds.width() + paddingLeft + paddingRight) > measuredWidth){
             //如果能滚动，则强制向左靠
             mTextAlign = Paint.Align.LEFT
             paint.textAlign = mTextAlign
@@ -118,7 +118,7 @@ class MarqueeTextView @JvmOverloads constructor(
     private val mHandler = Handler(Looper.getMainLooper())
     private var first = true
     private var animator: ValueAnimator? = null
-    var onMoveEnd: (() -> Unit)? = null
+    var onMoveEnd: ((Long) -> Unit)? = null
     fun startScroll() {
         if (scrolling) return
         mHandler.removeCallbacksAndMessages(null)
@@ -155,7 +155,7 @@ class MarqueeTextView @JvmOverloads constructor(
                     scrollTo(-measuredWidth, 0)
                     innerScroll()
                 } else {
-                    onMoveEnd?.invoke()
+                    onMoveEnd?.invoke(animation?.duration?:0L)
                 }
             }
         })
