@@ -22,4 +22,6 @@ abstract class BaseFragment: StateFragment(){
         postDelay(300){stateLayout?.showContent()}
     }
 
+
+
 }

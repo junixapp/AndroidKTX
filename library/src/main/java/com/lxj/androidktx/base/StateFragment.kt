@@ -54,10 +54,6 @@ abstract class StateFragment : Fragment(), FragmentUtils.OnBackClickListener {
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-    }
-
     //执行初始化，只会执行一次
     protected abstract fun getLayoutId(): Int
     abstract fun initView()

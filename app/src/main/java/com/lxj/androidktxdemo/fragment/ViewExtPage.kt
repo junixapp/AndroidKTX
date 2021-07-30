@@ -2,6 +2,7 @@ package com.lxj.androidktxdemo.fragment
 
 
 import android.graphics.Color
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.player.VideoPlayerActivity
@@ -14,6 +15,7 @@ class ViewExtPage : BaseFragment() {
     override fun getLayoutId() = R.layout.fragment_view_ext
 
     override fun initView() {
+        LogUtils.e("ViewExtPage  initView")
         val value = dp2px(150f)
         text1.width(value)
         text1.text = "自定义字体：text1.width($value)"
@@ -98,8 +100,16 @@ class ViewExtPage : BaseFragment() {
             ToastUtils.showShort("选择了："+it)
             true
         }
-        mtv.setup("床前明月光疑是地上霜床前明月光疑是地上霜床前明月光疑是地上霜")
-        mtv.startScroll()
+        mtv.setup("床前明月光")
+        mtv2.setup("床前明月光，疑是地上霜；举头望明月，低头思故乡。")
+
+    }
+
+    override fun initData() {
+        super.initData()
+
+        postDelay(1500){ mtv.startScroll() }
+        postDelay(1500){ mtv2.startScroll() }
     }
 
 }
