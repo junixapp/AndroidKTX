@@ -88,6 +88,11 @@ class ViewExtPage : BaseFragment() {
         verifyCodeInput.onInputFinish = {
             ToastUtils.showLong(it)
         }
+        tabbarRadio.setTabs(listOf(
+            TabBar.Tab(text = "啊啊", selectedIconRes = R.mipmap.checked, normalIconRes = R.mipmap.uncheck),
+            TabBar.Tab(text = "大萨达", selectedIconRes = R.mipmap.checked, normalIconRes = R.mipmap.uncheck),
+            TabBar.Tab(text = "Free", selectedIconRes = R.mipmap.checked, normalIconRes = R.mipmap.uncheck),
+        ))
 
         tabbar.setTabs(listOf(
                 TabBar.Tab(text = "Home" ,),

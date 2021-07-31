@@ -321,6 +321,7 @@
         <attr name="tb_normalBgColor" format="color" />
         <attr name="tb_tabHeight" format="dimension" />
         <attr name="tb_tabPadding" format="dimension" />
+        <attr name="tb_tabSpace" format="dimension" />
         <attr name="tb_tabWidthEqual" format="boolean" />
         <attr name="tb_typefacePath" format="string" />
     </declare-styleable>

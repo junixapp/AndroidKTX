@@ -7,7 +7,7 @@
         android:textSize="16sp"
         android:textColor="#111111"
         android:layout_gravity="top"
-        tools:text="姓名"
+        tools:text="姓名*"
         android:gravity="center_vertical"
         android:layout_marginEnd="20dp"
         android:layout_width="wrap_content"

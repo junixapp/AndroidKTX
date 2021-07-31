@@ -82,6 +82,25 @@
             app:sll_bottomLineColor="#EEEEEE"
             app:sll_lineSize="1dp" />
 
+
+        <com.lxj.androidktx.widget.TabBar
+            android:id="@+id/tabbarRadio"
+            android:paddingLeft="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:sll_solid="#fff"
+            app:tb_tabSpace="20dp"
+            app:tb_iconPosition="left"
+            app:tb_iconSize="15dp"
+            app:tb_iconSpace="5dp"
+            app:tb_isSelectBold="true"
+            app:tb_normalColor="#666"
+            app:tb_selectTextSize="16dp"
+            app:tb_textSize="16dp"
+            app:tb_selectedColor="@color/colorPrimary"
+            app:tb_tabWidthEqual="false"
+            app:tb_typefacePath="FredokaOne-Regular.ttf" />
+
         <com.lxj.androidktx.widget.TabBar
             android:id="@+id/tabbar"
             android:layout_width="match_parent"

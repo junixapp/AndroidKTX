@@ -33,6 +33,7 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
     var selectTextSize = 14.sp
     var tabHeight = 0
     var iconSpace = 2.dp //图片和文字间距
+    var tabSpace = 0  //Tab之间的间距
     var mTabs = listOf<Tab>()
     var tabIndex = -1
     var tabPadding = 0
@@ -66,6 +67,7 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
         normalBgColor = ta.getColor(R.styleable.TabBar_tb_normalBgColor, normalBgColor)
         tabHeight = ta.getDimension(R.styleable.TabBar_tb_tabHeight, tabHeight.toFloat()).toInt()
         tabPadding = ta.getDimensionPixelSize(R.styleable.TabBar_tb_tabPadding, tabPadding)
+        tabSpace = ta.getDimensionPixelSize(R.styleable.TabBar_tb_tabSpace, tabSpace)
         tabWidthEqual = ta.getBoolean(R.styleable.TabBar_tb_tabWidthEqual, tabWidthEqual)
         typefacePath = ta.getString(R.styleable.TabBar_tb_typefacePath)
         if(!typefacePath.isNullOrEmpty()) customTypeface = Typeface.createFromAsset(context.assets, typefacePath)
@@ -83,6 +85,7 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
             if(tabWidthEqual) lp.weight = 1f
             val wrapper = LinearLayout(context)
             wrapper.gravity = Gravity.CENTER
+            if(index!=mTabs.lastIndex) lp.marginEnd = tabSpace
             if(tabPadding>0){
                 wrapper.setPadding(tabPadding, tabPadding, tabPadding, tabPadding)
             }
@@ -164,13 +167,8 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, if (index == i) selectTextSize.toFloat() else normalTextSize.toFloat())
                 if(!typefacePath.isNullOrEmpty()) {
                     typeface = customTypeface
-                }else{
-                    typeface = if (isSelectBold && index == i) {
-                        Typeface.defaultFromStyle(Typeface.BOLD)
-                    } else  {
-                        Typeface.defaultFromStyle(Typeface.NORMAL)
-                    }
                 }
+                paint.isFakeBoldText = isSelectBold && index == i
             }
         }
     }
