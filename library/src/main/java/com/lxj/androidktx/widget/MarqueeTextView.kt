@@ -99,6 +99,8 @@ class MarqueeTextView @JvmOverloads constructor(
                 //如果能滚动，则强制向左靠
                 forceLeft = true
                 paint.textAlign = Paint.Align.LEFT
+            }else{
+                paint.textAlign = mTextAlign
             }
 
             val clipLeft: Float = (scrollX).toFloat()
