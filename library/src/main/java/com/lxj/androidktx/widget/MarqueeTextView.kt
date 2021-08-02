@@ -87,17 +87,18 @@ class MarqueeTextView @JvmOverloads constructor(
         val height = if(heightMode!=MeasureSpec.EXACTLY) (textBounds.height() + paddingTop + paddingBottom)
         else MeasureSpec.getSize(heightMeasureSpec)
         setMeasuredDimension(width, height)
-
-        if((textBounds.width() + paddingLeft + paddingRight) > measuredWidth){
-            //如果能滚动，则强制向左靠
-            mTextAlign = Paint.Align.LEFT
-            paint.textAlign = mTextAlign
-        }
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         if(mText!=null){
+
+            if( mTextAlign!=Paint.Align.LEFT && (paint.measureText(mText) + paddingLeft + paddingRight) > measuredWidth){
+                //如果能滚动，则强制向左靠
+                mTextAlign = Paint.Align.LEFT
+                paint.textAlign = mTextAlign
+            }
+
             val clipLeft: Float = (scrollX).toFloat()
             val clipTop: Float = scrollY.toFloat()
             val clipRight: Float = (measuredWidth + scrollX).toFloat()
