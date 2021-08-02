@@ -94,10 +94,11 @@ class MarqueeTextView @JvmOverloads constructor(
         super.onDraw(canvas)
         if(mText!=null){
 
+            var forceLeft = false
             if( mTextAlign!=Paint.Align.LEFT && (paint.measureText(mText) + paddingLeft + paddingRight) > measuredWidth){
                 //如果能滚动，则强制向左靠
-                mTextAlign = Paint.Align.LEFT
-                paint.textAlign = mTextAlign
+                forceLeft = true
+                paint.textAlign = Paint.Align.LEFT
             }
 
             val clipLeft: Float = (scrollX).toFloat()
@@ -111,7 +112,7 @@ class MarqueeTextView @JvmOverloads constructor(
                 else -> measuredWidth*1f
             }
             val baseline: Float = measuredHeight/2f+(Math.abs(paint.ascent())-paint.descent())/2
-            canvas.drawText(mText!!, x, baseline, paint)
+            canvas.drawText(mText!!, if(forceLeft) 0f else x, baseline, paint)
         }
     }
 
