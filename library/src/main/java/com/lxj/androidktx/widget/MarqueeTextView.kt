@@ -76,6 +76,7 @@ class MarqueeTextView @JvmOverloads constructor(
         if(textBold!=null) mTextBold = textBold
         if(textAlign!=null) mTextAlign = textAlign
         applyAttr()
+        invalidate()
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
