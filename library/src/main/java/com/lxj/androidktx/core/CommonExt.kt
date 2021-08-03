@@ -200,40 +200,6 @@ fun Any.runOnUIThread(action: () -> Unit) {
     Handler(Looper.getMainLooper()).post { action() }
 }
 
-/**
- * 将Bitmap保存到相册
- */
-fun Bitmap.saveToAlbum(format: Bitmap.CompressFormat = Bitmap.CompressFormat.PNG, quality: Int = 100, filename: String = "", callback: ((path: String?, uri: Uri?) -> Unit)? = null) {
-    GlobalScope.launch {
-        try {
-            //1. create path
-            val dirPath = Environment.getExternalStorageDirectory().absolutePath + "/" + Environment.DIRECTORY_PICTURES
-            val dirFile = File(dirPath)
-            if (!dirFile.exists()) dirFile.mkdirs()
-            val ext = when (format) {
-                Bitmap.CompressFormat.PNG -> ".png"
-                Bitmap.CompressFormat.JPEG -> ".jpg"
-                Bitmap.CompressFormat.WEBP -> ".webp"
-            }
-            val target = File(dirPath, (if (filename.isEmpty()) System.currentTimeMillis().toString() else filename) + ext)
-            if (target.exists()) target.delete()
-            target.createNewFile()
-            //2. save
-            compress(format, quality, FileOutputStream(target))
-            //3. notify
-            MediaScannerConnection.scanFile(AndroidKTX.context, arrayOf(target.absolutePath),
-                    arrayOf("image/$ext")) { path, uri ->
-                runOnUIThread {
-                    callback?.invoke(path, uri)
-                }
-            }
-        } catch (e: IOException) {
-            e.printStackTrace()
-            runOnUIThread { callback?.invoke(null, null) }
-        }
-    }
-}
-
 //一天只做一次
 fun Any.doOnceInDay(actionName: String = "", action: () -> Unit, whenHasDone: (()->Unit)? = null) {
     val key = "once_in_day_last_check_${actionName}"

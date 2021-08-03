@@ -1,24 +1,14 @@
 package com.lxj.androidktx.core
 
-import android.content.Context
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
-import android.widget.ImageView
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
+import android.app.Application
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.*
 import com.blankj.utilcode.util.ToastUtils
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.target.Target
-import com.bumptech.glide.request.transition.Transition
+import com.lxj.androidktx.AndroidKTX
 import com.lxj.androidktx.livedata.StateLiveData
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.BasePopupView
 import com.lxj.xpopup.enums.PopupStatus
-import com.lxj.xpopup.interfaces.XPopupImageLoader
-import java.io.File
 
 /**
  * 绑定LiveData的状态，警惕LoadingView过早关闭的时候，state的状态还未执行
@@ -91,3 +81,16 @@ fun BasePopupView.observeState(owner: LifecycleOwner,
                 onError = onError, onEmpty = onEmpty, autoShowError = autoShowError)
     })
 }
+
+//view model
+fun <T: ViewModel> BasePopupView.getVM(clazz: Class<T>) = ViewModelProvider(context as FragmentActivity).get(clazz)
+
+/**
+ * saved state view model，要求ViewModel的构造必须接受SavedStateHandle类型的参数，比如：
+ * ```
+ * class TestVM( handler: SavedStateHandle): ViewModel()
+ * ```
+ */
+fun <T: ViewModel> BasePopupView.getSavedStateVM(clazz: Class<T>) = ViewModelProvider(context as FragmentActivity, SavedStateViewModelFactory(
+    AndroidKTX.context as Application, context as FragmentActivity)
+).get(clazz)
