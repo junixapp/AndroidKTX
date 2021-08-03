@@ -40,45 +40,9 @@ class ViewExtPage : BaseFragment() {
             image.setImageBitmap(text4.toBitmap())
         }
 
-        text4.click {
-            //            startActivity<MainActivity>(bundle = arrayOf(
-//                    "a" to 1,
-//                    "b" to "lala"
-//            ))
-
-//            startActivity<MainActivity>(flag = Intent.FLAG_ACTIVITY_CLEAR_TOP, bundle = arrayOf(
-//                    "a" to 1,
-//                    "b" to "lala"
-//            ))
-//            applicitionCtx.startActivity<MainActivity>(bundle = arrayOf(
-//                    "a" to 1,
-//                    "b" to "lala"
-//            ))
-            "click just only 1 time in 350 ms".loge()
-//            text4.gone()
-//            text4.isVisible.toString().v()
-
-//            getString(R.string.app_name)
-//            getStringArray(R.array.test)
-//            getColor(R.id.color)
-//            getDrawable(R.mipmap.ic_launcher)
-//            getDimensionPx(R.dimen.abc)
-
-
-        }
-
         text4.setBackgroundDrawable(createDrawable(color = Color.GREEN,
                 strokeColor = Color.RED, strokeWidth = dp2px(2f),
                 radius = dp2px(30f).toFloat(), enableRipple = true))
-
-
-
-        saveToAlbum.click {
-            text4.toBitmap().saveToAlbum(callback = { path, uri ->
-                ToastUtils.showShort("保存成功")
-            })
-        }
-
 
 //        tvVerify.mSolid = Color.parseColor("#ff0000")
         tvVerify.click {
@@ -108,6 +72,7 @@ class ViewExtPage : BaseFragment() {
         mtv.setup("床前明月光")
         mtv2.setup("床前明月光，疑是地上霜；举头望明月，低头思故乡。")
 
+
     }
 
     override fun initData() {
@@ -115,6 +80,7 @@ class ViewExtPage : BaseFragment() {
 
         postDelay(1500){ mtv.startScroll() }
         postDelay(1500){ mtv2.startScroll() }
+        postDelay(1500){ marqueeLayout.startScroll() }
     }
 
 }

@@ -2,11 +2,9 @@ package com.lxj.androidktx.widget
 
 import android.content.Context
 import android.graphics.Color
-import android.graphics.Paint
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
-import com.blankj.utilcode.util.SpanUtils
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.appendColorSpan
 import com.lxj.androidktx.core.maxLength
