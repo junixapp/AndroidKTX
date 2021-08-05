@@ -11,6 +11,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.createDrawable
 import com.lxj.androidktx.core.dp
+import com.lxj.androidktx.core.drawable
 import com.lxj.androidktx.core.sizeDrawable
 
 /**
@@ -137,7 +138,8 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
               corner: Int? = null, enableRipple: Boolean? = null, rippleColor: Int? = null,
               topLineColor: Int? = null, bottomLineColor: Int? = null, lineSize: Int? = null,
             gradientOrientation: GradientDrawable.Orientation? = null,  gradientStartColor: Int? = null,
-           gradientCenterColor: Int? = null,gradientEndColor: Int? = null, typefacePath: String? = null){
+           gradientCenterColor: Int? = null,gradientEndColor: Int? = null, typefacePath: String? = null,
+        bgRes: Int? = null){
         if(drawableWidth!=null) mDrawableWidth = drawableWidth
         if(drawableHeight!=null) mDrawableHeight = drawableHeight
         if (drawableSize != null) {
@@ -164,6 +166,7 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
         if(gradientCenterColor!=null) mGradientCenterColor = gradientCenterColor
         if(gradientEndColor!=null) mGradientEndColor = gradientEndColor
         if(typefacePath!=null) mTypefacePath = typefacePath
+        if(bgRes!=null) mBgDrawable = drawable(bgRes)
         applySelf()
     }
 }
