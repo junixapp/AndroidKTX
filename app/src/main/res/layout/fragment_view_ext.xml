@@ -53,14 +53,14 @@
                     android:src="@mipmap/ic_launcher"
                     android:layout_width="80dp"
                     android:layout_height="80dp"/>
-                <TextView
-                    android:text="大萨达撒大所大所大所多"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <ImageView
-                    android:src="@mipmap/ic_launcher"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"/>
+<!--                <TextView-->
+<!--                    android:text="大萨达撒大所大所大所多"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"/>-->
+<!--                <ImageView-->
+<!--                    android:src="@mipmap/ic_launcher"-->
+<!--                    android:layout_width="80dp"-->
+<!--                    android:layout_height="80dp"/>-->
             </LinearLayout>
         </com.lxj.androidktx.widget.MarqueeLayout>
 

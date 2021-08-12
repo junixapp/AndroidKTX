@@ -93,12 +93,12 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             app:stv_corner="20dp"
             app:stv_solid="#8000"
+            android:textSize="14dp"
             android:id="@+id/tvDemo"
             android:textColor="#fff"
             android:padding="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-
 
         <Space
             android:layout_marginBottom="80dp"

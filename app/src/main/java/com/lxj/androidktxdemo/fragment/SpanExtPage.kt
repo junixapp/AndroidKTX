@@ -3,7 +3,7 @@ package com.lxj.androidktxdemo.fragment
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
-import com.blankj.utilcode.util.FragmentUtils
+import com.blankj.utilcode.util.ImageUtils
 import com.blankj.utilcode.util.SpanUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.lxj.androidktx.base.WebActivity
@@ -113,22 +113,28 @@ class SpanExtPage : BaseFragment() {
             .setPadding(left = dp2px(8f), right = dp2px(8f), top = dp2px(4f), bottom = dp2px(4f))
             .setBg(bgRadius = dp2px(30f).toFloat(), gradientColors = intArrayOf(Color.RED, Color.BLUE),
             gradientOrientation = GradientDrawable.Orientation.TL_BR)
-            .setText("Lv 12345", textColor = Color.WHITE, textSize = sp2px(13f).toFloat(),
+            .setText("Lv 123", textColor = Color.WHITE, textSize = sp2px(13f).toFloat(),
             bold = true, typeface = Typeface.createFromAsset(requireContext()!!.assets,"FredokaOne-Regular.ttf"))
             .setLeftDrawable(R.mipmap._ktx_ic_clear, drawableWidth = dp2px(12f), drawableHeight = dp2px(12f),
             drawablePadding = dp2px(4f))
             .setRightDrawable(R.mipmap._ktx_ic_clear, drawableWidth = dp2px(12f), drawableHeight = dp2px(12f),
                 drawablePadding = dp2px(4f))
 
+        var image1 = ImageUtils.getBitmap(R.mipmap.ic_launcher, 40.dp, 40.dp)
         val td2 = SuperDrawable().setBgDrawable(R.mipmap.test, drawableWidth = dp2px(46f), drawableHeight = dp2px(15f))
         SpanUtils.with(tvDemo)
+            .appendImage(image1, SpanUtils.ALIGN_CENTER)
             .appendImage(td, SpanUtils.ALIGN_CENTER)
-            .append("齐天大圣")
-            .appendImage(td2, SpanUtils.ALIGN_CENTER)
-            .appendSpace(dp2px(10f))
-            .appendImage(R.mipmap._ktx_ic_switch)
-            .append("齐天大圣说：")
-            .append("哒哒哒哒哒所大所多所多撒大所大所大所大所大所大所大所大所大所").setForegroundColor(Color.parseColor("#cccccc"))
+//            .appendSpace(dp2px(8f))
+//            .appendImage(td2, SpanUtils.ALIGN_CENTER)
+            .appendSpace(dp2px(5f))
+            .append("齐天大圣说：").setForegroundColor(Color.RED)
+//            .appendSpace(dp2px(8f))
+//            .appendImage(R.mipmap._ktx_ic_switch ,SpanUtils.ALIGN_CENTER)
+                //一下动态Drawable的使用，适用于直播场景的消息展示
+            .append("演示一下动态Drawable的使用，适用于直播场景的消息展示一下动态Drawable的使用，适用于直播场景的消息展示")
+            .setForegroundColor(Color.parseColor("#cccccc"))
+
             .create()
 
     }
