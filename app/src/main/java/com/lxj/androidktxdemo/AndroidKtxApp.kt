@@ -1,10 +1,9 @@
 package com.lxj.androidktxdemo
 
-import android.app.Application
 import androidx.multidex.MultiDexApplication
+import com.blankj.utilcode.util.LogUtils
 import com.lxj.androidktx.AndroidKTX
 import com.lxj.androidktx.core.*
-import com.lxj.androidktx.share.Share
 import com.lxj.androidktxdemo.entity.User
 
 /**
@@ -21,13 +20,12 @@ class AndroidKtxApp: MultiDexApplication(){
                 sharedPrefName = "demo")
 
 
-        logd("ktx app start...")
 //        "sss".e()
 
         val user = sp().getObject<User>("user")
-        loge("user: ${user}")
+        LogUtils.d("user: ${user}")
         sp().putObject("user", User(name = "李晓俊", age = 1000))
-        loge("user: ${sp().getObject<User>("user")}")
+        LogUtils.d("user: ${sp().getObject<User>("user")}")
 
 
     }

@@ -6,7 +6,6 @@ import android.content.Context
 import android.os.Handler
 import android.util.AttributeSet
 import com.lxj.androidktx.R
-import com.lxj.androidktx.core.loge
 
 /**
  * Description:

@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
+import com.blankj.utilcode.util.LogUtils
 import com.lxj.androidktx.core.*
 import com.lxj.androidktxdemo.R
 import com.lxj.easyadapter.EasyAdapter
@@ -40,7 +41,7 @@ class ViewPager2Demo : BaseFragment() {
             }
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                loge("posi: $position")
+                LogUtils.d("posi: $position")
             }
         })
         p2.setPageTransformer(CardPager2Transformer(context!!))

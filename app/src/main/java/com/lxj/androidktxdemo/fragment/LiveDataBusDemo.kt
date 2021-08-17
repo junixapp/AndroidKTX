@@ -1,7 +1,7 @@
 package com.lxj.androidktxdemo.fragment
 
 import androidx.lifecycle.Observer
-import com.lxj.androidktx.core.loge
+import com.blankj.utilcode.util.LogUtils
 import com.lxj.androidktx.core.observeState
 import com.lxj.androidktx.core.postDelay
 import com.lxj.androidktx.livedata.StateLiveData
@@ -20,14 +20,13 @@ class LiveDataBusDemo : BaseFragment(){
     override fun initView() {
         super.initView()
         sData.state.observe(this, Observer {
-            loge("收到消息")
+            LogUtils.d("收到消息")
         })
         btnSendString.setOnClickListener {
             sData.postLoading()
             postDelay(1000){
                 sData.postError("获取失败")
             }
-//            "click".v()
         }
         XPopup.Builder(context).asLoading().observeState(this, sData)
     }

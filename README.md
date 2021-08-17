@@ -61,27 +61,6 @@ AndroidKTX.init(context = this,
 "3FiQmdsD3GCuAManeaW/yg==".decryptAES("aaaabbbbaaaabbbb")  //123456
 ```
 
-
-### Log相关
-我们输出的log大都是字符串，所以也是给String增加扩展方法，用法如下：
-```kotlin
-"我是测试".logv()
-"我是测试".logi()
-"我是测试".logw()
-"我是测试".logd()
-"我是测试".loge()
-```
-![weather_humidity](imgs/log.png)
-> Log的默认tag和开关配置在AndroidKTX类中，可动态配置。
-
-或者这样使用：
-```kotlin
-logv("msg")
-logd("tag", "aaa")
-loge("tag", "aaa")
-```
-
-
 ### Span相关
 封装了颜色，大小，背景色，删除线和点击等常用的文本装饰，使用对象是TextView和String。用法如下：
 ```kotlin
@@ -322,7 +301,7 @@ GlobalScope.launch {
             .http()
             .savePath(Environment.getExternalStorageDirectory().toString() + "/xxx.zip")
             .downloadListener(onProgress = {
-                loge("download progress: ${it?.percent}")
+                LogUtils.d("download progress: ${it?.percent}")
             })
             .get<File>()
             .await()
