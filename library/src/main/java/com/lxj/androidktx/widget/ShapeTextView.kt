@@ -166,7 +166,7 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
         if(gradientCenterColor!=null) mGradientCenterColor = gradientCenterColor
         if(gradientEndColor!=null) mGradientEndColor = gradientEndColor
         if(typefacePath!=null) mTypefacePath = typefacePath
-        if(bgRes!=null) mBgDrawable = drawable(bgRes)
+        if(bgRes!=null) mBgDrawable = if(bgRes==0) null else drawable(bgRes)
         applySelf()
     }
 }
