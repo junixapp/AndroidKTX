@@ -37,6 +37,7 @@ abstract class PageListVM<T> : ViewModel(),
         smartRefresh: SmartRefreshLayout?,
         stateLayout: StateLayout? = null,
         firstShowLoading: Boolean = false,
+        autoLoadData: Boolean = true,
         onRefresh: (() -> Unit)? = null,
         onLoadMore: (() -> Unit)? = null,
         onDataUpdate: (() -> Unit)? = null,
@@ -58,9 +59,9 @@ abstract class PageListVM<T> : ViewModel(),
         smartRefresh?.setOnRefreshLoadMoreListener(this)
         if (firstShowLoading && stateLayout != null) {
             stateLayout.showLoading()
-            refresh()
+            if(autoLoadData)refresh()
         } else {
-            smartRefresh?.post { smartRefresh.autoRefresh() }
+            if(autoLoadData)smartRefresh?.post { smartRefresh.autoRefresh() }
         }
     }
 
