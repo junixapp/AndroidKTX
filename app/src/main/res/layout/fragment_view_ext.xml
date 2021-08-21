@@ -80,6 +80,7 @@
                 android:id="@+id/mtv"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
+                app:mtv_letterSpacing="0.9"
                 app:mtv_slow="0.4"
                 app:mtv_textAlign="center"
                 app:mtv_textBold="true"
@@ -87,6 +88,7 @@
                 app:mtv_textSize="20sp" />
             <com.lxj.androidktx.widget.MarqueeTextView
                 android:id="@+id/mtv2"
+                app:mtv_letterSpacing="0.4"
                 android:layout_below="@id/mtv"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"

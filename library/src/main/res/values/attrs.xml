@@ -403,6 +403,7 @@
         <attr name="mtv_slow" format="float" />
         <attr name="mtv_loop" format="boolean" />
         <attr name="mtv_scrollDelay" format="integer" />
+        <attr name="mtv_letterSpacing" format="float" />
     </declare-styleable>
 
     <!-- FormField -->
