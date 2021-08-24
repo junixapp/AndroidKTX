@@ -58,9 +58,12 @@
 
         <include layout="@layout/divider"/>
 
+
         <TextView
             android:id="@+id/tt"
+            android:layout_marginLeft="20dp"
             android:text="试试"
+            android:padding="10dp"
             android:textColor="#000"
             android:textSize="20sp"
             android:gravity="center"
@@ -69,6 +72,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
+        <androidx.appcompat.widget.AppCompatSeekBar
+            android:id="@+id/seekBar1"
+            android:max="500"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <androidx.appcompat.widget.AppCompatSeekBar
+            android:id="@+id/seekBar2"
+            android:max="500"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <include layout="@layout/divider"/>
         <TextView

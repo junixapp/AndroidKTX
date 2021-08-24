@@ -100,7 +100,7 @@ fun <T: ViewModel> FragmentActivity.getSavedStateVM(clazz: Class<T>) = ViewModel
 
 
 inline val FragmentActivity.handler
-    get() = LifecycleHandler(this, Looper.getMainLooper())
+    get() = LifecycleHandler(this)
 
 inline val Fragment.handler
-    get() = LifecycleHandler(this, Looper.getMainLooper())
+    get() = LifecycleHandler(this)

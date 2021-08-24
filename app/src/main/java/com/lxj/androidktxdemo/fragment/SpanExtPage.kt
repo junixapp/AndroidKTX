@@ -1,8 +1,12 @@
 package com.lxj.androidktxdemo.fragment
 
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
+import android.view.Gravity
+import android.view.View
+import android.widget.SeekBar
 import com.blankj.utilcode.util.ImageUtils
 import com.blankj.utilcode.util.SpanUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -11,6 +15,9 @@ import com.lxj.androidktx.core.*
 import com.lxj.androidktx.share.Share
 import com.lxj.androidktx.widget.SuperDrawable
 import com.lxj.androidktxdemo.R
+import com.lxj.androidktxdemo.ShadowDrawable
+import com.lxj.androidktxdemo.ShadowDrawable2
+import com.lxj.androidktxdemo.ViewUtils
 import kotlinx.android.synthetic.main.fragment_span_ext.*
 
 
@@ -98,6 +105,36 @@ class SpanExtPage : BaseFragment() {
 
 
         tt.sizeDrawable(300)
+//        tt.setBackgroundColor(Color.RED)
+        tt.background = createDrawable(gradientStartColor = Color.RED, gradientEndColor = Color.BLUE,
+            cornerRadiusArray= arrayOf(0f, 150f, 0f, 150f), enableRipple = true, rippleColor = Color.WHITE)
+        tt.click {  }
+
+
+//        var radius = 1f
+//        var shadowSize = 0
+////        tt.background = ShadowDrawable2(resources, ColorStateList.valueOf(Color.WHITE), radius, shadowSize, shadowSize)
+//        tt.background = ViewUtils.generateBackgroundWithShadow(tt, Color.WHITE, radius, Color.BLACK, shadowSize, Gravity.CENTER)
+//        seekBar1.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+//            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+//                radius = progress.toFloat()
+////                tt.background = ShadowDrawable2(resources, ColorStateList.valueOf(Color.WHITE), radius, shadowSize, shadowSize)
+//                tt.background = ViewUtils.generateBackgroundWithShadow(tt, Color.WHITE, radius, Color.BLACK, shadowSize, Gravity.CENTER)
+//            }
+//
+//            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+//            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+//        })
+//        seekBar2.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+//            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+//                shadowSize = progress
+////                tt.background = ShadowDrawable2(resources, ColorStateList.valueOf(Color.WHITE), radius, shadowSize, shadowSize)
+//                tt.background = ViewUtils.generateBackgroundWithShadow(tt, Color.WHITE, radius, Color.BLACK, shadowSize, Gravity.CENTER)
+//            }
+//
+//            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+//            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+//        })
 
         tvAppendResult.text = "演示一下appendXX方法的用法"
         tvAppendResult.appendSizeSpan("变大变大")
