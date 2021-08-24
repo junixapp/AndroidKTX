@@ -59,7 +59,7 @@
         <include layout="@layout/divider"/>
 
 
-        <TextView
+        <com.lxj.androidktx.widget.ShapeTextView
             android:id="@+id/tt"
             android:layout_marginLeft="20dp"
             android:text="试试"

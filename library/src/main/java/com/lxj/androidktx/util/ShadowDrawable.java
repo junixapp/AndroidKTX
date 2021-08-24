@@ -1,37 +1,32 @@
-package com.lxj.androidktxdemo;
+package com.lxj.androidktx.util;
 
 import android.content.res.ColorStateList;
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.LinearGradient;
+import android.graphics.Outline;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PixelFormat;
+import android.graphics.PorterDuff;
 import android.graphics.RadialGradient;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Region;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.core.graphics.drawable.DrawableCompat;
 
-public class ShadowDrawable2 extends Drawable {
+public class ShadowDrawable extends Drawable implements Drawable.Callback  {
     // used to calculate content padding
     private static final double COS_45 = Math.cos(Math.toRadians(45));
 
     private static final float SHADOW_MULTIPLIER = 1.5f;
-
     private final int mInsetShadow; // extra shadow to avoid gaps between card and shadow
-
-    /*
-     * This helper is set by CardView implementations.
-     * <p>
-     * Prior to API 17, canvas.drawRoundRect is expensive; which is why we need this interface
-     * to draw efficient rounded rectangles before 17.
-     * */
-
     private Paint mPaint;
 
     private Paint mCornerShadowPaint;
@@ -40,7 +35,7 @@ public class ShadowDrawable2 extends Drawable {
 
     private final RectF mCardBounds;
 
-    private float mCornerRadius;
+    private float mCornerRadius = 1f;
 
     private Path mCornerShadowPath;
 
@@ -67,14 +62,19 @@ public class ShadowDrawable2 extends Drawable {
      * If shadow size is set to a value above max shadow, we print a warning
      */
     private boolean mPrintedShadowClipWarning = false;
+    private Drawable mDrawable;
+    public ShadowDrawable(Drawable innerDrawable, float radius,
+                          float shadowSize) {
+        this(innerDrawable, 0, radius, shadowSize, shadowSize);
+    }
 
-    public ShadowDrawable2(Resources resources, ColorStateList backgroundColor, float radius,
-                                float shadowSize, float maxShadowSize) {
-        mShadowStartColor = Color.parseColor("#37000000");
+    public ShadowDrawable(Drawable innerDrawable, int shadowColor, float radius,
+                          float shadowSize, float maxShadowSize) {
+        mShadowStartColor = shadowColor == 0 ? Color.parseColor("#37000000") : shadowColor;
         mShadowEndColor = Color.parseColor("#01000000");
         mInsetShadow = 0;
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
-        setBackground(backgroundColor);
+        mPaint.setColor(Color.TRANSPARENT);
         mCornerShadowPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
         mCornerShadowPaint.setStyle(Paint.Style.FILL);
         mCornerRadius = Math.max(1, (int) (radius + .5f));
@@ -82,12 +82,25 @@ public class ShadowDrawable2 extends Drawable {
         mEdgeShadowPaint = new Paint(mCornerShadowPaint);
         mEdgeShadowPaint.setAntiAlias(false);
         setShadowSize(shadowSize, maxShadowSize);
+
+        this.setWrappedDrawable(innerDrawable);
     }
 
-    private void setBackground(ColorStateList color) {
-        mBackground = (color == null) ?  ColorStateList.valueOf(Color.TRANSPARENT) : color;
-        mPaint.setColor(mBackground.getColorForState(getState(), mBackground.getDefaultColor()));
+    public void setWrappedDrawable(Drawable drawable) {
+        if (this.mDrawable != null) {
+            this.mDrawable.setCallback((Callback) null);
+        }
+
+        this.mDrawable = drawable;
+        if (drawable != null) {
+            drawable.setCallback(this);
+        }
     }
+
+//    private void setBackground(ColorStateList color) {
+//        mBackground = (color == null) ?  ColorStateList.valueOf(Color.TRANSPARENT) : color;
+//        mPaint.setColor(mBackground.getColorForState(getState(), mBackground.getDefaultColor()));
+//    }
 
     /**
      * Casts the value to an even integer.
@@ -107,6 +120,7 @@ public class ShadowDrawable2 extends Drawable {
 
     @Override
     public void setAlpha(int alpha) {
+        this.mDrawable.setAlpha(alpha);
         mPaint.setAlpha(alpha);
         mCornerShadowPaint.setAlpha(alpha);
         mEdgeShadowPaint.setAlpha(alpha);
@@ -115,7 +129,15 @@ public class ShadowDrawable2 extends Drawable {
     @Override
     protected void onBoundsChange(Rect bounds) {
         super.onBoundsChange(bounds);
+//        this.mDrawable.setBounds(bounds);
         mDirty = true;
+    }
+    public void setChangingConfigurations(int configs) {
+        this.mDrawable.setChangingConfigurations(configs);
+    }
+
+    public int getChangingConfigurations() {
+        return this.mDrawable.getChangingConfigurations();
     }
 
     private void setShadowSize(float shadowSize, float maxShadowSize) {
@@ -187,19 +209,63 @@ public class ShadowDrawable2 extends Drawable {
 
     @Override
     public boolean isStateful() {
-        return (mBackground != null && mBackground.isStateful()) || super.isStateful();
+        return (mBackground != null && mBackground.isStateful()) || mDrawable.isStateful();
     }
 
+    public boolean setState(int[] stateSet) {
+        return this.mDrawable.setState(stateSet);
+    }
+
+    public int[] getState() {
+        return this.mDrawable.getState();
+    }
     @Override
     public void setColorFilter(ColorFilter cf) {
+        mDrawable.setColorFilter(cf);
         mPaint.setColorFilter(cf);
+    }
+    public void jumpToCurrentState() {
+        DrawableCompat.jumpToCurrentState(this.mDrawable);
+    }
+
+    public Drawable getCurrent() {
+        return this.mDrawable.getCurrent();
+    }
+
+    public boolean setVisible(boolean visible, boolean restart) {
+        return super.setVisible(visible, restart) || this.mDrawable.setVisible(visible, restart);
     }
 
     @Override
     public int getOpacity() {
         return PixelFormat.TRANSLUCENT;
     }
+    public int getIntrinsicWidth() {
+        Rect rect = new Rect();
+        getPadding(rect);
+        return this.mDrawable.getIntrinsicWidth() - rect.width();
+    }
 
+    public int getIntrinsicHeight() {
+        Rect rect = new Rect();
+        getPadding(rect);
+        return this.mDrawable.getIntrinsicHeight() - rect.height();
+    }
+
+    public int getMinimumWidth() {
+        Rect rect = new Rect();
+        getPadding(rect);
+        return this.mDrawable.getMinimumWidth() - rect.width();
+    }
+
+    public int getMinimumHeight() {
+        Rect rect = new Rect();
+        getPadding(rect);
+        return this.mDrawable.getMinimumHeight() - rect.height();
+    }
+    public Region getTransparentRegion() {
+        return this.mDrawable.getTransparentRegion();
+    }
     void setCornerRadius(float radius) {
         if (radius < 0f) {
             throw new IllegalArgumentException("Invalid radius " + radius + ". Must be >= 0");
@@ -223,6 +289,8 @@ public class ShadowDrawable2 extends Drawable {
         drawShadow(canvas);
 //        canvas.translate(0, -mRawShadowSize / 2);
         drawRoundRect(canvas, mCardBounds, mCornerRadius, mPaint);
+
+        this.mDrawable.draw(canvas);
     }
 
     private void drawShadow(Canvas canvas) {
@@ -314,6 +382,8 @@ public class ShadowDrawable2 extends Drawable {
         final float verticalOffset = mRawMaxShadowSize * SHADOW_MULTIPLIER;
         mCardBounds.set(bounds.left + mRawMaxShadowSize, bounds.top + verticalOffset,
                 bounds.right - mRawMaxShadowSize, bounds.bottom - verticalOffset);
+        mDrawable.setBounds((int) mCardBounds.left, (int) mCardBounds.top,
+                (int) mCardBounds.right, (int) mCardBounds.bottom);
         buildShadowCorners();
     }
     final RectF mCornerRect = new RectF();
@@ -359,33 +429,89 @@ public class ShadowDrawable2 extends Drawable {
         setShadowSize(mRawShadowSize, size);
     }
 
-    float getShadowSize() {
+    public float getShadowSize() {
         return mRawShadowSize;
     }
 
-    float getMaxShadowSize() {
+    public float getMaxShadowSize() {
         return mRawMaxShadowSize;
     }
 
-    float getMinWidth() {
+    public float getMinWidth() {
         final float content = 2
                 * Math.max(mRawMaxShadowSize, mCornerRadius + mInsetShadow + mRawMaxShadowSize / 2);
         return content + (mRawMaxShadowSize + mInsetShadow) * 2;
     }
 
-    float getMinHeight() {
+    public float getMinHeight() {
         final float content = 2 * Math.max(mRawMaxShadowSize, mCornerRadius + mInsetShadow
                 + mRawMaxShadowSize * SHADOW_MULTIPLIER / 2);
         return content + (mRawMaxShadowSize * SHADOW_MULTIPLIER + mInsetShadow) * 2;
     }
 
-    void setColor(@Nullable ColorStateList color) {
-        setBackground(color);
-        invalidateSelf();
+//    void setColor(@Nullable ColorStateList color) {
+//        setBackground(color);
+//        invalidateSelf();
+//    }
+
+
+    @Override
+    public void getOutline(@NonNull Outline outline) {
+        super.getOutline(outline);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mDrawable.getOutline(outline);
+        }
     }
 
+    public void setDither(boolean dither) {
+        this.mDrawable.setDither(dither);
+    }
+    public void setFilterBitmap(boolean filter) {
+        this.mDrawable.setFilterBitmap(filter);
+    }
     ColorStateList getColor() {
         return mBackground;
     }
 
+    @Override
+    public void invalidateDrawable(@NonNull Drawable who) {
+        this.invalidateSelf();
+    }
+
+    @Override
+    public void scheduleDrawable(@NonNull Drawable who, @NonNull Runnable what, long when) {
+        this.scheduleSelf(what, when);
+    }
+
+    @Override
+    public void unscheduleDrawable(@NonNull Drawable who, @NonNull Runnable what) {
+        this.unscheduleSelf(what);
+    }
+    public void setAutoMirrored(boolean mirrored) {
+        DrawableCompat.setAutoMirrored(this.mDrawable, mirrored);
+    }
+
+    public boolean isAutoMirrored() {
+        return DrawableCompat.isAutoMirrored(this.mDrawable);
+    }
+
+    public void setTint(int tint) {
+        DrawableCompat.setTint(this.mDrawable, tint);
+    }
+
+    public void setTintList(ColorStateList tint) {
+        DrawableCompat.setTintList(this.mDrawable, tint);
+    }
+
+    public void setTintMode(PorterDuff.Mode tintMode) {
+        DrawableCompat.setTintMode(this.mDrawable, tintMode);
+    }
+
+    public void setHotspot(float x, float y) {
+        DrawableCompat.setHotspot(this.mDrawable, x, y);
+    }
+
+    public void setHotspotBounds(int left, int top, int right, int bottom) {
+        DrawableCompat.setHotspotBounds(this.mDrawable, left, top, right, bottom);
+    }
 }

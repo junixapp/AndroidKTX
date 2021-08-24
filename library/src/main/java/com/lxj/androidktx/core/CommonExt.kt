@@ -17,11 +17,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.AdaptScreenUtils
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.TimeUtils
+import com.google.android.material.shadow.ShadowRenderer
 import com.google.gson.ExclusionStrategy
 import com.google.gson.FieldAttributes
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import com.lxj.androidktx.AndroidKTX
+import com.lxj.androidktx.util.ShadowDrawable
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.io.File
@@ -81,8 +83,9 @@ fun Context.createDrawable(color: Int = Color.TRANSPARENT, radius: Float = 0f, c
                            enableRipple: Boolean = true,
                            rippleColor: Int = Color.parseColor("#88999999"),
                            gradientStartColor: Int = 0, gradientCenterColor : Int = 0, gradientEndColor : Int = 0,
-                           gradientOrientation: GradientDrawable.Orientation = GradientDrawable.Orientation.LEFT_RIGHT): Drawable {
-    val content = GradientDrawable().apply {
+                           gradientOrientation: GradientDrawable.Orientation = GradientDrawable.Orientation.LEFT_RIGHT,
+                           shadowColor: Int? = null, shadowSize: Float? = null): Drawable {
+    var d: Drawable = GradientDrawable().apply {
         cornerRadius = radius
         if(cornerRadiusArray!=null){
             val arr = FloatArray(8)
@@ -107,9 +110,12 @@ fun Context.createDrawable(color: Int = Color.TRANSPARENT, radius: Float = 0f, c
         }
     }
     if (Build.VERSION.SDK_INT >= 21 && enableRipple) {
-        return RippleDrawable(ColorStateList.valueOf(rippleColor), content, null)
+        d = RippleDrawable(ColorStateList.valueOf(rippleColor), d, null)
     }
-    return content
+    if((shadowColor!=null && shadowColor!=0) || shadowSize?:0f > 0f){
+        d = ShadowDrawable(d, shadowColor ?: 0 , radius ,shadowSize ?: 0f, shadowSize?: 0f)
+    }
+    return d
 }
 
 fun Fragment.createDrawable(color: Int = Color.TRANSPARENT, radius: Float = 0f, cornerRadiusArray: Array<Float>? = null,
@@ -117,9 +123,11 @@ fun Fragment.createDrawable(color: Int = Color.TRANSPARENT, radius: Float = 0f, 
                             enableRipple: Boolean = true,
                             rippleColor: Int = Color.parseColor("#88999999"),
                             gradientStartColor: Int = 0, gradientCenterColor : Int = 0,gradientEndColor : Int = 0,
-                            gradientOrientation: GradientDrawable.Orientation = GradientDrawable.Orientation.LEFT_RIGHT): Drawable {
+                            gradientOrientation: GradientDrawable.Orientation = GradientDrawable.Orientation.LEFT_RIGHT,
+                            shadowColor: Int? = null, shadowSize: Float? = null): Drawable {
     return context!!.createDrawable(color, radius, cornerRadiusArray, strokeColor, strokeWidth, enableRipple, rippleColor, gradientStartColor = gradientStartColor,
-    gradientEndColor = gradientEndColor, gradientOrientation = gradientOrientation, gradientCenterColor = gradientCenterColor)
+    gradientEndColor = gradientEndColor, gradientOrientation = gradientOrientation, gradientCenterColor = gradientCenterColor,
+        shadowColor = shadowColor, shadowSize = shadowSize)
 }
 
 fun View.createDrawable(color: Int = Color.TRANSPARENT, radius: Float = 0f, cornerRadiusArray: Array<Float>? = null,
@@ -127,9 +135,11 @@ fun View.createDrawable(color: Int = Color.TRANSPARENT, radius: Float = 0f, corn
                         enableRipple: Boolean = true,
                         rippleColor: Int = Color.parseColor("#88999999"),
                         gradientStartColor: Int = 0, gradientCenterColor : Int = 0, gradientEndColor : Int = 0,
-                        gradientOrientation: GradientDrawable.Orientation = GradientDrawable.Orientation.LEFT_RIGHT): Drawable {
+                        gradientOrientation: GradientDrawable.Orientation = GradientDrawable.Orientation.LEFT_RIGHT,
+                        shadowColor: Int? = null, shadowSize: Float? = null): Drawable {
     return context!!.createDrawable(color, radius, cornerRadiusArray, strokeColor, strokeWidth, enableRipple, rippleColor, gradientStartColor = gradientStartColor,
-            gradientEndColor = gradientEndColor, gradientOrientation = gradientOrientation, gradientCenterColor = gradientCenterColor)
+            gradientEndColor = gradientEndColor, gradientOrientation = gradientOrientation, gradientCenterColor = gradientCenterColor,
+        shadowColor = shadowColor, shadowSize = shadowSize)
 }
 
 /** json相关 **/

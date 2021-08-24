@@ -2,17 +2,17 @@ package com.lxj.androidktx.widget
 
 import android.content.Context
 import android.graphics.*
-import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
-import android.text.TextPaint
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.cardview.widget.CardView
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.createDrawable
 import com.lxj.androidktx.core.dp
 import com.lxj.androidktx.core.drawable
 import com.lxj.androidktx.core.sizeDrawable
+import com.lxj.androidktx.util.ShadowDrawable
 
 /**
  * Description: 能设置Shape的TextView
@@ -43,6 +43,8 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
     private var mGradientOrientation = GradientDrawable.Orientation.LEFT_RIGHT  //从左到右
     private var mTypefacePath: String? = null
     private var mBgDrawable: Drawable? = null
+    private var mShadowColor: Int? = null
+    private var mShadowSize: Float? = null
 
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.ShapeTextView)
@@ -86,6 +88,8 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
         }
         mTypefacePath = ta.getString(R.styleable.ShapeTextView_stv_typefacePath)
         mBgDrawable = ta.getDrawable(R.styleable.ShapeTextView_stv_background)
+        mShadowColor = ta.getColor(R.styleable.ShapeTextView_stv_shadowColor, 0)
+        mShadowSize = ta.getFloat(R.styleable.ShapeTextView_stv_shadowSize, 0f)
         ta.recycle()
         applySelf()
     }
@@ -96,7 +100,7 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
         }
         if(!mTypefacePath.isNullOrEmpty()) typeface = Typeface.createFromAsset(context.assets, mTypefacePath)
         if(mBgDrawable!=null) {
-            setBackgroundDrawable(mBgDrawable)
+            background = mBgDrawable
         } else{
             var cornerArr: Array<Float>? = null
             if(mTopLeftCorner>0 || mTopRightCorner>0 || mBottomLeftCorner>0 || mBottomRightCorner>0){
@@ -105,8 +109,9 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
             }
             val drawable = createDrawable(color = mSolid, radius = mCorner.toFloat(), cornerRadiusArray = cornerArr,strokeColor = mStroke, strokeWidth = mStrokeWidth,
                 enableRipple = mEnableRipple, rippleColor = mRippleColor, gradientStartColor = mGradientStartColor,
-                gradientCenterColor = mGradientCenterColor, gradientEndColor = mGradientEndColor, gradientOrientation = mGradientOrientation)
-            setBackgroundDrawable(drawable)
+                gradientCenterColor = mGradientCenterColor, gradientEndColor = mGradientEndColor, gradientOrientation = mGradientOrientation,
+                shadowColor = mShadowColor, shadowSize = mShadowSize)
+            background = drawable
         }
     }
 
@@ -139,7 +144,7 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
               topLineColor: Int? = null, bottomLineColor: Int? = null, lineSize: Int? = null,
             gradientOrientation: GradientDrawable.Orientation? = null,  gradientStartColor: Int? = null,
            gradientCenterColor: Int? = null,gradientEndColor: Int? = null, typefacePath: String? = null,
-        bgRes: Int? = null){
+        bgRes: Int? = null, shadowColor: Int? = null, shadowSize: Float? = null){
         if(drawableWidth!=null) mDrawableWidth = drawableWidth
         if(drawableHeight!=null) mDrawableHeight = drawableHeight
         if (drawableSize != null) {
@@ -167,6 +172,8 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
         if(gradientEndColor!=null) mGradientEndColor = gradientEndColor
         if(typefacePath!=null) mTypefacePath = typefacePath
         if(bgRes!=null) mBgDrawable = if(bgRes==0) null else drawable(bgRes)
+        if(shadowColor!=null) mShadowColor = shadowColor
+        if(shadowSize!=null) mShadowSize = shadowSize
         applySelf()
     }
 }

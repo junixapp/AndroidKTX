@@ -38,6 +38,8 @@ open class ShapeLinearLayout @JvmOverloads constructor(context: Context, attribu
     private var mGradientCenterColor = 0
     private var mGradientEndColor = 0
     private var mGradientOrientation = GradientDrawable.Orientation.LEFT_RIGHT  //从左到右
+    private var mShadowColor: Int? = null
+    private var mShadowSize: Float? = null
 
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.ShapeLinearLayout)
@@ -70,6 +72,8 @@ open class ShapeLinearLayout @JvmOverloads constructor(context: Context, attribu
             6 -> GradientDrawable.Orientation.LEFT_RIGHT
             else -> GradientDrawable.Orientation.TL_BR
         }
+        mShadowColor = ta.getColor(R.styleable.ShapeLinearLayout_sll_shadowColor, 0)
+        mShadowSize = ta.getFloat(R.styleable.ShapeLinearLayout_sll_shadowSize, 0f)
         ta.recycle()
         applySelf()
     }
@@ -87,7 +91,8 @@ open class ShapeLinearLayout @JvmOverloads constructor(context: Context, attribu
         }
         val drawable = createDrawable(color = color ?: mSolid, radius = mCorner.toFloat(), cornerRadiusArray = cornerArr, strokeColor = mStroke, strokeWidth = mStrokeWidth,
             enableRipple = mEnableRipple, rippleColor = mRippleColor, gradientStartColor = mGradientStartColor,
-            gradientEndColor = mGradientEndColor, gradientCenterColor = mGradientCenterColor, gradientOrientation = mGradientOrientation)
+            gradientEndColor = mGradientEndColor, gradientCenterColor = mGradientCenterColor, gradientOrientation = mGradientOrientation,
+            shadowColor = mShadowColor, shadowSize = mShadowSize)
         setBackgroundDrawable(drawable)
     }
 
@@ -108,7 +113,7 @@ open class ShapeLinearLayout @JvmOverloads constructor(context: Context, attribu
         corner: Int? = null, cornerArr: Array<Int>? = null, enableRipple: Boolean? = null, rippleColor: Int? = null,
         topLineColor: Int? = null, bottomLineColor: Int? = null, lineSize: Int? = null,
         gradientOrientation: GradientDrawable.Orientation? = null,  gradientStartColor: Int? = null,
-        gradientCenterColor: Int? = null,gradientEndColor: Int? = null){
+        gradientCenterColor: Int? = null,gradientEndColor: Int? = null, shadowColor: Int? = null, shadowSize: Float? = null){
         if(solid!=null) mSolid = solid
         if(stroke!=null) mStroke = stroke
         if(strokeWidth!=null) mStrokeWidth = strokeWidth
@@ -128,6 +133,8 @@ open class ShapeLinearLayout @JvmOverloads constructor(context: Context, attribu
         if(gradientStartColor!=null) mGradientStartColor = gradientStartColor
         if(gradientCenterColor!=null) mGradientCenterColor = gradientCenterColor
         if(gradientEndColor!=null) mGradientEndColor = gradientEndColor
+        if(shadowColor!=null) mShadowColor = shadowColor
+        if(shadowSize!=null) mShadowSize = shadowSize
         applySelf()
     }
 }
