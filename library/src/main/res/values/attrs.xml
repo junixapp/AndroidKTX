@@ -110,7 +110,7 @@
             <enum name="TL_BR" value="7" />
         </attr>
         <attr name="sfl_shadowColor" format="color" />
-        <attr name="sfl_shadowSize" format="float" />
+        <attr name="sfl_shadowSize" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="ShapeLinearLayout">
@@ -144,7 +144,7 @@
             <enum name="TL_BR" value="7" />
         </attr>
         <attr name="sll_shadowColor" format="color" />
-        <attr name="sll_shadowSize" format="float" />
+        <attr name="sll_shadowSize" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="ShapeRelativeLayout">
@@ -178,7 +178,7 @@
             <enum name="TL_BR" value="7" />
         </attr>
         <attr name="srl_shadowColor" format="color" />
-        <attr name="srl_shadowSize" format="float" />
+        <attr name="srl_shadowSize" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="ShapeTextView">
@@ -218,7 +218,7 @@
         <attr name="stv_typefacePath" format="string" />
         <attr name="stv_background" format="reference" />
         <attr name="stv_shadowColor" format="color" />
-        <attr name="stv_shadowSize" format="float" />
+        <attr name="stv_shadowSize" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="ShapeImageView">

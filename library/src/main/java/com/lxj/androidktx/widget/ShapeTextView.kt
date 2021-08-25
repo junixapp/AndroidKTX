@@ -6,13 +6,11 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.cardview.widget.CardView
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.createDrawable
 import com.lxj.androidktx.core.dp
 import com.lxj.androidktx.core.drawable
 import com.lxj.androidktx.core.sizeDrawable
-import com.lxj.androidktx.util.ShadowDrawable
 
 /**
  * Description: 能设置Shape的TextView
@@ -44,7 +42,7 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
     private var mTypefacePath: String? = null
     private var mBgDrawable: Drawable? = null
     private var mShadowColor: Int? = null
-    private var mShadowSize: Float? = null
+    private var mShadowSize: Int? = null
 
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.ShapeTextView)
@@ -89,7 +87,7 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
         mTypefacePath = ta.getString(R.styleable.ShapeTextView_stv_typefacePath)
         mBgDrawable = ta.getDrawable(R.styleable.ShapeTextView_stv_background)
         mShadowColor = ta.getColor(R.styleable.ShapeTextView_stv_shadowColor, 0)
-        mShadowSize = ta.getFloat(R.styleable.ShapeTextView_stv_shadowSize, 0f)
+        mShadowSize = ta.getDimensionPixelSize(R.styleable.ShapeTextView_stv_shadowSize, 0)
         ta.recycle()
         applySelf()
     }
@@ -110,7 +108,7 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
             val drawable = createDrawable(color = mSolid, radius = mCorner.toFloat(), cornerRadiusArray = cornerArr,strokeColor = mStroke, strokeWidth = mStrokeWidth,
                 enableRipple = mEnableRipple, rippleColor = mRippleColor, gradientStartColor = mGradientStartColor,
                 gradientCenterColor = mGradientCenterColor, gradientEndColor = mGradientEndColor, gradientOrientation = mGradientOrientation,
-                shadowColor = mShadowColor, shadowSize = mShadowSize)
+                shadowColor = mShadowColor, shadowSize = mShadowSize?.toFloat())
             background = drawable
         }
     }
@@ -144,7 +142,7 @@ open class ShapeTextView @JvmOverloads constructor(context: Context, attributeSe
               topLineColor: Int? = null, bottomLineColor: Int? = null, lineSize: Int? = null,
             gradientOrientation: GradientDrawable.Orientation? = null,  gradientStartColor: Int? = null,
            gradientCenterColor: Int? = null,gradientEndColor: Int? = null, typefacePath: String? = null,
-        bgRes: Int? = null, shadowColor: Int? = null, shadowSize: Float? = null){
+        bgRes: Int? = null, shadowColor: Int? = null, shadowSize: Int? = null){
         if(drawableWidth!=null) mDrawableWidth = drawableWidth
         if(drawableHeight!=null) mDrawableHeight = drawableHeight
         if (drawableSize != null) {

@@ -107,7 +107,7 @@ class SpanExtPage : BaseFragment() {
         tt.sizeDrawable(300)
 //        tt.setBackgroundColor(Color.RED)
         var radius = 10
-        var shadowSize = 10f
+        var shadowSize = 10
         tt.setup(solid = Color.WHITE, shadowSize = shadowSize, corner = radius)
         tt.click {  }
 
@@ -122,7 +122,7 @@ class SpanExtPage : BaseFragment() {
         })
         seekBar2.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                shadowSize = progress.toFloat()
+                shadowSize = progress
                 tt.setup(solid = Color.WHITE, shadowSize = shadowSize, corner = radius)
             }
 
