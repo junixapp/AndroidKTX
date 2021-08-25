@@ -52,8 +52,15 @@ object OkExt {
     /**
      * 设置全局公共Header
      */
-    fun headers(vararg headers: Pair<String, String>): OkExt {
-        headers.forEach { globalHeaders.add(it) }
+    fun headers(vararg headers: Pair<String, String>, replace: Boolean = true): OkExt {
+        headers.forEach {
+            if(replace){
+                val index = globalHeaders.indexOfFirst { p->p.first==it.first }
+                if(index>=0) globalHeaders[index] = it
+            }else{
+                globalHeaders.add(it)
+            }
+        }
         return this
     }
 
