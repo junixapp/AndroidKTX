@@ -147,10 +147,10 @@ open class WebActivity : TitleBarActivity(){
     }
 
     private val mWebViewClient = object : WebViewClient(){
-        override fun onReceivedSslError(view: WebView?, handler: SslErrorHandler?, error: SslError?) {
-//            super.onReceivedSslError(view, handler, error)
-            handler?.proceed()
-        }
+//        override fun onReceivedSslError(view: WebView?, handler: SslErrorHandler?, error: SslError?) {
+////            super.onReceivedSslError(view, handler, error)
+//            handler?.proceed()
+//        }
     }
 
     private val mWebChromeClient: WebChromeClient = object : WebChromeClient() {
