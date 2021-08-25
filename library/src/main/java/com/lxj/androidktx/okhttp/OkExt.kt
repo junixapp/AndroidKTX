@@ -56,7 +56,11 @@ object OkExt {
         headers.forEach {
             if(replace){
                 val index = globalHeaders.indexOfFirst { p->p.first==it.first }
-                if(index>=0) globalHeaders[index] = it
+                if(index>=0){
+                    globalHeaders[index] = it
+                }else{
+                    globalHeaders.add(it)
+                }
             }else{
                 globalHeaders.add(it)
             }
