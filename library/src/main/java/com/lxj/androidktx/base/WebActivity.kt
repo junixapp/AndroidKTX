@@ -15,6 +15,7 @@ import com.lxj.androidktx.AndroidKTX
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.click
 import com.lxj.androidktx.core.dp
+import com.lxj.androidktx.core.string
 import kotlinx.android.synthetic.main._ktx_activity_web.*
 
 
@@ -112,7 +113,7 @@ open class WebActivity : TitleBarActivity(){
             if(keepMarginTop) hideTitleBarWithMarginTop()
             else hideTitleBar()
         }else{
-            titleBar().setup(leftImageRes = leftIconRes, title = title ?: "加载中...")
+            titleBar().setup(leftImageRes = leftIconRes, title = title ?: string(R.string._ktx_loading))
             titleBar().leftImageView().click {
                 if(!agentWeb.back()){
                     finish()

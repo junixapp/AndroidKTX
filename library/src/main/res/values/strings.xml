@@ -1,27 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="pay_with_alipay">Pay with Alipay</string>
-    <string name="pay_with_alipay_hk">Pay with AlipayHK</string>
-    <string name="auth_with_alipay">Authenticate with Alipay</string>
-    <string name="web_to_native">Call Alipay from Web Content</string>
-    <string name="check_sdk_version">Alipay SDK Version</string>
-    <string name="pay_success">Payment success:</string>
-    <string name="auth_failed">Authentication failed:</string>
-    <string name="permission_already_granted">Required permissions have already been granted to AlipaySDK</string>
-    <string name="permission_rejected">Missing permissions. Please grant required permissions in system settings</string>
-    <string name="permission_granted">Required permissions have been granted to AlipaySDK</string>
-    <string name="error_missing_appid_rsa_private">Error: Missing \"APPID\" or \"RSA_PRIVATE\" in PayDemoActivity.</string>
-    <string name="error_missing_hk_partner_seller_rsa_private">Error: Missing \"PARTNER\", \"SELLER\", or \"RSA_PRIVATE\\ in OrderUtils1_0_HK.</string>
-    <string name="pay_result">Payment result:</string>
-    <string name="error_auth_missing_partner_appid_rsa_private_target_id">Error: Missing \"PARTNER\", \"APP_ID\", \"RSA_PRIVATE\", or \"TARGET_ID\" in PayDemoActivity.</string>
-    <string name="confirm">Confirm</string>
-    <string name="pay_failed">Payment failed:</string>
-    <string name="auth_success">Authentication success:</string>
-    <string name="alipay_sdk_version_is">"Alipay SDK version: "</string>
-    <string name="error_missing_h5_pay_url">Missing URL to load. Please configure in PayDemoActivity.h5Pay()</string>
-    <string name="error">Error</string>
-    <string name="pay_cross_border">Cross-border Pay with Alipay</string>
-    <string name="error_missing_global_partner_seller_rsa_private" >Error: Missing \"PARTNER\", \"SELLER\", or \"RSA_PRIVATE\\ in OrderUtils1_0_Global.</string>
-    <string name="payment_inst_hk">Payer: HK</string>
-    <string name="payment_inst_cn">Payer: CN</string>
+    <string name="_ktx_loading">Loading</string>
 </resources>
