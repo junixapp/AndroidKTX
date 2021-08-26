@@ -19,10 +19,10 @@ import com.lxj.androidktx.core.string
 import kotlinx.android.synthetic.main._ktx_activity_web.*
 
 
-open class WebActivity : TitleBarActivity(){
+open class WebActivity : TitleBarActivity() {
 
-    companion object{
-        var onRightClickAction: (()->Unit)? = null
+    companion object {
+        var onRightClickAction: (() -> Unit)? = null
 
         /**
          * 开启WebView界面
@@ -39,15 +39,28 @@ open class WebActivity : TitleBarActivity(){
          * @param rightIconRes 右边按钮的图片
          * @param rightIconClickAction 右边按钮的点击监听器
          */
-        fun start(title: String? = null, url: String? = null, content: String? = null,
-                  hideTitleBar: Boolean = false, keepMarginTop: Boolean = false, leftIconRes: Int = R.mipmap._ktx_ic_back,
-                  enableCache: Boolean? = false, showProgress: Boolean = true, indicatorColor : Int = 0,
-                  statusBarColor : Int = -1, isLightStatusBar: Boolean = true, rightIconRes: Int = 0, rightIconClickAction: (() -> Unit)? = null){
+        fun start(
+            title: String? = null,
+            url: String? = null,
+            content: String? = null,
+            designWidth: Int? = 0,
+            designHeight: Int? = null,
+            hideTitleBar: Boolean = false,
+            keepMarginTop: Boolean = false,
+            leftIconRes: Int = R.mipmap._ktx_ic_back,
+            enableCache: Boolean? = false,
+            showProgress: Boolean = true,
+            indicatorColor: Int = 0,
+            statusBarColor: Int = -1,
+            isLightStatusBar: Boolean = true,
+            rightIconRes: Int = 0,
+            rightIconClickAction: (() -> Unit)? = null
+        ) {
             onRightClickAction = rightIconClickAction
-            if(AndroidKTX.isDebug){
-                if(!url.isNullOrEmpty()){
+            if (AndroidKTX.isDebug) {
+                if (!url.isNullOrEmpty()) {
                     LogUtils.d("url: $url")
-                }else{
+                } else {
                     LogUtils.d("content: $content")
                 }
             }
@@ -60,31 +73,49 @@ open class WebActivity : TitleBarActivity(){
             intent.putExtra("url", url)
             intent.putExtra("content", content)
             intent.putExtra("leftIconRes", leftIconRes)
-            if(indicatorColor!=-1){
+            if (indicatorColor != -1) {
                 intent.putExtra("statusBarColor", statusBarColor)
             }
-            if(indicatorColor!=0){
+            if (indicatorColor != 0) {
                 intent.putExtra("indicatorColor", indicatorColor)
             }
-            if(rightIconRes!=0){
+            if (rightIconRes != 0) {
                 intent.putExtra("rightIconRes", rightIconRes)
             }
             intent.putExtra("enableCache", enableCache)
             intent.putExtra("showProgress", showProgress)
+            if (designWidth != null) intent.putExtra("designWidth", designWidth)
+            if (designHeight != null) intent.putExtra("designHeight", designHeight)
             AndroidKTX.context.startActivity(intent)
         }
-
     }
 
     override fun getBodyLayout() = R.layout._ktx_activity_web
     var title: String? = null
     lateinit var agentWeb: AgentWeb
     var enableCache = false
-    val indicatorColor : Int by lazy { intent.getIntExtra("indicatorColor", Color.parseColor("#14d068")) }
-    val mStatusBarColor : Int by lazy { intent.getIntExtra("statusBarColor", -1) }
+    val indicatorColor: Int by lazy {
+        intent.getIntExtra(
+            "indicatorColor",
+            Color.parseColor("#14d068")
+        )
+    }
+    val mStatusBarColor: Int by lazy { intent.getIntExtra("statusBarColor", -1) }
     val hideTitleBar: Boolean by lazy { intent.getBooleanExtra("hideTitleBar", false) }
     val keepMarginTop: Boolean by lazy { intent.getBooleanExtra("keepMarginTop", false) }
     val isLightStatusBar: Boolean by lazy { intent.getBooleanExtra("isLightStatusBar", false) }
+    val mDesignWidth: Int by lazy { intent.getIntExtra("designWidth", 0) }
+    val mDesignHeight: Int by lazy { intent.getIntExtra("designHeight", 0) }
+
+    override fun getDesignWidth(): Int {
+        if (mDesignWidth > 0) return mDesignWidth
+        return super.getDesignWidth()
+    }
+
+    override fun getDesignHeight(): Int {
+        if (mDesignHeight > 0) return mDesignHeight
+        return super.getDesignHeight()
+    }
 
     override fun isLightMode() = isLightStatusBar
 
@@ -96,58 +127,61 @@ open class WebActivity : TitleBarActivity(){
     override fun initData() {
         setupTitle()
 
-        val url = intent.getStringExtra("url")?:""
-        val content = intent.getStringExtra("content")?:""
+        val url = intent.getStringExtra("url") ?: ""
+        val content = intent.getStringExtra("content") ?: ""
         loadData(url, content)
     }
 
-    fun setupTitle(){
+    fun setupTitle() {
         title = intent.getStringExtra("title")
         val leftIconRes = intent.getIntExtra("leftIconRes", R.mipmap._ktx_ic_back)
         val rightIconRes = intent.getIntExtra("rightIconRes", 0)
         enableCache = intent.getBooleanExtra("enableCache", false)
 
-        if(mStatusBarColor!=-1) setStatusBarColor(mStatusBarColor)
+        if (mStatusBarColor != -1) setStatusBarColor(mStatusBarColor)
 
-        if(hideTitleBar){
-            if(keepMarginTop) hideTitleBarWithMarginTop()
+        if (hideTitleBar) {
+            if (keepMarginTop) hideTitleBarWithMarginTop()
             else hideTitleBar()
-        }else{
-            titleBar().setup(leftImageRes = leftIconRes, title = title ?: string(R.string._ktx_loading))
+        } else {
+            titleBar().setup(
+                leftImageRes = leftIconRes,
+                title = title ?: string(R.string._ktx_loading)
+            )
             titleBar().leftImageView().click {
-                if(!agentWeb.back()){
+                if (!agentWeb.back()) {
                     finish()
                 }
             }
-            if(rightIconRes!=0){
+            if (rightIconRes != 0) {
                 titleBar().setupRightImage(imageRes = rightIconRes)
                 titleBar().rightImageView().click { onRightClickAction?.invoke() }
             }
         }
     }
 
-    fun loadData(url: String, content: String){
-        if(url.isNotEmpty()){
+    fun loadData(url: String, content: String) {
+        if (url.isNotEmpty()) {
             agentWeb = AgentWeb.with(this)
-                    .setAgentWebParent(webViewParent, FrameLayout.LayoutParams(-1, -1))
-                    .useDefaultIndicator(indicatorColor, 1.dp)
-                    .setWebViewClient(mWebViewClient)
-                    .setWebChromeClient(mWebChromeClient)
-                    .createAgentWeb()
-                    .ready().go(url)
-        }else{
+                .setAgentWebParent(webViewParent, FrameLayout.LayoutParams(-1, -1))
+                .useDefaultIndicator(indicatorColor, 1.dp)
+                .setWebViewClient(mWebViewClient)
+                .setWebChromeClient(mWebChromeClient)
+                .createAgentWeb()
+                .ready().go(url)
+        } else {
             agentWeb = AgentWeb.with(this)
-                    .setAgentWebParent(webViewParent, FrameLayout.LayoutParams(-1, -1))
-                    .useDefaultIndicator(indicatorColor, 1.dp)
-                    .setWebViewClient(mWebViewClient)
-                    .setWebChromeClient(mWebChromeClient)
-                    .createAgentWeb()
-                    .ready().go(null)
-            agentWeb.webCreator.webView.loadDataWithBaseURL("", content, null,null,null)
+                .setAgentWebParent(webViewParent, FrameLayout.LayoutParams(-1, -1))
+                .useDefaultIndicator(indicatorColor, 1.dp)
+                .setWebViewClient(mWebViewClient)
+                .setWebChromeClient(mWebChromeClient)
+                .createAgentWeb()
+                .ready().go(null)
+            agentWeb.webCreator.webView.loadDataWithBaseURL("", content, null, null, null)
         }
     }
 
-    private val mWebViewClient = object : WebViewClient(){
+    private val mWebViewClient = object : WebViewClient() {
 //        override fun onReceivedSslError(view: WebView?, handler: SslErrorHandler?, error: SslError?) {
 ////            super.onReceivedSslError(view, handler, error)
 //            handler?.proceed()
@@ -157,14 +191,14 @@ open class WebActivity : TitleBarActivity(){
     private val mWebChromeClient: WebChromeClient = object : WebChromeClient() {
         override fun onReceivedTitle(view: WebView?, t: String?) {
             super.onReceivedTitle(view, t)
-            if(title.isNullOrEmpty()){
-                titleBar().setup(title = t?:"")
+            if (title.isNullOrEmpty()) {
+                titleBar().setup(title = t ?: "")
             }
         }
     }
 
     override fun onBackPressed() {
-        if (!agentWeb.back()){
+        if (!agentWeb.back()) {
             super.onBackPressed()
         }
     }
@@ -173,13 +207,14 @@ open class WebActivity : TitleBarActivity(){
         agentWeb.webLifeCycle.onResume()
         super.onResume()
     }
+
     override fun onPause() {
         agentWeb.webLifeCycle.onPause()
         super.onPause()
     }
 
     override fun onDestroy() {
-        if(!enableCache) {
+        if (!enableCache) {
             agentWeb.clearWebCache()
             agentWeb.webLifeCycle.onDestroy()
         }
