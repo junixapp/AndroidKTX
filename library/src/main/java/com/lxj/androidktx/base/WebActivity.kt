@@ -104,8 +104,8 @@ open class WebActivity : TitleBarActivity() {
     val hideTitleBar: Boolean by lazy { intent.getBooleanExtra("hideTitleBar", false) }
     val keepMarginTop: Boolean by lazy { intent.getBooleanExtra("keepMarginTop", false) }
     val isLightStatusBar: Boolean by lazy { intent.getBooleanExtra("isLightStatusBar", false) }
-    val mDesignWidth: Int by lazy { intent.getIntExtra("designWidth", 0) }
-    val mDesignHeight: Int by lazy { intent.getIntExtra("designHeight", 0) }
+    val mDesignWidth: Int by lazy { intent?.getIntExtra("designWidth", 0) ?:0 }
+    val mDesignHeight: Int by lazy { intent?.getIntExtra("designHeight", 0)?:0 }
 
     override fun getDesignWidth(): Int {
         if (mDesignWidth > 0) return mDesignWidth

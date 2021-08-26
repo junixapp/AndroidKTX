@@ -74,9 +74,9 @@ class SpanExtPage : BaseFragment() {
         """.trimIndent()
         tvClickResult.clickSpan(str = str, range = 2..6, color = Color.BLUE, clickAction = {
             ToastUtils.showShort("哈哈我被点击了".toColorSpan(0..2))
-            Share.wxLogin(requireActivity()!!,callback = object : Share.ShareCallback{
-
-            })
+//            Share.wxLogin(requireActivity()!!,callback = object : Share.ShareCallback{
+                WebActivity.start(url = "https://www.baidu.com", designHeight = 960)
+//            })
 //            Share.shareImage(activity!!,platform = SharePlatform.QQ, bitmap = tvClickSpan.toBitmap(), cb = object : Share.ShareCallback{
 //
 //            })
