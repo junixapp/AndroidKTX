@@ -53,8 +53,19 @@ data class RequestWrapper(
         return this
     }
 
-    fun customReqBody(body: RequestBody): RequestWrapper{
+    /**
+     * 自定义任意body
+     */
+    fun customBody(body: RequestBody): RequestWrapper{
         customReqBody = body
+        return this
+    }
+
+    /**
+     * 以json串方式的body封装
+     */
+    fun jsonParam(json: String): RequestWrapper{
+        customReqBody = buildJsonBody(json)
         return this
     }
 
@@ -138,7 +149,7 @@ data class RequestWrapper(
         }
     }
 
-    fun buildJsonBody(json: String): RequestBody{
+    private fun buildJsonBody(json: String): RequestBody{
         return RequestBody.create(MediaType.parse("application/json"), json)
     }
 

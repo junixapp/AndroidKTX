@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
  * Description: 携带状态的LiveData
  * Create by lxj, at 2019/3/6
  */
-class StateLiveData<T> : NoStickyLiveData<T>() {
+class StateLiveData<T>(defValue: T? = null) : NoStickyLiveData<T>() {
 
     enum class State {
         Idle, Loading, Success, Error, Empty
@@ -23,6 +23,7 @@ class StateLiveData<T> : NoStickyLiveData<T>() {
     var errMsg: String? = null
 
     init {
+        if(defValue!=null) postValue(defValue)
         state.postValue(State.Idle)
     }
 
