@@ -7,6 +7,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
+import com.lxj.androidktx.livedata.LifecycleHandler
 
 /**
  * 精准倒计时实现，如果传入了LifecycleOwner，将自动cancel，无需调用cancel
@@ -18,17 +19,18 @@ import androidx.lifecycle.OnLifecycleEvent
  * @param onChange 递减回调
  * @param onFinish 倒计时结束回调
  */
-class CountDownWorker(var total: Int = 60, var step: Int = 1, var countDownInterval: Long = 1000,
-                      var immediately: Boolean = true,
+class CountDownWorker(var owner: LifecycleOwner,
+                      var total: Int = 60, var step: Int = 1, var countDownInterval: Long = 1000,
+                      var immediately: Boolean = true, var from : Int = 0,
     var onChange: ((s: Int)->Unit)? = null,  var onFinish: (()->Unit)? = null) : LifecycleObserver{
     private var mCancelled = false
-    private var steps = 0
+    private var steps = from
     private val what = 1
-    fun start(owner: LifecycleOwner? = null){
-        owner?.lifecycle?.addObserver(this)
+    fun start(){
+        owner.lifecycle.addObserver(this)
         mHandler.removeMessages(what)
         mCancelled = false
-        steps = 0
+        steps = from
         if(immediately) onChange?.invoke(total)
         mHandler.sendEmptyMessageDelayed(what, countDownInterval)
     }
@@ -43,7 +45,8 @@ class CountDownWorker(var total: Int = 60, var step: Int = 1, var countDownInter
         cancel()
     }
 
-    private val mHandler: Handler = @SuppressLint("HandlerLeak") object : Handler() {
+    private val mHandler: Handler = @SuppressLint("HandlerLeak")
+    object : LifecycleHandler(owner) {
         override fun handleMessage(msg: Message) {
             synchronized(this@CountDownWorker) {
                 if (mCancelled) return
