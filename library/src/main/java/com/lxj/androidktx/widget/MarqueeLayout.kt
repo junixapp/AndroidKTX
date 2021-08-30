@@ -79,6 +79,11 @@ class MarqueeLayout @JvmOverloads constructor(
                 first = false
             }
 
+            override fun onAnimationCancel(animation: Animator?) {
+                super.onAnimationCancel(animation)
+                scrolling = false
+                animator!!.removeAllListeners()
+            }
             override fun onAnimationEnd(animation: Animator?) {
                 super.onAnimationEnd(animation)
                 scrolling = false
@@ -93,8 +98,7 @@ class MarqueeLayout @JvmOverloads constructor(
         })
         //速度：假设整个View的宽度滚动完需要8秒，得出每秒滚动多少px
         val speed = measuredWidth / 8
-        if(speed==0) return
-        animator!!.duration = ((distance / speed) * 1000 * mSlow).toLong()
+        animator!!.duration = if(speed==0) 0 else ((distance / speed) * 1000 * mSlow).toLong()
         animator!!.start()
     }
 
