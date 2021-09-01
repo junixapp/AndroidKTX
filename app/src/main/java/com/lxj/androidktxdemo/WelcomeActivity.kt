@@ -8,8 +8,9 @@ class WelcomeActivity : BaseActivity() {
     override fun getLayoutId() = R.layout.activity_welcome
 
     override fun initView() {
+        supportActionBar?.hide()
         val fromNotification = intent?.getBooleanExtra("fromNotification", false)?:false
-        postDelay(2000){
+        postDelay(800){
             startActivity<MainActivity>()
             if(fromNotification) startActivity<DemoActivity>()
             finish()
