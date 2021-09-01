@@ -1,11 +1,11 @@
 package com.lxj.androidktx.share
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.lxj.androidktx.AndroidKTX
 import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import com.umeng.commonsdk.UMConfigure
@@ -21,18 +21,18 @@ import com.umeng.socialize.media.UMWeb
  * Create by dance, at 2019/4/1
  */
 object Share {
-    fun init(isDebug: Boolean, umengAppKey: String, umengMessageSecret: String? = null,
+    fun init(context: Context, isDebug: Boolean, umengAppKey: String, umengMessageSecret: String? = null,
              wxAppId: String, wxAppKey: String,
              qqAppId: String = "", qqAppKey: String = "",
              weiboAppId: String = "", weiboAppKey: String = "", weiboCallbackUrl: String = ""
     ) {
         UMConfigure.setLogEnabled(isDebug)
-        UMConfigure.init(AndroidKTX.context, umengAppKey, "Umeng", UMConfigure.DEVICE_TYPE_PHONE, umengMessageSecret)
+        UMConfigure.init(context, umengAppKey, "Umeng", UMConfigure.DEVICE_TYPE_PHONE, umengMessageSecret)
         PlatformConfig.setWeixin(wxAppId, wxAppKey)
-        PlatformConfig.setWXFileProvider("${AndroidKTX.context.packageName}.fileprovider")
+        PlatformConfig.setWXFileProvider("${context.packageName}.fileprovider")
         if (qqAppId.isNotEmpty()) {
             PlatformConfig.setQQZone(qqAppId, qqAppKey)
-            PlatformConfig.setQQFileProvider("${AndroidKTX.context.packageName}.fileprovider")
+            PlatformConfig.setQQFileProvider("${context.packageName}.fileprovider")
         }
         if (weiboAppId.isNotEmpty()) PlatformConfig.setSinaWeibo(weiboAppId, weiboAppKey, weiboCallbackUrl)
     }

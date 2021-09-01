@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.lxj.androidktx.share">
+    <application>
+
+    <activity
+        android:name="com.umeng.socialize.media.WBShareCallBackActivity"
+        android:configChanges="keyboardHidden|orientation"
+        android:exported="false"
+        android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+    <!--微信需要的-->
+    <activity
+        android:name="com.lxj.androidktx.share.wxapi.WXEntryActivity"
+        android:configChanges="keyboardHidden|orientation|screenSize"
+        android:exported="true"
+        android:screenOrientation="portrait"
+        android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+    <activity-alias
+        android:name="${applicationId}.wxapi.WXEntryActivity"
+        android:exported="true"
+        android:targetActivity="com.lxj.androidktx.share.wxapi.WXEntryActivity" />
+
+    <!-- qq需要的-->
+    <activity
+        android:name="com.tencent.tauth.AuthActivity"
+        android:launchMode="singleTask"
+        android:noHistory="true">
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="tencent101909069" />
+        </intent-filter>
+    </activity>
+    <activity
+        android:name="com.tencent.connect.common.AssistActivity"
+        android:configChanges="orientation|keyboardHidden"
+        android:theme="@android:style/Theme.Translucent.NoTitleBar"
+        tools:replace="android:configChanges" />
+    </application>
+</manifest>

@@ -1,20 +1,17 @@
 package com.lxj.androidktxdemo.fragment
 
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Typeface
-import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
-import android.graphics.drawable.RippleDrawable
-import android.os.Build
 import android.widget.SeekBar
 import com.blankj.utilcode.util.*
+import com.lxj.androidktx.AndroidKTX
 import com.lxj.androidktx.base.WebActivity
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.share.Share
+import com.lxj.androidktx.share.SharePlatform
 import com.lxj.androidktx.widget.SuperDrawable
 import com.lxj.androidktxdemo.R
-import com.lxj.androidktxdemo.ShadowDrawable
 import com.lxj.androidktxdemo.notification.NotificationDemo
 import kotlinx.android.synthetic.main.fragment_span_ext.*
 
@@ -61,7 +58,7 @@ class SpanExtPage : BaseFragment() {
             tv.strikethrougthSpan(str,2..6)
         """.trimIndent()
         tvStrikethrougthResult.strikeThrougthSpan(str, 2..6)
-        Share.init(isDebug = true, umengAppKey = "5fadfcac43e9f56479c7262b",
+       Share.init(AndroidKTX.context,isDebug = true, umengAppKey = "5fadfcac43e9f56479c7262b",
                 wxAppId = "wxd9f85e015cc9ed70", wxAppKey = "ff3b1319baf9adfa04d35093015cd693",
                 qqAppId = "101909069", qqAppKey = "a5feb5c684a77bdeca609f71864cd526",
                 weiboAppId = "1205214008", weiboAppKey = "159e9862228b99876da0a7d554835fbe", weiboCallbackUrl = "http://sg.qingjuyx.com"
@@ -74,12 +71,10 @@ class SpanExtPage : BaseFragment() {
             ToastUtils.showShort("哈哈我被点击了".toColorSpan(0..2))
 
             NotificationDemo.show()
-//            Share.wxLogin(requireActivity()!!,callback = object : Share.ShareCallback{
-//                WebActivity.start(url = "https://www.baidu.com", designHeight = 960)
-//            })
-//            Share.shareImage(activity!!,platform = SharePlatform.QQ, bitmap = tvClickSpan.toBitmap(), cb = object : Share.ShareCallback{
-//
-//            })
+
+            Share.shareImage(requireActivity(),platform = SharePlatform.QQ, bitmap = tvClickSpan.toBitmap(), cb = object : Share.ShareCallback{
+
+            })
 //            Share.shareWeb(activity!!,platform = SharePlatform.QQ,
 //                    url = "https://www.baidu.com", title = "三生三世",
 //                    thumbRes = R.mipmap.ic_launcher, cb = object : Share.ShareCallback{
