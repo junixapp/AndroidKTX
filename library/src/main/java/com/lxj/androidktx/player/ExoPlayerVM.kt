@@ -26,19 +26,17 @@ object ExoPlayerVM : ViewModel(){
 
     private var autoPlayNext = true
     val handler = Handler(Looper.getMainLooper())
-    lateinit var player :SimpleExoPlayer
+    var player :SimpleExoPlayer
     var playMode = StateLiveData<String>()
     val playState = StateLiveData<PlayState>()
     var currentIndex = -1
     val playInfo = StateLiveData<PlayInfo>() //播放进度, 位置
     val uriList = arrayListOf<String>()
     var isCacheLastData = false
-    fun init(cacheLastData: Boolean = false) {
-        this.isCacheLastData = cacheLastData
+
+    init {
         playState.value = PlayState.Idle
         playMode.value = sp().getString("_ktx_player_mode", RepeatAllMode) ?: RepeatAllMode
-        playInfo.value = if(isCacheLastData) sp().getObject<PlayInfo>("_last_playinfo_")?: PlayInfo() else PlayInfo()
-        currentIndex = playInfo.value!!.index
 
         player = SimpleExoPlayer.Builder(AndroidKTX.context).build()
         player.repeatMode = Player.REPEAT_MODE_OFF
@@ -85,6 +83,12 @@ object ExoPlayerVM : ViewModel(){
                 stopPostProgress()
             }
         })
+    }
+
+    fun cacheLastData(b: Boolean) {
+        this.isCacheLastData = b
+        playInfo.value = if(isCacheLastData) sp().getObject<PlayInfo>("_last_playinfo_")?: PlayInfo() else PlayInfo()
+        currentIndex = playInfo.value?.index ?: -1
     }
 
     /**

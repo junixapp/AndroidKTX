@@ -15,17 +15,12 @@ import kotlinx.android.synthetic.main.fragment_player.*
  */
 class PlayerFragment : BaseFragment() {
     val list = listOf(
-            "https://yiyi-admin.jiker.info/File/resources/16f19ec74e6911585c54ffc6290102dd.mp3",
-            "https://yiyi-admin.jiker.info/File/resources/9e9fc77280ddc60c530543fb4c32d0b2.mp3",
-            "https://yiyi-admin.jiker.info/File/resources/16f19ec74e6911585c54ffc6290102dd.mp3",
-            "https://yiyi-admin.jiker.info/File/resources/9e9fc77280ddc60c530543fb4c32d0b2.mp3",
-            "https://yiyi-admin.jiker.info/File/resources/16f19ec74e6911585c54ffc6290102dd.mp3",
-            "https://yiyi-admin.jiker.info/File/resources/9e9fc77280ddc60c530543fb4c32d0b2.mp3",
+            "http://m10.music.126.net/20210901213526/4cd401907e679ec070f5e293bc71720d/ymusic/91b2/56dd/8cf8/f1e374284c9b731312c5af0a051a44b7.mp3",
+        "http://m10.music.126.net/20210901213407/4bb69dbb19f1c282b3f48269f9d07c2d/ymusic/5252/0409/0109/e83d3617ce3c4b005b4b6c8ef9622f66.mp3"
     )
     override fun getLayoutId() = R.layout.fragment_player
     var first = true
     override fun initView() {
-        ExoPlayerVM.init()
         ExoPlayerVM.bindList(list)
 
         ExoPlayerVM.playMode.observe(this, Observer {
