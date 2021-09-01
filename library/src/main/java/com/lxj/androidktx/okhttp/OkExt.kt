@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit
 object OkExt {
     const val DefaultUrlTag = "okhttp"
     const val NoBaseUrl = "_OkExtNoBaseUrl_"
-    private var httpTimeout = 30000L  //30s
+    private var httpTimeout = 15000L  //30s
     val globalHeaders = arrayListOf<Pair<String, String>>()
     val requestCache = hashMapOf<Any, Call>()
     val baseUrlMap = hashMapOf<Any, String>() //存储多个baseUrl, key使用tag来存储

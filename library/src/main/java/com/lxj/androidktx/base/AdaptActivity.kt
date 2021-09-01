@@ -19,14 +19,13 @@ abstract class AdaptActivity : BaseActivity() {
     }
 
     override fun getResources(): Resources {
-        if(ScreenUtils.isLandscape()){
-            return AdaptScreenUtils.adaptWidth(super.getResources(), getDesignHeight())
+        if(ScreenUtils.isPortrait()){
+            return AdaptScreenUtils.adaptWidth(super.getResources(), getDesignWidth())
         }
-        return AdaptScreenUtils.adaptWidth(super.getResources(), getDesignWidth())
+        return AdaptScreenUtils.adaptHeight(super.getResources(), getDesignWidth())
     }
 
     open fun getDesignWidth() = 375
-    open fun getDesignHeight() = 750
 
     open fun isLightMode() = true
 

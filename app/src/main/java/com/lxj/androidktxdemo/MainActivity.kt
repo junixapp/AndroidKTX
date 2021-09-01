@@ -2,6 +2,7 @@ package com.lxj.androidktxdemo
 
 import android.content.Intent
 import androidx.viewbinding.ViewBinding
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.FragmentUtils
 import com.lxj.androidktx.base.BaseActivity
 import com.lxj.androidktx.core.*
@@ -77,7 +78,7 @@ class MainActivity : BaseActivity() {
 
     override fun onBackPressed() {
         if(!FragmentUtils.dispatchBackPress(supportFragmentManager)){
-            super.onBackPressed()
+            ActivityUtils.startHomeActivity()
         }
     }
 }

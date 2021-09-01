@@ -8,16 +8,14 @@ import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.RippleDrawable
 import android.os.Build
 import android.widget.SeekBar
-import com.blankj.utilcode.util.ImageUtils
-import com.blankj.utilcode.util.ShadowUtils
-import com.blankj.utilcode.util.SpanUtils
-import com.blankj.utilcode.util.ToastUtils
+import com.blankj.utilcode.util.*
 import com.lxj.androidktx.base.WebActivity
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.share.Share
 import com.lxj.androidktx.widget.SuperDrawable
 import com.lxj.androidktxdemo.R
 import com.lxj.androidktxdemo.ShadowDrawable
+import com.lxj.androidktxdemo.notification.NotificationDemo
 import kotlinx.android.synthetic.main.fragment_span_ext.*
 
 
@@ -74,8 +72,10 @@ class SpanExtPage : BaseFragment() {
         """.trimIndent()
         tvClickResult.clickSpan(str = str, range = 2..6, color = Color.BLUE, clickAction = {
             ToastUtils.showShort("哈哈我被点击了".toColorSpan(0..2))
+
+            NotificationDemo.show()
 //            Share.wxLogin(requireActivity()!!,callback = object : Share.ShareCallback{
-                WebActivity.start(url = "https://www.baidu.com", designHeight = 960)
+//                WebActivity.start(url = "https://www.baidu.com", designHeight = 960)
 //            })
 //            Share.shareImage(activity!!,platform = SharePlatform.QQ, bitmap = tvClickSpan.toBitmap(), cb = object : Share.ShareCallback{
 //
@@ -98,12 +98,6 @@ class SpanExtPage : BaseFragment() {
             if(tt.isVisible) tt.animateGone()
             else tt.animateVisible()
         }
-//        tvClickResult.longClick {
-//            ToastUtils.showShort("2222")
-//            true
-//        }
-
-
         tt.sizeDrawable(300)
 //        tt.setBackgroundColor(Color.RED)
         var radius = 10
@@ -172,7 +166,7 @@ class SpanExtPage : BaseFragment() {
 
     override fun onBackClick(): Boolean {
         ToastUtils.showShort("onBackPressed - ${javaClass.simpleName}")
-        return true
+        return false
     }
 
 }
