@@ -26,6 +26,7 @@ abstract class AdaptActivity : BaseActivity() {
     }
 
     open fun getDesignWidth() = 375
+    open fun getDesignHeight() = 375
 
     open fun isLightMode() = true
 
