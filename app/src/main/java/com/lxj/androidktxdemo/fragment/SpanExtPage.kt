@@ -8,6 +8,7 @@ import com.blankj.utilcode.util.*
 import com.lxj.androidktx.AndroidKTX
 import com.lxj.androidktx.base.WebActivity
 import com.lxj.androidktx.core.*
+import com.lxj.androidktx.okhttp.http
 import com.lxj.share.Share
 import com.lxj.share.SharePlatform
 import com.lxj.androidktx.widget.SuperDrawable
@@ -40,6 +41,7 @@ class SpanExtPage : BaseFragment() {
 //            VideoPlayerActivity.start(url = "android.resource://" + requireContext()!!.packageName + "/" + R.raw.heng, title = "视频敖德萨大所大所大所大所大所多")
 //            VideoPlayerActivity.start(url = video2, title = "视频敖德萨大所大所大所大所大所多")
         }
+
 
         // toColorSpan
         tvColorSpan.text = """

@@ -21,6 +21,7 @@ data class RequestWrapper(
         private var params: Map<String, Any> = mapOf(),
         private var listParams: List<Any>? = null,
         private var isJsonParam: Boolean = false, //是否是json编码
+        private var isQueryParam: Boolean = false, //是否是query参数
         private var isMultiPartParam: Boolean = false, //是否是multi-part编码
         private var customReqBody: RequestBody? = null //自定义body
 ) {
@@ -40,9 +41,10 @@ data class RequestWrapper(
      * @param isJson 是否是json编码，默认false
      * @param isMultiPart 是否是multi-part编码，默认为false。OkWrapper会自动识别是否为multi-part编码，只有你想强制指定的时候会用到这个参数
      */
-    fun params(map: Map<String, Any>, isJson: Boolean = false, isMultiPart: Boolean = false): RequestWrapper {
+    fun params(map: Map<String, Any>, isJson: Boolean = false, isMultiPart: Boolean = false, isQuery: Boolean = false): RequestWrapper {
         isJsonParam = isJson
         isMultiPartParam = isMultiPart
+        isQueryParam = isQuery
         this.params = map
         return this
     }
@@ -99,7 +101,7 @@ data class RequestWrapper(
         return bodyBuilder().delete(buildRequestBody()).build()
     }
     private fun bodyBuilder(): Request.Builder{
-        return Request.Builder().url(url())
+        return Request.Builder().url( if(isQueryParam) urlParams() else url())
                 .apply {
                     OkExt.globalHeaders.forEach { addHeader(it.first, it.second) }
                     headers.forEach { addHeader(it.first, it.second) }
