@@ -267,9 +267,10 @@ object ExoPlayerVM : ViewModel(){
 
     fun release(){
         stop()
-        currentIndex = 0
+        currentIndex = -1
+        uriList.clear()
         val info = PlayInfo(index = currentIndex, current = 0,
-            total = duration(), uri = uriList[currentIndex])
+            total = duration(), uri = "")
         playInfo.postValueAndSuccess(info)
 //        player.release()
     }
