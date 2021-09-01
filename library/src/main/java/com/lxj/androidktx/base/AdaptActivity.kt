@@ -22,11 +22,11 @@ abstract class AdaptActivity : BaseActivity() {
         if(ScreenUtils.isPortrait()){
             return AdaptScreenUtils.adaptWidth(super.getResources(), getDesignWidth())
         }
-        return AdaptScreenUtils.adaptHeight(super.getResources(), getDesignWidth())
+        return AdaptScreenUtils.adaptWidth(super.getResources(), getDesignHeight())
     }
 
     open fun getDesignWidth() = 375
-    open fun getDesignHeight() = 375
+    open fun getDesignHeight() = 750
 
     open fun isLightMode() = true
 
