@@ -25,7 +25,7 @@ object ExoPlayerVM : ViewModel(){
     val RepeatAllMode = "RepeatAllMode" //顺序循环播放
 
     private var autoPlayNext = true
-    val handler = Handler(Looper.getMainLooper())
+    private val handler = Handler(Looper.getMainLooper())
     var player :SimpleExoPlayer
     var playMode = StateLiveData<String>()
     val playState = StateLiveData<PlayState>()
@@ -266,8 +266,12 @@ object ExoPlayerVM : ViewModel(){
     }
 
     fun release(){
-        stopPostProgress()
-        player.release()
+        stop()
+        currentIndex = 0
+        val info = PlayInfo(index = currentIndex, current = 0,
+            total = duration(), uri = uriList[currentIndex])
+        playInfo.postValueAndSuccess(info)
+//        player.release()
     }
 }
 
