@@ -1,4 +1,4 @@
-package com.lxj.androidktx.share.wxapi;
+package com.lxj.share.wxapi;
 
 import android.content.Intent;
 

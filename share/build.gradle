@@ -36,5 +36,5 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'com.umeng.umsdk:asms:1.2.3'  // asms包依赖(必选)友盟相关
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:6.7.0'
-    implementation 'com.blankj:utilcodex:1.30.6' //待迁移
+    implementation 'com.blankj:utilcodex:1.30.6'
 }

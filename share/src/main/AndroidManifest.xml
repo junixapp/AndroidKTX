@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.lxj.androidktx.share">
+    package="com.lxj.share">
     <application>
 
     <activity
@@ -11,7 +11,7 @@
         android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
     <!--微信需要的-->
     <activity
-        android:name="com.lxj.androidktx.share.wxapi.WXEntryActivity"
+        android:name="com.lxj.share.wxapi.WXEntryActivity"
         android:configChanges="keyboardHidden|orientation|screenSize"
         android:exported="true"
         android:screenOrientation="portrait"
@@ -19,7 +19,7 @@
     <activity-alias
         android:name="${applicationId}.wxapi.WXEntryActivity"
         android:exported="true"
-        android:targetActivity="com.lxj.androidktx.share.wxapi.WXEntryActivity" />
+        android:targetActivity="com.lxj.share.wxapi.WXEntryActivity" />
 
     <!-- qq需要的-->
     <activity

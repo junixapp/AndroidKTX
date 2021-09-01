@@ -1,4 +1,4 @@
-package com.lxj.androidktx.share
+package com.lxj.share
 
 /**
  * Description:

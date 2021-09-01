@@ -1,4 +1,4 @@
-package com.lxj.androidktx.share
+package com.lxj.share
 
 /**
  * Description: 三方登录数据封装

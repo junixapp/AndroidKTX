@@ -8,8 +8,8 @@ import com.blankj.utilcode.util.*
 import com.lxj.androidktx.AndroidKTX
 import com.lxj.androidktx.base.WebActivity
 import com.lxj.androidktx.core.*
-import com.lxj.androidktx.share.Share
-import com.lxj.androidktx.share.SharePlatform
+import com.lxj.share.Share
+import com.lxj.share.SharePlatform
 import com.lxj.androidktx.widget.SuperDrawable
 import com.lxj.androidktxdemo.R
 import com.lxj.androidktxdemo.notification.NotificationDemo

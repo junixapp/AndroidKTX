@@ -5,7 +5,7 @@ import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.FragmentUtils
 import com.lxj.androidktx.base.BaseActivity
 import com.lxj.androidktx.core.*
-import com.lxj.androidktx.share.Share
+import com.lxj.share.Share
 import com.lxj.androidktxdemo.databinding.ActivityMainBinding
 import com.lxj.androidktxdemo.entity.PageInfo
 import com.lxj.androidktxdemo.fragment.*
@@ -72,7 +72,7 @@ class MainActivity : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        com.lxj.androidktx.share.Share.onActivityResult(this, requestCode, resultCode, data)
+        Share.onActivityResult(this, requestCode, resultCode, data)
     }
 
     override fun onBackPressed() {
