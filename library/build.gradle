@@ -40,6 +40,7 @@ repositories { flatDir { dirs 'libs' } }
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
     compileOnly(name: 'alipaySdk-15.6.4', ext: 'aar')
+    compileOnly(name: 'openDefault-4.4.3', ext: 'aar')
     implementation 'androidx.core:core-ktx:1.6.0'
     api "androidx.appcompat:appcompat:$androidx_version"
     api 'androidx.multidex:multidex:2.0.1'
