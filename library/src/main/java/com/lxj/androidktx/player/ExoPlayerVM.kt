@@ -4,17 +4,31 @@ import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.ViewModel
 import com.blankj.utilcode.util.LogUtils
+import com.danikula.videocache.HttpProxyCacheServer
 import com.google.android.exoplayer2.ExoPlaybackException
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
+import com.google.android.exoplayer2.extractor.ExtractorsFactory
+import com.google.android.exoplayer2.source.DefaultMediaSourceFactory
+import com.google.android.exoplayer2.source.MediaSource
+import com.google.android.exoplayer2.upstream.DataSource
+import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
+import com.google.android.exoplayer2.upstream.cache.CacheDataSource
+import com.google.android.exoplayer2.upstream.cache.LeastRecentlyUsedCacheEvictor
+import com.google.android.exoplayer2.upstream.cache.SimpleCache
+import com.google.android.exoplayer2.util.Util
 import com.lxj.androidktx.AndroidKTX
 import com.lxj.androidktx.core.getObject
 import com.lxj.androidktx.core.putObject
 import com.lxj.androidktx.core.putString
 import com.lxj.androidktx.core.sp
 import com.lxj.androidktx.livedata.StateLiveData
+import java.io.File
 import kotlin.random.Random
+
 
 /**
  * ExoPlayer实现的播放器封装
@@ -33,12 +47,20 @@ object ExoPlayerVM : ViewModel(){
     val playInfo = StateLiveData<PlayInfo>() //播放进度, 位置
     val uriList = arrayListOf<String>()
     var isCacheLastData = false
-
+    private val proxy: HttpProxyCacheServer by lazy { HttpProxyCacheServer.Builder(AndroidKTX.context)
+        .cacheDirectory(File(AndroidKTX.context.externalCacheDir, "exoplayer-cache"))
+        .build() }
+    private val maxCacheSize = 1024*1024L*100 //100M
     init {
         playState.value = PlayState.Idle
         playMode.value = sp().getString("_ktx_player_mode", RepeatAllMode) ?: RepeatAllMode
 
-        player = SimpleExoPlayer.Builder(AndroidKTX.context).build()
+        val cacheDir = File(AndroidKTX.context.externalCacheDir, "exoplayer-cache")
+        player = SimpleExoPlayer.Builder(AndroidKTX.context)
+            .setMediaSourceFactory(DefaultMediaSourceFactory(CacheDataSource.Factory()
+                .setUpstreamDataSourceFactory(DefaultDataSourceFactory(AndroidKTX.context,"AndroidKtx ExoPlayer"))
+                .setCache(SimpleCache(cacheDir, LeastRecentlyUsedCacheEvictor(maxCacheSize)))))
+            .build()
         player.repeatMode = Player.REPEAT_MODE_OFF
         player.shuffleModeEnabled = false
 //        if(AndroidKTX.isDebug)player.addAnalyticsListener( EventLogger(DefaultTrackSelector()))
@@ -63,7 +85,10 @@ object ExoPlayerVM : ViewModel(){
                 super.onPlaybackStateChanged(state)
                 when(state){
                     Player.STATE_IDLE -> playState.postValueAndSuccess(PlayState.Idle)
-                    Player.STATE_BUFFERING -> playState.postValueAndSuccess(PlayState.Buffering)
+                    Player.STATE_BUFFERING -> {
+                        stopPostProgress()
+                        playState.postValueAndSuccess(PlayState.Buffering)
+                    }
                     Player.STATE_READY -> {
                         playState.postValueAndSuccess(PlayState.Ready)
                         if(!player.playWhenReady)playState.postValueAndSuccess(PlayState.Pause)
@@ -226,6 +251,7 @@ object ExoPlayerVM : ViewModel(){
         player.prepare()
         player.play()
     }
+
 
     fun seekTo(position: Long){
         player.seekTo(position)
