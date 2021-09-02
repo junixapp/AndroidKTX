@@ -10,7 +10,7 @@ import java.nio.charset.Charset
  */
 class TokenInterceptor(var tokenField: String = "token",
                        var tokenCreator: (()->String)? = null,
-                       var onGetBodyData: (resData: String) -> Unit  ) : Interceptor {
+                       var onGetBodyData: (url: String,json: String) -> Unit  ) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         var request = chain.request()
         val tokenValue = if(tokenCreator!=null) tokenCreator!!() else sp().getString("token", null)
@@ -23,7 +23,7 @@ class TokenInterceptor(var tokenField: String = "token",
             val source = response.body()?.source()
             source?.request(java.lang.Long.MAX_VALUE) // Buffer the entire body.
             val data = source?.buffer()?.clone()?.readString(Charset.forName("UTF-8"))
-            if (data != null) onGetBodyData(data)
+            if (data != null) onGetBodyData(request.url().toString(), data)
         }
         return response
     }
