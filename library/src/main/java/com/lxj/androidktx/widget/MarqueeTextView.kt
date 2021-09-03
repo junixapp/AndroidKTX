@@ -177,9 +177,9 @@ class MarqueeTextView @JvmOverloads constructor(
         }, mScrollDelay)
     }
 
-    override fun isPaddingOffsetRequired() = true
-    override fun getRightFadingEdgeStrength() = 0.5f
-    override fun getLeftFadingEdgeStrength() = 0.5f
+    override fun isPaddingOffsetRequired() = canScroll()
+    override fun getRightFadingEdgeStrength() = if(canScroll()) 0.5f else 0f
+    override fun getLeftFadingEdgeStrength() = if(canScroll()) 0.5f else 0f
 
     fun canScroll() = getTextWidth() > measuredWidth
 

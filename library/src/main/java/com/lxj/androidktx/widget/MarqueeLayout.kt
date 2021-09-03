@@ -61,9 +61,9 @@ class MarqueeLayout @JvmOverloads constructor(
         )
     }
 
-    override fun isPaddingOffsetRequired() = true
-    override fun getRightFadingEdgeStrength() = 1f
-    override fun getLeftFadingEdgeStrength() = 1f
+    override fun isPaddingOffsetRequired() = canScroll()
+    override fun getRightFadingEdgeStrength() = if(canScroll()) 0.5f else 0f
+    override fun getLeftFadingEdgeStrength() = if(canScroll()) 0.5f else 0f
 
     fun canScroll() = getChildWidth() > measuredWidth
 
