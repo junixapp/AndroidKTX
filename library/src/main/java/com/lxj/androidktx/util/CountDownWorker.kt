@@ -23,11 +23,15 @@ class CountDownWorker(var owner: LifecycleOwner,
                       var total: Int = 60, var step: Int = 1, var countDownInterval: Long = 1000,
                       var immediately: Boolean = true, var from : Int = 0,
     var onChange: ((s: Int)->Unit)? = null,  var onFinish: (()->Unit)? = null) : LifecycleObserver{
+
+    init {
+        owner.lifecycle.addObserver(this)
+    }
+
     private var mCancelled = false
     private var steps = from
     private val what = 1
     fun start(){
-        owner.lifecycle.addObserver(this)
         mHandler.removeMessages(what)
         mCancelled = false
         steps = from
