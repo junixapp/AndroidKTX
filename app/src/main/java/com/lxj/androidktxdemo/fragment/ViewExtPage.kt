@@ -79,6 +79,7 @@ class ViewExtPage : BaseFragment() {
         super.initData()
 
         marqueeLayout.setupSelf(loop = false)
+        mtv2.setup(loop = false)
         postDelay(1500){ mtv.startScroll() }
         postDelay(1500){ mtv2.startScroll() }
         postDelay(1500){ marqueeLayout.startScroll() }

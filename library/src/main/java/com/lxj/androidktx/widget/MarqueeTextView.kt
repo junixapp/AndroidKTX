@@ -31,6 +31,7 @@ class MarqueeTextView @JvmOverloads constructor(
     private var mTextSize = (14.sp).toFloat()
     private var mTypefacePath: String? = null
     private var mLoop: Boolean = true
+    private var mEnableFadeEdge: Boolean = true
     private var mSlow: Float = 1.0f //缓慢系数，越大越慢
     private var mScrollDelay = 400L
     private var mTextAlign = Paint.Align.LEFT
@@ -50,6 +51,7 @@ class MarqueeTextView @JvmOverloads constructor(
         mTextSize = ta.getDimension(R.styleable.MarqueeTextView_mtv_textSize, mTextSize)
         mTypefacePath = ta.getString(R.styleable.MarqueeTextView_mtv_typefacePath)
         mLoop = ta.getBoolean(R.styleable.MarqueeTextView_mtv_loop, mLoop)
+        mEnableFadeEdge = ta.getBoolean(R.styleable.MarqueeTextView_mtv_enableFadeEdge, mEnableFadeEdge)
         mSlow = ta.getFloat(R.styleable.MarqueeTextView_mtv_slow, mSlow)
         mScrollDelay = ta.getInteger(R.styleable.MarqueeTextView_mtv_scrollDelay, 400).toLong()
         val align =
@@ -177,9 +179,10 @@ class MarqueeTextView @JvmOverloads constructor(
         }, mScrollDelay)
     }
 
-    override fun isPaddingOffsetRequired() = canScroll()
-    override fun getRightFadingEdgeStrength() = if(canScroll()) 0.5f else 0f
-    override fun getLeftFadingEdgeStrength() = if(canScroll()) 0.5f else 0f
+    override fun isPaddingOffsetRequired() = mEnableFadeEdge && canScroll() && animator?.isRunning==true
+    override fun getRightFadingEdgeStrength() = if(isPaddingOffsetRequired) 0.5f else 0f
+    override fun getLeftFadingEdgeStrength() = if(mEnableFadeEdge) 0.5f else 0f
+
 
     fun canScroll() = getTextWidth() > measuredWidth
 

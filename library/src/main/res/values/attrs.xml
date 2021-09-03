@@ -412,6 +412,7 @@
         <attr name="mtv_loop" format="boolean" />
         <attr name="mtv_scrollDelay" format="integer" />
         <attr name="mtv_letterSpacing" format="float" />
+        <attr name="mtv_enableFadeEdge" format="boolean" />
     </declare-styleable>
 
     <!-- FormField -->

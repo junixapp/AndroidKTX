@@ -21,6 +21,7 @@ class MarqueeLayout @JvmOverloads constructor(
 ) : ShapeFrameLayout(context, attributeSet, defStyleAttr) {
 
     private var mLoop : Boolean = true
+    private var mEnableFadeEdge : Boolean = true
     private var mSlow: Float = 1.0f //缓慢系数，越大越慢
     private var mScrollDelay = 400L
 
@@ -34,9 +35,11 @@ class MarqueeLayout @JvmOverloads constructor(
         setWillNotDraw(false)
     }
 
-    fun setupSelf(loop: Boolean? = null, slow: Float? = null, scrollDelay: Long? = null){
+    fun setupSelf(loop: Boolean? = null, slow: Float? = null, scrollDelay: Long? = null,
+                  enableFadeEdge: Boolean? = null){
         if(loop!=null) mLoop = loop
         if(slow!=null) mSlow = slow
+        if(enableFadeEdge!=null) mEnableFadeEdge = enableFadeEdge
         if(scrollDelay!=null) mScrollDelay = scrollDelay
     }
 
@@ -61,9 +64,9 @@ class MarqueeLayout @JvmOverloads constructor(
         )
     }
 
-    override fun isPaddingOffsetRequired() = canScroll()
-    override fun getRightFadingEdgeStrength() = if(canScroll()) 0.5f else 0f
-    override fun getLeftFadingEdgeStrength() = if(canScroll()) 0.5f else 0f
+    override fun isPaddingOffsetRequired() = mEnableFadeEdge && canScroll() && animator?.isRunning==true
+    override fun getRightFadingEdgeStrength() = if(isPaddingOffsetRequired) 0.5f else 0f
+    override fun getLeftFadingEdgeStrength() = if(mEnableFadeEdge) 0.5f else 0f
 
     fun canScroll() = getChildWidth() > measuredWidth
 
