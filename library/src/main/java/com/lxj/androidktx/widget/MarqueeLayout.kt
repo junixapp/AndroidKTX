@@ -30,6 +30,7 @@ class MarqueeLayout @JvmOverloads constructor(
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             clipToOutline = true
         }
+        isHorizontalFadingEdgeEnabled = true
         setWillNotDraw(false)
     }
 
@@ -59,6 +60,10 @@ class MarqueeLayout @JvmOverloads constructor(
             heightMeasureSpec
         )
     }
+
+    override fun isPaddingOffsetRequired() = true
+    override fun getRightFadingEdgeStrength() = 1f
+    override fun getLeftFadingEdgeStrength() = 1f
 
     fun canScroll() = getChildWidth() > measuredWidth
 

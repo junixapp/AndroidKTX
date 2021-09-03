@@ -73,9 +73,7 @@
             android:layout_marginLeft="30dp"
             android:clipChildren="false"
             android:clipToPadding="false"
-            app:srl_shadowColor="#000000"
-            app:srl_shadowSize="20dp"
-            app:srl_corner="30dp"
+            app:srl_corner="10dp"
             app:srl_solid="#fafa10">
 
             <com.lxj.androidktx.widget.MarqueeTextView

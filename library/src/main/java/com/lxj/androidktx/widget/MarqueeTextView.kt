@@ -61,6 +61,7 @@ class MarqueeTextView @JvmOverloads constructor(
         }
         mLetterSpacing = ta.getFloat(R.styleable.MarqueeTextView_mtv_letterSpacing, mLetterSpacing)
         ta.recycle()
+        isHorizontalFadingEdgeEnabled = true
         applyAttr()
     }
 
@@ -176,6 +177,10 @@ class MarqueeTextView @JvmOverloads constructor(
         }, mScrollDelay)
     }
 
+    override fun isPaddingOffsetRequired() = true
+    override fun getRightFadingEdgeStrength() = 0.5f
+    override fun getLeftFadingEdgeStrength() = 0.5f
+
     fun canScroll() = getTextWidth() > measuredWidth
 
     private fun innerScroll() {
@@ -187,8 +192,8 @@ class MarqueeTextView @JvmOverloads constructor(
         animator = ValueAnimator.ofInt(if (first) 0 else -measuredWidth, distance)
         animator!!.interpolator = LinearInterpolator()
         animator!!.addUpdateListener {
-            invalidate()
             scrollTo(it.animatedValue as Int, 0)
+            invalidate()
         }
         animator!!.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationStart(animation: Animator?) {
