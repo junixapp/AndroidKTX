@@ -37,6 +37,7 @@
         <com.lxj.androidktx.widget.MarqueeLayout
             android:id="@+id/marqueeLayout"
             android:background="#fff"
+            android:layout_marginLeft="20dp"
             android:layout_width="200dp"
             android:layout_height="100dp">
             <LinearLayout
@@ -51,7 +52,7 @@
                     android:layout_height="wrap_content"/>
                 <ImageView
                     android:src="@mipmap/ic_launcher"
-                    android:layout_width="80dp"
+                    android:layout_width="10dp"
                     android:layout_height="80dp"/>
 <!--                <TextView-->
 <!--                    android:text="大萨达撒大所大所大所多"-->

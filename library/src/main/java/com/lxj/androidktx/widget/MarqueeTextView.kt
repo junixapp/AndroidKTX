@@ -215,7 +215,8 @@ class MarqueeTextView @JvmOverloads constructor(
         })
         //速度：假设整个View的宽度滚动完需要8秒，得出每秒滚动多少px
         val speed = measuredWidth / 8
-        animator!!.duration = ((distance / Math.max(speed, 10)) * 1000 * mSlow).toLong()
+        val duration = ((distance / Math.max(speed, 1)) * 1000 * mSlow).toLong()
+        animator!!.duration = Math.max(duration, 800)
         animator!!.start()
     }
 
