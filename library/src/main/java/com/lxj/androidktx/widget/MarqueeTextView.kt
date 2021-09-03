@@ -23,7 +23,7 @@ class MarqueeTextView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : View(context, attributeSet, defStyleAttr) {
 
-    private val paint = Paint()
+    private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private var textBounds = Rect()
     private var mText: String? = null
     private var mTextBold = false
@@ -210,8 +210,7 @@ class MarqueeTextView @JvmOverloads constructor(
         })
         //速度：假设整个View的宽度滚动完需要8秒，得出每秒滚动多少px
         val speed = measuredWidth / 8
-        if (speed == 0) return
-        animator!!.duration = ((distance / speed) * 1000 * mSlow).toLong()
+        animator!!.duration = ((distance / Math.max(speed, 10)) * 1000 * mSlow).toLong()
         animator!!.start()
     }
 
