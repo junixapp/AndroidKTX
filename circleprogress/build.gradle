@@ -1,0 +1,26 @@
+apply plugin: 'com.android.library'
+
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
+    compileSdkVersion CompileSdkVersion
+
+    defaultConfig {
+        minSdkVersion MinSdkVersion
+        targetSdkVersion TargetSdkVersion
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dependencies {
+        implementation('androidx.appcompat:appcompat:1.2.0')
+    }
+}

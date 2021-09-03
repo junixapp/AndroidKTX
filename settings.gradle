@@ -1,2 +1,2 @@
 include ':app', ':library', ':camera', ':http-progress-manager', ':luban', ':matisse', ':imageview-zoom'/*,':audio-recorder'*/
-include ':share'
+include ':share', ':circleprogress'

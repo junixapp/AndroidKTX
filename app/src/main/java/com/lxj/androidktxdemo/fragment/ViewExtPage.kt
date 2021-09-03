@@ -77,8 +77,6 @@ class ViewExtPage : BaseFragment() {
 
     override fun initData() {
         super.initData()
-        marqueeLayout.isHorizontalFadingEdgeEnabled = true
-        marqueeLayout.setFadingEdgeLength(20)
 
         marqueeLayout.setupSelf(loop = false)
         postDelay(1500){ mtv.startScroll() }

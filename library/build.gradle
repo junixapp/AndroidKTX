@@ -90,4 +90,5 @@ dependencies {
     api project(':luban')
     api project(':matisse')
     api project(':share')
+    api project(':circleprogress')
 }
