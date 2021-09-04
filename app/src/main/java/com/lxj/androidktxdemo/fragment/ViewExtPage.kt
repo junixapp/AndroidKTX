@@ -1,6 +1,7 @@
 package com.lxj.androidktxdemo.fragment
 
 
+import android.animation.ValueAnimator
 import android.graphics.Color
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -83,6 +84,14 @@ class ViewExtPage : BaseFragment() {
         postDelay(1500){ mtv.startScroll() }
         postDelay(1500){ mtv2.startScroll() }
         postDelay(1500){ marqueeLayout.startScroll() }
+
+
+        val animator = ValueAnimator.ofFloat(0f, 100f)
+        animator.addUpdateListener {
+            progressBar.progress = 100f - it.animatedValue as Float
+        }
+        animator.setDuration(10000)
+        animator.start()
     }
 
 }

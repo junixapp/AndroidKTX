@@ -40,7 +40,7 @@ class MarqueeTextView @JvmOverloads constructor(
     private var scrolling = false
     private val mHandler = Handler(Looper.getMainLooper())
     private var first = true
-    private var animator: ValueAnimator? = null
+    var animator: ValueAnimator? = null
     var onMoveEnd: ((Long) -> Unit)? = null
 
     init {
