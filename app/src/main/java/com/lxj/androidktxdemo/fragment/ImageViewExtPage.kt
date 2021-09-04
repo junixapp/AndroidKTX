@@ -3,6 +3,7 @@ package com.lxj.androidktxdemo.fragment
 import android.content.Intent
 import android.media.MediaMetadataRetriever
 import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.lxj.androidktx.core.click
 import com.lxj.androidktx.core.load
@@ -28,10 +29,12 @@ class ImageViewExtPage: BaseFragment(){
     }
 
     private fun loadImage(){
-        image1.load(images[0], placeholder = R.mipmap.ic_launcher,
-                onImageLoad = {
-//            LogUtils.e("图片加载完成：${(it as BitmapDrawable).bitmap.byteCount}")
-        })
+        image1.load("http://sealbox.oss-ap-southeast-1.aliyuncs.com/https://sealbox.oss-ap-southeast-1.aliyuncs.com/default/default_avatar.png",
+            placeholder = R.mipmap.ic_launcher, blurRadius = 0.8f, targetWidth = 300, targetHeight = 300,
+                 onImageFail = {
+                ToastUtils.showShort("图片加载失败")
+            })
+
         title1.text = "image1.load(url)"
 
 

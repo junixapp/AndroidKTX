@@ -68,7 +68,7 @@ fun ImageView.load(url: Any?, placeholder: Int = 0, error: Int = 0,
             .apply(options)
             .apply {
                 if (isCrossFade) transition(DrawableTransitionOptions.withCrossFade())
-                if (onImageLoad != null) {
+                if (onImageLoad != null || onImageFail!=null) {
                     listener(object : RequestListener<Drawable> {
                         override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
                             onImageFail?.invoke()
@@ -76,7 +76,7 @@ fun ImageView.load(url: Any?, placeholder: Int = 0, error: Int = 0,
                         }
 
                         override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                            onImageLoad(resource)
+                            onImageLoad?.invoke(resource)
                             return onlyLoadImage
                         }
                     })
