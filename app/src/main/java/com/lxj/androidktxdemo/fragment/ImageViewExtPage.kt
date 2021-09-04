@@ -33,6 +33,7 @@ class ImageViewExtPage: BaseFragment(){
             placeholder = R.mipmap.ic_launcher, blurRadius = 0.8f, targetWidth = 300, targetHeight = 300,
                  onImageFail = {
                 ToastUtils.showShort("图片加载失败")
+                     image1.setImageResource(R.mipmap.test)
             })
 
         title1.text = "image1.load(url)"
@@ -42,7 +43,7 @@ class ImageViewExtPage: BaseFragment(){
             targetWidth = 400, targetHeight = 400)
         title2.text = "image2.load(url, isCircle = true)"
 
-        image3.load(images[2], isCenterCrop = true )
+        image3.load(images[2], isCenterCrop = true , placeholder = R.mipmap.ic_launcher)
         image4.load(images[2], isCenterCrop = true, blurScale = 1f)
         image5.load(images[2], isCenterCrop = true, blurScale = 0.3f, )
         title3.text = "image3.load(url, roundRadius = 20)"

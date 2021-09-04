@@ -40,7 +40,6 @@ fun ImageView.load(url: Any?, placeholder: Int = 0, error: Int = 0,
                    isForceOriginalSize: Boolean = false,
                    targetWidth: Int = 0,
                    targetHeight: Int = 0,
-                   onlyLoadImage: Boolean = false,
                    onImageLoad: ((resource: Drawable?) -> Unit)? = null,
                    onImageFail: (() -> Unit)? = null
 ) {
@@ -72,12 +71,12 @@ fun ImageView.load(url: Any?, placeholder: Int = 0, error: Int = 0,
                     listener(object : RequestListener<Drawable> {
                         override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
                             onImageFail?.invoke()
-                            return false
+                            return onImageFail!=null
                         }
 
                         override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
                             onImageLoad?.invoke(resource)
-                            return onlyLoadImage
+                            return onImageLoad!=null
                         }
                     })
                 }
