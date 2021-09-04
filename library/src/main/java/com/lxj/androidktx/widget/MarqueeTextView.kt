@@ -32,7 +32,7 @@ class MarqueeTextView @JvmOverloads constructor(
     private var mTypefacePath: String? = null
     private var mLoop: Boolean = true
     private var mEnableFadeEdge: Boolean = true
-    private var mSlow: Float = 1.0f //缓慢系数，越大越慢
+    private var mDuration: Int = 3000
     private var mScrollDelay = 400L
     private var mTextAlign = Paint.Align.LEFT
     private var mLetterSpacing = 0f
@@ -52,7 +52,7 @@ class MarqueeTextView @JvmOverloads constructor(
         mTypefacePath = ta.getString(R.styleable.MarqueeTextView_mtv_typefacePath)
         mLoop = ta.getBoolean(R.styleable.MarqueeTextView_mtv_loop, mLoop)
         mEnableFadeEdge = ta.getBoolean(R.styleable.MarqueeTextView_mtv_enableFadeEdge, mEnableFadeEdge)
-        mSlow = ta.getFloat(R.styleable.MarqueeTextView_mtv_slow, mSlow)
+        mDuration = ta.getInteger(R.styleable.MarqueeTextView_mtv_duration, mDuration)
         mScrollDelay = ta.getInteger(R.styleable.MarqueeTextView_mtv_scrollDelay, 400).toLong()
         val align =
             ta.getInteger(R.styleable.MarqueeTextView_mtv_textAlign, Paint.Align.LEFT.ordinal)
@@ -82,7 +82,7 @@ class MarqueeTextView @JvmOverloads constructor(
 
     fun setup(
         text: String? = null, textColor: Int? = null, textSize: Float? = null,
-        typefacePath: String? = null, loop: Boolean? = null, slow: Float? = null,
+        typefacePath: String? = null, loop: Boolean? = null, duration: Int? = null,
         scrollDelay: Long? = null, textBold: Boolean? = null, textAlign: Paint.Align? = null
     ) {
         if (text != null) mText = text
@@ -90,7 +90,7 @@ class MarqueeTextView @JvmOverloads constructor(
         if (textSize != null) mTextSize = textSize
         if (typefacePath != null) mTypefacePath = typefacePath
         if (loop != null) mLoop = loop
-        if (slow != null) mSlow = slow
+        if (duration != null) mDuration = duration
         if (scrollDelay != null) mScrollDelay = scrollDelay
         if (textBold != null) mTextBold = textBold
         if (textAlign != null) mTextAlign = textAlign
@@ -217,9 +217,9 @@ class MarqueeTextView @JvmOverloads constructor(
             }
         })
         //速度：假设整个View的宽度滚动完需要8秒，得出每秒滚动多少px
-        val speed = measuredWidth / 8
-        val duration = ((distance / Math.max(speed, 1)) * 1000 * mSlow).toLong()
-        animator!!.duration = Math.max(duration, 800)
+//        val speed = measuredWidth / 8
+//        val duration = ((distance / Math.max(speed, 1)) * 1000).toLong()
+        animator!!.duration = mDuration.toLong()
         animator!!.start()
     }
 

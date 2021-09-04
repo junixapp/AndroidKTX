@@ -22,7 +22,7 @@ class MarqueeLayout @JvmOverloads constructor(
 
     private var mLoop : Boolean = true
     private var mEnableFadeEdge : Boolean = true
-    private var mSlow: Float = 1.0f //缓慢系数，越大越慢
+    private var mDuration : Int = 3000
     private var mScrollDelay = 400L
 
     init {
@@ -35,10 +35,10 @@ class MarqueeLayout @JvmOverloads constructor(
         setWillNotDraw(false)
     }
 
-    fun setupSelf(loop: Boolean? = null, slow: Float? = null, scrollDelay: Long? = null,
+    fun setupSelf(loop: Boolean? = null, duration: Int? = null, scrollDelay: Long? = null,
                   enableFadeEdge: Boolean? = null){
         if(loop!=null) mLoop = loop
-        if(slow!=null) mSlow = slow
+        if(duration!=null) mDuration = duration
         if(enableFadeEdge!=null) mEnableFadeEdge = enableFadeEdge
         if(scrollDelay!=null) mScrollDelay = scrollDelay
     }
@@ -105,9 +105,9 @@ class MarqueeLayout @JvmOverloads constructor(
             }
         })
         //速度：假设整个View的宽度滚动完需要8秒，得出每秒滚动多少px
-        val speed = measuredWidth / 8
-        val duration = ((distance / Math.max(speed, 1)) * 1000 * mSlow).toLong()
-        animator!!.duration = Math.max(duration, 800)
+//        val speed = measuredWidth / 8
+//        val duration = ((distance / Math.max(speed, 1)) * 1000 * mSlow).toLong()
+        animator!!.duration = mDuration.toLong()
         animator!!.start()
     }
 
