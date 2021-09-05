@@ -333,7 +333,7 @@
             android:paddingBottom="7dp"
             app:sl_hint="输入东西"
             app:sl_hintColor="#555"
-            app:sl_searchIconSize="28dp"
+            app:sl_searchIconSize="20dp"
             app:sl_searchIconSpace="10dp"
             app:sl_showClearIconWhenEmpty="false"
             app:sl_showSearchIcon="true"

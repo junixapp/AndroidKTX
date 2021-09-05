@@ -6,9 +6,8 @@
         android:id="@+id/ivSearchLeft"
         android:visibility="gone"
         android:src="@mipmap/_ktx_ic_search"
-        android:padding="4dp"
-        android:layout_width="28dp"
-        android:layout_height="28dp" />
+        android:layout_width="20dp"
+        android:layout_height="20dp" />
 
     <EditText
         android:id="@+id/et_content"
@@ -28,15 +27,13 @@
         android:id="@+id/ivSearchRight"
         android:src="@mipmap/_ktx_ic_search"
         android:visibility="gone"
-        android:padding="4dp"
-        android:layout_width="28dp"
+        android:layout_width="20dp"
         android:layout_height="28dp" />
 
     <ImageView
         android:id="@+id/ivClear"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:visibility="gone"
-        android:padding="4dp"
         android:src="@mipmap/_ktx_ic_image_del" />
 </merge>

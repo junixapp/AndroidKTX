@@ -27,8 +27,8 @@ open class SearchLayout @JvmOverloads constructor(
     var textSize = 14.sp
     var clearIcon: Drawable? = null
     var searchIcon: Drawable? = null
-    var clearIconSize = 28.dp
-    var searchIconSize =  28.dp
+    var clearIconSize = 20.dp
+    var searchIconSize =  20.dp
     var showClearIconWhenEmpty = false  //内容为空时是否显示删除按钮
     var showSearchIcon = true  //是否显示搜索图标
     var searchIconPosition = 0  //搜索框默认在右边
