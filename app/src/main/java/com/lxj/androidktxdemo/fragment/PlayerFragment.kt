@@ -34,7 +34,10 @@ class PlayerFragment : BaseFragment() {
                 PlayState.Playing -> "暂停"
                 PlayState.Complete -> "重新播放"
                 PlayState.Buffering -> "缓冲中"
-                PlayState.Error -> "播放出错"
+                PlayState.Error -> {
+                    ToastUtils.showShort("播放出错")
+                    "播放出错"
+                }
                 PlayState.Pause -> "播放"
                 else -> "播放"
             }

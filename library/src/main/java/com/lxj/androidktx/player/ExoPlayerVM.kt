@@ -47,9 +47,6 @@ object ExoPlayerVM : ViewModel(){
     val playInfo = StateLiveData<PlayInfo>() //播放进度, 位置
     val uriList = arrayListOf<String>()
     var isCacheLastData = false
-    private val proxy: HttpProxyCacheServer by lazy { HttpProxyCacheServer.Builder(AndroidKTX.context)
-        .cacheDirectory(File(AndroidKTX.context.externalCacheDir, "exoplayer-cache"))
-        .build() }
     private val maxCacheSize = 1024*1024L*100 //100M
     init {
         playState.value = PlayState.Idle
@@ -70,12 +67,12 @@ object ExoPlayerVM : ViewModel(){
 //                LogUtils.e("onIsPlayingChanged:  isPlaying: ${isPlaying} state: ${player.playbackState}" +
 //                        " playWhenReady : ${player.playWhenReady}")
                 if(isPlaying){
-                    playState.postValueAndSuccess(PlayState.Playing)
+                    playState.setValue(PlayState.Playing)
                     postProgress()
                 }else{
                     if(player.playbackState==Player.STATE_READY && !player.playWhenReady){
                         //暂停
-                        playState.postValueAndSuccess(PlayState.Pause)
+                        playState.setValue(PlayState.Pause)
                         stopPostProgress()
                     }
                 }
@@ -84,17 +81,20 @@ object ExoPlayerVM : ViewModel(){
             override fun onPlaybackStateChanged(state: Int) {
                 super.onPlaybackStateChanged(state)
                 when(state){
-                    Player.STATE_IDLE -> playState.postValueAndSuccess(PlayState.Idle)
+                    Player.STATE_IDLE -> playState.setValue(PlayState.Idle)
                     Player.STATE_BUFFERING -> {
+                        playState.errMsg = null
                         stopPostProgress()
-                        playState.postValueAndSuccess(PlayState.Buffering)
+                        playState.setValue(PlayState.Buffering)
                     }
                     Player.STATE_READY -> {
-                        playState.postValueAndSuccess(PlayState.Ready)
-                        if(!player.playWhenReady)playState.postValueAndSuccess(PlayState.Pause)
+                        playState.errMsg = null
+                        playState.setValue(PlayState.Ready)
+                        if(!player.playWhenReady)playState.setValue(PlayState.Pause)
                     }
                     Player.STATE_ENDED -> {
-                        playState.postValueAndSuccess(PlayState.Complete)
+                        playState.errMsg = null
+                        playState.setValue(PlayState.Complete)
                         stopPostProgress()
                         if(autoPlayNext)autoNextWhenComplete()
                     }
@@ -104,7 +104,8 @@ object ExoPlayerVM : ViewModel(){
             override fun onPlayerError(error: ExoPlaybackException) {
                 super.onPlayerError(error)
                 LogUtils.e("onPlayerError:  ${error.localizedMessage}")
-                playState.postValueAndSuccess(PlayState.Error)
+                playState.errMsg = "${error.type}"
+                playState.setValue(PlayState.Error)
                 stopPostProgress()
             }
         })
@@ -141,7 +142,7 @@ object ExoPlayerVM : ViewModel(){
         if(isIndexOrListWrong()) return
         val info = PlayInfo(index = currentIndex, current = currentPosition(),
                 total = duration(), uri = uriList[currentIndex])
-        playInfo.postValueAndSuccess(info)
+        playInfo.setValue(info)
         if(isCacheLastData) sp().putObject("_last_playinfo_", info)
         handler.postDelayed({ postProgress()}, 500)
     }
@@ -161,7 +162,7 @@ object ExoPlayerVM : ViewModel(){
      * 设置播放模式
      */
     fun setPlayMode(mode: String){
-        playMode.postValueAndSuccess(mode)
+        playMode.setValue(mode)
         sp().putString("_ktx_player_mode", mode)
     }
 
@@ -297,7 +298,7 @@ object ExoPlayerVM : ViewModel(){
         uriList.clear()
         val info = PlayInfo(index = currentIndex, current = 0,
             total = duration(), uri = "")
-        playInfo.postValueAndSuccess(info)
+        playInfo.setValue(info)
 //        player.release()
     }
 }

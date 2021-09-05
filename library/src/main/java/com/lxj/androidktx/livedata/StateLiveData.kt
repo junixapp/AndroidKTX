@@ -31,6 +31,7 @@ class StateLiveData<T>(defValue: T? = null) : NoStickyLiveData<T>() {
         super.postValue(value)
         postSuccess()
     }
+
     fun postEmpty(t: T? = null){
         super.postValue(t)
         state.postValue(State.Empty)
