@@ -79,12 +79,11 @@ class ViewExtPage : BaseFragment() {
     override fun initData() {
         super.initData()
 
-        marqueeLayout.setupSelf(loop = false)
         mtv2.setup(loop = false)
-        postDelay(1500){ mtv.startScroll() }
-        postDelay(1500){ mtv2.startScroll() }
-        postDelay(1500){ marqueeLayout.startScroll() }
-
+        postDelay(2000){ mtv.startScroll()
+            mtv2.startScroll()
+            marqueeLayout.startScroll()
+        }
 
         val animator = ValueAnimator.ofFloat(0f, 100f)
         animator.addUpdateListener {

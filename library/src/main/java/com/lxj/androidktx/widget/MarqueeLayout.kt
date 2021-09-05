@@ -9,6 +9,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.AttributeSet
 import android.view.animation.LinearInterpolator
+import com.lxj.androidktx.R
 
 /**
  * 支持一段布局进行滚动的布局，
@@ -22,10 +23,19 @@ class MarqueeLayout @JvmOverloads constructor(
 
     private var mLoop : Boolean = true
     private var mEnableFadeEdge : Boolean = true
-    private var mDuration : Int = 3000
+    private var mDuration : Int = 0 //如果指定时间，则固定速度
+    private var mSpeed : Float = 1f //指定速度的缓慢比例，越大越慢
     private var mScrollDelay = 400L
 
     init {
+        val ta = context.obtainStyledAttributes(attributeSet, R.styleable.MarqueeLayout)
+
+        mLoop = ta.getBoolean(R.styleable.MarqueeLayout_ml_loop, mLoop)
+        mEnableFadeEdge = ta.getBoolean(R.styleable.MarqueeLayout_ml_enableFadeEdge, mEnableFadeEdge)
+        mDuration = ta.getInteger(R.styleable.MarqueeLayout_ml_duration, mDuration)
+        mSpeed = ta.getFloat(R.styleable.MarqueeLayout_ml_speed, mSpeed)
+        mScrollDelay = ta.getInteger(R.styleable.MarqueeLayout_ml_scrollDelay, 400).toLong()
+        ta.recycle()
         clipChildren = true
         clipToPadding = true
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -33,14 +43,16 @@ class MarqueeLayout @JvmOverloads constructor(
         }
         isHorizontalFadingEdgeEnabled = true
         setWillNotDraw(false)
+        
     }
 
     fun setupSelf(loop: Boolean? = null, duration: Int? = null, scrollDelay: Long? = null,
-                  enableFadeEdge: Boolean? = null){
+                  enableFadeEdge: Boolean? = null, speed: Float? = null){
         if(loop!=null) mLoop = loop
         if(duration!=null) mDuration = duration
         if(enableFadeEdge!=null) mEnableFadeEdge = enableFadeEdge
         if(scrollDelay!=null) mScrollDelay = scrollDelay
+        if(speed!=null) mSpeed = speed
     }
 
     private var scrolling = false
@@ -66,7 +78,7 @@ class MarqueeLayout @JvmOverloads constructor(
 
     override fun isPaddingOffsetRequired() = mEnableFadeEdge && canScroll() && animator?.isRunning==true
     override fun getRightFadingEdgeStrength() = if(isPaddingOffsetRequired) 0.5f else 0f
-    override fun getLeftFadingEdgeStrength() = if(mEnableFadeEdge) 0.5f else 0f
+    override fun getLeftFadingEdgeStrength() = if(mEnableFadeEdge && canScroll()) 0.5f else 0f
 
     fun canScroll() = getChildWidth() > measuredWidth
 
@@ -104,10 +116,14 @@ class MarqueeLayout @JvmOverloads constructor(
                 }
             }
         })
-        //速度：假设整个View的宽度滚动完需要8秒，得出每秒滚动多少px
-//        val speed = measuredWidth / 8
-//        val duration = ((distance / Math.max(speed, 1)) * 1000 * mSlow).toLong()
-        animator!!.duration = mDuration.toLong()
+        if(mDuration > 0){
+            animator!!.duration = mDuration.toLong()
+        }else{
+            //速度：假设整个View的宽度滚动完需要8秒，得出每秒滚动多少px
+            val speed = measuredWidth / 8
+            val duration = ((distance / Math.max(speed, 50)) * 1000 * mSpeed).toLong()
+            animator!!.duration = Math.max(duration, 600)
+        }
         animator!!.start()
     }
 

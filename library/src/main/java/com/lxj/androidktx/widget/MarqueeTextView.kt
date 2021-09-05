@@ -11,6 +11,7 @@ import android.os.Looper
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.LinearInterpolator
+import com.blankj.utilcode.util.LogUtils
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.sp
 
@@ -32,7 +33,8 @@ class MarqueeTextView @JvmOverloads constructor(
     private var mTypefacePath: String? = null
     private var mLoop: Boolean = true
     private var mEnableFadeEdge: Boolean = true
-    private var mDuration: Int = 3000
+    private var mDuration: Int = 0  //如果指定时间，则固定速度
+    private var mSpeed: Float = 1f  //按速度滚动，越大越慢
     private var mScrollDelay = 400L
     private var mTextAlign = Paint.Align.LEFT
     private var mLetterSpacing = 0f
@@ -53,6 +55,7 @@ class MarqueeTextView @JvmOverloads constructor(
         mLoop = ta.getBoolean(R.styleable.MarqueeTextView_mtv_loop, mLoop)
         mEnableFadeEdge = ta.getBoolean(R.styleable.MarqueeTextView_mtv_enableFadeEdge, mEnableFadeEdge)
         mDuration = ta.getInteger(R.styleable.MarqueeTextView_mtv_duration, mDuration)
+        mSpeed = ta.getFloat(R.styleable.MarqueeTextView_mtv_speed, mSpeed)
         mScrollDelay = ta.getInteger(R.styleable.MarqueeTextView_mtv_scrollDelay, 400).toLong()
         val align =
             ta.getInteger(R.styleable.MarqueeTextView_mtv_textAlign, Paint.Align.LEFT.ordinal)
@@ -81,13 +84,14 @@ class MarqueeTextView @JvmOverloads constructor(
     }
 
     fun setup(
-        text: String? = null, textColor: Int? = null, textSize: Float? = null,
+        text: String? = null, textColor: Int? = null, textSize: Float? = null,speed: Float? = null,
         typefacePath: String? = null, loop: Boolean? = null, duration: Int? = null,
         scrollDelay: Long? = null, textBold: Boolean? = null, textAlign: Paint.Align? = null
     ) {
         if (text != null) mText = text
         if (textColor != null) mTextColor = textColor
         if (textSize != null) mTextSize = textSize
+        if (speed != null) mSpeed = speed
         if (typefacePath != null) mTypefacePath = typefacePath
         if (loop != null) mLoop = loop
         if (duration != null) mDuration = duration
@@ -99,11 +103,11 @@ class MarqueeTextView @JvmOverloads constructor(
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+//        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         val widthMode = MeasureSpec.getMode(widthMeasureSpec)
         val heightMode = MeasureSpec.getMode(heightMeasureSpec)
         val width =
-            if (widthMode != MeasureSpec.EXACTLY) (textBounds.width() + paddingLeft + paddingRight)
+            if (widthMode != MeasureSpec.EXACTLY) (getTextWidth().toInt() + paddingLeft + paddingRight)
             else MeasureSpec.getSize(widthMeasureSpec)
         val height =
             if (heightMode != MeasureSpec.EXACTLY) (textBounds.height() + paddingTop + paddingBottom)
@@ -179,24 +183,25 @@ class MarqueeTextView @JvmOverloads constructor(
         }, mScrollDelay)
     }
 
-    override fun isPaddingOffsetRequired() = mEnableFadeEdge && canScroll() && animator?.isRunning==true
+    override fun isPaddingOffsetRequired() = mEnableFadeEdge && animator?.isRunning==true
     override fun getRightFadingEdgeStrength() = if(isPaddingOffsetRequired) 0.5f else 0f
-    override fun getLeftFadingEdgeStrength() = if(mEnableFadeEdge) 0.5f else 0f
+    override fun getLeftFadingEdgeStrength() = if(mEnableFadeEdge && canScroll()) 0.5f else 0f
 
-
-    fun canScroll() = getTextWidth() > measuredWidth
+    fun canScroll() : Boolean{
+        LogUtils.e("textW: ${getTextWidth()}   viewW: ${measuredWidth}")
+        return getTextWidth() > measuredWidth
+    }
 
     private fun innerScroll() {
         val textWidth = getTextWidth()
         if (textWidth < measuredWidth) return
         scrolling = true
         animator?.removeAllListeners()
-        val distance = if (mLoop) (textWidth).toInt() else (textWidth - measuredWidth).toInt()
-        animator = ValueAnimator.ofInt(if (first) 0 else -measuredWidth, distance)
+        val distance = if (mLoop) (textWidth) else (textWidth - measuredWidth)
+        animator = ValueAnimator.ofInt(if (first) 0 else -measuredWidth, distance.toInt())
         animator!!.interpolator = LinearInterpolator()
         animator!!.addUpdateListener {
             scrollTo(it.animatedValue as Int, 0)
-            invalidate()
         }
         animator!!.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationStart(animation: Animator?) {
@@ -216,21 +221,27 @@ class MarqueeTextView @JvmOverloads constructor(
                 }
             }
         })
-        //速度：假设整个View的宽度滚动完需要8秒，得出每秒滚动多少px
-//        val speed = measuredWidth / 8
-//        val duration = ((distance / Math.max(speed, 1)) * 1000).toLong()
-        animator!!.duration = mDuration.toLong()
+
+        if(mDuration > 0){
+            animator!!.duration = mDuration.toLong()
+        }else{
+            //速度：假设整个View的宽度滚动完需要8秒，得出每秒滚动多少px
+            val speed = measuredWidth / 8
+            val duration = ((distance / Math.max(speed, 50)) * 1000 * mSpeed).toLong()
+            animator!!.duration = Math.max(duration, 600)
+        }
         animator!!.start()
     }
 
     //    fun getTextWidth() = paint.measureText(mText)
-    fun getTextWidth(): Int {
-        var w = textBounds.width()
+    fun getTextWidth(): Float {
+//        var w = textBounds.width()
+        var w = paint.measureText(mText)
         if (mLetterSpacing != 0f && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             val space = Math.round(paint.measureText(" ") * mLetterSpacing)
             if(!mText.isNullOrEmpty()) w += space * (mText!!.length)
         }
-        return w
+        return w.toFloat()
     }
 
     fun stopScroll() {

@@ -408,12 +408,21 @@
         <attr name="mtv_textColor" format="color" />
         <attr name="mtv_textSize" format="dimension" />
         <attr name="mtv_text" format="string" />
-        <attr name="mtv_slow" format="float" />
         <attr name="mtv_loop" format="boolean" />
         <attr name="mtv_scrollDelay" format="integer" />
         <attr name="mtv_letterSpacing" format="float" />
         <attr name="mtv_enableFadeEdge" format="boolean" />
         <attr name="mtv_duration" format="integer" />
+        <attr name="mtv_speed" format="float" />
+    </declare-styleable>
+
+    <!-- MarqueeLayout -->
+    <declare-styleable name="MarqueeLayout">
+        <attr name="ml_loop" format="boolean" />
+        <attr name="ml_scrollDelay" format="integer" />
+        <attr name="ml_enableFadeEdge" format="boolean" />
+        <attr name="ml_duration" format="integer" />
+        <attr name="ml_speed" format="float" />
     </declare-styleable>
 
     <!-- FormField -->
