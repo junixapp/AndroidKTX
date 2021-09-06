@@ -47,7 +47,7 @@ object ExoPlayerVM : ViewModel(){
     val playInfo = StateLiveData<PlayInfo>() //播放进度, 位置
     val uriList = arrayListOf<String>()
     var isCacheLastData = false
-    private val maxCacheSize = 1024*1024L*100 //100M
+    private val maxCacheSize = 1024 * 1024L * 500 //100M
     init {
         playState.value = PlayState.Idle
         playMode.value = sp().getString("_ktx_player_mode", RepeatAllMode) ?: RepeatAllMode
@@ -60,12 +60,9 @@ object ExoPlayerVM : ViewModel(){
             .build()
         player.repeatMode = Player.REPEAT_MODE_OFF
         player.shuffleModeEnabled = false
-//        if(AndroidKTX.isDebug)player.addAnalyticsListener( EventLogger(DefaultTrackSelector()))
         player.addListener(object : Player.EventListener{
             override fun onIsPlayingChanged(isPlaying: Boolean) {
                 super.onIsPlayingChanged(isPlaying)
-//                LogUtils.e("onIsPlayingChanged:  isPlaying: ${isPlaying} state: ${player.playbackState}" +
-//                        " playWhenReady : ${player.playWhenReady}")
                 if(isPlaying){
                     playState.setValue(PlayState.Playing)
                     postProgress()
@@ -109,6 +106,10 @@ object ExoPlayerVM : ViewModel(){
                 stopPostProgress()
             }
         })
+    }
+
+    private fun createPlayer(){
+
     }
 
     fun cacheLastData(b: Boolean) {
@@ -297,10 +298,10 @@ object ExoPlayerVM : ViewModel(){
         currentIndex = -1
         uriList.clear()
         val info = PlayInfo(index = currentIndex, current = 0,
-            total = duration(), uri = "")
+            total = 0, uri = "")
         playInfo.setValue(info)
-//        player.release()
     }
+
 }
 
 data class PlayInfo(

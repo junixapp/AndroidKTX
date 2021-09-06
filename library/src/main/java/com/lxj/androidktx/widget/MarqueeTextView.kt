@@ -11,7 +11,6 @@ import android.os.Looper
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.LinearInterpolator
-import com.blankj.utilcode.util.LogUtils
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.sp
 
@@ -103,7 +102,6 @@ class MarqueeTextView @JvmOverloads constructor(
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-//        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         val widthMode = MeasureSpec.getMode(widthMeasureSpec)
         val heightMode = MeasureSpec.getMode(heightMeasureSpec)
         val width =
@@ -188,7 +186,6 @@ class MarqueeTextView @JvmOverloads constructor(
     override fun getLeftFadingEdgeStrength() = if(mEnableFadeEdge && canScroll()) 0.5f else 0f
 
     fun canScroll() : Boolean{
-        LogUtils.e("textW: ${getTextWidth()}   viewW: ${measuredWidth}")
         return getTextWidth() > measuredWidth
     }
 
