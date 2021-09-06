@@ -3,6 +3,8 @@ package com.lxj.androidktx.base
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.blankj.utilcode.util.FragmentUtils
+import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.ToastUtils
 
 /**
  * Description:
@@ -20,6 +22,21 @@ abstract class BaseActivity : AppCompatActivity() {
     protected abstract fun initView()
     protected abstract fun initData()
 
+    private var lastBackPressTime = 0L
+    /**
+     * 两次返回退出Activity
+     */
+    protected fun doubleBackToFinish(duration: Long = 2000, toast: String = "再按一次退出") {
+        if (!FragmentUtils.dispatchBackPress(supportFragmentManager)) {
+            if(System.currentTimeMillis() - lastBackPressTime < duration){
+                ToastUtils.cancel()
+                super.onBackPressed()
+            }else{
+                lastBackPressTime = System.currentTimeMillis()
+                ToastUtils.showShort(toast)
+            }
+        }
+    }
     override fun onBackPressed() {
         if (!FragmentUtils.dispatchBackPress(supportFragmentManager)) {
             super.onBackPressed()

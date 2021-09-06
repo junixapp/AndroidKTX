@@ -104,3 +104,4 @@ inline val FragmentActivity.handler
 
 inline val Fragment.handler
     get() = LifecycleHandler(this)
+

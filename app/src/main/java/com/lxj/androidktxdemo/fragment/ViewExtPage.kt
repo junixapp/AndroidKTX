@@ -87,7 +87,7 @@ class ViewExtPage : BaseFragment() {
 
         val animator = ValueAnimator.ofFloat(0f, 100f)
         animator.addUpdateListener {
-            progressBar.progress = 100f - it.animatedValue as Float
+            progressBar?.progress = 100f - it.animatedValue as Float
         }
         animator.setDuration(10000)
         animator.start()

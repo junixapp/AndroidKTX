@@ -76,8 +76,6 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        if(!FragmentUtils.dispatchBackPress(supportFragmentManager)){
-            ActivityUtils.startHomeActivity()
-        }
+        doubleBackToFinish()
     }
 }
