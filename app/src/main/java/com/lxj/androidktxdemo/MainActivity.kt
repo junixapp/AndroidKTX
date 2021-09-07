@@ -51,6 +51,7 @@ class MainActivity : BaseActivity() {
         binding.btnTest.click {
             testVM.test()
         }
+
     }
 
     override fun initData() {

@@ -105,3 +105,11 @@ inline val FragmentActivity.handler
 inline val Fragment.handler
     get() = LifecycleHandler(this)
 
+/**
+ * 将Activity移到前台，需将launchMode设置为SingleTop，否则会创建新实例
+ */
+fun Activity.moveTaskToFront(){
+    val intent = Intent(AndroidKTX.context, this.javaClass)
+    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_REORDER_TO_FRONT or Intent.FLAG_ACTIVITY_SINGLE_TOP
+    AndroidKTX.context.startActivity(intent)
+}
