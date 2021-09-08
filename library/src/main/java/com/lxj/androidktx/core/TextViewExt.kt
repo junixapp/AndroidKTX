@@ -3,6 +3,7 @@ package com.lxj.androidktx.core
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.text.Editable
+import android.text.InputFilter
 import android.widget.EditText
 import android.widget.TextView
 import androidx.core.widget.doAfterTextChanged
@@ -77,4 +78,11 @@ fun ShapeTextView.switchStateByEditText(et: EditText, minLength: Int = 1, enable
         }
         onTextChange?.invoke(it)
     }
+}
+
+/**
+ * 动态设置最大长度限制
+ */
+fun TextView.maxLength(max: Int){
+    filters = arrayOf<InputFilter>(InputFilter.LengthFilter(max))
 }
