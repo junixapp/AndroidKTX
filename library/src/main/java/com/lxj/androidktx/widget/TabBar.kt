@@ -27,8 +27,8 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
     var iconPosition = 1
     var selectedColor = Color.RED
     var normalColor = Color.BLACK
-    var selectedBgColor = Color.TRANSPARENT
-    var normalBgColor = Color.TRANSPARENT
+    var selectedBgColor = 0
+    var normalBgColor = 0
     var normalTextSize = 14.sp
     var selectTextSize = 14.sp
     var tabHeight = 0
@@ -113,9 +113,9 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
                 }
             }, LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT))
             wrapper.apply {
-                val typedValue = TypedValue()
-                context.theme.resolveAttribute(android.R.attr.selectableItemBackground, typedValue, true)
-                setBackgroundResource(typedValue.resourceId)
+//                val typedValue = TypedValue()
+//                context.theme.resolveAttribute(android.R.attr.selectableItemBackground, typedValue, true)
+//                setBackgroundResource(typedValue.resourceId)
                 click {
                     selectTab(index)
                 }
@@ -154,6 +154,9 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
         vp2?.currentItem = tabIndex
         children.forEachIndexed { i, p ->
             val group = p as ViewGroup
+            if(selectedBgColor!=0 || normalBgColor!=0){
+                group.setBackgroundColor(if (index == i) selectedBgColor else normalBgColor)
+            }
             (group.getChildAt(0) as TextView).apply {
                 val icon = if(index == i) mTabs[i].selectedIconRes else mTabs[i].normalIconRes
                 when (iconPosition) {
@@ -163,7 +166,6 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
                     3 -> sizeDrawable(width = iconWidth, height = iconHeight, bottomDrawable = icon)
                 }
                 setTextColor(if (index == i) selectedColor else normalColor)
-                group.setBackgroundColor(if (index == i) selectedBgColor else normalBgColor)
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, if (index == i) selectTextSize.toFloat() else normalTextSize.toFloat())
                 if(!typefacePath.isNullOrEmpty()) {
                     typeface = customTypeface

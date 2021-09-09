@@ -66,8 +66,15 @@ class ViewExtPage : BaseFragment() {
                 TabBar.Tab( text = "My" ,),
 //                TabBar.Tab( selectedIconRes = R.mipmap.ic_launcher_round),
 //                TabBar.Tab( selectedIconRes = R.mipmap.ic_launcher_round)
-                )){
-            ToastUtils.showShort("选择了："+it)
+                )){position->
+            ToastUtils.showShort("选择了："+position)
+            (0..3).forEach {
+                LogUtils.e("posi: $it   -> $position")
+                tabbar.getChildAt(it).background = if (position == it) createDrawable(
+                    strokeWidth = 2.pt,
+                    strokeColor = Color.parseColor("#FF4B76DB")
+                ) else null
+            }
             true
         }
         mtv.setup("床前明月光")
