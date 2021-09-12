@@ -15,7 +15,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
+        <com.youth.banner.Banner
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="80pt"/>
 
         <com.lxj.androidktx.widget.FormField
             android:padding="15dp"
@@ -250,7 +253,7 @@
             android:textSize="14sp" />
 
         <ImageView
-            android:id="@+id/image"
+            android:id="@+id/image2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

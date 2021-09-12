@@ -38,7 +38,7 @@ class ViewExtPage : BaseFragment() {
         }
 
         text4.post {
-            image.setImageBitmap(text4.toBitmap())
+            image2.setImageBitmap(text4.toBitmap())
         }
 
         text4.setBackgroundDrawable(createDrawable(color = Color.GREEN,
@@ -80,7 +80,11 @@ class ViewExtPage : BaseFragment() {
         mtv.setup("床前明月光")
         mtv2.setup("床前明月光，疑是地上霜；举头望明月，低头思故乡。")
 
-
+        val list = listOf(
+            "http://sealbox.oss-ap-southeast-1.aliyuncs.com/upload/20210830/27f4e97272474d38299240aa2c6f5678.png",
+            "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic33.nipic.com%2F20130924%2F12085979_105431188100_2.jpg&refer=http%3A%2F%2Fpic33.nipic.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1634003717&t=1d514ffc2294afa6a28c6f5df20702b7",
+        )
+        banner.adapter = CommonBannerAdapter(list, cornerRadius = 10.dp)
     }
 
     override fun initData() {
