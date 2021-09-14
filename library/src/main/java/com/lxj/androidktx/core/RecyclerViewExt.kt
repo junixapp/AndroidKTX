@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.*
 import com.blankj.utilcode.util.AdaptScreenUtils
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.lxj.androidktx.util.RecyclerViewDivider
+import com.lxj.androidktx.util.SafeGridLayoutManager
+import com.lxj.androidktx.util.SafeLinearLayoutManager
+import com.lxj.androidktx.util.SafeStaggeredGridLayoutManager
 import com.lxj.easyadapter.*
 import java.util.*
 
@@ -42,23 +45,23 @@ fun RecyclerView.flexbox(): RecyclerView {
 }
 
 fun RecyclerView.vertical(spanCount: Int = 0, isStaggered: Boolean = false): RecyclerView {
-    layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+    layoutManager = SafeLinearLayoutManager(context, RecyclerView.VERTICAL, false)
     if (spanCount != 0) {
-        layoutManager = GridLayoutManager(context, spanCount)
+        layoutManager = SafeGridLayoutManager(context, spanCount)
     }
     if (isStaggered) {
-        layoutManager = StaggeredGridLayoutManager(spanCount, StaggeredGridLayoutManager.VERTICAL)
+        layoutManager = SafeStaggeredGridLayoutManager(spanCount, StaggeredGridLayoutManager.VERTICAL)
     }
     return this
 }
 
 fun RecyclerView.horizontal(spanCount: Int = 0, isStaggered: Boolean = false): RecyclerView {
-    layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+    layoutManager = SafeLinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     if (spanCount != 0) {
-        layoutManager = GridLayoutManager(context, spanCount, GridLayoutManager.HORIZONTAL, false)
+        layoutManager = SafeGridLayoutManager(context, spanCount, GridLayoutManager.HORIZONTAL, false)
     }
     if (isStaggered) {
-        layoutManager = StaggeredGridLayoutManager(spanCount, StaggeredGridLayoutManager.HORIZONTAL)
+        layoutManager = SafeStaggeredGridLayoutManager(spanCount, StaggeredGridLayoutManager.HORIZONTAL)
     }
     return this
 }

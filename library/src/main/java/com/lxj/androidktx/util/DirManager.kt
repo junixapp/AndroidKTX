@@ -4,7 +4,7 @@ import com.lxj.androidktx.AndroidKTX.context
 import java.io.File
 
 /**
- * 自动创建常用目录，并检查权限
+ * 自动创建常用目录
  */
 object DirManager{
     var rootDir: String = ""
