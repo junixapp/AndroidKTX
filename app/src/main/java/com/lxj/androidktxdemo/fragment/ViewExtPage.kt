@@ -40,10 +40,7 @@ class ViewExtPage : BaseFragment() {
         text4.post {
             image2.setImageBitmap(text4.toBitmap())
         }
-
-        text4.setBackgroundDrawable(createDrawable(color = Color.GREEN,
-                strokeColor = Color.RED, strokeWidth = dp2px(2f),
-                radius = dp2px(30f).toFloat(), enableRipple = true))
+        text4.click { ToastUtils.showShort("clicked") }
 
 //        tvVerify.mSolid = Color.parseColor("#ff0000")
         tvVerify.click {

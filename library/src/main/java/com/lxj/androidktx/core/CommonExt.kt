@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.AdaptScreenUtils
 import com.blankj.utilcode.util.ConvertUtils
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.TimeUtils
 import com.google.android.material.shadow.ShadowRenderer
 import com.google.gson.ExclusionStrategy
@@ -110,11 +111,11 @@ fun Context.createDrawable(color: Int = Color.TRANSPARENT, radius: Float = 0f, c
         }
     }
     if (Build.VERSION.SDK_INT >= 21 && enableRipple) {
-        d = RippleDrawable(ColorStateList.valueOf(rippleColor), d, null)
+        return RippleDrawable(ColorStateList.valueOf(rippleColor), d, null)
     }
-    if((shadowColor!=null && shadowColor!=0) || shadowSize?:0f > 0f){
-        d = ShadowDrawable(d, shadowColor ?: 0 , radius ,shadowSize ?: 0f, shadowSize?: 0f)
-    }
+//    if((shadowColor!=null && shadowColor!=0) || shadowSize?:0f > 0f){
+//        d = ShadowDrawable(d, shadowColor ?: 0 , radius ,shadowSize ?: 0f, shadowSize?: 0f)
+//    }
     return d
 }
 

@@ -13,7 +13,7 @@ import com.blankj.utilcode.util.ScreenUtils
  */
 abstract class AdaptActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        BarUtils.setStatusBarLightMode(this,isLightMode())//显示黑字体
+        BarUtils.setStatusBarLightMode(this, isLightStatusBar())//显示黑字体
         BarUtils.setStatusBarColor(this, Color.TRANSPARENT).setBackgroundResource(getStatusBarColor())
         super.onCreate(savedInstanceState)
     }
@@ -28,7 +28,7 @@ abstract class AdaptActivity : BaseActivity() {
     open fun getDesignWidth() = 375
     open fun getDesignHeight() = 750
 
-    open fun isLightMode() = true
+    open fun isLightStatusBar() = true
 
     open fun getStatusBarColor() = android.R.color.transparent
 

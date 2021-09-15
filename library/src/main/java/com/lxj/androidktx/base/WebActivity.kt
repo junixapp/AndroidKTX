@@ -103,7 +103,7 @@ open class WebActivity : TitleBarActivity() {
     val mStatusBarColor: Int by lazy { intent.getIntExtra("statusBarColor", -1) }
     val hideTitleBar: Boolean by lazy { intent.getBooleanExtra("hideTitleBar", false) }
     val keepMarginTop: Boolean by lazy { intent.getBooleanExtra("keepMarginTop", false) }
-    val isLightStatusBar: Boolean by lazy { intent.getBooleanExtra("isLightStatusBar", false) }
+    val lightStatusBar: Boolean by lazy { intent.getBooleanExtra("isLightStatusBar", false) }
     val mDesignWidth: Int by lazy { intent?.getIntExtra("designWidth", 0) ?:0 }
     val mDesignHeight: Int by lazy { intent?.getIntExtra("designHeight", 0)?:0 }
 
@@ -117,7 +117,7 @@ open class WebActivity : TitleBarActivity() {
         return super.getDesignHeight()
     }
 
-    override fun isLightMode() = isLightStatusBar
+    override fun isLightStatusBar() = lightStatusBar
 
     override fun initView() {
         super.initView()
