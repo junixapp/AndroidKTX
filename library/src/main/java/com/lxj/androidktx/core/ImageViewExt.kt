@@ -76,7 +76,7 @@ fun ImageView.load(url: Any?, placeholder: Int = 0, error: Int = 0,
 
                         override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
                             onImageLoad?.invoke(resource)
-                            return onImageLoad!=null
+                            return false
                         }
                     })
                 }

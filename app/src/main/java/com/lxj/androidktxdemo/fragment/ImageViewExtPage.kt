@@ -29,11 +29,13 @@ class ImageViewExtPage: BaseFragment(){
     }
 
     private fun loadImage(){
-        image1.load("http://sealbox.oss-ap-southeast-1.aliyuncs.com/https://sealbox.oss-ap-southeast-1.aliyuncs.com/default/default_avatar.png",
-            placeholder = R.mipmap.ic_launcher, blurRadius = 0.8f, targetWidth = 300, targetHeight = 300,
+        image1.load(images[1],
+            placeholder = R.mipmap.ic_launcher, roundRadius = 20, targetWidth = 300, targetHeight = 300,
                  onImageFail = {
                 ToastUtils.showShort("图片加载失败")
                      image1.setImageResource(R.mipmap.test)
+            }, onImageLoad = {
+                ToastUtils.showShort("图片加载成功")
             })
 
         title1.text = "image1.load(url)"
