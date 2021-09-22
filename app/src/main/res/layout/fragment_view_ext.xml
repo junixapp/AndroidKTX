@@ -89,16 +89,15 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="vertical"
+            android:layout_marginRight="30dp"
             android:padding="20dp"
             android:layout_marginLeft="30dp"
-            android:clipChildren="false"
-            android:clipToPadding="false"
             app:srl_corner="10dp"
             app:srl_solid="#fafa10">
 
             <com.lxj.androidktx.widget.MarqueeTextView
                 android:id="@+id/mtv"
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:mtv_speed="0.4"
                 app:mtv_textBold="true"
@@ -107,13 +106,13 @@
             <com.lxj.androidktx.widget.MarqueeTextView
                 android:id="@+id/mtv2"
                 android:layout_below="@id/mtv"
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:mtv_enableFadeEdge="false"
-                app:mtv_speed="0.4"
+                app:mtv_maxWidth="100dp"
                 app:mtv_textBold="true"
                 app:mtv_textColor="#ff0000"
                 app:mtv_textSize="20sp" />
+
         </com.lxj.androidktx.widget.ShapeRelativeLayout>
 
         <com.lxj.androidktx.widget.NumberEditLayout

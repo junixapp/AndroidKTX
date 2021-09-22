@@ -13,6 +13,7 @@ import android.view.View
 import android.view.animation.LinearInterpolator
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.sp
+import kotlin.math.max
 
 /**
  * 支持一段文字进行滚动的View
@@ -37,6 +38,7 @@ class MarqueeTextView @JvmOverloads constructor(
     private var mScrollDelay = 400L
     private var mTextAlign = Paint.Align.LEFT
     private var mLetterSpacing = 0f
+    private var mMaxWidth = 0
 
     private var scrolling = false
     private val mHandler = Handler(Looper.getMainLooper())
@@ -49,7 +51,8 @@ class MarqueeTextView @JvmOverloads constructor(
         mText = ta.getString(R.styleable.MarqueeTextView_mtv_text)
         mTextBold = ta.getBoolean(R.styleable.MarqueeTextView_mtv_textBold, false)
         mTextColor = ta.getColor(R.styleable.MarqueeTextView_mtv_textColor, mTextColor)
-        mTextSize = ta.getDimension(R.styleable.MarqueeTextView_mtv_textSize, mTextSize)
+        mTextSize = ta.getDimensionPixelSize(R.styleable.MarqueeTextView_mtv_textSize, mTextSize.toInt()).toFloat()
+        mMaxWidth = ta.getDimensionPixelSize(R.styleable.MarqueeTextView_mtv_maxWidth, mMaxWidth)
         mTypefacePath = ta.getString(R.styleable.MarqueeTextView_mtv_typefacePath)
         mLoop = ta.getBoolean(R.styleable.MarqueeTextView_mtv_loop, mLoop)
         mEnableFadeEdge = ta.getBoolean(R.styleable.MarqueeTextView_mtv_enableFadeEdge, mEnableFadeEdge)
@@ -85,7 +88,8 @@ class MarqueeTextView @JvmOverloads constructor(
     fun setup(
         text: String? = null, textColor: Int? = null, textSize: Float? = null,speed: Float? = null,
         typefacePath: String? = null, loop: Boolean? = null, duration: Int? = null,
-        scrollDelay: Long? = null, textBold: Boolean? = null, textAlign: Paint.Align? = null
+        scrollDelay: Long? = null, textBold: Boolean? = null, textAlign: Paint.Align? = null,
+        maxWidth: Int? = null,
     ) {
         if (text != null) mText = text
         if (textColor != null) mTextColor = textColor
@@ -97,6 +101,7 @@ class MarqueeTextView @JvmOverloads constructor(
         if (scrollDelay != null) mScrollDelay = scrollDelay
         if (textBold != null) mTextBold = textBold
         if (textAlign != null) mTextAlign = textAlign
+        if (maxWidth != null) mMaxWidth = maxWidth
         applyAttr()
         invalidate()
     }
@@ -110,7 +115,7 @@ class MarqueeTextView @JvmOverloads constructor(
         val height =
             if (heightMode != MeasureSpec.EXACTLY) (textBounds.height() + paddingTop + paddingBottom)
             else MeasureSpec.getSize(heightMeasureSpec)
-        setMeasuredDimension(width, height)
+        setMeasuredDimension( if(mMaxWidth==0) width else Math.min(mMaxWidth, width), height)
     }
 
     override fun onDraw(canvas: Canvas) {

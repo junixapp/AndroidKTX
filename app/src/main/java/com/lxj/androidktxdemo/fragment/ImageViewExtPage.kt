@@ -35,7 +35,7 @@ class ImageViewExtPage: BaseFragment(){
                 ToastUtils.showShort("图片加载失败")
                      image1.setImageResource(R.mipmap.test)
             }, onImageLoad = {
-                ToastUtils.showShort("图片加载成功")
+                ToastUtils.showShort("图片加载成功：dw ${it?.intrinsicWidth}")
             })
 
         title1.text = "image1.load(url)"
