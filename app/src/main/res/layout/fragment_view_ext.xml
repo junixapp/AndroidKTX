@@ -179,7 +179,7 @@
             android:layout_height="100dp"
             android:layout_margin="20dp"
             android:scaleType="centerCrop"
-            android:src="@mipmap/t"
+            android:src="@mipmap/checked"
             app:siv_corner="50dp"
             app:siv_solid="#6f00"
             app:siv_stroke="#00f"
