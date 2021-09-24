@@ -1,7 +1,6 @@
 package com.lxj.androidktx.util
 
 import android.content.Context
-import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.*
 import com.lxj.androidktx.core.md5
 import com.lxj.androidktx.core.putString
