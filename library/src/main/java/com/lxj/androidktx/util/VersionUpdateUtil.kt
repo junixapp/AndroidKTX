@@ -29,76 +29,82 @@ data class CommonUpdateInfo(
  */
 object VersionUpdateUtil {
     const val cacheKey = "_version_update_download_apk_"
-    private fun showUpdatePopup(context: Context, updateData: CommonUpdateInfo, path: String) {
+    private fun showDefaultUpdateUI(context: Context, updateData: CommonUpdateInfo, path: String) {
         XPopup.Builder(context)
                 .dismissOnBackPressed(updateData.force_update)
                 .dismissOnTouchOutside(updateData.force_update)
                 .asCustom(VersionUpdatePopup(context = context, updateInfo = updateData, onOkClick = {
-                    //删除缓存
-                    sp().putString(cacheKey, "")
-                    AppUtils.installApp(path)
+                    installApk(path)
                 }))
                 .show()
     }
 
     /**
+     * 安装apk
+     */
+    fun installApk(path: String){
+        //删除缓存
+        sp().putString(cacheKey, "")
+        AppUtils.installApp(path)
+    }
+
+    /**
      * 下载并安装Apk，会自动检测是否有缓存过的apk文件，如果有则直接提示安装。如果没有则进行下载，一旦安装就删除缓存的文件路径
      * @param updateData 更新相关信息
-     * @param onShowUpdateUI 默认会有个更新的提示，如果想自己实现UI，则实现这个监听器
+     * @param onShowInstallUI 默认会有个更新的提示，如果想自己实现UI，则实现这个监听器
      * @param useCache 是否使用缓存的apk文件,使用下载url作为缓存的key
+     * @param installWhenDownload 下载完就进入安装
      */
-    fun downloadAndInstallApk(context: Context, updateData: CommonUpdateInfo, onShowUpdateUI: ((apkPath: String) -> Unit)? = null,
-        useCache: Boolean = true, onDownloadProgress: ((Int)->Unit)? = null) {
+    fun downloadAndInstallApk(context: Context, updateData: CommonUpdateInfo, onShowInstallUI: ((apkPath: String) -> Unit)? = null,
+        useCache: Boolean = true, onDownloadProgress: ((Int)->Unit)? = null, installWhenDownload : Boolean = false) {
         //检测是否有缓存的apk路径，如果有说明已经下载过了
         val filename = "${updateData.download_url!!.md5()}.apk"
         val file = File("${DirManager.downloadDir}/${filename}")
         val cacheApkPath = sp().getString(cacheKey, "")
         if (cacheApkPath!!.isNotEmpty() && FileUtils.isFileExists(cacheApkPath) && cacheApkPath==file.absolutePath && useCache) {
             LogUtils.e("新版本Apk已存在，无需下载，路径：$cacheApkPath")
-            if (onShowUpdateUI != null) {
-                onShowUpdateUI(cacheApkPath)
-            } else {
-                showUpdatePopup(context, updateData, cacheApkPath)
+            if(installWhenDownload){
+                installApk(cacheApkPath)
+            }else{
+                if (onShowInstallUI != null) {
+                    onShowInstallUI(cacheApkPath)
+                } else {
+                    showDefaultUpdateUI(context, updateData, cacheApkPath)
+                }
             }
             return
         }
         LogUtils.d("开始下载新版本: ${updateData.toJson()}")
-        PermissionUtils.permission(PermissionConstants.STORAGE)
-                .callback(object : PermissionUtils.SimpleCallback {
-                    override fun onGranted() {
-                        if (updateData.download_url.isNullOrEmpty()) {
-                            return
+        if (updateData.download_url.isNullOrEmpty()) {
+            return
+        }
+        FileUtils.createFileByDeleteOldFile(file)
+        updateData.download_url!!.http(baseUrlTag = "")
+            .savePath(file.absolutePath)
+            .downloadListener(onProgress = {
+                onDownloadProgress?.invoke(it?.percent?:0)
+                LogUtils.d("新版本下载进度：${ it?.percent}")
+            })
+            .get<File>(object : HttpCallback<File> {
+                override fun onSuccess(t: File) {
+                    LogUtils.e("新版本下载成功，路径为：${file.absolutePath}")
+                    //缓存路径
+                    sp().putString(cacheKey, t.absolutePath)
+                    if(installWhenDownload){
+                        installApk(t.absolutePath)
+                    }else{
+                        if (onShowInstallUI != null) {
+                            onShowInstallUI(t.absolutePath)
+                        } else {
+                            showDefaultUpdateUI(context, updateData, t.absolutePath)
                         }
-                        FileUtils.createFileByDeleteOldFile(file)
-                        updateData.download_url!!.http(baseUrlTag = "")
-                                .savePath(file.absolutePath)
-                                .downloadListener(onProgress = {
-                                    onDownloadProgress?.invoke(it?.percent?:0)
-                                   LogUtils.d("新版本下载进度：${ it?.percent}")
-                                })
-                                .get<File>(object : HttpCallback<File> {
-                                    override fun onSuccess(t: File) {
-                                        LogUtils.e("新版本下载成功，路径为：${file.absolutePath}")
-                                        //缓存路径
-                                        sp().putString(cacheKey, t.absolutePath)
-                                        if (onShowUpdateUI != null) {
-                                            onShowUpdateUI(t.absolutePath)
-                                        } else {
-                                            showUpdatePopup(context, updateData, t.absolutePath)
-                                        }
-                                    }
-
-                                    override fun onFail(e: IOException) {
-                                        super.onFail(e)
-                                        LogUtils.e("新版本下载失败：${e.localizedMessage}")
-                                    }
-                                })
                     }
-
-                    override fun onDenied() {
-                        ToastUtils.showShort("存储权限获取失败，无法下载新版本")
-                    }
-                }).request()
+                }
+                override fun onFail(e: IOException) {
+                    super.onFail(e)
+                    LogUtils.e("新版本下载失败：${e.localizedMessage}")
+                }
+            })
     }
 
 }
