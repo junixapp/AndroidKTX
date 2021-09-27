@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.util.AttributeSet
@@ -13,6 +14,7 @@ import android.widget.LinearLayout
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.createDrawable
 import com.lxj.androidktx.core.dp
+import com.lxj.androidktx.core.drawable
 
 /**
  * Description: 可以设置Shape的LinearLayout
@@ -40,6 +42,7 @@ open class ShapeLinearLayout @JvmOverloads constructor(context: Context, attribu
     private var mGradientOrientation = GradientDrawable.Orientation.LEFT_RIGHT  //从左到右
     private var mShadowColor: Int? = null
     private var mShadowSize: Int? = null
+    private var mBgDrawable: Drawable? = null
 
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.ShapeLinearLayout)
@@ -74,26 +77,27 @@ open class ShapeLinearLayout @JvmOverloads constructor(context: Context, attribu
         }
         mShadowColor = ta.getColor(R.styleable.ShapeLinearLayout_sll_shadowColor, 0)
         mShadowSize = ta.getDimensionPixelSize(R.styleable.ShapeLinearLayout_sll_shadowSize, 0)
+        mBgDrawable = ta.getDrawable(R.styleable.ShapeLinearLayout_sll_background)
         ta.recycle()
         applySelf()
     }
 
     fun applySelf() {
         if(Build.VERSION.SDK_INT >= 21) clipToOutline = clipChildren
-        var color : Int? = null
-        if (background !=null && background is ColorDrawable && mSolid==Color.TRANSPARENT){
-            color = ( background as ColorDrawable) .color
+        if(mBgDrawable!=null) {
+            background = mBgDrawable
+        } else{
+            var cornerArr: Array<Float>? = null
+            if(mTopLeftCorner>0 || mTopRightCorner>0 || mBottomLeftCorner>0 || mBottomRightCorner>0){
+                cornerArr = arrayOf(mTopLeftCorner.toFloat(), mTopRightCorner.toFloat(), mBottomRightCorner.toFloat(),
+                    mBottomLeftCorner.toFloat())
+            }
+            val drawable = createDrawable(color = mSolid, radius = mCorner.toFloat(), cornerRadiusArray = cornerArr, strokeColor = mStroke, strokeWidth = mStrokeWidth,
+                enableRipple = mEnableRipple, rippleColor = mRippleColor, gradientStartColor = mGradientStartColor,
+                gradientEndColor = mGradientEndColor, gradientCenterColor = mGradientCenterColor, gradientOrientation = mGradientOrientation,
+                shadowColor = mShadowColor, shadowSize = mShadowSize?.toFloat())
+            setBackgroundDrawable(drawable)
         }
-        var cornerArr: Array<Float>? = null
-        if(mTopLeftCorner>0 || mTopRightCorner>0 || mBottomLeftCorner>0 || mBottomRightCorner>0){
-            cornerArr = arrayOf(mTopLeftCorner.toFloat(), mTopRightCorner.toFloat(), mBottomRightCorner.toFloat(),
-                mBottomLeftCorner.toFloat())
-        }
-        val drawable = createDrawable(color = color ?: mSolid, radius = mCorner.toFloat(), cornerRadiusArray = cornerArr, strokeColor = mStroke, strokeWidth = mStrokeWidth,
-            enableRipple = mEnableRipple, rippleColor = mRippleColor, gradientStartColor = mGradientStartColor,
-            gradientEndColor = mGradientEndColor, gradientCenterColor = mGradientCenterColor, gradientOrientation = mGradientOrientation,
-            shadowColor = mShadowColor, shadowSize = mShadowSize?.toFloat())
-        setBackgroundDrawable(drawable)
     }
 
     val paint = Paint()
@@ -113,7 +117,8 @@ open class ShapeLinearLayout @JvmOverloads constructor(context: Context, attribu
         corner: Int? = null, cornerArr: Array<Int>? = null, enableRipple: Boolean? = null, rippleColor: Int? = null,
         topLineColor: Int? = null, bottomLineColor: Int? = null, lineSize: Int? = null,
         gradientOrientation: GradientDrawable.Orientation? = null,  gradientStartColor: Int? = null,
-        gradientCenterColor: Int? = null,gradientEndColor: Int? = null, shadowColor: Int? = null, shadowSize: Int? = null){
+        gradientCenterColor: Int? = null,gradientEndColor: Int? = null, shadowColor: Int? = null, shadowSize: Int? = null,
+        bgRes: Int? = null, ){
         if(solid!=null) mSolid = solid
         if(stroke!=null) mStroke = stroke
         if(strokeWidth!=null) mStrokeWidth = strokeWidth
@@ -135,6 +140,7 @@ open class ShapeLinearLayout @JvmOverloads constructor(context: Context, attribu
         if(gradientEndColor!=null) mGradientEndColor = gradientEndColor
         if(shadowColor!=null) mShadowColor = shadowColor
         if(shadowSize!=null) mShadowSize = shadowSize
+        if(bgRes!=null) mBgDrawable = if(bgRes==0) null else drawable(bgRes)
         applySelf()
     }
 }

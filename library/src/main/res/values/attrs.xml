@@ -111,6 +111,7 @@
         </attr>
         <attr name="sfl_shadowColor" format="color" />
         <attr name="sfl_shadowSize" format="dimension" />
+        <attr name="sfl_background" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="ShapeLinearLayout">
@@ -145,6 +146,7 @@
         </attr>
         <attr name="sll_shadowColor" format="color" />
         <attr name="sll_shadowSize" format="dimension" />
+        <attr name="sll_background" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="ShapeRelativeLayout">
@@ -179,6 +181,7 @@
         </attr>
         <attr name="srl_shadowColor" format="color" />
         <attr name="srl_shadowSize" format="dimension" />
+        <attr name="srl_background" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="ShapeTextView">
