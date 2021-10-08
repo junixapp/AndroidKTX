@@ -92,7 +92,6 @@
             android:layout_marginRight="30dp"
             android:padding="20dp"
             android:layout_marginLeft="30dp"
-            app:srl_background="@drawable/ali"
             app:srl_corner="10dp"
             app:srl_solid="#fafa10">
 

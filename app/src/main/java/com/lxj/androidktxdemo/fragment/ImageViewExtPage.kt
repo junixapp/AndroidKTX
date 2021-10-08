@@ -19,7 +19,7 @@ class ImageViewExtPage: BaseFragment(){
     private val images = arrayOf(
             "https://images.unsplash.com/photo-1606787619248-f301830a5a57?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
             "https://images.unsplash.com/photo-1624020491079-a369d85f00cd?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxOHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-            "https://images.unsplash.com/photo-1623961848133-bf6ee2d8d7d4?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+            "https://images.unsplash.com/photo-1624020491079-a369d85f00cd?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxOHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
     )
     override fun getLayoutId() = R.layout.fragment_imageview_ext
 

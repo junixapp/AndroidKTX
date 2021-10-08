@@ -1,5 +1,6 @@
 package com.lxj.androidktxdemo.entity
 
+import com.google.gson.annotations.SerializedName
 import java.util.*
 
 /**
@@ -8,9 +9,17 @@ import java.util.*
  */
 data class User(
         var name: String,
-        var age : Int,
-        var date : Date? = null
+        var age: Int = 0,
+        var date : Date? = null,
+        var gender: UserGender = UserGender.Man
 )
+
+enum class UserGender{
+        @SerializedName(value = "1")
+        Man,
+        @SerializedName(value = "2")
+        Women
+}
 
 data class HttpResult<T>(
         var status: String? = null,

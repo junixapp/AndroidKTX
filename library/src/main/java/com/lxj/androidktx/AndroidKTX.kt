@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.graphics.Color
+import android.os.Handler
+import android.os.Looper
 import android.view.Gravity
 import com.blankj.utilcode.util.ToastUtils
 import com.blankj.utilcode.util.Utils
@@ -23,6 +25,7 @@ object AndroidKTX {
     var isDebug = true
     var defaultLogTag = "androidktx"
     var sharedPrefName = "androidktx"
+    var handler = Handler(Looper.getMainLooper())
 
     /**
      * 初始化配置信息，必须调用

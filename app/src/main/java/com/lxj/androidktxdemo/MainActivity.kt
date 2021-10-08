@@ -11,8 +11,11 @@ import com.lxj.androidktx.core.*
 import com.lxj.share.Share
 import com.lxj.androidktxdemo.databinding.ActivityMainBinding
 import com.lxj.androidktxdemo.entity.PageInfo
+import com.lxj.androidktxdemo.entity.User
+import com.lxj.androidktxdemo.entity.UserGender
 import com.lxj.androidktxdemo.fragment.*
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 import kotlin.random.Random
 import kotlin.system.measureTimeMillis
 

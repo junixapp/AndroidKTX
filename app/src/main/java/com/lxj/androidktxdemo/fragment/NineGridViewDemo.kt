@@ -63,14 +63,14 @@ class NineGridViewDemo : BaseFragment() {
     override fun initView() {
         super.initView()
 //        Glide.getPhotoCacheDir(context!!)?.deleteRecursively()
-        recyclerView.vertical()
-                .bindData(list, R.layout.adapter_nine_grid, bindFn = { holder, t, position ->
-                    holder.getView<NineGridImageView<String>>(R.id.nineGrid).apply {
-//                        setShowStyle(NineGridImageView.STYLE_GRID)
-                        setSingleImgSize(AdaptScreenUtils.pt2Px(100f))
-                        setup(t.urls, corner = 36, placeholder = R.mipmap.ic_launcher)
-                    }
-
-                })
+//        recyclerView.vertical()
+//                .bindData(list, R.layout.adapter_nine_grid, bindFn = { holder, t, position ->
+//                    holder.getView<NineGridImageView<String>>(R.id.nineGrid).apply {
+////                        setShowStyle(NineGridImageView.STYLE_GRID)
+//                        setSingleImgSize(AdaptScreenUtils.pt2Px(100f))
+//                        setup(t.urls, corner = 36, placeholder = R.mipmap.ic_launcher)
+//                    }
+//
+//                })
     }
 }

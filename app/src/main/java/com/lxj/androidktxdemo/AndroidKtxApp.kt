@@ -5,6 +5,8 @@ import com.blankj.utilcode.util.LogUtils
 import com.lxj.androidktx.AndroidKTX
 import com.lxj.androidktx.core.*
 import com.lxj.androidktxdemo.entity.User
+import com.lxj.androidktxdemo.entity.UserGender
+import java.util.*
 
 /**
  * Description:
@@ -28,5 +30,9 @@ class AndroidKtxApp: MultiDexApplication(){
         LogUtils.d("user: ${sp().getObject<User>("user")}")
 
 
+        val json = User(name = "啊啊", date = Date(), gender = UserGender.Man).toJson()
+        LogUtils.d("json1: ${json}")
+        LogUtils.d("json: ${json.toBean<User>()}")
+        UserGender.Man.ordinal
     }
 }

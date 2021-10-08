@@ -115,4 +115,9 @@ abstract class PageListVM<T> : ViewModel(),
         loadMore()
     }
 
+    fun reset(){
+        page = 1
+        hasMore = true
+        listData.postValueAndSuccess(arrayListOf())
+    }
 }
