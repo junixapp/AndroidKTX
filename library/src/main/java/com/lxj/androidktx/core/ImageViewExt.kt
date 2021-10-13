@@ -1,5 +1,6 @@
 package com.lxj.androidktx.core
 
+import android.app.Activity
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import com.bumptech.glide.Glide
@@ -43,6 +44,8 @@ fun ImageView.load(url: Any?, placeholder: Int = 0, error: Int = 0,
                    onImageLoad: ((resource: Drawable?) -> Unit)? = null,
                    onImageFail: (() -> Unit)? = null
 ) {
+    if(context == null) return
+    if(context is Activity && (context as Activity).isDestroyed) return
     val options = RequestOptions().placeholder(placeholder).error(error).apply {
         if (isCenterCrop && scaleType != ImageView.ScaleType.CENTER_CROP)
             scaleType = ImageView.ScaleType.CENTER_CROP

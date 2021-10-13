@@ -21,6 +21,7 @@ class StateLiveData<T>(defValue: T? = null) : NoStickyLiveData<T>() {
 
     val state = MutableLiveData<State>()
     var errMsg: String? = null
+    var errCode: String? = null
 
     init {
         if(defValue!=null) postValue(defValue)
@@ -51,8 +52,9 @@ class StateLiveData<T>(defValue: T? = null) : NoStickyLiveData<T>() {
         state.postValue(State.Success)
     }
 
-    fun postError(error: String? = null, postNull: Boolean = false) {
+    fun postError(error: String? = null,errCode: String? = null, postNull: Boolean = false) {
         if(error?.isNotEmpty()==true) this.errMsg = error
+        if(errCode!=null) this.errCode = errCode
         if(postNull) super.postValue(null)
         state.postValue(State.Error)
     }
