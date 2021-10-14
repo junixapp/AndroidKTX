@@ -45,7 +45,7 @@ fun ImageView.load(url: Any?, placeholder: Int = 0, error: Int = 0,
                    onImageFail: (() -> Unit)? = null
 ) {
     if(context == null) return
-    if(context is Activity && (context as Activity).isDestroyed) return
+    if(context is Activity && ((context as Activity).isDestroyed || (context as Activity).isFinishing) ) return
     val options = RequestOptions().placeholder(placeholder).error(error).apply {
         if (isCenterCrop && scaleType != ImageView.ScaleType.CENTER_CROP)
             scaleType = ImageView.ScaleType.CENTER_CROP
