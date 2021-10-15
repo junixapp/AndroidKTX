@@ -4,15 +4,12 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.content.Intent
-import android.os.Looper
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.SavedStateViewModelFactory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.lxj.androidktx.AndroidKTX
 import com.lxj.androidktx.livedata.LifecycleHandler
 
@@ -91,7 +88,7 @@ fun <T: ViewModel> FragmentActivity.getVM(clazz: Class<T>) = ViewModelProvider(t
 /**
  * saved state view model，要求ViewModel的构造必须接受SavedStateHandle类型的参数，比如：
  * ```
- * class TestVM( handler: SavedStateHandle): ViewModel()
+ * class DemoVM( handler: SavedStateHandle): ViewModel()
  * ```
  */
 fun <T: ViewModel> FragmentActivity.getSavedStateVM(clazz: Class<T>) = ViewModelProvider(this, SavedStateViewModelFactory(
@@ -99,10 +96,10 @@ fun <T: ViewModel> FragmentActivity.getSavedStateVM(clazz: Class<T>) = ViewModel
 ).get(clazz)
 
 
-inline val FragmentActivity.handler
+inline val FragmentActivity.lifecycleHandler
     get() = LifecycleHandler(this)
 
-inline val Fragment.handler
+inline val Fragment.lifecycleHandler
     get() = LifecycleHandler(this)
 
 /**
