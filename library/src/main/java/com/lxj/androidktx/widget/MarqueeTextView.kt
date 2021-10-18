@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.view.animation.LinearInterpolator
 import com.lxj.androidktx.R
@@ -34,6 +35,7 @@ class MarqueeTextView @JvmOverloads constructor(
     private var mLoop: Boolean = true
     private var mEnableFadeEdge: Boolean = true
     private var mDuration: Int = 0  //如果指定时间，则固定速度
+    private var mMaxDuration: Int = 0  //最大时长
     private var mSpeed: Float = 1f  //按速度滚动，越大越慢
     private var mScrollDelay = 400L
     private var mTextAlign = Paint.Align.LEFT
@@ -57,6 +59,7 @@ class MarqueeTextView @JvmOverloads constructor(
         mLoop = ta.getBoolean(R.styleable.MarqueeTextView_mtv_loop, mLoop)
         mEnableFadeEdge = ta.getBoolean(R.styleable.MarqueeTextView_mtv_enableFadeEdge, mEnableFadeEdge)
         mDuration = ta.getInteger(R.styleable.MarqueeTextView_mtv_duration, mDuration)
+        mMaxDuration = ta.getInteger(R.styleable.MarqueeTextView_mtv_maxDuration, mMaxDuration)
         mSpeed = ta.getFloat(R.styleable.MarqueeTextView_mtv_speed, mSpeed)
         mScrollDelay = ta.getInteger(R.styleable.MarqueeTextView_mtv_scrollDelay, 400).toLong()
         val align =
@@ -89,7 +92,7 @@ class MarqueeTextView @JvmOverloads constructor(
         text: String? = null, textColor: Int? = null, textSize: Float? = null,speed: Float? = null,
         typefacePath: String? = null, loop: Boolean? = null, duration: Int? = null,
         scrollDelay: Long? = null, textBold: Boolean? = null, textAlign: Paint.Align? = null,
-        maxWidth: Int? = null,
+        maxWidth: Int? = null, maxDuration: Int? = null
     ) {
         if (text != null) mText = text
         if (textColor != null) mTextColor = textColor
@@ -102,6 +105,7 @@ class MarqueeTextView @JvmOverloads constructor(
         if (textBold != null) mTextBold = textBold
         if (textAlign != null) mTextAlign = textAlign
         if (maxWidth != null) mMaxWidth = maxWidth
+        if (maxDuration != null) mMaxDuration = maxDuration
         applyAttr()
         invalidate()
     }
@@ -231,6 +235,9 @@ class MarqueeTextView @JvmOverloads constructor(
             val speed = measuredWidth / 8
             val duration = ((distance / Math.max(speed, 50)) * 1000 * mSpeed).toLong()
             animator!!.duration = Math.max(duration, 600)
+            if(mMaxDuration > 0) {
+                animator!!.duration = Math.min(animator!!.duration, mMaxDuration.toLong())
+            }
         }
         animator!!.start()
     }

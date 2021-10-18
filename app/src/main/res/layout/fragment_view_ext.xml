@@ -99,7 +99,8 @@
                 android:id="@+id/mtv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:mtv_speed="0.4"
+                app:mtv_speed="4"
+                app:mtv_maxDuration="1000"
                 app:mtv_textBold="true"
                 app:mtv_textColor="#ff0000"
                 app:mtv_textSize="20sp" />
