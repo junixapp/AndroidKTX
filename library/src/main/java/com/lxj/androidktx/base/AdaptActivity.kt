@@ -8,7 +8,11 @@ import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ScreenUtils
 
 /**
- * Description:
+ * Description: 使用的是AndroidUtilCode的pt适配，方式是宽高比等比放大的方式。
+ * 该方式不适合平板，在平板上会显示的很大。如果不需要适配平板，可以调用：
+ *      AdaptScreenUtils.closeAdapt(resources)
+ *
+ * 此时等同于dp适配
  * Create by dance, at 2019/5/16
  */
 abstract class AdaptActivity : BaseActivity() {
