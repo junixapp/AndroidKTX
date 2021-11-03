@@ -32,7 +32,7 @@
             android:name=".picker.PickerEmptyActivity"
             android:launchMode="singleTop"
             android:theme="@style/_TranslucentTheme" />
-        <activity android:name=".base.FragmentWrapperActivity" />
+        <activity android:name=".base.FragmentWrapperActivity" android:screenOrientation="portrait"/>
 
         <activity android:name=".picker.CameraActivity"
             android:theme="@style/_FullScreenTheme"/>
