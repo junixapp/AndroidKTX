@@ -47,9 +47,9 @@ dependencies {
     api "androidx.recyclerview:recyclerview:1.2.1"
     api 'com.google.android.material:material:1.4.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    api "com.github.bumptech.glide:glide:4.12.0"
-    api "com.github.bumptech.glide:okhttp3-integration:4.12.0"
-    api 'com.github.bumptech.glide:annotations:4.12.0'
+    api "com.github.bumptech.glide:glide:4.9.0"
+    api "com.github.bumptech.glide:okhttp3-integration:4.9.0"
+    api 'com.github.bumptech.glide:annotations:4.9.0'
 
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3"
     api 'com.github.li-xiaojun:EasyAdapter:1.2.5'

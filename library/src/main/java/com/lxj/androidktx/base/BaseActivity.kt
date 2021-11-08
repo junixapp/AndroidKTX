@@ -3,6 +3,7 @@ package com.lxj.androidktx.base
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.blankj.utilcode.util.FragmentUtils
+import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 
@@ -21,6 +22,11 @@ abstract class BaseActivity : AppCompatActivity() {
     protected abstract fun getLayoutId(): Int
     protected abstract fun initView()
     protected abstract fun initData()
+
+    override fun onPause() {
+        super.onPause()
+        KeyboardUtils.hideSoftInput(this)
+    }
 
     private var lastBackPressTime = 0L
     /**
