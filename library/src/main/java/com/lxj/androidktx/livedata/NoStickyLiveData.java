@@ -1,22 +1,18 @@
 package com.lxj.androidktx.livedata;
 
-import android.annotation.SuppressLint;
+import static androidx.lifecycle.Lifecycle.State.DESTROYED;
+import static androidx.lifecycle.Lifecycle.State.STARTED;
 import android.os.Handler;
 import android.os.Looper;
-
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.GenericLifecycleObserver;
 import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleEventObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
-
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
-import static androidx.lifecycle.Lifecycle.State.DESTROYED;
-import static androidx.lifecycle.Lifecycle.State.STARTED;
 
 /**
  * Created by cxzheng on 2018/8/27.
@@ -66,14 +62,20 @@ public class NoStickyLiveData<T> {
         if (existing == null) {
             existing = mObservers.put(observer, wrapper);
         }
-        if (existing != null && !existing.isAttachedTo(owner)) {
-            throw new IllegalArgumentException("Cannot add the same observer"
-                    + " with different lifecycles");
-        }
         if (existing != null) {
-            return;
+//            throw new IllegalArgumentException("Cannot add the same observer"
+//                    + " with different lifecycles");
+            //出现于Activity重启，Observer{}对象是同一个，但是绑定了2个生命周期
+            if(!existing.isAttachedTo(owner) && existing instanceof NoStickyLiveData.LifecycleBoundObserver){
+                LifecycleBoundObserver w = ((LifecycleBoundObserver)existing);
+                w.mOwner.getLifecycle().removeObserver(w);
+                //重新存入新的
+                mObservers.put(observer, wrapper);
+                owner.getLifecycle().addObserver(wrapper);
+            }
+        }else {
+            owner.getLifecycle().addObserver(wrapper);
         }
-        owner.getLifecycle().addObserver(wrapper);
     }
 
     @MainThread
@@ -84,8 +86,9 @@ public class NoStickyLiveData<T> {
             existing = mObservers.put(observer, wrapper);
         }
         if (existing != null && existing instanceof NoStickyLiveData.LifecycleBoundObserver) {
-            throw new IllegalArgumentException("Cannot add the same observer"
-                    + " with different lifecycles");
+//            throw new IllegalArgumentException("Cannot add the same observer"
+//                    + " with different lifecycles");
+            return;
         }
         if (existing != null) {
             return;
@@ -132,10 +135,9 @@ public class NoStickyLiveData<T> {
         return null;
     }
 
-    @SuppressLint("RestrictedApi")
-    class LifecycleBoundObserver extends ObserverWrapper implements GenericLifecycleObserver {
+    class LifecycleBoundObserver extends ObserverWrapper implements LifecycleEventObserver {
         @NonNull
-        final LifecycleOwner mOwner;
+        public final LifecycleOwner mOwner;
 
         LifecycleBoundObserver(@NonNull LifecycleOwner owner, Observer<T> observer, boolean isSticky) {
             super(observer, isSticky);
