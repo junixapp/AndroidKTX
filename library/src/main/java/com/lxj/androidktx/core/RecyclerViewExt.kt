@@ -12,6 +12,7 @@ import com.lxj.androidktx.util.SafeLinearLayoutManager
 import com.lxj.androidktx.util.SafeStaggeredGridLayoutManager
 import com.lxj.easyadapter.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Description: RecyclerView扩展
@@ -93,8 +94,11 @@ fun <T> RecyclerView.bindData(data: List<T>, layoutId: Int, bindFn: (holder: Vie
 fun <T> RecyclerView.updateData(data: List<T>){
     val adapter = adapter as? EasyAdapter<T>?
     if(adapter!=null){
-        adapter.data = data
-        adapter.notifyDataSetChanged()
+        val size = adapter.data.size
+        (adapter.data as ArrayList<T>).clear()
+        adapter.notifyItemRangeRemoved(0, size)
+        (adapter.data as ArrayList<T>).addAll(data)
+        adapter.notifyItemRangeInserted(0, adapter.data.size)
     }
 }
 
