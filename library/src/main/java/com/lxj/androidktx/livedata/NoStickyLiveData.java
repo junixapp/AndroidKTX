@@ -62,17 +62,11 @@ public class NoStickyLiveData<T> {
         if (existing == null) {
             existing = mObservers.put(observer, wrapper);
         }
-        if (existing != null) {
+        if (existing != null && !existing.isAttachedTo(owner)) {
 //            throw new IllegalArgumentException("Cannot add the same observer"
 //                    + " with different lifecycles");
             //出现于Activity重启，Observer{}对象是同一个，但是绑定了2个生命周期
-            if(!existing.isAttachedTo(owner) && existing instanceof NoStickyLiveData.LifecycleBoundObserver){
-                LifecycleBoundObserver w = ((LifecycleBoundObserver)existing);
-                w.mOwner.getLifecycle().removeObserver(w);
-                //重新存入新的
-                mObservers.put(observer, wrapper);
-                owner.getLifecycle().addObserver(wrapper);
-            }
+            return;
         }else {
             owner.getLifecycle().addObserver(wrapper);
         }
