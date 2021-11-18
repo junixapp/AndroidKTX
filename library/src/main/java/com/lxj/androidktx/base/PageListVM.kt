@@ -19,11 +19,11 @@ data class ListWrapper<T>(
     var pages: Int = 0
 ) : Serializable
 
-abstract class PageListVM<T>(var safePost: Boolean = false) : ViewModel(),
+abstract class PageListVM<T>() : ViewModel(),
     OnRefreshLoadMoreListener {
     var page = 1
     var hasMore = true
-    var listData = StateLiveData<ArrayList<T>>(safePost = safePost)
+    var listData = StateLiveData<ArrayList<T>>()
 
     init {
         listData.value = arrayListOf()
