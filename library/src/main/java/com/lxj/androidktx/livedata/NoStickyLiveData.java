@@ -102,11 +102,21 @@ public class NoStickyLiveData<T> {
     }
 
     public void postValue(T value){
+        postValue(value, false);
+    }
+
+    /**
+     * mData更改是立即的，但通知是异步的。容易引发的问题是adapter的数据变化了，但notify还没有调用导致崩溃；
+     * 增加一个参数 safePost
+     * @param value
+     */
+    public void postValue(T value, boolean safePost){
         mVersion++;
-        mData = value;
+        if(!safePost) mData = value;
         handler.post(new Runnable() {
             @Override
             public void run() {
+                if(safePost) mData = value;
                 dispatchingValue(null);
             }
         });
