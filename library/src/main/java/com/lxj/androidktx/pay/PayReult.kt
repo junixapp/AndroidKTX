@@ -45,4 +45,10 @@ data class OrderInfo(
     var seller_id: String? = ""
 ): Serializable
 
-fun BaseResp.isSuccess() = errCode==0
+
+data class WxPayResult(
+    var status: String,
+    var openId: String,
+    var transaction: String,
+)
+

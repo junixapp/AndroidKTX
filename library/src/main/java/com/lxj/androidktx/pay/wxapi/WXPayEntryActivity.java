@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import com.blankj.utilcode.util.LogUtils;
 import com.lxj.androidktx.pay.PayVM;
+import com.lxj.androidktx.pay.WxPayResult;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -41,13 +42,11 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 		LogUtils.d(TAG, "onPayFinish, errCode = " + resp.errCode);
 		if (resp.errCode==0) {
 			//success
-			PayVM.INSTANCE.getWxPayData().postValue(resp);
+			PayVM.INSTANCE.getWxPayData().postValue(new WxPayResult("success", resp.openId, resp.transaction));
 		}else if(resp.errCode==-1){
-			PayVM.INSTANCE.getWxPayData().setErrMsg("支付失败");
-			PayVM.INSTANCE.getWxPayData().postValue(resp);
+			PayVM.INSTANCE.getWxPayData().postValue(new WxPayResult("false", resp.openId, resp.transaction));
 		}else {
-			PayVM.INSTANCE.getWxPayData().setErrMsg("取消支付");
-			PayVM.INSTANCE.getWxPayData().postValue(resp);
+			PayVM.INSTANCE.getWxPayData().postValue(new WxPayResult("cancel", resp.openId, resp.transaction));
 		}
 		finish();
 	}

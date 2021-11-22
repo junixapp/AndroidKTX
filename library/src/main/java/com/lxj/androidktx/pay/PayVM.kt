@@ -26,7 +26,7 @@ object PayVM : ViewModel() {
         }
     }
 
-    val wxPayData = StateLiveData<BaseResp>()
+    val wxPayData = StateLiveData<WxPayResult>()
     fun wxPay(
             context: Context, appId: String, partnerId: String, prepayId: String,
             nonceStr: String, timeStamp: String, packageValue: String = "Sign=WXPay",
@@ -50,6 +50,7 @@ object PayVM : ViewModel() {
         if(!extData.isNullOrEmpty()) req.extData = extData // optional
         wxapi.sendReq(req)
     }
+
     fun wxPay2(
             context: Context, param: WxPayParam) {
         wxAppId = param.appId
