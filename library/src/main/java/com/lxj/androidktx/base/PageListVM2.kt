@@ -10,26 +10,18 @@ import com.lxj.statelayout.StateLayout
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
-import java.io.Serializable
-
-data class ListWrapper<T>(
-    var records: List<T> = arrayListOf(),
-    var total: Int = 10,
-    var current: Int = 1,
-    var pages: Int = 0
-) : Serializable
 
 /**
- * 低效的数据更新模型，推荐使用高效的PageListVM2
+ * 高效的列表数据更新模型
  */
-abstract class PageListVM<T>() : ViewModel(),
+abstract class PageListVM2<T>() : ViewModel(),
     OnRefreshLoadMoreListener {
     var page = 1
     var hasMore = true
-    var listData = StateLiveData<ArrayList<T>>()
+    var listData = StateLiveData<ListData<T>>()
 
     init {
-        listData.value = arrayListOf()
+        listData.value = ListData()
     }
 
     var onRefreshCB: (() -> Unit)? = null
@@ -49,7 +41,11 @@ abstract class PageListVM<T>() : ViewModel(),
         onLoadMoreCB = onLoadMore
         stateLayout?.observeState(owner, listData)
         listData.observe(owner, Observer {
-            rv?.adapter?.notifyDataSetChanged()
+            when(it.changeAction){
+                ListDataChange.Change->rv?.adapter?.notifyItemRangeChanged(it.changeRange.start, it.changeRange.count)
+                ListDataChange.Insert->rv?.adapter?.notifyItemRangeInserted(it.changeRange.start, it.changeRange.count)
+                ListDataChange.Remove->rv?.adapter?.notifyItemRangeRemoved(it.changeRange.start, it.changeRange.count)
+            }
             onDataUpdate?.invoke()
         })
 
@@ -86,27 +82,20 @@ abstract class PageListVM<T>() : ViewModel(),
 
     open fun processData(listWrapper: ListWrapper<T>?, nullIsEmpty: Boolean = false) {
         if (listWrapper != null) {
-            if (page == 1) listData.value!!.clear()
-            val list = listData.value
             if (!listWrapper.records.isNullOrEmpty()) {
                 hasMore = true
-                list?.addAll(listWrapper.records)
-                listData.postValueAndSuccess(list!!)
+                if(page==1 && listData.value!!.list.size>0){
+                    listData.postValueAndSuccess(listData.value!!.fullReplace(listWrapper.records))
+                }else{
+                    listData.postValueAndSuccess(listData.value!!.insertRange(listWrapper.records))
+                }
             } else {
                 //listWrapper数据为空
                 hasMore = false
-                if(list!!.isEmpty()) listData.postEmpty(list)
-                else listData.postValueAndSuccess(list)
+                listData.postValueAndSuccess(listData.value!!.insertRange(listOf()))
             }
         } else {
-            val list = listData.value
-            if(list.isNullOrEmpty()){
-                if (nullIsEmpty) listData.postEmpty(list)
-                else listData.postError()
-            }else{
-                if (nullIsEmpty) listData.postValueAndSuccess(list)
-                else listData.postError()
-            }
+            listData.postError()
         }
     }
 
@@ -121,6 +110,6 @@ abstract class PageListVM<T>() : ViewModel(),
     fun reset(){
         page = 1
         hasMore = true
-        listData.postValueAndSuccess(arrayListOf())
+        listData.postValueAndSuccess(listData.value!!.fullReplace(listOf()))
     }
 }

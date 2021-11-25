@@ -77,9 +77,9 @@ class StateLiveData<T>(defValue: T? = null) : NoStickyLiveData<T>() {
     /**
      * 带绑定StateLayout
      */
-    fun observeWithStateLayout(owner: LifecycleOwner, stateLayout: StateLayout, observer: Observer<T>) {
+    fun observeWithStateLayout(owner: LifecycleOwner, stateLayout: StateLayout, observer: Observer<T>, sticky: Boolean = false) {
         bindStateLayout(owner, stateLayout)
-        observe(owner, observer)
+        observe(owner, observer, sticky)
     }
 
     /**
@@ -136,5 +136,6 @@ class StateLiveData<T>(defValue: T? = null) : NoStickyLiveData<T>() {
     fun isEmpty() = state.value==State.Empty
     fun isError() = state.value==State.Error
     fun isIdle() = state.value==State.Idle
+    fun isLoading() = state.value==State.Loading
 }
 

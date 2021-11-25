@@ -50,5 +50,7 @@ data class WxPayResult(
     var status: String,
     var openId: String,
     var transaction: String,
-)
+){
+    fun isSuccess() = status=="success"
+}
 
