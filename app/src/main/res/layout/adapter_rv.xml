@@ -1,28 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.lxj.androidktx.widget.SlidingLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="15dp"
     android:background="?selectableItemBackground"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/image"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="40dp"
-        android:layout_height="40dp" />
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+
+        <TextView
+            android:id="@+id/text"
+            android:textSize="18sp"
+            android:textColor="#333"
+            android:layout_marginLeft="12dp"
+            android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/text"
-        android:textSize="18sp"
-        android:textColor="#333"
-        android:layout_marginLeft="12dp"
-        android:text=""
-        app:layout_constraintLeft_toRightOf="@+id/image"
-        app:layout_constraintTop_toTopOf="@id/image"
-        app:layout_constraintBottom_toBottomOf="@id/image"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:id="@+id/tvDel"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:text="delete"
+        android:textColor="#fff"
+        android:background="#f00"
+        android:layout_width="100dp"
+        android:layout_height="80dp"/>
+</com.lxj.androidktx.widget.SlidingLayout>

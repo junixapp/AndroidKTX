@@ -1,12 +1,15 @@
 package com.lxj.androidktxdemo.fragment
 
 import android.graphics.Color
+import android.view.View
 import android.widget.TextView
 import com.lxj.androidktx.core.*
 import com.lxj.androidktxdemo.R
+import com.lxj.androidktx.widget.SlidingLayout
 import com.lxj.easyadapter.ItemDelegate
 import com.lxj.easyadapter.ViewHolder
 import kotlinx.android.synthetic.main.fragment_recyclerview_ext.*
+import java.util.concurrent.CopyOnWriteArrayList
 
 
 class RecyclerViewExtDemo : BaseFragment() {
@@ -15,11 +18,12 @@ class RecyclerViewExtDemo : BaseFragment() {
     }
 
     lateinit var data: ArrayList<String>
+    var list = CopyOnWriteArrayList<SlidingLayout>()
     override fun initView() {
         super.initView()
         data = arrayListOf<String>().apply {
             for (i in 0..30) {
-                add("$i")
+                add("侧滑删除-$i")
             }
         }
         val header = TextView(context).apply {
@@ -37,17 +41,24 @@ class RecyclerViewExtDemo : BaseFragment() {
 
         //notify
         recyclerView.vertical(spanCount = 2)
-                .divider(color = Color.parseColor("#aaaaaa"), size = 20)
+                .divider(color = Color.parseColor("#f1f1f1"), size = 1.dp)
                 .bindData(data, R.layout.adapter_rv) { holder, t, position ->
-                    holder.setText(R.id.text, "模拟数据 - $t")
+                    holder.setText(R.id.text, t)
                             .setImageResource(R.id.image, R.mipmap.ic_launcher_round)
+                    holder.getView<View>(R.id.tvDel).click {
+                        (holder.itemView as SlidingLayout).close()
+                        data.removeAt(position)
+                        recyclerView.adapter?.notifyItemRemoved(position)
+                        recyclerView.adapter?.notifyItemRangeChanged(position, data.size-position)
+                    }
+                    (holder.itemView as SlidingLayout).shareCache = list
                 }
 //                .multiTypes(data, listOf(HeaderDelegate(), ContentDelegate(), FooterDelegate()))
-                .addHeader(header) //必须在bindData之后调用
-                .addFooter(footer) //必须在bindData之后调用
+//                .addHeader(header) //必须在bindData之后调用
+//                .addFooter(footer) //必须在bindData之后调用
                 .itemClick<String> { data, holder, position ->
                 }
-                .enableItemDrag(isDisableLast = true)
+//                .enableItemDrag(isDisableLast = true)
 
 
     }

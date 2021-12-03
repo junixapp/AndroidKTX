@@ -111,21 +111,21 @@ data class RequestWrapper(
     private fun buildRequestBody(): RequestBody {
         if (isMultiPartParam || isAutoMultiPart()) {
             val pairs = arrayListOf<Pair<String, Any>>()
-            params.forEach { pairs.add(Pair(it.key, if (it.value is File || it.value is Array<*>) it.value else URLEncoder.encode("${it.value}"))) }
+            params.forEach { pairs.add(Pair(it.key, if (it.value is File || it.value is Array<*>) it.value else "${it.value}")) }
             // 自动识别 multipart/form-data
             val builder = MultipartBody.Builder()
             pairs.forEach {
                 if (it.second is String) {
-                    builder.addFormDataPart(it.first, URLEncoder.encode(it.second as String))
+                    builder.addFormDataPart(it.first, it.second as String)
                 } else if (it.second is File) { //single file
                     val file = it.second as File
-                    builder.addFormDataPart(it.first, URLEncoder.encode(file.name), RequestBody.create(MediaType.parse(file.mediaType()), file))
+                    builder.addFormDataPart(it.first, file.name, RequestBody.create(MediaType.parse(file.mediaType()), file))
                 } else if(it.second is Array<*>){ //multi file
                     val arr = it.second as Array<*>
                     if(arr.isNotEmpty() && arr[0] is File){
                         arr.forEach {el->
                             val file = el as File
-                            builder.addFormDataPart(it.first, URLEncoder.encode(file.name), RequestBody.create(MediaType.parse(file.mediaType()), file))
+                            builder.addFormDataPart(it.first, file.name, RequestBody.create(MediaType.parse(file.mediaType()), file))
                         }
                     }
                 }else if(it.second is List<*>){ //multi file
@@ -133,7 +133,7 @@ data class RequestWrapper(
                     if(coll.isNotEmpty() && coll[0] is File){
                         coll.forEach {el->
                             val file = el as File
-                            builder.addFormDataPart(it.first, URLEncoder.encode(file.name), RequestBody.create(MediaType.parse(file.mediaType()), file))
+                            builder.addFormDataPart(it.first, file.name, RequestBody.create(MediaType.parse(file.mediaType()), file))
                         }
                     }
                 }
@@ -146,7 +146,7 @@ data class RequestWrapper(
         }else{
             // default is form-data/url-encoded
             val builder = FormBody.Builder()
-            params.forEach { builder.add(it.key, URLEncoder.encode("${it.value}"))  }
+            params.forEach { builder.add(it.key, "${it.value}")  }
             return builder.build()
         }
     }
