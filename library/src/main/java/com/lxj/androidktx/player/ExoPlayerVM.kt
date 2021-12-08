@@ -31,7 +31,7 @@ import kotlin.random.Random
 
 
 /**
- * ExoPlayer实现的播放器封装
+ * ExoPlayer实现的播放器封装，带缓存
  */
 object ExoPlayerVM : ViewModel(){
     val RandomMode = "RandomMode" //随机播放

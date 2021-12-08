@@ -53,11 +53,16 @@ abstract class StateFragment : Fragment(), FragmentUtils.OnBackClickListener {
             initData()
         }
     }
-
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if(isVisibleToUser) onShow() else onHide()
+    }
     //执行初始化，只会执行一次
     protected abstract fun getLayoutId(): Int
     abstract fun initView()
     abstract fun initData()
+    open fun onShow(){}
+    open fun onHide(){}
 
     override fun onBackClick() = false
 }

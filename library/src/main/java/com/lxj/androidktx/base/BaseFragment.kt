@@ -34,10 +34,15 @@ abstract class BaseFragment: Fragment(), FragmentUtils.OnBackClickListener{
             initData()
         }
     }
-
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if(isVisibleToUser) onShow() else onHide()
+    }
     protected abstract fun getLayoutId(): Int
     protected abstract fun initView()
     protected abstract fun initData()
 
+    open fun onShow(){}
+    open fun onHide(){}
     override fun onBackClick() = false
 }

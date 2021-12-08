@@ -22,33 +22,8 @@ import kotlin.system.measureTimeMillis
 
 data class UserTest(
         var name: String,
-        var age: Int
-): Parcelable {
-    constructor(parcel: Parcel) : this(
-        parcel.readString()?:"",
-        parcel.readInt()
-    ) {
-    }
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(name)
-        parcel.writeInt(age)
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<UserTest> {
-        override fun createFromParcel(parcel: Parcel): UserTest {
-            return UserTest(parcel)
-        }
-
-        override fun newArray(size: Int): Array<UserTest?> {
-            return arrayOfNulls(size)
-        }
-    }
-}
+        var age: Float,
+)
 
 data class RestResult(
         var code: Int = 0,
@@ -83,29 +58,17 @@ class MainActivity : BaseActivity() {
         binding.btnTest.click {
             testVM.test()
         }
-
-
-        Thread {
-            val time = measureTimeMillis {
-                (1..1000).forEach {
-                    sp().putObject("aa", UserTest(name = "lxj", age = 30+it))
-                }
+        val ut =  """
+            {
+                "name": "dasdsa",
+                "age": "2342.343"
             }
-            LogUtils.e("sp time: $time  result: ${sp().getObject<UserTest>("aa")}")
-        }.start()
-
-        Thread {
-            val time = measureTimeMillis {
-                (1..1000).forEach {
-                    mmkv().putParcelable("aa1", UserTest(name = "lxj", age = 30+it))
-                }
-            }
-            LogUtils.e("mmkv time: $time  result: ${mmkv().getParcelable<UserTest>("aa1")}")
-        }.start()
-
+        """.trimIndent().toBean<UserTest>()
+        LogUtils.e("ut: ${ut.toJson()}")
     }
 
     override fun initData() {
+
     }
     val signKey = "babamamababamama"
     fun genSign(): String{
