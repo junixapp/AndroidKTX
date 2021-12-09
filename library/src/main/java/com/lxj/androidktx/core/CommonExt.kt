@@ -212,8 +212,8 @@ fun Any.runOnUIThread(action: () -> Unit) {
 }
 
 //一天只做一次
-fun Any.doOnceInDay(actionName: String = "", action: () -> Unit, whenHasDone: (()->Unit)? = null) {
-    val key = "once_in_day_last_check_${actionName}"
+fun Any.doOnceInDay(actionName: String = "", keySuffix: String? = "", action: () -> Unit, whenHasDone: (()->Unit)? = null) {
+    val key = "once_in_day_last_check_${actionName}_${keySuffix}"
     val today = Date()
     val todayFormat = TimeUtils.date2String(today, "yyyy-MM-dd")
     val last = sp().getString(key, "")
@@ -227,8 +227,8 @@ fun Any.doOnceInDay(actionName: String = "", action: () -> Unit, whenHasDone: ((
 }
 
 //只执行一次的行为
-fun Any.doOnlyOnce(actionName: String = "", action: () -> Unit, whenHasDone: (()->Unit)? = null) {
-    val key = "has_done_${actionName}"
+fun Any.doOnlyOnce(actionName: String = "", keySuffix: String? = "", action: () -> Unit, whenHasDone: (()->Unit)? = null) {
+    val key = "has_done_${actionName}_${keySuffix}"
     val hasDone = sp().getBoolean(key, false)
     if (hasDone) {
         //说明执行过
@@ -240,7 +240,6 @@ fun Any.doOnlyOnce(actionName: String = "", action: () -> Unit, whenHasDone: (()
 }
 
 //500毫秒内只做一次
-//val _innerHandler = Handler(Looper.getMainLooper())
 val _actionCache = arrayListOf<String>()
 
 /**

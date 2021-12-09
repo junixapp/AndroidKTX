@@ -6,9 +6,11 @@ import android.animation.ValueAnimator
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
+import android.util.SparseArray
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.util.set
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.*
 import com.google.android.material.transition.MaterialSharedAxis
@@ -210,12 +212,12 @@ fun View.animateWidthAndHeight(
 /**
  * 设置点击监听, 并实现事件节流，500毫秒内只允许点击一次
  */
-var _clickCache_ = hashMapOf<Int, Runnable>()
+var _clickCache_ = SparseArray<Runnable>()
 fun View.click(duration: Long = 500, action: (view: View) -> Unit) {
     if(id == View.NO_ID) id = View.generateViewId()
     if (this is TextView) setOnTouchListener(FixClickSpanTouchListener())
     setOnClickListener {
-        if(!_clickCache_.containsKey(id)){
+        if(_clickCache_.get(id)==null){
             //unclicked
             _clickCache_[id] = Runnable { _clickCache_.remove(id) }
             action(it)
