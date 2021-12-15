@@ -260,12 +260,6 @@
 
         <include layout="@layout/divider" />
 
-        <Button
-            android:id="@+id/saveToAlbum"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="保存到相册" />
-
         <com.lxj.androidktx.widget.ShapeLinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"

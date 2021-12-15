@@ -40,6 +40,8 @@ class ViewExtPage : BaseFragment() {
         text4.post {
             image2.setImageBitmap(text4.toBitmap())
         }
+        saveToAlbum.click {
+        }
         text4.click { ToastUtils.showShort("clicked") }
 
 //        tvVerify.mSolid = Color.parseColor("#ff0000")
