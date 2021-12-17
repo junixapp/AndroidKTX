@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
@@ -13,6 +14,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
+import com.lxj.androidktx.AndroidKTX
 import com.lxj.androidktx.util.GlideBlurTransformation
 
 /**
@@ -86,4 +88,22 @@ fun ImageView.load(url: Any?, placeholder: Int = 0, error: Int = 0,
 
             }
     glide.into(this)
+}
+
+fun String.preloadImage(onSuccess: (()->Unit)?=null, onFail: (()->Unit)?=null,  ){
+    Glide.with(AndroidKTX.context)
+        .load(this)
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
+        .listener(object : RequestListener<Drawable> {
+            override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                onFail?.invoke()
+                return false
+            }
+
+            override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                onSuccess?.invoke()
+                return false
+            }
+        })
+        .preload()
 }
