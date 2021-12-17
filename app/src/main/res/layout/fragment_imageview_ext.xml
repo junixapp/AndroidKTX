@@ -27,8 +27,9 @@
             android:id="@+id/title2"
             style="@style/TitleStyle"/>
 
-        <ImageView
+        <com.lxj.androidktx.widget.ShapeImageView
             android:id="@+id/image2"
+            app:siv_round="true"
             android:layout_width="160dp"
             android:layout_height="160dp" />
 

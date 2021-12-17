@@ -230,6 +230,7 @@
         <attr name="siv_stroke" format="color" />
         <attr name="siv_strokeWidth" format="dimension" />
         <attr name="siv_enableRipple" format="boolean" />
+        <attr name="siv_round" format="boolean" />
         <attr name="siv_rippleColor" format="color" />
         <attr name="siv_gradientStartColor" format="color" />
         <attr name="siv_gradientCenterColor" format="color" />

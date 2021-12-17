@@ -19,7 +19,7 @@ import com.lxj.androidktx.core.createDrawable
  * Description: 能设置Shape的TextView
  * Create by dance, at 2019/5/21
  */
-open class ShapeImageView @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null, defStyleAttr: Int = 0)
+class ShapeImageView @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null, defStyleAttr: Int = 0)
     : AppCompatImageView(context, attributeSet, defStyleAttr) {
 
     private var mSolid = 0 //填充色
@@ -27,6 +27,7 @@ open class ShapeImageView @JvmOverloads constructor(context: Context, attributeS
     private var mStrokeWidth = 0 //边框大小
     private var mCorner = 0 //圆角
     private var mEnableRipple = false
+    private var mRound = false
     private var mRippleColor = Color.parseColor("#88999999")
     private var mGradientStartColor = 0
     private var mGradientCenterColor = 0
@@ -41,6 +42,7 @@ open class ShapeImageView @JvmOverloads constructor(context: Context, attributeS
         mStrokeWidth = ta.getDimensionPixelSize(R.styleable.ShapeImageView_siv_strokeWidth, mStrokeWidth)
         mCorner = ta.getDimensionPixelSize(R.styleable.ShapeImageView_siv_corner, mCorner)
 
+        mRound = ta.getBoolean(R.styleable.ShapeImageView_siv_round, mRound)
         mEnableRipple = ta.getBoolean(R.styleable.ShapeImageView_siv_enableRipple, mEnableRipple)
         mRippleColor = ta.getColor(R.styleable.ShapeImageView_siv_rippleColor, mRippleColor)
 
@@ -61,7 +63,7 @@ open class ShapeImageView @JvmOverloads constructor(context: Context, attributeS
         ta.recycle()
         applySelf()
         if(Build.VERSION.SDK_INT >= 21){
-            setClipToOutline(true)
+            clipToOutline = true
         }
     }
 
@@ -86,6 +88,13 @@ open class ShapeImageView @JvmOverloads constructor(context: Context, attributeS
         }
     }
 
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        if(mRound){
+            mCorner = Math.min(measuredWidth, measuredHeight)/2
+        }
+    }
+
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -96,7 +105,8 @@ open class ShapeImageView @JvmOverloads constructor(context: Context, attributeS
     fun setup(solid: Int = mSolid, stroke: Int = mStroke, strokeWidth: Int = mStrokeWidth,
               corner: Int = mCorner, enableRipple: Boolean = mEnableRipple, rippleColor: Int = mRippleColor,
               gradientStartColor: Int = mGradientStartColor, gradientEndColor: Int = mGradientEndColor,
-              gradientOrientation: GradientDrawable.Orientation = mGradientOrientation){
+              gradientOrientation: GradientDrawable.Orientation = mGradientOrientation,
+              round: Boolean = mRound){
         mSolid = solid
         mStroke = stroke
         mStrokeWidth = strokeWidth
@@ -106,6 +116,7 @@ open class ShapeImageView @JvmOverloads constructor(context: Context, attributeS
         mGradientStartColor = gradientStartColor
         mGradientEndColor = gradientEndColor
         mGradientOrientation = gradientOrientation
+        mRound = round
         applySelf()
     }
 }
