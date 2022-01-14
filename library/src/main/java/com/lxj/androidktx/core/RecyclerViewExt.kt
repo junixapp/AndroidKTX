@@ -2,6 +2,7 @@ package com.lxj.androidktx.core
 
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
+import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.*
 import com.blankj.utilcode.util.AdaptScreenUtils
@@ -26,14 +27,18 @@ import kotlin.collections.ArrayList
  * @param isReplace 是否覆盖之前的ItemDecoration，默认是true
  *
  */
-fun RecyclerView.divider(color: Int = Color.parseColor("#f5f5f5"), size: Int = 1f.dp, isReplace: Boolean = true): RecyclerView {
+fun RecyclerView.divider(
+    color: Int = Color.parseColor("#f5f5f5"),
+    size: Int = 1f.dp,
+    isReplace: Boolean = true
+): RecyclerView {
     val decoration = RecyclerViewDivider(context, orientation)
     decoration.setDrawable(GradientDrawable().apply {
         setColor(color)
         shape = GradientDrawable.RECTANGLE
         setSize(size, size)
     })
-    if(isReplace && itemDecorationCount>0){
+    if (isReplace && itemDecorationCount > 0) {
         removeItemDecorationAt(0)
     }
     addItemDecoration(decoration)
@@ -51,7 +56,8 @@ fun RecyclerView.vertical(spanCount: Int = 0, isStaggered: Boolean = false): Rec
         layoutManager = SafeGridLayoutManager(context, spanCount)
     }
     if (isStaggered) {
-        layoutManager = SafeStaggeredGridLayoutManager(spanCount, StaggeredGridLayoutManager.VERTICAL)
+        layoutManager =
+            SafeStaggeredGridLayoutManager(spanCount, StaggeredGridLayoutManager.VERTICAL)
     }
     return this
 }
@@ -59,10 +65,12 @@ fun RecyclerView.vertical(spanCount: Int = 0, isStaggered: Boolean = false): Rec
 fun RecyclerView.horizontal(spanCount: Int = 0, isStaggered: Boolean = false): RecyclerView {
     layoutManager = SafeLinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     if (spanCount != 0) {
-        layoutManager = SafeGridLayoutManager(context, spanCount, GridLayoutManager.HORIZONTAL, false)
+        layoutManager =
+            SafeGridLayoutManager(context, spanCount, GridLayoutManager.HORIZONTAL, false)
     }
     if (isStaggered) {
-        layoutManager = SafeStaggeredGridLayoutManager(spanCount, StaggeredGridLayoutManager.HORIZONTAL)
+        layoutManager =
+            SafeStaggeredGridLayoutManager(spanCount, StaggeredGridLayoutManager.HORIZONTAL)
     }
     return this
 }
@@ -82,26 +90,40 @@ inline val RecyclerView.orientation
     }
 
 
-fun <T> RecyclerView.bindData(data: List<T>, layoutId: Int, bindFn: (holder: ViewHolder, t: T, position: Int) -> Unit): RecyclerView {
+/**
+ * onPayloads: 取出变化的数据，只修改变化的
+ */
+fun <T> RecyclerView.bindData(
+    data: List<T>, layoutId: Int,
+    onPayloadsChange: ((holder: ViewHolder, t: T, position: Int, payloads: List<Any>) -> Unit)? = null,
+    bindFn: (holder: ViewHolder, t: T, position: Int) -> Unit,
+): RecyclerView {
     adapter = object : EasyAdapter<T>(data, layoutId) {
         override fun bind(holder: ViewHolder, t: T, position: Int) {
             bindFn(holder, t, position)
+        }
+
+        override fun bindWithPayloads(
+            holder: ViewHolder,
+            t: T,
+            position: Int,
+            payloads: List<Any>
+        ) {
+            onPayloadsChange?.invoke(holder, t, position, payloads)
         }
     }
     return this
 }
 
-fun <T> RecyclerView.updateData(data: List<T>){
-    val adapter = adapter as? EasyAdapter<T>?
-    if(adapter!=null){
-        val size = adapter.data.size
-        (adapter.data as ArrayList<T>).clear()
-        adapter.notifyItemRangeRemoved(0, size)
-        (adapter.data as ArrayList<T>).addAll(data)
-        adapter.notifyItemRangeInserted(0, adapter.data.size)
-    }
+fun <T> RecyclerView.diffUpdate(diffCallback: DiffCallback<T>) {
+    val adapter = adapter as? EasyAdapter<T>? ?: return
+    DiffUtil.calculateDiff(diffCallback).dispatchUpdatesTo(adapter)
 }
 
+fun <T> RecyclerView.oldData(): List<T>? {
+    val adapter = adapter as? EasyAdapter<T>? ?: return null
+    return adapter.data?.toJson()?.toBean<ArrayList<T>>()
+}
 
 /**
  * 必须在bindData之后调用，并且需要hasHeaderOrFooter为true才起作用
@@ -132,7 +154,8 @@ fun <T> RecyclerView.multiTypes(data: List<T>, itemDelegates: List<ItemDelegate<
 
 fun <T> RecyclerView.itemClick(listener: (data: List<T>, holder: RecyclerView.ViewHolder, position: Int) -> Unit): RecyclerView {
     adapter?.apply {
-        (adapter as MultiItemTypeAdapter<*>).setOnItemClickListener(object : MultiItemTypeAdapter.SimpleOnItemClickListener() {
+        (adapter as MultiItemTypeAdapter<*>).setOnItemClickListener(object :
+            MultiItemTypeAdapter.SimpleOnItemClickListener() {
             override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
                 listener(data as List<T>, holder, position)
             }
@@ -143,8 +166,13 @@ fun <T> RecyclerView.itemClick(listener: (data: List<T>, holder: RecyclerView.Vi
 
 fun <T> RecyclerView.itemLongClick(listener: (data: List<T>, holder: RecyclerView.ViewHolder, position: Int) -> Unit): RecyclerView {
     adapter?.apply {
-        (adapter as MultiItemTypeAdapter<*>).setOnItemClickListener(object : MultiItemTypeAdapter.SimpleOnItemClickListener() {
-            override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
+        (adapter as MultiItemTypeAdapter<*>).setOnItemClickListener(object :
+            MultiItemTypeAdapter.SimpleOnItemClickListener() {
+            override fun onItemLongClick(
+                view: View,
+                holder: RecyclerView.ViewHolder,
+                position: Int
+            ): Boolean {
                 listener(data as List<T>, holder, position)
                 return super.onItemLongClick(view, holder, position)
             }
@@ -153,23 +181,23 @@ fun <T> RecyclerView.itemLongClick(listener: (data: List<T>, holder: RecyclerVie
     return this
 }
 
-fun RecyclerView.smoothScrollToEnd(){
-    if(adapter!=null && adapter!!.itemCount>0){
-        smoothScrollToPosition(adapter!!.itemCount-1)
+fun RecyclerView.smoothScrollToEnd() {
+    if (adapter != null && adapter!!.itemCount > 0) {
+        smoothScrollToPosition(adapter!!.itemCount - 1)
     }
 }
 
-fun RecyclerView.scrollToEnd(){
-    if(adapter!=null && adapter!!.itemCount>0){
-        scrollToPosition(adapter!!.itemCount-1)
+fun RecyclerView.scrollToEnd() {
+    if (adapter != null && adapter!!.itemCount > 0) {
+        scrollToPosition(adapter!!.itemCount - 1)
     }
 }
 
 /**
  * 滚动置顶，只支持线性布局
  */
-fun RecyclerView.scrollTop(position: Int){
-    if(layoutManager is LinearLayoutManager){
+fun RecyclerView.scrollTop(position: Int) {
+    if (layoutManager is LinearLayoutManager) {
         (layoutManager as LinearLayoutManager).scrollToPositionWithOffset(position, 0)
     }
 }
@@ -178,11 +206,17 @@ fun RecyclerView.scrollTop(position: Int){
  * 启用条目拖拽，必须在设置完adapter之后调用
  * @param isDisableLast 是否禁用最后一个拖拽
  */
-fun RecyclerView.enableItemDrag(isDisableLast: Boolean = false, onDragFinish: (()->Unit)? = null ){
+fun RecyclerView.enableItemDrag(
+    isDisableLast: Boolean = false,
+    onDragFinish: (() -> Unit)? = null
+) {
     ItemTouchHelper(object : ItemTouchHelper.Callback() {
-        override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
-            if(adapter==null) return 0
-            if(isDisableLast && viewHolder.adapterPosition == (adapter!!.itemCount-1) ) return 0
+        override fun getMovementFlags(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder
+        ): Int {
+            if (adapter == null) return 0
+            if (isDisableLast && viewHolder.adapterPosition == (adapter!!.itemCount - 1)) return 0
             return if (recyclerView.layoutManager is GridLayoutManager) {
                 val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN or
                         ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
@@ -194,17 +228,18 @@ fun RecyclerView.enableItemDrag(isDisableLast: Boolean = false, onDragFinish: ((
                 makeMovementFlags(dragFlags, swipeFlags)
             }
         }
+
         override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
         ): Boolean {
-            if(adapter==null) return false
+            if (adapter == null) return false
             //得到当拖拽的viewHolder的Position
             val fromPosition = viewHolder.adapterPosition
             //拿到当前拖拽到的item的viewHolder
             val toPosition = target.adapterPosition
-            if(isDisableLast && toPosition== (adapter!!.itemCount-1) )return false
+            if (isDisableLast && toPosition == (adapter!!.itemCount - 1)) return false
             if (fromPosition < toPosition) {
                 for (i in fromPosition until toPosition) {
                     Collections.swap((adapter as EasyAdapter<*>).data, i, i + 1)
@@ -232,7 +267,7 @@ fun RecyclerView.enableItemDrag(isDisableLast: Boolean = false, onDragFinish: ((
     }).attachToRecyclerView(this)
 }
 
-fun RecyclerView.disableItemAnimation(): RecyclerView{
+fun RecyclerView.disableItemAnimation(): RecyclerView {
     (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
     return this
 }
@@ -240,10 +275,59 @@ fun RecyclerView.disableItemAnimation(): RecyclerView{
 /**
  * 边界模糊
  */
-fun RecyclerView.fadeEdge(length: Int = AdaptScreenUtils.pt2Px(25f), isHorizontal: Boolean = false): RecyclerView{
-    if(isHorizontal) isHorizontalFadingEdgeEnabled = true
+fun RecyclerView.fadeEdge(
+    length: Int = AdaptScreenUtils.pt2Px(25f),
+    isHorizontal: Boolean = false
+): RecyclerView {
+    if (isHorizontal) isHorizontalFadingEdgeEnabled = true
     else isVerticalFadingEdgeEnabled = true
     overScrollMode = View.OVER_SCROLL_ALWAYS
     setFadingEdgeLength(length)
     return this
+}
+
+/**
+ * 示例代码如下：
+ * class UserDiffCallback(var oldData: List<User>?, var newData: List<User>?) : DiffUtil.Callback() {
+override fun getOldListSize() = oldData?.size ?: 0
+override fun getNewListSize() = newData?.size ?: 0
+
+override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+if(oldData.isNullOrEmpty() || newData.isNullOrEmpty()) return false
+return oldData!![oldItemPosition].id == newData!![newItemPosition].id
+}
+
+override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+return oldData!![oldItemPosition].name == newData!![newItemPosition].name
+}
+
+//局部更新 areItemsTheSame==true && areContentsTheSame==false 调用
+override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
+val oldItem = oldData!![oldItemPosition]
+val newItem = newData!![newItemPosition]
+val bundle = Bundle()
+if(oldItem.name != newItem.name){
+bundle.putString("name", newItem.name)
+}
+return bundle
+}
+}
+ *
+ */
+open class DiffCallback<T>(var oldData: List<T>?, var newData: List<T>?) : DiffUtil.Callback() {
+    override fun getOldListSize() = oldData?.size ?: 0
+    override fun getNewListSize() = newData?.size ?: 0
+
+    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        if (oldData.isNullOrEmpty() || newData.isNullOrEmpty()) return false
+        return false
+    }
+
+    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        if (oldData.isNullOrEmpty() || newData.isNullOrEmpty()) return false
+        return false
+    }
+
+    //局部更新
+    override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? = null
 }

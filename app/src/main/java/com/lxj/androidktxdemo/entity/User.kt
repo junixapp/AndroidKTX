@@ -8,6 +8,7 @@ import java.util.*
  * Create by dance, at 2018/12/11
  */
 data class User(
+        var id: String = UUID.randomUUID().toString(),
         var name: String,
         var age: Int = 0,
         var date : Date? = null,

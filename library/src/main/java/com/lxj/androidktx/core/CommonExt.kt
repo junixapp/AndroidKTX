@@ -166,6 +166,8 @@ inline fun <reified T> String.toBean(dateFormat: String = "yyyy-MM-dd HH:mm:ss",
         }.create()
         .fromJson<T>(this, object : TypeToken<T>() {}.type)
 
+inline fun <reified T> Any.deepCopy(): T = toJson().toBean<T>()
+
 /**
  * 数组转bundle
  */

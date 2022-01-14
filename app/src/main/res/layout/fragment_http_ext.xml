@@ -82,28 +82,6 @@
                 android:layout_height="wrap_content" />
 
 
-            <com.lxj.androidktx.widget.ShapeTextView
-                android:layout_marginTop="20dp"
-                android:text="哈哈"
-                android:gravity="center"
-                app:drawableSize="50dp"
-                android:drawableLeft="@mipmap/ic_launcher"
-                android:layout_gravity="center_horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <com.lxj.androidktx.widget.ShapeTextView
-                android:layout_marginTop="20dp"
-                android:text="哈哈"
-                app:drawableSize="15dp"
-                android:drawablePadding="10dp"
-                android:gravity="center"
-                android:drawableLeft="@mipmap/ic_launcher"
-                android:layout_gravity="center_horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-
             <com.lxj.androidktx.widget.SuperLayout
                 android:id="@+id/sl"
                 android:clickable="true"
@@ -130,7 +108,7 @@
             <com.lxj.androidktx.widget.SuperLayout
                 android:id="@+id/slWeChat"
                 android:clickable="true"
-                android:background="#fff"
+                app:sll_solid="#ffffff"
                 android:paddingLeft="16dp"
                 android:paddingRight="20dp"
                 android:paddingTop="10dp"
@@ -152,7 +130,7 @@
             <com.lxj.androidktx.widget.SuperLayout
                 app:sll_rippleColor="#f00"
                 android:clickable="true"
-                android:background="#fff"
+                app:sll_solid="#ffffff"
                 android:paddingLeft="16dp"
                 android:paddingRight="20dp"
                 android:paddingTop="10dp"
@@ -173,7 +151,7 @@
                 android:paddingRight="16dp"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
-                android:background="#28cc6b"
+                app:sll_solid="#28cc6b"
                 app:sl_leftText="个人签名"
                 app:sl_leftImageSize="60dp"
                 app:sl_leftTextMarginLeft="12dp"
@@ -188,7 +166,7 @@
                 android:layout_height="wrap_content"/>
 
             <com.lxj.androidktx.widget.SuperLayout
-                android:background="#fff"
+                app:sll_solid="#fff"
                 android:layout_marginTop="15dp"
                 android:clickable="true"
                 app:sl_leftText="总额："
@@ -208,7 +186,7 @@
                 android:layout_height="wrap_content"/>
 
             <com.lxj.androidktx.widget.SuperLayout
-                android:background="#fff"
+                app:sll_solid="#fff"
                 android:clickable="true"
                 android:paddingLeft="14dp"
                 android:paddingRight="15dp"
@@ -222,7 +200,6 @@
                 app:sl_rightTextSize="12sp"
                 app:sl_rightTextColor="#fff"
                 app:sl_rightTextBg="@drawable/bg_update"
-                app:sl_rightTextWidth="55dp"
                 app:sl_rightTextHeight="35dp"
                 app:sl_rightImageSrc="@mipmap/jt"
                 android:layout_width="match_parent"
@@ -230,7 +207,7 @@
 
             <com.lxj.androidktx.widget.SuperLayout
                 android:clickable="true"
-                android:background="#fff"
+                app:sll_solid="#fff"
                 android:paddingLeft="14dp"
                 android:paddingRight="15dp"
                 android:paddingTop="18dp"
@@ -248,7 +225,7 @@
 
             <com.lxj.androidktx.widget.SuperLayout
                 android:clickable="true"
-                android:background="#fff"
+                app:sll_solid="#fff"
                 android:paddingLeft="14dp"
                 android:paddingRight="15dp"
                 android:paddingTop="10dp"
