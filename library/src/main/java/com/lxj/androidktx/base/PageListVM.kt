@@ -4,6 +4,8 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
+import com.lxj.androidktx.core.DiffCallback
+import com.lxj.androidktx.core.diffUpdate
 import com.lxj.androidktx.core.observeState
 import com.lxj.androidktx.livedata.StateLiveData
 import com.lxj.statelayout.StateLayout
@@ -20,7 +22,7 @@ data class ListWrapper<T>(
 ) : Serializable
 
 /**
- * 低效的数据更新模型，推荐使用高效的PageListVM2
+ * 注意一定要实现getDiffCallback，否则数据更新只能采用 notifyDataSetChanged()
  */
 abstract class PageListVM<T>() : ViewModel(),
     OnRefreshLoadMoreListener {
@@ -49,7 +51,12 @@ abstract class PageListVM<T>() : ViewModel(),
         onLoadMoreCB = onLoadMore
         stateLayout?.observeState(owner, listData)
         listData.observe(owner, Observer {
-            rv?.adapter?.notifyDataSetChanged()
+            val diffCallback = getDiffCallback()
+            if(diffCallback!=null){
+                rv?.diffUpdate(diffCallback)
+            }else{
+                rv?.adapter?.notifyDataSetChanged()
+            }
             onDataUpdate?.invoke()
         })
 
@@ -109,6 +116,8 @@ abstract class PageListVM<T>() : ViewModel(),
             }
         }
     }
+
+    open fun getDiffCallback(): DiffCallback<T>? = null
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
         refresh()
