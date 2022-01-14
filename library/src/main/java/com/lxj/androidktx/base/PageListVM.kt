@@ -26,6 +26,7 @@ data class ListWrapper<T>(
  */
 abstract class PageListVM<T>() : ViewModel(),
     OnRefreshLoadMoreListener {
+    var firstLoad = true
     var page = 1
     var hasMore = true
     var listData = StateLiveData<ArrayList<T>>()
@@ -49,7 +50,6 @@ abstract class PageListVM<T>() : ViewModel(),
     ) {
         onRefreshCB = onRefresh
         onLoadMoreCB = onLoadMore
-        stateLayout?.observeState(owner, listData)
         listData.observe(owner, Observer {
             val diffCallback = getDiffCallback()
             if(diffCallback!=null){
@@ -58,6 +58,18 @@ abstract class PageListVM<T>() : ViewModel(),
                 rv?.adapter?.notifyDataSetChanged()
             }
             onDataUpdate?.invoke()
+        })
+        listData.state.observe(owner, Observer {
+            when(it){
+                StateLiveData.State.Loading -> {
+                    if(firstLoad && firstShowLoading){
+                        stateLayout?.showLoading()
+                    }
+                }
+                StateLiveData.State.Empty -> stateLayout?.showEmpty()
+                StateLiveData.State.Error -> stateLayout?.showError()
+                else -> stateLayout?.showContent()
+            }
         })
 
         listData.state.observe(owner, Observer {
@@ -92,6 +104,7 @@ abstract class PageListVM<T>() : ViewModel(),
     abstract fun load()
 
     open fun processData(listWrapper: ListWrapper<T>?, nullIsEmpty: Boolean = false) {
+        firstLoad = false
         if (listWrapper != null) {
             if (page == 1) listData.value!!.clear()
             val list = listData.value
