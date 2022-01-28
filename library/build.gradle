@@ -85,7 +85,7 @@ dependencies {
 //    implementation 'com.google.android.exoplayer:exoplayer:2.13.3'     //player
     api 'com.youth.banner:banner:2.1.0'
     api 'com.tencent:mmkv-static:1.2.10'
-    implementation project(':camera')
+    api project(':camera')
     api project(':http-progress-manager')
     api project(':luban')
     api project(':matisse')
