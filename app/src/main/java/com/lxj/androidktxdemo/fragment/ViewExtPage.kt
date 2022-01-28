@@ -7,6 +7,7 @@ import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.player.VideoPlayerActivity
+import com.lxj.androidktx.util.CountDownWorker
 import com.lxj.androidktx.widget.TabBar
 import com.lxj.androidktxdemo.R
 import kotlinx.android.synthetic.main.adapter_pager2.*
@@ -15,11 +16,17 @@ import kotlinx.android.synthetic.main.fragment_view_ext.*
 class ViewExtPage : BaseFragment() {
     override fun getLayoutId() = R.layout.fragment_view_ext
 
+    val countDownWorker : CountDownWorker by lazy { CountDownWorker(this, onChange = {
+        text1.text = "countDown: $it"
+    }) }
     override fun initView() {
         LogUtils.e("ViewExtPage  initView")
         val value = dp2px(150f)
         text1.width(value)
         text1.text = "自定义字体：text1.width($value)"
+        text1.click {
+            countDownWorker.start()
+        }
 
 
         text2.widthAndHeight(value, value)
