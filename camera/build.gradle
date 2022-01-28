@@ -20,6 +20,15 @@ android {
     lintOptions {
         abortOnError false
     }
+    afterEvaluate {
+        publishing {
+            publications {
+                release(MavenPublication) {
+                    from components.release
+                }
+            }
+        }
+    }
 }
 
 dependencies {
