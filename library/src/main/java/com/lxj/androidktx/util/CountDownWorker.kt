@@ -22,8 +22,8 @@ import com.lxj.androidktx.livedata.LifecycleHandler
 class CountDownWorker(var owner: LifecycleOwner,
                       var total: Int = 60, var step: Int = 1, var countDownInterval: Long = 1000,
                       var immediately: Boolean = true, var from : Int = 0,
-    var onChange: ((s: Int)->Unit)? = null,
-    var onCancel: ((s: Int)->Unit)? = null,
+                      var onChange: ((s: Int)->Unit)? = null,
+                      var onCancel: ((s: Int)->Unit)? = null,
                       var onFinish: (()->Unit)? = null) : LifecycleObserver{
 
     init {
