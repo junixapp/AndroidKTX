@@ -17,6 +17,7 @@ import com.lxj.androidktx.livedata.LifecycleHandler
  * @param countDownInterval 递减时间间隔
  * @param immediately 是否立即执行onChange，false的话会间隔一个countDownInterval再执行onChange
  * @param onChange 递减回调
+ * @param onCancel 取消回调
  * @param onFinish 倒计时结束回调
  */
 class CountDownWorker(var owner: LifecycleOwner,
