@@ -6,6 +6,7 @@ import android.animation.ValueAnimator
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
+import android.os.Handler
 import android.util.SparseArray
 import android.view.View
 import android.view.ViewGroup
@@ -210,22 +211,42 @@ fun View.animateWidthAndHeight(
 }
 
 /**
- * 设置点击监听, 并实现事件节流，500毫秒内只允许点击一次
+ * 设置点击监听, 并实现事件节流，1000毫秒内只允许点击一次
  */
-var _clickCache_ = SparseArray<Runnable>()
-fun View.click(duration: Long = 500, action: (view: View) -> Unit) {
+val _clickHandler_ = Handler()
+val _clickCache_ = SparseArray<Long>()
+fun View.click(duration: Long = 1000, action: (view: View) -> Unit) {
     if(id == View.NO_ID) id = View.generateViewId()
     if (this is TextView) setOnTouchListener(FixClickSpanTouchListener())
     setOnClickListener {
-        if(_clickCache_.get(id)==null){
-            //unclicked
-            _clickCache_[id] = Runnable { _clickCache_.remove(id) }
+        val lastClickTime = _clickCache_.get(id)
+        if(lastClickTime==null || lastClickTime < System.currentTimeMillis()){
+            //first click
+            _clickCache_[id] = System.currentTimeMillis() + duration
             action(it)
+            _clickHandler_.postDelayed({ _clickCache_.remove(id) }, duration)
+        }else{
+            //click too often
         }
-        removeCallbacks(_clickCache_[id])
-        postDelayed(_clickCache_[id], duration)
     }
 }
+
+/**
+ * 设置点击监听, 并实现事件节流，1000毫秒内只允许点击一次
+ */
+//val _clickCache_ = SparseArray<Runnable>()
+//fun View.click(duration: Long = 1000, action: (view: View) -> Unit) {
+//    if(id == View.NO_ID) id = View.generateViewId()
+//    if (this is TextView) setOnTouchListener(FixClickSpanTouchListener())
+//    setOnClickListener {
+//        if(_clickCache_.get(id)==null){
+//            _clickCache_[id] = Runnable { _clickCache_.remove(id) }
+//            action(it)
+//        }
+//        removeCallbacks(_clickCache_[id])
+//        postDelayed(_clickCache_[id], duration)
+//    }
+//}
 
 /**
  * 设置长按监听

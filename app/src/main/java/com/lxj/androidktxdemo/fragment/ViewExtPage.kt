@@ -12,6 +12,7 @@ import com.lxj.androidktx.widget.TabBar
 import com.lxj.androidktxdemo.R
 import kotlinx.android.synthetic.main.adapter_pager2.*
 import kotlinx.android.synthetic.main.fragment_view_ext.*
+import kotlin.random.Random
 
 class ViewExtPage : BaseFragment() {
     override fun getLayoutId() = R.layout.fragment_view_ext
@@ -25,13 +26,17 @@ class ViewExtPage : BaseFragment() {
         text1.width(value)
         text1.text = "自定义字体：text1.width($value)"
         text1.click {
-            countDownWorker.start()
+            ToastUtils.showShort("click " + Random.nextInt(1000000))
+//            countDownWorker.start()
         }
 
 
         text2.widthAndHeight(value, value)
         text2.text = "text2.widthAndHeight($value,$value)"
-//        text2.click { it.animateGone() }
+        text2.click {
+
+            ToastUtils.showShort("click2222 " + Random.nextInt(1000000))
+        }
 
         text3.margin(leftMargin = value)
         text3.text = "text3.margin(leftMargin = $value)"
