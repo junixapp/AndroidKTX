@@ -20,7 +20,7 @@ import com.lxj.androidktx.livedata.LifecycleHandler
  * @param onCancel 取消回调
  * @param onFinish 倒计时结束回调
  */
-class CountDownWorker(var owner: LifecycleOwner,
+class CountDownWorker(var owner: LifecycleOwner? = null,
                       var total: Int = 60, var step: Int = 1, var countDownInterval: Long = 1000,
                       var immediately: Boolean = true, var from : Int = 0,
                       var onChange: ((s: Int)->Unit)? = null,
@@ -28,7 +28,7 @@ class CountDownWorker(var owner: LifecycleOwner,
                       var onFinish: (()->Unit)? = null) : LifecycleObserver{
 
     init {
-        owner.lifecycle.addObserver(this)
+        owner?.lifecycle?.addObserver(this)
     }
 
     private var mCancelled = false

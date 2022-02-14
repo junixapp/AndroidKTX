@@ -3,8 +3,12 @@ package com.lxj.androidktxdemo.fragment
 
 import android.animation.ValueAnimator
 import android.graphics.Color
+import android.view.ViewGroup
+import androidx.transition.*
 import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.google.android.material.internal.TextScale
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.player.VideoPlayerActivity
 import com.lxj.androidktx.util.CountDownWorker
@@ -17,9 +21,12 @@ import kotlin.random.Random
 class ViewExtPage : BaseFragment() {
     override fun getLayoutId() = R.layout.fragment_view_ext
 
-    val countDownWorker : CountDownWorker by lazy { CountDownWorker(this, onChange = {
-        text1.text = "countDown: $it"
-    }) }
+    val countDownWorker: CountDownWorker by lazy {
+        CountDownWorker(this, onChange = {
+            text1.text = "countDown: $it"
+        })
+    }
+
     override fun initView() {
         LogUtils.e("ViewExtPage  initView")
         val value = dp2px(150f)
@@ -27,7 +34,16 @@ class ViewExtPage : BaseFragment() {
         text1.text = "自定义字体：text1.width($value)"
         text1.click {
             ToastUtils.showShort("click " + Random.nextInt(1000000))
+//            val vc = TransitionSet()
+//            vc.addTransition(ChangeBounds())
+//            vc.addTransition(ChangeTransform())
+//            vc.setDuration(1000)
+//            vc.propagation = CircularPropagation()
+//            TransitionManager.beginDelayedTransition(text1.parent as ViewGroup, vc)
 //            countDownWorker.start()
+
+//            text1.width(Random.nextInt(ScreenUtils.getAppScreenWidth()))
+            text1.animateWidth(Random.nextInt(ScreenUtils.getAppScreenWidth()), duration = 1000)
         }
 
 
@@ -62,21 +78,37 @@ class ViewExtPage : BaseFragment() {
         verifyCodeInput.onInputFinish = {
             ToastUtils.showLong(it)
         }
-        tabbarRadio.setTabs(listOf(
-            TabBar.Tab(text = "啊啊", selectedIconRes = R.mipmap.checked, normalIconRes = R.mipmap.uncheck),
-            TabBar.Tab(text = "大萨达", selectedIconRes = R.mipmap.checked, normalIconRes = R.mipmap.uncheck),
-            TabBar.Tab(text = "Free", selectedIconRes = R.mipmap.checked, normalIconRes = R.mipmap.uncheck),
-        ))
+        tabbarRadio.setTabs(
+            listOf(
+                TabBar.Tab(
+                    text = "啊啊",
+                    selectedIconRes = R.mipmap.checked,
+                    normalIconRes = R.mipmap.uncheck
+                ),
+                TabBar.Tab(
+                    text = "大萨达",
+                    selectedIconRes = R.mipmap.checked,
+                    normalIconRes = R.mipmap.uncheck
+                ),
+                TabBar.Tab(
+                    text = "Free",
+                    selectedIconRes = R.mipmap.checked,
+                    normalIconRes = R.mipmap.uncheck
+                ),
+            )
+        )
 
-        tabbar.setTabs(listOf(
-                TabBar.Tab(text = "Home" ,),
-                TabBar.Tab( text = "Category" ,),
-                TabBar.Tab( text = "Message" ,),
-                TabBar.Tab( text = "My" ,),
+        tabbar.setTabs(
+            listOf(
+                TabBar.Tab(text = "Home"),
+                TabBar.Tab(text = "Category"),
+                TabBar.Tab(text = "Message"),
+                TabBar.Tab(text = "My"),
 //                TabBar.Tab( selectedIconRes = R.mipmap.ic_launcher_round),
 //                TabBar.Tab( selectedIconRes = R.mipmap.ic_launcher_round)
-                )){position->
-            ToastUtils.showShort("选择了："+position)
+            )
+        ) { position ->
+            ToastUtils.showShort("选择了：" + position)
             (0..3).forEach {
                 LogUtils.e("posi: $it   -> $position")
                 tabbar.getChildAt(it).background = if (position == it) createDrawable(
@@ -101,7 +133,8 @@ class ViewExtPage : BaseFragment() {
         super.initData()
 
 //        mtv2.setup(loop = false)
-        postDelay(2000){ mtv.startScroll()
+        postDelay(2000) {
+            mtv.startScroll()
             mtv2.startScroll()
             marqueeLayout.startScroll()
         }
