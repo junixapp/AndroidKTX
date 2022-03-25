@@ -74,9 +74,9 @@ class SpanExtPage : BaseFragment() {
 
             NotificationDemo.show()
 
-            Share.shareImage(requireActivity(),platform = SharePlatform.QQ, bitmap = tvClickSpan.toBitmap(), cb = object : Share.ShareCallback{
-
-            })
+//            Share.shareImage(requireActivity(),platform = SharePlatform.QQ, bitmap = tvClickSpan.toBitmap(), cb = object : Share.ShareCallback{
+//
+//            })
 //            Share.shareWeb(activity!!,platform = SharePlatform.QQ,
 //                    url = "https://www.baidu.com", title = "三生三世",
 //                    thumbRes = R.mipmap.ic_launcher, cb = object : Share.ShareCallback{

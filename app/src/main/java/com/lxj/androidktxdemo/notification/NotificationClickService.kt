@@ -26,11 +26,11 @@ class NotificationClickService: Service() {
         if(id!=null) {
 //            NotificationUtils.cancel(id)
         }
-        if(!ActivityUtils.isActivityExistsInStack(MainActivity::class.java)){
-            startActivity<WelcomeActivity>(bundle = arrayOf("fromNotification" to true))
-        }else{
-            startActivity<DemoActivity>()
-        }
+//        if(!ActivityUtils.isActivityExistsInStack(MainActivity::class.java)){
+//            startActivity<WelcomeActivity>(bundle = arrayOf("fromNotification" to true))
+//        }else{
+//            startActivity<DemoActivity>()
+//        }
         LogUtils.e("notiId: $id")
         return super.onStartCommand(intent, flags, startId)
     }

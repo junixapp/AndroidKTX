@@ -13,6 +13,7 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.lxj.androidktx.AndroidKTX
+import com.lxj.androidktxdemo.DemoActivity
 import com.lxj.androidktxdemo.R
 
 object NotificationDemo {
@@ -48,9 +49,9 @@ object NotificationDemo {
 
     fun innerShow(bitmap: Bitmap){
         NotificationUtils.notify(notificationId) { param ->
-            val intent = Intent(AndroidKTX.context, NotificationClickService::class.java)
+            val intent = Intent(AndroidKTX.context, DemoActivity::class.java)
             intent.putExtra("id", notificationId)
-            val pendingIntent = PendingIntent.getService(
+            val pendingIntent = PendingIntent.getActivity(
                 AndroidKTX.context, notificationId,
                 intent, PendingIntent.FLAG_UPDATE_CURRENT)
 

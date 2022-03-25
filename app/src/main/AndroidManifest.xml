@@ -19,17 +19,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" android:launchMode="singleTask">
+        <activity android:name=".MainActivity" >
 
         </activity>
-        <activity android:name=".DemoActivity" android:theme="@style/_FullScreenTheme" android:parentActivityName=".MainActivity"
-                android:launchMode="singleTask">
+        <activity android:name=".DemoActivity" android:theme="@style/_FullScreenTheme" android:parentActivityName=".WelcomeActivity">
 
 <!--               <meta-data android:name="android.support.PARENT_ACTIVITY"-->
 <!--                            android:value=".MainActivity" />-->
         </activity>
 
-        <service android:name=".notification.NotificationClickService"/>
+<!--        <service android:name=".notification.NotificationClickService"/>-->
     </application>
 
 </manifest>

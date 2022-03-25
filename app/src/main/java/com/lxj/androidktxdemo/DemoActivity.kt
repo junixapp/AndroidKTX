@@ -1,6 +1,5 @@
 package com.lxj.androidktxdemo
 
-import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL
 import androidx.viewpager2.widget.ViewPager2.ORIENTATION_VERTICAL
 import com.lxj.androidktx.base.StateTitleBarActivity
