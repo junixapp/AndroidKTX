@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.lxj.androidktx.widget.ShapeLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:sll_gradientStartColor="#66000000"
+    app:sll_gradientEndColor="#00000000"
+    app:sll_gradientOrientation="TOP_BOTTOM"
+    android:gravity="center_vertical"
+    android:padding="5pt"
+    android:layout_marginTop="25pt"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/ivBack"
+        android:padding="10pt"
+        android:src="@mipmap/_ktx_ic_back_white"
+        android:layout_width="40pt"
+        android:layout_marginRight="10pt"
+        android:layout_height="40pt"/>
+    <TextView
+        android:id="@+id/tvTitle"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textSize="16sp"
+        android:textColor="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</com.lxj.androidktx.widget.ShapeLinearLayout>

@@ -94,24 +94,24 @@ object ImagePicker {
      * @param reqCode
      * @param maxDuration 最大时长限制，默认是15秒，暂时实现
      */
-    fun startRecord(from: Any, reqCode: Int,){
-        PermissionUtils
-            .permission(PermissionConstants.STORAGE, PermissionConstants.CAMERA, )
-            .callback(object : PermissionUtils.SimpleCallback {
-                override fun onGranted() {
-                    if(from is Activity){
-                        CameraActivity.start(from, requestCode = reqCode, mode = CameraActivity.OnlyVideo)
-                    }else if(from is Fragment){
-                        CameraActivity.start(from, requestCode = reqCode, mode = CameraActivity.OnlyVideo)
-                    }
-                }
-                override fun onDenied() {
-                    ToastUtils.showShort("权限获取失败，无法使用相册功能")
-                }
-            })
-            .request()
-
-    }
+//    fun startRecord(from: Any, reqCode: Int,){
+//        PermissionUtils
+//            .permission(PermissionConstants.STORAGE, PermissionConstants.CAMERA, )
+//            .callback(object : PermissionUtils.SimpleCallback {
+//                override fun onGranted() {
+//                    if(from is Activity){
+//                        CameraActivity.start(from, requestCode = reqCode, mode = CameraActivity.OnlyVideo)
+//                    }else if(from is Fragment){
+//                        CameraActivity.start(from, requestCode = reqCode, mode = CameraActivity.OnlyVideo)
+//                    }
+//                }
+//                override fun onDenied() {
+//                    ToastUtils.showShort("权限获取失败，无法使用相册功能")
+//                }
+//            })
+//            .request()
+//
+//    }
 
     /**
      * 获取结果

@@ -127,7 +127,7 @@ public class MediaStoreCompat {
 
         // Avoid joining path components manually
         File tempFile = new File(storageDir, imageFileName);
-        Log.e("tag", "temp file: "+ tempFile.getAbsolutePath());
+//        Log.e("tag", "temp file: "+ tempFile.getAbsolutePath());
         // Handle the situation that user's external storage is not ready
         if (!Environment.MEDIA_MOUNTED.equals(EnvironmentCompat.getStorageState(tempFile))) {
             return null;

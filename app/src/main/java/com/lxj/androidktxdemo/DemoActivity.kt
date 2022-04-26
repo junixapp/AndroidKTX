@@ -2,6 +2,9 @@ package com.lxj.androidktxdemo
 
 import androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL
 import androidx.viewpager2.widget.ViewPager2.ORIENTATION_VERTICAL
+import com.blankj.utilcode.util.ImageUtils
+import com.blankj.utilcode.util.MetaDataUtils
+import com.blankj.utilcode.util.UriUtils
 import com.lxj.androidktx.base.StateTitleBarActivity
 import com.lxj.androidktx.core.asCard
 import com.lxj.androidktx.core.bindFragment

@@ -25,17 +25,13 @@
             android:launchMode="singleTop"
             android:theme="@style/_FullScreenTheme" />
         <activity
-            android:name=".player.VideoPlayerActivity"
-            android:hardwareAccelerated="true"
-            android:theme="@style/_FullScreenTheme" />
-        <activity
             android:name=".picker.PickerEmptyActivity"
             android:launchMode="singleTop"
             android:theme="@style/_TranslucentTheme" />
         <activity android:name=".base.FragmentWrapperActivity" android:screenOrientation="portrait"/>
 
-        <activity android:name=".picker.CameraActivity"
-            android:theme="@style/_FullScreenTheme"/>
+<!--        <activity android:name=".picker.CameraActivity"-->
+<!--            android:theme="@style/_FullScreenTheme"/>-->
 
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
@@ -44,18 +40,6 @@
             tools:replace="android:theme"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
 
-
-        <!--支付需要的-->
-        <activity
-            android:name=".pay.wxapi.WXPayEntryActivity"
-            android:exported="true"
-            android:launchMode="singleTop"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
-        <activity-alias
-            android:name="${applicationId}.wxapi.WXPayEntryActivity"
-            android:exported="true"
-            android:targetActivity=".pay.wxapi.WXPayEntryActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

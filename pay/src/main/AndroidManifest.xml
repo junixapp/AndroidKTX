@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.lxj.pay">
+
+
+    <!--支付需要的-->
+    <activity
+        android:name=".wxapi.WXPayEntryActivity"
+        android:exported="true"
+        android:launchMode="singleTop"
+        android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+    <activity-alias
+        android:name="${applicationId}.wxapi.WXPayEntryActivity"
+        android:exported="true"
+        android:targetActivity=".wxapi.WXPayEntryActivity" />
+</manifest>

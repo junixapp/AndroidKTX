@@ -47,4 +47,6 @@ dependencies {
     implementation 'com.github.li-xiaojun:XPopup:2.7.2'
 
     implementation project(':library')
+    implementation project(':share')
+//    implementation project(':videoplayer')
 }

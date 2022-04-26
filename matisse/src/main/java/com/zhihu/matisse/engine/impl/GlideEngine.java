@@ -22,6 +22,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
@@ -39,7 +40,7 @@ public class GlideEngine implements ImageEngine {
                 .asBitmap() // some .jpeg files are actually gif
                 .load(uri)
                 .apply(new RequestOptions()
-                        .override(resize, resize)
+                        .override(resize, resize).format(DecodeFormat.PREFER_RGB_565)
                         .dontTransform()
                         .dontAnimate()
                         .placeholder(placeholder)
@@ -54,7 +55,7 @@ public class GlideEngine implements ImageEngine {
                 .asBitmap() // some .jpeg files are actually gif
                 .load(uri)
                 .apply(new RequestOptions()
-                        .override(resize, resize)
+                        .override(resize, resize).format(DecodeFormat.PREFER_RGB_565)
                         .placeholder(placeholder)
                         .centerCrop())
                 .into(imageView);
@@ -65,7 +66,7 @@ public class GlideEngine implements ImageEngine {
         Glide.with(context)
                 .load(uri)
                 .apply(new RequestOptions()
-                        .override(resizeX, resizeY)
+                        .override(resizeX, resizeY).format(DecodeFormat.PREFER_RGB_565)
                         .priority(Priority.HIGH)
                         .fitCenter())
                 .into(imageView);
@@ -77,7 +78,7 @@ public class GlideEngine implements ImageEngine {
                 .asGif()
                 .load(uri)
                 .apply(new RequestOptions()
-                        .override(resizeX, resizeY)
+                        .override(resizeX, resizeY).format(DecodeFormat.PREFER_RGB_565)
                         .priority(Priority.HIGH)
                         .fitCenter())
                 .into(imageView);

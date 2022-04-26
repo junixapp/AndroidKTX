@@ -49,7 +49,6 @@ object AndroidKTX {
         initRefresh()
         DirManager.init()
         MMKV.initialize(context)
-//        RecordManager.getInstance().init(context as Application, isDebug)
     }
 
     fun initRefresh() {

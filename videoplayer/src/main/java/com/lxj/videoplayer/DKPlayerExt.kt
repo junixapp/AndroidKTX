@@ -1,4 +1,4 @@
-package com.lxj.androidktx.player
+package com.lxj.videoplayer
 
 import xyz.doikki.videoplayer.player.VideoView
 

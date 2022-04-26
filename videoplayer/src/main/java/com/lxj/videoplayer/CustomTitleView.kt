@@ -1,4 +1,4 @@
-package com.lxj.androidktx.player
+package com.lxj.videoplayer
 
 import android.content.Context
 import android.util.AttributeSet
@@ -8,10 +8,7 @@ import android.view.animation.Animation
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.view.marginTop
-import com.blankj.utilcode.util.ScreenUtils
-import com.lxj.androidktx.R
-import com.lxj.androidktx.core.margin
+import com.lxj.videoplayer.R
 import xyz.doikki.videoplayer.controller.ControlWrapper
 import xyz.doikki.videoplayer.controller.IControlComponent
 import xyz.doikki.videoplayer.player.VideoView
@@ -31,7 +28,7 @@ class CustomTitleView : FrameLayout, IControlComponent {
     init {
         visibility = GONE
         LayoutInflater.from(context).inflate(R.layout._ktx_player_titleview, this, true)
-        if(ScreenUtils.isLandscape()) getChildAt(0).margin(topMargin = 0)
+
         val btnBack = findViewById<ImageView>(R.id.ivBack)
         btnBack.setOnClickListener {
             PlayerUtils.scanForActivity(context)?.onBackPressed()

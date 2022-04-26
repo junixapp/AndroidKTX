@@ -3,18 +3,13 @@ package com.lxj.androidktxdemo.fragment
 
 import android.animation.ValueAnimator
 import android.graphics.Color
-import android.view.ViewGroup
-import androidx.transition.*
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.google.android.material.internal.TextScale
 import com.lxj.androidktx.core.*
-import com.lxj.androidktx.player.VideoPlayerActivity
 import com.lxj.androidktx.util.CountDownWorker
 import com.lxj.androidktx.widget.TabBar
 import com.lxj.androidktxdemo.R
-import kotlinx.android.synthetic.main.adapter_pager2.*
 import kotlinx.android.synthetic.main.fragment_view_ext.*
 import kotlin.random.Random
 

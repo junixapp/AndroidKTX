@@ -1,19 +1,21 @@
-package com.lxj.androidktx.player
+package com.lxj.videoplayer
 
+import android.content.Context
+import android.content.Intent
 import android.media.MediaMetadataRetriever
 import android.os.Build
+import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatActivity
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.lxj.androidktx.AndroidKTX
-import com.lxj.androidktx.R
-import com.lxj.androidktx.base.AdaptActivity
-import com.lxj.androidktx.core.load
-import com.lxj.androidktx.core.startActivity
+import com.bumptech.glide.Glide
+import com.lxj.videoplayer.R
 import kotlinx.android.synthetic.main._ktx_activity_player.*
 import xyz.doikki.videocontroller.StandardVideoController
 import xyz.doikki.videocontroller.component.*
@@ -26,32 +28,38 @@ import java.lang.Exception
  * Description: 视频播放界面
  * Create by dance, at 2019/8/15
  */
-class VideoPlayerActivity : AdaptActivity() {
+class VideoPlayerActivity : AppCompatActivity() {
 
     companion object {
         /**
          * 开启视频播放器界面
          * @param url 视频文件地址，如果是raw资源，则"android.resource://" + packageName + "/" + R.raw.test
          */
-        fun start(url: String, title: String = "", cover: String = "") {
-            AndroidKTX.context.startActivity<VideoPlayerActivity>(
-                bundle = arrayOf(
-                    "title" to title, "url" to url, "cover" to cover
-                )
-            )
+        fun start( url: String, title: String = "", cover: String = "") {
+            val intent = Intent()
+            intent.putExtra("title", title)
+            intent.putExtra("url", url)
+            intent.putExtra("cover", cover)
+            ActivityUtils.startActivity(intent)
         }
     }
 
-    override fun getLayoutId() = R.layout._ktx_activity_player
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout._ktx_activity_player)
+        initView()
+        initData()
+    }
+
 
     val mController: StandardVideoController by lazy { StandardVideoController(this) }
 
-    override fun initView() {
+     fun initView() {
         BarUtils.setStatusBarVisibility(this, false)
         adaptCutoutAboveAndroidP();
     }
 
-    override fun initData() {
+     fun initData() {
         val url = intent.getStringExtra("url")
         if (url.isNullOrEmpty()) {
             ToastUtils.showShort("视频地址为空")
@@ -82,7 +90,7 @@ class VideoPlayerActivity : AdaptActivity() {
             }
         } else {
             //传入了封面图片
-            thumb.load(cover, isCrossFade = false)
+            Glide.with(thumb).load(cover).into(thumb)
         }
         mController.addControlComponent(prepareView)
 
