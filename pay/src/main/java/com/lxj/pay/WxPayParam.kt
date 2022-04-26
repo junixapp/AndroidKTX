@@ -1,4 +1,4 @@
-package com.lxj.androidktx.pay
+package com.lxj.pay
 
 data class WxPayParam(
         var appId: String = "",

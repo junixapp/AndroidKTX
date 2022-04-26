@@ -1,7 +1,6 @@
-package com.lxj.androidktx.pay
+package com.lxj.pay
 
 import com.lxj.androidktx.core.toBean
-import com.tencent.mm.opensdk.modelbase.BaseResp
 import java.io.Serializable
 
 /**

@@ -1,12 +1,12 @@
-package com.lxj.androidktx.pay.wxapi;
+package com.lxj.pay.wxapi;
 
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import com.blankj.utilcode.util.LogUtils;
-import com.lxj.androidktx.pay.PayVM;
-import com.lxj.androidktx.pay.WxPayResult;
+import com.lxj.pay.PayVM;
+import com.lxj.pay.WxPayResult;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.openapi.IWXAPI;

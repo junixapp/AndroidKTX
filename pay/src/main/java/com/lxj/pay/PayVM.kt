@@ -1,4 +1,4 @@
-package com.lxj.androidktx.pay
+package com.lxj.pay
 
 import android.app.Activity
 import android.content.Context
@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.alipay.sdk.app.PayTask
 import com.blankj.utilcode.util.ToastUtils
 import com.lxj.androidktx.livedata.StateLiveData
-import com.tencent.mm.opensdk.modelbase.BaseResp
+import com.lxj.pay.WxPayParam
 import com.tencent.mm.opensdk.modelpay.PayReq
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import kotlin.concurrent.thread
@@ -52,7 +52,8 @@ object PayVM : ViewModel() {
     }
 
     fun wxPay2(
-            context: Context, param: WxPayParam) {
+            context: Context, param: WxPayParam
+    ) {
         wxAppId = param.appId
         val wxapi = WXAPIFactory.createWXAPI(context, param.appId)
         wxapi.registerApp(param.appId)

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lxj.pay">
 
-
+    <application>
     <!--支付需要的-->
     <activity
         android:name=".wxapi.WXPayEntryActivity"
@@ -14,4 +14,5 @@
         android:name="${applicationId}.wxapi.WXPayEntryActivity"
         android:exported="true"
         android:targetActivity=".wxapi.WXPayEntryActivity" />
+    </application>
 </manifest>

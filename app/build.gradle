@@ -48,5 +48,6 @@ dependencies {
 
     implementation project(':library')
     implementation project(':share')
+    implementation project(':pay')
 //    implementation project(':videoplayer')
 }
