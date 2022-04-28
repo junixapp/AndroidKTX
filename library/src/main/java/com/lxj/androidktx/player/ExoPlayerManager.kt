@@ -2,15 +2,12 @@ package com.lxj.androidktx.player
 
 import android.os.Handler
 import android.os.Looper
-import androidx.lifecycle.ViewModel
 import com.blankj.utilcode.util.LogUtils
 import com.danikula.videocache.CacheListener
-import com.google.android.exoplayer2.*
-import com.google.android.exoplayer2.source.DefaultMediaSourceFactory
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
-import com.google.android.exoplayer2.upstream.cache.CacheDataSource
-import com.google.android.exoplayer2.upstream.cache.LeastRecentlyUsedCacheEvictor
-import com.google.android.exoplayer2.upstream.cache.SimpleCache
+import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.PlaybackException
+import com.google.android.exoplayer2.Player
+import com.google.android.exoplayer2.SimpleExoPlayer
 import com.lxj.androidktx.AndroidKTX
 import com.lxj.androidktx.core.getObject
 import com.lxj.androidktx.core.putObject
@@ -231,6 +228,7 @@ object ExoPlayerManager : CacheListener{
      * 播放指定位置，必须在bindList()之后调用，否则无效
      */
     fun play(index: Int){
+        playState.postValueAndSuccess(PlayState.Idle)
         currentIndex = index
         if(isIndexOrListWrong())return
 
