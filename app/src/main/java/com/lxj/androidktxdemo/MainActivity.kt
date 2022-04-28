@@ -65,6 +65,8 @@ class MainActivity : BaseActivity() {
             }
         """.trimIndent().toBean<UserTest>()
         LogUtils.e("ut: ${ut.toJson()}")
+
+        runOnUiThread {  }
     }
 
     override fun initData() {

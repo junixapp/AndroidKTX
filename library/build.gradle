@@ -55,6 +55,8 @@ dependencies {
     api 'androidx.multidex:multidex:2.0.1'
     api "androidx.recyclerview:recyclerview:1.2.1"
     api 'com.google.android.material:material:1.4.0'
+    api "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    api "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.3.1"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     api "com.github.bumptech.glide:glide:4.12.0"
 //    api "com.github.bumptech.glide:okhttp3-integration:4.12.0"
@@ -66,13 +68,11 @@ dependencies {
     api 'com.google.code.gson:gson:2.8.9'
     // inline函数在运行时插入使用处，需要暴露出去
     api "com.squareup.okhttp3:okhttp:3.14.9"
-    api "androidx.lifecycle:lifecycle-extensions:2.2.0"
-    api "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.3.1"
     api 'com.github.li-xiaojun:StateLayout:1.3.1'
     api 'com.blankj:utilcodex:1.31.0' //待迁移
-    api 'com.scwang.smart:refresh-layout-kernel:2.0.3'      //待迁移
-    api 'com.scwang.smart:refresh-header-classics:2.0.3'
-    api 'com.scwang.smart:refresh-footer-classics:2.0.3'
+    api 'io.github.scwang90:refresh-layout-kernel:2.0.5'      //待迁移
+    api 'io.github.scwang90:refresh-header-classics:2.0.5'
+    api 'io.github.scwang90:refresh-footer-classics:2.0.5'
     api 'io.github.jeremyliao:live-event-bus-x:1.8.0'    //事件总线
 
     compileOnly 'com.github.li-xiaojun:XPopup:2.7.8'       //弹窗
@@ -87,12 +87,10 @@ dependencies {
 
     implementation 'com.google.android.exoplayer:exoplayer:2.13.3'     //player
     api 'com.youth.banner:banner:2.1.0'
-    api 'com.tencent:mmkv-static:1.2.10'
+//    api 'com.tencent:mmkv-static:1.2.10'
 //    api project(':camera')
     api project(':http-progress-manager')
     api project(':luban')
     api project(':matisse')
-    api project(':circleprogress')
-    api project(':circleprogress')
     api project(':circleprogress')
 }

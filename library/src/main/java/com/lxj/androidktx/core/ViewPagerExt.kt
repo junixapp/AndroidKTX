@@ -122,8 +122,9 @@ fun ViewPager2.bindFragment(frag: Fragment, fragments: List<Fragment>): ViewPage
     return this
 }
 
-fun ViewPager2.bindTabLayout(tabLayout: TabLayout, titles: List<String>): ViewPager2 {
-    TabLayoutMediator(tabLayout, this) { tab, position ->
+fun ViewPager2.bindTabLayout(tabLayout: TabLayout, titles: List<String>, autoRefresh: Boolean = true ,
+                             smoothScroll: Boolean = true): ViewPager2 {
+    TabLayoutMediator(tabLayout, this, autoRefresh, smoothScroll) { tab, position ->
         tab.text = titles[position]
     }.attach()
     return this

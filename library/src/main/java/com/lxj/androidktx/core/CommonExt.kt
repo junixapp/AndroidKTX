@@ -210,7 +210,7 @@ fun Array<out Pair<String, Any?>>.toBundle(): Bundle? {
 
 
 fun Any.runOnUIThread(action: () -> Unit) {
-    AndroidKTX.handler.post { action() }
+    Handler(Looper.getMainLooper()).post { action() }
 }
 
 //一天只做一次
@@ -254,7 +254,7 @@ fun Any.doOnceIn( actionName: String, time: Long = 500, action: ()->Unit){
     if(_actionCache.contains(actionName)) return
     _actionCache.add(actionName)
     action() //执行行为
-    AndroidKTX.handler.postDelayed({
+    Handler(Looper.getMainLooper()).postDelayed({
         if(_actionCache.contains(actionName)) _actionCache.remove(actionName)
     }, time)
 }
