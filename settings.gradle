@@ -1,4 +1,4 @@
-include ':app', ':library',  ':http-progress-manager', ':luban', ':matisse', ':imageview-zoom',':audio-recorder'
+include ':app', ':library',  ':matisse', ':audio-recorder'
 include ':share', ':circleprogress'
 include ':pay'
 include ':videoplayer'

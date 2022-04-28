@@ -89,8 +89,6 @@ dependencies {
     api 'com.youth.banner:banner:2.1.0'
 //    api 'com.tencent:mmkv-static:1.2.10'
 //    api project(':camera')
-    api project(':http-progress-manager')
-    api project(':luban')
-    api project(':matisse')
-    api project(':circleprogress')
+//    api project(':luban')
+    implementation project(':matisse')
 }

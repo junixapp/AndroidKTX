@@ -16,6 +16,7 @@ import androidx.core.content.FileProvider
 import com.blankj.utilcode.util.*
 import com.lxj.androidktx.AndroidKTX.context
 import com.lxj.androidktx.R
+import com.lxj.androidktx.luban.Luban
 import com.lxj.androidktx.util.DirManager
 import com.lxj.androidktx.widget.LoadingDialog
 import com.yalantis.ucrop.UCrop
@@ -30,7 +31,6 @@ import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import top.zibin.luban.Luban
 import java.io.File
 import java.io.FileOutputStream
 

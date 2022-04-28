@@ -1,9 +1,9 @@
 package com.lxj.androidktx.okhttp
 
 import com.lxj.androidktx.core.toJson
-import me.jessyan.progressmanager.ProgressListener
-import me.jessyan.progressmanager.ProgressManager
-import me.jessyan.progressmanager.body.ProgressInfo
+import com.lxj.androidktx.okhttp.progressmanager.ProgressListener
+import com.lxj.androidktx.okhttp.progressmanager.ProgressManager
+import com.lxj.androidktx.okhttp.progressmanager.body.ProgressInfo
 import okhttp3.*
 import java.io.File
 import java.lang.Exception
@@ -168,7 +168,7 @@ data class RequestWrapper(
     }
 
     fun uploadListener(onProgress: (progressInfo: ProgressInfo?)->Unit, onError: ((id: Long, e: Exception?)->Unit)? = null): RequestWrapper{
-        ProgressManager.getInstance().addRequestListener(url, object : ProgressListener{
+        ProgressManager.getInstance().addRequestListener(url, object : ProgressListener {
             override fun onProgress(progressInfo: ProgressInfo?) {
                 onProgress(progressInfo)
             }

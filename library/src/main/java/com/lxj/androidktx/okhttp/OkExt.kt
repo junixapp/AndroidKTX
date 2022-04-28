@@ -1,8 +1,8 @@
 package com.lxj.androidktx.okhttp
 
 import com.lxj.androidktx.okhttp.cookie.PersistentCookieStore
+import com.lxj.androidktx.okhttp.progressmanager.ProgressManager
 import com.lxj.androidktx.util.HttpsUtils
-import me.jessyan.progressmanager.ProgressManager
 import okhttp3.*
 import java.io.File
 import java.lang.Exception

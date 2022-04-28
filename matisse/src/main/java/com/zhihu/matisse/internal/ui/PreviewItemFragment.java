@@ -28,13 +28,13 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.zhihu.matisse.R;
+import com.zhihu.matisse.imagezoom.ImageViewTouch;
+import com.zhihu.matisse.imagezoom.ImageViewTouchBase;
 import com.zhihu.matisse.internal.entity.Item;
 import com.zhihu.matisse.internal.entity.SelectionSpec;
 import com.zhihu.matisse.internal.utils.PhotoMetadataUtils;
 import com.zhihu.matisse.listener.OnFragmentInteractionListener;
 
-import it.sephiroth.android.library.imagezoom.ImageViewTouch;
-import it.sephiroth.android.library.imagezoom.ImageViewTouchBase;
 
 public class PreviewItemFragment extends Fragment {
 

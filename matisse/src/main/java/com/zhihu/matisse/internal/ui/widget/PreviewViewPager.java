@@ -20,7 +20,8 @@ import androidx.viewpager.widget.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
 
-import it.sephiroth.android.library.imagezoom.ImageViewTouch;
+import com.zhihu.matisse.imagezoom.ImageViewTouch;
+
 
 public class PreviewViewPager extends ViewPager {
 
