@@ -78,7 +78,7 @@ class VideoPlayerActivity : AppCompatActivity() {
         if (cover.isNullOrEmpty()) {
             //主动获取首帧图片
             try {
-                val isNetUri = url.startsWith("http")
+                val isNetUri = url?.startsWith("http")?:false
                 val retriever = MediaMetadataRetriever()
                 if (isNetUri) retriever.setDataSource(url, HashMap<String, String>())
                 else retriever.setDataSource(url)
