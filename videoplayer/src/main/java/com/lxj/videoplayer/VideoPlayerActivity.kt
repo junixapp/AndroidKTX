@@ -1,6 +1,5 @@
 package com.lxj.videoplayer
 
-import android.content.Context
 import android.content.Intent
 import android.media.MediaMetadataRetriever
 import android.os.Build
@@ -15,7 +14,6 @@ import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
-import com.lxj.videoplayer.R
 import kotlinx.android.synthetic.main._ktx_activity_player.*
 import xyz.doikki.videocontroller.StandardVideoController
 import xyz.doikki.videocontroller.component.*

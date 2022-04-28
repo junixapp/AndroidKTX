@@ -4,10 +4,8 @@ import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.ViewModel
 import com.blankj.utilcode.util.LogUtils
-import com.google.android.exoplayer2.ExoPlaybackException
-import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.SimpleExoPlayer
+import com.danikula.videocache.CacheListener
+import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.source.DefaultMediaSourceFactory
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.upstream.cache.CacheDataSource
@@ -26,34 +24,29 @@ import kotlin.random.Random
 /**
  * ExoPlayer实现的播放器封装，带缓存
  */
-object ExoPlayerVM : ViewModel(){
+object ExoPlayerManager : CacheListener{
     val RandomMode = "RandomMode" //随机播放
     val RepeatOneMode = "RepeatOneMode" //单曲循环播放
     val RepeatAllMode = "RepeatAllMode" //顺序循环播放
 
-    private var autoPlayNext = true
+    private var autoPlayNext = false
     private val handler = Handler(Looper.getMainLooper())
     var player :SimpleExoPlayer
-    var playMode = StateLiveData<String>()
-    val playState = StateLiveData<PlayState>()
+    var playMode = StateLiveData<String>()  //播放模式
+    val playState = StateLiveData<PlayState>() //播放状态
+    val cacheInfo = StateLiveData<CacheInfo>() //缓存状态
     var currentIndex = -1
     val playInfo = StateLiveData<PlayInfo>() //播放进度, 位置
     val uriList = arrayListOf<String>()
     var isCacheLastData = false
-    private val maxCacheSize = 1024 * 1024L * 500 //100M
     init {
         playState.value = PlayState.Idle
         playMode.value = sp().getString("_ktx_player_mode", RepeatAllMode) ?: RepeatAllMode
 
-        val cacheDir = File(AndroidKTX.context.externalCacheDir, "exoplayer-cache")
-        player = SimpleExoPlayer.Builder(AndroidKTX.context)
-            .setMediaSourceFactory(DefaultMediaSourceFactory(CacheDataSource.Factory()
-                .setUpstreamDataSourceFactory(DefaultDataSourceFactory(AndroidKTX.context,"AndroidKtx ExoPlayer"))
-                .setCache(SimpleCache(cacheDir, LeastRecentlyUsedCacheEvictor(maxCacheSize)))))
-            .build()
+        player = SimpleExoPlayer.Builder(AndroidKTX.context).build()
         player.repeatMode = Player.REPEAT_MODE_OFF
         player.shuffleModeEnabled = false
-        player.addListener(object : Player.EventListener{
+        player.addListener(object : Player.Listener{
             override fun onIsPlayingChanged(isPlaying: Boolean) {
                 super.onIsPlayingChanged(isPlaying)
                 if(isPlaying){
@@ -71,18 +64,24 @@ object ExoPlayerVM : ViewModel(){
             override fun onPlaybackStateChanged(state: Int) {
                 super.onPlaybackStateChanged(state)
                 when(state){
+                    // This is the initial state, the state when the player is stopped, and when playback failed.
+                    // The player will hold only limited resources in this state.
                     Player.STATE_IDLE -> playState.setValue(PlayState.Idle)
                     Player.STATE_BUFFERING -> {
+                        // The player is not able to immediately play from its current position.
+                        // This mostly happens because more data needs to be loaded.
                         playState.errMsg = null
                         stopPostProgress()
                         playState.setValue(PlayState.Buffering)
                     }
                     Player.STATE_READY -> {
+                        //The player is able to immediately play from its current position
                         playState.errMsg = null
                         playState.setValue(PlayState.Ready)
                         if(!player.playWhenReady)playState.setValue(PlayState.Pause)
                     }
                     Player.STATE_ENDED -> {
+                        //The player finished playing all media.
                         playState.errMsg = null
                         playState.setValue(PlayState.Complete)
                         stopPostProgress()
@@ -91,19 +90,16 @@ object ExoPlayerVM : ViewModel(){
                 }
             }
 
-            override fun onPlayerError(error: ExoPlaybackException) {
+            override fun onPlayerError(error: PlaybackException) {
                 super.onPlayerError(error)
                 LogUtils.e("onPlayerError:  ${error.localizedMessage}")
-                playState.errMsg = "${error.type}"
+                playState.errMsg = "${error.errorCode}"
                 playState.setValue(PlayState.Error)
                 stopPostProgress()
             }
         })
     }
 
-    private fun createPlayer(){
-
-    }
 
     fun cacheLastData(b: Boolean) {
         this.isCacheLastData = b
@@ -138,7 +134,7 @@ object ExoPlayerVM : ViewModel(){
                 total = duration(), uri = uriList[currentIndex])
         playInfo.setValue(info)
         if(isCacheLastData) sp().putObject("_last_playinfo_", info)
-        handler.postDelayed({ postProgress()}, 500)
+        handler.postDelayed({ postProgress()}, 1000)
     }
 
     private fun stopPostProgress(){
@@ -195,6 +191,7 @@ object ExoPlayerVM : ViewModel(){
         }
         play(currentIndex)
     }
+
     fun next(){
         if(isIndexOrListWrong()) return
         when(playMode.value){
@@ -236,11 +233,13 @@ object ExoPlayerVM : ViewModel(){
     fun play(index: Int){
         currentIndex = index
         if(isIndexOrListWrong())return
-//        player.seekTo(index, 0)
-//        if(player.playbackState==Player.STATE_IDLE || index!= playInfo.value?.index){
-//            innerPlay()
-//        }
-        val mediaItem: MediaItem = MediaItem.fromUri(uriList[currentIndex])
+
+        //开启缓存
+        val proxy = ProxyMediaCacheManager.getProxy()
+        val url = uriList[currentIndex]
+        proxy.unregisterCacheListener(this)
+        proxy.registerCacheListener(this, url)
+        val mediaItem: MediaItem = MediaItem.fromUri(proxy.getProxyUrl(url))
         player.setMediaItem(mediaItem)
         player.stop()
         player.prepare()
@@ -295,6 +294,10 @@ object ExoPlayerVM : ViewModel(){
         playInfo.setValue(info)
     }
 
+    override fun onCacheAvailable(cacheFile: File, url: String, percentsAvailable: Int) {
+        cacheInfo.postValueAndSuccess(CacheInfo(cacheFile, url, percentsAvailable))
+    }
+
 }
 
 data class PlayInfo(
@@ -303,3 +306,5 @@ data class PlayInfo(
         var current: Long = 0,
         var total: Long = 0,
 )
+
+data class CacheInfo(var cacheFile: File, var url: String, var percent: Int)

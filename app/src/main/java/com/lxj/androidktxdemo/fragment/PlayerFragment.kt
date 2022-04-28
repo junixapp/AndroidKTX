@@ -2,10 +2,12 @@ package com.lxj.androidktxdemo.fragment
 
 import android.widget.SeekBar
 import androidx.lifecycle.Observer
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.lxj.androidktx.core.click
-import com.lxj.androidktx.player.ExoPlayerVM
+import com.lxj.androidktx.player.ExoPlayerManager
 import com.lxj.androidktx.player.PlayState
+import com.lxj.androidktx.player.ProxyMediaCacheManager
 import com.lxj.androidktxdemo.R
 import kotlinx.android.synthetic.main.fragment_player.*
 
@@ -15,19 +17,19 @@ import kotlinx.android.synthetic.main.fragment_player.*
  */
 class PlayerFragment : BaseFragment() {
     val list = listOf(
-            "http://m10.music.126.net/20210901213526/4cd401907e679ec070f5e293bc71720d/ymusic/91b2/56dd/8cf8/f1e374284c9b731312c5af0a051a44b7.mp3",
-        "http://m10.music.126.net/20210901213407/4bb69dbb19f1c282b3f48269f9d07c2d/ymusic/5252/0409/0109/e83d3617ce3c4b005b4b6c8ef9622f66.mp3"
+            "https://zigtone.com/wp-content/uploads/2020/06/Loud-Music.mp3",
+            "https://zigtone.com/wp-content/uploads/2021/01/Copines.mp3",
+            "https://zigtone.com/wp-content/uploads/2020/06/Harry-Potter-Theme.mp3",
     )
     override fun getLayoutId() = R.layout.fragment_player
-    var first = true
     override fun initView() {
-        ExoPlayerVM.bindList(list)
+        ExoPlayerManager.bindList(list)
 
-        ExoPlayerVM.playMode.observe(this, Observer {
+        ExoPlayerManager.playMode.observe(this, Observer {
             tvMode.text = "当前播放模式：${it}"
         }, true)
 
-        ExoPlayerVM.playState.observe(this, {
+        ExoPlayerManager.playState.observe(this, {
             tvState.text = "当前播放状态: ${it}"
             btnPlay.text = when(it){
                 PlayState.Ready -> "播放"
@@ -43,38 +45,42 @@ class PlayerFragment : BaseFragment() {
             }
         }, true)
 
-        ExoPlayerVM.playInfo.observe(this, Observer {
+        ExoPlayerManager.playInfo.observe(this, Observer {
             seekBar.max = it.total.toInt()
             seekBar.progress = it.current.toInt()
             tvIndex.text = "当前播放的是第${it.index}个"
             tvUrl.text = "当前播放地址：${it.uri}"
         }, true)
 
+        ExoPlayerManager.cacheInfo.observe(this, Observer {
+            tvCache.text = " percent: ${it.percent} file: ${it.cacheFile.absolutePath}  url: ${it.url}"
+        }, true)
+
         btnPlay.click {
-            ExoPlayerVM.toggle()
+            ExoPlayerManager.toggle()
         }
 
         btnSwitchMode.click {
-            ExoPlayerVM.autoSwitchPlayMode()
+            ExoPlayerManager.autoSwitchPlayMode()
         }
         btnPlayOne.click {
-            ExoPlayerVM.play(0)
+            ExoPlayerManager.play(0)
         }
         btnPlayList.click {
-            ExoPlayerVM.playList(list)
+            ExoPlayerManager.playList(list)
         }
         btnPre.click {
-            ExoPlayerVM.previous()
+            ExoPlayerManager.previous()
         }
 
         btnNext.click {
-            ExoPlayerVM.next()
+            ExoPlayerManager.next()
         }
         btnPlayByIndex.click {
-            ExoPlayerVM.play(1)
+            ExoPlayerManager.play(1)
         }
         btnForbiddenMode.click {
-            ExoPlayerVM.autoPlayNext(false)
+            ExoPlayerManager.autoPlayNext(false)
         }
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -82,7 +88,7 @@ class PlayerFragment : BaseFragment() {
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
             }
             override fun onStopTrackingTouch(seekBar: SeekBar) {
-                ExoPlayerVM.seekTo(seekBar.progress.toLong())
+                ExoPlayerManager.seekTo(seekBar.progress.toLong())
             }
 
         })
@@ -90,7 +96,7 @@ class PlayerFragment : BaseFragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        ExoPlayerVM.release()
+        ExoPlayerManager.release()
     }
 
 }

@@ -29,6 +29,13 @@
             android:text="当前播放状态：" />
 
         <TextView
+            android:id="@+id/tvCache"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="当前缓存状态：" />
+
+        <TextView
             android:id="@+id/tvUrl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

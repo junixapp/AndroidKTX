@@ -11,7 +11,6 @@ import android.util.SparseArray
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.util.set
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.*
 import com.google.android.material.transition.MaterialSharedAxis
@@ -222,7 +221,7 @@ fun View.click(duration: Long = 1000, action: (view: View) -> Unit) {
         val lastClickTime = _clickCache_.get(id)
         if(lastClickTime==null || lastClickTime < System.currentTimeMillis()){
             //first click
-            _clickCache_[id] = System.currentTimeMillis() + duration
+            _clickCache_.put(id, System.currentTimeMillis() + duration)
             action(it)
             _clickHandler_.postDelayed({ _clickCache_.remove(id) }, duration)
         }else{
