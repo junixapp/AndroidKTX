@@ -4,15 +4,9 @@ import android.os.Handler
 import android.os.Looper
 import com.blankj.utilcode.util.LogUtils
 import com.danikula.videocache.CacheListener
-import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.PlaybackException
-import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.*
 import com.lxj.androidktx.AndroidKTX
-import com.lxj.androidktx.core.getObject
-import com.lxj.androidktx.core.putObject
-import com.lxj.androidktx.core.putString
-import com.lxj.androidktx.core.sp
+import com.lxj.androidktx.core.*
 import com.lxj.androidktx.livedata.StateLiveData
 import java.io.File
 import kotlin.random.Random
@@ -28,7 +22,7 @@ object ExoPlayerManager : CacheListener{
 
     private var autoPlayNext = false
     private val handler = Handler(Looper.getMainLooper())
-    var player :SimpleExoPlayer
+    var player : ExoPlayer
     var playMode = StateLiveData<String>()  //播放模式
     val playState = StateLiveData<PlayState>() //播放状态
     val cacheInfo = StateLiveData<CacheInfo>() //缓存状态
@@ -40,7 +34,7 @@ object ExoPlayerManager : CacheListener{
         playState.value = PlayState.Idle
         playMode.value = sp().getString("_ktx_player_mode", RepeatAllMode) ?: RepeatAllMode
 
-        player = SimpleExoPlayer.Builder(AndroidKTX.context).build()
+        player = ExoPlayer.Builder(AndroidKTX.context).build()
         player.repeatMode = Player.REPEAT_MODE_OFF
         player.shuffleModeEnabled = false
         player.addListener(object : Player.Listener{
@@ -81,7 +75,7 @@ object ExoPlayerManager : CacheListener{
                         //The player finished playing all media.
                         playState.errMsg = null
                         playState.setValue(PlayState.Complete)
-                        stopPostProgress()
+//                        stopPostProgress()
                         if(autoPlayNext)autoNextWhenComplete()
                     }
                 }
@@ -96,7 +90,6 @@ object ExoPlayerManager : CacheListener{
             }
         })
     }
-
 
     fun cacheLastData(b: Boolean) {
         this.isCacheLastData = b
@@ -113,12 +106,22 @@ object ExoPlayerManager : CacheListener{
         uriList.addAll(list)
     }
 
+    fun playSingle(uri: String){
+        playList(listOf(uri))
+    }
+
     /**
      * 设置列表并播放第一个
      */
     fun playList(list: List<String>){
+        val lastUri = currentUri()
         bindList(list)
         play(0)
+        if(uriList.size > currentIndex && currentIndex>=0){
+            val info = PlayInfo(index = currentIndex, current = currentPosition(),
+                total = duration(), uri = uriList[currentIndex], lastUri = lastUri)
+            playInfo.setValue(info)
+        }
     }
 
     fun currentUri() = if(isIndexOrListWrong()) "" else uriList[currentIndex]
@@ -128,9 +131,10 @@ object ExoPlayerManager : CacheListener{
     private fun postProgress(){
         if(isIndexOrListWrong()) return
         val info = PlayInfo(index = currentIndex, current = currentPosition(),
-                total = duration(), uri = uriList[currentIndex])
+                total = duration(), uri = uriList[currentIndex], lastUri = currentUri())
         playInfo.setValue(info)
         if(isCacheLastData) sp().putObject("_last_playinfo_", info)
+        if(player.playbackState==Player.STATE_ENDED) return
         handler.postDelayed({ postProgress()}, 1000)
     }
 
@@ -220,6 +224,7 @@ object ExoPlayerManager : CacheListener{
         play(currentIndex)
     }
 
+    fun isBuffering() = playState.value==PlayState.Buffering
     fun isPlaying() = player.isPlaying
     fun duration() = player.duration
     fun currentPosition() = player.currentPosition
@@ -228,7 +233,6 @@ object ExoPlayerManager : CacheListener{
      * 播放指定位置，必须在bindList()之后调用，否则无效
      */
     fun play(index: Int){
-        playState.postValueAndSuccess(PlayState.Idle)
         currentIndex = index
         if(isIndexOrListWrong())return
 
@@ -242,6 +246,7 @@ object ExoPlayerManager : CacheListener{
         player.stop()
         player.prepare()
         player.play()
+
     }
 
 
@@ -301,6 +306,7 @@ object ExoPlayerManager : CacheListener{
 data class PlayInfo(
         var index: Int = -1,
         var uri: String = "",
+        var lastUri: String = "",  //上一个播放的地址
         var current: Long = 0,
         var total: Long = 0,
 )

@@ -1,13 +1,17 @@
 package com.lxj.androidktxdemo.fragment
 
+import android.graphics.Color
+import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.SeekBar
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.NumberUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.lxj.androidktx.core.click
+import com.lxj.androidktx.core.*
 import com.lxj.androidktx.player.ExoPlayerManager
 import com.lxj.androidktx.player.PlayState
-import com.lxj.androidktx.player.ProxyMediaCacheManager
 import com.lxj.androidktxdemo.R
 import kotlinx.android.synthetic.main.fragment_player.*
 
@@ -20,13 +24,22 @@ class PlayerFragment : BaseFragment() {
             "https://zigtone.com/wp-content/uploads/2020/06/Loud-Music.mp3",
             "https://zigtone.com/wp-content/uploads/2021/01/Copines.mp3",
             "https://zigtone.com/wp-content/uploads/2020/06/Harry-Potter-Theme.mp3",
+            "https://zigtone.com/wp-content/uploads/2020/06/Sorry-Darling.mp3",
+            "https://zigtone.com/wp-content/uploads/2021/01/Got-The-Man-With-The-Plan-Right-Here.mp3",
+            "https://zigtone.com/wp-content/uploads/2020/10/Positions.mp3",
+            "https://zigtone.com/wp-content/uploads/2021/08/iPhone-12-Pro-Max.mp3"
     )
     override fun getLayoutId() = R.layout.fragment_player
+
+    fun findPosition(uri: String): Int{
+        return list.indexOfFirst { it == uri }
+    }
     override fun initView() {
         ExoPlayerManager.bindList(list)
 
         ExoPlayerManager.playMode.observe(this, Observer {
             tvMode.text = "当前播放模式：${it}"
+
         }, true)
 
         ExoPlayerManager.playState.observe(this, {
@@ -43,6 +56,10 @@ class PlayerFragment : BaseFragment() {
                 PlayState.Pause -> "播放"
                 else -> "播放"
             }
+            val position = findPosition(ExoPlayerManager.currentUri())
+            if(position>=0){
+                rvMusic.adapter?.notifyItemChanged(position)
+            }
         }, true)
 
         ExoPlayerManager.playInfo.observe(this, Observer {
@@ -50,6 +67,18 @@ class PlayerFragment : BaseFragment() {
             seekBar.progress = it.current.toInt()
             tvIndex.text = "当前播放的是第${it.index}个"
             tvUrl.text = "当前播放地址：${it.uri}"
+            val position = findPosition(ExoPlayerManager.currentUri())
+            if(position>=0){
+                rvMusic.adapter?.notifyItemChanged(position)
+            }
+            if(it.lastUri.isNotEmpty() && it.lastUri!=it.uri){
+                //change uri
+                val lastposition = findPosition(it.lastUri)
+                if(position>=0){
+                    rvMusic.adapter?.notifyItemChanged(lastposition)
+                }
+            }
+            LogUtils.e(it.toJson())
         }, true)
 
         ExoPlayerManager.cacheInfo.observe(this, Observer {
@@ -90,8 +119,41 @@ class PlayerFragment : BaseFragment() {
             override fun onStopTrackingTouch(seekBar: SeekBar) {
                 ExoPlayerManager.seekTo(seekBar.progress.toLong())
             }
-
         })
+        inList()
+    }
+
+    fun inList(){
+        rvMusic.disableItemAnimation()
+        rvMusic.vertical()
+            .divider(color = Color.parseColor("#cccccc"))
+            .bindData(list, R.layout.adapter_music_list, bindFn = {holder, t, position ->
+                if(ExoPlayerManager.isBuffering() && ExoPlayerManager.currentUri()==t){
+                    holder.getView<ProgressBar>(R.id.progressBar).visible()
+                    holder.getView<Button>(R.id.btnPlay).gone()
+                }else{
+                    holder.getView<ProgressBar>(R.id.progressBar).gone()
+                    holder.getView<Button>(R.id.btnPlay).visible()
+                }
+
+                val title = t.substring(t.lastIndexOf("/")+1)
+                if(ExoPlayerManager.currentUri()!=t || !ExoPlayerManager.isPlaying()){
+                    holder.getView<Button>(R.id.btnPlay).setText("播放")
+                    holder.getView<TextView>(R.id.title).text = title
+                }else{
+                    holder.getView<Button>(R.id.btnPlay).setText("暂停")
+                    val value = ExoPlayerManager.playInfo.value!!
+                    holder.getView<TextView>(R.id.title).text = "${title} - ${ NumberUtils.format((value.current*100f)/value.total, 1) }%"
+                }
+
+                holder.getView<Button>(R.id.btnPlay).click {
+                    if(ExoPlayerManager.currentUri()!=t){
+                        ExoPlayerManager.playSingle(t)
+                    }else{
+                        ExoPlayerManager.toggle()
+                    }
+                }
+            })
     }
 
     override fun onDestroy() {

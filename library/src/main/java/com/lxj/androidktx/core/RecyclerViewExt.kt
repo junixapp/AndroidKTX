@@ -120,11 +120,6 @@ fun <T> RecyclerView.diffUpdate(diffCallback: DiffCallback<T>) {
     DiffUtil.calculateDiff(diffCallback).dispatchUpdatesTo(adapter)
 }
 
-fun <T> RecyclerView.oldData(): List<T>? {
-    val adapter = adapter as? EasyAdapter<T>? ?: return null
-    return adapter.data?.toJson()?.toBean<ArrayList<T>>()
-}
-
 /**
  * 必须在bindData之后调用，并且需要hasHeaderOrFooter为true才起作用
  */

@@ -3,7 +3,7 @@ package com.lxj.androidktx.player
 
 enum class PlayState(string: String){
     Idle("Idle"),
-    Buffering("BUFFERING"),
+    Buffering("Buffering"),
     Ready("Ready"),
     Playing("Playing"),
     Complete("Complete"),

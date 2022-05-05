@@ -9,17 +9,30 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btnPlayOne"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="播放单个" />
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btnPlayOne"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="播放单个" />
 
-        <Button
-            android:id="@+id/btnPlayList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="播放列表" />
+            <Button
+                android:id="@+id/btnPlayList"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="播放列表" />
+
+            <Button
+                android:id="@+id/btnPlay"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="播放" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tvState"
@@ -47,12 +60,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <Button
-                android:id="@+id/btnPlay"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="播放" />
         </LinearLayout>
 
         <SeekBar
@@ -99,19 +106,32 @@
             android:id="@+id/tvMode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="10dp"
             android:text="当前播放模式：" />
 
-        <Button
-            android:id="@+id/btnSwitchMode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="切换播放模式" />
 
-        <Button
-            android:id="@+id/btnForbiddenMode"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="禁用播放模式" />
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btnSwitchMode"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="切换播放模式" />
+
+            <Button
+                android:id="@+id/btnForbiddenMode"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="禁用播放模式" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvMusic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

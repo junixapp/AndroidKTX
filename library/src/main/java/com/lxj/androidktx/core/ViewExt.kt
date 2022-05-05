@@ -214,7 +214,7 @@ fun View.animateWidthAndHeight(
  */
 val _clickHandler_ = Handler()
 val _clickCache_ = SparseArray<Long>()
-fun View.click(duration: Long = 1000, action: (view: View) -> Unit) {
+fun View.click(duration: Long = 450, action: (view: View) -> Unit) {
     if(id == View.NO_ID) id = View.generateViewId()
     if (this is TextView) setOnTouchListener(FixClickSpanTouchListener())
     setOnClickListener {
