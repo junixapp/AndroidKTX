@@ -246,7 +246,7 @@ object ExoPlayerManager : CacheListener{
         player.stop()
         player.prepare()
         player.play()
-
+        playState.setValue(PlayState.Buffering)
     }
 
 
