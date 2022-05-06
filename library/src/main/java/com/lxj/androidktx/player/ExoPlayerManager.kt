@@ -118,8 +118,8 @@ object ExoPlayerManager : CacheListener{
         bindList(list)
         play(0)
         if(uriList.size > currentIndex && currentIndex>=0){
-            val info = PlayInfo(index = currentIndex, current = currentPosition(),
-                total = duration(), uri = uriList[currentIndex], lastUri = lastUri)
+            val info = PlayInfo(index = currentIndex, current = 0,
+                total = 0, uri = uriList[currentIndex], lastUri = lastUri)
             playInfo.setValue(info)
         }
     }
@@ -226,8 +226,10 @@ object ExoPlayerManager : CacheListener{
 
     fun isBuffering() = playState.value==PlayState.Buffering
     fun isPlaying() = player.isPlaying
-    fun duration() = player.duration
+    fun duration() = if(player.duration >= 0) player.duration else 0
     fun currentPosition() = player.currentPosition
+    fun cacheFile(uri: String) = ProxyMediaCacheManager.getProxy().getCacheFile(uri)
+
 
     /**
      * 播放指定位置，必须在bindList()之后调用，否则无效

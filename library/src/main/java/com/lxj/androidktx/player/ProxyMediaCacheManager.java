@@ -1,33 +1,26 @@
 package com.lxj.androidktx.player;
 
-import android.content.Context;
-
-import com.danikula.videocache.CacheListener;
 import com.danikula.videocache.HttpProxyCacheServer;
 import com.danikula.videocache.StorageUtils;
 import com.lxj.androidktx.AndroidKTX;
-import com.lxj.androidktx.livedata.StateLiveData;
 import com.lxj.androidktx.util.DirManager;
-
 import java.io.File;
 
 public class ProxyMediaCacheManager {
 
     private static HttpProxyCacheServer sharedProxy;
 
-    private ProxyMediaCacheManager() {
-    }
+    private ProxyMediaCacheManager() { }
 
     public static HttpProxyCacheServer getProxy() {
         return sharedProxy == null ? (sharedProxy = newProxy()) : sharedProxy;
     }
 
-    private static StateLiveData<CacheInfo> cacheState = new StateLiveData<>();
     private static HttpProxyCacheServer newProxy() {
         HttpProxyCacheServer server = new HttpProxyCacheServer.Builder(AndroidKTX.context)
                 .maxCacheSize(512 * 1024 * 1024)       // 512MB for cache
                 //缓存路径，不设置默认在sd_card/Android/data/[app_package_name]/cache中
-                .cacheDirectory(new File(DirManager.INSTANCE.getCacheDir() + "/.media-cache"))
+                .cacheDirectory(new File(DirManager.INSTANCE.getCacheDir() + "/media-cache"))
                 .build();
         return server;
     }
