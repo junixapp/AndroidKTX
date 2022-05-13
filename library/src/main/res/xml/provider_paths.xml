@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <paths xmlns:android="http://schemas.android.com/apk/res/android">
-    <root-path name="root_path" path="." />
-    <files-path name="files" path="." />
-    <cache-path name="cached_files" path="." />
-    <external-files-path name="external_files" path="." />
+    <root-path name="root_path" path="/" />
+    <files-path name="files" path="/" />
+    <cache-path name="cached_files" path="/" />
+    <external-files-path name="external_files" path="/" />
     <external-files-path name="external_share_files" path="share/" />
-    <external-cache-path name="cached_files" path="." />
+    <external-cache-path name="cached_files" path="/" />
+
 </paths>

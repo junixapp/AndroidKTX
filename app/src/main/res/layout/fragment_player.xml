@@ -32,6 +32,12 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="播放" />
+            <Button
+                android:id="@+id/btnRingtone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="铃声" />
         </LinearLayout>
 
         <TextView

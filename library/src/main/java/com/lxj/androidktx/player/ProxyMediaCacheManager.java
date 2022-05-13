@@ -20,7 +20,7 @@ public class ProxyMediaCacheManager {
         HttpProxyCacheServer server = new HttpProxyCacheServer.Builder(AndroidKTX.context)
                 .maxCacheSize(512 * 1024 * 1024)       // 512MB for cache
                 //缓存路径，不设置默认在sd_card/Android/data/[app_package_name]/cache中
-                .cacheDirectory(new File(DirManager.INSTANCE.getCacheDir() + "/media-cache"))
+                .cacheDirectory(new File(DirManager.INSTANCE.getCacheDir() + "/share/media-cache"))
                 .build();
         return server;
     }

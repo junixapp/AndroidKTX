@@ -229,6 +229,10 @@ object ExoPlayerManager : CacheListener{
     fun duration() = if(player.duration >= 0) player.duration else 0
     fun currentPosition() = player.currentPosition
     fun cacheFile(uri: String) = ProxyMediaCacheManager.getProxy().getCacheFile(uri)
+    fun isCached(uri: String): Boolean{
+        val cacheFile = cacheFile(uri)
+        return cacheFile!=null && cacheFile.exists() && cacheFile.length()>0
+    }
 
 
     /**

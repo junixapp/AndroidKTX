@@ -1,19 +1,23 @@
 package com.lxj.androidktxdemo.fragment
 
 import android.graphics.Color
+import android.media.RingtoneManager
+import android.os.Environment
+import android.provider.Settings
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.lifecycle.Observer
-import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.NumberUtils
-import com.blankj.utilcode.util.ToastUtils
+import com.blankj.utilcode.util.*
+import com.lxj.androidktx.AndroidKTX
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.player.ExoPlayerManager
 import com.lxj.androidktx.player.PlayState
 import com.lxj.androidktxdemo.R
+import com.lxj.androidktxdemo.RingtoneTool
 import kotlinx.android.synthetic.main.fragment_player.*
+import java.io.File
 
 /**
  * Description: 播放器功能展示
@@ -85,8 +89,53 @@ class PlayerFragment : BaseFragment() {
             tvCache.text = " percent: ${it.percent} file: ${it.cacheFile.absolutePath}  url: ${it.url}"
         }, true)
 
+
+        btnRingtone.click {
+            PermissionUtils.requestWriteSettings(object : PermissionUtils.SimpleCallback{
+                override fun onGranted() {
+
+                    val t = ExoPlayerManager.currentUri()
+
+                    val title = t.substring(t.lastIndexOf("/")+1)
+                    val cacheFile = ExoPlayerManager.cacheFile(ExoPlayerManager.currentUri())
+                    RingtoneTool.setRingtone(cacheFile.absolutePath, title, ringtoneType = RingtoneManager.TYPE_ALARM)
+                }
+
+                override fun onDenied() {
+                }
+
+            })
+
+
+        }
+
         btnPlay.click {
             ExoPlayerManager.toggle()
+
+//            PermissionUtils.requestWriteSettings(object : PermissionUtils.SimpleCallback{
+//                override fun onGranted() {
+//                    val cacheFile = ExoPlayerManager.cacheFile(list[0])
+//
+//                    //copy to Ringtones dir
+//                    val dir = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_RINGTONES), AndroidKTX.context.string(R.string.app_name))
+//                    if(!dir.exists()) dir.mkdirs()
+//                    val newPath = "${dir}/${cacheFile.name}"
+//                    val res = FileUtils.copy(cacheFile.absolutePath, newPath)
+//                    LogUtils.e("copy file res: $res  $newPath")
+//
+//                    RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE,
+//                    UriUtils.file2Uri(File(newPath)))
+////
+//
+////                    Settings.System.putString(
+////                        AndroidKTX.context.contentResolver, Settings.System.RINGTONE,
+////                        UriUtils.file2Uri(cacheFile).toString())
+//                }
+//
+//                override fun onDenied() {
+//                }
+//
+//            })
         }
 
         btnSwitchMode.click {
