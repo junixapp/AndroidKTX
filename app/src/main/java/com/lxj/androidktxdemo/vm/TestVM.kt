@@ -1,4 +1,4 @@
-package com.lxj.androidktxdemo
+package com.lxj.androidktxdemo.vm
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle

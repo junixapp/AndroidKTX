@@ -4,18 +4,20 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
-import com.lxj.androidktx.core.DiffCallback
-import com.lxj.androidktx.core.diffUpdate
-import com.lxj.androidktx.core.observeState
+import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.ToastUtils
+import com.lxj.androidktx.core.*
 import com.lxj.androidktx.livedata.StateLiveData
 import com.lxj.statelayout.StateLayout
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
 import java.io.Serializable
+import java.lang.IllegalArgumentException
+import java.util.concurrent.CopyOnWriteArrayList
 
 data class ListWrapper<T>(
-    var records: List<T> = arrayListOf(),
+    var records: List<T> = listOf<T>(),
     var total: Int = 10,
     var current: Int = 1,
     var pages: Int = 0
@@ -29,10 +31,11 @@ abstract class PageListVM<T>() : ViewModel(),
     var firstLoad = true
     var page = 1
     var hasMore = true
-    var listData = StateLiveData<ArrayList<T>>()
 
+    var listData = StateLiveData<CopyOnWriteArrayList<T>>()
+    var oldData = arrayListOf<T>()
     init {
-        listData.value = arrayListOf()
+        listData.value = CopyOnWriteArrayList()
     }
 
     var onRefreshCB: (() -> Unit)? = null
@@ -51,7 +54,7 @@ abstract class PageListVM<T>() : ViewModel(),
         onRefreshCB = onRefresh
         onLoadMoreCB = onLoadMore
         listData.observe(owner, Observer {
-            val diffCallback = getDiffCallback()
+            val diffCallback = getDiffCallback(oldData, it)
             if(diffCallback!=null){
                 rv?.diffUpdate(diffCallback)
             }else{
@@ -93,6 +96,57 @@ abstract class PageListVM<T>() : ViewModel(),
         onRefreshCB?.invoke()
     }
 
+
+    /**
+     * 新增数据
+     */
+    fun insert(t: T, position: Int? = null){
+        val list = listData.value!!
+        if(position ==null){
+            updateOldData()
+            list.add(t)
+            listData.postValueAndSuccess(list)
+        }else if(position>=0 && list.size>position){
+            updateOldData()
+            list.add(position!!, t)
+            listData.postValueAndSuccess(list)
+        }
+    }
+
+    /**
+     * 更新数据，如果直接修改指定位置的bean，会同步更新old；导致old和new是一样的数据。
+     * 推荐将目标数据deepCopy()后再进行修改，这样不会同步更新old
+     */
+    fun update(position: Int, t: T){
+        val list = listData.value!!
+        if(position < 0 || list.size<= position) return
+        updateOldData()
+        list[position] = t
+        listData.postValueAndSuccess(list)
+    }
+
+    /**
+     * 删除数据
+     */
+    fun remove(position: Int){
+        val list = listData.value!!
+        if(position < 0 || list.size<= position) return
+        updateOldData()
+        list.removeAt(position)
+        listData.postValueAndSuccess(list)
+    }
+
+    /**
+     * 清空数据
+     */
+    fun clear(){
+        val list = listData.value!!
+        if(list.isEmpty()) return
+        updateOldData()
+        list.clear()
+        listData.postValueAndSuccess(list)
+    }
+
     open fun loadMore() {
         if (hasMore) {
             page += 1
@@ -108,6 +162,7 @@ abstract class PageListVM<T>() : ViewModel(),
         if (listWrapper != null) {
             if (page == 1) listData.value!!.clear()
             val list = listData.value
+            updateOldData()
             if (!listWrapper.records.isNullOrEmpty()) {
                 hasMore = true
                 list?.addAll(listWrapper.records)
@@ -120,6 +175,7 @@ abstract class PageListVM<T>() : ViewModel(),
             }
         } else {
             val list = listData.value
+            updateOldData()
             if(list.isNullOrEmpty()){
                 if (nullIsEmpty) listData.postEmpty(list)
                 else listData.postError()
@@ -131,6 +187,16 @@ abstract class PageListVM<T>() : ViewModel(),
     }
 
     /**
+     * 由于泛型无法继承，该方法必须子类来实现，实现的模板代码如下：
+     * oldData = listData.value!!.deepCopy<ArrayList<T>>()
+     */
+    open fun updateOldData(){
+        if(getDiffCallback(oldData, listData.value!!)==null) return
+        throw IllegalArgumentException("updateOldData方法未实现，实现方式固定为：oldData = listData.value!!.deepCopy<ArrayList<T>>() ")
+    }
+    
+    /**
+     * 需要同时配套实现 updateOldData() 方法，实现代码为固定写法 oldData = listData.value!!.deepCopy<ArrayList<T>>() 。
      * demo如下：
      * class UserDiffCallback(oldData: List<User>?, newData: List<User>?) : DiffCallback<User>(oldData, newData) {
             override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
@@ -152,7 +218,7 @@ abstract class PageListVM<T>() : ViewModel(),
             }
         }
      */
-    open fun getDiffCallback(): DiffCallback<T>? = null
+    open fun getDiffCallback(old: List<T>, new: List<T>): DiffCallback<T>? = null
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
         refresh()
@@ -165,6 +231,6 @@ abstract class PageListVM<T>() : ViewModel(),
     fun reset(){
         page = 1
         hasMore = true
-        listData.postValueAndSuccess(arrayListOf())
+        listData.postValueAndSuccess(CopyOnWriteArrayList())
     }
 }

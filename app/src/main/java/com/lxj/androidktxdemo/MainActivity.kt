@@ -1,23 +1,16 @@
 package com.lxj.androidktxdemo
 
 import android.content.Intent
-import android.os.Parcel
-import android.os.Parcelable
-import com.blankj.utilcode.util.ActivityUtils
-import com.blankj.utilcode.util.FragmentUtils
 import com.blankj.utilcode.util.LogUtils
 import com.lxj.androidktx.base.BaseActivity
 import com.lxj.androidktx.core.*
 import com.lxj.share.Share
 import com.lxj.androidktxdemo.databinding.ActivityMainBinding
 import com.lxj.androidktxdemo.entity.PageInfo
-import com.lxj.androidktxdemo.entity.User
-import com.lxj.androidktxdemo.entity.UserGender
 import com.lxj.androidktxdemo.fragment.*
+import com.lxj.androidktxdemo.vm.TestVM
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
 import kotlin.random.Random
-import kotlin.system.measureTimeMillis
 
 
 data class UserTest(
