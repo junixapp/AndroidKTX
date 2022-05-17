@@ -17,7 +17,7 @@ import java.nio.charset.Charset
 class TokenInterceptor(var tokenField: String = "token",
                        var tokenCreator: (()->String)? = null,
                        var networkErrorToast: String? = null,
-                       var onGetBodyData: (url: String,json: String) -> Unit  ) : Interceptor {
+                       var onGetBodyData: ((url: String,json: String) -> Unit)? = null  ) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         if(!networkErrorToast.isNullOrEmpty() && !NetworkUtils.isConnected()){
             ToastUtils.showShort(networkErrorToast)
@@ -34,7 +34,7 @@ class TokenInterceptor(var tokenField: String = "token",
             val source = response.body()?.source()
             source?.request(java.lang.Long.MAX_VALUE) // Buffer the entire body.
             val data = source?.buffer()?.clone()?.readString(Charset.forName("UTF-8"))
-            if (data != null) onGetBodyData(request.url().toString(), data)
+            if (data != null && onGetBodyData!=null) onGetBodyData!!(request.url().toString(), data)
         }
         return response
     }
