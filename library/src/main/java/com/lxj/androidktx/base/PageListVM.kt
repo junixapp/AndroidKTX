@@ -186,8 +186,7 @@ abstract class PageListVM<T>() : ViewModel(),
                 if (nullIsEmpty) listData.postEmpty(list)
                 else listData.postError()
             }else{
-                if (nullIsEmpty) listData.postValueAndSuccess(list)
-                else listData.postError()
+                listData.postError()
             }
         }
     }
