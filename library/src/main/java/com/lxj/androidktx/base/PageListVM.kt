@@ -69,8 +69,14 @@ abstract class PageListVM<T>() : ViewModel(),
                         stateLayout?.showLoading()
                     }
                 }
-                StateLiveData.State.Empty -> stateLayout?.showEmpty()
-                StateLiveData.State.Error -> stateLayout?.showError()
+                StateLiveData.State.Empty -> {
+                    if(listData.value!!.isNullOrEmpty()) stateLayout?.showEmpty()
+                    else stateLayout?.showContent()
+                }
+                StateLiveData.State.Error -> {
+                    if(listData.value!!.isNullOrEmpty()) stateLayout?.showError()
+                    else stateLayout?.showContent()
+                }
                 else -> stateLayout?.showContent()
             }
         })
