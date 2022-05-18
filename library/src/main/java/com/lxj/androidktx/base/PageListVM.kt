@@ -84,9 +84,11 @@ abstract class PageListVM<T>() : ViewModel(),
                 }
                 else -> stateLayout?.showContent()
             }
-            smartRefresh?.finishRefresh(success)
-            smartRefresh?.finishLoadMore(success)
-            smartRefresh?.setNoMoreData(!hasMore)
+            if(it!=StateLiveData.State.Loading){
+                smartRefresh?.finishRefresh(success)
+                smartRefresh?.finishLoadMore(success)
+                smartRefresh?.setNoMoreData(!hasMore)
+            }
         })
         smartRefresh?.setOnRefreshLoadMoreListener(this)
 
