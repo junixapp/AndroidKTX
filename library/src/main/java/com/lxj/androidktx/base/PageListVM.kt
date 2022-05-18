@@ -63,6 +63,7 @@ abstract class PageListVM<T>() : ViewModel(),
             onDataUpdate?.invoke()
         })
         listData.state.observe(owner, Observer {
+            var success = true
             when(it){
                 StateLiveData.State.Loading -> {
                     if(firstLoad && firstShowLoading){
@@ -74,20 +75,21 @@ abstract class PageListVM<T>() : ViewModel(),
                     else stateLayout?.showContent()
                 }
                 StateLiveData.State.Error -> {
-                    if(listData.value!!.isNullOrEmpty()) stateLayout?.showError()
-                    else stateLayout?.showContent()
+                    success = false
+                    if(listData.value!!.isNullOrEmpty()) {
+                        stateLayout?.showError()
+                    } else {
+                        stateLayout?.showContent()
+                    }
                 }
                 else -> stateLayout?.showContent()
             }
-        })
-
-        listData.state.observe(owner, Observer {
-            smartRefresh?.finishRefresh()
-            smartRefresh?.finishLoadMore()
+            smartRefresh?.finishRefresh(success)
+            smartRefresh?.finishLoadMore(success)
             smartRefresh?.setNoMoreData(!hasMore)
         })
-
         smartRefresh?.setOnRefreshLoadMoreListener(this)
+
         if (firstShowLoading && stateLayout != null) {
             stateLayout.showLoading()
             if(autoLoadData)refresh()
