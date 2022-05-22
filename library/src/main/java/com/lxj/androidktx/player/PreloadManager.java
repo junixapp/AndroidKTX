@@ -1,6 +1,5 @@
 package com.lxj.androidktx.player;
 
-import android.content.Context;
 import com.blankj.utilcode.util.LogUtils;
 import com.danikula.videocache.HttpProxyCacheServer;
 import java.io.File;
@@ -12,7 +11,7 @@ import java.util.concurrent.Executors;
 
 
 /**
- * 抖音预加载工具，使用AndroidVideoCache实现
+ * 预加载工具，使用AndroidVideoCache实现
  */
 public class PreloadManager {
 
@@ -38,13 +37,13 @@ public class PreloadManager {
     /**
      * 预加载的大小，每个视频预加载1M，这个参数可根据实际情况调整
      */
-    public static final int PRELOAD_LENGTH = 1024 * 1024;
+    public static int PRELOAD_LENGTH = 1024 * 1024;
 
     private PreloadManager() {
         mHttpProxyCacheServer = ProxyMediaCacheManager.getProxy();
     }
 
-    public static PreloadManager getInstance() {
+    public static PreloadManager get() {
         if (sPreloadManager == null) {
             synchronized (PreloadManager.class) {
                 if (sPreloadManager == null) {
@@ -53,6 +52,10 @@ public class PreloadManager {
             }
         }
         return sPreloadManager;
+    }
+
+    public static void setPreloadLength(int length){
+        PRELOAD_LENGTH = length;
     }
 
     /**
