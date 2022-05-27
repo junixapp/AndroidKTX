@@ -1,5 +1,6 @@
 package com.lxj.androidktx.core
 
+import android.text.format.DateUtils
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -22,3 +23,19 @@ fun String.toDateMills(format: String = "yyyy-MM-dd HH:mm:ss") = SimpleDateForma
 fun Long.toDateString(format: String = "yyyy-MM-dd HH:mm:ss") = SimpleDateFormat(format, Locale.getDefault()).format(Date(this))
 
 fun Int.toDateString(format: String = "yyyy-MM-dd HH:mm:ss") = SimpleDateFormat(format, Locale.getDefault()).format(Date(this.toLong()))
+
+fun Long.toMediaTime(): String{
+    val formatBuilder =  StringBuilder()
+    val formatter =  Formatter(formatBuilder, Locale.getDefault())
+    if (this < 0) {
+        return "00:00"
+    }
+    val seconds = (this % DateUtils.MINUTE_IN_MILLIS) / DateUtils.SECOND_IN_MILLIS
+    val minutes = (this % DateUtils.HOUR_IN_MILLIS) / DateUtils.MINUTE_IN_MILLIS
+    val hours = (this % DateUtils.DAY_IN_MILLIS) / DateUtils.HOUR_IN_MILLIS
+    formatBuilder.setLength(0)
+    if (hours > 0) {
+        return formatter.format("%02d:%02d:%02d", hours, minutes, seconds).toString()
+    }
+    return formatter.format("%02d:%02d", minutes, seconds).toString()
+}

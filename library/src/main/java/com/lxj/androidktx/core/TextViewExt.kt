@@ -19,13 +19,13 @@ import com.lxj.androidktx.widget.ShapeTextView
  * @param width Drawable的宽度
  * @param height Drawable的高度
  */
-fun TextView.sizeDrawable(width: Int, height: Int, leftDrawable: Int = 0, topDrawable: Int = 0,
-                          rightDrawable: Int = 0, bottomDrawable: Int = 0): TextView {
+fun TextView.sizeDrawable(width: Int, height: Int, startDrawable: Int = 0, topDrawable: Int = 0,
+                          endDrawable: Int = 0, bottomDrawable: Int = 0): TextView {
     val rect = Rect(0, 0, width, height)
-    setCompoundDrawables(
-            findDrawable(leftDrawable, 0, this)?.apply { bounds = rect },
+    setCompoundDrawablesRelative(
+            findDrawable(startDrawable, 0, this)?.apply { bounds = rect },
             findDrawable(topDrawable, 1, this)?.apply { bounds = rect },
-            findDrawable(rightDrawable, 2, this)?.apply { bounds = rect },
+            findDrawable(endDrawable, 2, this)?.apply { bounds = rect },
             findDrawable(bottomDrawable, 3, this)?.apply { bounds = rect }
     )
     return this
@@ -36,7 +36,7 @@ fun TextView.sizeDrawable(width: Int, height: Int, leftDrawable: Int = 0, topDra
  */
 private fun findDrawable(drawableRes: Int, index:Int, textView: TextView): Drawable?{
     if(drawableRes!=0)return textView.drawable(drawableRes)
-    if(textView.compoundDrawables.isNotEmpty())return textView.compoundDrawables[index]
+    if(textView.compoundDrawablesRelative.isNotEmpty())return textView.compoundDrawablesRelative[index]
     return null
 }
 
@@ -44,9 +44,9 @@ private fun findDrawable(drawableRes: Int, index:Int, textView: TextView): Drawa
  * 给TextView的drawable设置大小，Drawable如果不传的话会尝试使用TextView自己的Drawable
  * @param size 会同时作用于Drawable宽高
  */
-fun TextView.sizeDrawable(size: Int, leftDrawable: Int = 0, topDrawable: Int = 0,
-                          rightDrawable: Int = 0, bottomDrawable: Int = 0): TextView {
-    sizeDrawable(size, size, leftDrawable, topDrawable, rightDrawable, bottomDrawable)
+fun TextView.sizeDrawable(size: Int, startDrawable: Int = 0, topDrawable: Int = 0,
+                          endDrawable: Int = 0, bottomDrawable: Int = 0): TextView {
+    sizeDrawable(size, size, startDrawable, topDrawable, endDrawable, bottomDrawable)
     return this
 }
 

@@ -106,9 +106,9 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
                 }
                 if (tabHeight != 0) height(tabHeight)
                 when (iconPosition) {
-                    0 -> sizeDrawable(width = iconWidth, height = iconHeight, leftDrawable = mTabs[index].normalIconRes)
+                    0 -> sizeDrawable(width = iconWidth, height = iconHeight, startDrawable = mTabs[index].normalIconRes)
                     1 -> sizeDrawable(width = iconWidth, height = iconHeight, topDrawable = mTabs[index].normalIconRes)
-                    2 -> sizeDrawable(width = iconWidth, height = iconHeight, rightDrawable = mTabs[index].normalIconRes)
+                    2 -> sizeDrawable(width = iconWidth, height = iconHeight, endDrawable = mTabs[index].normalIconRes)
                     3 -> sizeDrawable(width = iconWidth, height = iconHeight, bottomDrawable = mTabs[index].normalIconRes)
                 }
             }, LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT))
@@ -160,9 +160,9 @@ class TabBar @JvmOverloads constructor(context: Context, attributeSet: Attribute
             (group.getChildAt(0) as TextView).apply {
                 val icon = if(index == i) mTabs[i].selectedIconRes else mTabs[i].normalIconRes
                 when (iconPosition) {
-                    0 -> sizeDrawable(width = iconWidth, height = iconHeight, leftDrawable = icon)
+                    0 -> sizeDrawable(width = iconWidth, height = iconHeight, startDrawable = icon)
                     1 -> sizeDrawable(width = iconWidth, height = iconHeight, topDrawable = icon)
-                    2 -> sizeDrawable(width = iconWidth, height = iconHeight, rightDrawable = icon)
+                    2 -> sizeDrawable(width = iconWidth, height = iconHeight, endDrawable = icon)
                     3 -> sizeDrawable(width = iconWidth, height = iconHeight, bottomDrawable = icon)
                 }
                 setTextColor(if (index == i) selectedColor else normalColor)
