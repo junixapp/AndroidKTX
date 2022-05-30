@@ -242,16 +242,20 @@ object ExoPlayerManager : CacheListener{
         currentIndex = index
         if(isIndexOrListWrong())return
 
-        //开启缓存
-        val proxy = ProxyMediaCacheManager.getProxy()
         val url = uriList[currentIndex]
-        proxy.unregisterCacheListener(this)
-        proxy.registerCacheListener(this, url)
-        val mediaItem: MediaItem = MediaItem.fromUri(proxy.getProxyUrl(url))
+        val isRemoteSource = url.startsWith("http")
+        var mediaItem: MediaItem = MediaItem.fromUri(url)
+        if(isRemoteSource){
+            //开启缓存
+            val proxy = ProxyMediaCacheManager.getProxy()
+            proxy.unregisterCacheListener(this)
+            proxy.registerCacheListener(this, url)
+            mediaItem = MediaItem.fromUri(  proxy.getProxyUrl(url))
+        }
         player.setMediaItem(mediaItem)
         player.stop()
         player.prepare()
-        playState.setValue(PlayState.Buffering)
+        playState.value = PlayState.Buffering
         player.play()
     }
 

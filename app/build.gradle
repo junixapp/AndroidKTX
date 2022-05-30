@@ -14,9 +14,9 @@ android {
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
-//        ndk {
-//            abiFilters 'armeabi-v7a'
-//        }
+        ndk {
+            abiFilters 'armeabi-v7a'
+        }
         manifestPlaceholders = [qqappid: "101909069"]
         buildFeatures {
             viewBinding true
@@ -24,7 +24,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
