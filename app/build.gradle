@@ -46,6 +46,10 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.github.li-xiaojun:XPopup:2.7.2'
 
+//    implementation 'com.github.li-xiaojun.AndroidKTX:library:2.4.21'
+//    implementation 'com.github.li-xiaojun.AndroidKTX:share:2.4.21'
+//    implementation 'com.github.li-xiaojun.AndroidKTX:pay:2.4.21'
+//    implementation 'com.github.li-xiaojun.AndroidKTX:circleprogress:2.4.21'
     implementation project(':library')
     implementation project(':share')
     implementation project(':pay')
