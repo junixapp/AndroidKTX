@@ -10,13 +10,13 @@
     android:layout_height="wrap_content">
 
     <ProgressBar
-        android:layout_marginRight="15dp"
+        android:layout_marginEnd="15dp"
         android:layout_width="30dp"
         android:layout_height="30dp"/>
     <TextView
         android:id="@+id/tvMsg"
         android:textSize="16sp"
-        android:text="加载中"
+        android:text="@string/_ktx_loading"
         android:textColor="#f1f1f1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

@@ -130,7 +130,7 @@ class DemoVM : SmartViewModel(){
         testData.launchHttp(this, "https://www.baidu.com"){
             val res = "https://www.baidu.com".http()
                 .get<String>().await()
-            LogUtils.e("res: $res")
+            LogUtils.e("layout: $res")
             res
         }
     }

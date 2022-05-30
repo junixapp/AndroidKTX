@@ -15,8 +15,8 @@ object RingtoneTool {
 //        val dir = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_RINGTONES), AndroidKTX.context.string(R.string.app_name))
 //        if(!dir.exists()) dir.mkdirs()
 //        val newPath = "${dir}/${File(path).name}"
-//        val res = FileUtils.copy(path, newPath)
-//        LogUtils.e("copy file res: $res  $newPath")
+//        val layout = FileUtils.copy(path, newPath)
+//        LogUtils.e("copy file layout: $layout  $newPath")
 //
 ////        val newUri = UriUtils.file2Uri(File(newPath))
 //        val newUri = Uri.fromFile(File(newPath))

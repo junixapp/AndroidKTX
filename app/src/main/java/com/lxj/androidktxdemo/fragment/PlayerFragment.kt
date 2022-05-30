@@ -120,8 +120,8 @@ class PlayerFragment : BaseFragment() {
 //                    val dir = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_RINGTONES), AndroidKTX.context.string(R.string.app_name))
 //                    if(!dir.exists()) dir.mkdirs()
 //                    val newPath = "${dir}/${cacheFile.name}"
-//                    val res = FileUtils.copy(cacheFile.absolutePath, newPath)
-//                    LogUtils.e("copy file res: $res  $newPath")
+//                    val layout = FileUtils.copy(cacheFile.absolutePath, newPath)
+//                    LogUtils.e("copy file layout: $layout  $newPath")
 //
 //                    RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE,
 //                    UriUtils.file2Uri(File(newPath)))
