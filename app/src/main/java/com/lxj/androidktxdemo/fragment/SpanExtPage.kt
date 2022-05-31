@@ -33,6 +33,10 @@ class SpanExtPage : BaseFragment() {
         tvSizeSpan.text = """
             tv.sizeSpan(str, 0..2)
         """.trimIndent()
+
+//        tvSizeSpan.text = context?.resources?.getString(R.string.test_arg, "1.23", 12)
+//        tvSizeSpan.text = context?.string(R.string.test_arg, "1.23", 12)
+
         tvSizeResult.sizeSpan(str, 0..2).colorSpan(range = 0..1)
         tvSizeSpan.setShadowLayer(1.6f,1.5f,1.3f,Color.BLACK)
         tvSizeSpan.click {
@@ -41,7 +45,6 @@ class SpanExtPage : BaseFragment() {
 //            VideoPlayerActivity.start(url = "android.resource://" + requireContext()!!.packageName + "/" + R.raw.heng, title = "视频敖德萨大所大所大所大所大所多")
 //            VideoPlayerActivity.start(url = video2, title = "视频敖德萨大所大所大所大所大所多")
         }
-
 
         // toColorSpan
         tvColorSpan.text = """

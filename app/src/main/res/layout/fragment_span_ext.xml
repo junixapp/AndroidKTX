@@ -117,7 +117,6 @@
 
 
         <com.lxj.androidktx.widget.ShapeTextView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
             app:stv_corner="20dp"
             app:stv_solid="#8000"
             android:textSize="14dp"
