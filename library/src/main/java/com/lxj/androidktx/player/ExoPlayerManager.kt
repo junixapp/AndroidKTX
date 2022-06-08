@@ -84,7 +84,7 @@ object ExoPlayerManager : CacheListener{
             override fun onPlayerError(error: PlaybackException) {
                 super.onPlayerError(error)
                 LogUtils.e("onPlayerError:  ${error.localizedMessage}")
-                playState.errMsg = "${error.errorCode}"
+                playState.errMsg = error?.localizedMessage
                 playState.setValue(PlayState.Error)
                 stopPostProgress()
             }

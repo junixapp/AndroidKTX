@@ -83,7 +83,7 @@ dependencies {
 //    api 'com.github.Justson.AgentWeb:agentweb-filechooser:v4.1.9-androidx' // (可选)
 //    api 'com.github.Justson:Downloader:v4.1.9-androidx' // (可选)
 
-    implementation 'com.github.yalantis:ucrop:2.2.7'
+    api 'com.github.yalantis:ucrop:2.2.8'
 
     implementation 'com.google.android.exoplayer:exoplayer:2.17.1'     //player
     api 'xyz.doikki.android.dkplayer:videocache:3.3.5'
