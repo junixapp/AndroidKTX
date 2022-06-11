@@ -44,7 +44,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.github.li-xiaojun:XPopup:2.7.2'
+    implementation 'com.github.li-xiaojun:XPopup:2.8.3'
 
 //    implementation 'com.github.li-xiaojun.AndroidKTX:library:2.4.21'
 //    implementation 'com.github.li-xiaojun.AndroidKTX:share:2.4.21'
