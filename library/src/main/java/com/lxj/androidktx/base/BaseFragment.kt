@@ -45,4 +45,11 @@ abstract class BaseFragment: Fragment(), FragmentUtils.OnBackClickListener{
     open fun onShow(){}
     open fun onHide(){}
     override fun onBackClick() = false
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        hasInitView = false
+        hasInitData = false
+    }
+
 }
