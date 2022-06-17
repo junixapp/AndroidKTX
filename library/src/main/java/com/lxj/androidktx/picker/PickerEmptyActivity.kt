@@ -18,7 +18,8 @@ import com.lxj.androidktx.AndroidKTX.context
 import com.lxj.androidktx.R
 import com.lxj.androidktx.luban.Luban
 import com.lxj.androidktx.util.DirManager
-import com.lxj.androidktx.widget.LoadingDialog
+import com.lxj.xpopup.XPopup
+import com.lxj.xpopup.impl.LoadingPopupView
 import com.yalantis.ucrop.UCrop
 import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MimeType
@@ -42,7 +43,7 @@ class PickerEmptyActivity : AppCompatActivity() {
     val _cameraCode = 1001
     val _cropCode = 1002
     var pickerData: _PickerData? = null
-    lateinit var progressDialog: LoadingDialog
+    lateinit var loadingPopupView: LoadingPopupView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pickerData = intent.getSerializableExtra("pickerData") as _PickerData?
@@ -50,7 +51,7 @@ class PickerEmptyActivity : AppCompatActivity() {
             finish()
             return
         }
-        progressDialog = LoadingDialog(this).setMessage("压缩中...")
+        loadingPopupView = XPopup.Builder(this).asLoading().setStyle(LoadingPopupView.Style.ProgressBar)
         when (pickerData!!.action) {
             //选择器
             "picker" -> {
@@ -62,9 +63,9 @@ class PickerEmptyActivity : AppCompatActivity() {
                         .theme(R.style.Matisse_Dracula)
                         .showSingleMediaType(true)
                         .addFilter(VideoSizeFilter(maxSize = if(pickerData!!.maxVideoSize>0) pickerData!!.maxVideoSize else  20*1024*1024))
-//                .gridExpectedSize(resources.getDimensionPixelSize(R.dimen.grid_expected_size))
+                        //.gridExpectedSize(resources.getDimensionPixelSize(R.dimen.grid_expected_size))
                         .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
-//                        .thumbnailScale(0.6f)
+                        //.thumbnailScale(0.6f)
                         .imageEngine(GlideEngine())
                         .showPreview(true) // Default is `true`
                         .forResult(_pickerCode)
@@ -132,20 +133,28 @@ class PickerEmptyActivity : AppCompatActivity() {
             finishWithResult(list)
             return
         }
-        progressDialog.show()
-        GlobalScope.launch {
-            try {
-                val compressPaths = arrayListOf<String>()
-                list.map {
-                    val f = compressImage(it).await()
-                    compressPaths.add(f.absolutePath)
+        runOnUiThread {
+            loadingPopupView.show()
+            GlobalScope.launch {
+                try {
+                    val compressPaths = arrayListOf<String>()
+                    list.map {
+                        val f = compressImage(it).await()
+                        compressPaths.add(f.absolutePath)
+                    }
+                    runOnUiThread {
+                        loadingPopupView.delayDismissWith(300, Runnable {
+                            finishWithResult(compressPaths)
+                        })
+                    }
+                }catch (e: Exception){
+                    //如果发生异常，则返回原图
+                    runOnUiThread {
+                        loadingPopupView.delayDismissWith(300, Runnable {
+                            finishWithResult(list)
+                        })
+                    }
                 }
-                finishWithResult(compressPaths)
-            }catch (e: Exception){
-                //如果发生异常，则返回原图
-                finishWithResult(list)
-            }finally {
-                progressDialog.dismiss()
             }
         }
     }
@@ -159,7 +168,7 @@ class PickerEmptyActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        progressDialog?.dismiss()
+        loadingPopupView?.dismiss()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
