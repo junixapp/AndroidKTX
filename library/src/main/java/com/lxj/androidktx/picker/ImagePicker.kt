@@ -16,6 +16,7 @@ data class _PickerData(
         var isCompress: Boolean = true,
         var showCapture: Boolean = true,
         var maxNum: Int = 9,
+        var spanCount: Int = 4,
         var maxVideoSize: Long = 0,
         var types: Set<MimeType> = MimeType.ofImage()
 ): Serializable
@@ -59,9 +60,10 @@ object ImagePicker {
      * @param types 选择的类型，默认是Image类型
      * @param maxVideoSize 最大视频大小，默认是20M
      * @param showCapture 是否显示拍照
+     * @param spanCount
      */
     fun startPicker(from: Any, reqCode: Int, isCrop: Boolean = false, isCompress: Boolean = true, maxNum: Int = 1, types: Set<MimeType> = MimeType.ofImage(),
-    maxVideoSize: Long = 0, showCapture: Boolean = true) {
+    maxVideoSize: Long = 0, showCapture: Boolean = true, spanCount: Int = 4) {
         PermissionUtils
                 .permission(PermissionConstants.STORAGE, PermissionConstants.CAMERA)
                 .callback(object : PermissionUtils.SimpleCallback {
@@ -72,12 +74,12 @@ object ImagePicker {
                         if(from is Activity){
                             from.startForResult<PickerEmptyActivity>(bundle = arrayOf("pickerData" to _PickerData(
                                 isCrop = canCrop, maxNum = max, types = types, action = "picker", isCompress = isCompress,
-                                maxVideoSize = maxVideoSize, showCapture = showCapture
+                                maxVideoSize = maxVideoSize, showCapture = showCapture, spanCount = spanCount
                             )), requestCode = reqCode)
                         }else if (from is Fragment){
                             from.startForResult<PickerEmptyActivity>(bundle = arrayOf("pickerData" to _PickerData(
                                 isCrop = canCrop, maxNum = max, types = types, action = "picker", isCompress = isCompress,
-                                maxVideoSize = maxVideoSize, showCapture = showCapture
+                                maxVideoSize = maxVideoSize, showCapture = showCapture, spanCount = spanCount
                             )), requestCode = reqCode)
                         }
                     }

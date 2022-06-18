@@ -58,6 +58,7 @@ class PickerEmptyActivity : AppCompatActivity() {
                 Matisse.from(this).choose(pickerData!!.types)
                         .countable(true)
                         .capture(pickerData!!.showCapture)
+                        .spanCount(pickerData!!.spanCount)
                         .captureStrategy(CaptureStrategy(true, "${context.packageName}.fileprovider", "picker"))
                         .maxSelectable(pickerData!!.maxNum)
                         .theme(R.style.Matisse_Dracula)
