@@ -11,7 +11,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import com.lxj.androidktx.R
 import kotlin.math.min
 
-class RatioImageView @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null, defStyleAttr: Int = 0)
+open class RatioImageView @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null, defStyleAttr: Int = 0)
     : AppCompatImageView(context, attributeSet, defStyleAttr) {
 
     var ratio = 0f //宽高比

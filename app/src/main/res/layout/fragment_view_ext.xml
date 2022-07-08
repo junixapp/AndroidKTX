@@ -15,6 +15,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <com.lxj.androidktxdemo.TileImageView
+            android:src="@mipmap/head"
+            android:adjustViewBounds="true"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="600dp"/>
         <com.youth.banner.Banner
             android:id="@+id/banner"
             android:layout_width="match_parent"

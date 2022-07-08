@@ -30,6 +30,13 @@ dependencies {
 }
 ```
 
+Optional permission:
+```
+<uses-permission android:name="android.permission.RECORD_AUDIO" />
+<uses-permission android:name="android.permission.CAMERA" />
+<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+```
+
 ## Usage
 
 ### 初始化
