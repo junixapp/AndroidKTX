@@ -46,12 +46,14 @@ class PickerEmptyActivity : AppCompatActivity() {
     lateinit var loadingPopupView: LoadingPopupView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        BarUtils.setStatusBarColor(window, Color.TRANSPARENT)
         pickerData = intent.getSerializableExtra("pickerData") as _PickerData?
         if (pickerData == null) {
             finish()
             return
         }
-        loadingPopupView = XPopup.Builder(this).asLoading().setStyle(LoadingPopupView.Style.ProgressBar)
+        loadingPopupView = XPopup.Builder(this)
+            .asLoading().setStyle(LoadingPopupView.Style.ProgressBar)
         when (pickerData!!.action) {
             //选择器
             "picker" -> {
@@ -167,11 +169,6 @@ class PickerEmptyActivity : AppCompatActivity() {
         finish()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        loadingPopupView?.dismiss()
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode==Activity.RESULT_OK){
@@ -179,25 +176,25 @@ class PickerEmptyActivity : AppCompatActivity() {
             if (requestCode == _pickerCode) {
                 //打开照片和视频选择器
                 val uriList = if(data!=null) Matisse.obtainResult(data) else listOf()
-                if(Build.VERSION.SDK_INT >= 29){
-                    uriList.forEach {
-                        //相册在android11之后只能以uri方式访问，为了统一返回路径，需要拷贝的有权限的目录
-                        val cursor = context.contentResolver.query(it, null, null, null, null)
-                        if(cursor!=null && cursor.moveToFirst()){
-                            val ois = context.contentResolver.openInputStream(it) ?:return@forEach
-                            val displayName =
-                                cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
-                            val file = File(DirManager.cacheDir, "${System.currentTimeMillis()}$displayName")
-                            val fos = FileOutputStream(file)
-                            android.os.FileUtils.copy(ois, fos)
-                            fos.close()
-                            ois.close()
-                            list.add(file.absolutePath)
-                        }
-                    }
-                }else{
-                    uriList.forEach { if(it!=null)list.add(UriUtils.uri2File(it).absolutePath) }
-                }
+//                if(Build.VERSION.SDK_INT >= 29){
+//                    uriList.forEach {
+//                        //相册在android11之后只能以uri方式访问，为了统一返回路径，需要拷贝的有权限的目录
+//                        val cursor = context.contentResolver.query(it, null, null, null, null)
+//                        if(cursor!=null && cursor.moveToFirst()){
+//                            val ois = context.contentResolver.openInputStream(it) ?:return@forEach
+//                            val displayName =
+//                                cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+//                            val file = File(DirManager.cacheDir, "${System.currentTimeMillis()}$displayName")
+//                            val fos = FileOutputStream(file)
+//                            android.os.FileUtils.copy(ois, fos)
+//                            fos.close()
+//                            ois.close()
+//                            list.add(file.absolutePath)
+//                        }
+//                    }
+//                }else{
+//                }
+                uriList.forEach { if(it!=null)list.add(UriUtils.uri2File(it).absolutePath) }
                 if(list.isEmpty()){
                     finish()
                     return
@@ -236,7 +233,7 @@ class PickerEmptyActivity : AppCompatActivity() {
         override fun filter(context: Context, item: Item): IncapableCause? {
             val size = UriUtils.uri2File(item.uri)?.length() ?: 0
             if(size>maxSize){
-                return IncapableCause(IncapableCause.DIALOG, "视频体积过大，超出${ConvertUtils.byte2FitMemorySize(maxSize,0)}")
+                return IncapableCause(IncapableCause.DIALOG, "large than ${ConvertUtils.byte2FitMemorySize(maxSize,0)}")
             }
             return null
         }
