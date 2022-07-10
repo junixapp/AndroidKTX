@@ -21,7 +21,7 @@ class SafeLinearLayoutManager: LinearLayoutManager {
         try {
             super.onLayoutChildren(recycler, state)
         }catch (e: IndexOutOfBoundsException){
-            e.printStackTrace()
+//            e.printStackTrace()
         }
     }
 }
@@ -39,7 +39,7 @@ class SafeGridLayoutManager: GridLayoutManager {
         try {
             super.onLayoutChildren(recycler, state)
         }catch (e: IndexOutOfBoundsException){
-            e.printStackTrace()
+//            e.printStackTrace()
         }
     }
 }
@@ -54,7 +54,7 @@ class SafeStaggeredGridLayoutManager: StaggeredGridLayoutManager {
         try {
             super.onLayoutChildren(recycler, state)
         }catch (e: IndexOutOfBoundsException){
-            e.printStackTrace()
+//            e.printStackTrace()
         }
     }
 }
