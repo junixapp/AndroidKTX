@@ -33,10 +33,15 @@
         <TextView
             android:id="@+id/selected_album"
             android:layout_width="wrap_content"
-            android:layout_height="?actionBarSize"
-            android:drawableRight="@drawable/ic_arrow_drop_down_white_24dp"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/_matisse_arrow_down"
             android:foreground="?selectableItemBackground"
+            android:background="@drawable/_matisse_bg_album"
             android:gravity="center"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
             android:textColor="?attr/album.element.color"
             android:textSize="20sp" />
     </androidx.appcompat.widget.Toolbar>
