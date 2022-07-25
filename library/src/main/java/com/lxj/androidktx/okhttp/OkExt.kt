@@ -26,7 +26,7 @@ object OkExt {
             .readTimeout(httpTimeout, TimeUnit.MILLISECONDS)
             .connectTimeout(httpTimeout, TimeUnit.MILLISECONDS)
             .addNetworkInterceptor(HttpLogInterceptor())
-            .cookieJar(PersistentCookieStore())
+//            .cookieJar(PersistentCookieStore())
             .sslSocketFactory(HttpsUtils.getSslSocketFactory().sSLSocketFactory,
                     HttpsUtils.getSslSocketFactory().trustManager)
             .build()
