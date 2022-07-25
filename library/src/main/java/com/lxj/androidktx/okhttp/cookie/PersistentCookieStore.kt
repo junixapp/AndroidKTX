@@ -192,8 +192,9 @@ class PersistentCookieStore : CookieJar {
         val len = hexString.length
         val data = ByteArray(len / 2)
         var i = 0
-        while (i < (len-1)) {
-            data[i / 2] = ((Character.digit(hexString[i], 16) shl 4) + Character.digit(hexString[i + 1], 16)).toByte()
+        while (i < len) {
+            data[i / 2] = if(i<(len-1)) ((Character.digit(hexString[i], 16) shl 4) + Character.digit(hexString[i + 1], 16)).toByte()
+                else (Character.digit(hexString[i], 16) shl 4).toByte()
             i += 2
         }
         return data
