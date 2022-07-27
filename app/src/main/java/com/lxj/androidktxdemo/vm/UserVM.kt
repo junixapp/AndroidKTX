@@ -1,5 +1,6 @@
 package com.lxj.androidktxdemo.vm
 
+import androidx.lifecycle.viewModelScope
 import com.lxj.androidktx.base.ListWrapper
 import com.lxj.androidktx.base.PageListVM
 import com.lxj.androidktx.core.DiffCallback
@@ -13,7 +14,7 @@ import kotlin.random.Random
 
 class UserVM: PageListVM<User>() {
     override fun load() {
-        GlobalScope.launch {
+        viewModelScope.launch {
             delay(1000)
             //mock data
             val data = arrayListOf<User>()

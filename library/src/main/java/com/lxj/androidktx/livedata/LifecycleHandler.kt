@@ -2,10 +2,7 @@ package com.lxj.androidktx.livedata
 
 import android.os.Handler
 import android.os.Looper
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.*
 import com.blankj.utilcode.util.ThreadUtils
 
 /**
@@ -13,13 +10,13 @@ import com.blankj.utilcode.util.ThreadUtils
  * Create by dance, at 2019/5/21
  */
 open class LifecycleHandler(private val lifecycleOwner: LifecycleOwner?)
-    : Handler(Looper.getMainLooper()), LifecycleObserver {
+    : Handler(Looper.getMainLooper()), DefaultLifecycleObserver {
     init {
         ThreadUtils.runOnUiThread { lifecycleOwner?.lifecycle?.addObserver(this) }
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    fun onDestroy() {
+    override fun onDestroy(owner: LifecycleOwner) {
+        super.onDestroy(owner)
         removeCallbacksAndMessages(null)
         lifecycleOwner?.lifecycle?.removeObserver(this)
     }
