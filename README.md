@@ -23,6 +23,7 @@ dependencies {
     implementation 'com.github.li-xiaojun.AndroidKTX:library:最新版本'
     implementation 'com.github.li-xiaojun.AndroidKTX:circleprogress:最新版本'
     implementation 'com.github.li-xiaojun.AndroidKTX:videoplayer:最新版本'
+    implementation 'com.github.li-xiaojun.AndroidKTX:audioplayer:最新版本'
     implementation 'com.github.li-xiaojun.AndroidKTX:matisse:最新版本'
     implementation 'com.github.li-xiaojun.AndroidKTX:pay:最新版本'
     implementation 'com.github.li-xiaojun.AndroidKTX:share:最新版本'

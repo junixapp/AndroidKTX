@@ -1,4 +1,4 @@
-package com.lxj.androidktx.player;
+package com.lxj.audioplayer;
 
 import com.danikula.videocache.HttpProxyCacheServer;
 import com.danikula.videocache.StorageUtils;

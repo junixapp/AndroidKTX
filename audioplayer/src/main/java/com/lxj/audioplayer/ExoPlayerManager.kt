@@ -1,4 +1,4 @@
-package com.lxj.androidktx.player
+package com.lxj.audioplayer
 
 import android.os.Handler
 import android.os.Looper
@@ -69,14 +69,14 @@ object ExoPlayerManager : CacheListener{
                         //The player is able to immediately play from its current position
                         playState.errMsg = null
                         playState.setValue(PlayState.Ready)
-                        if(!player.playWhenReady)playState.setValue(PlayState.Pause)
+                        if(!player.playWhenReady) playState.setValue(PlayState.Pause)
                     }
                     Player.STATE_ENDED -> {
                         //The player finished playing all media.
                         playState.errMsg = null
                         playState.setValue(PlayState.Complete)
 //                        stopPostProgress()
-                        if(autoPlayNext)autoNextWhenComplete()
+                        if(autoPlayNext) autoNextWhenComplete()
                     }
                 }
             }
@@ -92,7 +92,7 @@ object ExoPlayerManager : CacheListener{
     }
 
     fun cacheLastData(b: Boolean) {
-        this.isCacheLastData = b
+        isCacheLastData = b
         playInfo.value = if(isCacheLastData) sp().getObject<PlayInfo>("_last_playinfo_")?: PlayInfo() else PlayInfo()
         currentIndex = playInfo.value?.index ?: -1
     }
@@ -117,7 +117,7 @@ object ExoPlayerManager : CacheListener{
         val lastUri = currentUri()
         bindList(list)
         play(0)
-        if(uriList.size > currentIndex && currentIndex>=0){
+        if(uriList.size > currentIndex && currentIndex >=0){
             val info = PlayInfo(index = currentIndex, current = 0,
                 total = 0, uri = uriList[currentIndex], lastUri = lastUri)
             playInfo.setValue(info)
@@ -126,16 +126,17 @@ object ExoPlayerManager : CacheListener{
 
     fun currentUri() = if(isIndexOrListWrong()) "" else uriList[currentIndex]
 
-    private fun isIndexOrListWrong() = currentIndex<0 || currentIndex>=uriList.size
+    private fun isIndexOrListWrong() = currentIndex <0 || currentIndex >= uriList.size
 
     private fun postProgress(){
         if(isIndexOrListWrong()) return
         val info = PlayInfo(index = currentIndex, current = currentPosition(),
-                total = duration(), uri = uriList[currentIndex], lastUri = currentUri())
+                total = duration(), uri = uriList[currentIndex], lastUri = currentUri()
+        )
         playInfo.setValue(info)
         if(isCacheLastData) sp().putObject("_last_playinfo_", info)
         if(player.playbackState==Player.STATE_ENDED) return
-        handler.postDelayed({ postProgress()}, 1000)
+        handler.postDelayed({ postProgress() }, 1000)
     }
 
     private fun stopPostProgress(){
@@ -177,8 +178,8 @@ object ExoPlayerManager : CacheListener{
         }
     }
 
-    fun hasPrevious() = !isIndexOrListWrong() && currentIndex>0
-    fun hasNext() = !isIndexOrListWrong() && currentIndex<(uriList.size-1)
+    fun hasPrevious() = !isIndexOrListWrong() && currentIndex >0
+    fun hasNext() = !isIndexOrListWrong() && currentIndex <(uriList.size-1)
     fun previous() {
         if(isIndexOrListWrong()) return
         when(playMode.value){
@@ -186,7 +187,7 @@ object ExoPlayerManager : CacheListener{
                 currentIndex = Random.Default.nextInt(uriList.size)
             }
             else -> {
-                if(currentIndex== 0) currentIndex = uriList.lastIndex
+                if(currentIndex == 0) currentIndex = uriList.lastIndex
                 else currentIndex -= 1
             }
         }
@@ -200,7 +201,7 @@ object ExoPlayerManager : CacheListener{
                 currentIndex = Random.Default.nextInt(uriList.size)
             }
             else -> {
-                if(currentIndex== uriList.lastIndex) currentIndex = 0
+                if(currentIndex == uriList.lastIndex) currentIndex = 0
                 else currentIndex += 1
             }
         }
@@ -217,14 +218,14 @@ object ExoPlayerManager : CacheListener{
                 currentIndex = Random.Default.nextInt(uriList.size)
             }
             RepeatAllMode -> {
-                if(currentIndex== uriList.lastIndex) currentIndex = 0
+                if(currentIndex == uriList.lastIndex) currentIndex = 0
                 else currentIndex += 1
             }
         }
         play(currentIndex)
     }
 
-    fun isBuffering() = playState.value==PlayState.Buffering
+    fun isBuffering() = playState.value== PlayState.Buffering
     fun isPlaying() = player.isPlaying
     fun duration() = if(player.duration >= 0) player.duration else 0
     fun currentPosition() = player.currentPosition
@@ -269,7 +270,7 @@ object ExoPlayerManager : CacheListener{
             //闲置
             play(currentIndex)
         }else{
-            if(playState.value==PlayState.Complete){
+            if(playState.value== PlayState.Complete){
                 player.seekTo(0)
             }
             player.play()
@@ -281,7 +282,7 @@ object ExoPlayerManager : CacheListener{
      * @param autoPlayFirst 当没有指定索引时，自动播放第1个
      */
     fun toggle(autoPlayFirst: Boolean = true){
-        if(autoPlayFirst && currentIndex<0){
+        if(autoPlayFirst && currentIndex <0){
             play(0)
         }else{
             if(isIndexOrListWrong())return

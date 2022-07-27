@@ -2,22 +2,18 @@ package com.lxj.androidktxdemo.fragment
 
 import android.graphics.Color
 import android.media.RingtoneManager
-import android.os.Environment
-import android.provider.Settings
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import com.blankj.utilcode.util.*
-import com.lxj.androidktx.AndroidKTX
 import com.lxj.androidktx.core.*
-import com.lxj.androidktx.player.ExoPlayerManager
-import com.lxj.androidktx.player.PlayState
+import com.lxj.audioplayer.ExoPlayerManager
+import com.lxj.audioplayer.PlayState
 import com.lxj.androidktxdemo.R
 import com.lxj.androidktxdemo.RingtoneTool
 import kotlinx.android.synthetic.main.fragment_player.*
-import java.io.File
 
 /**
  * Description: 播放器功能展示

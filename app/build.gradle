@@ -54,5 +54,6 @@ dependencies {
     implementation project(':share')
     implementation project(':pay')
     implementation project(':circleprogress')
+    implementation project(':audioplayer')
 //    implementation project(':videoplayer')
 }

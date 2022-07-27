@@ -1,4 +1,4 @@
-package com.lxj.androidktx.player
+package com.lxj.audioplayer
 
 
 enum class PlayState(string: String){

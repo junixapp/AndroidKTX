@@ -86,11 +86,6 @@ dependencies {
 
     api 'com.github.yalantis:ucrop:2.2.8'
 
-    implementation 'com.google.android.exoplayer:exoplayer:2.17.1'     //player
-    api 'xyz.doikki.android.dkplayer:videocache:3.3.5'
     api 'com.youth.banner:banner:2.1.0'
-//    api 'com.tencent:mmkv-static:1.2.10'
-//    api project(':camera')
-//    api project(':luban')
     api project(':matisse')
 }

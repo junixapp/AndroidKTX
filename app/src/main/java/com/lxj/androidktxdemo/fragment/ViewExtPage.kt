@@ -10,7 +10,7 @@ import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.lxj.androidktx.core.*
-import com.lxj.androidktx.player.ExoPlayerManager
+import com.lxj.audioplayer.ExoPlayerManager
 import com.lxj.androidktx.util.CountDownWorker
 import com.lxj.androidktx.widget.TabBar
 import com.lxj.androidktxdemo.R
