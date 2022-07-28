@@ -108,7 +108,7 @@ class ViewExtPage : BaseFragment() {
                 ),
             )
         )
-
+        ivDemo.load(R.mipmap.h, roundRadius = 12.dp)
         tabbar.setTabs(
             listOf(
                 TabBar.Tab(text = "Home"),

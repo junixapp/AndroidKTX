@@ -21,7 +21,7 @@ class CommonBannerAdapter(data: List<Any>, var margin: Rect = Rect(), var corner
     override fun onBindView(holder: BannerViewHolder, t: Any, position: Int, size: Int) {
         holder.itemView.margin(margin.left, margin.top, margin.right, margin.bottom)
         (holder.itemView as ShapeImageView).apply {
-            load(t, isCrossFade = true)
+            load(t, isCrossFade = true, roundRadius = cornerRadius)
             setup(corner = cornerRadius)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 elevation = pageElevation.toFloat()

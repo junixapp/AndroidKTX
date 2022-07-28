@@ -1,12 +1,16 @@
 package com.lxj.androidktxdemo.fragment
 
 import android.content.Intent
+import android.graphics.Bitmap
 import android.media.MediaMetadataRetriever
+import com.blankj.utilcode.util.ImageUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.lxj.androidktx.core.click
+import com.lxj.androidktx.core.dp
 import com.lxj.androidktx.core.load
+import com.lxj.androidktx.core.toBitmap
 import com.lxj.androidktx.picker.ImagePicker
 import com.lxj.androidktxdemo.R
 import kotlinx.android.synthetic.main.fragment_imageview_ext.*
@@ -25,6 +29,9 @@ class ImageViewExtPage: BaseFragment(){
 
     override fun initView() {
         Glide.getPhotoCacheDir(requireContext())?.deleteRecursively()
+        title1.click {
+            ImageUtils.save2Album(nsvImage.toBitmap(), Bitmap.CompressFormat.PNG)
+        }
         loadImage()
     }
 
@@ -41,13 +48,13 @@ class ImageViewExtPage: BaseFragment(){
         title1.text = "image1.load(url)"
 
 
-        image2.load(images[1], placeholder = R.mipmap.ic_launcher, roundRadius = 20, isCrossFade = true, isCenterCrop = true,
+        image2.load(images[1], isCircle = true, isCrossFade = true, isCenterCrop = true,
             targetWidth = 400, targetHeight = 400)
         title2.text = "image2.load(url, isCircle = true)"
 
         image3.load(images[2], isCenterCrop = true , placeholder = R.mipmap.ic_launcher)
-        image4.load(images[2], isCenterCrop = true, blurScale = 1f)
-        image5.load(images[2], isCenterCrop = true, blurScale = 0.3f, )
+        image4.load(images[2], isCenterCrop = true, blurScale = 1f, roundRadius = 20.dp)
+        image5.load(images[2], isCenterCrop = true, blurScale = 0.3f, roundRadius = 20.dp)
         title3.text = "image3.load(url, roundRadius = 20)"
 
         image1.click {
@@ -68,18 +75,6 @@ class ImageViewExtPage: BaseFragment(){
 //            ImagePicker.startRecord(this, 1, ) //打开相机并裁剪
             ImagePicker.startPicker(this, 1, isCrop = false, spanCount = 4) //打开相机并裁剪
 //            ImagePicker.startPicker(this, 1, types = MimeType.ofVideo()) //打开相机并裁剪
-//
-//            Share.init(context!!, BuildConfig.DEBUG, umengAppKey = "5e5d0267570df3806d0002fb",
-//                    wxAppId = "wx31386f28f849f6fe", wxAppKey = "6414a5c0dd7b97d540adef8922d4c31b")
-//
-//            Share.shareToMiniProgram(activity = activity!!,
-//                    url = "https://developer.umeng.com/docs/66632/detail/66875?um_channel=sdk", title = "标题", desc = "描述",
-////                    bitmap = BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher),
-//                    imgRes = R.mipmap.ic_launcher,
-//                    path = "/pages/home/index", miniAppId = "wx596f62867a2bbc17", forTestVersion = true,
-//                    callback = object :Share.ShareCallback{
-//
-//                    })
         }
 
     }

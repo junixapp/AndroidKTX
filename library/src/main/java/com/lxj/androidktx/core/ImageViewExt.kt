@@ -1,10 +1,12 @@
 package com.lxj.androidktx.core
 
 import android.app.Activity
+import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.Transformation
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -33,77 +35,110 @@ import com.lxj.androidktx.util.GlideBlurTransformation
  * @param isCrossFade 是否有过渡动画，默认没有过渡动画
  * @param isForceOriginalSize 是否强制使用原图，默认false
  */
-fun ImageView.load(url: Any?, placeholder: Int = 0, error: Int = 0,
-                   isCircle: Boolean = false,
-                   isCenterCrop: Boolean = false,
-                   blurScale: Float = 0f,
-                   blurRadius: Float = 20f,
-                   roundRadius: Int = 0,
-                   isCrossFade: Boolean = false,
-                   isForceOriginalSize: Boolean = false,
-                   targetWidth: Int = 0,
-                   targetHeight: Int = 0,
-                   onImageLoad: ((resource: Drawable?) -> Unit)? = null,
-                   onImageFail: (() -> Unit)? = null
+fun ImageView.load(
+    url: Any?, placeholder: Int = 0, error: Int = 0,
+    isCircle: Boolean = false,
+    isCenterCrop: Boolean = false,
+    blurScale: Float = 0f,
+    blurRadius: Float = 20f,
+    roundRadius: Int = 0,
+    isCrossFade: Boolean = false,
+    isForceOriginalSize: Boolean = false,
+    targetWidth: Int = 0,
+    targetHeight: Int = 0,
+    onImageLoad: ((resource: Drawable?) -> Unit)? = null,
+    onImageFail: (() -> Unit)? = null
 ) {
-    if(context == null) return
-    if(context is Activity && ((context as Activity).isDestroyed || (context as Activity).isFinishing) ) return
-    val options = RequestOptions().placeholder(placeholder).error(error).apply {
-        if (isCenterCrop && scaleType != ImageView.ScaleType.CENTER_CROP)
-            scaleType = ImageView.ScaleType.CENTER_CROP
-        if (isCircle) {
-            transform(CircleCrop())
-        } else if (roundRadius != 0) {
-            if (isCenterCrop) {
-                transform(CenterCrop(), RoundedCorners(roundRadius))
-            } else {
-                transform(RoundedCorners(roundRadius))
-            }
+    if (context == null) return
+    if (context is Activity && ((context as Activity).isDestroyed || (context as Activity).isFinishing)) return
+    val transforms = arrayListOf<Transformation<Bitmap>>()
+    if (isCenterCrop && scaleType != ImageView.ScaleType.CENTER_CROP)
+        scaleType = ImageView.ScaleType.CENTER_CROP
+
+    if (isCircle) {
+        transforms.add(CircleCrop())
+    } else if (roundRadius > 0) {
+        if (isCenterCrop || scaleType == ImageView.ScaleType.CENTER_CROP) {
+            transforms.add(CenterCrop())
+            transforms.add(RoundedCorners(roundRadius))
+        } else {
+            transforms.add(RoundedCorners(roundRadius))
         }
-        if(blurScale>0) transform(GlideBlurTransformation(scale = blurScale, blurRadius = blurRadius))
+    }
+    if (blurScale > 0) transforms.add(
+        GlideBlurTransformation(
+            scale = blurScale,
+            blurRadius = blurRadius,roundRadius = roundRadius
+        )
+    )
+    val options = RequestOptions().placeholder(placeholder).error(error).apply {
         if (isForceOriginalSize) {
             override(Target.SIZE_ORIGINAL)
         }
-        if(targetWidth!=0 &&  targetHeight!=0){
+        if (targetWidth != 0 && targetHeight != 0) {
             override(targetWidth, targetHeight)
         }
     }
+    if(transforms.isNotEmpty()) options.transforms(*transforms.toTypedArray())
     val glide = Glide.with(context).load(url)
-            .apply(options)
-            .apply {
-                if (isCrossFade) transition(DrawableTransitionOptions.withCrossFade())
-                if (onImageLoad != null || onImageFail!=null) {
-                    listener(object : RequestListener<Drawable> {
-                        override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                            onImageFail?.invoke()
-                            return onImageFail!=null
-                        }
+        .apply(options)
+        .apply {
+            if (isCrossFade) transition(DrawableTransitionOptions.withCrossFade())
+            if (onImageLoad != null || onImageFail != null) {
+                listener(object : RequestListener<Drawable> {
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Drawable>?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        onImageFail?.invoke()
+                        return onImageFail != null
+                    }
 
-                        override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                            onImageLoad?.invoke(resource)
-                            return false
-                        }
-                    })
-                }
-
+                    override fun onResourceReady(
+                        resource: Drawable?,
+                        model: Any?,
+                        target: Target<Drawable>?,
+                        dataSource: DataSource?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        onImageLoad?.invoke(resource)
+                        return false
+                    }
+                })
             }
+
+        }
     glide.into(this)
 }
 
-fun String.preloadImage(onSuccess: (()->Unit)?=null, onFail: (()->Unit)?=null,  ){
+fun String.preloadImage(onSuccess: (() -> Unit)? = null, onFail: (() -> Unit)? = null) {
     Glide.with(AndroidKTX.context)
         .load(this)
         .diskCacheStrategy(DiskCacheStrategy.ALL)
         .listener(object : RequestListener<Drawable> {
-            override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+            override fun onLoadFailed(
+                e: GlideException?,
+                model: Any?,
+                target: Target<Drawable>?,
+                isFirstResource: Boolean
+            ): Boolean {
                 onFail?.invoke()
                 return false
             }
 
-            override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+            override fun onResourceReady(
+                resource: Drawable?,
+                model: Any?,
+                target: Target<Drawable>?,
+                dataSource: DataSource?,
+                isFirstResource: Boolean
+            ): Boolean {
                 onSuccess?.invoke()
                 return false
             }
         })
         .preload()
 }
+

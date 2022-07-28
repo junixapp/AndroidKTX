@@ -183,16 +183,13 @@
                 android:background="#f00" />
         </com.lxj.androidktx.widget.ShapeFrameLayout>
 
-        <com.lxj.androidktx.widget.ShapeImageView
+        <ImageView
+            android:id="@+id/ivDemo"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_margin="20dp"
             android:scaleType="centerCrop"
-            android:src="@mipmap/checked"
-            app:siv_corner="50dp"
-            app:siv_solid="#6f00"
-            app:siv_stroke="#00f"
-            app:siv_strokeWidth="20dp" />
+            android:src="@mipmap/h" />
 
         <TextView
             style="@style/TitleStyle"
