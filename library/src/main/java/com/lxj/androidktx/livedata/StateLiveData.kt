@@ -112,10 +112,10 @@ class StateLiveData<T>(defValue: T? = null) : NoStickyLiveData<T>() {
      * @param block 执行块
      * @param nullIsEmpty 是否把null值当做Empty处理，默认false
      */
-    fun launchAndSmartPost( postNull: Boolean = true,  nullIsEmpty: Boolean = false,
+    fun launchAndSmartPost(scope: CoroutineScope = GlobalScope, postNull: Boolean = true,  nullIsEmpty: Boolean = false,
                             block: suspend CoroutineScope.() -> T?): Job {
         postLoading()
-        return GlobalScope.launch { smartPost(block(), nullIsEmpty, postNull) }
+        return scope.launch { smartPost(block(), nullIsEmpty, postNull) }
     }
 
     /**

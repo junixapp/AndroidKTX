@@ -3,33 +3,20 @@ package com.lxj.androidktx.core
 
 import android.content.Context
 import android.content.res.ColorStateList
-import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.RippleDrawable
-import android.media.MediaScannerConnection
-import android.net.Uri
 import android.os.*
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.AdaptScreenUtils
 import com.blankj.utilcode.util.ConvertUtils
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.TimeUtils
-import com.google.android.material.shadow.ShadowRenderer
 import com.google.gson.ExclusionStrategy
 import com.google.gson.FieldAttributes
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
-import com.lxj.androidktx.AndroidKTX
-import com.lxj.androidktx.util.ShadowDrawable
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
 import java.io.Serializable
 import java.util.*
 

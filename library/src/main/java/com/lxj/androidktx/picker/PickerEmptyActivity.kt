@@ -10,9 +10,9 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.provider.OpenableColumns
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import androidx.lifecycle.lifecycleScope
 import com.blankj.utilcode.util.*
 import com.lxj.androidktx.AndroidKTX.context
 import com.lxj.androidktx.R
@@ -30,10 +30,8 @@ import com.zhihu.matisse.internal.entity.IncapableCause
 import com.zhihu.matisse.internal.entity.Item
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.io.File
-import java.io.FileOutputStream
 
 /**
  * 选择器的中转界面，本身是透明的，为了统一处理startActivityForResult
@@ -138,7 +136,7 @@ class PickerEmptyActivity : AppCompatActivity() {
         }
         runOnUiThread {
             loadingPopupView.show()
-            GlobalScope.launch {
+            lifecycleScope.launch {
                 try {
                     val compressPaths = arrayListOf<String>()
                     list.map {

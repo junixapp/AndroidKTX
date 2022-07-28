@@ -280,7 +280,7 @@ fragmentManager {
 
 - 请求示例
 ```kotlin
-GlobalScope.launch {
+GlobalScope/viewModelScope.launch {
     //Get请求
     val user = "http://192.168.1.103:3000/json".http().get<User>().await()
     //Post请求，传递header和params
