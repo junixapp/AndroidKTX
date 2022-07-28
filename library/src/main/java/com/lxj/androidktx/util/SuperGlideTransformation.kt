@@ -10,7 +10,8 @@ import java.security.MessageDigest
 
 class SuperGlideTransformation(
     var isCenterCrop: Boolean = false, var scale: Float = 0f, var blurRadius: Float = 20f,
-    var roundRadius: Int = 0, var borderColor: Int = 0, var borderSize: Int = 0
+    var roundRadius: Int = 0, var borderColor: Int = 0, var borderSize: Int = 0,
+    var roundArray: FloatArray? = null,
 ) :
     BitmapTransformation() {
 
@@ -25,7 +26,10 @@ class SuperGlideTransformation(
         if (isCenterCrop) {
             bmp = TransformationUtils.centerCrop(pool, bmp, outWidth, outHeight)
         }
-        if (roundRadius > 0) {
+        if(roundArray!=null && roundArray!!.size==4){
+            bmp = TransformationUtils.roundedCorners(
+                pool, bmp, roundArray!![0], roundArray!![1], roundArray!![2], roundArray!![3])
+        }else if (roundRadius > 0) {
             bmp = TransformationUtils.roundedCorners(pool, bmp, roundRadius)
         }
         //blur
@@ -33,13 +37,13 @@ class SuperGlideTransformation(
             bmp = ImageUtils.fastBlur(bmp, scale, blurRadius)
         }
         //round, border
-        if (roundRadius > 0 || (borderColor != 0 && borderSize > 0)) {
-            bmp = ImageUtils.toRoundCorner(
-                bmp,
-                roundRadius.toFloat(),
-                borderSize.toFloat(),
-                borderColor
-            )
+        if(roundArray!=null && roundArray!!.size==4){
+            bmp = ImageUtils.toRoundCorner(bmp, floatArrayOf(roundArray!![0],roundArray!![0],
+                roundArray!![1],roundArray!![1],roundArray!![2],roundArray!![2],roundArray!![3],roundArray!![3]
+            ), borderSize.toFloat(), borderColor)
+        }else if (roundRadius > 0 || (borderColor != 0 && borderSize > 0)) {
+            bmp = ImageUtils.toRoundCorner(bmp,
+                roundRadius.toFloat(), borderSize.toFloat(), borderColor)
         }
         return bmp
     }

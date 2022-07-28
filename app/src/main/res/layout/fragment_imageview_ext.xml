@@ -24,18 +24,6 @@
             android:id="@+id/image1"
             android:layout_width="200dp"
             android:layout_height="120dp" />
-        <ImageView
-            android:id="@+id/image11"
-            android:scaleType="centerCrop"
-            android:layout_marginTop="30dp"
-            android:layout_width="200dp"
-            android:layout_height="120dp" />
-        <ImageView
-            android:id="@+id/image111"
-            android:scaleType="centerCrop"
-            android:layout_marginTop="60dp"
-            android:layout_width="200dp"
-            android:layout_height="120dp" />
         </androidx.cardview.widget.CardView>
 
         <include layout="@layout/divider"/>

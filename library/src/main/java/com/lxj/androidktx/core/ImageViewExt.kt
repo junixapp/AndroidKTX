@@ -33,6 +33,7 @@ import com.lxj.androidktx.util.SuperGlideTransformation
  * @param isCircle 是否是圆形，默认false，注意：isCircle和roundRadius两个只能有一个生效
  * @param isCenterCrop 是否设置scaleType为CenterCrop，你也可以在布局文件中设置
  * @param roundRadius 圆角角度，默认为0，不带圆角，注意：isCircle和roundRadius两个只能有一个生效
+ * @param roundArray 圆角Array:[lt,rt, rb, lb]
  * @param isCrossFade 是否有过渡动画，默认没有过渡动画
  * @param isForceOriginalSize 是否强制使用原图，默认false
  */
@@ -45,6 +46,7 @@ fun ImageView.load(
     blurScale: Float = 0f,
     blurRadius: Float = 20f,
     roundRadius: Int = 0,
+    roundArray: FloatArray? = null,
     isCrossFade: Boolean = false,
     isForceOriginalSize: Boolean = false,
     targetWidth: Int = 0,
@@ -87,7 +89,7 @@ fun ImageView.load(
     }
     val superTransform = SuperGlideTransformation( isCenterCrop = isCenterCrop || scaleType == ImageView.ScaleType.CENTER_CROP,
         scale = blurScale, borderSize = borderSize, borderColor = borderColor,
-        blurRadius = blurRadius, roundRadius = round
+        blurRadius = blurRadius, roundRadius = round, roundArray = roundArray
     )
     options.transform(superTransform)
     val glide = Glide.with(context).load(url)
