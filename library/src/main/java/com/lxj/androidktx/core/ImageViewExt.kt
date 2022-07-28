@@ -54,7 +54,7 @@ fun ImageView.load(
 ) {
     if (context == null) return
     if (context is Activity && ((context as Activity).isDestroyed || (context as Activity).isFinishing)) return
-    val transforms = arrayListOf<Transformation<Bitmap>>()
+//    val transforms = arrayListOf<Transformation<Bitmap>>()
     var round = roundRadius
     if (isCenterCrop && scaleType != ImageView.ScaleType.CENTER_CROP){
         scaleType = ImageView.ScaleType.CENTER_CROP
@@ -74,12 +74,9 @@ fun ImageView.load(
 //            transforms.add(RoundedCorners(round))
 //        }
 //    }
-    transforms.add(
-        SuperGlideTransformation( isCenterCrop = isCenterCrop,
-            scale = blurScale, borderSize = borderSize, borderColor = borderColor,
-            blurRadius = blurRadius, roundRadius = round
-        )
-    )
+//    transforms.add(
+//
+//    )
     val options = RequestOptions().placeholder(placeholder).error(error).apply {
         if (isForceOriginalSize) {
             override(Target.SIZE_ORIGINAL)
@@ -88,7 +85,11 @@ fun ImageView.load(
             override(targetWidth, targetHeight)
         }
     }
-    if(transforms.isNotEmpty()) options.transforms(*transforms.toTypedArray())
+    val superTransform = SuperGlideTransformation( isCenterCrop = isCenterCrop || scaleType == ImageView.ScaleType.CENTER_CROP,
+        scale = blurScale, borderSize = borderSize, borderColor = borderColor,
+        blurRadius = blurRadius, roundRadius = round
+    )
+    options.transform(superTransform)
     val glide = Glide.with(context).load(url)
         .apply(options)
         .apply {

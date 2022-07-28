@@ -4,6 +4,8 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.media.MediaMetadataRetriever
+import android.widget.ImageView
+import androidx.cardview.widget.CardView
 import com.blankj.utilcode.util.ImageUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -37,24 +39,32 @@ class ImageViewExtPage: BaseFragment(){
     }
 
     private fun loadImage(){
-        image1.load(images[0],
-            placeholder = R.mipmap.ic_launcher, borderColor = Color.RED, borderSize = 5.dp, roundRadius = 20.dp,
+        image1.load(images[0], roundRadius = 10.dp,
                  onImageFail = {
                 ToastUtils.showShort("图片加载失败")
                      image1.setImageResource(R.mipmap.test)
             }, onImageLoad = {
                 ToastUtils.showShort("图片加载成功：dw ${it?.intrinsicWidth}")
             })
+        image11.load(images[1], roundRadius = 10.dp,)
+        image111.load(images[2], roundRadius = 10.dp,)
 
         title1.text = "image1.load(url)"
 
+//        (0..4).forEach {
+//            val image = ImageView(context)
+//            image.layoutParams = CardView.LayoutParams(imgw, 106.dp)
+////                image.scaleType = ImageView.ScaleType.CENTER_CROP
+//            cardView.addView(image)
+//            image.load(it, roundRadius = 8.dp)
+//        }
 
         image2.load(images[1], isCircle = true, isCrossFade = true, isCenterCrop = true,
             targetWidth = 400, targetHeight = 400, borderColor = Color.RED, borderSize = 5.dp)
         title2.text = "image2.load(url, isCircle = true)"
 
         image3.load(images[2], isCenterCrop = true , placeholder = R.mipmap.ic_launcher,  borderColor = Color.RED, borderSize = 5.dp)
-        image4.load(images[2], isCenterCrop = true, blurScale = 1f, roundRadius = 20.dp, borderColor = Color.RED, borderSize = 5.dp)
+        image4.load(images[2], /*isCenterCrop = true, blurScale = 1f,*/ roundRadius = 20.dp, )
         image5.load(images[2], isCenterCrop = true, blurScale = 0.3f, roundRadius = 20.dp, borderColor = Color.RED, borderSize = 5.dp)
         title3.text = "image3.load(url, roundRadius = 20)"
 
