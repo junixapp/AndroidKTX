@@ -96,12 +96,6 @@ fun <T: ViewModel> FragmentActivity.getSavedStateVM(clazz: Class<T>) = ViewModel
 ).get(clazz)
 
 
-inline val FragmentActivity.lifecycleHandler
-    get() = LifecycleHandler(this)
-
-inline val Fragment.lifecycleHandler
-    get() = LifecycleHandler(this)
-
 /**
  * 将Activity移到前台，需将launchMode设置为SingleTop，否则会创建新实例
  */

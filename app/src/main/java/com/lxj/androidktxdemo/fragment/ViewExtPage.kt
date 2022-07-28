@@ -2,11 +2,12 @@ package com.lxj.androidktxdemo.fragment
 
 
 import android.animation.ValueAnimator
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Environment
-import com.blankj.utilcode.constant.PermissionConstants
+import androidx.core.view.drawToBitmap
+import com.blankj.utilcode.util.ImageUtils
 import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.lxj.androidktx.core.*
@@ -32,17 +33,18 @@ class ViewExtPage : BaseFragment() {
         text1.width(value)
         text1.text = "自定义字体：text1.width($value)"
         text1.click {
-            PermissionUtils.permission(PermissionConstants.STORAGE)
-                .callback(object : PermissionUtils.SimpleCallback{
-                    override fun onGranted() {
-                        ExoPlayerManager.playSingle("${Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_RINGTONES)}/uRingtone/Boquita-1653673313539.mp3")
-                    }
-
-                    override fun onDenied() {
-                    }
-                })
-                .request()
-            ToastUtils.showShort("click " + Random.nextInt(1000000))
+            ImageUtils.save2Album(nsv.toBitmap(), Bitmap.CompressFormat.PNG)
+//            PermissionUtils.permission(PermissionConstants.STORAGE)
+//                .callback(object : PermissionUtils.SimpleCallback{
+//                    override fun onGranted() {
+//                        ExoPlayerManager.playSingle("${Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_RINGTONES)}/uRingtone/Boquita-1653673313539.mp3")
+//                    }
+//
+//                    override fun onDenied() {
+//                    }
+//                })
+//                .request()
+//            ToastUtils.showShort("click " + Random.nextInt(1000000))
 //            val vc = TransitionSet()
 //            vc.addTransition(ChangeBounds())
 //            vc.addTransition(ChangeTransform())

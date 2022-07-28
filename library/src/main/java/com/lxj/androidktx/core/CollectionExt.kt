@@ -1,12 +1,15 @@
 package com.lxj.androidktx.core
 
-import java.lang.IllegalArgumentException
+import com.blankj.utilcode.util.LogUtils
 
 /**
  * 把集合分成数量固定的几组
  */
 fun <T> ArrayList<T>.groupByCount(count: Int = 1): List<List<T>>{
-    if(count<1) throw IllegalArgumentException("count不能小于1")
+    if(count<1){
+        LogUtils.e("count less than 1")
+        return arrayListOf<ArrayList<T>>()
+    }
     val list = arrayListOf<ArrayList<T>>()
     var subList = arrayListOf<T>()
     forEach { t->

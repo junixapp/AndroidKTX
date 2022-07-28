@@ -1,11 +1,13 @@
 package com.lxj.androidktxdemo
 
+import android.graphics.Typeface
 import androidx.multidex.MultiDexApplication
 import com.blankj.utilcode.util.LogUtils
 import com.lxj.androidktx.AndroidKTX
 import com.lxj.androidktx.core.*
 import com.lxj.androidktxdemo.entity.User
 import com.lxj.androidktxdemo.entity.UserGender
+import java.lang.Exception
 import java.util.*
 
 /**
@@ -34,5 +36,22 @@ class AndroidKtxApp: MultiDexApplication(){
         LogUtils.d("json1: ${json}")
         LogUtils.d("json: ${json.toBean<User>()}")
         UserGender.Man.ordinal
+
+        replaceSystemDefaultFont()
     }
+    fun replaceSystemDefaultFont() {
+        Thread(Runnable {
+            try {
+                val start = System.currentTimeMillis()
+                val font = Typeface.createFromAsset(assets, "OPPOSans-R.ttf")
+                val defaultField = android.graphics.Typeface::class.java.getDeclaredField("MONOSPACE")
+                defaultField.isAccessible = true
+                defaultField.set(null, font)
+                LogUtils.d("替换默认字体成功，耗时：${System.currentTimeMillis()-start}")
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }).start()
+    }
+
 }

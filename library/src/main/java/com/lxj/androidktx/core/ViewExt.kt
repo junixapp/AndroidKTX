@@ -10,9 +10,13 @@ import android.os.Handler
 import android.util.SparseArray
 import android.view.View
 import android.view.ViewGroup
+import android.widget.HorizontalScrollView
+import android.widget.ScrollView
 import android.widget.TextView
+import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.*
+import com.blankj.utilcode.util.LogUtils
 import com.google.android.material.transition.MaterialSharedAxis
 import com.lxj.androidktx.util.FixClickSpanTouchListener
 
@@ -214,7 +218,7 @@ fun View.animateWidthAndHeight(
  */
 val _clickHandler_ = Handler()
 val _clickCache_ = SparseArray<Long>()
-fun View.click(duration: Long = 450, action: (view: View) -> Unit) {
+fun View.click(duration: Long = 800, action: (view: View) -> Unit) {
     if(id == View.NO_ID) id = View.generateViewId()
     if (this is TextView) setOnTouchListener(FixClickSpanTouchListener())
     setOnClickListener {
@@ -229,23 +233,6 @@ fun View.click(duration: Long = 450, action: (view: View) -> Unit) {
         }
     }
 }
-
-/**
- * 设置点击监听, 并实现事件节流，1000毫秒内只允许点击一次
- */
-//val _clickCache_ = SparseArray<Runnable>()
-//fun View.click(duration: Long = 1000, action: (view: View) -> Unit) {
-//    if(id == View.NO_ID) id = View.generateViewId()
-//    if (this is TextView) setOnTouchListener(FixClickSpanTouchListener())
-//    setOnClickListener {
-//        if(_clickCache_.get(id)==null){
-//            _clickCache_[id] = Runnable { _clickCache_.remove(id) }
-//            action(it)
-//        }
-//        removeCallbacks(_clickCache_[id])
-//        postDelayed(_clickCache_[id], duration)
-//    }
-//}
 
 /**
  * 设置长按监听
@@ -338,22 +325,23 @@ fun View.toggleVisibility() {
  */
 fun View.toBitmap(): Bitmap {
     if (measuredWidth == 0 || measuredHeight == 0) {
-        throw RuntimeException("调用该方法时，请确保View已经测量完毕，如果宽高为0，则抛出异常以提醒！")
+        LogUtils.e("⚠️警告！View.toBitmap()：调用该方法时，请确保View已经测量完毕，当前View宽或高为0，直接Return!")
+        return Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_4444)
     }
     return when (this) {
         is RecyclerView -> {
             this.scrollToPosition(0)
             this.measure(
-                View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
+                View.MeasureSpec.makeMeasureSpec(measuredWidth, View.MeasureSpec.EXACTLY),
                 View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
             )
 
-            val bmp = Bitmap.createBitmap(width, measuredHeight, Bitmap.Config.ARGB_8888)
+            val bmp = Bitmap.createBitmap(measuredWidth, measuredHeight, Bitmap.Config.ARGB_8888)
             val canvas = Canvas(bmp)
 
             //draw default bg, otherwise will be black
             if (background != null) {
-                background.setBounds(0, 0, width, measuredHeight)
+                background.setBounds(0, 0, measuredWidth, measuredHeight)
                 background.draw(canvas)
             } else {
                 canvas.drawColor(Color.WHITE)
@@ -366,9 +354,24 @@ fun View.toBitmap(): Bitmap {
             )
             bmp //return
         }
+        is ScrollView, is HorizontalScrollView, is NestedScrollView -> {
+            //draw first child
+            val child = (this as ViewGroup).getChildAt(0)
+            val screenshot =
+                Bitmap.createBitmap(child.measuredWidth, child.measuredHeight, Bitmap.Config.ARGB_8888)
+            val canvas = Canvas(screenshot)
+            if (child.background != null) {
+                child.background.setBounds(0, 0, child.measuredWidth, child.measuredHeight)
+                child.background.draw(canvas)
+            } else {
+                canvas.drawColor(Color.WHITE)
+            }
+            child.draw(canvas)// 将 view 画到画布上
+            screenshot //return
+        }
         else -> {
             val screenshot =
-                Bitmap.createBitmap(measuredWidth, measuredHeight, Bitmap.Config.ARGB_4444)
+                Bitmap.createBitmap(measuredWidth, measuredHeight, Bitmap.Config.ARGB_8888)
             val canvas = Canvas(screenshot)
             if (background != null) {
                 background.setBounds(0, 0, width, measuredHeight)

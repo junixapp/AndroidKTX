@@ -1,6 +1,5 @@
 package com.lxj.androidktx.core
 
-import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.marginTop
@@ -68,20 +67,22 @@ fun ViewPager.bindFragment(
 /**
  * 让ViewPager展示卡片效果
  * @param pageMargin 用来调节卡片之间的距离
- * @param padding 用来调节ViewPager的padding
+ * @param hpadding 水平padding
+ * @param vpadding 垂直padding
  */
 fun ViewPager.asCard(
     pageMargin: Int = 30.dp,
-    padding: Int = 45.dp
+    hpadding: Int = 30.dp,
+    vpadding: Int = 20.dp
 ): ViewPager {
-    setPageTransformer(false, CardPagerTransformer(context))
+    setPageTransformer(false, CardPagerTransformer())
     setPageMargin(pageMargin)
     clipToPadding = false
-    setPadding(padding, padding, padding, padding)
+    setPadding(hpadding, vpadding, hpadding, vpadding)
     return this
 }
 
-class CardPagerTransformer(context: Context) : ViewPager.PageTransformer {
+class CardPagerTransformer() : ViewPager.PageTransformer {
     private val maxTranslateOffsetX: Int = 180.dp
     private var viewPager: ViewPager? = null
 
@@ -134,18 +135,21 @@ fun ViewPager2.bindTabLayout(tabLayout: TabLayout, titles: List<String>, autoRef
 /**
  * 让ViewPager展示卡片效果
  * @param pageMargin 用来调节卡片之间的距离
- * @param padding 用来调节ViewPager的padding
+ * @param hpadding 用来调节ViewPager的padding
+ * @param vpadding 用来调节ViewPager的padding
  */
 fun ViewPager2.asCard(
-    pageMargin: Int = 10f.dp, padding: Int = 45.dp,
+    pageMargin: Int = 10f.dp,
+    hpadding: Int = 30.dp,
+    vpadding: Int = 20.dp,
     offsetVal: Int = 150.dp,
     scaleRatio: Float = 0.3f
 ): ViewPager2 {
-    setPageTransformer(CardPager2Transformer(context, orientation = orientation,
+    setPageTransformer(CardPager2Transformer( orientation = orientation,
     offsetVal = offsetVal, scaleRatio = scaleRatio, pageMargin = pageMargin))
     clipToPadding = false
     clipChildren = false
-    setPadding(padding, padding, padding, padding)
+    setPadding(hpadding, vpadding, hpadding, vpadding)
     return this
 }
 
@@ -154,8 +158,7 @@ fun ViewPager2.asCard(
  * @param scaleRatio page缩小到原来的多少倍
  * @param pageMargin page之间的间距
  */
-class CardPager2Transformer(
-    context: Context, var orientation: Int = ViewPager2.ORIENTATION_HORIZONTAL,
+class CardPager2Transformer(var orientation: Int = ViewPager2.ORIENTATION_HORIZONTAL,
     var offsetVal: Int = 150.dp,
     var scaleRatio: Float = 0.3f, var pageMargin : Int = 10.dp
 ) : ViewPager2.PageTransformer {

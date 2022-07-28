@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nsv"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#eee"
@@ -125,12 +126,13 @@
         <com.lxj.androidktx.widget.NumberEditLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="#fff"
             android:padding="15dp"
+            app:sll_solid="#fff"
+            app:sll_corner="10dp"
             app:nel_hint="说点什么"
             app:nel_hintColor="#999999"
             app:nel_inputBgColor="#F1f1f1"
-            app:nel_inputCorner="4dp"
+            app:nel_inputCorner="10dp"
             app:nel_inputTextSize="15sp"
             app:nel_maxTextNumber="200"
             app:nel_numberTextColor="#ff0000"
