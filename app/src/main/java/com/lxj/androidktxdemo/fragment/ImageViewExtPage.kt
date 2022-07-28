@@ -2,6 +2,7 @@ package com.lxj.androidktxdemo.fragment
 
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.media.MediaMetadataRetriever
 import com.blankj.utilcode.util.ImageUtils
 import com.blankj.utilcode.util.LogUtils
@@ -36,8 +37,8 @@ class ImageViewExtPage: BaseFragment(){
     }
 
     private fun loadImage(){
-        image1.load(images[1],
-            placeholder = R.mipmap.ic_launcher, roundRadius = 20, targetWidth = 300, targetHeight = 300,
+        image1.load(images[0],
+            placeholder = R.mipmap.ic_launcher, borderColor = Color.RED, borderSize = 5.dp, roundRadius = 20.dp,
                  onImageFail = {
                 ToastUtils.showShort("图片加载失败")
                      image1.setImageResource(R.mipmap.test)
@@ -49,12 +50,12 @@ class ImageViewExtPage: BaseFragment(){
 
 
         image2.load(images[1], isCircle = true, isCrossFade = true, isCenterCrop = true,
-            targetWidth = 400, targetHeight = 400)
+            targetWidth = 400, targetHeight = 400, borderColor = Color.RED, borderSize = 5.dp)
         title2.text = "image2.load(url, isCircle = true)"
 
-        image3.load(images[2], isCenterCrop = true , placeholder = R.mipmap.ic_launcher)
-        image4.load(images[2], isCenterCrop = true, blurScale = 1f, roundRadius = 20.dp)
-        image5.load(images[2], isCenterCrop = true, blurScale = 0.3f, roundRadius = 20.dp)
+        image3.load(images[2], isCenterCrop = true , placeholder = R.mipmap.ic_launcher,  borderColor = Color.RED, borderSize = 5.dp)
+        image4.load(images[2], isCenterCrop = true, blurScale = 1f, roundRadius = 20.dp, borderColor = Color.RED, borderSize = 5.dp)
+        image5.load(images[2], isCenterCrop = true, blurScale = 0.3f, roundRadius = 20.dp, borderColor = Color.RED, borderSize = 5.dp)
         title3.text = "image3.load(url, roundRadius = 20)"
 
         image1.click {

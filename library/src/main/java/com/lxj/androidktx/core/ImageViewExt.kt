@@ -10,14 +10,13 @@ import com.bumptech.glide.load.Transformation
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.lxj.androidktx.AndroidKTX
-import com.lxj.androidktx.util.GlideBlurTransformation
+import com.lxj.androidktx.util.SuperGlideTransformation
 
 /**
  * Description: ImageView相关
@@ -29,6 +28,8 @@ import com.lxj.androidktx.util.GlideBlurTransformation
  * @param url 可以是网络，可以是File，可以是资源id等等Glide支持的类型
  * @param placeholder 默认占位图
  * @param error 失败占位图
+ * @param borderSize 边框粗细
+ * @param borderColor 边框颜色
  * @param isCircle 是否是圆形，默认false，注意：isCircle和roundRadius两个只能有一个生效
  * @param isCenterCrop 是否设置scaleType为CenterCrop，你也可以在布局文件中设置
  * @param roundRadius 圆角角度，默认为0，不带圆角，注意：isCircle和roundRadius两个只能有一个生效
@@ -39,6 +40,8 @@ fun ImageView.load(
     url: Any?, placeholder: Int = 0, error: Int = 0,
     isCircle: Boolean = false,
     isCenterCrop: Boolean = false,
+    borderSize: Int = 0,
+    borderColor: Int = 0,
     blurScale: Float = 0f,
     blurRadius: Float = 20f,
     roundRadius: Int = 0,
@@ -52,23 +55,29 @@ fun ImageView.load(
     if (context == null) return
     if (context is Activity && ((context as Activity).isDestroyed || (context as Activity).isFinishing)) return
     val transforms = arrayListOf<Transformation<Bitmap>>()
-    if (isCenterCrop && scaleType != ImageView.ScaleType.CENTER_CROP)
+    var round = roundRadius
+    if (isCenterCrop && scaleType != ImageView.ScaleType.CENTER_CROP){
         scaleType = ImageView.ScaleType.CENTER_CROP
-
-    if (isCircle) {
-        transforms.add(CircleCrop())
-    } else if (roundRadius > 0) {
-        if (isCenterCrop || scaleType == ImageView.ScaleType.CENTER_CROP) {
-            transforms.add(CenterCrop())
-            transforms.add(RoundedCorners(roundRadius))
-        } else {
-            transforms.add(RoundedCorners(roundRadius))
-        }
     }
-    if (blurScale > 0) transforms.add(
-        GlideBlurTransformation(
-            scale = blurScale,
-            blurRadius = blurRadius,roundRadius = roundRadius
+    if(isCircle && round==0){
+        round = (Math.max(measuredWidth, layoutParams.width))/2
+    }
+//    if(round==0) round=1
+//    if (isCircle) {
+//        transforms.add(CircleCrop())
+//    } else
+//    if (round > 0) {
+//        if (isCenterCrop || scaleType == ImageView.ScaleType.CENTER_CROP) {
+//            transforms.add(CenterCrop())
+//            transforms.add(RoundedCorners(round))
+//        } else {
+//            transforms.add(RoundedCorners(round))
+//        }
+//    }
+    transforms.add(
+        SuperGlideTransformation( isCenterCrop = isCenterCrop,
+            scale = blurScale, borderSize = borderSize, borderColor = borderColor,
+            blurRadius = blurRadius, roundRadius = round
         )
     )
     val options = RequestOptions().placeholder(placeholder).error(error).apply {
