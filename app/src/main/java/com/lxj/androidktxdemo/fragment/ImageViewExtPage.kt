@@ -28,7 +28,7 @@ class ImageViewExtPage: BaseFragment(){
     override fun getLayoutId() = R.layout.fragment_imageview_ext
 
     override fun initView() {
-        Glide.getPhotoCacheDir(requireContext())?.deleteRecursively()
+//        Glide.getPhotoCacheDir(requireContext())?.deleteRecursively()
         title1.click {
             ImageUtils.save2Album(nsvImage.toBitmap(), Bitmap.CompressFormat.PNG)
         }
@@ -36,17 +36,14 @@ class ImageViewExtPage: BaseFragment(){
     }
 
     private fun loadImage(){
-        images[0].preloadImage(onSuccess = {
-            image1.setImageDrawable(it)
-        })
-//        image1.load(images[0], roundArray = floatArrayOf(50f, 10f, 80f, 10f),
-//            borderColor = Color.GREEN, borderSize = 4.dp,
-//                 onImageFail = {
-//                ToastUtils.showShort("图片加载失败")
-//                     image1.setImageResource(R.mipmap.test)
-//            }, onImageLoad = {
-//                ToastUtils.showShort("图片加载成功：dw ${it?.intrinsicWidth}")
-//            })
+        image1.load(images[0], roundArray = floatArrayOf(50f, 10f, 80f, 10f),
+            borderColor = Color.GREEN, borderSize = 4.dp,
+                 onImageFail = {
+                ToastUtils.showShort("图片加载失败")
+                     image1.setImageResource(R.mipmap.test)
+            }, onImageLoad = {
+                ToastUtils.showShort("图片加载成功：dw ${it?.intrinsicWidth}")
+            })
 
         title1.text = "image1.load(url)"
 

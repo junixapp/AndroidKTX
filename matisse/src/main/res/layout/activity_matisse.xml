@@ -39,11 +39,13 @@
             android:background="@drawable/_matisse_bg_album"
             android:gravity="center"
             android:paddingTop="5dp"
+            android:singleLine="true"
+            android:ellipsize="end"
             android:paddingBottom="5dp"
             android:paddingStart="14dp"
             android:paddingEnd="14dp"
             android:textColor="?attr/album.element.color"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
     </androidx.appcompat.widget.Toolbar>
 
     <FrameLayout
