@@ -125,7 +125,7 @@ fun ImageView.load(
     glide.into(this)
 }
 
-fun String.preloadImage(onSuccess: (() -> Unit)? = null, onFail: (() -> Unit)? = null) {
+fun String.preloadImage(onSuccess: ((Drawable?) -> Unit)? = null, onFail: (() -> Unit)? = null) {
     Glide.with(AndroidKTX.context)
         .load(this)
         .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -147,7 +147,7 @@ fun String.preloadImage(onSuccess: (() -> Unit)? = null, onFail: (() -> Unit)? =
                 dataSource: DataSource?,
                 isFirstResource: Boolean
             ): Boolean {
-                onSuccess?.invoke()
+                onSuccess?.invoke(resource)
                 return false
             }
         })

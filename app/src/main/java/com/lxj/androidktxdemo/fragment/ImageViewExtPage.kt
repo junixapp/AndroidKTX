@@ -10,10 +10,7 @@ import com.blankj.utilcode.util.ImageUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
-import com.lxj.androidktx.core.click
-import com.lxj.androidktx.core.dp
-import com.lxj.androidktx.core.load
-import com.lxj.androidktx.core.toBitmap
+import com.lxj.androidktx.core.*
 import com.lxj.androidktx.picker.ImagePicker
 import com.lxj.androidktxdemo.R
 import kotlinx.android.synthetic.main.fragment_imageview_ext.*
@@ -39,14 +36,17 @@ class ImageViewExtPage: BaseFragment(){
     }
 
     private fun loadImage(){
-        image1.load(images[0], roundArray = floatArrayOf(50f, 10f, 80f, 10f),
-            borderColor = Color.GREEN, borderSize = 4.dp,
-                 onImageFail = {
-                ToastUtils.showShort("图片加载失败")
-                     image1.setImageResource(R.mipmap.test)
-            }, onImageLoad = {
-                ToastUtils.showShort("图片加载成功：dw ${it?.intrinsicWidth}")
-            })
+        images[0].preloadImage(onSuccess = {
+            image1.setImageDrawable(it)
+        })
+//        image1.load(images[0], roundArray = floatArrayOf(50f, 10f, 80f, 10f),
+//            borderColor = Color.GREEN, borderSize = 4.dp,
+//                 onImageFail = {
+//                ToastUtils.showShort("图片加载失败")
+//                     image1.setImageResource(R.mipmap.test)
+//            }, onImageLoad = {
+//                ToastUtils.showShort("图片加载成功：dw ${it?.intrinsicWidth}")
+//            })
 
         title1.text = "image1.load(url)"
 
