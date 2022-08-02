@@ -1,6 +1,7 @@
 package com.lxj.androidktx.core
 
 import android.app.Application
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
@@ -108,3 +109,6 @@ fun <T: ViewModel> Fragment.getSavedStateVM(clazz: Class<T>) = ViewModelProvider
 ).get(clazz)
 
 
+fun <T : Fragment> T.withArguments(vararg pairs: Pair<String, *>) = apply {
+    arguments = bundleOf(*pairs)
+}

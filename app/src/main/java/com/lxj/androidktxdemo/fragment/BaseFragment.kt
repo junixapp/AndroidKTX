@@ -11,15 +11,11 @@ import com.lxj.androidktx.core.postDelay
  * Create by lxj, at 2018/12/4
  */
 abstract class BaseFragment: StateFragment(){
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-    }
 
     override fun initView() {
     }
     override fun initData() {
-        postDelay(300){stateLayout?.showContent()}
+        postDelay(500){stateLayout?.showContent()}
     }
 
 

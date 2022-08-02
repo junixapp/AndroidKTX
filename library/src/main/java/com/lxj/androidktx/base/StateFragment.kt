@@ -19,9 +19,8 @@ abstract class StateFragment : Fragment(), FragmentUtils.OnBackClickListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         if (stateLayout == null) {
             val cacheView = inflater.inflate(getLayoutId(), container, false)
-            stateLayout = StateLayout(requireContext()).wrap(cacheView)
+            stateLayout = StateLayout(requireContext()).config(defaultShowLoading = true).wrap(cacheView)
             onConfigStateLayout()
-            stateLayout!!.showLoading()
         }
         return stateLayout!!
     }
