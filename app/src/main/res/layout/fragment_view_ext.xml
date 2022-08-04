@@ -11,69 +11,84 @@
     android:focusableInTouchMode="true">
 
     <LinearLayout
-        android:clipChildren="false"
-        android:clipToPadding="false"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false"
         android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvHtml"
+            android:textSize="20sp"
+            android:padding="15dp"
+            android:textColor="#111111"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <com.lxj.androidktxdemo.TileImageView
-            android:src="@mipmap/head"
-            android:adjustViewBounds="true"
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
-            android:layout_height="600dp"/>
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:src="@mipmap/head" />
+
         <com.youth.banner.Banner
             android:id="@+id/banner"
             android:layout_width="match_parent"
-            android:layout_height="80pt"/>
+            android:layout_height="80pt" />
 
         <com.lxj.androidktx.widget.FormField
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:padding="15dp"
             app:ff_fieldText="姓名"
             app:ff_hint="请输入姓名"
             app:sll_bottomLineColor="#f3f3f3"
-            app:sll_lineSize="1pt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            app:sll_lineSize="1pt" />
+
         <com.lxj.androidktx.widget.FormField
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:padding="15dp"
             app:ff_fieldText="手机号"
             app:ff_hint="请输入手机号"
             app:ff_required="true"
             app:sll_bottomLineColor="#f3f3f3"
-            app:sll_lineSize="1pt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            app:sll_lineSize="1pt" />
+
         <com.lxj.androidktx.widget.MarqueeLayout
             android:id="@+id/marqueeLayout"
-            android:background="#fff"
-            android:layout_marginLeft="20dp"
             android:layout_width="200dp"
-            android:layout_height="100dp">
+            android:layout_height="100dp"
+            android:layout_marginLeft="20dp"
+            android:background="#fff">
+
             <LinearLayout
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
                 <TextView
-                    android:textSize="20sp"
-                    android:textColor="#222"
-                    android:textStyle="bold"
-                    android:text="大大撒大所大所大萨达所大撒"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="大大撒大所大所大萨达所大撒"
+                    android:textColor="#222"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
                 <TextView
-                    android:background="#f00"
                     android:layout_width="30dp"
-                    android:layout_height="80dp"/>
-<!--                <TextView-->
-<!--                    android:text="大萨达撒大所大所大所多"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"/>-->
-<!--                <ImageView-->
-<!--                    android:src="@mipmap/ic_launcher"-->
-<!--                    android:layout_width="80dp"-->
-<!--                    android:layout_height="80dp"/>-->
+                    android:layout_height="80dp"
+                    android:background="#f00" />
+                <!--                <TextView-->
+                <!--                    android:text="大萨达撒大所大所大所多"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"/>-->
+                <!--                <ImageView-->
+                <!--                    android:src="@mipmap/ic_launcher"-->
+                <!--                    android:layout_width="80dp"-->
+                <!--                    android:layout_height="80dp"/>-->
             </LinearLayout>
         </com.lxj.androidktx.widget.MarqueeLayout>
 
@@ -81,24 +96,24 @@
             android:id="@+id/progressBar"
             android:layout_width="60pt"
             android:layout_height="60pt"
-            app:donut_circle_starting_degree="-90"
             app:donut_background_color="#80000000"
+            app:donut_circle_starting_degree="-90"
+            app:donut_clockWise="true"
             app:donut_finished_color="#88ffffff"
             app:donut_finished_stroke_width="2pt"
             app:donut_show_text="true"
-            app:donut_clockWise="true"
             app:donut_unfinished_color="#ff0000"
-            app:donut_unfinished_stroke_width="2pt"/>
+            app:donut_unfinished_stroke_width="2pt" />
 
 
         <com.lxj.androidktx.widget.ShapeRelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:gravity="center_vertical"
             android:orientation="vertical"
-            android:layout_marginRight="30dp"
             android:padding="20dp"
-            android:layout_marginLeft="30dp"
             app:srl_corner="10dp"
             app:srl_solid="#fafa10">
 
@@ -106,16 +121,17 @@
                 android:id="@+id/mtv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:mtv_speed="4"
                 app:mtv_maxDuration="1000"
+                app:mtv_speed="4"
                 app:mtv_textBold="true"
                 app:mtv_textColor="#ff0000"
                 app:mtv_textSize="20sp" />
+
             <com.lxj.androidktx.widget.MarqueeTextView
                 android:id="@+id/mtv2"
-                android:layout_below="@id/mtv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/mtv"
                 app:mtv_maxWidth="100dp"
                 app:mtv_textBold="true"
                 app:mtv_textColor="#ff0000"
@@ -127,8 +143,6 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:padding="15dp"
-            app:sll_solid="#fff"
-            app:sll_corner="10dp"
             app:nel_hint="说点什么"
             app:nel_hintColor="#999999"
             app:nel_inputBgColor="#F1f1f1"
@@ -137,25 +151,27 @@
             app:nel_maxTextNumber="200"
             app:nel_numberTextColor="#ff0000"
             app:sll_bottomLineColor="#EEEEEE"
-            app:sll_lineSize="1dp" />
+            app:sll_corner="10dp"
+            app:sll_lineSize="1dp"
+            app:sll_solid="#fff" />
 
 
         <com.lxj.androidktx.widget.TabBar
             android:id="@+id/tabbarRadio"
-            android:paddingLeft="20dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:paddingLeft="20dp"
             app:sll_solid="#fff"
-            app:tb_tabSpace="20dp"
             app:tb_iconPosition="left"
             app:tb_iconSize="15dp"
             app:tb_iconSpace="5dp"
             app:tb_isSelectBold="true"
             app:tb_normalColor="#666"
             app:tb_selectTextSize="16dp"
-            app:tb_textSize="16dp"
             app:tb_selectedColor="@color/colorPrimary"
+            app:tb_tabSpace="20dp"
             app:tb_tabWidthEqual="false"
+            app:tb_textSize="16dp"
             app:tb_typefacePath="FredokaOne-Regular.ttf" />
 
         <com.lxj.androidktx.widget.TabBar
@@ -240,15 +256,15 @@
 
         <com.lxj.androidktx.widget.ShapeTextView
             android:id="@+id/text4"
-            app:stv_corner="10dp"
-            app:stv_solid="@color/colorPrimary"
-            app:stv_enableRipple="true"
             android:layout_width="250dp"
             android:layout_height="150dp"
             android:gravity="center"
             android:text="当前View的截图会显示在下方的ImageView中\n窗前明月光，疑是地上霜\n举头望明月，低头思故乡"
             android:textColor="#000"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            app:stv_corner="10dp"
+            app:stv_enableRipple="true"
+            app:stv_solid="@color/colorPrimary" />
 
         <TextView
             android:layout_width="wrap_content"

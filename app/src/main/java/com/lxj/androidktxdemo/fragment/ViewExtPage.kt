@@ -4,18 +4,26 @@ package com.lxj.androidktxdemo.fragment
 import android.animation.ValueAnimator
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.os.Environment
-import androidx.core.view.drawToBitmap
+import android.text.Editable
+import android.text.Html
+import android.text.Spanned
+import android.text.TextUtils
+import android.text.style.AbsoluteSizeSpan
+import android.text.style.ForegroundColorSpan
+import android.util.TypedValue
 import com.blankj.utilcode.util.ImageUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.lxj.androidktx.core.*
-import com.lxj.audioplayer.ExoPlayerManager
 import com.lxj.androidktx.util.CountDownWorker
+import com.lxj.androidktx.util.XHtml
 import com.lxj.androidktx.widget.TabBar
 import com.lxj.androidktxdemo.R
 import kotlinx.android.synthetic.main.fragment_view_ext.*
+import org.xml.sax.XMLReader
+import java.lang.reflect.Field
+import java.util.*
 import kotlin.random.Random
 
 class ViewExtPage : BaseFragment() {
@@ -28,7 +36,9 @@ class ViewExtPage : BaseFragment() {
     }
 
     override fun initView() {
-        LogUtils.e("ViewExtPage  initView")
+        XHtml.preferSizeUnit(TypedValue.COMPLEX_UNIT_SP)
+        val text =  "分享成功了<font color='#FF0000' fontSize='54'>32个</font>内容\n有<font color='#FFEE90' font-size='44'>1个</font>好友下单\n获得奖励<font color='#FFEE90' size='14'>11积分</font>"
+        tvHtml.text = XHtml.fromHtml(text)
         val value = dp2px(150f)
         text1.width(value)
         text1.text = "自定义字体：text1.width($value)"
@@ -121,7 +131,6 @@ class ViewExtPage : BaseFragment() {
         ) { position ->
             ToastUtils.showShort("选择了：" + position)
             (0..3).forEach {
-                LogUtils.e("posi: $it   -> $position")
                 tabbar.getChildAt(it).background = if (position == it) createDrawable(
                     strokeWidth = 2.pt,
                     strokeColor = Color.parseColor("#FF4B76DB")
@@ -158,4 +167,71 @@ class ViewExtPage : BaseFragment() {
         animator.start()
     }
 
+    class HtmlSizeTag(private val tagName: String) : Html.TagHandler {
+        // 存放标签所有属性键值对
+        val attributes: HashMap<String, String> = HashMap()
+        private var startIndex = 0
+        private var endIndex = 0
+        override fun handleTag(
+            opening: Boolean,
+            tag: String,
+            output: Editable,
+            xmlReader: XMLReader
+        ) {
+            if (tag.lowercase(Locale.getDefault()) == tagName) {
+                // 解析所有属性值
+                parseAttributes(xmlReader)
+                if (opening) {
+                    startIndex = output.length
+                } else {
+                    endEndHandleTag(output, xmlReader)
+                }
+            }
+        }
+
+        fun endEndHandleTag(output: Editable, xmlReader: XMLReader?) {
+            endIndex = output.length
+            LogUtils.e("attr: ${attributes.toJson()}")
+            // 获取对应的属性值
+            val color = attributes["color"]
+            var size = attributes["fontSize"]
+//            size = size!!.split("px".toRegex()).toTypedArray()[0]
+
+            // 设置颜色
+            if (!TextUtils.isEmpty(color)) {
+                output.setSpan(
+                    ForegroundColorSpan(Color.parseColor(color)), startIndex, endIndex,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+            }
+            // 设置字体大小
+            if (!TextUtils.isEmpty(size)) {
+                output.setSpan(
+                    AbsoluteSizeSpan(size!!.toInt()), startIndex, endIndex,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+            }
+        }
+
+        private fun parseAttributes(xmlReader: XMLReader) {
+            try {
+                val elementField: Field = xmlReader.javaClass.getDeclaredField("theNewElement")
+                elementField.setAccessible(true)
+                val element: Any = elementField.get(xmlReader)
+                val attsField: Field = element.javaClass.getDeclaredField("theAtts")
+                attsField.setAccessible(true)
+                val atts: Any = attsField.get(element)
+                val dataField: Field = atts.javaClass.getDeclaredField("data")
+                dataField.setAccessible(true)
+                val data = dataField.get(atts) as Array<String>
+                val lengthField: Field = atts.javaClass.getDeclaredField("length")
+                lengthField.setAccessible(true)
+                val len = lengthField.get(atts) as Int
+                for (i in 0 until len) {
+                    attributes[data[i * 5 + 1]] = data[i * 5 + 4]
+                }
+            } catch (e: Exception) {
+            }
+        }
+    }
 }

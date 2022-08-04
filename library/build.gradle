@@ -88,5 +88,6 @@ dependencies {
     api 'com.github.yalantis:ucrop:2.2.8'
 
     api 'com.youth.banner:banner:2.1.0'
+    implementation 'org.ccil.cowan.tagsoup:tagsoup:1.2.1'
     api project(':matisse')
 }

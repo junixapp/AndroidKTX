@@ -57,7 +57,7 @@ class MainActivity : BaseActivity() {
                 "age": "2342.343"
             }
         """.trimIndent().toBean<UserTest>()
-        LogUtils.e("ut: ${ut.toJson()}")
+//        LogUtils.e("ut: ${ut.toJson()}")
 
         runOnUiThread {  }
     }
