@@ -123,11 +123,9 @@ object ImagePicker {
      */
     fun fetchResult(data: Intent?): ArrayList<String>{
         val list = fetchUriResult(data)
-        list.forEach {
-            UriHelper.grantPermissions(data, it, true)
-        }
         val paths = arrayListOf<String>()
         list.forEach {
+            UriHelper.grantPermissions(data, it, true)
             paths.add(UriUtils.uri2File(it).absolutePath)
         }
         return paths
