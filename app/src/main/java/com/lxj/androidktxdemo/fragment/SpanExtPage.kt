@@ -1,19 +1,19 @@
 package com.lxj.androidktxdemo.fragment
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
+import android.provider.MediaStore
 import android.widget.SeekBar
 import com.blankj.utilcode.util.*
 import com.lxj.androidktx.AndroidKTX
 import com.lxj.androidktx.base.WebActivity
 import com.lxj.androidktx.core.*
-import com.lxj.androidktx.okhttp.http
-import com.lxj.share.Share
-import com.lxj.share.SharePlatform
 import com.lxj.androidktx.widget.SuperDrawable
 import com.lxj.androidktxdemo.R
 import com.lxj.androidktxdemo.notification.NotificationDemo
+import com.lxj.share.Share
 import kotlinx.android.synthetic.main.fragment_span_ext.*
 
 
@@ -44,6 +44,13 @@ class SpanExtPage : BaseFragment() {
             statusBarColor = Color.RED,  isLightStatusBar = false)
 //            VideoPlayerActivity.start(url = "android.resource://" + requireContext()!!.packageName + "/" + R.raw.heng, title = "视频敖德萨大所大所大所大所大所多")
 //            VideoPlayerActivity.start(url = video2, title = "视频敖德萨大所大所大所大所大所多")
+
+            val pickIntent = Intent(
+                Intent.ACTION_PICK,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+            )
+            pickIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
+           startActivityForResult(pickIntent, 11)
         }
 
         // toColorSpan

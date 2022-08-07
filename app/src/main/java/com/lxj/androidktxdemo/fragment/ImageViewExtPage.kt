@@ -81,7 +81,7 @@ class ImageViewExtPage: BaseFragment(){
 //            ImagePicker.startCamera(this, 1, isCrop = true) //打开相机并裁剪
 //            ImagePicker.startCamera(this, 1) //打开相机不裁剪
 //            ImagePicker.startRecord(this, 1, ) //打开相机并裁剪
-            ImagePicker.startPicker(this, 1, isCrop = false, spanCount = 4) //打开相机并裁剪
+            ImagePicker.startPicker(this, 1, isCrop = true, spanCount = 4, isCompress = false) //打开相机并裁剪
 //            ImagePicker.startPicker(this, 1, types = MimeType.ofVideo()) //打开相机并裁剪
         }
 
@@ -92,7 +92,7 @@ class ImageViewExtPage: BaseFragment(){
         if(data==null)return
 //        ToastUtils.showShort(QrCodeUtil.fetchResult(1, data))
         if(requestCode==1&& resultCode==-1){
-            val url = ImagePicker.fetchResult(data)
+            val url = ImagePicker.fetchUriResult(data)
             LogUtils.e(url)
             image1.load(url[0], isCrossFade = true)
 //            QrCodeUtil.parseQrCode(url[0], onFinish= { result->

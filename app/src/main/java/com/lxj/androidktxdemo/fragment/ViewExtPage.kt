@@ -38,7 +38,8 @@ class ViewExtPage : BaseFragment() {
     override fun initView() {
         XHtml.preferSizeUnit(TypedValue.COMPLEX_UNIT_SP)
         val text =  "分享成功了<font color='#FF0000' fontSize='54'>32个</font>内容\n有<font color='#FFEE90' font-size='44'>1个</font>好友下单\n获得奖励<font color='#FFEE90' size='14'>11积分</font>"
-        tvHtml.text = XHtml.fromHtml(text)
+//        tvHtml.text = XHtml.fromHtml(text)
+        tvHtml.text = "大萨达撒大所\n\n\n大萨达撒多\n\nadasdasdasdasdsa"
         val value = dp2px(150f)
         text1.width(value)
         text1.text = "自定义字体：text1.width($value)"

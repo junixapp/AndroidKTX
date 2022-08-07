@@ -7,7 +7,6 @@ import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import com.blankj.utilcode.util.*
 import com.lxj.androidktx.AndroidKTX.context
 import com.lxj.androidktx.R
+import com.lxj.androidktx.core.toast
 import com.lxj.androidktx.luban.Luban
 import com.lxj.androidktx.util.DirManager
 import com.lxj.xpopup.XPopup
@@ -86,7 +86,7 @@ class PickerEmptyActivity : AppCompatActivity() {
 //        if (cameraIntent.resolveActivity(packageManager) != null) {
             tempPhotoFile = File(DirManager.tempDir,  "${System.currentTimeMillis()}.jpg")
             FileUtils.createFileByDeleteOldFile(tempPhotoFile)
-            val uri: Uri = FileProvider.getUriForFile(this, "$packageName.fileprovider", tempPhotoFile!!)
+            val uri: Uri = FileProvider.getUriForFile(this, "${packageName}.fileprovider", tempPhotoFile!!)
             val resInfoList = packageManager.queryIntentActivities(cameraIntent, PackageManager.MATCH_DEFAULT_ONLY)
             for (resolveInfo in resInfoList) {
                 val packageName = resolveInfo.activityInfo.packageName
@@ -117,18 +117,18 @@ class PickerEmptyActivity : AppCompatActivity() {
                 .start(this, _cropCode)
     }
 
-    fun compressImage(path: String): Deferred<File> {
-        val deferred = CompletableDeferred<File>()
+    fun compressImage(uri: Uri): Deferred<Uri> {
+        val deferred = CompletableDeferred<Uri>()
         deferred.complete(
-                Luban.with(context)
-                        .load(path)
-                        .ignoreBy(100)
-                        .get()[0]
+                UriUtils.file2Uri(Luban.with(context)
+                    .load(uri)
+                    .ignoreBy(100)
+                    .get()[0])
         )
         return deferred
     }
 
-    private fun tryCompressImgs(list: ArrayList<String>){
+    private fun tryCompressImgs(list: ArrayList<Uri>){
         //如果未开启压缩，或者是视频，都直接返回原文件
         if(!pickerData!!.isCompress || pickerData!!.types.containsAll(MimeType.ofVideo())){
             finishWithResult(list)
@@ -138,14 +138,14 @@ class PickerEmptyActivity : AppCompatActivity() {
             loadingPopupView.show()
             lifecycleScope.launch {
                 try {
-                    val compressPaths = arrayListOf<String>()
+                    val compressUris = arrayListOf<Uri>()
                     list.map {
                         val f = compressImage(it).await()
-                        compressPaths.add(f.absolutePath)
+                        compressUris.add(f)
                     }
                     runOnUiThread {
                         loadingPopupView.delayDismissWith(300, Runnable {
-                            finishWithResult(compressPaths)
+                            finishWithResult(compressUris)
                         })
                     }
                 }catch (e: Exception){
@@ -160,20 +160,23 @@ class PickerEmptyActivity : AppCompatActivity() {
         }
     }
 
-    fun finishWithResult(list: ArrayList<String>){
+    fun finishWithResult(list: ArrayList<Uri>){
         val intent = Intent()
-        intent.putStringArrayListExtra("result", list)
+        intent.putParcelableArrayListExtra("result", list)
         setResult(Activity.RESULT_OK, intent)
         finish()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode==Activity.RESULT_OK){
-            val list = arrayListOf<String>()
+        if(resultCode==Activity.RESULT_OK && data!=null){
+            var list = arrayListOf<Uri>()
             if (requestCode == _pickerCode) {
                 //打开照片和视频选择器
-                val uriList = if(data!=null) Matisse.obtainResult(data) else listOf()
+                if(data!=null) {
+                    list.clear()
+                    list.addAll(Matisse.obtainResult(data))
+                }
 //                if(Build.VERSION.SDK_INT >= 29){
 //                    uriList.forEach {
 //                        //相册在android11之后只能以uri方式访问，为了统一返回路径，需要拷贝的有权限的目录
@@ -192,14 +195,13 @@ class PickerEmptyActivity : AppCompatActivity() {
 //                    }
 //                }else{
 //                }
-                uriList.forEach { if(it!=null)list.add(UriUtils.uri2File(it).absolutePath) }
                 if(list.isEmpty()){
                     finish()
                     return
                 }
                 if(pickerData!!.isCrop){
                     //裁剪
-                    startCrop(UriUtils.file2Uri(File(list[0])))
+                    startCrop(uri = list[0])
                 }else{
                     //看看是否需要压缩
                     tryCompressImgs(list)
@@ -212,11 +214,17 @@ class PickerEmptyActivity : AppCompatActivity() {
                     startCrop(UriUtils.file2Uri(tempPhotoFile!!))
                 }else{
                     //看看是否需要压缩
-                    list.add(tempPhotoFile?.absolutePath ?: "")
                     tryCompressImgs(list)
                 }
             }else if(requestCode == _cropCode){
-                list.add(cropImageFile?.absolutePath ?: "")
+                val cropUri = UCrop.getOutput(data)
+                if(cropUri==null){
+                    toast("crop failed")
+                    finish()
+                    return
+                }
+                list.clear()
+                list.add(cropUri)
                 tryCompressImgs(list)
             }else{
                 finish()
@@ -226,8 +234,8 @@ class PickerEmptyActivity : AppCompatActivity() {
         }
     }
 
-    //上限是20M
-    class VideoSizeFilter(var maxSize: Long = 20*1024*1024): Filter(){
+    //上限是100M
+    class VideoSizeFilter(var maxSize: Long = 1020*1024*1024): Filter(){
         override fun filter(context: Context, item: Item): IncapableCause? {
             val size = UriUtils.uri2File(item.uri)?.length() ?: 0
             if(size>maxSize){

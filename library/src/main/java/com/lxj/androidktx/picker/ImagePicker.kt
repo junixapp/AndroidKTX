@@ -2,11 +2,14 @@ package com.lxj.androidktx.picker
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import androidx.fragment.app.Fragment
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.blankj.utilcode.util.UriUtils
 import com.lxj.androidktx.core.startForResult
+import com.lxj.androidktx.util.UriHelper
 import com.zhihu.matisse.MimeType
 import java.io.Serializable
 
@@ -116,10 +119,25 @@ object ImagePicker {
 //    }
 
     /**
-     * 获取结果
+     * 获取结果，返回的是uri列表
      */
     fun fetchResult(data: Intent?): ArrayList<String>{
-        return data?.getStringArrayListExtra("result") ?: arrayListOf()
+        val list = fetchUriResult(data)
+        list.forEach {
+            UriHelper.grantPermissions(data, it, true)
+        }
+        val paths = arrayListOf<String>()
+        list.forEach {
+            paths.add(UriUtils.uri2File(it).absolutePath)
+        }
+        return paths
+    }
+    fun fetchUriResult(data: Intent?): ArrayList<Uri>{
+        val list = data?.getParcelableArrayListExtra<Uri>("result") ?: arrayListOf()
+        list.forEach {
+            UriHelper.grantPermissions(data, it, true)
+        }
+        return list
     }
     /**
      * 获取视频录制结果
