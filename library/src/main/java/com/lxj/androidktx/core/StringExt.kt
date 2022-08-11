@@ -1,5 +1,9 @@
 package com.lxj.androidktx.core
 
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
+
 
 /**
  * 解析url的查询参数
@@ -19,4 +23,25 @@ fun String.parseQueryParams(): Map<String, String>{
         }
     }
     return queryParam
+}
+
+
+fun String?.isJsonObject(): Boolean{
+    if(this==null) return false
+    return try {
+        JSONObject(this)
+        true
+    }catch (e: JSONException){
+        false
+    }
+}
+
+fun String?.isJsonArray(): Boolean{
+    if(this==null) return false
+    return try {
+        JSONArray(this)
+        true
+    }catch (e: JSONException){
+        false
+    }
 }
