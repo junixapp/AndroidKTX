@@ -1,6 +1,5 @@
 package com.lxj.androidktx.okhttp
 
-import com.blankj.utilcode.util.JsonUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.lxj.androidktx.core.sp
@@ -8,7 +7,6 @@ import okhttp3.Interceptor
 import okhttp3.Response
 import org.json.JSONException
 import org.json.JSONObject
-import java.lang.Exception
 import java.nio.charset.Charset
 
 /**
