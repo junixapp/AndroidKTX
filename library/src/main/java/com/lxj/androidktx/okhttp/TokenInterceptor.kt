@@ -1,5 +1,6 @@
 package com.lxj.androidktx.okhttp
 
+import com.blankj.utilcode.util.JsonUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.lxj.androidktx.core.sp
@@ -29,12 +30,15 @@ class TokenInterceptor(var tokenField: String = "token",
             request = request.newBuilder().addHeader(tokenField, tokenValue).build()
         }
         val response = chain.proceed(request)
-        if (response.header("content-type")?.contains("application/json") == true) {
+        val contentType = response.header("content-type")
+        if (contentType?.contains("application/json") == true ||
+            contentType?.contains("text/html") == true) {
             //json type
             val source = response.body()?.source()
             source?.request(java.lang.Long.MAX_VALUE) // Buffer the entire body.
             val data = source?.buffer()?.clone()?.readString(Charset.forName("UTF-8"))
-            if (data != null && onGetJsonData!=null) onGetJsonData!!(request.url().toString(), data)
+            val isJsonData = data != null && ( JsonUtils.isJSONObject(data) || JsonUtils.isJSONArray(data) )
+            if (isJsonData && onGetJsonData!=null) onGetJsonData!!(request.url().toString(), data!!)
         }
         return response
     }
