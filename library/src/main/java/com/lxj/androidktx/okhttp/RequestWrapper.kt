@@ -111,7 +111,7 @@ data class RequestWrapper(
     private fun buildRequestBody(): RequestBody {
         if (isMultiPartParam || isAutoMultiPart()) {
             val pairs = arrayListOf<Pair<String, Any>>()
-            params.forEach { pairs.add(Pair(it.key, if (it.value is File || it.value is Array<*>) it.value else "${it.value}")) }
+            params.forEach { pairs.add(Pair(it.key, if (it.value is File || it.value is Array<*> || it.value is Collection<*>) it.value else "${it.value}")) }
             // 自动识别 multipart/form-data
             val builder = MultipartBody.Builder()
             pairs.forEach {
@@ -128,9 +128,9 @@ data class RequestWrapper(
                             builder.addFormDataPart(it.first, file.name, RequestBody.create(MediaType.parse(file.mediaType()), file))
                         }
                     }
-                }else if(it.second is List<*>){ //multi file
-                    val coll = it.second as List<*>
-                    if(coll.isNotEmpty() && coll[0] is File){
+                }else if(it.second is Collection<*>){ //multi file
+                    val coll = it.second as Collection<*>
+                    if(coll.isNotEmpty() && coll.iterator().next() is File){
                         coll.forEach {el->
                             val file = el as File
                             builder.addFormDataPart(it.first, file.name, RequestBody.create(MediaType.parse(file.mediaType()), file))
@@ -157,8 +157,8 @@ data class RequestWrapper(
 
     private fun isAutoMultiPart() = params.any { it.value is File ||
             (it.value is Array<*> && (it.value as Array<*>).isArrayOf<File>()) ||
-            (it.value is List<*> && (it.value as List<*>).isNotEmpty()
-                    && (it.value as List<*>)[0] is File)}
+            (it.value is Collection<*> && (it.value as Collection<*>).isNotEmpty()
+                    && (it.value as Collection<*>).iterator().next() is File)}
 
     private fun urlParams(): String {
         val queryParams = if (params().isEmpty()) "" else "?" + params.toList().joinToString(separator = "&", transform = {
