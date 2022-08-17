@@ -25,7 +25,8 @@ import com.google.android.material.tabs.TabLayoutMediator
  */
 fun ViewPager.bind(
     count: Int, bindView: (container: ViewGroup, position: Int) -> View,
-    pageTitles: List<String>? = null
+    pageTitles: List<String>? = null,
+    pageWidth: Float = 1f
 ): ViewPager {
     offscreenPageLimit = count
     adapter = object : PagerAdapter() {
@@ -43,6 +44,10 @@ fun ViewPager.bind(
 
         override fun getPageTitle(position: Int) =
             if (pageTitles == null) null else pageTitles[position]
+
+        override fun getPageWidth(position: Int): Float {
+            return pageWidth
+        }
     }
     return this
 }
@@ -53,13 +58,17 @@ fun ViewPager.bind(
 fun ViewPager.bindFragment(
     fm: FragmentManager,
     fragments: List<Fragment>,
-    pageTitles: List<String>? = null
+    pageTitles: List<String>? = null,
+    pageWidth: Float = 1f
 ): ViewPager {
     offscreenPageLimit = fragments.size
     adapter = object : FragmentPagerAdapter(fm) {
         override fun getItem(p: Int) = fragments[p]
         override fun getCount() = fragments.size
         override fun getPageTitle(p: Int) = if (pageTitles == null) null else pageTitles[p]
+        override fun getPageWidth(position: Int): Float {
+            return pageWidth
+        }
     }
     return this
 }
