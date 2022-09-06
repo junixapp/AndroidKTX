@@ -1,5 +1,6 @@
 package com.lxj.androidktxdemo.fragment
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -91,7 +92,7 @@ class ImageViewExtPage: BaseFragment(){
         super.onActivityResult(requestCode, resultCode, data)
         if(data==null)return
 //        ToastUtils.showShort(QrCodeUtil.fetchResult(1, data))
-        if(requestCode==1&& resultCode==-1){
+        if(requestCode==1&& resultCode==Activity.RESULT_OK){
             val url = ImagePicker.fetchUriResult(data)
             LogUtils.e(url)
             image1.load(url[0], isCrossFade = true)

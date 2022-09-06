@@ -169,9 +169,9 @@ class PickerEmptyActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode==Activity.RESULT_OK && data!=null){
+        if(resultCode==Activity.RESULT_OK ){
             var list = arrayListOf<Uri>()
-            if (requestCode == _pickerCode) {
+            if (requestCode == _pickerCode && data!=null) {
                 //打开照片和视频选择器
                 if(data!=null) {
                     list.clear()
@@ -207,6 +207,8 @@ class PickerEmptyActivity : AppCompatActivity() {
                     tryCompressImgs(list)
                 }
             } else if (requestCode == _cameraCode) {
+                list.clear()
+                list.add(UriUtils.file2Uri(tempPhotoFile!!))
                 //拍照
                 if(pickerData!!.isCrop){
                     //裁剪
@@ -216,7 +218,7 @@ class PickerEmptyActivity : AppCompatActivity() {
                     //看看是否需要压缩
                     tryCompressImgs(list)
                 }
-            }else if(requestCode == _cropCode){
+            }else if(requestCode == _cropCode  && data!=null){
                 val cropUri = UCrop.getOutput(data)
                 if(cropUri==null){
                     toast("crop failed")

@@ -8,7 +8,10 @@ import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.blankj.utilcode.util.UriUtils
+import com.lxj.androidktx.AndroidKTX
+import com.lxj.androidktx.R
 import com.lxj.androidktx.core.startForResult
+import com.lxj.androidktx.core.string
 import com.lxj.androidktx.util.UriHelper
 import com.zhihu.matisse.MimeType
 import java.io.Serializable
@@ -49,7 +52,7 @@ object ImagePicker {
                         }
                     }
                     override fun onDenied() {
-                        ToastUtils.showShort("权限获取失败，无法使用拍照功能")
+                        ToastUtils.showShort(AndroidKTX.context.string(R.string.permisison_deny))
                     }
                 })
                 .request()
@@ -87,7 +90,7 @@ object ImagePicker {
                         }
                     }
                     override fun onDenied() {
-                        ToastUtils.showShort("权限获取失败，无法使用相册功能")
+                        ToastUtils.showShort(AndroidKTX.context.string(R.string.permisison_deny))
                     }
                 })
                 .request()

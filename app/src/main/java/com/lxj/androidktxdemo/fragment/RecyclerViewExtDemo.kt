@@ -88,7 +88,14 @@ class RecyclerViewExtDemo : BaseFragment() {
 //            data.reverse()
 //            recyclerView.diffUpdate(UserDiffCallback(old, data))
 //        }
-
+        val header = TextView(context).apply {
+            text = "我是header"
+            setPadding(120, 120, 120, 120)
+        }
+        val footer = TextView(context).apply {
+            text = "我是footer"
+            setPadding(120, 120, 120, 120)
+        }
         //notify
         recyclerView.vertical(spanCount = 2)
             .divider(color = Color.parseColor("#f1f1f1"), size = 1.dp)
@@ -122,8 +129,8 @@ class RecyclerViewExtDemo : BaseFragment() {
 
             }
 //                .multiTypes(data, listOf(HeaderDelegate(), ContentDelegate(), FooterDelegate()))
-//                .addHeader(header) //必须在bindData之后调用
-//                .addFooter(footer) //必须在bindData之后调用
+                .addHeader(header) //必须在bindData之后调用
+                .addFooter(footer) //必须在bindData之后调用
             .itemClick<String> { data, holder, position ->
 
             }
@@ -149,14 +156,7 @@ class RecyclerViewExtDemo : BaseFragment() {
             add(User(id = UUID.randomUUID().toString(), name = "残破的"))
             add(User(id = UUID.randomUUID().toString(), name = "玫琳凯"))
         }
-        val header = TextView(context).apply {
-            text = "我是header"
-            setPadding(120, 120, 120, 120)
-        }
-        val footer = TextView(context).apply {
-            text = "我是footer"
-            setPadding(120, 120, 120, 120)
-        }
+
 
 
     }

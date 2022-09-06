@@ -23,9 +23,6 @@ class AndroidKtxApp: MultiDexApplication(){
                 defaultLogTag = "androidktx",
                 sharedPrefName = "demo")
 
-
-//        "sss".e()
-
         val user = sp().getObject<User>("user")
         LogUtils.d("user: ${user}")
         sp().putObject("user", User(name = "李晓俊", age = 1000))
@@ -39,6 +36,7 @@ class AndroidKtxApp: MultiDexApplication(){
 
         replaceSystemDefaultFont()
     }
+
     fun replaceSystemDefaultFont() {
         Thread(Runnable {
             try {
