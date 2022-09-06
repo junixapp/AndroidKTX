@@ -33,6 +33,7 @@ android {
     compileOptions {
         sourceCompatibility 1.8
         targetCompatibility 1.8
+        kotlinOptions.freeCompilerArgs += ['-module-name', "androidktx"]
     }
     kotlinOptions {
         jvmTarget = "1.8"
@@ -45,9 +46,6 @@ android {
                 }
             }
         }
-    }
-    packagingOptions {
-        pickFirst "META-INF/library_release.kotlin_module"
     }
 }
 repositories { flatDir { dirs 'libs' } }
