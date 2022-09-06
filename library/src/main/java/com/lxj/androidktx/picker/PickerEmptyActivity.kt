@@ -4,17 +4,15 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
-import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.FileProvider
 import androidx.lifecycle.lifecycleScope
 import com.blankj.utilcode.util.*
 import com.lxj.androidktx.AndroidKTX.context
 import com.lxj.androidktx.R
+import com.lxj.androidktx.core.toJson
 import com.lxj.androidktx.core.toast
 import com.lxj.androidktx.luban.Luban
 import com.lxj.androidktx.util.DirManager
@@ -30,7 +28,6 @@ import com.zhihu.matisse.internal.entity.IncapableCause
 import com.zhihu.matisse.internal.entity.Item
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.io.File
 
@@ -87,25 +84,28 @@ class PickerEmptyActivity : AppCompatActivity() {
 
     private var tempPhotoFile: File? = null
     fun startCamera() {
-        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        cameraIntent.action = MediaStore.ACTION_IMAGE_CAPTURE_SECURE
-        tempPhotoFile = File(DirManager.tempDir, "${System.currentTimeMillis()}.jpg")
-        FileUtils.createFileByDeleteOldFile(tempPhotoFile)
-        val uri: Uri =
-            FileProvider.getUriForFile(this, "${packageName}.fileprovider", tempPhotoFile!!)
-        val resInfoList =
-            packageManager.queryIntentActivities(cameraIntent, PackageManager.MATCH_DEFAULT_ONLY)
-        for (resolveInfo in resInfoList) {
-            val packageName = resolveInfo.activityInfo.packageName
-            grantUriPermission(
-                packageName,
-                uri,
-                Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION
-            )
-        }
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri) //Uri.fromFile(tempFile)
-        startActivityForResult(cameraIntent, _cameraCode)
-
+//        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+//        cameraIntent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+////        cameraIntent.action = MediaStore.ACTION_IMAGE_CAPTURE_SECURE
+//        tempPhotoFile = File(DirManager.tempDir, "${System.currentTimeMillis()}.jpg")
+//        FileUtils.createFileByDeleteOldFile(tempPhotoFile)
+//        val uri: Uri =
+//            FileProvider.getUriForFile(this, "${packageName}.fileprovider", tempPhotoFile!!)
+//        val resInfoList =
+//            packageManager.queryIntentActivities(cameraIntent, PackageManager.MATCH_DEFAULT_ONLY)
+//        for (resolveInfo in resInfoList) {
+//            val packageName = resolveInfo.activityInfo.packageName
+//            grantUriPermission(
+//                packageName,
+//                uri,
+//                Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION
+//            )
+//        }
+//        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
+//        startActivityForResult(cameraIntent, _cameraCode)
+        val intent = Intent(this, KTXCameraActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+        startActivityForResult(intent, _cameraCode)
     }
 
     private var cropImageFile: File? = null
@@ -118,7 +118,7 @@ class PickerEmptyActivity : AppCompatActivity() {
         options.setStatusBarColor(Color.parseColor("#1D282C"))//Matisse的主题色
         options.setActiveControlsWidgetColor(primaryColor)
         options.setHideBottomControls(true)
-        cropImageFile = File(DirManager.tempDir, "${System.currentTimeMillis()}_crop.jpg")
+        cropImageFile = File(DirManager.tempDir, "_ktx_${System.currentTimeMillis()}_crop.jpg")
         UCrop.of(uri, Uri.fromFile(cropImageFile))
             .withAspectRatio(1f, 1f)
             .withOptions(options)
@@ -151,6 +151,7 @@ class PickerEmptyActivity : AppCompatActivity() {
                 val compressUris = arrayListOf<Uri>()
                 list.forEach {
                     val f = compressImage(it).await()
+//                    FileUtils.delete(UriUtils.uri2File(it))
                     compressUris.add(f)
                 }
                 runOnUiThread {
@@ -187,24 +188,6 @@ class PickerEmptyActivity : AppCompatActivity() {
                     list.clear()
                     list.addAll(Matisse.obtainResult(data))
                 }
-//                if(Build.VERSION.SDK_INT >= 29){
-//                    uriList.forEach {
-//                        //相册在android11之后只能以uri方式访问，为了统一返回路径，需要拷贝的有权限的目录
-//                        val cursor = context.contentResolver.query(it, null, null, null, null)
-//                        if(cursor!=null && cursor.moveToFirst()){
-//                            val ois = context.contentResolver.openInputStream(it) ?:return@forEach
-//                            val displayName =
-//                                cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
-//                            val file = File(DirManager.cacheDir, "${System.currentTimeMillis()}$displayName")
-//                            val fos = FileOutputStream(file)
-//                            android.os.FileUtils.copy(ois, fos)
-//                            fos.close()
-//                            ois.close()
-//                            list.add(file.absolutePath)
-//                        }
-//                    }
-//                }else{
-//                }
                 if (list.isEmpty()) {
                     finish()
                     return
@@ -216,14 +199,14 @@ class PickerEmptyActivity : AppCompatActivity() {
                     //看看是否需要压缩
                     tryCompressImgs(list)
                 }
-            } else if (requestCode == _cameraCode) {
+            } else if (requestCode == _cameraCode && data?.data != null) {
                 list.clear()
-                list.add(UriUtils.file2Uri(tempPhotoFile!!))
+                list.add(data.data!!)
                 //拍照
                 if (pickerData!!.isCrop) {
                     //裁剪
-                    if (tempPhotoFile == null) return
-                    startCrop(UriUtils.file2Uri(tempPhotoFile!!))
+//                    if (tempPhotoFile == null) return
+                    startCrop(uri = list[0])
                 } else {
                     //看看是否需要压缩
                     tryCompressImgs(list)

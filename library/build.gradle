@@ -84,7 +84,7 @@ dependencies {
     api 'com.github.Justson.AgentWeb:agentweb-core:v4.1.9-androidx' // (必选)
 //    api 'com.github.Justson.AgentWeb:agentweb-filechooser:v4.1.9-androidx' // (可选)
 //    api 'com.github.Justson:Downloader:v4.1.9-androidx' // (可选)
-
+    api 'com.otaliastudios:cameraview:2.7.2'
     api 'com.github.yalantis:ucrop:2.2.8'
 
     api 'com.youth.banner:banner:2.1.0'

@@ -75,12 +75,12 @@ class ImageViewExtPage: BaseFragment(){
 //                ToastUtils.showShort("点击了")
 //            })
 
-            ImagePicker.startCamera(this, 1) //打开相机
+            ImagePicker.startCamera(this, 1, isCompress = true, isCrop = true) //打开相机
 //            ImagePicker.startCamera(this, 1, isCompress = false) //打开相机不压缩
 //            ImagePicker.startCamera(this, 1, isCrop = true) //打开相机并裁剪
 //            ImagePicker.startCamera(this, 1) //打开相机不裁剪
 //            ImagePicker.startRecord(this, 1, ) //打开相机并裁剪
-//            ImagePicker.startPicker(this, 1, spanCount = 4,) //打开相机并裁剪
+//            ImagePicker.startPicker(this, 1, spanCount = 4, isCrop = true) //打开相机并裁剪
 //            ImagePicker.startPicker(this, 1, types = MimeType.ofVideo()) //打开相机并裁剪
         }
 

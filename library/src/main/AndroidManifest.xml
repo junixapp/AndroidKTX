@@ -27,6 +27,8 @@
             android:launchMode="singleTop"
             android:theme="@style/_TranslucentTheme" />
         <activity android:name=".base.FragmentWrapperActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".picker.KTXCameraActivity" android:screenOrientation="portrait"
+            android:theme="@style/_FullScreenTheme"/>
 
 <!--        <activity android:name=".picker.CameraActivity"-->
 <!--            android:theme="@style/_FullScreenTheme"/>-->

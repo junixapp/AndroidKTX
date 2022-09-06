@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="#020202"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/_ktxCameraContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.otaliastudios.cameraview.CameraView
+            android:id="@+id/_ktxCameraView"
+            tools:background="#000"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:keepScreenOn="true"
+            app:cameraAudio="off"
+            app:cameraAutoFocusMarker="@string/cameraview_default_autofocus_marker"
+            app:cameraEngine="camera1"
+            app:cameraExperimental="false"
+            app:cameraFacing="back"
+            app:cameraFlash="off"
+            app:cameraGestureLongTap="none"
+            app:cameraGesturePinch="none"
+            app:cameraGestureScrollHorizontal="none"
+            app:cameraGestureScrollVertical="none"
+            app:cameraGestureTap="autoFocus"
+            app:cameraGrid="off"
+            app:cameraMode="picture"
+            app:cameraPlaySounds="false"
+            app:cameraPreview="glSurface"/>
+
+        <ImageView
+            android:id="@+id/_ktxPreview"
+            android:visibility="gone"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </FrameLayout>
+
+    <Space
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="2"/>
+
+        <ImageView
+            android:elevation="4dp"
+            android:id="@+id/_ktxBtnExit"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/_ktx_exit"/>
+        <Space
+            android:elevation="4dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        <ImageView
+            android:id="@+id/_ktxBtnTake"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/_ktx_camera"/>
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <com.lxj.statelayout.StateLayout
+            android:id="@+id/_ktxSlFlip"
+            app:sl_loadingLayoutId="@layout/_ktx_button_loading_white"
+            app:sl_noEmptyAndError="true"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+        <ImageView
+            android:id="@+id/_ktxBtnFlip"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:elevation="4dp"
+            android:src="@drawable/_ktx_camera_flip"/>
+        </com.lxj.statelayout.StateLayout>
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="2"/>
+    </LinearLayout>
+
+    <Space
+        android:layout_weight="2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
+
+</LinearLayout>
