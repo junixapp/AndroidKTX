@@ -7,9 +7,7 @@ import android.graphics.Color
 import android.media.MediaMetadataRetriever
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
-import com.blankj.utilcode.util.ImageUtils
-import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.ToastUtils
+import com.blankj.utilcode.util.*
 import com.bumptech.glide.Glide
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.picker.ImagePicker
@@ -77,12 +75,12 @@ class ImageViewExtPage: BaseFragment(){
 //                ToastUtils.showShort("点击了")
 //            })
 
-//            ImagePicker.startCamera(this, 1) //打开相机
+            ImagePicker.startCamera(this, 1) //打开相机
 //            ImagePicker.startCamera(this, 1, isCompress = false) //打开相机不压缩
 //            ImagePicker.startCamera(this, 1, isCrop = true) //打开相机并裁剪
 //            ImagePicker.startCamera(this, 1) //打开相机不裁剪
 //            ImagePicker.startRecord(this, 1, ) //打开相机并裁剪
-            ImagePicker.startPicker(this, 1, isCrop = true, spanCount = 4, isCompress = false) //打开相机并裁剪
+//            ImagePicker.startPicker(this, 1, spanCount = 4,) //打开相机并裁剪
 //            ImagePicker.startPicker(this, 1, types = MimeType.ofVideo()) //打开相机并裁剪
         }
 
@@ -94,7 +92,7 @@ class ImageViewExtPage: BaseFragment(){
 //        ToastUtils.showShort(QrCodeUtil.fetchResult(1, data))
         if(requestCode==1&& resultCode==Activity.RESULT_OK){
             val url = ImagePicker.fetchUriResult(data)
-            LogUtils.e(url)
+            LogUtils.e(url + "  size: ${FileUtils.getSize(UriUtils.uri2File(url[0]))}")
             image1.load(url[0], isCrossFade = true)
 //            QrCodeUtil.parseQrCode(url[0], onFinish= { result->
 //                ToastUtils.showLong(result)
