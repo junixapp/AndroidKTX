@@ -46,6 +46,9 @@ android {
             }
         }
     }
+    packagingOptions {
+        pickFirst "META-INF/library_release.kotlin_module"
+    }
 }
 repositories { flatDir { dirs 'libs' } }
 dependencies {
