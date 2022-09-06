@@ -12,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import com.blankj.utilcode.util.*
 import com.lxj.androidktx.AndroidKTX.context
 import com.lxj.androidktx.R
-import com.lxj.androidktx.core.toJson
 import com.lxj.androidktx.core.toast
 import com.lxj.androidktx.luban.Luban
 import com.lxj.androidktx.util.DirManager
