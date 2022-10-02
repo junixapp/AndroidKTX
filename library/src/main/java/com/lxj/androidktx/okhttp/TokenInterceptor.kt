@@ -5,6 +5,7 @@ import com.blankj.utilcode.util.ToastUtils
 import com.lxj.androidktx.core.isJsonArray
 import com.lxj.androidktx.core.isJsonObject
 import com.lxj.androidktx.core.sp
+import okhttp3.Headers
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.nio.charset.Charset
@@ -19,7 +20,7 @@ import java.nio.charset.Charset
 class TokenInterceptor(var tokenField: String = "token",
                        var tokenCreator: (()->String)? = null,
                        var networkErrorToast: String? = null,
-                       var onGetJsonData: ((url: String,json: String) -> Unit)? = null  ) : Interceptor {
+                       var onGetJsonData: ((url: String,json: String, header: Headers) -> Unit)? = null ) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         if(!networkErrorToast.isNullOrEmpty() && !NetworkUtils.isConnected()){
             ToastUtils.showShort(networkErrorToast)
@@ -39,7 +40,7 @@ class TokenInterceptor(var tokenField: String = "token",
             source?.request(java.lang.Long.MAX_VALUE) // Buffer the entire body.
             val data = source?.buffer()?.clone()?.readString(Charset.forName("UTF-8"))
             val isJson = data.isJsonObject() || data.isJsonArray()
-            if (isJson && onGetJsonData!=null) onGetJsonData!!(request.url().toString(), data!!)
+            if (isJson && onGetJsonData!=null) onGetJsonData!!(request.url().toString(), data!!, response.headers())
         }
         return response
     }
