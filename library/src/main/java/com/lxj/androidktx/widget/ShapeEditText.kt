@@ -108,10 +108,10 @@ open class ShapeEditText @JvmOverloads constructor(context: Context, attributeSe
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         topLine.right = measuredWidth
-        topLine.bottom = mLineSize
-        bottomLine.top = measuredHeight - mLineSize
         bottomLine.right = measuredWidth
         bottomLine.bottom = measuredHeight
+        topLine.bottom = mLineSize
+        bottomLine.top = measuredHeight - mLineSize
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -146,7 +146,12 @@ open class ShapeEditText @JvmOverloads constructor(context: Context, attributeSe
         if(rippleColor!=null) mRippleColor = rippleColor
         if(topLineColor!=null) mTopLineColor = topLineColor
         if(bottomLineColor!=null) mBottomLineColor = bottomLineColor
-        if(lineSize!=null) mLineSize = lineSize
+        if(lineSize!=null) {
+            mLineSize = lineSize
+            topLine.bottom = mLineSize
+            bottomLine.top = measuredHeight - mLineSize
+            invalidate()
+        }
         if(gradientOrientation!=null) mGradientOrientation = gradientOrientation
         if(gradientStartColor!=null) mGradientStartColor = gradientStartColor
         if(gradientCenterColor!=null) mGradientCenterColor = gradientCenterColor

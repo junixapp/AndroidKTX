@@ -33,13 +33,6 @@
 <!--        <activity android:name=".picker.CameraActivity"-->
 <!--            android:theme="@style/_FullScreenTheme"/>-->
 
-        <activity
-            android:name="com.yalantis.ucrop.UCropActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop"
-            tools:replace="android:theme"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-
 
         <provider
             android:name="androidx.core.content.FileProvider"

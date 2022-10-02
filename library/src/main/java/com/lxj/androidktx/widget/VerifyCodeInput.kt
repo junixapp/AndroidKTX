@@ -10,9 +10,11 @@ import android.view.Gravity
 import android.view.KeyEvent
 import android.widget.EditText
 import android.widget.LinearLayout
+import androidx.core.view.setPadding
 import androidx.core.widget.doAfterTextChanged
 import com.blankj.utilcode.constant.RegexConstants
 import com.blankj.utilcode.util.ClipboardUtils
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.RegexUtils
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.*
@@ -23,24 +25,32 @@ class VerifyCodeInput @JvmOverloads constructor(context: Context, attributeSet: 
     var mCount = 4
     var mCorner = dp2px(5f)
     var mSolid = Color.parseColor("#E7E8EC")
+    var mBorder = Color.parseColor("#E7E8EC")
     var mFocusBorder = Color.parseColor("#E7E8EC")
+    var borderWidth = dp2px(1f)
     var mSpace = dp2px(25f)
     var mSize = dp2px(40f)
     var mTextSize = sp2px(15f)
     var mTextColor = Color.parseColor("#232323")
     var mObserverClipboard = true
+    var inputStyle: Int = 0
+    var inputPadding : Int = 0
 
     init {
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.VerifyCodeInput)
         mCount = ta.getInt(R.styleable.VerifyCodeInput_vci_count, mCount)
         mCorner = ta.getDimensionPixelSize(R.styleable.VerifyCodeInput_vci_corner, mCorner)
         mSolid = ta.getColor(R.styleable.VerifyCodeInput_vci_solid, mSolid)
+        mBorder = ta.getColor(R.styleable.VerifyCodeInput_vci_border, mBorder)
         mFocusBorder = ta.getColor(R.styleable.VerifyCodeInput_vci_focusBorder, mSolid)
         mSpace = ta.getDimensionPixelSize(R.styleable.VerifyCodeInput_vci_space, mSpace)
         mSize = ta.getDimensionPixelSize(R.styleable.VerifyCodeInput_vci_size, mSize)
         mTextSize = ta.getDimensionPixelSize(R.styleable.VerifyCodeInput_vci_textSize, mTextSize)
         mTextColor = ta.getColor(R.styleable.VerifyCodeInput_vci_textColor, mTextColor)
         mObserverClipboard = ta.getBoolean(R.styleable.VerifyCodeInput_vci_observerClipboard, mObserverClipboard)
+        inputStyle = ta.getInt(R.styleable.VerifyCodeInput_vci_style, inputStyle)
+        inputPadding = ta.getDimensionPixelSize(R.styleable.VerifyCodeInput_vci_padding, inputPadding)
+        borderWidth = ta.getDimensionPixelSize(R.styleable.VerifyCodeInput_vci_borderWidth, borderWidth)
         ta.recycle()
         orientation = LinearLayout.HORIZONTAL
         gravity = Gravity.CENTER
@@ -55,15 +65,29 @@ class VerifyCodeInput @JvmOverloads constructor(context: Context, attributeSet: 
     private fun genEditText() {
         (0 until mCount).forEach {
             val et = ShapeEditText(context)
-            et.setup(solid = mSolid, corner = mCorner, enableRipple = false, strokeWidth = dp2px(1f))
+            if(inputStyle==0){
+                //square
+                LogUtils.d("square")
+                et.setup(solid = mSolid, corner = mCorner, enableRipple = false, strokeWidth = borderWidth,
+                stroke = mBorder)
+            }else{
+                //line
+                LogUtils.d("line borderWidth: ${borderWidth}  mBorder: ${mBorder}")
+                et.setup( enableRipple = false, strokeWidth = 0, lineSize = borderWidth, bottomLineColor = mBorder)
+            }
             et.setTextColor(mTextColor)
             et.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize.toFloat())
             et.maxLines = 1
             et.gravity = Gravity.CENTER
             et.tag = it
+            et.setPadding(inputPadding)
             et.inputType = InputType.TYPE_CLASS_NUMBER
             et.setOnFocusChangeListener { v, hasFocus ->
-                et.setup(stroke = if (hasFocus) mFocusBorder else mSolid)
+                if(inputStyle==0){
+                    et.setup(stroke = if (hasFocus) mFocusBorder else mBorder)
+                }else{
+                    et.setup(bottomLineColor = if (hasFocus) mFocusBorder else mBorder, lineSize = borderWidth)
+                }
             }
             val lp: MarginLayoutParams = LayoutParams(mSize, mSize)
             if(it < (mCount-1) ){

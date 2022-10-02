@@ -17,6 +17,13 @@
         android:clipToPadding="false"
         android:orientation="vertical">
 
+        <com.lxj.androidktx.widget.ShapeEditText
+            app:set_bottomLineColor="#f00"
+            app:set_lineSize="2dp"
+            android:text="adssadasd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
         <TextView
             android:id="@+id/tvHtml"
             android:textSize="20sp"
@@ -320,14 +327,6 @@
             app:vcb_resendDuration="10"
             app:vcb_resendText="重发吧" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="30dp"
-            android:text="1234"
-            android:textIsSelectable="true"
-            android:textSize="26sp" />
-
         <com.lxj.androidktx.widget.VerifyCodeInput
             android:id="@+id/verifyCodeInput"
             android:layout_width="match_parent"
@@ -336,10 +335,12 @@
             android:layout_marginRight="30dp"
             android:layout_marginBottom="20dp"
             app:vci_corner="4dp"
-            app:vci_focusBorder="#f00"
+            app:vci_border="#000000"
+            app:vci_style="Line"
+            app:vci_focusBorder="#f00000"
             app:vci_size="50dp"
             app:vci_solid="#aaa"
-            app:vci_space="20dp"
+            app:vci_space="10dp"
             app:vci_textColor="#f00"
             app:vci_textSize="24sp" />
 

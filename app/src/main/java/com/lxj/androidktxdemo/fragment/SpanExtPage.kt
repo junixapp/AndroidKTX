@@ -10,6 +10,7 @@ import com.blankj.utilcode.util.*
 import com.lxj.androidktx.AndroidKTX
 import com.lxj.androidktx.base.WebActivity
 import com.lxj.androidktx.core.*
+import com.lxj.androidktx.qrcode.QrCodeUtil
 import com.lxj.androidktx.widget.SuperDrawable
 import com.lxj.androidktxdemo.R
 import com.lxj.androidktxdemo.notification.NotificationDemo
@@ -40,17 +41,18 @@ class SpanExtPage : BaseFragment() {
         tvSizeResult.sizeSpan(str, 0..2).colorSpan(range = 0..1)
         tvSizeSpan.setShadowLayer(1.6f,1.5f,1.3f,Color.BLACK)
         tvSizeSpan.click {
-            WebActivity.start(url = "https://www.baidu.com", hideTitleBar = true, keepMarginTop = true,
-            statusBarColor = Color.RED,  isLightStatusBar = false)
-//            VideoPlayerActivity.start(url = "android.resource://" + requireContext()!!.packageName + "/" + R.raw.heng, title = "视频敖德萨大所大所大所大所大所多")
-//            VideoPlayerActivity.start(url = video2, title = "视频敖德萨大所大所大所大所大所多")
-
-            val pickIntent = Intent(
-                Intent.ACTION_PICK,
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-            )
-            pickIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
-           startActivityForResult(pickIntent, 11)
+            QrCodeUtil.start(this, 1)
+//            WebActivity.start(url = "https://www.baidu.com", hideTitleBar = true, keepMarginTop = true,
+//            statusBarColor = Color.RED,  isLightStatusBar = false)
+////            VideoPlayerActivity.start(url = "android.resource://" + requireContext()!!.packageName + "/" + R.raw.heng, title = "视频敖德萨大所大所大所大所大所多")
+////            VideoPlayerActivity.start(url = video2, title = "视频敖德萨大所大所大所大所大所多")
+//
+//            val pickIntent = Intent(
+//                Intent.ACTION_PICK,
+//                MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+//            )
+//            pickIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
+//           startActivityForResult(pickIntent, 11)
         }
 
         // toColorSpan
@@ -174,6 +176,13 @@ class SpanExtPage : BaseFragment() {
     override fun onBackClick(): Boolean {
         ToastUtils.showShort("onBackPressed - ${javaClass.simpleName}")
         return false
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode==1 && data!=null){
+            LogUtils.e("qr code: " + QrCodeUtil.fetchResult(requestCode, data))
+        }
     }
 
 }

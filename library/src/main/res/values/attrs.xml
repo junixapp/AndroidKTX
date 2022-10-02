@@ -294,12 +294,19 @@
         <attr name="vci_count" format="integer" />
         <attr name="vci_corner" format="dimension" />
         <attr name="vci_solid" format="color" />
+        <attr name="vci_border" format="color" />
+        <attr name="vci_borderWidth" format="dimension" />
         <attr name="vci_focusBorder" format="color" />
+        <attr name="vci_padding" format="dimension" />
         <attr name="vci_space" format="dimension" />
         <attr name="vci_size" format="dimension" />
         <attr name="vci_textSize" format="dimension" />
         <attr name="vci_textColor" format="color" />
         <attr name="vci_observerClipboard" format="boolean" />
+        <attr name="vci_style" >
+            <enum name="Square" value="0" />
+            <enum name="Line" value="1" />
+        </attr>
     </declare-styleable>
 
     <!--RatioImageView-->

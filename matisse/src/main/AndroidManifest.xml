@@ -15,6 +15,7 @@
   limitations under the License.
   -->
 <manifest
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zhihu.matisse">
 
@@ -25,5 +26,13 @@
         <activity android:name="com.zhihu.matisse.ui.MatisseActivity"/>
         <activity android:name="com.zhihu.matisse.internal.ui.AlbumPreviewActivity"/>
         <activity android:name="com.zhihu.matisse.internal.ui.SelectedPreviewActivity"/>
+
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            tools:replace="android:theme"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+
     </application>
 </manifest>
