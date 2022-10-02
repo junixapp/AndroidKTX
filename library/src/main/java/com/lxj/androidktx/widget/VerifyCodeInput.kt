@@ -14,7 +14,6 @@ import androidx.core.view.setPadding
 import androidx.core.widget.doAfterTextChanged
 import com.blankj.utilcode.constant.RegexConstants
 import com.blankj.utilcode.util.ClipboardUtils
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.RegexUtils
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.*
@@ -67,12 +66,10 @@ class VerifyCodeInput @JvmOverloads constructor(context: Context, attributeSet: 
             val et = ShapeEditText(context)
             if(inputStyle==0){
                 //square
-                LogUtils.d("square")
                 et.setup(solid = mSolid, corner = mCorner, enableRipple = false, strokeWidth = borderWidth,
                 stroke = mBorder)
             }else{
                 //line
-                LogUtils.d("line borderWidth: ${borderWidth}  mBorder: ${mBorder}")
                 et.setup( enableRipple = false, strokeWidth = 0, lineSize = borderWidth, bottomLineColor = mBorder)
             }
             et.setTextColor(mTextColor)

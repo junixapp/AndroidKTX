@@ -428,9 +428,9 @@ fun View.enableAll() {
 }
 
 fun View.visible(b: Boolean){
-    if(b) visibility = View.VISIBLE else View.GONE
+    visibility = if(b) View.VISIBLE else View.GONE
 }
 
 fun View.invisible(b: Boolean){
-    if(b) visibility = View.VISIBLE else View.INVISIBLE
+    visibility = if(b) View.VISIBLE else View.INVISIBLE
 }
