@@ -121,7 +121,6 @@ class RecyclerViewExtDemo : BaseFragment() {
                 holder.getView<View>(R.id.tvDel).click {
                     (holder.itemView as SlidingLayout).close()
                     LogUtils.e("delete item : ${holder.adapterPosition}")
-                    postDelay(1000){  }
                     userVM.remove(holder.adapterPosition)
 //                    val old = data.deepCopy<ArrayList<User>>()
 //                    data.removeAt(holder.adapterPosition)

@@ -20,6 +20,10 @@ class SlidingLayout @JvmOverloads constructor(context: Context, attributeSet: At
         Close, Open, Dragging
     }
 
+    companion object {
+        var shareCache: CopyOnWriteArrayList<SlidingLayout> = CopyOnWriteArrayList()
+    }
+
     private var contentView : View? = null
     private var rightView : View? = null
     var state = SlideState.Close
@@ -80,7 +84,7 @@ class SlidingLayout @JvmOverloads constructor(context: Context, attributeSet: At
                 if(shareCache!=null && !shareCache!!.contains(this@SlidingLayout)){
                     shareCache!!.add(this@SlidingLayout)
                 }
-                shareCache?.forEach {
+                shareCache.forEach {
                     if(it!=this@SlidingLayout) it.close()
                 }
             }else if(contentView!!.left==0){
@@ -88,8 +92,8 @@ class SlidingLayout @JvmOverloads constructor(context: Context, attributeSet: At
                     state = SlideState.Close
                     slideListener?.onClose(this@SlidingLayout)
                 }
-                if(shareCache?.contains(this@SlidingLayout)==true){
-                    shareCache!!.remove(this@SlidingLayout)
+                if(shareCache.contains(this@SlidingLayout)){
+                    shareCache.remove(this@SlidingLayout)
                 }
             }
 
@@ -100,7 +104,7 @@ class SlidingLayout @JvmOverloads constructor(context: Context, attributeSet: At
 
                 if(dx<0){
                     //向左打开，尝试关闭
-                    shareCache?.forEach {
+                    shareCache.forEach {
                         if(it!=this@SlidingLayout) it.close()
                     }
                 }
@@ -172,7 +176,10 @@ class SlidingLayout @JvmOverloads constructor(context: Context, attributeSet: At
         postInvalidateOnAnimation()
     }
 
-    var shareCache: CopyOnWriteArrayList<SlidingLayout> = CopyOnWriteArrayList()
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        shareCache.clear()
+    }
 
     var slideListener: OnSlideListener? = null
 
