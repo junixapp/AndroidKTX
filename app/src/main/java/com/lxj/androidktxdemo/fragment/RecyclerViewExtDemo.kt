@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -53,7 +54,7 @@ class RecyclerViewExtDemo : BaseFragment() {
 //            val old = data.toJson().toBean<ArrayList<User>>()
 //            data.removeAt((0 until data.size).random())
 //            recyclerView.diffUpdate(UserDiffCallback(old, data))
-
+            if(userVM.listData.value.isNullOrEmpty()) return@click
             val randomPosition = Random.nextInt(userVM.listData.value!!.size)
             userVM.remove(randomPosition)
         }
@@ -64,6 +65,7 @@ class RecyclerViewExtDemo : BaseFragment() {
 //            userVM.listData.value!![index].name = userVM.listData.value!![index].name + "- 局部字段替换"
 //            recyclerView.diffUpdate(UserDiffCallback(old, userVM.listData.value!!))
 
+            if(userVM.listData.value.isNullOrEmpty()) return@click
             val randomPosition = Random.nextInt(userVM.listData.value!!.size)
             val t = userVM.listData.value!![randomPosition].deepCopy<User>()
             t.name = "局部字段替换-${randomPosition}"
@@ -77,6 +79,7 @@ class RecyclerViewExtDemo : BaseFragment() {
 //            data[index] = User(name = "我是随机替换")
 //            recyclerView.diffUpdate(UserDiffCallback(old, data))
 
+            if(userVM.listData.value.isNullOrEmpty()) return@click
             val randomPosition = Random.nextInt(userVM.listData.value!!.size)
             val t = User(name = "随机替换-${randomPosition}")
             userVM.update(randomPosition, t)
@@ -117,7 +120,9 @@ class RecyclerViewExtDemo : BaseFragment() {
                     .into(holder.getView<ImageView>(R.id.image))
                 holder.getView<View>(R.id.tvDel).click {
                     (holder.itemView as SlidingLayout).close()
-                    userVM.remove(position)
+                    LogUtils.e("delete item : ${holder.adapterPosition}")
+                    postDelay(1000){  }
+                    userVM.remove(holder.adapterPosition)
 //                    val old = data.deepCopy<ArrayList<User>>()
 //                    data.removeAt(holder.adapterPosition)
 //                    recyclerView.diffUpdate(UserDiffCallback(old, data))
@@ -125,12 +130,12 @@ class RecyclerViewExtDemo : BaseFragment() {
 //                        recyclerView.adapter?.notifyItemRangeChanged(position, data.size-position)
                 }
 
-                (holder.itemView as SlidingLayout).shareCache = layoutList
+//                (holder.itemView as SlidingLayout).shareCache = layoutList
 
             }
 //                .multiTypes(data, listOf(HeaderDelegate(), ContentDelegate(), FooterDelegate()))
-                .addHeader(header) //必须在bindData之后调用
-                .addFooter(footer) //必须在bindData之后调用
+//                .addHeader(header) //必须在bindData之后调用
+//                .addFooter(footer) //必须在bindData之后调用
             .itemClick<String> { data, holder, position ->
 
             }

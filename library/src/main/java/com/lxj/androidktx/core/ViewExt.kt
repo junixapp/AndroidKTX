@@ -399,12 +399,12 @@ fun View.disable(value: Float = 0.5f) {
     alpha = value
 }
 
-fun View.disableAll() {
+fun View.disableAll(value: Float = 0.6f) {
     isEnabled = false
-    alpha = 0.55f
+    alpha = value
     if (this is ViewGroup) {
         children.forEach {
-            it.disableAll()
+            it.disableAll(value)
         }
     }
 }

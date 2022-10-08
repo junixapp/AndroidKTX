@@ -27,7 +27,7 @@ fun String.parseQueryParams(): Map<String, String>{
 
 
 fun String?.isJsonObject(): Boolean{
-    if(this==null) return false
+    if(this.isNullOrEmpty()) return false
     return try {
         JSONObject(this)
         true
@@ -37,7 +37,7 @@ fun String?.isJsonObject(): Boolean{
 }
 
 fun String?.isJsonArray(): Boolean{
-    if(this==null) return false
+    if(this.isNullOrEmpty()) return false
     return try {
         JSONArray(this)
         true

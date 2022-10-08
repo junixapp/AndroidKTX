@@ -172,7 +172,7 @@ class SlidingLayout @JvmOverloads constructor(context: Context, attributeSet: At
         postInvalidateOnAnimation()
     }
 
-    var shareCache: CopyOnWriteArrayList<SlidingLayout>? = null
+    var shareCache: CopyOnWriteArrayList<SlidingLayout> = CopyOnWriteArrayList()
 
     var slideListener: OnSlideListener? = null
 
