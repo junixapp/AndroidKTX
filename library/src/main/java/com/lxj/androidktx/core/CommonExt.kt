@@ -1,7 +1,9 @@
 package com.lxj.androidktx.core
 
 
+import android.app.Activity
 import android.content.Context
+import android.content.ContextWrapper
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.Drawable
@@ -244,4 +246,16 @@ fun Any.doOnceIn( actionName: String, time: Long = 500, action: ()->Unit){
     Handler(Looper.getMainLooper()).postDelayed({
         if(_actionCache.contains(actionName)) _actionCache.remove(actionName)
     }, time)
+}
+
+fun Any.context2Activity(context: Context): Activity?{
+    var ctx = context
+    while (ctx is ContextWrapper) {
+        if (ctx is Activity) {
+            return ctx
+        } else {
+            ctx = (ctx as ContextWrapper).baseContext
+        }
+    }
+    return null
 }
