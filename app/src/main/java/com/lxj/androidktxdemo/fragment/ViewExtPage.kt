@@ -43,8 +43,11 @@ class ViewExtPage : BaseFragment() {
         val value = dp2px(150f)
         text1.width(value)
         text1.text = "自定义字体：text1.width($value)"
-        text1.click {
-            ImageUtils.save2Album(nsv.toBitmap(), Bitmap.CompressFormat.PNG)
+        text1.click(duration = 1) {
+            doOnceIn(actionName = "xx", time = 1400, immediately = false, action = {
+                toast("延时执行：${Random.Default.nextInt(10)}" )
+            })
+//            ImageUtils.save2Album(nsv.toBitmap(), Bitmap.CompressFormat.PNG)
 //            PermissionUtils.permission(PermissionConstants.STORAGE)
 //                .callback(object : PermissionUtils.SimpleCallback{
 //                    override fun onGranted() {
@@ -65,7 +68,7 @@ class ViewExtPage : BaseFragment() {
 //            countDownWorker.start()
 
 //            text1.width(Random.nextInt(ScreenUtils.getAppScreenWidth()))
-            text1.animateWidth(Random.nextInt(ScreenUtils.getAppScreenWidth()), duration = 1000)
+//            text1.animateWidth(Random.nextInt(ScreenUtils.getAppScreenWidth()), duration = 1000)
         }
 
 

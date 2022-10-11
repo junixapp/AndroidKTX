@@ -232,20 +232,31 @@ fun Any.doOnlyOnce(actionName: String = "", keySuffix: String? = "", action: () 
 
 //500毫秒内只做一次
 val _actionCache = arrayListOf<String>()
-
+val _doOnceInHandler = Handler(Looper.getMainLooper())
 /**
- * 事件节流，在指定时间内第一次事件有效
+ * 事件节流，在指定时间内只执行一次事件；注意事项，内部共享Handler，并发调用的情况可能会有问题。
  * @param actionName 事件的名字
  * @param time 事件的节流时间
+ * @param immediately 是否立即执行，true则立即执行任务，在time时间内不再接收新的任务：
+ *                      false是延时time后执行任务，在time时间内新的任务会替换之前的任务
  * @param action 事件
  */
-fun Any.doOnceIn( actionName: String, time: Long = 500, action: ()->Unit){
-    if(_actionCache.contains(actionName)) return
-    _actionCache.add(actionName)
-    action() //执行行为
-    Handler(Looper.getMainLooper()).postDelayed({
-        if(_actionCache.contains(actionName)) _actionCache.remove(actionName)
-    }, time)
+fun Any.doOnceIn( actionName: String, time: Long = 800, immediately: Boolean = true, action: ()->Unit){
+    if(immediately) {
+        //立即执行任务，在time时间内不再接收新的任务
+        if(_actionCache.contains(actionName)) return
+        _actionCache.add(actionName)
+        action() //立即执行
+        _doOnceInHandler.postDelayed({
+            if(_actionCache.contains(actionName)) _actionCache.remove(actionName)
+        }, time)
+    }else{
+        //在time时间内新的任务会替换之前的任务
+        _doOnceInHandler.removeCallbacksAndMessages(null)
+        _doOnceInHandler.postDelayed({
+            action() //立即执行
+        }, time)
+    }
 }
 
 fun Any.context2Activity(context: Context): Activity?{
