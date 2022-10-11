@@ -55,11 +55,12 @@
         <Space
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="2"/>
+            android:layout_weight="1.5"/>
 
         <ImageView
             android:elevation="4dp"
             android:id="@+id/_ktxBtnExit"
+            android:padding="5dp"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/_ktx_exit"/>
@@ -70,8 +71,8 @@
             android:layout_weight="1"/>
         <ImageView
             android:id="@+id/_ktxBtnTake"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
             android:background="@drawable/_ktx_camera"/>
         <Space
             android:layout_width="0dp"
@@ -89,17 +90,19 @@
             android:id="@+id/_ktxBtnFlip"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:padding="5dp"
             android:elevation="4dp"
             android:src="@drawable/_ktx_camera_flip"/>
         </com.lxj.statelayout.StateLayout>
         <Space
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="2"/>
+            android:layout_weight="1.5"/>
     </LinearLayout>
 
     <Space
-        android:layout_weight="2"
+        android:layout_weight="1.5"
         android:layout_width="0dp"
         android:layout_height="0dp"/>
 

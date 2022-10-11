@@ -25,7 +25,7 @@ fun Long.toDateString(format: String = "yyyy-MM-dd HH:mm:ss") = SimpleDateFormat
 fun Int.toDateString(format: String = "yyyy-MM-dd HH:mm:ss") = SimpleDateFormat(format, Locale.getDefault()).format(Date(this.toLong()))
 
 /**
- * 将毫秒值转为 hh:mm:ss 格式
+ * 将毫秒值转为 hh:mm:ss 格式，适用于音视频的时长显示
  */
 fun Long.toMediaTime(): String{
     val formatBuilder =  StringBuilder()
