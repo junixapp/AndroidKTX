@@ -12,6 +12,7 @@ import android.graphics.drawable.RippleDrawable
 import android.os.*
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import com.blankj.utilcode.util.AdaptScreenUtils
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.TimeUtils
@@ -19,6 +20,7 @@ import com.google.gson.ExclusionStrategy
 import com.google.gson.FieldAttributes
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
+import com.lxj.androidktx.livedata.LifecycleHandler
 import java.io.Serializable
 import java.util.*
 
@@ -254,6 +256,34 @@ fun Any.doOnceIn( actionName: String, time: Long = 800, immediately: Boolean = t
         //在time时间内新的任务会替换之前的任务
         _doOnceInHandler.removeCallbacksAndMessages(null)
         _doOnceInHandler.postDelayed({
+            action() //立即执行
+        }, time)
+    }
+}
+
+var _doOnceInLifecycleHandler: LifecycleHandler? = null
+/**
+ * 事件节流，在指定时间内只执行一次事件；注意事项，内部共享Handler，并发调用的情况可能会有问题。
+ * @param actionName 事件的名字
+ * @param time 事件的节流时间
+ * @param immediately 是否立即执行，true则立即执行任务，在time时间内不再接收新的任务：
+ *                      false是延时time后执行任务，在time时间内新的任务会替换之前的任务
+ * @param action 事件
+ */
+fun Any.doOnceIn(lifecycleOwner: LifecycleOwner,  actionName: String, time: Long = 800, immediately: Boolean = true, action: ()->Unit){
+    if(_doOnceInLifecycleHandler==null) _doOnceInLifecycleHandler = LifecycleHandler(lifecycleOwner)
+    if(immediately) {
+        //立即执行任务，在time时间内不再接收新的任务
+        if(_actionCache.contains(actionName)) return
+        _actionCache.add(actionName)
+        action() //立即执行
+        _doOnceInLifecycleHandler?.postDelayed({
+            if(_actionCache.contains(actionName)) _actionCache.remove(actionName)
+        }, time)
+    }else{
+        //在time时间内新的任务会替换之前的任务
+        _doOnceInLifecycleHandler?.removeCallbacksAndMessages(null)
+        _doOnceInLifecycleHandler?.postDelayed({
             action() //立即执行
         }, time)
     }
