@@ -4,6 +4,7 @@ package com.lxj.androidktxdemo.fragment
 import android.animation.ValueAnimator
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.Rect
 import android.text.Editable
 import android.text.Html
 import android.text.Spanned
@@ -17,9 +18,9 @@ import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.util.CountDownWorker
-import com.lxj.androidktx.util.XHtml
 import com.lxj.androidktx.widget.TabBar
 import com.lxj.androidktxdemo.R
+import com.zhpan.bannerview.BannerViewPager
 import kotlinx.android.synthetic.main.fragment_view_ext.*
 import org.xml.sax.XMLReader
 import java.lang.reflect.Field
@@ -34,9 +35,8 @@ class ViewExtPage : BaseFragment() {
             text1.text = "countDown: $it"
         })
     }
-
+    var banner : BannerViewPager<Any>? = null
     override fun initView() {
-        XHtml.preferSizeUnit(TypedValue.COMPLEX_UNIT_SP)
         val text =  "分享成功了<font color='#FF0000' fontSize='54'>32个</font>内容\n有<font color='#FFEE90' font-size='44'>1个</font>好友下单\n获得奖励<font color='#FFEE90' size='14'>11积分</font>"
 //        tvHtml.text = XHtml.fromHtml(text)
         tvHtml.text = "大萨达撒大所\n\n\n大萨达撒多\n\nadasdasdasdasdsa"
@@ -147,10 +147,14 @@ class ViewExtPage : BaseFragment() {
         mtv2.setup("床前明月光，疑是地上霜；举头望明月，低头思故乡。")
 
         val list = listOf(
-            "http://sealbox.oss-ap-southeast-1.aliyuncs.com/upload/20210830/27f4e97272474d38299240aa2c6f5678.png",
-            "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic33.nipic.com%2F20130924%2F12085979_105431188100_2.jpg&refer=http%3A%2F%2Fpic33.nipic.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1634003717&t=1d514ffc2294afa6a28c6f5df20702b7",
+            R.mipmap.c2,
+            R.mipmap.test1,
+            R.mipmap.v,
         )
-        banner.adapter = CommonBannerAdapter(list, cornerRadius = 10.dp)
+        banner = view?.findViewById(R.id.banner)
+        banner?.adapter = CommonBannerAdapter<Any>(cornerRadius = 10.dp, margin = Rect(20,20,20,20))
+        banner?.create(list)
+//        banner.adapter = CommonBannerAdapter(list, cornerRadius = 10.dp)
     }
 
     override fun initData() {

@@ -39,14 +39,16 @@
             android:adjustViewBounds="true"
             android:src="@mipmap/head" />
 
-        <com.youth.banner.Banner
+        <com.zhpan.bannerview.BannerViewPager
             android:id="@+id/banner"
+            android:background="#fff"
             android:layout_width="match_parent"
             android:layout_height="80pt" />
 
         <com.lxj.androidktx.widget.FormField
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:sll_solid="#fff"
             android:padding="15dp"
             app:ff_fieldText="姓名"
             app:ff_hint="请输入姓名"
