@@ -7,6 +7,7 @@ import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.view.MotionEvent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.blankj.utilcode.util.*
@@ -81,27 +82,7 @@ class PickerEmptyActivity : AppCompatActivity() {
         }
     }
 
-    private var tempPhotoFile: File? = null
-    fun startCamera() {
-//        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-//        cameraIntent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-////        cameraIntent.action = MediaStore.ACTION_IMAGE_CAPTURE_SECURE
-//        tempPhotoFile = File(DirManager.tempDir, "${System.currentTimeMillis()}.jpg")
-//        FileUtils.createFileByDeleteOldFile(tempPhotoFile)
-//        val uri: Uri =
-//            FileProvider.getUriForFile(this, "${packageName}.fileprovider", tempPhotoFile!!)
-//        val resInfoList =
-//            packageManager.queryIntentActivities(cameraIntent, PackageManager.MATCH_DEFAULT_ONLY)
-//        for (resolveInfo in resInfoList) {
-//            val packageName = resolveInfo.activityInfo.packageName
-//            grantUriPermission(
-//                packageName,
-//                uri,
-//                Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION
-//            )
-//        }
-//        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
-//        startActivityForResult(cameraIntent, _cameraCode)
+    private fun startCamera() {
         val intent = Intent(this, KTXCameraActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         startActivityForResult(intent, _cameraCode)
@@ -171,10 +152,16 @@ class PickerEmptyActivity : AppCompatActivity() {
     }
 
     fun finishWithResult(list: ArrayList<Uri>) {
+        ImagePicker.onFinish?.invoke(list)
         val intent = Intent()
         intent.putParcelableArrayListExtra("result", list)
         setResult(Activity.RESULT_OK, intent)
         finish()
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        finishWithResult(list = arrayListOf())
+        return true
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -188,7 +175,7 @@ class PickerEmptyActivity : AppCompatActivity() {
                     list.addAll(Matisse.obtainResult(data))
                 }
                 if (list.isEmpty()) {
-                    finish()
+                    finishWithResult(arrayListOf())
                     return
                 }
                 if (pickerData!!.isCrop) {
@@ -204,7 +191,6 @@ class PickerEmptyActivity : AppCompatActivity() {
                 //拍照
                 if (pickerData!!.isCrop) {
                     //裁剪
-//                    if (tempPhotoFile == null) return
                     startCrop(uri = list[0])
                 } else {
                     //看看是否需要压缩
@@ -214,17 +200,17 @@ class PickerEmptyActivity : AppCompatActivity() {
                 val cropUri = UCrop.getOutput(data)
                 if (cropUri == null) {
                     toast("crop failed")
-                    finish()
+                    finishWithResult(arrayListOf())
                     return
                 }
                 list.clear()
                 list.add(cropUri)
                 tryCompressImgs(list)
             } else {
-                finish()
+                finishWithResult(arrayListOf())
             }
         } else {
-            finish()
+            finishWithResult(arrayListOf())
         }
     }
 

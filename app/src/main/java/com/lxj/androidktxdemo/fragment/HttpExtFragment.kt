@@ -35,8 +35,6 @@ class HttpExtFragment : BaseFragment() {
             .asLoading()}
     override fun getLayoutId() = R.layout.fragment_http_ext
     override fun initView() {
-
-
         // 全局header
         OkExt.headers("site" to "CN",
                 "name" to "GullMap_world",
@@ -108,9 +106,8 @@ class HttpExtFragment : BaseFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode==1 && resultCode==Activity.RESULT_OK){
-            val path  = ImagePicker.fetchRecordResult(data)
-
-            LogUtils.e("视频路径：$path  文件大小：${FileUtils.getSize(File(path))}")
+//            val path  = ImagePicker.fetchRecordResult(data)
+//            LogUtils.e("视频路径：$path  文件大小：${FileUtils.getSize(File(path))}")
         }
     }
 

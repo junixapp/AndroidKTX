@@ -29,14 +29,18 @@ data class _PickerData(
 
 /**
  * 图片和视频选择器，整合了Matisse，uCrop和Luban。
+ * 获取结果有两种方式（二选一），onFinish回调和onActivityResult
  */
 object ImagePicker {
-
+    var onFinish: ((List<Uri>)->Unit)? = null
     /**
+     * @param reqCode 如果你想通过onActivityResult方法获取结果时就传递
      * @param isCrop 是否开启裁剪，默认false
      * @param isCompress 是否使用Luban压缩，默认是true
      */
-    fun startCamera(from: Any, reqCode: Int, isCrop: Boolean = false, isCompress: Boolean = true) {
+    fun startCamera(from: Any, reqCode: Int = 1000, isCrop: Boolean = false, isCompress: Boolean = true,
+                    onFinish: ((List<Uri>)->Unit)? = null) {
+        this.onFinish = onFinish
         PermissionUtils
                 .permission(PermissionConstants.STORAGE, PermissionConstants.CAMERA)
                 .callback(object : PermissionUtils.SimpleCallback {
@@ -60,6 +64,7 @@ object ImagePicker {
 
     /**
      * 直接开启选择器，选择器自带拍摄功能，注意：maxNum>1时和types包含video时无法使用裁剪；types包含video时无法使用压缩
+     * @param reqCode 如果你想通过onActivityResult方法获取结果时就传递
      * @param isCrop 是否开启裁剪，默认false
      * @param isCompress 是否使用Luban压缩，默认是true
      * @param maxNum 最多选择数量，默认是1
@@ -68,8 +73,11 @@ object ImagePicker {
      * @param showCapture 是否显示拍照
      * @param spanCount
      */
-    fun startPicker(from: Any, reqCode: Int, isCrop: Boolean = false, isCompress: Boolean = true, maxNum: Int = 1, types: Set<MimeType> = MimeType.ofImage(),
-    maxVideoSize: Long = 0, showCapture: Boolean = true, spanCount: Int = 4) {
+    fun startPicker(from: Any, reqCode: Int = 2000, isCrop: Boolean = false, isCompress: Boolean = true,
+                    maxNum: Int = 1, types: Set<MimeType> = MimeType.ofImage(),
+                    maxVideoSize: Long = 0, showCapture: Boolean = true, spanCount: Int = 4,
+                    onFinish: ((List<Uri>)->Unit)? = null) {
+        this.onFinish = onFinish
         PermissionUtils
                 .permission(PermissionConstants.STORAGE, PermissionConstants.CAMERA)
                 .callback(object : PermissionUtils.SimpleCallback {
@@ -122,7 +130,7 @@ object ImagePicker {
 //    }
 
     /**
-     * 获取结果，返回的是uri列表
+     * 获取结果，返回的是文件路径列表。适用于通过onActivityResult获取数据
      */
     fun fetchResult(data: Intent?): ArrayList<String>{
         val list = fetchUriResult(data)
@@ -133,19 +141,27 @@ object ImagePicker {
         }
         return paths
     }
+
+    /**
+     * uri列表转路径列表
+     */
+    fun uriListToPathList(uriList: List<Uri>): List<String>{
+        val paths = arrayListOf<String>()
+        uriList.forEach {
+            paths.add(UriUtils.uri2File(it).absolutePath)
+        }
+        return paths
+    }
+
+    /**
+     * 获取结果，返回的是uri列表。适用于通过onActivityResult获取数据
+     */
     fun fetchUriResult(data: Intent?): ArrayList<Uri>{
         val list = data?.getParcelableArrayListExtra<Uri>("result") ?: arrayListOf()
         list.forEach {
             UriHelper.grantPermissions(data, it, true)
         }
         return list
-    }
-    /**
-     * 获取视频录制结果
-     */
-    fun fetchRecordResult(data: Intent?): String{
-        if(data==null)return ""
-        return data.getStringExtra("path") ?: ""
     }
 
 }

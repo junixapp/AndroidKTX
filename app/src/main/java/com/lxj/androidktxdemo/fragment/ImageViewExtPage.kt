@@ -75,7 +75,16 @@ class ImageViewExtPage: BaseFragment(){
 //                ToastUtils.showShort("点击了")
 //            })
 
-            ImagePicker.startCamera(this, 1, isCompress = true, isCrop = true) //打开相机
+//            ImagePicker.startCamera(this, 1, isCompress = true, isCrop = true, onFinish = {
+//                if(it.isNullOrEmpty()) return@startCamera
+//                LogUtils.e( " size: ${FileUtils.getSize(UriUtils.uri2File(it[0]))}")
+//                image1.load(it[0], isCrossFade = true)
+//            }) //打开相机
+            ImagePicker.startPicker(this, isCompress = true, isCrop = true, onFinish = {
+                if(it.isNullOrEmpty()) return@startPicker
+                LogUtils.e( " size: ${FileUtils.getSize(UriUtils.uri2File(it[0]))}")
+                image1.load(it[0], isCrossFade = true)
+            }) //打开相机
 //            ImagePicker.startCamera(this, 1, isCompress = false) //打开相机不压缩
 //            ImagePicker.startCamera(this, 1, isCrop = true) //打开相机并裁剪
 //            ImagePicker.startCamera(this, 1) //打开相机不裁剪
@@ -90,10 +99,10 @@ class ImageViewExtPage: BaseFragment(){
         super.onActivityResult(requestCode, resultCode, data)
         if(data==null)return
 //        ToastUtils.showShort(QrCodeUtil.fetchResult(1, data))
-        if(requestCode==1&& resultCode==Activity.RESULT_OK){
-            val url = ImagePicker.fetchUriResult(data)
-            LogUtils.e(url + "  size: ${FileUtils.getSize(UriUtils.uri2File(url[0]))}")
-            image1.load(url[0], isCrossFade = true)
+//        if(requestCode==1&& resultCode==Activity.RESULT_OK){
+//            val url = ImagePicker.fetchUriResult(data)
+//            LogUtils.e(url + "  size: ${FileUtils.getSize(UriUtils.uri2File(url[0]))}")
+//            image1.load(url[0], isCrossFade = true)
 //            QrCodeUtil.parseQrCode(url[0], onFinish= { result->
 //                ToastUtils.showLong(result)
 //            })
@@ -101,6 +110,6 @@ class ImageViewExtPage: BaseFragment(){
 //            val len = FileUtils.getFileLength(videoPath)
 //            LogUtils.e("拍照返回：${videoPath}   大小：${len/1024}k")
 //            PlayerActivity.start(url = videoPath)
-        }
+//        }
     }
 }
