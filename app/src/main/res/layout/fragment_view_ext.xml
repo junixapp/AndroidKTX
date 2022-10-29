@@ -6,9 +6,7 @@
     android:layout_height="match_parent"
     android:background="#eee"
     android:clipChildren="false"
-    android:clipToPadding="false"
-    android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:clipToPadding="false">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,6 +18,8 @@
         <com.lxj.androidktx.widget.ShapeEditText
             app:set_bottomLineColor="#f00"
             app:set_lineSize="2dp"
+            android:padding="10dp"
+            android:layout_margin="10dp"
             android:text="adssadasd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

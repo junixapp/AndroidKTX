@@ -12,6 +12,11 @@ import android.text.TextUtils
 import android.text.style.AbsoluteSizeSpan
 import android.text.style.ForegroundColorSpan
 import android.util.TypedValue
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowInsets
+import android.view.WindowInsetsAnimation
+import androidx.core.view.*
 import com.blankj.utilcode.util.ImageUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ScreenUtils
@@ -37,6 +42,44 @@ class ViewExtPage : BaseFragment() {
     }
     var banner : BannerViewPager<Any>? = null
     override fun initView() {
+        val actView = activity!!.findViewById<View>(android.R.id.content)
+        WindowCompat.setDecorFitsSystemWindows(activity!!.window, false)
+        ViewCompat.setOnApplyWindowInsetsListener(actView, object : OnApplyWindowInsetsListener{
+            override fun onApplyWindowInsets(
+                v: View,
+                windowInsets: WindowInsetsCompat
+            ): WindowInsetsCompat {
+                val statusBars = windowInsets.getInsets(WindowInsetsCompat.Type.statusBars())
+                // It's also possible to use multiple types
+                val insets = windowInsets.getInsets(WindowInsetsCompat.Type.navigationBars())
+                val insets2 = windowInsets.getInsets(WindowInsetsCompat.Type.ime())
+                LogUtils.e("navigationBars:" + insets.top + " " + insets.bottom +
+                            " " + windowInsets.isVisible(WindowInsetsCompat.Type.navigationBars())
+                )
+                LogUtils.e( "statusBars:" + statusBars.top + " " + statusBars.bottom)
+                LogUtils.e( "insets2:" + insets2.top + " " + insets2.bottom)
+                actView.setPadding(0, 0, 0, insets.bottom)
+                return windowInsets
+            }
+        })
+        val callback = object : WindowInsetsAnimationCompat.Callback(DISPATCH_MODE_CONTINUE_ON_SUBTREE) {
+            override fun onProgress(
+                insets: WindowInsetsCompat,
+                runningAnimations: MutableList<WindowInsetsAnimationCompat>
+            ): WindowInsetsCompat {
+                val navigationBars = insets.getInsets(WindowInsetsCompat.Type.navigationBars())
+                val ime = insets.getInsets(WindowInsetsCompat.Type.ime())
+                LogUtils.e( "ime:" + ime.top +" " + ime.bottom)
+                val parmas = (actView!!.layoutParams as ViewGroup.MarginLayoutParams)
+                parmas.bottomMargin = ime.bottom - navigationBars.bottom
+                actView.layoutParams = parmas
+                LogUtils.e("MainActivity", "ime:" + insets.getInsets(WindowInsetsCompat.Type.ime()).top +
+                        " " + insets.getInsets(WindowInsetsCompat.Type.ime()).bottom)
+                return insets
+            }
+        }
+        ViewCompat.setWindowInsetsAnimationCallback(actView, callback)
+
         val text =  "分享成功了<font color='#FF0000' fontSize='54'>32个</font>内容\n有<font color='#FFEE90' font-size='44'>1个</font>好友下单\n获得奖励<font color='#FFEE90' size='14'>11积分</font>"
 //        tvHtml.text = XHtml.fromHtml(text)
         tvHtml.text = "大萨达撒大所\n\n\n大萨达撒多\n\nadasdasdasdasdsa"

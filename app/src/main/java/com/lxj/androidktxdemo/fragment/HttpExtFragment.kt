@@ -44,6 +44,7 @@ class HttpExtFragment : BaseFragment() {
                 "version" to "3.2.0",
                 "token" to "OrE1GPYXyOb0z_w_s1dpq2rsM4t0DjwK_1538967658"
         )
+//        OkExt.logInterceptor.addExcludeUrl("baidu.com")
 
 //        OkWrapper.headers("header1" to "a", "header2" to "b")
         loadingDialog.observeState(this, demoVM.testData, onSuccess = {
@@ -66,9 +67,6 @@ class HttpExtFragment : BaseFragment() {
 //                })
 
             demoVM.loadBaiduHomePage()
-
-//            ImagePicker.startRecord(this, 1)
-//            WebActivity.start(url = "https://click.lixiaojun.xin/article/?posid=1")
 
 //            CameraActivity.startFromFragment(this, 1)
 //            VersionUpdateUtil.downloadAndInstallApk(context!!, CommonUpdateInfo(download_url = "https://lxj-bama-happy.oss-cn-zhangjiakou.aliyuncs.com/%E5%A4%A9%E5%A4%A9%E5%B9%BF%E5%9C%BA%E8%88%9E-1.0-2020_07_20_11_34_22.apk",
@@ -127,7 +125,7 @@ class DemoVM : SmartViewModel(){
         testData.launchHttp(this, "https://www.baidu.com"){
             val res = "https://www.baidu.com".http()
                 .get<String>().await()
-            LogUtils.e("layout: $res")
+//            LogUtils.e("layout: $res")
             res
         }
     }

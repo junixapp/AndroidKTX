@@ -65,7 +65,7 @@
                 app:titleColor="#fff"
                 android:background="#2079E5"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="50dp" />
 
 
             <com.lxj.androidktx.widget.TitleBar
@@ -196,6 +196,7 @@
                 app:sl_leftText="软件升级"
                 app:sl_leftTextColor="#222"
                 app:sl_leftTextSize="18sp"
+                app:sl_rightTextPaddingHorizontal="15dp"
                 app:sl_rightText="发现新版本!"
                 app:sl_rightTextSize="12sp"
                 app:sl_rightTextColor="#fff"
@@ -236,6 +237,8 @@
                 app:sl_leftTextSize="18sp"
                 app:sl_rightImageSrc="@mipmap/jt"
                 app:sl_rightImage2Src="@drawable/avatar"
+                app:sl_rightImage2Width="50dp"
+                app:sl_rightImage2Height="50dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 

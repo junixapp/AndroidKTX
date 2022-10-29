@@ -20,12 +20,13 @@ object OkExt {
     val globalHeaders = arrayListOf<Pair<String, String>>()
     val requestCache = hashMapOf<Any, Call>()
     val baseUrlMap = hashMapOf<Any, String>() //存储多个baseUrl, key使用tag来存储
+    val logInterceptor = HttpLogInterceptor()
     var okHttpClient: OkHttpClient = OkHttpClient.Builder()
             .retryOnConnectionFailure(true)
             .writeTimeout(httpTimeout, TimeUnit.MILLISECONDS)
             .readTimeout(httpTimeout, TimeUnit.MILLISECONDS)
             .connectTimeout(httpTimeout, TimeUnit.MILLISECONDS)
-            .addNetworkInterceptor(HttpLogInterceptor())
+            .addNetworkInterceptor(logInterceptor)
 //            .cookieJar(PersistentCookieStore())
             .sslSocketFactory(HttpsUtils.getSslSocketFactory().sSLSocketFactory,
                     HttpsUtils.getSslSocketFactory().trustManager)

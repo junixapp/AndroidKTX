@@ -65,6 +65,7 @@
         <attr name="sl_rightTextSize" format="dimension" />
         <attr name="sl_rightTextBg" format="reference" />
         <attr name="sl_rightTextBgColor" format="color" />
+        <attr name="sl_rightTextPaddingHorizontal" format="dimension" />
         <attr name="sl_rightTextWidth" format="dimension" />
         <attr name="sl_rightTextHeight" format="dimension" />
         <attr name="sl_rightTextBold" format="boolean" />

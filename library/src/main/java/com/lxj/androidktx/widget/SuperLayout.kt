@@ -41,14 +41,15 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
     private var mRightTextBg: Drawable? = null
     private var mRightTextBgColor = 0
     private var mRightTextWidth = 0
+    private var mRightTextPaddingHorizontal = 0
     private var mRightTextHeight = 0
 
     private var mRightImage: Drawable? = null
     private var mRightImageSize = 20.dp
     private var mRightImageMarginLeft = 2.dp
     private var mRightImage2: Drawable? = null
-    private var mRightImage2Width = 2.dp
-    private var mRightImage2Height = 2.dp
+    private var mRightImage2Width = 20.dp
+    private var mRightImage2Height = 20.dp
     private var mRightImage2MarginLeft = 10.dp
     private var mLeftTextBold = false
     private var mCenterTextBold = false
@@ -83,6 +84,7 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
         mRightTextBgColor = ta.getColor(R.styleable.SuperLayout_sl_rightTextBgColor, mRightTextBgColor)
         mRightTextWidth = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_rightTextWidth, mRightTextWidth)
         mRightTextHeight = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_rightTextHeight, mRightTextHeight)
+        mRightTextPaddingHorizontal = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_rightTextPaddingHorizontal, mRightTextPaddingHorizontal)
 
         mRightImage = ta.getDrawable(R.styleable.SuperLayout_sl_rightImageSrc)
         mRightImageSize = ta.getDimensionPixelSize(R.styleable.SuperLayout_sl_rightImageSize, mRightImageSize)
@@ -184,6 +186,7 @@ class SuperLayout @JvmOverloads constructor(context: Context, attributeSet: Attr
             tvRightText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mRightTextSize.toFloat())
             if (mRightTextBg != null) tvRightText.setBackgroundDrawable(mRightTextBg)
             if (mRightTextWidth != 0) tvRightText.width(mRightTextWidth)
+            if (mRightTextPaddingHorizontal != 0) tvRightText.setPadding(mRightTextPaddingHorizontal, 0, mRightTextPaddingHorizontal, 0)
             if (mRightTextHeight != 0) tvRightText.height(mRightTextHeight)
             if (mRightTextBgColor != 0) tvRightText.setBackgroundColor(mRightTextBgColor)
             if (mRightTextBold) tvRightText.typeface = Typeface.defaultFromStyle(Typeface.BOLD)

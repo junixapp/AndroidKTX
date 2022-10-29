@@ -25,6 +25,7 @@ class HttpLogInterceptor @JvmOverloads constructor(var printResponseHeader: Bool
     private val responsePrefixStart = "<--------"
     private val responsePrefixEnd = "<-------------------------------------"
     private val tag = "HttpLogInterceptor"
+    private val excludeUrls = arrayListOf<String>()
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -64,14 +65,14 @@ class HttpLogInterceptor @JvmOverloads constructor(var printResponseHeader: Bool
                 requestMessage += "\n$requestPrefixEnd END ${request.method()} (no request body)"
             }
             // 4. 打印请求信息
-            log(requestMessage)
+            log(requestMessage, request.url().toString())
 
             val startNs = System.nanoTime()
             val response: Response
             try {
                 response = chain.proceed(request)
             } catch (e: Exception) {
-                log("$responsePrefixStart HTTP FAILED: $e")
+                log("$responsePrefixStart HTTP FAILED: $e", request.url().toString())
                 throw e
             }
 
@@ -137,7 +138,7 @@ class HttpLogInterceptor @JvmOverloads constructor(var printResponseHeader: Bool
                     "\n$responsePrefixEnd END HTTP (" + buffer.size() + "-byte body)"
                 }
             }
-            log(responseMessage)
+            log(responseMessage, request.url().toString())
             return response
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
@@ -151,7 +152,7 @@ class HttpLogInterceptor @JvmOverloads constructor(var printResponseHeader: Bool
         var headerStr = ""
         while (i < count) {
             val name = headers.name(i)
-            if (!isExclude(name))
+            if (!isExcludeHeader(name))
                 headerStr += "\n    $name: ${headers.get(name)}"
             i++
         }
@@ -160,7 +161,11 @@ class HttpLogInterceptor @JvmOverloads constructor(var printResponseHeader: Bool
         """.trimMargin()
     }
 
-    private fun isExclude(name: String): Boolean {
+    fun addExcludeUrl(url: String){
+        if(!excludeUrls.contains(url)) excludeUrls.add(url)
+    }
+
+    private fun isExcludeHeader(name: String): Boolean {
 //        return listOf("X-Powered-By", "ETag", "Date", "Connection").all { !it.equals(name, true) }
         return false
     }
@@ -201,7 +206,11 @@ class HttpLogInterceptor @JvmOverloads constructor(var printResponseHeader: Bool
         }
     }
 
-    private fun log(msg: String) {
-        Log.d(tag, msg)
+    private fun log(msg: String, url: String) {
+        if(excludeUrls.any { url.contains(it) }){
+            Log.d(tag, "$url ignore http log")
+        }else{
+            Log.d(tag, msg)
+        }
     }
 }
