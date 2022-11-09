@@ -25,7 +25,7 @@ class HttpLogInterceptor @JvmOverloads constructor(var printResponseHeader: Bool
     private val responsePrefixStart = "<--------"
     private val responsePrefixEnd = "<-------------------------------------"
     private val tag = "HttpLogInterceptor"
-    private val excludeUrls = arrayListOf<String>()
+    private val excludeUrls = mutableSetOf<String>()
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -161,8 +161,8 @@ class HttpLogInterceptor @JvmOverloads constructor(var printResponseHeader: Bool
         """.trimMargin()
     }
 
-    fun addExcludeUrl(url: String){
-        if(!excludeUrls.contains(url)) excludeUrls.add(url)
+    fun addExcludeUrl(vararg url: String){
+        excludeUrls.addAll(url)
     }
 
     private fun isExcludeHeader(name: String): Boolean {

@@ -34,14 +34,12 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 	}
 
 	@Override
-	public void onReq(BaseReq req) {
-	}
+	public void onReq(BaseReq req) {}
 
 	@Override
 	public void onResp(BaseResp resp) {
-		LogUtils.d(TAG, "onPayFinish, errCode = " + resp.errCode);
+		LogUtils.d(TAG, "onPayFinish, errCode = " + resp.errCode + "  errStr:" + resp.errStr);
 		if (resp.errCode==0) {
-			//success
 			PayVM.INSTANCE.getWxPayData().postValue(new WxPayResult("success", resp.openId, resp.transaction));
 		}else if(resp.errCode==-1){
 			PayVM.INSTANCE.getWxPayData().postValue(new WxPayResult("false", resp.openId, resp.transaction));

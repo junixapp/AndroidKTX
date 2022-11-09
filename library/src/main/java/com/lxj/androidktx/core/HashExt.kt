@@ -26,34 +26,41 @@ fun String.sha1Hmac(salt: String) = EncryptUtils.encryptHmacSHA1ToString(this, s
 fun String.sha256Hmac(salt: String) = EncryptUtils.encryptHmacSHA256ToString(this, salt)
 
 /**
- * DES对称加密
+ * DES对称加密，输出的是Base64字符串
  * @param key 长度必须是8位
  */
-fun String.encryptDES(key: String) =
+fun String.encryptDESBase64(key: String) =
         Base64.encodeToString(
                 EncryptUtils.encryptDES(this.toByteArray(), key.toByteArray(), "DES/CBC/PKCS5Padding", null),
                 Base64.NO_WRAP
         )
 
+fun String.encryptDESHex(key: String) = EncryptUtils.encryptDES2HexString(this.toByteArray(), key.toByteArray(), "DES/CBC/PKCS5Padding", null)
+
 
 /**
- * DES对称解密
+ * DES对称解密Base64字符串
  * @param key 长度必须是8位
  */
-fun String.decryptDES(key: String) = String(EncryptUtils.decryptDES(Base64.decode(this, Base64.NO_WRAP), key.toByteArray(), "DES/CBC/PKCS5Padding", null))
+fun String.decryptBase64DES(key: String) = String(EncryptUtils.decryptDES(Base64.decode(this, Base64.NO_WRAP), key.toByteArray(), "DES/CBC/PKCS5Padding", null))
+
+fun String.decryptHexDES(key: String) = String(EncryptUtils.decryptHexStringDES(this, key.toByteArray(), "DES/CBC/PKCS5Padding", null))
 
 /**
- * AES对称加密
+ * AES对称加密，输出的是Base64字符串
  * @param key 长度必须是16位
  */
-fun String.encryptAES(key: String) = Base64.encodeToString(
+fun String.encryptAESBase64(key: String) = Base64.encodeToString(
         EncryptUtils.encryptAES(this.toByteArray(), key.toByteArray(), "AES/ECB/PKCS5Padding", null),
         Base64.NO_WRAP
 )
 
+fun String.encryptAESHex(key: String) = EncryptUtils.encryptAES2HexString(this.toByteArray(), key.toByteArray(), "AES/ECB/PKCS5Padding", null)
+
 /**
- * AES对称解密
+ * AES对称解密Base64字符串
  * @param key 长度必须是16位
  */
-fun String.decryptAES(key: String) = String(EncryptUtils.decryptAES(Base64.decode(this, Base64.NO_WRAP), key.toByteArray(), "AES/ECB/PKCS5Padding", null))
+fun String.decryptBase64AES(key: String) = String(EncryptUtils.decryptAES(Base64.decode(this, Base64.NO_WRAP), key.toByteArray(), "AES/ECB/PKCS5Padding", null))
+fun String.decryptHexAES(key: String) = String(EncryptUtils.decryptHexStringAES(this, key.toByteArray(), "AES/ECB/PKCS5Padding", null))
 

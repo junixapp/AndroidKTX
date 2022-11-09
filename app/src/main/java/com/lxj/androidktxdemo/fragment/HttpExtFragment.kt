@@ -44,7 +44,7 @@ class HttpExtFragment : BaseFragment() {
                 "version" to "3.2.0",
                 "token" to "OrE1GPYXyOb0z_w_s1dpq2rsM4t0DjwK_1538967658"
         )
-//        OkExt.logInterceptor.addExcludeUrl("baidu.com")
+        OkExt.logInterceptor.addExcludeUrl("baidu.com", "", "")
 
 //        OkWrapper.headers("header1" to "a", "header2" to "b")
         loadingDialog.observeState(this, demoVM.testData, onSuccess = {

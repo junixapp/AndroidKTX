@@ -22,4 +22,4 @@ fun String.getMediaDuration():Long{
     }
 }
 
-fun File.getMediaDuration() = absolutePath.getMediaDuration()
+fun File.getDuration() = absolutePath.getMediaDuration()
