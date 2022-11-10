@@ -54,10 +54,10 @@ class MainActivity : BaseActivity() {
         val ut =  """
             {
                 "name": "dasdsa",
-                "age": "2342.343"
+                "age": 98182389985949
             }
-        """.trimIndent().toBean<UserTest>()
-//        LogUtils.e("ut: ${ut.toJson()}")
+        """.trimIndent().toBean<HashMap<String,Any>>()
+        LogUtils.e("ut: ${ut.toJson()}")
 
         runOnUiThread {  }
     }
@@ -69,7 +69,7 @@ class MainActivity : BaseActivity() {
     fun genSign(): String{
         //1. 生成10000以内的随机数
         val random = Random.Default.nextInt(10000)
-        val b = "${10000 - random}".encryptAES(signKey)
+        val b = "${10000 - random}".encryptAESBase64(signKey)
         val c = Random.Default.nextInt(10000)
         val json = mapOf<String,Any>(
                 "a" to random,
@@ -77,7 +77,7 @@ class MainActivity : BaseActivity() {
                 "c" to c,
                 "d" to System.currentTimeMillis()
         ).toJson()
-        return json.encryptAES(signKey)
+        return json.encryptAESBase64(signKey)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

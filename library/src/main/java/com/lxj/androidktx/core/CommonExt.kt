@@ -19,6 +19,7 @@ import com.blankj.utilcode.util.TimeUtils
 import com.google.gson.ExclusionStrategy
 import com.google.gson.FieldAttributes
 import com.google.gson.GsonBuilder
+import com.google.gson.ToNumberPolicy
 import com.google.gson.reflect.TypeToken
 import com.lxj.androidktx.livedata.LifecycleHandler
 import java.io.Serializable
@@ -137,6 +138,7 @@ fun View.createDrawable(color: Int = Color.TRANSPARENT, radius: Float = 0f, corn
 /** json相关 **/
 fun Any.toJson(dateFormat: String = "yyyy-MM-dd HH:mm:ss", lenient: Boolean = false, excludeFields: List<String>? = null)
         = GsonBuilder().setDateFormat(dateFormat)
+        .setObjectToNumberStrategy(ToNumberPolicy.BIG_DECIMAL)
         .apply {
             if(lenient) setLenient()
             if(!excludeFields.isNullOrEmpty()){
@@ -152,6 +154,7 @@ fun Any.toJson(dateFormat: String = "yyyy-MM-dd HH:mm:ss", lenient: Boolean = fa
 
 inline fun <reified T> String.toBean(dateFormat: String = "yyyy-MM-dd HH:mm:ss", lenient: Boolean = false)
         = GsonBuilder().setDateFormat(dateFormat)
+        .setObjectToNumberStrategy(ToNumberPolicy.BIG_DECIMAL)
         .apply {
             if(lenient) setLenient()
         }.create()
