@@ -86,3 +86,10 @@ fun ShapeTextView.switchStateByEditText(et: EditText, minLength: Int = 1, enable
 fun TextView.maxLength(max: Int){
     filters = arrayOf<InputFilter>(InputFilter.LengthFilter(max))
 }
+
+/**
+ * 设置粗体
+ */
+fun TextView.bold(bold: Boolean){
+    paint?.isFakeBoldText = bold
+}

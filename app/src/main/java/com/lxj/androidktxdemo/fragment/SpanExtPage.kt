@@ -13,6 +13,7 @@ import com.lxj.androidktx.core.*
 import com.lxj.androidktx.qrcode.QrCodeUtil
 import com.lxj.androidktx.widget.SuperDrawable
 import com.lxj.androidktxdemo.R
+import com.lxj.androidktxdemo.blibli.BlibliVideoActivity
 import com.lxj.androidktxdemo.notification.NotificationDemo
 import com.lxj.share.Share
 import kotlinx.android.synthetic.main.fragment_span_ext.*
@@ -114,6 +115,7 @@ class SpanExtPage : BaseFragment() {
         tt.setup(solid = Color.WHITE, shadowSize = shadowSize, corner = radius)
         tt.click {  }
 
+        tvBli.click { start<BlibliVideoActivity>() }
         seekBar1.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 radius = progress

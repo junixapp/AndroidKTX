@@ -8,7 +8,9 @@ import com.lxj.share.Share
 import com.lxj.androidktxdemo.databinding.ActivityMainBinding
 import com.lxj.androidktxdemo.entity.PageInfo
 import com.lxj.androidktxdemo.fragment.*
+import com.lxj.androidktxdemo.popup.TestPopup
 import com.lxj.androidktxdemo.vm.TestVM
+import com.lxj.xpopup.XPopup
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.random.Random
 
@@ -59,7 +61,7 @@ class MainActivity : BaseActivity() {
         """.trimIndent().toBean<HashMap<String,Any>>()
         LogUtils.e("ut: ${ut.toJson()}")
 
-        runOnUiThread {  }
+//        XPopup.Builder(this).asCustom(TestPopup(this)).show()
     }
 
     override fun initData() {

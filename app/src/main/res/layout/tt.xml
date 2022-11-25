@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#fff"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:text="Identified Information"
+        android:textSize="18sp"
+        android:textColor="#222"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <com.lxj.androidktx.widget.ShapeEditText
+        android:id="@+id/etName"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:hint="* Full name"
+        android:textColorHint="#999"
+        android:padding="10dp"
+        android:textColor="#333"
+        android:textSize="16sp"
+        app:set_strokeWidth="1dp"
+        app:set_corner="8dp"
+        app:set_stroke="@color/colorPrimary" />
+
+    <com.lxj.androidktx.widget.ShapeEditText
+        android:id="@+id/etIdCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:textColorHint="#999"
+        android:hint="* Identification number"
+        android:padding="10dp"
+        android:textColor="#333"
+        android:textSize="16sp"
+        app:set_strokeWidth="1dp"
+        app:set_corner="8dp"
+        app:set_stroke="@color/colorPrimary" />
+
+    <com.lxj.androidktx.widget.ShapeTextView
+        android:id="@+id/etBirthday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:textColorHint="#999"
+        android:hint="* Date of birthday"
+        android:drawableEnd="@drawable/dropdown"
+        android:padding="10dp"
+        android:textColor="#333"
+        android:textSize="16sp"
+        app:stv_strokeWidth="1dp"
+        app:stv_corner="8dp"
+        app:stv_stroke="@color/colorPrimary" />
+
+    <com.lxj.androidktx.widget.ShapeEditText
+        android:id="@+id/etPinCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:textColorHint="#999"
+        android:hint="* Pincode"
+        android:padding="10dp"
+        android:textColor="#333"
+        android:textSize="16sp"
+        app:set_strokeWidth="1dp"
+        app:set_corner="8dp"
+        app:set_stroke="@color/colorPrimary" />
+
+    <com.lxj.androidktx.widget.ShapeEditText
+        android:id="@+id/etPanNum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:textColorHint="#999"
+        android:hint="* PAN Number"
+        android:padding="10dp"
+        android:textColor="#333"
+        android:textSize="16sp"
+        app:set_strokeWidth="1dp"
+        app:set_corner="8dp"
+        app:set_stroke="@color/colorPrimary" />
+
+    <LinearLayout
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="end"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tvCancel"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="10dp"
+            android:textColor="#333"
+            android:text="Cancel"
+            android:textSize="16sp"
+            android:layout_marginEnd="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/tvConfirm"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="10dp"
+            android:textColor="@color/colorPrimary"
+            android:text="Confirm"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+</LinearLayout>
