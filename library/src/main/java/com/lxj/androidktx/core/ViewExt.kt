@@ -264,10 +264,6 @@ fun View.animateGone(duration: Long = 250, fade: Boolean = true, move: Boolean =
     visibility = View.GONE
 }
 
-fun View.visible() {
-    visibility = View.VISIBLE
-}
-
 fun View.animateVisible(duration: Long = 250, fade: Boolean = true, move: Boolean = true) {
     TransitionManager.beginDelayedTransition(
         parent as ViewGroup, TransitionSet()
@@ -280,10 +276,6 @@ fun View.animateVisible(duration: Long = 250, fade: Boolean = true, move: Boolea
             .addTransition(ChangeBounds())
     )
     visibility = View.VISIBLE
-}
-
-fun View.invisible() {
-    visibility = View.INVISIBLE
 }
 
 fun View.animateInvisible(duration: Long = 250) {
@@ -427,10 +419,10 @@ fun View.enableAll() {
     }
 }
 
-fun View.visible(b: Boolean){
+fun View.visible(b: Boolean = true){
     visibility = if(b) View.VISIBLE else View.GONE
 }
 
-fun View.invisible(b: Boolean){
+fun View.invisible(b: Boolean = true){
     visibility = if(b) View.VISIBLE else View.INVISIBLE
 }
