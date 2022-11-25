@@ -48,7 +48,7 @@ class BlibliVideoActivity: BaseActivity() {
         }
         (appBar.layoutParams as CoordinatorLayout.LayoutParams).behavior = behavior
         tvHideTab.click {
-            tabLayout.visible(!tabLayout.isVisible)
+            tabLayout.visibleOrGone(!tabLayout.isVisible)
         }
     }
 

@@ -73,7 +73,7 @@ class AppBarScaleHeaderBehavior(context: Context? = null, attrs: AttributeSet? =
         //如果header全屏，则隐藏AppBarLayout内除header外的其他View
         appbar?.children?.forEach {
             if(it!=header){
-                it.visible(!isFullscreenHeader)
+                it.visibleOrGone(!isFullscreenHeader)
             }
         }
         val act = context2Activity(appbar!!.context!!) ?: return

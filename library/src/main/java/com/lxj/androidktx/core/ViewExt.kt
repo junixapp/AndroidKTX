@@ -418,11 +418,17 @@ fun View.enableAll() {
         }
     }
 }
+fun View.visible(){
+    visibility = View.VISIBLE
+}
+fun View.invisible(){
+    visibility = View.INVISIBLE
+}
 
-fun View.visible(b: Boolean = true){
+fun View.visibleOrGone(b: Boolean = true){
     visibility = if(b) View.VISIBLE else View.GONE
 }
 
-fun View.invisible(b: Boolean = true){
+fun View.visibleOrInvisible(b: Boolean = true){
     visibility = if(b) View.VISIBLE else View.INVISIBLE
 }
