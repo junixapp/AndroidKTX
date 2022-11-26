@@ -14,8 +14,8 @@ import com.lxj.androidktx.core.*
  * 注意点：
  * 1. child的tag必须是 ktx_appbar_scale_header
  * 2. 必须给child设置如下属性
-        android:layout_height="200dp" //指定一个默认高度，可以动态设置
-        app:layout_scrollFlags="scroll|exitUntilCollapsed"
+android:layout_height="200dp" //指定一个最大高度，可以动态设置
+app:layout_scrollFlags="scroll|exitUntilCollapsed"
  * 3. 将当前behavior设置给AppBarLayout，可以在布局设置，也可以在代码中动态设置：
  *    (appBar.layoutParams as CoordinatorLayout.LayoutParams).behavior = behavior
  * 4. 滚动源behavior一般是com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior
@@ -49,8 +49,11 @@ class AppBarScaleHeaderBehavior(context: Context? = null, attrs: AttributeSet? =
 
     fun setHeight(min: Int, max:Int){
         minHeight = min
-        header?.minimumHeight = minHeight
         maxHeight = max
+        header?.minimumHeight = minHeight
+        if((header?.height?:0) != maxHeight){
+            header?.height(maxHeight)
+        }
         maxPadding = maxHeight - minHeight
     }
 
@@ -107,7 +110,7 @@ class AppBarScaleHeaderBehavior(context: Context? = null, attrs: AttributeSet? =
     }
 
     override fun setTopAndBottomOffset(offset: Int): Boolean {
-        if(isFullscreenHeader || !enableScale) return true
+        if(isFullscreenHeader /*|| !enableScale*/) return true
         return super.setTopAndBottomOffset(offset)
     }
 
@@ -115,7 +118,6 @@ class AppBarScaleHeaderBehavior(context: Context? = null, attrs: AttributeSet? =
         if (hasObserverOffset) return
         appBar.addOnOffsetChangedListener(object : AppBarLayout.OnOffsetChangedListener {
             override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
-                if(!enableScale) return
                 if(!isFullscreenHeader){
                     val newP = MathUtils.clamp(-verticalOffset, 0, maxPadding)
                     header?.setPadding(0, newP, 0, 0)

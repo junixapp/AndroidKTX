@@ -2,8 +2,6 @@ package com.lxj.androidktx.core
 
 import android.graphics.Rect
 import android.os.Build
-import android.util.Log
-import com.blankj.utilcode.util.LogUtils
 import com.lxj.androidktx.R
 import com.lxj.androidktx.widget.ShapeImageView
 import com.zhpan.bannerview.BaseBannerAdapter
@@ -16,7 +14,6 @@ class CommonBannerAdapter<T>( var margin: Rect = Rect(), var cornerRadius: Int =
         holder.itemView.margin(margin.left, margin.top, margin.right, margin.bottom)
         (holder.itemView as ShapeImageView).apply {
             load(data, isCrossFade = true, roundRadius = cornerRadius)
-            LogUtils.d("banner posi: $position  data: $data")
             setup(corner = cornerRadius)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 elevation = pageElevation.toFloat()
