@@ -10,7 +10,8 @@ import com.google.android.material.appbar.AppBarLayout
 import com.lxj.androidktx.core.*
 
 /**
- * 让AppBar中的某个child有最大高度到最小高度限制的效果；并支持让header全屏展示效果，适用于视频播放场景
+ * 让AppBar中的header有最大高度到最小高度限制的效果；并支持让header全屏展示效果，适用于视频播放场景.
+ * header是AppBar中的任意child
  * 注意点：
  * 1. child的tag必须是 ktx_appbar_scale_header
  * 2. 必须给child设置如下属性
@@ -61,8 +62,11 @@ class AppBarScaleHeaderBehavior(context: Context? = null, attrs: AttributeSet? =
         enableAppBarDrag = enable
     }
 
+    fun isMinHeader() = header?.paddingTop==maxPadding
+    fun isMaxHeader() = header?.paddingTop==0
+
     /**
-     * 是否开启缩放，如果关闭缩放，则AppBar将不会动
+     * 是否开启缩放，如果关闭缩放，则AppBar和Header将不会动
      */
     fun enableScale(enable: Boolean){
         enableScale = enable

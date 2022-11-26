@@ -48,8 +48,10 @@ class BlibliVideoActivity: BaseActivity() {
         }
         (appBar.layoutParams as CoordinatorLayout.LayoutParams).behavior = behavior
         tvHideTab.click {
-            tabLayout.visibleOrGone(!tabLayout.isVisible)
+//            tabLayout.visibleOrGone(!tabLayout.isVisible)
+            appBar.setExpanded(behavior.isMinHeader())
         }
+        behavior.setHeight(200.dp, 500.dp)
     }
 
     override fun initData() {}

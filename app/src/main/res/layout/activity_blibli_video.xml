@@ -16,7 +16,7 @@
         <LinearLayout
             android:tag="ktx_appbar_scale_header"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="500dp"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
-                android:text="点我切换TabLayout隐藏和显示"
+                android:text="点我切换Header最大和最小"
                 android:textColor="#FFF"
                 android:textSize="20sp"
                 android:textStyle="bold" />
