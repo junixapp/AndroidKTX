@@ -222,6 +222,10 @@ fun View.click(duration: Long = 500, action: (view: View) -> Unit) {
     if(id == View.NO_ID) id = View.generateViewId()
     if (this is TextView) setOnTouchListener(FixClickSpanTouchListener())
     setOnClickListener {
+        if(_clickCache_.size() > 30){
+            //limit size
+            _clickCache_.removeAt(0)
+        }
         val lastClickTime = _clickCache_.get(id)
         if(lastClickTime==null || lastClickTime < System.currentTimeMillis()){
             //first click
