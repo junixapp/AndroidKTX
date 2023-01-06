@@ -11,7 +11,7 @@ class WelcomeActivity : BaseActivity() {
         supportActionBar?.hide()
         val fromNotification = intent?.getBooleanExtra("fromNotification", false)?:false
         postDelay(100){
-            startActivity<DemoActivity>()
+            startActivity<MainActivity>()
             if(fromNotification) startActivity<DemoActivity>()
             finish()
         }

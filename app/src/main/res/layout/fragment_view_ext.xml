@@ -32,13 +32,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <com.lxj.androidktxdemo.TileImageView
-            android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:adjustViewBounds="true"
-            android:src="@mipmap/head" />
-
         <com.zhpan.bannerview.BannerViewPager
             android:id="@+id/banner"
             android:background="#fff"
@@ -198,6 +191,9 @@
             app:tb_typefacePath="FredokaOne-Regular.ttf" />
 
         <com.lxj.androidktx.widget.ShapeFrameLayout
+            android:id="@+id/sfl"
+            app:sfl_lineSize="10dp"
+            app:sfl_topLineColor="#ff9999"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             app:sfl_corner="30dp">

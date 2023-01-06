@@ -98,7 +98,7 @@ data class RequestWrapper(
         return bodyBuilder().put(customReqBody?: buildRequestBody()).build()
     }
     fun buildDeleteRequest(): Request {
-        return bodyBuilder().delete(buildRequestBody()).build()
+        return bodyBuilder().delete(customReqBody?: buildRequestBody()).build()
     }
     private fun bodyBuilder(): Request.Builder{
         return Request.Builder().url( if(isQueryParam) urlParams() else url())

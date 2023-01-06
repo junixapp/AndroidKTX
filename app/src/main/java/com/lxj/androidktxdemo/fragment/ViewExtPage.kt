@@ -114,6 +114,9 @@ class ViewExtPage : BaseFragment() {
 //            text1.animateWidth(Random.nextInt(ScreenUtils.getAppScreenWidth()), duration = 1000)
         }
 
+        sfl.click {
+            sfl.setup(lineSize = if(sfl.mLineSize==0) 10.dp else 0)
+        }
 
         text2.widthAndHeight(value, value)
         text2.text = "text2.widthAndHeight($value,$value)"
