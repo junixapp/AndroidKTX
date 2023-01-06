@@ -64,7 +64,7 @@ data class RequestWrapper(
     }
 
     /**
-     * 以json串方式的body封装
+     * 以application/json编码的body封装
      */
     fun jsonParam(json: String): RequestWrapper{
         customReqBody = buildJsonBody(json)

@@ -126,4 +126,6 @@ object OkExt {
 
     fun streamBodyFromString(string: String) =
             RequestBody.create(MediaType.parse("application/octet-stream"), string)
+
+    fun plainTextBody(string: String) = RequestBody.create(MediaType.parse("text/plain"), string)
 }
