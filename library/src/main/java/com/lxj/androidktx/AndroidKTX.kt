@@ -37,9 +37,6 @@ object AndroidKTX {
         this.isDebug = isDebug
         this.defaultLogTag = defaultLogTag
         this.sharedPrefName = sharedPrefName
-        if(context is Application){
-            Utils.init(context)
-        }
         ToastUtils.getDefaultMaker().setGravity(Gravity.CENTER, 0 , 0)
         ToastUtils.getDefaultMaker().setBgResource(R.drawable._ktx_toast_bg)
         ToastUtils.getDefaultMaker().setTextColor(Color.WHITE)
