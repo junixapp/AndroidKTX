@@ -40,15 +40,22 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
-    <com.scwang.smart.refresh.layout.SmartRefreshLayout
-        android:id="@+id/smartRefresh"
+    <com.lxj.statelayout.StateLayout
+        android:id="@+id/stateRv"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+<!--    <com.scwang.smart.refresh.layout.SmartRefreshLayout-->
+<!--        android:id="@+id/smartRefresh"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:splitMotionEvents="false"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+<!--    </com.scwang.smart.refresh.layout.SmartRefreshLayout>-->
+    </com.lxj.statelayout.StateLayout>
+
+
 </LinearLayout>

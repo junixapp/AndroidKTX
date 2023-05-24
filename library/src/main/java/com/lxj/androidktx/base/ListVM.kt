@@ -7,51 +7,31 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.livedata.StateLiveData
 import com.lxj.statelayout.StateLayout
-import com.scwang.smart.refresh.layout.SmartRefreshLayout
-import com.scwang.smart.refresh.layout.api.RefreshLayout
-import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
-import java.io.Serializable
 import java.lang.IllegalArgumentException
 import java.util.concurrent.CopyOnWriteArrayList
 
-data class ListWrapper<T>(
-    var records: List<T> = listOf<T>(),
-    var total: Int = 10,
-    var current: Int = 1,
-    var pages: Int = 0
-) : Serializable
 
 /**
  * 注意一定要实现getDiffCallback，否则数据更新只能采用 notifyDataSetChanged()
  */
-abstract class PageListVM<T>() : ViewModel(),
-    OnRefreshLoadMoreListener {
+abstract class ListVM<T>() : ViewModel(){
     var firstLoad = true
-    var page = 1
-    var hasMore = true
-
     var listData = StateLiveData<CopyOnWriteArrayList<T>>()
     var oldData = arrayListOf<T>()
     init {
         listData.value = CopyOnWriteArrayList()
     }
 
-    var onRefreshCB: (() -> Unit)? = null
-    var onLoadMoreCB: (() -> Unit)? = null
     open fun bindRecyclerView(
         owner: LifecycleOwner,
         rv: RecyclerView?,
-        smartRefresh: SmartRefreshLayout? = null,
         stateLayout: StateLayout? = null,
-        firstShowLoading: Boolean = false,
+        firstShowLoading: Boolean = true,
         autoLoadData: Boolean = true,
-        onRefresh: (() -> Unit)? = null,
-        onLoadMore: (() -> Unit)? = null,
         onDataUpdate: (() -> Unit)? = null,
     ) {
-        onRefreshCB = onRefresh
-        onLoadMoreCB = onLoadMore
         listData.observe(owner, Observer {
+            firstLoad = false
             val diffCallback = getDiffCallback(oldData, it)
             if(diffCallback!=null){
                 rv?.diffUpdate(diffCallback)
@@ -61,7 +41,6 @@ abstract class PageListVM<T>() : ViewModel(),
             onDataUpdate?.invoke()
         })
         listData.state.observe(owner, Observer {
-            var success = true
             when(it){
                 StateLiveData.State.Loading -> {
                     if(firstLoad && firstShowLoading){
@@ -73,7 +52,6 @@ abstract class PageListVM<T>() : ViewModel(),
                     else stateLayout?.showContent()
                 }
                 StateLiveData.State.Error -> {
-                    success = false
                     if(listData.value!!.isNullOrEmpty()) {
                         stateLayout?.showError()
                     } else {
@@ -82,28 +60,14 @@ abstract class PageListVM<T>() : ViewModel(),
                 }
                 else -> stateLayout?.showContent()
             }
-            if(it!=StateLiveData.State.Loading){
-                smartRefresh?.finishRefresh(success)
-                smartRefresh?.finishLoadMore(success)
-                smartRefresh?.setNoMoreData(!hasMore)
-            }
         })
-        smartRefresh?.setOnRefreshLoadMoreListener(this)
-
-        if (firstShowLoading && stateLayout != null) {
+        if (firstLoad && firstShowLoading && stateLayout != null) {
             stateLayout.showLoading()
-            if(autoLoadData)refresh()
+            if(autoLoadData)load()
         } else {
-            if(autoLoadData)smartRefresh?.post { smartRefresh.autoRefresh() }
+            if(autoLoadData) load()
         }
     }
-
-    open fun refresh() {
-        page = 1
-        load()
-        onRefreshCB?.invoke()
-    }
-
 
     /**
      * 新增数据
@@ -117,6 +81,22 @@ abstract class PageListVM<T>() : ViewModel(),
         }else if(position>=0 && list.size>position){
             updateOldData()
             list.add(position!!, t)
+            listData.postValueAndSuccess(list)
+        }
+    }
+
+    /**
+     * 新增数据
+     */
+    fun insertList(t: List<T>, position: Int? = null){
+        val list = listData.value!!
+        if(position ==null){
+            updateOldData()
+            list.addAll(t)
+            listData.postValueAndSuccess(list)
+        }else if(position>=0 && list.size>position){
+            updateOldData()
+            list.addAll(position!!, t)
             listData.postValueAndSuccess(list)
         }
     }
@@ -155,43 +135,7 @@ abstract class PageListVM<T>() : ViewModel(),
         listData.postValueAndSuccess(list)
     }
 
-    open fun loadMore() {
-        if (hasMore) {
-            page += 1
-            load()
-            onLoadMoreCB?.invoke()
-        }
-    }
-
     abstract fun load()
-
-    open fun processData(listWrapper: ListWrapper<T>?, nullIsEmpty: Boolean = false) {
-        firstLoad = false
-        if (listWrapper != null) {
-            if (page == 1) listData.value!!.clear()
-            val list = listData.value
-            updateOldData()
-            if (!listWrapper.records.isNullOrEmpty()) {
-                hasMore = true
-                list?.addAll(listWrapper.records)
-                listData.postValueAndSuccess(list!!)
-            } else {
-                //listWrapper数据为空
-                hasMore = false
-                if(list!!.isEmpty()) listData.postEmpty(list)
-                else listData.postValueAndSuccess(list)
-            }
-        } else {
-            val list = listData.value
-            updateOldData()
-            if(list.isNullOrEmpty()){
-                if (nullIsEmpty) listData.postEmpty(list)
-                else listData.postError()
-            }else{
-                listData.postError()
-            }
-        }
-    }
 
     /**
      * 由于泛型无法继承，该方法必须子类来实现，实现的模板代码如下：
@@ -227,17 +171,4 @@ abstract class PageListVM<T>() : ViewModel(),
      */
     open fun getDiffCallback(old: List<T>, new: List<T>): DiffCallback<T>? = null
 
-    override fun onRefresh(refreshLayout: RefreshLayout) {
-        refresh()
-    }
-
-    override fun onLoadMore(refreshLayout: RefreshLayout) {
-        loadMore()
-    }
-
-    fun reset(){
-        page = 1
-        hasMore = true
-        listData.postValueAndSuccess(CopyOnWriteArrayList())
-    }
 }

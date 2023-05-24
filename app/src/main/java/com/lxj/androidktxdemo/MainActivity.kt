@@ -1,6 +1,7 @@
 package com.lxj.androidktxdemo
 
 import android.content.Intent
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.blankj.utilcode.util.LogUtils
 import com.lxj.androidktx.base.BaseActivity
 import com.lxj.androidktx.core.*
@@ -35,7 +36,6 @@ class MainActivity : BaseActivity() {
             PageInfo("LiveDataBus", LiveDataBusDemo()),
             PageInfo("RecyclerView相关", RecyclerViewExtDemo()),
             PageInfo("ViewPager2", ViewPager2Demo()),
-            PageInfo("九宫格View", NineGridViewDemo()),
             PageInfo("播放器", PlayerFragment()),
             PageInfo("Uploader", UploaderFragment()),
     )

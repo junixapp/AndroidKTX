@@ -1,6 +1,8 @@
 package com.lxj.androidktxdemo.vm
 
 import androidx.lifecycle.viewModelScope
+import com.blankj.utilcode.util.LogUtils
+import com.lxj.androidktx.base.ListVM
 import com.lxj.androidktx.base.ListWrapper
 import com.lxj.androidktx.base.PageListVM
 import com.lxj.androidktx.core.DiffCallback
@@ -12,10 +14,11 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
-class UserVM: PageListVM<User>() {
+class UserVM: ListVM<User>() {
     override fun load() {
+        LogUtils.eTag("tag", "loaddata")
         viewModelScope.launch {
-            delay(1000)
+            delay(2000)
             //mock data
             val data = arrayListOf<User>()
             if(listData.value!!.size < 30){
@@ -23,7 +26,7 @@ class UserVM: PageListVM<User>() {
                     data.add(User(name = "分页-${Random.nextInt(10000)}"))
                 }
             }
-            processData(ListWrapper(records = data, total = 1000, current = page, pages = 100))
+            insertList(data)
         }
     }
 

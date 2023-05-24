@@ -59,8 +59,11 @@ abstract class StateFragment : Fragment(), FragmentUtils.OnBackClickListener {
     //执行初始化，只会执行一次
     protected abstract fun getLayoutId(): Int
     abstract fun initView()
+    //可见时才调用
     abstract fun initData()
-    open fun onShow(){}
+    open fun onShow(){
+
+    }
     open fun onHide(){}
 
     override fun onBackClick() = false

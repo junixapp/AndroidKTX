@@ -85,12 +85,12 @@ class RecyclerViewExtDemo : BaseFragment() {
             userVM.update(randomPosition, t)
         }
 
-//        moveBtn.click(50) {
+        moveBtn.click(50) {
 //            if (data.isEmpty()) return@click
-//            val old = data.deepCopy<ArrayList<User>>()
-//            data.reverse()
-//            recyclerView.diffUpdate(UserDiffCallback(old, data))
-//        }
+            val old = userVM.listData.value!!.deepCopy<ArrayList<User>>()
+            old.shuffle()
+            recyclerView.diffUpdate(UserDiffCallback(old, userVM.listData.value))
+        }
         val header = TextView(context).apply {
             text = "我是header"
             setPadding(120, 120, 120, 120)
@@ -141,11 +141,10 @@ class RecyclerViewExtDemo : BaseFragment() {
 //                .enableItemDrag(isDisableLast = true)
 
 
-        userVM.bindRecyclerView(this, rv = recyclerView, smartRefresh = smartRefresh)
-
+//        userVM.bindRecyclerView(this, rv = recyclerView)
     }
 
-    lateinit var data: CopyOnWriteArrayList<User>
+    var data: CopyOnWriteArrayList<User> = CopyOnWriteArrayList()
     fun bind1() {
         data = CopyOnWriteArrayList<User>().apply {
             add(User(id = UUID.randomUUID().toString(), name = "浏览"))
@@ -165,6 +164,10 @@ class RecyclerViewExtDemo : BaseFragment() {
 
     }
 
+    override fun initData() {
+        super.initData()
+        userVM.bindRecyclerView(this, rv = recyclerView, stateLayout = stateRv)
+    }
 
     //
     class ContentDelegate : ItemDelegate<String> {

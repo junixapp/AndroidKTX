@@ -67,7 +67,6 @@ dependencies {
 
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1"
     api 'com.github.li-xiaojun:EasyAdapter:1.2.8'
-    api 'com.jaeger.ninegridimageview:library:1.1.1'  //九宫格
     api 'com.google.code.gson:gson:2.9.0'
     // inline函数在运行时插入使用处，需要暴露出去
     api "com.squareup.okhttp3:okhttp:3.14.9"

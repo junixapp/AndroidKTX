@@ -21,6 +21,7 @@ import com.blankj.utilcode.util.ImageUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.lxj.androidktx.base.WebActivity
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.util.CountDownWorker
 import com.lxj.androidktx.widget.TabBar
@@ -90,6 +91,7 @@ class ViewExtPage : BaseFragment() {
             doOnceIn(actionName = "xx", time = 1400, immediately = false, action = {
                 toast("延时执行：${Random.Default.nextInt(10)}" )
             })
+            WebActivity.start(url = "file:///android_asset/dist/index.html")
 //            ImageUtils.save2Album(nsv.toBitmap(), Bitmap.CompressFormat.PNG)
 //            PermissionUtils.permission(PermissionConstants.STORAGE)
 //                .callback(object : PermissionUtils.SimpleCallback{
