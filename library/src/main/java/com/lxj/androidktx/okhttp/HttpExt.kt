@@ -130,7 +130,7 @@ inline fun <reified T> defferedRequest(request: Request, reqWrapper: RequestWrap
                     response.body()!!.string() as T
                 )
                 File::class.java -> {
-                    val file = File(reqWrapper.savePath)
+                    val file = File(reqWrapper.savePath())
                     if (!file.exists()) file.createNewFile()
                     response.body()!!.byteStream().copyTo(file.outputStream())
                     deferred.complete(file as T)
@@ -181,7 +181,7 @@ inline fun <reified T> callbackRequest(
                             response.body()!!.string() as T
                         )
                         File::class.java -> {
-                            val file = File(reqWrapper.savePath)
+                            val file = File(reqWrapper.savePath())
                             if (!file.exists()) file.createNewFile()
                             response.body()!!.byteStream().copyTo(file.outputStream())
                             cb.onSuccess(file as T)
@@ -215,7 +215,7 @@ inline fun <reified T> syncRequest(request: Request, reqWrapper: RequestWrapper)
             when (T::class.java) {
                 String::class.java -> response.body()!!.string() as T
                 File::class.java -> {
-                    val file = File(reqWrapper.savePath)
+                    val file = File(reqWrapper.savePath())
                     if (!file.exists()) file.createNewFile()
                     response.body()!!.byteStream().copyTo(file.outputStream())
                     file as T

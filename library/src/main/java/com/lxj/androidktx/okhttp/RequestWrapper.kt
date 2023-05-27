@@ -4,6 +4,7 @@ import com.lxj.androidktx.core.toJson
 import com.lxj.androidktx.okhttp.progressmanager.ProgressListener
 import com.lxj.androidktx.okhttp.progressmanager.ProgressManager
 import com.lxj.androidktx.okhttp.progressmanager.body.ProgressInfo
+import com.lxj.androidktx.util.DirManager
 import okhttp3.*
 import java.io.File
 import java.lang.Exception
@@ -16,7 +17,7 @@ import java.net.URLEncoder
 data class RequestWrapper(
         private var tag: Any = "",
         private var url: String = "",
-        var savePath: String = "",
+        private var savePath: String? = "",
         private var headers: ArrayList<Pair<String, String>> = arrayListOf(),
         private var params: Map<String, Any> = mapOf(),
         private var listParams: List<Any>? = null,
@@ -78,6 +79,8 @@ data class RequestWrapper(
         this.savePath = path
         return this
     }
+
+    fun savePath() = savePath ?: "${DirManager.downloadDir}/${System.currentTimeMillis()}"
 
     private fun url() = url
     fun tag() = tag
