@@ -68,6 +68,7 @@ class RecyclerViewExtDemo : BaseFragment() {
             if(userVM.listData.value.isNullOrEmpty()) return@click
             val randomPosition = Random.nextInt(userVM.listData.value!!.size)
             val t = userVM.listData.value!![randomPosition].deepCopy<User>()
+//            val t = userVM.listData.value!![randomPosition]
             t.name = "局部字段替换-${randomPosition}"
             userVM.update(randomPosition, t)
         }

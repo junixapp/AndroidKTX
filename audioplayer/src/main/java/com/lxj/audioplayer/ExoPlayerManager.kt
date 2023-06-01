@@ -296,16 +296,22 @@ object ExoPlayerManager : CacheListener{
 
     fun stop(){
         stopPostProgress()
-        player.stop()
-    }
-
-    fun release(){
-        stop()
         currentIndex = -1
         uriList.clear()
         val info = PlayInfo(index = currentIndex, current = 0,
             total = 0, uri = "")
         playInfo.setValue(info)
+        player.stop()
+    }
+
+    fun release(){
+        stopPostProgress()
+        currentIndex = -1
+        uriList.clear()
+        val info = PlayInfo(index = currentIndex, current = 0,
+            total = 0, uri = "")
+        playInfo.setValue(info)
+        player.release()
     }
 
     override fun onCacheAvailable(cacheFile: File, url: String, percentsAvailable: Int) {

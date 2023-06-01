@@ -4,6 +4,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.LogUtils
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.livedata.StateLiveData
 import com.lxj.statelayout.StateLayout
@@ -31,6 +32,7 @@ abstract class ListVM<T>() : ViewModel(){
         onDataUpdate: (() -> Unit)? = null,
     ) {
         listData.observe(owner, Observer {
+            LogUtils.d("listData observe")
             firstLoad = false
             val diffCallback = getDiffCallback(oldData, it)
             if(diffCallback!=null){
@@ -103,7 +105,8 @@ abstract class ListVM<T>() : ViewModel(){
 
     /**
      * 更新数据，如果直接修改指定位置的bean，会同步更新old；导致old和new是一样的数据。
-     * 推荐将目标数据deepCopy()后再进行修改，这样不会同步更新old
+     * 注意：需要将目标数据deepCopy()后再进行修改，这样不会同步更新old，产生diff
+     * 如果直接修改原数据，则old数据也会修改，导致old和new数据一样，不会触发UI更新
      */
     fun update(position: Int, t: T){
         val list = listData.value!!
