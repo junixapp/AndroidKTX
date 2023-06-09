@@ -25,7 +25,7 @@ object ExoPlayerManager : CacheListener{
 
     private var autoPlayNext = false
     private val handler = Handler(Looper.getMainLooper())
-    var player : ExoPlayer
+    lateinit var player : ExoPlayer
     var playMode = StateLiveData<String>()  //播放模式
     val playState = StateLiveData<PlayState>() //播放状态
     val cacheInfo = StateLiveData<CacheInfo>() //缓存状态
@@ -33,11 +33,17 @@ object ExoPlayerManager : CacheListener{
     val playInfo = StateLiveData<PlayInfo>() //播放进度, 位置
     val uriList = arrayListOf<String>()
     var isCacheLastData = false
-    init {
+    fun init(shortTimeout: Boolean = false) {
         playState.value = PlayState.Idle
         playMode.value = sp().getString("_ktx_player_mode", RepeatAllMode) ?: RepeatAllMode
 
-        player = ExoPlayer.Builder(AndroidKTX.context).build()
+        player = ExoPlayer.Builder(AndroidKTX.context)
+            .apply {
+                if(shortTimeout) setMediaSourceFactory(DefaultMediaSourceFactory(
+                    DefaultHttpDataSource.Factory().setConnectTimeoutMs(1000).setReadTimeoutMs(1000)
+                ))
+            }
+            .build()
         player.repeatMode = Player.REPEAT_MODE_OFF
         player.shuffleModeEnabled = false
         player.addListener(object : Player.Listener{
@@ -92,14 +98,6 @@ object ExoPlayerManager : CacheListener{
                 stopPostProgress()
             }
         })
-    }
-
-    fun setShortTimeout(){
-        player = ExoPlayer.Builder(AndroidKTX.context)
-            .setMediaSourceFactory(DefaultMediaSourceFactory(
-                DefaultHttpDataSource.Factory().setConnectTimeoutMs(1000).setReadTimeoutMs(1000)
-            ))
-            .build()
     }
 
     fun cacheLastData(b: Boolean) {
