@@ -5,6 +5,9 @@ import android.os.Looper
 import com.blankj.utilcode.util.LogUtils
 import com.danikula.videocache.CacheListener
 import com.google.android.exoplayer2.*
+import com.google.android.exoplayer2.source.DefaultMediaSourceFactory
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
+import com.google.android.exoplayer2.upstream.HttpDataSource
 import com.lxj.androidktx.AndroidKTX
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.livedata.StateLiveData
@@ -89,6 +92,14 @@ object ExoPlayerManager : CacheListener{
                 stopPostProgress()
             }
         })
+    }
+
+    fun setShortTimeout(){
+        player = ExoPlayer.Builder(AndroidKTX.context)
+            .setMediaSourceFactory(DefaultMediaSourceFactory(
+                DefaultHttpDataSource.Factory().setConnectTimeoutMs(1000).setReadTimeoutMs(1000)
+            ))
+            .build()
     }
 
     fun cacheLastData(b: Boolean) {

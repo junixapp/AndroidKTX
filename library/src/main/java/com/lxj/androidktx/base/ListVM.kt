@@ -4,7 +4,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
-import com.blankj.utilcode.util.LogUtils
 import com.lxj.androidktx.core.*
 import com.lxj.androidktx.livedata.StateLiveData
 import com.lxj.statelayout.StateLayout
@@ -32,7 +31,6 @@ abstract class ListVM<T>() : ViewModel(){
         onDataUpdate: (() -> Unit)? = null,
     ) {
         listData.observe(owner, Observer {
-            LogUtils.d("listData observe")
             firstLoad = false
             val diffCallback = getDiffCallback(oldData, it)
             if(diffCallback!=null){
