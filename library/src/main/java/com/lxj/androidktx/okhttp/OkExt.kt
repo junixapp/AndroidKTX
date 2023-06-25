@@ -34,6 +34,8 @@ object OkExt {
     var dateFormat: String = "yyyy-MM-dd HH:mm:ss"
     var lenientJson: Boolean = false
     var globalFailHandler: ((e: Exception?)->Unit)? = null
+    //是否是成功的响应码
+    var isSuccessResponse: ((code: Int?)-> Boolean)? = null
 
     init {
         okHttpClient = ProgressManager.getInstance().with(okHttpClient.newBuilder()).build()
@@ -109,6 +111,16 @@ object OkExt {
     }
 
     /**
+     * 检查是否是成功的响应，用于设置自定义的成功码逻辑，
+     * okhttp默认是200-300为成功响应，但是总有特殊情况，
+     * 此处用于自定义成功响应码的判断逻辑
+     */
+    fun checkSuccessResponse(fn: ((Int?)->Boolean)? = null) : OkExt{
+        isSuccessResponse = fn
+        return this
+    }
+
+    /**
      * 取消请求
      */
     fun cancel(tag: Any){
@@ -128,4 +140,5 @@ object OkExt {
             RequestBody.create(MediaType.parse("application/octet-stream"), string)
 
     fun plainTextBody(string: String) = RequestBody.create(MediaType.parse("text/plain"), string)
+
 }

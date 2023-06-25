@@ -7,6 +7,7 @@ import com.lxj.androidktx.AndroidKTX
 import com.lxj.androidktx.core.*
 import com.lxj.androidktxdemo.entity.User
 import com.lxj.androidktxdemo.entity.UserGender
+import com.lxj.audioplayer.ExoPlayerManager
 import java.lang.Exception
 import java.util.*
 
@@ -22,6 +23,7 @@ class AndroidKtxApp: MultiDexApplication(){
                 isDebug = BuildConfig.DEBUG,
                 defaultLogTag = "androidktx",
                 sharedPrefName = "demo")
+        ExoPlayerManager.init(shortTimeout = true)
 
         val user = sp().getObject<User>("user")
         LogUtils.d("user: ${user}")

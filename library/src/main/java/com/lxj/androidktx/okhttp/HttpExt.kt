@@ -124,7 +124,8 @@ inline fun <reified T> defferedRequest(request: Request, reqWrapper: RequestWrap
     }
     try {
         val response = call.execute()
-        if (response.isSuccessful && response.body() != null) {
+        if ((response.isSuccessful || (OkExt.isSuccessResponse!=null && OkExt.isSuccessResponse!!(response.code())))
+            && response.body() != null) {
             when (T::class.java) {
                 String::class.java -> deferred.complete(
                     response.body()!!.string() as T
@@ -175,7 +176,8 @@ inline fun <reified T> callbackRequest(
 
             override fun onResponse(call: Call, response: Response) {
                 OkExt.requestCache.remove(reqWrapper.tag())
-                if (response.isSuccessful && response.body() != null) {
+                if ((response.isSuccessful || (OkExt.isSuccessResponse!=null && OkExt.isSuccessResponse!!(response.code())))
+                    && response.body() != null) {
                     when (T::class.java) {
                         String::class.java -> cb.onSuccess(
                             response.body()!!.string() as T
@@ -211,7 +213,8 @@ inline fun <reified T> syncRequest(request: Request, reqWrapper: RequestWrapper)
     OkExt.requestCache[reqWrapper.tag()] = call //cache req
     try {
         val response = call.execute()
-        return if (response.isSuccessful && response.body() != null) {
+        return if ((response.isSuccessful || (OkExt.isSuccessResponse!=null && OkExt.isSuccessResponse!!(response.code())))
+            && response.body() != null ) {
             when (T::class.java) {
                 String::class.java -> response.body()!!.string() as T
                 File::class.java -> {
