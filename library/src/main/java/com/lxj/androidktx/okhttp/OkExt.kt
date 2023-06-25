@@ -35,7 +35,7 @@ object OkExt {
     var lenientJson: Boolean = false
     var globalFailHandler: ((e: Exception?)->Unit)? = null
     //是否是成功的响应码
-    var isSuccessResponse: ((code: Int?)-> Boolean)? = null
+    var isSuccessResponse: ((code: Int)-> Boolean)? = null
 
     init {
         okHttpClient = ProgressManager.getInstance().with(okHttpClient.newBuilder()).build()
@@ -115,7 +115,7 @@ object OkExt {
      * okhttp默认是200-300为成功响应，但是总有特殊情况，
      * 此处用于自定义成功响应码的判断逻辑
      */
-    fun checkSuccessResponse(fn: ((Int?)->Boolean)? = null) : OkExt{
+    fun checkSuccessResponse(fn: ((Int)->Boolean)? = null) : OkExt{
         isSuccessResponse = fn
         return this
     }
