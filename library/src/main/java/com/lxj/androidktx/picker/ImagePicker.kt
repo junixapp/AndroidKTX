@@ -56,7 +56,7 @@ object ImagePicker {
                         }
                     }
                     override fun onDenied() {
-                        ToastUtils.showShort(AndroidKTX.context.string(R.string.permisison_deny))
+                        ToastUtils.showShort(AndroidKTX.context.string(R.string._ktx_permisison_deny))
                     }
                 })
                 .request()
@@ -98,7 +98,7 @@ object ImagePicker {
                         }
                     }
                     override fun onDenied() {
-                        ToastUtils.showShort(AndroidKTX.context.string(R.string.permisison_deny))
+                        ToastUtils.showShort(AndroidKTX.context.string(R.string._ktx_permisison_deny))
                     }
                 })
                 .request()

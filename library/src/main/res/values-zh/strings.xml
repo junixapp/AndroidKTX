@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="_ktx_loading">加载中</string>
-    <string name="permisison_deny">权限被拒绝</string>
+    <string name="_ktx_permisison_deny">权限被拒绝</string>
 </resources>

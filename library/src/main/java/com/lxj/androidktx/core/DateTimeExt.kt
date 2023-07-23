@@ -1,6 +1,7 @@
 package com.lxj.androidktx.core
 
 import android.text.format.DateUtils
+import com.blankj.utilcode.util.TimeUtils
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -12,9 +13,15 @@ import java.util.*
 /**
  *  字符串日期格式（比如：2018-4-6)转为毫秒
  *  @param format 时间的格式，默认是按照yyyy-MM-dd HH:mm:ss来转换，如果您的格式不一样，则需要传入对应的格式
+ *  如果是UTC时间的话，格式是这样yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
+ *  如果换算为当前时区的话，
  */
-fun String.toDateMills(format: String = "yyyy-MM-dd HH:mm:ss") = SimpleDateFormat(format, Locale.getDefault()).parse(this).time
-
+fun String.toDateMills(format: String = "yyyy-MM-dd HH:mm:ss", useCurrentTimeZone: Boolean = false) : Long{
+    var sdf = SimpleDateFormat(format, Locale.getDefault())
+    if(useCurrentTimeZone) sdf.timeZone = TimeZone.getTimeZone("UTC")
+    var date = sdf.parse(this)
+    return date?.time ?: 0
+}
 
 /**
  * Long类型时间戳转为字符串的日期格式
