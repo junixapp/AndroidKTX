@@ -33,7 +33,8 @@ object ExoPlayerManager : CacheListener{
     val playInfo = StateLiveData<PlayInfo>() //播放进度, 位置
     val uriList = arrayListOf<String>()
     var isCacheLastData = false
-    fun init(shortTimeout: Boolean = false) {
+    fun init(shortTimeout: Boolean = false, preloadLength: Int? = null) {
+        if(preloadLength!=null) PreloadManager.setPreloadLength(preloadLength!!)
         playState.value = PlayState.Idle
         playMode.value = sp().getString("_ktx_player_mode", RepeatAllMode) ?: RepeatAllMode
 
@@ -98,6 +99,22 @@ object ExoPlayerManager : CacheListener{
                 stopPostProgress()
             }
         })
+    }
+
+    fun preload( url: String){
+        PreloadManager.get().addPreloadTask(url)
+    }
+    fun pausePreload( url: String){
+        PreloadManager.get().pausePreload(url)
+    }
+    fun resumePreload( url: String){
+        PreloadManager.get().resumePreload(url)
+    }
+    fun removePreloadTask( url: String){
+        PreloadManager.get().removePreloadTask(url)
+    }
+    fun removeAllPreloadTask(){
+        PreloadManager.get().removeAllPreloadTask()
     }
 
     fun cacheLastData(b: Boolean) {
