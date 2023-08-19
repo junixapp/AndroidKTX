@@ -21,6 +21,8 @@ import kotlinx.android.synthetic.main.fragment_player.*
  */
 class PlayerFragment : BaseFragment() {
     val list = listOf(
+            "http://54.151.127.160/downloads/radio_welcome_en.mp3",
+            "http://54.151.127.160/downloads/radio_exit_en.mp3",
             "https://zigtone.com/wp-content/uploads/2020/06/Loud-Music1.mp3",
             "https://zigtone.com/wp-content/uploads/2021/01/Copines.mp3",
             "https://zigtone.com/wp-content/uploads/2020/06/Harry-Potter-Theme.mp3",

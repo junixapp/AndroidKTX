@@ -43,8 +43,7 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.6.0'
-    implementation 'com.google.android.exoplayer:exoplayer:2.17.1'     //player
+    implementation 'com.google.android.exoplayer:exoplayer:2.19.1'     //player
     api 'xyz.doikki.android.dkplayer:videocache:3.3.5'
-    implementation 'com.google.android.exoplayer:exoplayer:2.17.1'
     implementation project(':library')
 }

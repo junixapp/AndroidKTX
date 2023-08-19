@@ -47,7 +47,7 @@ class VerifyCodeButton @JvmOverloads constructor(context: Context, attributeSet:
     fun start(){
         if(currTime==0){
             animate().alpha(1f).setDuration(300).setListener(object : AnimatorListenerAdapter(){
-                override fun onAnimationEnd(animation: Animator?) {
+                override fun onAnimationEnd(animation: Animator) {
                     super.onAnimationEnd(animation)
                     callback?.onEnd()
                 }

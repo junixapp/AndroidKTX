@@ -45,6 +45,7 @@ fun StateLayout.observeState(owner: LifecycleOwner,
                     onError?.invoke()
                 }, delay)
             }
+            else -> {}
         }
     })
 }

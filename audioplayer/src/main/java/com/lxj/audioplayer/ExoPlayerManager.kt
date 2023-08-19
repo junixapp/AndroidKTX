@@ -6,6 +6,7 @@ import com.blankj.utilcode.util.LogUtils
 import com.danikula.videocache.CacheListener
 import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.source.DefaultMediaSourceFactory
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.google.android.exoplayer2.upstream.HttpDataSource
 import com.lxj.androidktx.AndroidKTX
@@ -33,16 +34,16 @@ object ExoPlayerManager : CacheListener{
     val playInfo = StateLiveData<PlayInfo>() //播放进度, 位置
     val uriList = arrayListOf<String>()
     var isCacheLastData = false
-    fun init(shortTimeout: Boolean = false, preloadLength: Int? = null) {
+    fun init(preloadLength: Int? = null) {
         if(preloadLength!=null) PreloadManager.setPreloadLength(preloadLength!!)
         playState.value = PlayState.Idle
         playMode.value = sp().getString("_ktx_player_mode", RepeatAllMode) ?: RepeatAllMode
 
         player = ExoPlayer.Builder(AndroidKTX.context)
             .apply {
-                if(shortTimeout) setMediaSourceFactory(DefaultMediaSourceFactory(
-                    DefaultHttpDataSource.Factory().setConnectTimeoutMs(1000).setReadTimeoutMs(1000)
-                ))
+//                if(shortTimeout) setMediaSourceFactory(DefaultMediaSourceFactory(
+//                    DefaultDataSourceFactory(AndroidKTX.context).setConnectTimeoutMs(1000).setReadTimeoutMs(1000)
+//                ))
             }
             .build()
         player.repeatMode = Player.REPEAT_MODE_OFF
@@ -93,7 +94,7 @@ object ExoPlayerManager : CacheListener{
 
             override fun onPlayerError(error: PlaybackException) {
                 super.onPlayerError(error)
-                LogUtils.e("onPlayerError:  ${error.localizedMessage}")
+                LogUtils.e("onPlayerError:  ${error.localizedMessage} uri: ${currentUri()}")
                 playState.errMsg = error?.localizedMessage
                 playState.setValue(PlayState.Error)
                 stopPostProgress()
@@ -277,7 +278,7 @@ object ExoPlayerManager : CacheListener{
             val proxy = ProxyMediaCacheManager.getProxy()
             proxy.unregisterCacheListener(this)
             proxy.registerCacheListener(this, url)
-            mediaItem = MediaItem.fromUri(  proxy.getProxyUrl(url))
+            mediaItem = MediaItem.fromUri(proxy.getProxyUrl(url))
         }
         player.setMediaItem(mediaItem)
         player.stop()

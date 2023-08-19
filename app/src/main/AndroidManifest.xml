@@ -14,22 +14,25 @@
         android:supportsRtl="true"
         android:name=".AndroidKtxApp"
         android:theme="@style/AppTheme">
-        <activity android:name=".WelcomeActivity">
+        <activity android:name=".WelcomeActivity" android:exported="true">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" android:windowSoftInputMode="adjustResize">
+        <activity android:name=".MainActivity" android:windowSoftInputMode="adjustResize"  android:exported="true">
 
         </activity>
-        <activity android:name=".DemoActivity" android:theme="@style/_FullScreenTheme" android:parentActivityName=".WelcomeActivity">
+        <activity android:name=".DemoActivity" android:theme="@style/_FullScreenTheme" android:exported="true"
+            android:parentActivityName=".WelcomeActivity">
 
 <!--               <meta-data android:name="android.support.PARENT_ACTIVITY"-->
 <!--                            android:value=".MainActivity" />-->
         </activity>
-        <activity android:name=".blibli.BlibliVideoActivity" android:configChanges="orientation|screenSize|screenLayout"/>
+        <activity android:name=".blibli.BlibliVideoActivity"
+            android:exported="true"
+            android:configChanges="orientation|screenSize|screenLayout"/>
 
         <!--        <service android:name=".notification.NotificationClickService"/>-->
     </application>

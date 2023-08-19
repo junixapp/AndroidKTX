@@ -70,6 +70,7 @@ class StateLiveData<T>(defValue: T? = null) : NoStickyLiveData<T>() {
                 State.Error -> stateLayout.showError()
                 State.Success -> stateLayout.showContent()
                 State.Empty -> stateLayout.showEmpty()
+                else -> {}
             }
         })
     }

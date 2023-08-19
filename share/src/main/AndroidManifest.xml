@@ -25,7 +25,8 @@
     <activity
         android:name="com.tencent.tauth.AuthActivity"
         android:launchMode="singleTask"
-        android:noHistory="true">
+        android:noHistory="true"
+        android:exported="true">
         <intent-filter>
             <action android:name="android.intent.action.VIEW" />
             <category android:name="android.intent.category.DEFAULT" />
@@ -36,6 +37,7 @@
     <activity
         android:name="com.tencent.connect.common.AssistActivity"
         android:configChanges="orientation|keyboardHidden"
+        android:exported="true"
         android:theme="@android:style/Theme.Translucent.NoTitleBar"
         tools:replace="android:configChanges" />
     </application>

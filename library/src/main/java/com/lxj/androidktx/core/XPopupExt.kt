@@ -63,6 +63,7 @@ fun BasePopupView.bindState(liveData: StateLiveData<*>,
                 }
             }
         }
+        else -> {}
     }
 }
 

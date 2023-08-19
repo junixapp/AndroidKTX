@@ -23,7 +23,7 @@ class AndroidKtxApp: MultiDexApplication(){
                 isDebug = BuildConfig.DEBUG,
                 defaultLogTag = "androidktx",
                 sharedPrefName = "demo")
-        ExoPlayerManager.init(shortTimeout = true)
+        ExoPlayerManager.init()
 
         val user = sp().getObject<User>("user")
         LogUtils.d("user: ${user}")

@@ -210,12 +210,12 @@ class MarqueeTextView @JvmOverloads constructor(
             scrollTo(it.animatedValue as Int, 0)
         }
         animator!!.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationStart(animation: Animator?) {
+            override fun onAnimationStart(animation: Animator) {
                 super.onAnimationStart(animation)
                 first = false
             }
 
-            override fun onAnimationEnd(animation: Animator?) {
+            override fun onAnimationEnd(animation: Animator) {
                 super.onAnimationEnd(animation)
                 scrolling = false
                 animator!!.removeAllListeners()
