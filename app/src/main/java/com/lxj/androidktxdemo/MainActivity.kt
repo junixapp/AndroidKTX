@@ -10,7 +10,9 @@ import com.lxj.androidktxdemo.databinding.ActivityMainBinding
 import com.lxj.androidktxdemo.entity.PageInfo
 import com.lxj.androidktxdemo.fragment.*
 import com.lxj.androidktxdemo.popup.TestPopup
+import com.lxj.androidktxdemo.serv.PlayService
 import com.lxj.androidktxdemo.vm.TestVM
+import com.lxj.audioplayer.ExoPlayerManager
 import com.lxj.xpopup.XPopup
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.random.Random
@@ -59,13 +61,15 @@ class MainActivity : BaseActivity() {
                 "age": 98182389985949
             }
         """.trimIndent().toBean<HashMap<String,Any>>()
-        LogUtils.e("ut: ${ut.toJson()}")
+//        LogUtils.e("ut: ${ut.toJson()}")
 
 //        XPopup.Builder(this).asCustom(TestPopup(this)).show()
     }
 
     override fun initData() {
-
+//        ExoPlayerManager.playSingle("http://54.151.127.160/downloads/radio_welcome_en.mp3")
+//        PlayService.start("http://radiosidewinder.out.airtime.pro:8000/radiosidewinder_b")
+        PlayService.start("http://16643.live.streamtheworld.com/KABCAMAAC_SC")
     }
     val signKey = "babamamababamama"
     fun genSign(): String{

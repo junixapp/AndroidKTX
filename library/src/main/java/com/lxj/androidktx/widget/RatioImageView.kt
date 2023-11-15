@@ -12,7 +12,7 @@ import com.lxj.androidktx.R
 import kotlin.math.min
 
 open class RatioImageView @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null, defStyleAttr: Int = 0)
-    : AppCompatImageView(context, attributeSet, defStyleAttr) {
+    : ShapeImageView(context, attributeSet, defStyleAttr) {
 
     var ratio = 0f //宽高比
     var expandWidth = false  //是否扩展宽度，默认根据宽高比扩展高度

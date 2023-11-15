@@ -27,7 +27,6 @@ import java.lang.Exception
  * Create by dance, at 2019/8/15
  */
 class VideoPlayerActivity : AppCompatActivity() {
-
     companion object {
         /**
          * 开启视频播放器界面

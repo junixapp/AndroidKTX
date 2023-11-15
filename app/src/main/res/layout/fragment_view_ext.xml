@@ -94,18 +94,18 @@
             </LinearLayout>
         </com.lxj.androidktx.widget.MarqueeLayout>
 
-        <com.github.lzyzsd.circleprogress.DonutProgress
-            android:id="@+id/progressBar"
-            android:layout_width="60pt"
-            android:layout_height="60pt"
-            app:donut_background_color="#80000000"
-            app:donut_circle_starting_degree="-90"
-            app:donut_clockWise="true"
-            app:donut_finished_color="#88ffffff"
-            app:donut_finished_stroke_width="2pt"
-            app:donut_show_text="true"
-            app:donut_unfinished_color="#ff0000"
-            app:donut_unfinished_stroke_width="2pt" />
+<!--        <com.github.lzyzsd.circleprogress.DonutProgress-->
+<!--            android:id="@+id/progressBar"-->
+<!--            android:layout_width="60pt"-->
+<!--            android:layout_height="60pt"-->
+<!--            app:donut_background_color="#80000000"-->
+<!--            app:donut_circle_starting_degree="-90"-->
+<!--            app:donut_clockWise="true"-->
+<!--            app:donut_finished_color="#88ffffff"-->
+<!--            app:donut_finished_stroke_width="2pt"-->
+<!--            app:donut_show_text="true"-->
+<!--            app:donut_unfinished_color="#ff0000"-->
+<!--            app:donut_unfinished_stroke_width="2pt" />-->
 
 
         <com.lxj.androidktx.widget.ShapeRelativeLayout

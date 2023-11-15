@@ -1,5 +1,5 @@
-include ':app', ':library',  ':matisse', ':audio-recorder'
-include ':share', ':circleprogress'
+include ':app', ':library',  ':matisse', ':audiorecorder'
+include ':share'
 include ':pay'
 include ':videoplayer'
 //include ':camera'

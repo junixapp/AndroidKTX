@@ -5,6 +5,7 @@
     <application
         android:hardwareAccelerated="true">
     <activity
+        android:exported="true"
         android:name=".VideoPlayerActivity"
         android:hardwareAccelerated="true"
         android:theme="@style/_FullScreenTheme" />

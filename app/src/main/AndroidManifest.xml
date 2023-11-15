@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lxj.androidktxdemo">
 
-
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <application
@@ -35,6 +35,10 @@
             android:configChanges="orientation|screenSize|screenLayout"/>
 
         <!--        <service android:name=".notification.NotificationClickService"/>-->
+
+        <service android:name=".serv.PlayService"
+            android:exported="true"
+            android:foregroundServiceType="mediaPlayback"/>
     </application>
 
 </manifest>

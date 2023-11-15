@@ -1,8 +1,5 @@
 package com.lxj.androidktxdemo.fragment
 
-
-import android.animation.ValueAnimator
-import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Rect
 import android.text.Editable
@@ -11,13 +8,9 @@ import android.text.Spanned
 import android.text.TextUtils
 import android.text.style.AbsoluteSizeSpan
 import android.text.style.ForegroundColorSpan
-import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowInsets
-import android.view.WindowInsetsAnimation
 import androidx.core.view.*
-import com.blankj.utilcode.util.ImageUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -54,11 +47,11 @@ class ViewExtPage : BaseFragment() {
                 // It's also possible to use multiple types
                 val insets = windowInsets.getInsets(WindowInsetsCompat.Type.navigationBars())
                 val insets2 = windowInsets.getInsets(WindowInsetsCompat.Type.ime())
-                LogUtils.e("navigationBars:" + insets.top + " " + insets.bottom +
-                            " " + windowInsets.isVisible(WindowInsetsCompat.Type.navigationBars())
-                )
-                LogUtils.e( "statusBars:" + statusBars.top + " " + statusBars.bottom)
-                LogUtils.e( "insets2:" + insets2.top + " " + insets2.bottom)
+//                LogUtils.e("navigationBars:" + insets.top + " " + insets.bottom +
+//                            " " + windowInsets.isVisible(WindowInsetsCompat.Type.navigationBars())
+//                )
+//                LogUtils.e( "statusBars:" + statusBars.top + " " + statusBars.bottom)
+//                LogUtils.e( "insets2:" + insets2.top + " " + insets2.bottom)
                 actView.setPadding(0, 0, 0, insets.bottom)
                 return windowInsets
             }
@@ -215,12 +208,12 @@ class ViewExtPage : BaseFragment() {
             marqueeLayout.startScroll()
         }
 
-        val animator = ValueAnimator.ofFloat(0f, 100f)
-        animator.addUpdateListener {
-            progressBar?.progress = 100f - it.animatedValue as Float
-        }
-        animator.setDuration(10000)
-        animator.start()
+//        val animator = ValueAnimator.ofFloat(0f, 100f)
+//        animator.addUpdateListener {
+//            progressBar?.progress = 100f - it.animatedValue as Float
+//        }
+//        animator.setDuration(10000)
+//        animator.start()
     }
 
     class HtmlSizeTag(private val tagName: String) : Html.TagHandler {

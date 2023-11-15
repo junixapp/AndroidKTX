@@ -46,14 +46,14 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.github.li-xiaojun:XPopup:2.8.13'
 
-//    implementation 'com.github.li-xiaojun.AndroidKTX:library:2.4.21'
-//    implementation 'com.github.li-xiaojun.AndroidKTX:share:2.4.21'
-//    implementation 'com.github.li-xiaojun.AndroidKTX:pay:2.4.21'
-//    implementation 'com.github.li-xiaojun.AndroidKTX:circleprogress:2.4.21'
-    implementation project(':library')
-    implementation project(':share')
-    implementation project(':pay')
-    implementation project(':circleprogress')
-    implementation project(':audioplayer')
+    implementation 'com.github.li-xiaojun.AndroidKTX:library:2.8.16'
+    implementation 'com.github.li-xiaojun.AndroidKTX:share:2.8.16'
+//    implementation 'com.github.li-xiaojun.AndroidKTX:pay:2.8.16'
+    implementation 'com.github.li-xiaojun.AndroidKTX:audioplayer:2.8.16'
+    implementation "com.airbnb.android:lottie:6.1.0"
+//    implementation project(':library')
+//    implementation project(':share')
+//    implementation project(':pay')
+//    implementation project(':audioplayer')
 //    implementation project(':videoplayer')
 }

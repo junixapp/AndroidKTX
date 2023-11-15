@@ -23,7 +23,7 @@ class AndroidKtxApp: MultiDexApplication(){
                 isDebug = BuildConfig.DEBUG,
                 defaultLogTag = "androidktx",
                 sharedPrefName = "demo")
-        ExoPlayerManager.init()
+        ExoPlayerManager.init(preloadLength = 1024)
 
         val user = sp().getObject<User>("user")
         LogUtils.d("user: ${user}")
@@ -34,7 +34,6 @@ class AndroidKtxApp: MultiDexApplication(){
         val json = User(name = "啊啊", date = Date(), gender = UserGender.Man).toJson()
         LogUtils.d("json1: ${json}")
         LogUtils.d("json: ${json.toBean<User>()}")
-        UserGender.Man.ordinal
 
         replaceSystemDefaultFont()
     }

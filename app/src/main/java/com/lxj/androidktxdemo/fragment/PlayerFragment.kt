@@ -108,6 +108,9 @@ class PlayerFragment : BaseFragment() {
         }
 
         btnPlay.click {
+
+//            ExoPlayerManager.playSingle("http://54.151.127.160/downloads/radio_welcome_en.mp3")
+//            ExoPlayerManager.playSingle("https://files4.mytinyphone.com/file.php?fileringID=70157&type=ringt&rtype=play")
             ExoPlayerManager.toggle()
 
 //            PermissionUtils.requestWriteSettings(object : PermissionUtils.SimpleCallback{
@@ -190,7 +193,7 @@ class PlayerFragment : BaseFragment() {
                 }else{
                     holder.getView<Button>(R.id.btnPlay).setText("暂停")
                     val value = ExoPlayerManager.playInfo.value!!
-                    holder.getView<TextView>(R.id.title).text = "${title} - ${ NumberUtils.format((value.current*100f)/value.total, 1) }%"
+//                    holder.getView<TextView>(R.id.title).text = "${title} - ${ NumberUtils.format((value.current*100f)/value.total, 1) }%"
                 }
 
                 holder.getView<Button>(R.id.btnPlay).click {

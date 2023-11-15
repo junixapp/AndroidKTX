@@ -19,7 +19,7 @@ import com.lxj.androidktx.core.createDrawable
  * Description: 能设置Shape的TextView
  * Create by dance, at 2019/5/21
  */
-class ShapeImageView @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null, defStyleAttr: Int = 0)
+open class ShapeImageView @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null, defStyleAttr: Int = 0)
     : AppCompatImageView(context, attributeSet, defStyleAttr) {
 
     private var mSolid = 0 //填充色
