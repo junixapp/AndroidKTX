@@ -25,13 +25,13 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animation_view"
-        android:layout_width="100pt"
-        android:layout_height="100pt"
-        app:lottie_rawRes="@raw/hourglass"
-        app:lottie_loop="true"
-        app:lottie_autoPlay="true" />
+<!--    <com.airbnb.lottie.LottieAnimationView-->
+<!--        android:id="@+id/animation_view"-->
+<!--        android:layout_width="100pt"-->
+<!--        android:layout_height="100pt"-->
+<!--        app:lottie_rawRes="@raw/hourglass"-->
+<!--        app:lottie_loop="true"-->
+<!--        app:lottie_autoPlay="true" />-->
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"

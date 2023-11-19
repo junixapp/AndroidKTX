@@ -64,9 +64,9 @@ class ViewExtPage : BaseFragment() {
                 val navigationBars = insets.getInsets(WindowInsetsCompat.Type.navigationBars())
                 val ime = insets.getInsets(WindowInsetsCompat.Type.ime())
                 LogUtils.e( "ime:" + ime.top +" " + ime.bottom)
-                val parmas = (actView!!.layoutParams as ViewGroup.MarginLayoutParams)
-                parmas.bottomMargin = ime.bottom - navigationBars.bottom
-                actView.layoutParams = parmas
+//                val parmas = (actView!!.layoutParams as ViewGroup.MarginLayoutParams)
+//                parmas.bottomMargin = ime.bottom - navigationBars.bottom
+//                actView.layoutParams = parmas
                 LogUtils.e("MainActivity", "ime:" + insets.getInsets(WindowInsetsCompat.Type.ime()).top +
                         " " + insets.getInsets(WindowInsetsCompat.Type.ime()).bottom)
                 return insets

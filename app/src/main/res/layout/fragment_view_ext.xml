@@ -4,7 +4,7 @@
     android:id="@+id/nsv"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#eee"
+    android:background="#fefefe"
     android:clipChildren="false"
     android:clipToPadding="false">
 
@@ -14,6 +14,25 @@
         android:clipChildren="false"
         android:clipToPadding="false"
         android:orientation="vertical">
+
+        <com.lxj.androidktx.widget.VerifyCodeInput
+            android:id="@+id/verifyCodeInput"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="20dp"
+            app:vci_corner="4dp"
+            app:vci_border="#aeaeae"
+            app:vci_style="Square"
+            app:vci_count="6"
+            app:vci_focusBorder="#f00000"
+            app:vci_size="50dp"
+            app:vci_solid="#dedede"
+            app:vci_space="10dp"
+            app:vci_textColor="#aaaaaa"
+            app:vci_textSize="24sp" />
 
         <com.lxj.androidktx.widget.ShapeEditText
             app:set_bottomLineColor="#f00"
@@ -49,7 +68,7 @@
             app:sll_lineSize="1pt" />
 
         <com.lxj.androidktx.widget.FormField
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
             app:ff_fieldText="手机号"
@@ -308,7 +327,7 @@
             android:textColor="#f00"
             android:textSize="29sp"
             app:stv_corner="30dp"
-            app:stv_solid="#999" />
+            app:stv_solid="#eee" />
 
         <com.lxj.androidktx.widget.VerifyCodeButton
             android:id="@+id/tvVerify"
@@ -321,26 +340,10 @@
             app:stv_solid="#00ff90"
             app:stv_stroke="#0000ff"
             app:stv_strokeWidth="1dp"
-            app:vcb_countDownText="还剩time秒"
+            app:vcb_countDownText="Resend #time#sss"
+            app:vcb_defText="发送验证码"
             app:vcb_resendDuration="10"
-            app:vcb_resendText="重发吧" />
-
-        <com.lxj.androidktx.widget.VerifyCodeInput
-            android:id="@+id/verifyCodeInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginBottom="20dp"
-            app:vci_corner="4dp"
-            app:vci_border="#000000"
-            app:vci_style="Line"
-            app:vci_focusBorder="#f00000"
-            app:vci_size="50dp"
-            app:vci_solid="#aaa"
-            app:vci_space="10dp"
-            app:vci_textColor="#f00"
-            app:vci_textSize="24sp" />
+            app:vcb_resendText="重发" />
 
         <com.lxj.androidktx.widget.SearchLayout
             android:layout_width="match_parent"
@@ -360,7 +363,7 @@
             app:sl_textColor="#111"
             app:sl_textSize="20sp"
             app:sll_corner="30dp"
-            app:sll_solid="#aaa" />
+            app:sll_solid="#eee" />
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

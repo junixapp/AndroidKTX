@@ -69,7 +69,7 @@ class MainActivity : BaseActivity() {
     override fun initData() {
 //        ExoPlayerManager.playSingle("http://54.151.127.160/downloads/radio_welcome_en.mp3")
 //        PlayService.start("http://radiosidewinder.out.airtime.pro:8000/radiosidewinder_b")
-        PlayService.start("http://16643.live.streamtheworld.com/KABCAMAAC_SC")
+//        PlayService.start("http://16643.live.streamtheworld.com/KABCAMAAC_SC")
     }
     val signKey = "babamamababamama"
     fun genSign(): String{

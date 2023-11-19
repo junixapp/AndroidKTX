@@ -15,7 +15,7 @@ android {
         versionName "1.0"
         multiDexEnabled true
         ndk {
-            abiFilters 'armeabi-v7a'
+            abiFilters 'arm64-v8a', 'x86_64'
         }
         manifestPlaceholders = [qqappid: "101909069"]
         buildFeatures {
@@ -35,7 +35,9 @@ android {
         sourceCompatibility 1.8
         targetCompatibility 1.8
     }
-
+    packagingOptions {
+        exclude 'META-INF/androidktx.kotlin_module'
+    }
     kotlinOptions {
         jvmTarget = "1.8"
     }
@@ -46,12 +48,12 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.github.li-xiaojun:XPopup:2.8.13'
 
-    implementation 'com.github.li-xiaojun.AndroidKTX:library:2.8.16'
+//    implementation 'com.github.li-xiaojun.AndroidKTX:library:2.8.16'
     implementation 'com.github.li-xiaojun.AndroidKTX:share:2.8.16'
 //    implementation 'com.github.li-xiaojun.AndroidKTX:pay:2.8.16'
     implementation 'com.github.li-xiaojun.AndroidKTX:audioplayer:2.8.16'
     implementation "com.airbnb.android:lottie:6.1.0"
-//    implementation project(':library')
+    implementation project(':library')
 //    implementation project(':share')
 //    implementation project(':pay')
 //    implementation project(':audioplayer')

@@ -8,10 +8,6 @@ import android.util.AttributeSet
 import com.lxj.androidktx.R
 
 /**
- * Description:
- * Create by dance, at 2019/6/9
- */
-/**
  * Description: 发送验证码View，功能如下：
  * 1. 显示默认文字：如发送验证码
  * 2. 执行倒计时功能
@@ -23,8 +19,8 @@ class VerifyCodeButton @JvmOverloads constructor(context: Context, attributeSet:
     : ShapeTextView(context, attributeSet, defStyleAttr){
 
     var defText = "发送验证码" //默认文字
-    var countDownText = "秒后重新发送" //执行倒计时期间的文字，前面会拼上时间
-    var resendText = "重新发送验证码" //重新发送的文字
+    var countDownText = "秒后重发" //执行倒计时期间的文字，前面会拼上时间
+    var resendText = "重新发送" //重新发送的文字
     var resendDuration = 60 //重新发送的时间周期，默认是60秒
     var currTime = 0 //当前时间
     var alphaWhenCountDown = true //在倒计时的时候是否显示半透明
@@ -61,13 +57,13 @@ class VerifyCodeButton @JvmOverloads constructor(context: Context, attributeSet:
         }
         if(alphaWhenCountDown) animate().alpha(.6f).setDuration(300).start()
         isEnabled = false
-        if(countDownText.contains("time")){
-            text = countDownText.replace("time", "$currTime")
+        if(countDownText.contains("#time#")){
+            text = countDownText.replace("#time#", "$currTime")
         }else{
             text = "${currTime}${countDownText}"
         }
         currTime--
-        mHandler.postDelayed({start()}, 1000)
+        mHandler.postDelayed({ start() }, 1000)
         callback?.onStart()
         status = VerifyStatus.CountingDown
     }
