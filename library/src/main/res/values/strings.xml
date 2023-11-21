@@ -2,4 +2,5 @@
 <resources>
     <string name="_ktx_loading">Loading</string>
     <string name="_ktx_permisison_deny">Permission denied</string>
+    <string name="_ktx_input_digit">123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM!#_</string>
 </resources>

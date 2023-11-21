@@ -86,12 +86,9 @@ data class RequestWrapper(
     fun tag() = tag
     private fun params() = params
     fun buildGetRequest(): Request {
-        return Request.Builder().url(urlParams())
-                .apply {
-                    OkExt.globalHeaders.forEach { addHeader(it.first, it.second) }
-                    headers.forEach { addHeader(it.first, it.second) }
-                }
-                .get().build()
+        //Get请求也支持body参数
+        return bodyBuilder().method("GET", customReqBody?: buildRequestBody())
+                .build()
     }
 
     fun buildPostRequest(): Request {
