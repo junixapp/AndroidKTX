@@ -86,9 +86,7 @@ data class RequestWrapper(
     fun tag() = tag
     private fun params() = params
     fun buildGetRequest(): Request {
-        //Get请求也支持body参数
-        return bodyBuilder().method("GET", customReqBody?: buildRequestBody())
-                .build()
+        return bodyBuilder().get().build()
     }
 
     fun buildPostRequest(): Request {
