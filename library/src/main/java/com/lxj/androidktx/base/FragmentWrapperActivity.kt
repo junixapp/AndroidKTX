@@ -45,7 +45,7 @@ class FragmentWrapperActivity : TitleBarActivity() {
         if(title.isNullOrEmpty()){
             hideTitleBar()
         }else{
-            titleBar().setup(title = title, leftImageRes = R.mipmap._ktx_ic_back)
+            titleBar.setup(title = title, leftImageRes = R.mipmap._ktx_ic_back)
         }
         replace(R.id.flWrapper, Fragment.instantiate(this, intent.getStringExtra("fragment")?:"",
             bundle))

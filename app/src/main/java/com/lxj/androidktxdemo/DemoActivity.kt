@@ -48,7 +48,7 @@ class DemoActivity : StateTitleBarActivity(){
     }
     val width = 32.dp
     override fun initData() {
-        titleBar().setup(title = "大萨达撒大多撒", rightImageRes = R.mipmap.gengxingb)
+        titleBar.setup(title = "大萨达撒大多撒", rightImageRes = R.mipmap.gengxingb)
 //        AppVM.data.observe(this, Observer{
 //            toast("it：$it")
 //        })

@@ -144,18 +144,18 @@ open class WebActivity : TitleBarActivity() {
             if (keepMarginTop) hideTitleBarWithMarginTop()
             else hideTitleBar()
         } else {
-            titleBar().setup(
+            titleBar.setup(
                 leftImageRes = leftIconRes,
                 title = title ?: string(R.string._ktx_loading)
             )
-            titleBar().leftImageView().click {
+            titleBar.leftImageView().click {
                 if (!agentWeb.back()) {
                     finish()
                 }
             }
             if (rightIconRes != 0) {
-                titleBar().setupRightImage(imageRes = rightIconRes)
-                titleBar().rightImageView().click { onRightClickAction?.invoke() }
+                titleBar.setupRightImage(imageRes = rightIconRes)
+                titleBar.rightImageView().click { onRightClickAction?.invoke() }
             }
         }
     }
@@ -192,7 +192,7 @@ open class WebActivity : TitleBarActivity() {
         override fun onReceivedTitle(view: WebView?, t: String?) {
             super.onReceivedTitle(view, t)
             if (title.isNullOrEmpty()) {
-                titleBar().setup(title = t ?: "")
+                titleBar.setup(title = t ?: "")
             }
         }
     }
