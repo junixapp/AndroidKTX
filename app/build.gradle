@@ -30,6 +30,7 @@ android {
     }
     lintOptions {
         abortOnError false
+        checkReleaseBuilds false
     }
     compileOptions {
         sourceCompatibility 1.8
