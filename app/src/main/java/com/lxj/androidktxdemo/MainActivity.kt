@@ -2,6 +2,7 @@ package com.lxj.androidktxdemo
 
 import android.content.Intent
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.LogUtils
 import com.lxj.androidktx.base.BaseActivity
 import com.lxj.androidktx.core.*
@@ -46,6 +47,7 @@ class MainActivity : BaseActivity() {
     val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater).apply { setContentView(root) } }
 
     override fun initView() {
+        binding.fakeStatus.height(BarUtils.getStatusBarHeight())
         binding.viewPager.bindFragment(this, fragments = pages.map { it.page!! })
         binding.viewPager.bindTabLayout(tabLayout, pages.map { it.title })
         val testVM = getSavedStateVM(TestVM::class.java)

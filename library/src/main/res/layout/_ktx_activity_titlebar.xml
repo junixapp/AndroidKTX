@@ -2,7 +2,7 @@
 <com.lxj.androidktx.widget.ImmersionLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <View
+    <Space
         android:id="@+id/fakeTitleBar"
         android:background="#fff"
         android:layout_width="match_parent"

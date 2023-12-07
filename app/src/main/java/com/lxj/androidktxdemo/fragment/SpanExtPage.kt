@@ -42,9 +42,9 @@ class SpanExtPage : BaseFragment() {
         tvSizeResult.sizeSpan(str, 0..2).colorSpan(range = 0..1)
         tvSizeSpan.setShadowLayer(1.6f,1.5f,1.3f,Color.BLACK)
         tvSizeSpan.click {
-            QrCodeUtil.start(this, 1)
-//            WebActivity.start(url = "https://www.baidu.com", hideTitleBar = true, keepMarginTop = true,
-//            statusBarColor = Color.RED,  isLightStatusBar = false)
+//            QrCodeUtil.start(this, 1)
+            WebActivity.start(url = "https://www.baidu.com",  keepMarginTop = true,
+            statusBarColor = Color.RED,  isLightStatusBar = false)
 ////            VideoPlayerActivity.start(url = "android.resource://" + requireContext()!!.packageName + "/" + R.raw.heng, title = "视频敖德萨大所大所大所大所大所多")
 ////            VideoPlayerActivity.start(url = video2, title = "视频敖德萨大所大所大所大所大所多")
 //

@@ -6,9 +6,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
-
+    <Space
+        android:id="@+id/fakeStatus"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
     <com.google.android.material.appbar.AppBarLayout
-        android:paddingTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
