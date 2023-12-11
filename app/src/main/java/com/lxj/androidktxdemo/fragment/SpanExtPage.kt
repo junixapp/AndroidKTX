@@ -1,22 +1,29 @@
 package com.lxj.androidktxdemo.fragment
 
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.content.pm.ResolveInfo
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
-import android.provider.MediaStore
 import android.widget.SeekBar
 import com.blankj.utilcode.util.*
 import com.lxj.androidktx.AndroidKTX
 import com.lxj.androidktx.base.WebActivity
 import com.lxj.androidktx.core.*
+import com.lxj.androidktx.okhttp.HttpCallback
+import com.lxj.androidktx.okhttp.OkExt
+import com.lxj.androidktx.okhttp.get
+import com.lxj.androidktx.okhttp.http
 import com.lxj.androidktx.qrcode.QrCodeUtil
+import com.lxj.androidktx.util.DirManager
 import com.lxj.androidktx.widget.SuperDrawable
 import com.lxj.androidktxdemo.R
 import com.lxj.androidktxdemo.blibli.BlibliVideoActivity
 import com.lxj.androidktxdemo.notification.NotificationDemo
 import com.lxj.share.Share
 import kotlinx.android.synthetic.main.fragment_span_ext.*
+import java.io.File
 
 
 /**
@@ -45,6 +52,28 @@ class SpanExtPage : BaseFragment() {
 //            QrCodeUtil.start(this, 1)
             WebActivity.start(url = "https://www.baidu.com",  keepMarginTop = true,
             statusBarColor = Color.RED,  isLightStatusBar = false)
+
+
+            "https://img1.baidu.com/it/u=2902486961,157138596&fm=253&fmt=auto&app=138&f=JPEG?w=220&h=220".http(baseUrlTag = OkExt.NoBaseUrl)
+                .savePath("${DirManager.shareDir}/${System.currentTimeMillis()}.jpg")
+                .get(object : HttpCallback<File> {
+                    override fun onSuccess(f: File) {
+                        LogUtils.d("下载成功:${f.absolutePath}")
+                        var uri = UriUtils.file2Uri(f)
+                        var intent = IntentUtils.getShareTextImageIntent("xxxx", uri)
+                        context!!.grantIntentUriPermission(intent, uri)
+//                        val resInfoList: List<ResolveInfo> = context!!.getPackageManager().queryIntentActivities(
+//                                intent, PackageManager.MATCH_DEFAULT_ONLY)
+//                        for (resolveInfo in resInfoList) {
+//                            val packageName = resolveInfo.activityInfo.packageName
+//                            context!!.grantUriPermission(packageName, uri,
+//                                Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION
+//                            )
+//                        }
+                        ActivityUtils.startActivity(intent)
+                    }
+                })
+
 ////            VideoPlayerActivity.start(url = "android.resource://" + requireContext()!!.packageName + "/" + R.raw.heng, title = "视频敖德萨大所大所大所大所大所多")
 ////            VideoPlayerActivity.start(url = video2, title = "视频敖德萨大所大所大所大所大所多")
 //

@@ -4,6 +4,9 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.content.pm.ResolveInfo
+import android.net.Uri
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -103,4 +106,13 @@ fun Activity.moveTaskToFront(){
     val intent = Intent(AndroidKTX.context, this.javaClass)
     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_REORDER_TO_FRONT or Intent.FLAG_ACTIVITY_SINGLE_TOP
     AndroidKTX.context.startActivity(intent)
+}
+
+fun Context.grantIntentUriPermission(intent: Intent, uri: Uri){
+    val resInfoList: List<ResolveInfo> = packageManager.queryIntentActivities(
+        intent, PackageManager.MATCH_DEFAULT_ONLY)
+    for (resolveInfo in resInfoList) {
+        val packageName = resolveInfo.activityInfo.packageName
+        grantUriPermission(packageName, uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    }
 }
