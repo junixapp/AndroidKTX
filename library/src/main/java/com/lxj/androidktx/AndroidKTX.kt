@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.view.Gravity
 import com.blankj.utilcode.util.ToastUtils
 import com.blankj.utilcode.util.Utils
+import com.hjq.toast.Toaster
 import com.lxj.androidktx.util.DirManager
 import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.header.ClassicsHeader
@@ -28,7 +29,7 @@ object AndroidKTX {
      * 初始化配置信息，必须调用
      * @param isDebug 是否是debug模式，默认为true
      */
-    fun init(context: Context,
+    fun init(context: Application,
              isDebug: Boolean = true,
              defaultLogTag: String = AndroidKTX.defaultLogTag,
              sharedPrefName: String = AndroidKTX.sharedPrefName
@@ -42,6 +43,7 @@ object AndroidKTX {
         ToastUtils.getDefaultMaker().setTextColor(Color.WHITE)
         initRefresh()
         DirManager.init()
+        Toaster.init(context)
     }
 
     fun initRefresh() {
