@@ -8,10 +8,12 @@ import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.blankj.utilcode.util.UriUtils
+import com.blankj.utilcode.util.UtilsTransActivity
 import com.lxj.androidktx.AndroidKTX
 import com.lxj.androidktx.R
 import com.lxj.androidktx.core.startForResult
 import com.lxj.androidktx.core.string
+import com.lxj.androidktx.core.toast
 import com.lxj.androidktx.util.UriHelper
 import com.zhihu.matisse.MimeType
 import java.io.Serializable
@@ -80,6 +82,14 @@ object ImagePicker {
         this.onFinish = onFinish
         PermissionUtils
                 .permission(PermissionConstants.STORAGE, PermissionConstants.CAMERA)
+            .rationale(object : PermissionUtils.OnRationaleListener{
+                override fun rationale(
+                    activity: UtilsTransActivity,
+                    shouldRequest: PermissionUtils.OnRationaleListener.ShouldRequest
+                ) {
+                    toast("rationale")
+                }
+            })
                 .callback(object : PermissionUtils.SimpleCallback {
                     override fun onGranted() {
                         val max = if(maxNum < 1) 1 else maxNum
@@ -98,7 +108,7 @@ object ImagePicker {
                         }
                     }
                     override fun onDenied() {
-                        ToastUtils.showShort(AndroidKTX.context.string(R.string._ktx_permisison_deny))
+                        toast(AndroidKTX.context.string(R.string._ktx_permisison_deny))
                     }
                 })
                 .request()
