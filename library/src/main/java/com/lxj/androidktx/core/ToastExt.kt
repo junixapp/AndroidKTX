@@ -1,6 +1,5 @@
 package com.lxj.androidktx.core
 
-import com.blankj.utilcode.util.ToastUtils
 import com.hjq.toast.Toaster
 
 /**
