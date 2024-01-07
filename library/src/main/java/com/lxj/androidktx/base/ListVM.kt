@@ -114,6 +114,14 @@ abstract class ListVM<T>() : ViewModel(){
         listData.postValueAndSuccess(list)
     }
 
+    fun replaceList(newList: List<T>){
+        updateOldData()
+        listData.value?.clear()
+        listData.value?.addAll(newList)
+        listData.postValueAndSuccess(listData.value!!)
+    }
+
+
     /**
      * 删除数据
      */

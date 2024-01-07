@@ -88,9 +88,10 @@ class RecyclerViewExtDemo : BaseFragment() {
 
         moveBtn.click(50) {
 //            if (data.isEmpty()) return@click
-            val old = userVM.listData.value!!.deepCopy<ArrayList<User>>()
-            old.shuffle()
-            recyclerView.diffUpdate(UserDiffCallback(old, userVM.listData.value))
+            val random = userVM.listData.value!!.deepCopy<ArrayList<User>>()
+            random.shuffle()
+            userVM.replaceList(random)
+//            recyclerView.diffUpdate(UserDiffCallback(old, userVM.listData.value))
         }
         val header = TextView(context).apply {
             text = "我是header"
@@ -185,17 +186,29 @@ class RecyclerViewExtDemo : BaseFragment() {
         }
     }
 //
-//    class FooterDelegate : ItemViewDelegate<String>{
-//        override fun bind(holder: ViewHolder, t: String, position: Int) {
-//            holder.setText(android.R.id.text1, t)
-//        }
-//        override fun isForViewType(item: String, position: Int): Boolean {
-//            return item == "footer"
-//        }
-//
-//        override fun getLayoutId(): Int {
-//            return android.R.layout.simple_list_item_1
-//        }
-//    }
+    class HeaderDelegate : ItemDelegate<String>{
+        override fun bind(holder: ViewHolder, t: String, position: Int) {
+            holder.setText(android.R.id.text1, t)
+        }
+        override fun isThisType(item: String, position: Int): Boolean {
+            return item == "header"
+        }
+
+        override fun getLayoutId(): Int {
+            return android.R.layout.simple_list_item_1
+        }
+    }
+    class FooterDelegate : ItemDelegate<String>{
+        override fun bind(holder: ViewHolder, t: String, position: Int) {
+            holder.setText(android.R.id.text1, t)
+        }
+        override fun isThisType(item: String, position: Int): Boolean {
+            return item == "footer"
+        }
+
+        override fun getLayoutId(): Int {
+            return android.R.layout.simple_list_item_1
+        }
+    }
 
 }

@@ -141,4 +141,6 @@ object OkExt {
 
     fun plainTextBody(string: String) = RequestBody.create(MediaType.parse("text/plain"), string)
 
+    fun jsontBody(string: String) = RequestBody.create(MediaType.parse("application/json"), string)
+
 }
