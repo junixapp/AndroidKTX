@@ -30,6 +30,7 @@ public class LetterIndexBar extends View {
      */
     private int mWidth;
     private int mHeight;
+    private int fontSize = 12;
 
     /**
      * 单元格的高度
@@ -50,8 +51,14 @@ public class LetterIndexBar extends View {
     private void init() {
         mPaint = new Paint();
         mPaint.setColor(LETTER_COLOR);
-        mPaint.setTextSize(ConvertUtils.sp2px(12));
+        mPaint.setTextSize(ConvertUtils.sp2px(fontSize));
         mPaint.setAntiAlias(true); // 去掉锯齿，让字体边缘变得平滑
+    }
+
+    public void setFontSize(int size){
+        this.fontSize = size;
+        mPaint.setTextSize(ConvertUtils.sp2px(fontSize));
+        invalidate();
     }
 
     public void setIndexs(String[] indexs) {
