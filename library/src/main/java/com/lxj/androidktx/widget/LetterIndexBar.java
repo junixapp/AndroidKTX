@@ -2,6 +2,7 @@ package com.lxj.androidktx.widget;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
@@ -15,11 +16,6 @@ import com.blankj.utilcode.util.ConvertUtils;
 public class LetterIndexBar extends View {
 
     /**
-     * 索引字母颜色
-     */
-    private static final int LETTER_COLOR = 0xFF222222;
-
-    /**
      * 索引字母数组
      */
     public String[] indexs = new String[]{ "#", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O",
@@ -30,6 +26,7 @@ public class LetterIndexBar extends View {
      */
     private int mWidth;
     private int mHeight;
+    private int fontColor = Color.parseColor("#999999");
     private int fontSize = 12;
 
     /**
@@ -50,7 +47,7 @@ public class LetterIndexBar extends View {
 
     private void init() {
         mPaint = new Paint();
-        mPaint.setColor(LETTER_COLOR);
+        mPaint.setColor(fontColor);
         mPaint.setTextSize(ConvertUtils.sp2px(fontSize));
         mPaint.setAntiAlias(true); // 去掉锯齿，让字体边缘变得平滑
     }
@@ -58,6 +55,11 @@ public class LetterIndexBar extends View {
     public void setFontSize(int size){
         this.fontSize = size;
         mPaint.setTextSize(ConvertUtils.sp2px(fontSize));
+        invalidate();
+    }
+    public void setFontColor(int color){
+        this.fontColor = color;
+        mPaint.setColor(fontColor);
         invalidate();
     }
 
@@ -74,7 +76,7 @@ public class LetterIndexBar extends View {
         }
         for (int i = 0; i < indexs.length; i++) {
             String letter = indexs[i];
-            float x = mWidth / 2 - getTextWidth(letter) / 2;
+            float x = mWidth / 2f - getTextWidth(letter) / 2;
             float y = mCellHeight / 2 + getTextHeight(letter) / 2 + mCellHeight * i + getPaddingTop();
             canvas.drawText(letter, x, y, mPaint);
         }
