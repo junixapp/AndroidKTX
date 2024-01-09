@@ -194,6 +194,10 @@ fun RecyclerView.scrollToEnd() {
 fun RecyclerView.scrollTop(position: Int) {
     if (layoutManager is LinearLayoutManager) {
         (layoutManager as LinearLayoutManager).scrollToPositionWithOffset(position, 0)
+    }else if (layoutManager is GridLayoutManager) {
+        (layoutManager as GridLayoutManager).scrollToPositionWithOffset(position, 0)
+    }else if (layoutManager is StaggeredGridLayoutManager) {
+        (layoutManager as StaggeredGridLayoutManager).scrollToPositionWithOffset(position, 0)
     }
 }
 
