@@ -31,13 +31,13 @@ data class RestResult(
 
 class MainActivity : BaseActivity() {
     val pages = arrayListOf(
+        PageInfo("RecyclerView相关", RecyclerViewExtDemo()),
             PageInfo("Span相关", SpanExtPage()),
             PageInfo("View相关", ViewExtPage()),
             PageInfo("ImageView相关", ImageViewExtPage()),
             PageInfo("Fragment相关", FragmentExtPage()),
             PageInfo("Http相关", HttpExtFragment()),
             PageInfo("LiveDataBus", LiveDataBusDemo()),
-            PageInfo("RecyclerView相关", RecyclerViewExtDemo()),
             PageInfo("ViewPager2", ViewPager2Demo()),
             PageInfo("播放器", PlayerFragment()),
             PageInfo("Uploader", UploaderFragment()),

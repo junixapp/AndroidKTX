@@ -3,43 +3,41 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent">
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
+    <com.google.android.flexbox.FlexboxLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="wrap_content"
+        app:flexWrap="wrap"
         android:layout_height="wrap_content">
-
         <Button
             android:id="@+id/addBtn"
             android:text="增加"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <Button
             android:id="@+id/delBtn"
             android:text="减去"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <Button
             android:id="@+id/updateBtn"
-            android:text="更新字段"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:text="局部更新字段"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <Button
             android:id="@+id/replaceBtn"
-            android:text="替换"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:text="整个替换Item"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <Button
             android:id="@+id/moveBtn"
             android:text="移动"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-
-    </LinearLayout>
+        <Button
+            android:id="@+id/clearBtn"
+            android:text="清空"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </com.google.android.flexbox.FlexboxLayout>
     <com.lxj.statelayout.StateLayout
         android:id="@+id/stateRv"
         android:layout_width="match_parent"

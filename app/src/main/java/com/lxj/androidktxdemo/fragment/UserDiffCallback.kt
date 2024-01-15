@@ -32,7 +32,6 @@ import com.lxj.androidktxdemo.entity.User
 //}
 class UserDiffCallback(oldData: List<User>?, newData: List<User>?) : DiffCallback<User>(oldData, newData) {
    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        if(oldData.isNullOrEmpty() || newData.isNullOrEmpty()) return false
        LogUtils.d("areItemsTheSame ${oldData!![oldItemPosition].id == newData!![newItemPosition].id}")
         return oldData!![oldItemPosition].id == newData!![newItemPosition].id
     }

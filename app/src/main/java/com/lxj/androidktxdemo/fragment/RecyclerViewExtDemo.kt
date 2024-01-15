@@ -89,8 +89,15 @@ class RecyclerViewExtDemo : BaseFragment() {
         moveBtn.click(50) {
 //            if (data.isEmpty()) return@click
             val random = userVM.listData.value!!.deepCopy<ArrayList<User>>()
+            random.add(User(name = "随机添加-${Random.nextInt(1000)}"))
             random.shuffle()
+
             userVM.replaceList(random)
+//            recyclerView.diffUpdate(UserDiffCallback(old, userVM.listData.value))
+        }
+        clearBtn.click(50) {
+//            if (data.isEmpty()) return@click
+            userVM.clear()
 //            recyclerView.diffUpdate(UserDiffCallback(old, userVM.listData.value))
         }
         val header = TextView(context).apply {

@@ -112,12 +112,16 @@ abstract class ListVM<T>() : ViewModel(){
     }
 
     fun replaceList(newList: List<T>){
+        val list = listData.value ?: return
         updateOldData()
-        listData.value?.clear()
-        listData.value?.addAll(newList)
-        listData.postValueAndSuccess(listData.value?: CopyOnWriteArrayList())
+        list.clear()
+        if(newList.isNullOrEmpty()){
+            listData.postEmpty(list)
+        }else{
+            list.addAll(newList)
+            listData.postValueAndSuccess(list)
+        }
     }
-
 
     /**
      * 删除数据
