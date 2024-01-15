@@ -16,11 +16,8 @@ import java.util.concurrent.CopyOnWriteArrayList
  */
 abstract class ListVM<T>() : ViewModel(){
     var firstLoad = true
-    var listData = StateLiveData<CopyOnWriteArrayList<T>>()
+    var listData = StateLiveData<CopyOnWriteArrayList<T>>(CopyOnWriteArrayList())
     var oldData = arrayListOf<T>()
-    init {
-        listData.value = CopyOnWriteArrayList()
-    }
 
     open fun bindRecyclerView(
         owner: LifecycleOwner,
@@ -32,7 +29,7 @@ abstract class ListVM<T>() : ViewModel(){
     ) {
         listData.observe(owner, Observer {
             firstLoad = false
-            val diffCallback = getDiffCallback(oldData, it)
+            val diffCallback = getDiffCallback(oldData, it ?: listOf())
             if(diffCallback!=null){
                 rv?.diffUpdate(diffCallback)
             }else{
@@ -48,11 +45,11 @@ abstract class ListVM<T>() : ViewModel(){
                     }
                 }
                 StateLiveData.State.Empty -> {
-                    if(listData.value!!.isNullOrEmpty()) stateLayout?.showEmpty()
+                    if(listData.value.isNullOrEmpty()) stateLayout?.showEmpty()
                     else stateLayout?.showContent()
                 }
                 StateLiveData.State.Error -> {
-                    if(listData.value!!.isNullOrEmpty()) {
+                    if(listData.value.isNullOrEmpty()) {
                         stateLayout?.showError()
                     } else {
                         stateLayout?.showContent()
@@ -73,7 +70,7 @@ abstract class ListVM<T>() : ViewModel(){
      * 新增数据
      */
     fun insert(t: T, position: Int? = null){
-        val list = listData.value!!
+        val list = listData.value ?: return
         if(position ==null){
             updateOldData()
             list.add(t)
@@ -89,7 +86,7 @@ abstract class ListVM<T>() : ViewModel(){
      * 新增数据
      */
     fun insertList(t: List<T>, position: Int? = null){
-        val list = listData.value!!
+        val list = listData.value ?: return
         if(position ==null){
             updateOldData()
             list.addAll(t)
@@ -107,7 +104,7 @@ abstract class ListVM<T>() : ViewModel(){
      * 如果直接修改原数据，则old数据也会修改，导致old和new数据一样，不会触发UI更新
      */
     fun update(position: Int, t: T){
-        val list = listData.value!!
+        val list = listData.value ?: return
         if(position < 0 || list.size<= position) return
         updateOldData()
         list[position] = t
@@ -118,7 +115,7 @@ abstract class ListVM<T>() : ViewModel(){
         updateOldData()
         listData.value?.clear()
         listData.value?.addAll(newList)
-        listData.postValueAndSuccess(listData.value!!)
+        listData.postValueAndSuccess(listData.value?: CopyOnWriteArrayList())
     }
 
 
@@ -126,7 +123,7 @@ abstract class ListVM<T>() : ViewModel(){
      * 删除数据
      */
     fun remove(position: Int){
-        val list = listData.value!!
+        val list = listData.value ?: return
         if(position < 0 || list.size<= position) return
         updateOldData()
         list.removeAt(position)
@@ -137,7 +134,7 @@ abstract class ListVM<T>() : ViewModel(){
      * 清空数据
      */
     fun clear(){
-        val list = listData.value!!
+        val list = listData.value ?: return
         if(list.isEmpty()) return
         updateOldData()
         list.clear()
@@ -151,7 +148,7 @@ abstract class ListVM<T>() : ViewModel(){
      * oldData = listData.value!!.deepCopy<ArrayList<T>>()
      */
     open fun updateOldData(){
-        if(getDiffCallback(oldData, listData.value!!)==null) return
+        if(getDiffCallback(oldData, listData.value?: listOf())==null) return
         throw IllegalArgumentException("updateOldData方法未实现，实现方式固定为：oldData = listData.value!!.deepCopy<ArrayList<T>>() ")
     }
     
