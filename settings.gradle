@@ -1,4 +1,4 @@
-include ':app', ':library',  ':matisse', ':audiorecorder'
+include ':app', ':library',   ':audiorecorder'
 include ':share'
 include ':pay'
 include ':videoplayer'

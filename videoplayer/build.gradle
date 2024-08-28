@@ -45,10 +45,10 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation "androidx.appcompat:appcompat:1.4.1"
     implementation 'com.blankj:utilcodex:1.31.1'
-    implementation 'xyz.doikki.android.dkplayer:dkplayer-java:3.3.5'
-    implementation 'xyz.doikki.android.dkplayer:dkplayer-ui:3.3.5'
-    implementation 'xyz.doikki.android.dkplayer:player-exo:3.3.5'
-    implementation 'xyz.doikki.android.dkplayer:player-ijk:3.3.5'
-    implementation 'xyz.doikki.android.dkplayer:videocache:3.3.5'
+    implementation 'xyz.doikki.android.dkplayer:dkplayer-java:3.3.7'
+    implementation 'xyz.doikki.android.dkplayer:dkplayer-ui:3.3.7'
+    implementation 'xyz.doikki.android.dkplayer:player-exo:3.3.7'
+    implementation 'xyz.doikki.android.dkplayer:player-ijk:3.3.7'
+    implementation 'xyz.doikki.android.dkplayer:videocache:3.3.7'
     implementation "com.github.bumptech.glide:glide:4.13.2"
 }
