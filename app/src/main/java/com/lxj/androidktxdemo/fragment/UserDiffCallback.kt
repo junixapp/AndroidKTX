@@ -2,7 +2,7 @@ package com.lxj.androidktxdemo.fragment
 
 import android.os.Bundle
 import com.blankj.utilcode.util.LogUtils
-import com.lxj.ext.DiffCallback
+import com.lxj.androidktx.util.DiffCallback
 import com.lxj.androidktxdemo.entity.User
 
 //class UserDiffCallback(var oldData: List<User>?, var newData: List<User>?) : DiffUtil.Callback() {

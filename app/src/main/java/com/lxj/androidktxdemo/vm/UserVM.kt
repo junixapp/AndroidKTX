@@ -3,7 +3,7 @@ package com.lxj.androidktxdemo.vm
 import androidx.lifecycle.viewModelScope
 import com.blankj.utilcode.util.LogUtils
 import com.lxj.androidktx.base.ListVM
-import com.lxj.ext.DiffCallback
+import com.lxj.androidktx.util.DiffCallback
 import com.lxj.ext.deepCopy
 import com.lxj.androidktxdemo.entity.User
 import com.lxj.androidktxdemo.fragment.UserDiffCallback

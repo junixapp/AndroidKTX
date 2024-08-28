@@ -2,20 +2,20 @@ package com.lxj.androidktx.util
 
 import android.content.Context
 import com.blankj.utilcode.util.*
-import com.lxj.androidktx.AndroidKTX
 import com.lxj.androidktx.okhttp.HttpCallback
 import com.lxj.androidktx.okhttp.get
 import com.lxj.androidktx.okhttp.http
-import com.lxj.ext.md5
-import com.lxj.ext.putString
-import com.lxj.ext.sp
-import com.lxj.ext.toJson
-import com.lxj.widget.popup.CommonUpdateInfo
-import com.lxj.xpopup.XPopup
 import java.io.File
 import java.io.IOException
 
 
+data class CommonUpdateInfo(
+    var download_url: String? = null,
+    var version_name: String? = null,
+    var package_name: String? = null,
+    var update_info: String? = null,
+    var force_update: Boolean? = false
+)
 /**
  * 版本更新工具，功能有2个：
  * 1. 弹出版本更新提示的弹窗，如果对UI有要求，可以自己实现弹窗，然后调用第2个方法
@@ -24,18 +24,19 @@ import java.io.IOException
 object VersionUpdateUtil {
     const val cacheKey = "_version_update_download_apk_"
     private fun showDefaultUpdateUI(context: Context, updateData: CommonUpdateInfo, path: String) {
-        XPopup.Builder(context)
-                .dismissOnBackPressed(updateData.force_update)
-                .dismissOnTouchOutside(updateData.force_update)
-                .asCustom(
-                    com.lxj.widget.popup.VersionUpdatePopup(
-                        context = context,
-                        updateInfo = updateData,
-                        onOkClick = {
-                            installApk(path)
-                        })
-                )
-                .show()
+//        XPopup.Builder(context)
+//                .dismissOnBackPressed(updateData.force_update)
+//                .dismissOnTouchOutside(updateData.force_update)
+//                .asCustom(
+//                    VersionUpdatePopup(
+//                        context = context,
+//                        updateInfo = updateData.update_info,
+//                        forceUpdate = updateData.force_update,
+//                        onOkClick = {
+//                            installApk(path)
+//                        })
+//                )
+//                .show()
     }
 
     /**
@@ -43,7 +44,7 @@ object VersionUpdateUtil {
      */
     fun installApk(path: String){
         //删除缓存
-        AndroidKTX.context.sp().putString(cacheKey, "")
+        SPStaticUtils.put(cacheKey, "")
         AppUtils.installApp(path)
     }
 
@@ -57,9 +58,9 @@ object VersionUpdateUtil {
     fun downloadAndInstallApk(context: Context, updateData: CommonUpdateInfo, onShowInstallUI: ((apkPath: String) -> Unit)? = null,
                               useCache: Boolean = true, onDownloadProgress: ((Int)->Unit)? = null, installWhenDownload : Boolean = false) {
         //检测是否有缓存的apk路径，如果有说明已经下载过了
-        val filename = "${updateData.download_url!!.md5()}.apk"
+        val filename = "${EncryptUtils.encryptMD5ToString(updateData.download_url!!)}.apk"
         val file = File("${DirManager.downloadDir}/${filename}")
-        val cacheApkPath: String = AndroidKTX.context.sp().getString(cacheKey, "") ?:""
+        val cacheApkPath: String = SPStaticUtils.getString(cacheKey, "") ?:""
         if (cacheApkPath!!.isNotEmpty() && FileUtils.isFileExists(cacheApkPath) && cacheApkPath==file.absolutePath && useCache) {
             LogUtils.e("新版本Apk已存在，无需下载，路径：$cacheApkPath")
             if(installWhenDownload){
@@ -73,7 +74,7 @@ object VersionUpdateUtil {
             }
             return
         }
-        LogUtils.d("开始下载新版本: ${updateData.toJson()}")
+        LogUtils.d("开始下载新版本: ${GsonUtils.toJson(updateData)}")
         if (updateData.download_url.isNullOrEmpty()) {
             return
         }
@@ -88,7 +89,7 @@ object VersionUpdateUtil {
                 override fun onSuccess(t: File) {
                     LogUtils.e("新版本下载成功，路径为：${file.absolutePath}")
                     //缓存路径
-                    AndroidKTX.context.sp().putString(cacheKey, t.absolutePath)
+                    SPStaticUtils.put(cacheKey, t.absolutePath)
                     if(installWhenDownload){
                         installApk(t.absolutePath)
                     }else{

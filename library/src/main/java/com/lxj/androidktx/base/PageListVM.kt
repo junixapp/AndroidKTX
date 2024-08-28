@@ -3,9 +3,10 @@ package com.lxj.androidktx.base
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.lxj.ext.*
 import com.lxj.androidktx.livedata.StateLiveData
+import com.lxj.androidktx.util.DiffCallback
 import com.lxj.statelayout.StateLayout
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.scwang.smart.refresh.layout.api.RefreshLayout
@@ -54,7 +55,7 @@ abstract class PageListVM<T>() : ViewModel(),
         listData.observe(owner, Observer {
             val diffCallback = getDiffCallback(oldData, it)
             if(diffCallback!=null){
-                rv?.diffUpdate(diffCallback)
+                if(rv?.adapter!=null) DiffUtil.calculateDiff(diffCallback).dispatchUpdatesTo(rv!!.adapter!!)
             }else{
                 rv?.adapter?.notifyDataSetChanged()
             }

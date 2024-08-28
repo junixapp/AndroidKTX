@@ -3,9 +3,11 @@ package com.lxj.androidktx.base
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.lxj.ext.*
 import com.lxj.androidktx.livedata.StateLiveData
+import com.lxj.androidktx.util.DiffCallback
+import com.lxj.easyadapter.EasyAdapter
 import com.lxj.statelayout.StateLayout
 import java.lang.IllegalArgumentException
 import java.util.concurrent.CopyOnWriteArrayList
@@ -31,7 +33,7 @@ abstract class ListVM<T>() : ViewModel(){
             firstLoad = false
             val diffCallback = getDiffCallback(oldData, it ?: listOf())
             if(diffCallback!=null){
-                rv?.diffUpdate(diffCallback)
+                if(rv?.adapter!=null) DiffUtil.calculateDiff(diffCallback).dispatchUpdatesTo(rv!!.adapter!!)
             }else{
                 rv?.adapter?.notifyDataSetChanged()
             }

@@ -87,6 +87,6 @@ dependencies {
 
 //    api 'com.github.zhpanvip:bannerviewpager:3.5.7'
 //    api project(':matisse')
-//    api project(':ext')
-    api project(':widget')
+    api project(':ext')
+//    api project(':widget')
 }

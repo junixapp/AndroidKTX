@@ -59,6 +59,6 @@ dependencies {
 //    implementation project(':pay')
     implementation project(':audioplayer')
 //    implementation project(':matisse')
-//    implementation project(':widget')
+    implementation project(':widget')
 //    implementation project(':videoplayer')
 }

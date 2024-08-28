@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.blankj.utilcode.util.FragmentUtils
-import com.lxj.ext.postDelay
 import com.lxj.statelayout.StateLayout
 
 /**
@@ -53,7 +52,7 @@ abstract class PagerStateFragment : Fragment(), FragmentUtils.OnBackClickListene
         if (cacheView != null && userVisibleHint && !isInit) {
             initView()
             initData()
-            if(autoShowContent())postDelay(350){showContent()}
+            if(autoShowContent()) view?.postDelayed({showContent()}, 300)
             isInit = true
         }
     }
