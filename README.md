@@ -21,6 +21,8 @@ Step2. Add the dependency
 ```
 dependencies {
     implementation 'com.github.li-xiaojun.AndroidKTX:library:最新版本'
+    implementation 'com.github.li-xiaojun.AndroidKTX:ext:最新版本'
+    implementation 'com.github.li-xiaojun.AndroidKTX:widget:最新版本'
     implementation 'com.github.li-xiaojun.AndroidKTX:videoplayer:最新版本'
     implementation 'com.github.li-xiaojun.AndroidKTX:audioplayer:最新版本'
     implementation 'com.github.li-xiaojun.AndroidKTX:matisse:最新版本'
