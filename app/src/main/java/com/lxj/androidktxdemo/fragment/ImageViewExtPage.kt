@@ -1,16 +1,10 @@
 package com.lxj.androidktxdemo.fragment
 
-import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.media.MediaMetadataRetriever
-import android.widget.ImageView
-import androidx.cardview.widget.CardView
 import com.blankj.utilcode.util.*
-import com.bumptech.glide.Glide
-import com.lxj.androidktx.core.*
-import com.lxj.androidktx.picker.ImagePicker
+import com.lxj.ext.*
 import com.lxj.androidktxdemo.R
 import kotlinx.android.synthetic.main.fragment_imageview_ext.*
 
@@ -80,11 +74,11 @@ class ImageViewExtPage: BaseFragment(){
 //                LogUtils.e( " size: ${FileUtils.getSize(UriUtils.uri2File(it[0]))}")
 //                image1.load(it[0], isCrossFade = true)
 //            }) //打开相机
-            ImagePicker.startPicker(this, isCompress = true, isCrop = true, onFinish = {
-                if(it.isNullOrEmpty()) return@startPicker
-                LogUtils.e( " size: ${FileUtils.getSize(UriUtils.uri2File(it[0]))}")
-                image1.load(it[0], isCrossFade = true)
-            }) //打开相机
+//            ImagePicker.startPicker(this, isCompress = true, isCrop = true, onFinish = {
+//                if(it.isNullOrEmpty()) return@startPicker
+//                LogUtils.e( " size: ${FileUtils.getSize(UriUtils.uri2File(it[0]))}")
+//                image1.load(it[0], isCrossFade = true)
+//            }) //打开相机
 //            ImagePicker.startCamera(this, 1, isCompress = false) //打开相机不压缩
 //            ImagePicker.startCamera(this, 1, isCrop = true) //打开相机并裁剪
 //            ImagePicker.startCamera(this, 1) //打开相机不裁剪

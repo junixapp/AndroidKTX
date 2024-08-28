@@ -1,9 +1,8 @@
 package com.lxj.androidktxdemo.fragment
 
 import android.os.Bundle
-import androidx.recyclerview.widget.DiffUtil
 import com.blankj.utilcode.util.LogUtils
-import com.lxj.androidktx.core.DiffCallback
+import com.lxj.ext.DiffCallback
 import com.lxj.androidktxdemo.entity.User
 
 //class UserDiffCallback(var oldData: List<User>?, var newData: List<User>?) : DiffUtil.Callback() {

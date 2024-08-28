@@ -1,20 +1,16 @@
 package com.lxj.androidktxdemo
 
+import android.app.Application
 import android.content.Intent
-import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.blankj.utilcode.util.BarUtils
-import com.blankj.utilcode.util.LogUtils
+import com.lxj.androidktx.AndroidKTX
 import com.lxj.androidktx.base.BaseActivity
-import com.lxj.androidktx.core.*
+import com.lxj.ext.*
 import com.lxj.share.Share
 import com.lxj.androidktxdemo.databinding.ActivityMainBinding
 import com.lxj.androidktxdemo.entity.PageInfo
 import com.lxj.androidktxdemo.fragment.*
-import com.lxj.androidktxdemo.popup.TestPopup
-import com.lxj.androidktxdemo.serv.PlayService
 import com.lxj.androidktxdemo.vm.TestVM
-import com.lxj.audioplayer.ExoPlayerManager
-import com.lxj.xpopup.XPopup
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.random.Random
 
@@ -50,7 +46,7 @@ class MainActivity : BaseActivity() {
         binding.fakeStatus.height(BarUtils.getStatusBarHeight())
         binding.viewPager.bindFragment(this, fragments = pages.map { it.page!! })
         binding.viewPager.bindTabLayout(tabLayout, pages.map { it.title })
-        val testVM = getSavedStateVM(TestVM::class.java)
+        val testVM = getSavedStateVM(AndroidKTX.context as Application, TestVM::class.java)
         testVM.num.observe(this, androidx.lifecycle.Observer {
             btnTest.text = "Random: $it"
         })

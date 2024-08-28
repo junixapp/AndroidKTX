@@ -1,23 +1,21 @@
 package com.lxj.androidktxdemo.fragment
 
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.content.pm.ResolveInfo
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.widget.SeekBar
 import com.blankj.utilcode.util.*
 import com.lxj.androidktx.AndroidKTX
-import com.lxj.androidktx.base.WebActivity
-import com.lxj.androidktx.core.*
+import com.lxj.widget.act.WebActivity
+import com.lxj.ext.*
 import com.lxj.androidktx.okhttp.HttpCallback
 import com.lxj.androidktx.okhttp.OkExt
 import com.lxj.androidktx.okhttp.get
 import com.lxj.androidktx.okhttp.http
 import com.lxj.androidktx.qrcode.QrCodeUtil
 import com.lxj.androidktx.util.DirManager
-import com.lxj.androidktx.widget.SuperDrawable
+import com.lxj.widget.SuperDrawable
 import com.lxj.androidktxdemo.R
 import com.lxj.androidktxdemo.blibli.BlibliVideoActivity
 import com.lxj.androidktxdemo.notification.NotificationDemo
@@ -50,7 +48,7 @@ class SpanExtPage : BaseFragment() {
         tvSizeSpan.setShadowLayer(1.6f,1.5f,1.3f,Color.BLACK)
         tvSizeSpan.click {
 //            QrCodeUtil.start(this, 1)
-            WebActivity.start(url = "https://www.baidu.com",  keepMarginTop = true,
+            com.lxj.widget.act.WebActivity.start(context = requireContext(), url = "https://www.baidu.com",  keepMarginTop = true,
             statusBarColor = Color.RED,  isLightStatusBar = false)
 
 

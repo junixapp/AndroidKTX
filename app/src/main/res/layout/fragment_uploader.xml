@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <com.lxj.androidktx.widget.ImageUploader
+    <com.lxj.widget.ImageUploader
         android:id="@+id/uploader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

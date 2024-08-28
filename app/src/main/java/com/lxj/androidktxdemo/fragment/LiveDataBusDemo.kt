@@ -2,8 +2,8 @@ package com.lxj.androidktxdemo.fragment
 
 import androidx.lifecycle.Observer
 import com.blankj.utilcode.util.LogUtils
-import com.lxj.androidktx.core.observeState
-import com.lxj.androidktx.core.postDelay
+import com.lxj.androidktx.ext.observeState
+import com.lxj.ext.postDelay
 import com.lxj.androidktx.livedata.StateLiveData
 import com.lxj.androidktxdemo.R
 import com.lxj.xpopup.XPopup

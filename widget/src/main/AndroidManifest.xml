@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.lxj.widget">
+
+    <application
+        android:hardwareAccelerated="true">
+        <activity
+            android:name="com.lxj.widget.act.WebActivity"
+            android:configChanges="orientation|screenSize"
+            android:hardwareAccelerated="true"
+            android:theme="@style/_TranslucentStatus" />
+        <activity android:name="com.lxj.widget.act.FragmentWrapperActivity" android:screenOrientation="portrait"/>
+    </application>
+</manifest>

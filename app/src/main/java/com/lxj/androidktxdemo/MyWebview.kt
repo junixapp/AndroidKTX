@@ -3,12 +3,9 @@ package com.lxj.androidktxdemo
 import android.content.Context
 import android.util.AttributeSet
 import android.view.*
-import android.webkit.ValueCallback
 import android.webkit.WebView
 import androidx.core.view.forEach
-import androidx.core.view.iterator
 import com.blankj.utilcode.util.LogUtils
-import com.lxj.androidktx.core.toast
 
 class MyWebview : WebView {
     constructor(context: Context) : super(context) {}

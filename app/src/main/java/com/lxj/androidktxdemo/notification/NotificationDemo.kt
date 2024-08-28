@@ -65,7 +65,7 @@ object NotificationDemo {
                 .setLargeIcon(ImageUtils.getBitmap(R.mipmap.ic_launcher))
                 .setFullScreenIntent(pendingIntent, true)
                 .setTicker("大萨达所大撒大所多")
-                .setSmallIcon(R.drawable.ic_empty_zhihu)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setCustomContentView(layout)
                 .setContentIntent(pendingIntent)
                 .setCustomHeadsUpContentView(layout2)

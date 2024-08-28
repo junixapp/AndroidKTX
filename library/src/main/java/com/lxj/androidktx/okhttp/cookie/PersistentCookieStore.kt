@@ -3,7 +3,8 @@ package com.lxj.androidktx.okhttp.cookie
 import android.content.SharedPreferences
 import android.text.TextUtils
 import android.util.Log
-import com.lxj.androidktx.core.sp
+import com.lxj.androidktx.AndroidKTX
+import com.lxj.ext.sp
 import okhttp3.Cookie
 import okhttp3.CookieJar
 import okhttp3.HttpUrl
@@ -22,7 +23,7 @@ class PersistentCookieStore : CookieJar {
     private val cookiePrefs: SharedPreferences
 
     init {
-        cookiePrefs = sp(COOKIE_PREFS)
+        cookiePrefs = AndroidKTX.context.sp(COOKIE_PREFS)
         cookies = HashMap()
 
         // Load any previously stored cookies into the store

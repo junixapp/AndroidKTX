@@ -1,14 +1,11 @@
 package com.lxj.androidktxdemo.fragment
 
-import com.blankj.utilcode.util.FileUtils
-import com.lxj.androidktx.core.click
-import com.lxj.androidktx.core.replace
+import com.lxj.ext.replace
 import com.lxj.androidktxdemo.R
 import com.lxj.androidktxdemo.entity.User
 //import com.zlw.main.recorderlib.RecordManager
 //import com.zlw.main.recorderlib.recorder.RecordHelper
 //import com.zlw.main.recorderlib.recorder.listener.RecordStateListener
-import kotlinx.android.synthetic.main.fragment_fragment_ext.*
 
 /**
  * Description:

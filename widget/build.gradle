@@ -1,0 +1,60 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'maven-publish'
+}
+
+android {
+    compileSdkVersion CompileSdkVersion
+
+    defaultConfig {
+        minSdkVersion MinSdkVersion
+        targetSdkVersion TargetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    afterEvaluate {
+        publishing {
+            publications {
+                release(MavenPublication) {
+                    from components.release
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation "androidx.appcompat:appcompat:1.4.1"
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
+    implementation 'com.google.android.material:material:1.6.1'
+    implementation "com.github.bumptech.glide:glide:4.13.2"
+    implementation 'com.blankj:utilcodex:1.31.1' //
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
+    compileOnly 'com.github.li-xiaojun:XPopup:2.10.0'       //弹窗
+    implementation 'com.github.li-xiaojun:EasyAdapter:1.2.8'
+    api 'com.github.Justson.AgentWeb:agentweb-core:v5.0.6-androidx' // (必选)
+//    api 'com.github.Justson.AgentWeb:agentweb-filechooser:v4.1.9-androidx' // (可选)
+//    api 'com.github.Justson:Downloader:v4.1.9-androidx' // (可选)
+    api project(':ext')
+}

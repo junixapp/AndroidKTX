@@ -4,8 +4,9 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.viewpager.widget.ViewPager
 import com.blankj.utilcode.util.ScreenUtils
 import com.lxj.androidktx.base.BaseActivity
-import com.lxj.androidktx.core.*
-import com.lxj.androidktx.widget.behavior.AppBarScaleHeaderBehavior
+import com.lxj.androidktx.ext.toast
+import com.lxj.ext.*
+import com.lxj.androidktx.util.behavior.AppBarScaleHeaderBehavior
 import com.lxj.androidktxdemo.R
 import kotlinx.android.synthetic.main.activity_blibli_video.*
 

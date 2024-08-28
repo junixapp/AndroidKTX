@@ -42,7 +42,7 @@
                 android:textColor="#333"
                 android:textSize="17sp" />
 
-            <com.lxj.androidktx.widget.TitleBar
+            <com.lxj.widget.TitleBar
                 android:background="#BB1F1F"
                 app:title="我是标题啊"
                 app:titleColor="#fff"
@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content" />
 
 
-            <com.lxj.androidktx.widget.TitleBar
+            <com.lxj.widget.TitleBar
                 android:layout_marginTop="15dp"
                 app:title="嘻嘻"
                 android:id="@+id/tt"
@@ -68,7 +68,7 @@
                 android:layout_height="50dp" />
 
 
-            <com.lxj.androidktx.widget.TitleBar
+            <com.lxj.widget.TitleBar
                 android:background="#2FD145"
                 app:title="我是标题"
                 app:leftTextDrawable="@mipmap/fh2"
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content" />
 
 
-            <com.lxj.androidktx.widget.SuperLayout
+            <com.lxj.widget.SuperLayout
                 android:id="@+id/sl"
                 android:clickable="true"
                 android:layout_marginLeft="20dp"
@@ -105,7 +105,7 @@
                 android:layout_height="wrap_content"/>
 
 
-            <com.lxj.androidktx.widget.SuperLayout
+            <com.lxj.widget.SuperLayout
                 android:id="@+id/slWeChat"
                 android:clickable="true"
                 app:sll_solid="#ffffff"
@@ -127,7 +127,7 @@
                 app:sl_rightTextHeight="40dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
-            <com.lxj.androidktx.widget.SuperLayout
+            <com.lxj.widget.SuperLayout
                 app:sll_rippleColor="#f00"
                 android:clickable="true"
                 app:sll_solid="#ffffff"
@@ -144,7 +144,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <com.lxj.androidktx.widget.SuperLayout
+            <com.lxj.widget.SuperLayout
                 android:layout_marginTop="15dp"
                 android:clickable="true"
                 android:paddingLeft="16dp"
@@ -165,7 +165,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <com.lxj.androidktx.widget.SuperLayout
+            <com.lxj.widget.SuperLayout
                 app:sll_solid="#fff"
                 android:layout_marginTop="15dp"
                 android:clickable="true"
@@ -185,7 +185,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <com.lxj.androidktx.widget.SuperLayout
+            <com.lxj.widget.SuperLayout
                 app:sll_solid="#fff"
                 android:clickable="true"
                 android:paddingLeft="14dp"
@@ -206,7 +206,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <com.lxj.androidktx.widget.SuperLayout
+            <com.lxj.widget.SuperLayout
                 android:clickable="true"
                 app:sll_solid="#fff"
                 android:paddingLeft="14dp"
@@ -224,7 +224,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <com.lxj.androidktx.widget.SuperLayout
+            <com.lxj.widget.SuperLayout
                 android:clickable="true"
                 app:sll_solid="#fff"
                 android:paddingLeft="14dp"

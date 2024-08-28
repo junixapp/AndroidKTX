@@ -4,7 +4,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
-import com.lxj.androidktx.core.*
+import com.lxj.ext.*
 import com.lxj.androidktx.livedata.StateLiveData
 import com.lxj.statelayout.StateLayout
 import com.scwang.smart.refresh.layout.SmartRefreshLayout

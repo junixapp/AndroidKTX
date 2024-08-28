@@ -10,7 +10,7 @@ import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.NotificationUtils
 import com.lxj.androidktx.AndroidKTX
-import com.lxj.androidktx.core.string
+import com.lxj.ext.string
 import com.lxj.androidktxdemo.MainActivity
 import com.lxj.androidktxdemo.R
 import com.lxj.audioplayer.ExoPlayerManager

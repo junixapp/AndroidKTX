@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.blankj.utilcode.util.LogUtils
 import com.lxj.androidktx.base.StateFragment
-import com.lxj.androidktx.core.postDelay
+import com.lxj.ext.postDelay
 
 /**
  * Description:

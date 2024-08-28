@@ -1,9 +1,8 @@
 package com.lxj.androidktxdemo.blibli
 
 import android.widget.TextView
-import androidx.core.graphics.ColorUtils
-import com.lxj.androidktx.core.bindData
-import com.lxj.androidktx.core.vertical
+import com.lxj.ext.bindData
+import com.lxj.ext.vertical
 import com.lxj.androidktxdemo.R
 import com.lxj.androidktxdemo.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_blibli.*

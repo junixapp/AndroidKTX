@@ -34,7 +34,7 @@
             android:id="@+id/title2"
             style="@style/TitleStyle"/>
 
-        <com.lxj.androidktx.widget.ShapeImageView
+        <com.lxj.widget.ShapeImageView
             android:id="@+id/image2"
             android:layout_width="160dp"
             android:layout_height="160dp" />
@@ -45,7 +45,7 @@
             android:id="@+id/title3"
             style="@style/TitleStyle"/>
 
-        <com.lxj.androidktx.widget.RoundImageView
+        <com.lxj.widget.RoundImageView
             app:riv_corner_radius="0pt"
             android:id="@+id/image3"
             android:layout_width="190dp"

@@ -6,7 +6,7 @@ import android.os.IBinder
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.NotificationUtils
-import com.lxj.androidktx.core.startActivity
+import com.lxj.ext.startActivity
 import com.lxj.androidktxdemo.DemoActivity
 import com.lxj.androidktxdemo.MainActivity
 import com.lxj.androidktxdemo.WelcomeActivity

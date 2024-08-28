@@ -4,7 +4,7 @@ import android.graphics.Typeface
 import androidx.multidex.MultiDexApplication
 import com.blankj.utilcode.util.LogUtils
 import com.lxj.androidktx.AndroidKTX
-import com.lxj.androidktx.core.*
+import com.lxj.ext.*
 import com.lxj.androidktxdemo.entity.User
 import com.lxj.androidktxdemo.entity.UserGender
 import com.lxj.audioplayer.ExoPlayerManager

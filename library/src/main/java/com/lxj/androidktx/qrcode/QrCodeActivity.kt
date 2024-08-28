@@ -7,8 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import cn.bingoogolapple.qrcode.core.QRCodeView
 import com.blankj.utilcode.util.ToastUtils
 import com.lxj.androidktx.R
-import com.lxj.androidktx.core.click
-import com.lxj.androidktx.core.color
+import com.lxj.ext.click
+import com.lxj.ext.color
 import kotlinx.android.synthetic.main._ktx_activity_qr_code.*
 
 class QrCodeActivity : AppCompatActivity(), QRCodeView.Delegate {

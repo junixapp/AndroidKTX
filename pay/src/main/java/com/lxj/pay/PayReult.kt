@@ -1,6 +1,6 @@
 package com.lxj.pay
 
-import com.lxj.androidktx.core.toBean
+import com.lxj.ext.toBean
 import java.io.Serializable
 
 /**

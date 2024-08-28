@@ -3,13 +3,10 @@ package com.lxj.androidktxdemo.vm
 import androidx.lifecycle.viewModelScope
 import com.blankj.utilcode.util.LogUtils
 import com.lxj.androidktx.base.ListVM
-import com.lxj.androidktx.base.ListWrapper
-import com.lxj.androidktx.base.PageListVM
-import com.lxj.androidktx.core.DiffCallback
-import com.lxj.androidktx.core.deepCopy
+import com.lxj.ext.DiffCallback
+import com.lxj.ext.deepCopy
 import com.lxj.androidktxdemo.entity.User
 import com.lxj.androidktxdemo.fragment.UserDiffCallback
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.random.Random

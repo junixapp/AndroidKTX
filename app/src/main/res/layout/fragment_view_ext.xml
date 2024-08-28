@@ -15,7 +15,7 @@
         android:clipToPadding="false"
         android:orientation="vertical">
 
-        <com.lxj.androidktx.widget.VerifyCodeInput
+        <com.lxj.widget.VerifyCodeInput
             android:id="@+id/verifyCodeInput"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
@@ -34,7 +34,7 @@
             app:vci_textColor="#aaaaaa"
             app:vci_textSize="24sp" />
 
-        <com.lxj.androidktx.widget.ShapeEditText
+        <com.lxj.widget.ShapeEditText
             app:set_bottomLineColor="#f00"
             app:set_lineSize="2dp"
             android:padding="10dp"
@@ -51,13 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <com.zhpan.bannerview.BannerViewPager
-            android:id="@+id/banner"
-            android:background="#fff"
-            android:layout_width="match_parent"
-            android:layout_height="80pt" />
-
-        <com.lxj.androidktx.widget.FormField
+        <com.lxj.widget.FormField
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:sll_solid="#fff"
@@ -67,7 +61,7 @@
             app:sll_bottomLineColor="#f3f3f3"
             app:sll_lineSize="1pt" />
 
-        <com.lxj.androidktx.widget.FormField
+        <com.lxj.widget.FormField
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
@@ -77,7 +71,7 @@
             app:sll_bottomLineColor="#f3f3f3"
             app:sll_lineSize="1pt" />
 
-        <com.lxj.androidktx.widget.MarqueeLayout
+        <com.lxj.widget.MarqueeLayout
             android:id="@+id/marqueeLayout"
             android:layout_width="200dp"
             android:layout_height="100dp"
@@ -111,7 +105,7 @@
                 <!--                    android:layout_width="80dp"-->
                 <!--                    android:layout_height="80dp"/>-->
             </LinearLayout>
-        </com.lxj.androidktx.widget.MarqueeLayout>
+        </com.lxj.widget.MarqueeLayout>
 
 <!--        <com.github.lzyzsd.circleprogress.DonutProgress-->
 <!--            android:id="@+id/progressBar"-->
@@ -127,7 +121,7 @@
 <!--            app:donut_unfinished_stroke_width="2pt" />-->
 
 
-        <com.lxj.androidktx.widget.ShapeRelativeLayout
+        <com.lxj.widget.ShapeRelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
@@ -138,7 +132,7 @@
             app:srl_corner="10dp"
             app:srl_solid="#fafa10">
 
-            <com.lxj.androidktx.widget.MarqueeTextView
+            <com.lxj.widget.MarqueeTextView
                 android:id="@+id/mtv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -148,7 +142,7 @@
                 app:mtv_textColor="#ff0000"
                 app:mtv_textSize="20sp" />
 
-            <com.lxj.androidktx.widget.MarqueeTextView
+            <com.lxj.widget.MarqueeTextView
                 android:id="@+id/mtv2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -158,9 +152,9 @@
                 app:mtv_textColor="#ff0000"
                 app:mtv_textSize="20sp" />
 
-        </com.lxj.androidktx.widget.ShapeRelativeLayout>
+        </com.lxj.widget.ShapeRelativeLayout>
 
-        <com.lxj.androidktx.widget.NumberEditLayout
+        <com.lxj.widget.NumberEditLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:padding="15dp"
@@ -177,7 +171,7 @@
             app:sll_solid="#fff" />
 
 
-        <com.lxj.androidktx.widget.TabBar
+        <com.lxj.widget.TabBar
             android:id="@+id/tabbarRadio"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -195,7 +189,7 @@
             app:tb_textSize="16dp"
             app:tb_typefacePath="FredokaOne-Regular.ttf" />
 
-        <com.lxj.androidktx.widget.TabBar
+        <com.lxj.widget.TabBar
             android:id="@+id/tabbar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -209,7 +203,7 @@
             app:tb_tabWidthEqual="true"
             app:tb_typefacePath="FredokaOne-Regular.ttf" />
 
-        <com.lxj.androidktx.widget.ShapeFrameLayout
+        <com.lxj.widget.ShapeFrameLayout
             android:id="@+id/sfl"
             app:sfl_lineSize="10dp"
             app:sfl_topLineColor="#ff9999"
@@ -221,7 +215,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#f00" />
-        </com.lxj.androidktx.widget.ShapeFrameLayout>
+        </com.lxj.widget.ShapeFrameLayout>
 
         <ImageView
             android:id="@+id/ivDemo"
@@ -235,7 +229,7 @@
             style="@style/TitleStyle"
             android:text="以下View默认宽高都是100dp" />
 
-        <com.lxj.androidktx.widget.ShapeTextView
+        <com.lxj.widget.ShapeTextView
             android:id="@+id/text1"
             android:layout_width="200dp"
             android:layout_height="100dp"
@@ -278,7 +272,7 @@
 
         <include layout="@layout/divider" />
 
-        <com.lxj.androidktx.widget.ShapeTextView
+        <com.lxj.widget.ShapeTextView
             android:id="@+id/text4"
             android:layout_width="250dp"
             android:layout_height="150dp"
@@ -305,7 +299,7 @@
 
         <include layout="@layout/divider" />
 
-        <com.lxj.androidktx.widget.ShapeLinearLayout
+        <com.lxj.widget.ShapeLinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_margin="30dp"
@@ -315,7 +309,7 @@
             app:sll_topLeftCorner="20dp"
             app:sll_topRightCorner="20dp" />
 
-        <com.lxj.androidktx.widget.ShapeTextView
+        <com.lxj.widget.ShapeTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
@@ -329,7 +323,7 @@
             app:stv_corner="30dp"
             app:stv_solid="#eee" />
 
-        <com.lxj.androidktx.widget.VerifyCodeButton
+        <com.lxj.widget.VerifyCodeButton
             android:id="@+id/tvVerify"
             android:layout_width="100dp"
             android:layout_height="40dp"
@@ -345,7 +339,7 @@
             app:vcb_resendDuration="10"
             app:vcb_resendText="重发" />
 
-        <com.lxj.androidktx.widget.SearchLayout
+        <com.lxj.widget.SearchLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="30dp"

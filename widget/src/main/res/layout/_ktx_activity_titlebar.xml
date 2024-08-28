@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.lxj.widget.ImmersionLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <Space
+        android:id="@+id/fakeTitleBar"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="24pt"/>
+    <com.lxj.widget.TitleBar
+        android:id="@+id/titleBar"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        app:rightImagePadding="12pt"
+        app:leftImagePadding="10pt"
+        app:leftImageSrc="@mipmap/_ktx_ic_back"
+        android:layout_height="42pt"/>
+    <View
+        android:id="@+id/titleDivider"
+        android:background="#f1f1f1"
+        android:layout_width="match_parent"
+        android:layout_height="1pt"/>
+    <FrameLayout
+        android:id="@+id/flBody"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</com.lxj.widget.ImmersionLinearLayout>

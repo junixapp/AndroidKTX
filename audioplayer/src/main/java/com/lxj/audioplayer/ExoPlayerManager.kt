@@ -10,7 +10,7 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.google.android.exoplayer2.upstream.HttpDataSource
 import com.lxj.androidktx.AndroidKTX
-import com.lxj.androidktx.core.*
+import com.lxj.ext.*
 import com.lxj.androidktx.livedata.StateLiveData
 import java.io.File
 import kotlin.random.Random
@@ -37,7 +37,7 @@ object ExoPlayerManager : CacheListener{
     fun init(preloadLength: Int? = null) {
         if(preloadLength!=null) PreloadManager.setPreloadLength(preloadLength!!)
         playState.value = PlayState.Idle
-        playMode.value = sp().getString("_ktx_player_mode", RepeatAllMode) ?: RepeatAllMode
+        playMode.value = AndroidKTX.context.sp().getString("_ktx_player_mode", RepeatAllMode) ?: RepeatAllMode
 
         player = ExoPlayer.Builder(AndroidKTX.context)
             .apply {
@@ -120,7 +120,7 @@ object ExoPlayerManager : CacheListener{
 
     fun cacheLastData(b: Boolean) {
         isCacheLastData = b
-        playInfo.value = if(isCacheLastData) sp().getObject<PlayInfo>("_last_playinfo_")?: PlayInfo() else PlayInfo()
+        playInfo.value = if(isCacheLastData) AndroidKTX.context.sp().getObject<PlayInfo>("_last_playinfo_")?: PlayInfo() else PlayInfo()
         currentIndex = playInfo.value?.index ?: -1
     }
 
@@ -161,7 +161,7 @@ object ExoPlayerManager : CacheListener{
                 total = duration(), uri = uriList[currentIndex], lastUri = currentUri()
         )
         playInfo.setValue(info)
-        if(isCacheLastData) sp().putObject("_last_playinfo_", info)
+        if(isCacheLastData) AndroidKTX.context.sp().putObject("_last_playinfo_", info)
         if(player.playbackState==Player.STATE_ENDED) return
         handler.postDelayed({ postProgress() }, 1000)
     }
@@ -182,7 +182,7 @@ object ExoPlayerManager : CacheListener{
      */
     fun setPlayMode(mode: String){
         playMode.setValue(mode)
-        sp().putString("_ktx_player_mode", mode)
+        AndroidKTX.context.sp().putString("_ktx_player_mode", mode)
     }
 
     /**

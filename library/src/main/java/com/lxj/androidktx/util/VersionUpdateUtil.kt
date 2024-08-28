@@ -2,24 +2,19 @@ package com.lxj.androidktx.util
 
 import android.content.Context
 import com.blankj.utilcode.util.*
-import com.lxj.androidktx.core.md5
-import com.lxj.androidktx.core.putString
-import com.lxj.androidktx.core.sp
-import com.lxj.androidktx.core.toJson
-import com.lxj.androidktx.okhttp.*
-import com.lxj.androidktx.popup.VersionUpdatePopup
+import com.lxj.androidktx.AndroidKTX
+import com.lxj.androidktx.okhttp.HttpCallback
+import com.lxj.androidktx.okhttp.get
+import com.lxj.androidktx.okhttp.http
+import com.lxj.ext.md5
+import com.lxj.ext.putString
+import com.lxj.ext.sp
+import com.lxj.ext.toJson
+import com.lxj.widget.popup.CommonUpdateInfo
 import com.lxj.xpopup.XPopup
 import java.io.File
 import java.io.IOException
 
-
-data class CommonUpdateInfo(
-        var download_url: String? = null,
-        var version_name: String? = null,
-        var package_name: String? = null,
-        var update_info: String? = null,
-        var force_update: Boolean? = false
-)
 
 /**
  * 版本更新工具，功能有2个：
@@ -32,9 +27,14 @@ object VersionUpdateUtil {
         XPopup.Builder(context)
                 .dismissOnBackPressed(updateData.force_update)
                 .dismissOnTouchOutside(updateData.force_update)
-                .asCustom(VersionUpdatePopup(context = context, updateInfo = updateData, onOkClick = {
-                    installApk(path)
-                }))
+                .asCustom(
+                    com.lxj.widget.popup.VersionUpdatePopup(
+                        context = context,
+                        updateInfo = updateData,
+                        onOkClick = {
+                            installApk(path)
+                        })
+                )
                 .show()
     }
 
@@ -43,7 +43,7 @@ object VersionUpdateUtil {
      */
     fun installApk(path: String){
         //删除缓存
-        sp().putString(cacheKey, "")
+        AndroidKTX.context.sp().putString(cacheKey, "")
         AppUtils.installApp(path)
     }
 
@@ -55,11 +55,11 @@ object VersionUpdateUtil {
      * @param installWhenDownload 下载完就进入安装
      */
     fun downloadAndInstallApk(context: Context, updateData: CommonUpdateInfo, onShowInstallUI: ((apkPath: String) -> Unit)? = null,
-        useCache: Boolean = true, onDownloadProgress: ((Int)->Unit)? = null, installWhenDownload : Boolean = false) {
+                              useCache: Boolean = true, onDownloadProgress: ((Int)->Unit)? = null, installWhenDownload : Boolean = false) {
         //检测是否有缓存的apk路径，如果有说明已经下载过了
         val filename = "${updateData.download_url!!.md5()}.apk"
         val file = File("${DirManager.downloadDir}/${filename}")
-        val cacheApkPath = sp().getString(cacheKey, "")
+        val cacheApkPath: String = AndroidKTX.context.sp().getString(cacheKey, "") ?:""
         if (cacheApkPath!!.isNotEmpty() && FileUtils.isFileExists(cacheApkPath) && cacheApkPath==file.absolutePath && useCache) {
             LogUtils.e("新版本Apk已存在，无需下载，路径：$cacheApkPath")
             if(installWhenDownload){
@@ -88,7 +88,7 @@ object VersionUpdateUtil {
                 override fun onSuccess(t: File) {
                     LogUtils.e("新版本下载成功，路径为：${file.absolutePath}")
                     //缓存路径
-                    sp().putString(cacheKey, t.absolutePath)
+                    AndroidKTX.context.sp().putString(cacheKey, t.absolutePath)
                     if(installWhenDownload){
                         installApk(t.absolutePath)
                     }else{

@@ -2,7 +2,7 @@ package com.lxj.androidktx.okhttp
 
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.NetworkUtils
-import com.lxj.androidktx.core.toBean
+import com.lxj.ext.toBean
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Deferred
 import okhttp3.*

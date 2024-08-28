@@ -5,15 +5,13 @@ import android.os.Looper
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL
 import androidx.viewpager2.widget.ViewPager2.ORIENTATION_VERTICAL
 import com.blankj.utilcode.util.*
-import com.lxj.androidktx.base.StateTitleBarActivity
-import com.lxj.androidktx.core.asCard
-import com.lxj.androidktx.core.bindFragment
-import com.lxj.androidktx.core.click
-import com.lxj.androidktx.core.dp
+import com.lxj.ext.asCard
+import com.lxj.ext.bindFragment
+import com.lxj.ext.click
+import com.lxj.ext.dp
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.impl.LoadingPopupView
 import kotlinx.android.synthetic.main.demo.*
@@ -36,11 +34,9 @@ val html = """
  * Description:
  * Create by dance, at 2019/7/11
  */
-class DemoActivity : StateTitleBarActivity(){
+class DemoActivity : com.lxj.widget.act.TitleBarActivity(){
     override fun getBodyLayout() = R.layout.demo
-    override fun autoShowContent(): Boolean {
-        return true
-    }
+
     var isFirst = true
     val loadingPopupView: LoadingPopupView by lazy { XPopup.Builder(this).asLoading("加载中") }
     val base64 : String by lazy {
@@ -222,12 +218,6 @@ class DemoActivity : StateTitleBarActivity(){
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
         }
-    }
-
-
-    override fun onConfigStateLayout() {
-        super.onConfigStateLayout()
-        stateLayout?.config()
     }
 
 }

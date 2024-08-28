@@ -1,7 +1,8 @@
 package com.lxj.androidktx.okhttp
 
 import com.blankj.utilcode.util.LogUtils
-import com.lxj.androidktx.core.*
+import com.lxj.androidktx.AndroidKTX
+import com.lxj.ext.*
 import com.lxj.androidktx.okhttp.getSync
 import com.lxj.androidktx.okhttp.http
 import okhttp3.Headers
@@ -112,8 +113,8 @@ class AuthRefreshTokenInterceptor(var tokenField: String = "token",
      *
      */
     fun checkToken(){
-        val oldToken = sp().getString("token", "")
-        val token_exp = sp().getString("token_exp", "")
+        val oldToken = AndroidKTX.context.sp().getString("token", "")
+        val token_exp = AndroidKTX.context.sp().getString("token_exp", "")
         if(oldToken.isNullOrEmpty() || token_exp.isNullOrEmpty()) return
         val expInMills = token_exp.toDateMills() //date: "2022-10-12 18:43:14"
         val duration = expInMills - System.currentTimeMillis()

@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <com.lxj.androidktx.widget.ShapeEditText
+    <com.lxj.widget.ShapeEditText
         android:id="@+id/etName"
         android:visibility="gone"
         tools:visibility="visible"
@@ -33,7 +33,7 @@
         app:set_corner="8dp"
         app:set_stroke="@color/colorPrimary" />
 
-    <com.lxj.androidktx.widget.ShapeEditText
+    <com.lxj.widget.ShapeEditText
         android:id="@+id/etIdCode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
         app:set_corner="8dp"
         app:set_stroke="@color/colorPrimary" />
 
-    <com.lxj.androidktx.widget.ShapeTextView
+    <com.lxj.widget.ShapeTextView
         android:id="@+id/etBirthday"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
         app:stv_corner="8dp"
         app:stv_stroke="@color/colorPrimary" />
 
-    <com.lxj.androidktx.widget.ShapeEditText
+    <com.lxj.widget.ShapeEditText
         android:id="@+id/etPinCode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
         app:set_corner="8dp"
         app:set_stroke="@color/colorPrimary" />
 
-    <com.lxj.androidktx.widget.ShapeEditText
+    <com.lxj.widget.ShapeEditText
         android:id="@+id/etPanNum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

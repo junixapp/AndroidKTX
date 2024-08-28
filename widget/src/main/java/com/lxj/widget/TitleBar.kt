@@ -1,0 +1,414 @@
+package com.lxj.widget
+
+import android.content.Context
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Rect
+import android.graphics.drawable.Drawable
+import android.os.Build
+import android.util.AttributeSet
+import android.util.TypedValue
+import android.view.Gravity
+import android.widget.RelativeLayout
+import kotlinx.android.synthetic.main._ktx_titlebar.view.*
+
+
+/**
+ * Description: 通用标题栏
+ * Create by dance, at 2019/5/20
+ */
+class TitleBar @JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null, defStyleAttr: Int = 0)
+    : RelativeLayout(context, attributeSet, defStyleAttr) {
+
+    // 左边文本
+    var leftText: CharSequence = ""
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var leftTextColor = Color.BLACK
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var leftTextSize = 16
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var leftTextDrawable: Drawable? = null
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var leftTextDrawableSize = 0
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+
+    //左边图片
+    var leftImage: Drawable? = null
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var leftImagePadding = 12
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+
+    //中间标题
+    var title: CharSequence = ""
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var titleSize = 18
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var titleColor = Color.BLACK
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var titleAlignLeft = false
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+
+    //右边文字
+    var rightText: CharSequence = ""
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var rightTextColor = Color.BLACK
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var rightTextSize = 16
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+
+    //右边图片
+    var rightImage: Drawable? = null
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var rightImagePadding = 12
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    //右边图片2
+    var rightImage2: Drawable? = null
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var rightImage2Padding = 12
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    //右边图片3
+    var rightImage3: Drawable? = null
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var rightImage3Padding = 12
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    var bottomLine = Color.TRANSPARENT
+        set(value) {
+            field = value
+            applyAttr()
+            applySelf()
+        }
+    init {
+        val ta = context.obtainStyledAttributes(attributeSet, R.styleable.TitleBar)
+        leftText = ta.getString(R.styleable.TitleBar_leftText) ?: ""
+        leftTextColor = ta.getColor(R.styleable.TitleBar_leftTextColor, leftTextColor)
+        leftTextSize = ta.getDimensionPixelSize(R.styleable.TitleBar_leftTextSize, WidgetUtil.dp2px(leftTextSize*1f))
+        leftTextDrawable = ta.getDrawable(R.styleable.TitleBar_leftTextDrawable)
+        leftTextDrawableSize = ta.getDimensionPixelSize(R.styleable.TitleBar_leftTextDrawableSize, leftTextDrawableSize)
+        bottomLine = ta.getColor(R.styleable.TitleBar_bottomLine, bottomLine)
+
+        leftImage = ta.getDrawable(R.styleable.TitleBar_leftImageSrc)
+        leftImagePadding = ta.getDimensionPixelSize(R.styleable.TitleBar_leftImagePadding, WidgetUtil.dp2px(leftImagePadding*1f))
+
+        title = ta.getString(R.styleable.TitleBar_title) ?: ""
+        titleColor = ta.getColor(R.styleable.TitleBar_titleColor, titleColor)
+        titleSize = ta.getDimensionPixelSize(R.styleable.TitleBar_titleSize, WidgetUtil.dp2px(titleSize*1f))
+        titleAlignLeft = ta.getBoolean(R.styleable.TitleBar_titleAlignLeft, titleAlignLeft)
+
+        rightText = ta.getString(R.styleable.TitleBar_rightText) ?: ""
+        rightTextColor = ta.getColor(R.styleable.TitleBar_rightTextColor, rightTextColor)
+        rightTextSize = ta.getDimensionPixelSize(R.styleable.TitleBar_rightTextSize, WidgetUtil.dp2px(rightTextSize*1f))
+
+        rightImage = ta.getDrawable(R.styleable.TitleBar_rightImageSrc)
+        rightImagePadding = ta.getDimensionPixelSize(R.styleable.TitleBar_rightImagePadding, WidgetUtil.dp2px(rightImagePadding*1f))
+        rightImage2 = ta.getDrawable(R.styleable.TitleBar_rightImage2Src)
+        rightImage2Padding = ta.getDimensionPixelSize(R.styleable.TitleBar_rightImage2Padding, WidgetUtil.dp2px(rightImage2Padding*1f))
+        rightImage3 = ta.getDrawable(R.styleable.TitleBar_rightImage3Src)
+        rightImage3Padding = ta.getDimensionPixelSize(R.styleable.TitleBar_rightImage3Padding, WidgetUtil.dp2px(rightImage3Padding*1f))
+
+        ta.recycle()
+        inflate(context, R.layout._ktx_titlebar, this)
+        if(Build.VERSION.SDK_INT >= 21) setClipToOutline(true)
+        applyAttr()
+        applySelf()
+        initClick()
+    }
+
+    private fun applyAttr() {
+        if(childCount==0)return
+        applyLeftText()
+        applyLeftImage()
+        applyTitle()
+        applyRightText()
+        applyRightImage()
+        applyRightImage2()
+        applyRightImage3()
+    }
+
+    private fun applySelf() {
+        if (background == null) setBackgroundColor(Color.WHITE)
+        if (paddingLeft == 0) setPadding(WidgetUtil.dp2px(1f), paddingTop, paddingRight, paddingBottom)
+        if (paddingRight == 0) setPadding(paddingLeft, paddingTop,WidgetUtil.dp2px(1f), paddingBottom)
+    }
+
+    val paint = Paint()
+    override fun dispatchDraw(canvas: Canvas) {
+        super.dispatchDraw(canvas)
+        if (bottomLine != 0) {
+            paint.color = bottomLine
+            canvas.drawRect(Rect(0, measuredHeight - WidgetUtil.dp2px(1f), measuredWidth, measuredHeight), paint)
+        }
+    }
+
+    fun setup(leftImageRes: Int = 0, leftText: CharSequence = "", title: CharSequence = "",     rightImageRes: Int = 0,
+              rightText: CharSequence = ""): TitleBar {
+        if (leftImageRes != 0) this.leftImage = resources.getDrawable(leftImageRes)
+        if (rightImageRes != 0) this.rightImage = resources.getDrawable(rightImageRes)
+        if(title.isNotEmpty()) this.title = title
+        if(leftText.isNotEmpty()) this.leftText = leftText
+        if(rightText.isNotEmpty()) this.rightText = rightText
+        applyAttr()
+        return this
+    }
+
+    private fun applyLeftText() {
+        if (leftText.isEmpty()) {
+            tvLeftText.visibility = GONE
+            return
+        }
+        tvLeftText.visibility = VISIBLE
+        tvLeftText.text = leftText
+        tvLeftText.setTextColor(leftTextColor)
+        tvLeftText.setTextSize(TypedValue.COMPLEX_UNIT_PX, leftTextSize.toFloat())
+        if (leftTextDrawable != null) {
+            tvLeftText.setCompoundDrawablesWithIntrinsicBounds(leftTextDrawable, null, null, null)
+            if (leftTextDrawableSize == 0 || leftTextDrawable!!.intrinsicHeight == 0) return
+            val scale = leftTextDrawable!!.intrinsicWidth * 1f / leftTextDrawable!!.intrinsicHeight
+            if (scale > 1) {
+                WidgetUtil.sizeDrawable(tv = tvLeftText, width = leftTextDrawableSize,
+                        height = (leftTextDrawableSize / scale).toInt())
+            } else {
+                WidgetUtil.sizeDrawable(tv = tvLeftText, width = (leftTextDrawableSize / scale).toInt(),
+                        height = leftTextDrawableSize)
+            }
+        }
+    }
+
+
+
+    fun setupLeftText(text: CharSequence, textColor: Int = leftTextColor, textSize: Int = leftTextSize,
+                      drawable: Drawable? = leftTextDrawable, drawableSize: Int = leftTextDrawableSize): TitleBar {
+        this.leftText = text
+        this.leftTextColor = textColor
+        this.leftTextSize = textSize
+        this.leftTextDrawable = drawable
+        this.leftTextDrawableSize = drawableSize
+        applyLeftText()
+        return this
+    }
+
+    private fun applyLeftImage() {
+        if (leftImage == null) {
+            ivLeftImage.visibility = GONE
+            return
+        }
+        ivLeftImage.visibility = VISIBLE
+        ivLeftImage.setImageDrawable(leftImage)
+        ivLeftImage.setPadding(leftImagePadding, leftImagePadding, leftImagePadding, leftImagePadding)
+    }
+
+    fun setupLeftImage(imageRes: Int, imagePadding: Int = leftImagePadding): TitleBar {
+        this.leftImage = resources.getDrawable(imageRes)
+        this.leftImagePadding = imagePadding
+        applyLeftImage()
+        return this
+    }
+
+    private fun applyTitle() {
+        if (title.isEmpty()) {
+            tvTitle.visibility = GONE
+            return
+        }
+        tvTitle.visibility = VISIBLE
+        tvTitle.text = title
+        tvTitle.setTextColor(titleColor)
+        tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, titleSize.toFloat())
+        if (titleAlignLeft) {
+            tvTitle.gravity = Gravity.LEFT.or(Gravity.CENTER_VERTICAL)
+        } else {
+            tvTitle.gravity = Gravity.CENTER
+        }
+    }
+
+    fun setupTitle(text: CharSequence, textColor: Int = titleColor, textSize: Int = titleSize, alignLeft: Boolean = titleAlignLeft): TitleBar {
+        this.title = text
+        this.titleColor = textColor
+        this.titleSize = textSize
+        this.titleAlignLeft = alignLeft
+        applyTitle()
+        return this
+    }
+
+    private fun applyRightText() {
+        if (rightText.isEmpty()) {
+            tvRightText.visibility = GONE
+            return
+        }
+        tvRightText.visibility = VISIBLE
+        tvRightText.text = rightText
+        tvRightText.setTextColor(rightTextColor)
+        tvRightText.setTextSize(TypedValue.COMPLEX_UNIT_PX, rightTextSize.toFloat())
+    }
+
+    fun setupRightText(text: CharSequence, textColor: Int = rightTextColor, textSize: Int = rightTextSize): TitleBar {
+        this.rightText = text
+        this.rightTextColor = textColor
+        this.rightTextSize = textSize
+        applyRightText()
+        return this
+    }
+
+    private fun applyRightImage() {
+        if (rightImage == null) {
+            ivRightImage.visibility = GONE
+            return
+        }
+        ivRightImage.visibility = VISIBLE
+        ivRightImage.setImageDrawable(rightImage)
+        ivRightImage.setPadding(rightImagePadding, rightImagePadding, rightImagePadding, rightImagePadding)
+    }
+
+    fun setupRightImage(imageRes: Int, imagePadding: Int = rightImagePadding): TitleBar {
+        this.rightImage = resources.getDrawable(imageRes)
+        this.rightImagePadding = imagePadding
+        applyRightImage()
+        return this
+    }
+
+    private fun applyRightImage2() {
+        if (rightImage2 == null) {
+            ivRightImage2.visibility = GONE
+            return
+        }
+        ivRightImage2.visibility = VISIBLE
+        ivRightImage2.setImageDrawable(rightImage2)
+        ivRightImage2.setPadding(rightImage2Padding, rightImage2Padding, rightImage2Padding, rightImage2Padding)
+    }
+
+    fun setupRightImage2(imageRes: Int, imagePadding: Int = rightImage2Padding): TitleBar {
+        this.rightImage2 = resources.getDrawable(imageRes)
+        this.rightImage2Padding = imagePadding
+        applyRightImage2()
+        return this
+    }
+
+    private fun applyRightImage3() {
+        if (rightImage3 == null) {
+            ivRightImage3.visibility = GONE
+            return
+        }
+        ivRightImage3.visibility = VISIBLE
+        ivRightImage3.setImageDrawable(rightImage3)
+        ivRightImage3.setPadding(rightImage3Padding, rightImage3Padding, rightImage3Padding, rightImage3Padding)
+    }
+
+    fun setupRightImage3(imageRes: Int, imagePadding: Int = rightImage3Padding): TitleBar {
+        this.rightImage3 = resources.getDrawable(imageRes)
+        this.rightImage3Padding = imagePadding
+        applyRightImage3()
+        return this
+    }
+
+    private fun initClick() {
+        tvLeftText.setOnClickListener { clickListener?.leftTextClick() }
+        tvRightText.setOnClickListener { clickListener?.rightTextClick() }
+        ivLeftImage.setOnClickListener { clickListener?.leftImageClick() }
+        ivRightImage.setOnClickListener { clickListener?.rightImageClick() }
+        ivRightImage2.setOnClickListener { clickListener?.rightImage2Click() }
+        ivRightImage3.setOnClickListener { clickListener?.rightImage3Click() }
+    }
+
+    fun titleTextView() = tvTitle
+    fun leftTextView() = tvLeftText
+    fun rightTextView() = tvRightText
+    fun leftImageView() = ivLeftImage
+    fun rightImageView() = ivRightImage
+    fun rightImageView2() = ivRightImage2
+    fun rightImageView3() = ivRightImage3
+
+    private var clickListener: ClickListener? = null
+    fun clickListener(clickListener: ClickListener) {
+        this.clickListener = clickListener
+    }
+
+    interface ClickListener {
+        fun leftTextClick() {}
+        fun rightTextClick() {}
+        fun leftImageClick() {}
+        fun rightImageClick() {}
+        fun rightImage2Click() {}
+        fun rightImage3Click() {}
+    }
+
+}
+

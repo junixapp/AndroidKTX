@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.blankj.utilcode.util.FragmentUtils
-import com.lxj.androidktx.core.postDelay
+import com.lxj.ext.postDelay
 import com.lxj.statelayout.StateLayout
 
 /**

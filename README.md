@@ -21,7 +21,6 @@ Step2. Add the dependency
 ```
 dependencies {
     implementation 'com.github.li-xiaojun.AndroidKTX:library:最新版本'
-    implementation 'com.github.li-xiaojun.AndroidKTX:circleprogress:最新版本'
     implementation 'com.github.li-xiaojun.AndroidKTX:videoplayer:最新版本'
     implementation 'com.github.li-xiaojun.AndroidKTX:audioplayer:最新版本'
     implementation 'com.github.li-xiaojun.AndroidKTX:matisse:最新版本'
@@ -436,7 +435,7 @@ bitmap.saveToAlbum()
 
 使用示例：
 ```xml
-<com.lxj.androidktx.widget.TitleBar
+<com.lxj.widget.TitleBar
     android:layout_marginTop="15dp"
     app:title="嘻嘻"
     android:id="@+id/tt"
@@ -484,7 +483,7 @@ tt.clickListener(object : TitleBar.ClickListener{
 
 基本使用：
 ```xml
-<com.lxj.androidktx.widget.SuperLayout
+<com.lxj.widget.SuperLayout
     android:layout_marginLeft="20dp"
     android:layout_marginRight="20dp"
     android:paddingLeft="14dp"

@@ -2,17 +2,15 @@ package com.lxj.androidktxdemo.fragment
 
 import android.app.Activity
 import android.content.Intent
-import android.os.Environment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.lxj.androidktx.core.*
+import com.lxj.androidktx.ext.observeState
+import com.lxj.ext.*
 import com.lxj.androidktx.livedata.SmartViewModel
 import com.lxj.androidktx.livedata.StateLiveData
 import com.lxj.androidktx.okhttp.*
-import com.lxj.androidktx.picker.ImagePicker
 import com.lxj.androidktx.util.DirManager
 import com.lxj.androidktxdemo.R
 import com.lxj.androidktxdemo.entity.User
@@ -20,7 +18,6 @@ import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.impl.LoadingPopupView
 import kotlinx.android.synthetic.main.fragment_http_ext.*
 import java.io.File
-import kotlin.concurrent.fixedRateTimer
 
 /**
  * Description: Okhttp扩展

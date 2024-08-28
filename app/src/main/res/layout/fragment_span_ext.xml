@@ -66,7 +66,7 @@
         <include layout="@layout/divider"/>
 
 
-        <com.lxj.androidktx.widget.ShapeTextView
+        <com.lxj.widget.ShapeTextView
             android:id="@+id/tt"
             android:layout_marginLeft="20dp"
             android:text="试试"
@@ -96,7 +96,7 @@
             android:layout_marginBottom="20dp"
             android:id="@+id/tvAppendResult" />
 
-        <com.lxj.androidktx.widget.ShapeEditText
+        <com.lxj.widget.ShapeEditText
             android:id="@+id/et"
             android:layout_margin="10dp"
             android:padding="10dp"
@@ -109,7 +109,7 @@
             android:layout_height="wrap_content"/>
 
 
-        <com.lxj.androidktx.widget.ShapeTextView
+        <com.lxj.widget.ShapeTextView
             app:stv_corner="20dp"
             app:stv_solid="#8000"
             android:textSize="14dp"

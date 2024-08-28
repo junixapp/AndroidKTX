@@ -2,9 +2,10 @@ package com.lxj.androidktx.okhttp
 
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.lxj.androidktx.core.isJsonArray
-import com.lxj.androidktx.core.isJsonObject
-import com.lxj.androidktx.core.sp
+import com.lxj.androidktx.AndroidKTX
+import com.lxj.ext.isJsonArray
+import com.lxj.ext.isJsonObject
+import com.lxj.ext.sp
 import okhttp3.Headers
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -31,7 +32,7 @@ class SmartInterceptor(var tokenField: String = "token",
         }
 
         var request = chain.request()
-        val tokenValue = if(tokenCreator!=null) tokenCreator!!() else sp().getString("token", null)
+        val tokenValue = if(tokenCreator!=null) tokenCreator!!() else AndroidKTX.context.sp().getString("token", null)
         if (tokenValue != null) {
             request = request.newBuilder().addHeader(tokenField, tokenValue).build()
         }

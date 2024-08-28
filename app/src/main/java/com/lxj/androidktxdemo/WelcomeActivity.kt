@@ -1,8 +1,8 @@
 package com.lxj.androidktxdemo
 
 import com.lxj.androidktx.base.BaseActivity
-import com.lxj.androidktx.core.postDelay
-import com.lxj.androidktx.core.startActivity
+import com.lxj.ext.postDelay
+import com.lxj.ext.startActivity
 
 class WelcomeActivity : BaseActivity() {
     override fun getLayoutId() = R.layout.activity_welcome

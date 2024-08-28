@@ -1,18 +1,15 @@
 package com.lxj.androidktxdemo.fragment
 
 import android.content.Context
-import android.graphics.Color
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import com.blankj.utilcode.util.LogUtils
-import com.lxj.androidktx.core.*
+import com.lxj.ext.*
 import com.lxj.androidktxdemo.R
 import com.lxj.easyadapter.EasyAdapter
 import com.lxj.easyadapter.ViewHolder
-import kotlinx.android.synthetic.main.fragment_recyclerview_ext.*
 import kotlinx.android.synthetic.main.fragment_viewpager2.*
 
 

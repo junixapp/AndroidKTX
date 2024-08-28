@@ -9,17 +9,14 @@ import android.text.TextUtils
 import android.text.style.AbsoluteSizeSpan
 import android.text.style.ForegroundColorSpan
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.*
 import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.lxj.androidktx.base.WebActivity
-import com.lxj.androidktx.core.*
+import com.lxj.androidktx.ext.toast
+import com.lxj.ext.*
 import com.lxj.androidktx.util.CountDownWorker
-import com.lxj.androidktx.widget.TabBar
+import com.lxj.widget.TabBar
 import com.lxj.androidktxdemo.R
-import com.zhpan.bannerview.BannerViewPager
 import kotlinx.android.synthetic.main.fragment_view_ext.*
 import org.xml.sax.XMLReader
 import java.lang.reflect.Field
@@ -34,7 +31,6 @@ class ViewExtPage : BaseFragment() {
             text1.text = "countDown: $it"
         })
     }
-    var banner : BannerViewPager<Any>? = null
     override fun initView() {
         val actView = activity!!.findViewById<View>(android.R.id.content)
         WindowCompat.setDecorFitsSystemWindows(activity!!.window, false)
@@ -84,7 +80,7 @@ class ViewExtPage : BaseFragment() {
             doOnceIn(actionName = "xx", time = 1400, immediately = false, action = {
                 toast("延时执行：${Random.Default.nextInt(10)}" )
             })
-            WebActivity.start(url = "file:///android_asset/dist/index.html")
+            com.lxj.widget.act.WebActivity.start(context = requireContext(), url = "file:///android_asset/dist/index.html")
 //            ImageUtils.save2Album(nsv.toBitmap(), Bitmap.CompressFormat.PNG)
 //            PermissionUtils.permission(PermissionConstants.STORAGE)
 //                .callback(object : PermissionUtils.SimpleCallback{
@@ -192,9 +188,6 @@ class ViewExtPage : BaseFragment() {
             R.mipmap.test1,
             R.mipmap.v,
         )
-        banner = view?.findViewById(R.id.banner)
-        banner?.adapter = CommonBannerAdapter<Any>(cornerRadius = 10.dp, margin = Rect(20,20,20,20))
-        banner?.create(list)
 //        banner.adapter = CommonBannerAdapter(list, cornerRadius = 10.dp)
     }
 

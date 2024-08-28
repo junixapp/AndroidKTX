@@ -1,6 +1,6 @@
 package com.lxj.androidktx.okhttp
 
-import com.lxj.androidktx.core.toJson
+import com.lxj.ext.toJson
 import com.lxj.androidktx.okhttp.progressmanager.ProgressListener
 import com.lxj.androidktx.okhttp.progressmanager.ProgressManager
 import com.lxj.androidktx.okhttp.progressmanager.body.ProgressInfo

@@ -1,8 +1,8 @@
 package com.lxj.androidktxdemo.popup
 
 import android.content.Context
-import com.lxj.androidktx.core.click
-import com.lxj.androidktx.core.toast
+import com.lxj.ext.click
+import com.lxj.androidktx.ext.toast
 import com.lxj.androidktxdemo.R
 import com.lxj.xpopup.core.CenterPopupView
 import kotlinx.android.synthetic.main.tt.view.*

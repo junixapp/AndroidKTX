@@ -8,7 +8,7 @@ import android.widget.SeekBar
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import com.blankj.utilcode.util.*
-import com.lxj.androidktx.core.*
+import com.lxj.ext.*
 import com.lxj.audioplayer.ExoPlayerManager
 import com.lxj.audioplayer.PlayState
 import com.lxj.androidktxdemo.R
