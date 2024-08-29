@@ -20,14 +20,14 @@ Step2. Add the dependency
 [![](https://jitpack.io/v/li-xiaojun/AndroidKTX.svg)](https://jitpack.io/#li-xiaojun/AndroidKTX)
 ```
 dependencies {
-    implementation 'com.github.li-xiaojun.AndroidKTX:library:最新版本'
-    implementation 'com.github.li-xiaojun.AndroidKTX:ext:最新版本'
-    implementation 'com.github.li-xiaojun.AndroidKTX:widget:最新版本'
-    implementation 'com.github.li-xiaojun.AndroidKTX:videoplayer:最新版本'
-    implementation 'com.github.li-xiaojun.AndroidKTX:audioplayer:最新版本'
-    implementation 'com.github.li-xiaojun.AndroidKTX:pay:最新版本'
-    implementation 'com.github.li-xiaojun.AndroidKTX:share:最新版本'
-    implementation 'com.github.li-xiaojun.AndroidKTX:audio-recorder:最新版本'
+    implementation 'com.github.junixapp.AndroidKTX:library:最新版本'
+    implementation 'com.github.junixapp.AndroidKTX:ext:最新版本'
+    implementation 'com.github.junixapp.AndroidKTX:widget:最新版本'
+    implementation 'com.github.junixapp.AndroidKTX:videoplayer:最新版本'
+    implementation 'com.github.junixapp.AndroidKTX:audioplayer:最新版本'
+    implementation 'com.github.junixapp.AndroidKTX:pay:最新版本'
+    implementation 'com.github.junixapp.AndroidKTX:share:最新版本'
+    implementation 'com.github.junixapp.AndroidKTX:audio-recorder:最新版本'
 }
 ```
 
