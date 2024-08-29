@@ -22,6 +22,17 @@ class SlidingLayout @JvmOverloads constructor(context: Context, attributeSet: At
 
     companion object {
         var shareCache: CopyOnWriteArrayList<SlidingLayout> = CopyOnWriteArrayList()
+
+        fun clear(){
+            shareCache.clear()
+        }
+
+        fun closeAll(){
+            shareCache.forEach { it.close() }
+        }
+        fun openAll(){
+            shareCache.forEach { it.open() }
+        }
     }
 
     private var contentView : View? = null
@@ -130,9 +141,20 @@ class SlidingLayout @JvmOverloads constructor(context: Context, attributeSet: At
 
     private var touchX = 0f
     private var touchY = 0f
-    private var result = true
+    private var result = false
     override fun onInterceptTouchEvent(ev: MotionEvent): Boolean {
-        return viewDragHelper.shouldInterceptTouchEvent(ev)
+        when(ev.action){
+            MotionEvent.ACTION_DOWN -> {
+                touchX = ev.x
+                touchY = ev.y
+            }
+            MotionEvent.ACTION_MOVE -> {
+                val dx = ev.x-touchX
+                val dy = ev.y-touchY
+                result = Math.abs(dy) < Math.abs(dx)
+            }
+        }
+        return result || viewDragHelper.shouldInterceptTouchEvent(ev)
     }
     override fun onTouchEvent(ev: MotionEvent): Boolean {
         viewDragHelper.processTouchEvent(ev)
@@ -160,6 +182,7 @@ class SlidingLayout @JvmOverloads constructor(context: Context, attributeSet: At
 //                touchY = ev.y
             }
             MotionEvent.ACTION_CANCEL, MotionEvent.ACTION_UP->{
+                result = false
                 requestDisallowInterceptTouchEvent(false)
             }
         }
@@ -178,7 +201,7 @@ class SlidingLayout @JvmOverloads constructor(context: Context, attributeSet: At
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        shareCache.clear()
+        if(shareCache.contains(this))shareCache.remove(this)
     }
 
     var slideListener: OnSlideListener? = null

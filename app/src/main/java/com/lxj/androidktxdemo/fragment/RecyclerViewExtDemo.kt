@@ -36,7 +36,7 @@ class RecyclerViewExtDemo : BaseFragment() {
     val userVM: UserVM by lazy { getVM(UserVM::class.java) }
     override fun initView() {
         super.initView()
-        addBtn.click(50) {
+        addBtn.click(duration = 50) {
 //            val old = data.toJson().toBean<ArrayList<User>>()
 //            val range = (0 until data.size)
 //            data.add(
@@ -46,8 +46,10 @@ class RecyclerViewExtDemo : BaseFragment() {
 //            recyclerView.diffUpdate(UserDiffCallback(old, data))
 
             userVM.insert(User(name = "随机添加-${Random.nextInt(1000)}"))
+
+            recyclerView.smoothScrollToEnd()
         }
-        delBtn.click(50) {
+        delBtn.click() {
 //            if (data.isEmpty()) return@click
 //            val old = data.toJson().toBean<ArrayList<User>>()
 //            data.removeAt((0 until data.size).random())
@@ -57,7 +59,7 @@ class RecyclerViewExtDemo : BaseFragment() {
             userVM.remove(randomPosition)
         }
 
-        updateBtn.click(50) {
+        updateBtn.click() {
 //            val old = userVM.listData.value!!.deepCopy<ArrayList<User>>()
 //            val index = (0 until userVM.listData.value!!.size).random()
 //            userVM.listData.value!![index].name = userVM.listData.value!![index].name + "- 局部字段替换"
@@ -71,7 +73,7 @@ class RecyclerViewExtDemo : BaseFragment() {
             userVM.update(randomPosition, t)
         }
 
-        replaceBtn.click(50) {
+        replaceBtn.click() {
 //            if (data.isEmpty()) return@click
 //            val old = data.deepCopy<ArrayList<User>>()
 //            val index = (0 until data.size).random()
@@ -84,16 +86,16 @@ class RecyclerViewExtDemo : BaseFragment() {
             userVM.update(randomPosition, t)
         }
 
-        moveBtn.click(50) {
+        moveBtn.click() {
 //            if (data.isEmpty()) return@click
             val random = userVM.listData.value!!.deepCopy<ArrayList<User>>()
-            random.add(User(name = "随机添加-${Random.nextInt(1000)}"))
+//            random.add(User(name = "随机添加-${Random.nextInt(1000)}"))
             random.shuffle()
 
             userVM.replaceList(random)
 //            recyclerView.diffUpdate(UserDiffCallback(old, userVM.listData.value))
         }
-        clearBtn.click(50) {
+        clearBtn.click() {
 //            if (data.isEmpty()) return@click
             userVM.clear()
 //            recyclerView.diffUpdate(UserDiffCallback(old, userVM.listData.value))
@@ -119,12 +121,17 @@ class RecyclerViewExtDemo : BaseFragment() {
                 holder.getView<View>(R.id.text).click {
                     ToastUtils.showShort(t.name + " - $position")
                 }
-                Glide.with(requireContext())
-                    .load(url).transition(DrawableTransitionOptions.withCrossFade(1000))
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true)
-                    .placeholder(R.mipmap.ic_launcher_round)
-                    .into(holder.getView<ImageView>(R.id.image))
+                holder.getView<ImageView>(R.id.image).load(url, isCrossFade = true,
+                    skipMemoryCache = true,
+                    placeholder = R.mipmap.ic_launcher_round)
+
+
+//                Glide.with(requireContext())
+//                    .load(url).transition(DrawableTransitionOptions.withCrossFade(1000))
+//                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+//                    .skipMemoryCache(true)
+//                    .placeholder(R.mipmap.ic_launcher_round)
+//                    .into(holder.getView<ImageView>(R.id.image))
                 holder.getView<View>(R.id.tvDel).click {
                     (holder.itemView as SlidingLayout).close()
                     LogUtils.e("delete item : ${holder.adapterPosition}")

@@ -29,7 +29,7 @@ class ImageViewExtPage: BaseFragment(){
     }
 
     private fun loadImage(){
-        image1.load(images[0], roundArray = floatArrayOf(50f, 10f, 80f, 10f),
+        image1.load(url = images[0], roundArray = floatArrayOf(50f, 10f, 80f, 10f),
             borderColor = Color.GREEN, borderSize = 4.dp,
                  onImageFail = {
                 ToastUtils.showShort("图片加载失败")
@@ -53,9 +53,9 @@ class ImageViewExtPage: BaseFragment(){
         title2.text = "image2.load(url, isCircle = true)"
 
         image3.load(images[2], isCenterCrop = true , placeholder = R.mipmap.ic_launcher,  borderColor = Color.RED, borderSize = 5.dp,)
-        image4.load(images[2], isCenterCrop = true, blurScale = 1f, roundArray = floatArrayOf(100f, 100f, 0f,0f), )
+        image4.load(images[2], isCenterCrop = true, blurScale = 1f, roundArray = floatArrayOf(200f, 200f, 0f,0f), )
         image5.load(images[2], isCenterCrop = true, blurScale = 0.3f, roundRadius = 20.dp, borderColor = Color.RED, borderSize = 5.dp,
-            roundArray = floatArrayOf(50f, 10f, 80f, 10f),)
+            roundArray = floatArrayOf(100f, 10f, 120f, 10f),)
         title3.text = "image3.load(url, roundRadius = 20)"
 
         image1.click {

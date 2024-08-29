@@ -144,7 +144,7 @@ abstract class ListVM<T>() : ViewModel(){
         if(list.isEmpty()) return
         updateOldData()
         list.clear()
-        listData.postValueAndSuccess(list)
+        listData.postEmpty(list)
     }
 
     abstract fun load()

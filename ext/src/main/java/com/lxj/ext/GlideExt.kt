@@ -43,7 +43,10 @@ fun ImageView.load(
     blurRadius: Float = 20f,
     roundRadius: Int = 0,
     roundArray: FloatArray? = null,
+    diskCacheStrategy: DiskCacheStrategy = DiskCacheStrategy.AUTOMATIC,
+    skipMemoryCache: Boolean = false,
     isCrossFade: Boolean = false,
+    crossFadeDuration: Int = 500,
     isForceOriginalSize: Boolean = false,
     targetWidth: Int = 0,
     targetHeight: Int = 0,
@@ -90,8 +93,10 @@ fun ImageView.load(
     options.transform(superTransform)
     val glide = Glide.with(context).load(url)
         .apply(options)
+        .diskCacheStrategy(diskCacheStrategy)
+        .skipMemoryCache(skipMemoryCache)
         .apply {
-            if (isCrossFade) transition(DrawableTransitionOptions.withCrossFade())
+            if (isCrossFade) transition(DrawableTransitionOptions.withCrossFade(crossFadeDuration))
             if (onImageLoad != null || onImageFail != null) {
                 listener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(

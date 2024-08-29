@@ -19,7 +19,7 @@ class UserVM: ListVM<User>() {
             //mock data
             val data = arrayListOf<User>()
             if(listData.value!!.size < 30){
-                (0..4).forEach {
+                (0..30).forEach {
                     data.add(User(name = "分页-${Random.nextInt(10000)}"))
                 }
             }

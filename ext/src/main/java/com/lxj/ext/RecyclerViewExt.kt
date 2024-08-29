@@ -182,7 +182,7 @@ fun RecyclerView.scrollToEnd() {
 }
 
 /**
- * 滚动置顶，只支持线性布局
+ * 滚动置顶
  */
 fun RecyclerView.scrollTop(position: Int) {
     if (layoutManager is LinearLayoutManager) {
