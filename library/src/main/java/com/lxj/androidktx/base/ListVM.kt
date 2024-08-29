@@ -89,7 +89,7 @@ abstract class ListVM<T>() : ViewModel(){
      */
     fun insertList(t: List<T>, position: Int? = null){
         val list = listData.value ?: return
-        if(position ==null){
+        if(position == null){
             updateOldData()
             list.addAll(t)
             listData.postValueAndSuccess(list)

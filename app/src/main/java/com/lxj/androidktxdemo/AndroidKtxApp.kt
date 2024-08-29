@@ -19,10 +19,7 @@ class AndroidKtxApp: MultiDexApplication(){
     override fun onCreate() {
         super.onCreate()
 //        AndroidKtxConfig.init(this)
-        AndroidKTX.init(context = this,
-                isDebug = BuildConfig.DEBUG,
-                defaultLogTag = "androidktx",
-                sharedPrefName = "demo")
+        AndroidKTX.init(context = this)
         ExoPlayerManager.init(preloadLength = 1024)
 
         val user = sp().getObject<User>("user")
