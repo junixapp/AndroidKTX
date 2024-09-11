@@ -21,7 +21,7 @@ object OkExt {
     val requestCache = hashMapOf<Any, Call>()
     val baseUrlMap = hashMapOf<Any, String>() //存储多个baseUrl, key使用tag来存储
     val logInterceptor = HttpLogInterceptor()
-    var okHttpClient: OkHttpClient = OkHttpClient.Builder()
+    var okHttpClient: OkHttpClient = ProgressManager.getInstance().with(OkHttpClient.Builder()
             .retryOnConnectionFailure(true)
             .writeTimeout(httpTimeout, TimeUnit.MILLISECONDS)
             .readTimeout(httpTimeout, TimeUnit.MILLISECONDS)
@@ -29,8 +29,7 @@ object OkExt {
             .addNetworkInterceptor(logInterceptor)
 //            .cookieJar(PersistentCookieStore())
             .sslSocketFactory(HttpsUtils.getSslSocketFactory().sSLSocketFactory,
-                    HttpsUtils.getSslSocketFactory().trustManager)
-            .build()
+                    HttpsUtils.getSslSocketFactory().trustManager)).build()
     var dateFormat: String = "yyyy-MM-dd HH:mm:ss"
     var lenientJson: Boolean = false
     var globalFailHandler: ((e: Exception?)->Unit)? = null
@@ -38,20 +37,20 @@ object OkExt {
     var isSuccessResponse: ((code: Int)-> Boolean)? = null
 
     init {
-        okHttpClient = ProgressManager.getInstance().with(okHttpClient.newBuilder()).build()
+//        okHttpClient = ProgressManager.getInstance().with(okHttpClient.newBuilder()).build()
     }
 
-    /**
-     * 自定义超时时间
-     */
-    fun timeout(timeout: Long): OkExt{
-        val builder = okHttpClient.newBuilder()
-                .writeTimeout(timeout, TimeUnit.MILLISECONDS)
-                .readTimeout(timeout, TimeUnit.MILLISECONDS)
-                .connectTimeout(timeout, TimeUnit.MILLISECONDS)
-        okHttpClient = builder.build()
-        return this
-    }
+//    /**
+//     * 自定义超时时间
+//     */
+//    fun timeout(timeout: Long): OkExt{
+//        val builder = okHttpClient.newBuilder()
+//                .writeTimeout(timeout, TimeUnit.MILLISECONDS)
+//                .readTimeout(timeout, TimeUnit.MILLISECONDS)
+//                .connectTimeout(timeout, TimeUnit.MILLISECONDS)
+//        okHttpClient = builder.build()
+//        return this
+//    }
 
     /**
      * 设置全局公共Header
@@ -76,9 +75,7 @@ object OkExt {
      * 设置拦截器
      */
     fun interceptors(vararg interceptors: Interceptor): OkExt {
-        val builder = okHttpClient.newBuilder()
-        interceptors.forEach { builder.addInterceptor(it) }
-        okHttpClient = builder.build()
+        okHttpClient.interceptors().addAll(interceptors)
         return this
     }
 
@@ -141,6 +138,6 @@ object OkExt {
 
     fun plainTextBody(string: String) = RequestBody.create(MediaType.parse("text/plain"), string)
 
-    fun jsontBody(string: String) = RequestBody.create(MediaType.parse("application/json"), string)
+    fun jsonBody(string: String) = RequestBody.create(MediaType.parse("application/json"), string)
 
 }
