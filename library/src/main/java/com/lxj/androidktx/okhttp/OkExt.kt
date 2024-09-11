@@ -1,6 +1,5 @@
 package com.lxj.androidktx.okhttp
 
-import com.lxj.androidktx.okhttp.cookie.PersistentCookieStore
 import com.lxj.androidktx.okhttp.progressmanager.ProgressManager
 import com.lxj.androidktx.util.HttpsUtils
 import okhttp3.*
@@ -21,36 +20,35 @@ object OkExt {
     val requestCache = hashMapOf<Any, Call>()
     val baseUrlMap = hashMapOf<Any, String>() //存储多个baseUrl, key使用tag来存储
     val logInterceptor = HttpLogInterceptor()
-    var okHttpClient: OkHttpClient = ProgressManager.getInstance().with(OkHttpClient.Builder()
-            .retryOnConnectionFailure(true)
-            .writeTimeout(httpTimeout, TimeUnit.MILLISECONDS)
-            .readTimeout(httpTimeout, TimeUnit.MILLISECONDS)
-            .connectTimeout(httpTimeout, TimeUnit.MILLISECONDS)
-            .addNetworkInterceptor(logInterceptor)
-//            .cookieJar(PersistentCookieStore())
-            .sslSocketFactory(HttpsUtils.getSslSocketFactory().sSLSocketFactory,
-                    HttpsUtils.getSslSocketFactory().trustManager)).build()
+    var okHttpClient: OkHttpClient = defClientBuilder().build()
     var dateFormat: String = "yyyy-MM-dd HH:mm:ss"
     var lenientJson: Boolean = false
     var globalFailHandler: ((e: Exception?)->Unit)? = null
     //是否是成功的响应码
     var isSuccessResponse: ((code: Int)-> Boolean)? = null
 
-    init {
-//        okHttpClient = ProgressManager.getInstance().with(okHttpClient.newBuilder()).build()
-    }
 
 //    /**
 //     * 自定义超时时间
 //     */
-//    fun timeout(timeout: Long): OkExt{
-//        val builder = okHttpClient.newBuilder()
-//                .writeTimeout(timeout, TimeUnit.MILLISECONDS)
-//                .readTimeout(timeout, TimeUnit.MILLISECONDS)
-//                .connectTimeout(timeout, TimeUnit.MILLISECONDS)
-//        okHttpClient = builder.build()
-//        return this
-//    }
+    fun timeout(timeout: Long): OkExt{
+        val builder = defClientBuilder()
+        builder.writeTimeout(timeout, TimeUnit.MILLISECONDS)
+                .readTimeout(timeout, TimeUnit.MILLISECONDS)
+                .connectTimeout(timeout, TimeUnit.MILLISECONDS)
+        okHttpClient = builder.build()
+        return this
+    }
+
+    fun defClientBuilder() = ProgressManager.getInstance().with(OkHttpClient.Builder()
+        .retryOnConnectionFailure(true)
+        .writeTimeout(httpTimeout, TimeUnit.MILLISECONDS)
+        .readTimeout(httpTimeout, TimeUnit.MILLISECONDS)
+        .connectTimeout(httpTimeout, TimeUnit.MILLISECONDS)
+        .addNetworkInterceptor(logInterceptor)
+//            .cookieJar(PersistentCookieStore())
+        .sslSocketFactory(HttpsUtils.getSslSocketFactory().sSLSocketFactory,
+            HttpsUtils.getSslSocketFactory().trustManager))
 
     /**
      * 设置全局公共Header
@@ -75,7 +73,9 @@ object OkExt {
      * 设置拦截器
      */
     fun interceptors(vararg interceptors: Interceptor): OkExt {
-        okHttpClient.interceptors().addAll(interceptors)
+        val builder = defClientBuilder()
+        interceptors.forEach { builder.addInterceptor(it) }
+        okHttpClient = builder.build()
         return this
     }
 

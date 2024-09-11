@@ -17,6 +17,8 @@ import com.lxj.androidktxdemo.entity.User
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.impl.LoadingPopupView
 import kotlinx.android.synthetic.main.fragment_http_ext.*
+import okhttp3.Interceptor
+import okhttp3.Response
 import java.io.File
 
 /**
@@ -40,7 +42,13 @@ class HttpExtFragment : BaseFragment() {
                 "device" to "6",
                 "version" to "3.2.0",
                 "token" to "OrE1GPYXyOb0z_w_s1dpq2rsM4t0DjwK_1538967658"
-        )
+        ).interceptors(object : Interceptor{
+            override fun intercept(chain: Interceptor.Chain): Response {
+
+                return chain.proceed(chain.request())
+            }
+
+        })
 //        OkExt.logInterceptor.addExcludeUrl("baidu.com")
 
 //        OkWrapper.headers("header1" to "a", "header2" to "b")
