@@ -107,11 +107,11 @@ inline fun <reified T> RequestWrapper.deleteSync() = syncRequest<T>(buildDeleteR
 
 inline fun <reified T> defferedRequest(request: Request, reqWrapper: RequestWrapper): Deferred<T?> {
     val deferred = CompletableDeferred<T?>()
-    if(!NetworkUtils.isConnected()) {
-        deferred.complete(null)
-        OkExt.globalFailHandler?.invoke(IOException("Network is not available!"))
-        return deferred
-    }
+//    if(!NetworkUtils.isConnected()) {
+//        deferred.complete(null)
+//        OkExt.globalFailHandler?.invoke(IOException("Network is not available!"))
+//        return deferred
+//    }
     val req = request.newBuilder().tag(reqWrapper.tag())
         .build()
     val call = OkExt.okHttpClient.newCall(req)
@@ -160,10 +160,10 @@ inline fun <reified T> callbackRequest(
     cb: HttpCallback<T>,
     reqWrapper: RequestWrapper
 ) {
-    if(!NetworkUtils.isConnected()) {
-        cb.onFail(IOException("Network is not available!"))
-        return
-    }
+//    if(!NetworkUtils.isConnected()) {
+//        cb.onFail(IOException("Network is not available!"))
+//        return
+//    }
     val req = request.newBuilder().tag(reqWrapper.tag()).build()
     OkExt.okHttpClient.newCall(req).apply {
         OkExt.requestCache[reqWrapper.tag()] = this //cache req
@@ -204,10 +204,10 @@ inline fun <reified T> callbackRequest(
 }
 
 inline fun <reified T> syncRequest(request: Request, reqWrapper: RequestWrapper): T? {
-    if(!NetworkUtils.isConnected()) {
-        OkExt.globalFailHandler?.invoke(IOException("Network is not available!"))
-        return null
-    }
+//    if(!NetworkUtils.isConnected()) {
+//        OkExt.globalFailHandler?.invoke(IOException("Network is not available!"))
+//        return null
+//    }
     val req = request.newBuilder().tag(reqWrapper.tag()).build()
     val call = OkExt.okHttpClient.newCall(req)
     OkExt.requestCache[reqWrapper.tag()] = call //cache req
